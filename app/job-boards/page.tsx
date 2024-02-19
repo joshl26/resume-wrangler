@@ -9,13 +9,13 @@ import { useState } from "react";
 
 import { Metadata } from "next";
 
-type Search = {
-  id: number;
-  name: string;
-  url: string | "";
-  searchUrl: string | "";
-  logoImage: string | "";
-};
+// type Search = {
+//   id: number;
+//   name: string;
+//   url: string | "";
+//   searchUrl: string | "";
+//   logoImage: string | "";
+// };
 
 const searchProviders = [
   {
@@ -65,35 +65,35 @@ const searchProviders = [
     name: "SimplyHired",
     url: "https://www.simplyhired.com/",
     searchUrl: "https://www.simplyhired.com/search?q=",
-    logoImage: "logo-simply-hired.png",
+    logoImage: "/logo-simply-hired.png",
   },
   {
     id: 8,
     name: "ZipRecruiter",
     url: "https://www.ziprecruiter.com/",
     searchUrl: "https://www.ziprecruiter.com/jobs-search?search=",
-    logoImage: "logo-zip-recruiter.svg",
+    logoImage: "/logo-zip-recruiter.svg",
   },
   {
     id: 9,
     name: "snagajob",
     url: "https://www.snagajob.com/",
     searchUrl: "https://www.snagajob.com/search?q=",
-    logoImage: "logo-snagajob.jpg",
+    logoImage: "/logo-snagajob.jpg",
   },
   {
     id: 10,
     name: "CAREERBUILDER",
     url: "https://www.careerbuilder.com/",
     searchUrl: "https://www.careerbuilder.com/jobs?emp=&keywords=",
-    logoImage: "logo-career-builder.png",
+    logoImage: "/logo-career-builder.png",
   },
   {
     id: 11,
     name: "idealist",
     url: "https://www.idealist.org/",
     searchUrl: "https://www.idealist.org/en/jobs?q=",
-    logoImage: "logo-idealist.png",
+    logoImage: "/logo-idealist.png",
   },
 ];
 
@@ -104,7 +104,7 @@ const searchProviders = [
 // };
 
 export default function Page() {
-  const [jobTitle, setJobTitle] = useState<string>();
+  const [jobTitle, setJobTitle] = useState<string>("");
 
   return (
     <div className="min-w-full  bg-lime-400">
@@ -151,24 +151,44 @@ export default function Page() {
               placeholder="e.g. Software Engineer"
             ></input>
             <div className="border-b-2 border-black h-4 w-full"></div>
-
             {searchProviders.map((provider) =>
               jobTitle ? (
                 <div
                   key={provider.id}
-                  className="border-b-2 border-black w-full"
+                  className="border-b-2 border-black w-full flex flex-row justify-between"
                 >
-                  <a href={`${provider.searchUrl}${jobTitle}`}>
-                    <h2 className="py-2 text-3xl">{provider.name}</h2>
+                  <div className="w-auto contents">
+                    <Image
+                      className="h-auto"
+                      width={100}
+                      height={0}
+                      alt=""
+                      src={provider.logoImage}
+                    ></Image>
+                  </div>
+                  <a target="_blank" href={`${provider.searchUrl}${jobTitle}`}>
+                    <h2 className="py-2 text-1xl">
+                      {" "}
+                      Search {provider.name} for {jobTitle} positions
+                    </h2>
                   </a>
                 </div>
               ) : (
                 <div
                   key={provider.id}
-                  className="border-b-2 border-black w-full"
+                  className="border-b-2 border-black w-full flex flex-row justify-between"
                 >
-                  <a key={provider.id} href={provider.url}>
-                    <h2 className="py-2 text-3xl">{provider.name}</h2>
+                  <div className="contents">
+                    <Image
+                      className="h-auto"
+                      width={100}
+                      height={0}
+                      alt=""
+                      src={provider.logoImage}
+                    ></Image>
+                  </div>
+                  <a target="_blank" href={provider.url}>
+                    <h2 className="py-2 text-1xl">Search {provider.name}</h2>
                   </a>
                 </div>
               )
