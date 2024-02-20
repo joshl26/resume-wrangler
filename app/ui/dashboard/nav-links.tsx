@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  ListBulletIcon,
   AdjustmentsVerticalIcon,
   UserGroupIcon,
   HomeIcon,
@@ -24,6 +25,21 @@ const links = [
     name: "User Profile",
     href: "/dashboard/user-profile",
     icon: AdjustmentsVerticalIcon,
+  },
+  {
+    name: "Cover Letter Templates",
+    href: "/dashboard/cover-templates",
+    icon: ListBulletIcon,
+  },
+  {
+    name: "Resume Templates",
+    href: "/dashboard/resume-templates",
+    icon: ListBulletIcon,
+  },
+  {
+    name: "Applications",
+    href: "/dashboard/applications",
+    icon: ListBulletIcon,
   },
 ];
 
