@@ -45,6 +45,12 @@ const UserSchema = z.object({
   address_line_three: z.string({
     invalid_type_error: "Please enter a valid address_line_three.",
   }),
+  phone: z.string({
+    invalid_type_error: "Please enter a valid phone number.",
+  }),
+  website: z.string({
+    invalid_type_error: "Please enter a valid website.",
+  }),
 });
 
 const CreateInvoice = InvoiceSchema.omit({ id: true, date: true });
@@ -65,6 +71,8 @@ export type State = {
     address_line_one?: string[];
     address_line_two?: string[];
     address_line_three?: string[];
+    phone?: string[];
+    website?: string[];
   };
   message?: string | null;
 };
@@ -179,6 +187,8 @@ export async function updateUser(
     address_line_one: formData.get("address-one"),
     address_line_two: formData.get("address-two"),
     address_line_three: formData.get("address-three"),
+    phone: formData.get("phone"),
+    website: formData.get("website"),
   });
 
   if (!validatedFields.success) {
@@ -196,10 +206,12 @@ export async function updateUser(
     address_line_one,
     address_line_two,
     address_line_three,
+    phone,
+    website,
   } = validatedFields.data;
 
   try {
-    const query = `UPDATE users SET name = '${name}', email = '${email}', first_name = '${first_name}', last_name = '${last_name}', address_one = '${address_line_one}', address_two = '${address_line_two}', address_three = '${address_line_three}' WHERE id = '${id}'`;
+    const query = `UPDATE users SET name = '${name}', email = '${email}', first_name = '${first_name}', last_name = '${last_name}', address_one = '${address_line_one}', address_two = '${address_line_two}', address_three = '${address_line_three}', phone = '${phone}', website = '${website}' WHERE id = '${id}'`;
     // console.log(query);
 
     const data = await conn.query(query);
