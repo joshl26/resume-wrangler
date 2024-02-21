@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://resume-wrangler.ca"),
 };
 
-export default function Page() {
+export default async function Page() {
   return (
     <div className="min-w-full  bg-lime-400">
       <header className="flex flex-row h-20 bg-slate-400">

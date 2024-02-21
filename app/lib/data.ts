@@ -1,4 +1,6 @@
 import { sql } from "@vercel/postgres";
+import { conn } from "../lib/database";
+
 import {
   CustomerField,
   CustomersTable,
@@ -23,7 +25,9 @@ export async function fetchRevenue() {
     console.log("Fetching revenue data...");
     await new Promise((resolve) => setTimeout(resolve, 3000));
 
-    const data = await sql<Revenue>`SELECT * FROM revenue`;
+    const query = "SELECT * FROM revenue";
+    const data = await conn.query(query);
+    // const data = await sql<Revenue>`SELECT * FROM revenue`;
 
     console.log("Data fetch complete after 3 seconds.");
 
@@ -38,14 +42,18 @@ export async function fetchLatestInvoices() {
   noStore();
 
   try {
-    const data = await sql<LatestInvoiceRaw>`
-      SELECT invoices.amount, customers.name, customers.image_url, customers.email, invoices.id
-      FROM invoices
-      JOIN customers ON invoices.customer_id = customers.id
-      ORDER BY invoices.date DESC
-      LIMIT 5`;
+    const query =
+      "SELECT invoices.amount, customers.name, customers.image_url, customers.email, invoices.id FROM invoices JOIN customers ON invoices.customer_id = customers.id ORDER BY invoices.date DESC LIMIT 5";
+    const data = await conn.query(query);
 
-    const latestInvoices = data.rows.map((invoice) => ({
+    // const data = await sql<LatestInvoiceRaw>`
+    //   SELECT invoices.amount, customers.name, customers.image_url, customers.email, invoices.id
+    //   FROM invoices
+    //   JOIN customers ON invoices.customer_id = customers.id
+    //   ORDER BY invoices.date DESC
+    //   LIMIT 5`;
+
+    const latestInvoices = data.rows.map((invoice: any) => ({
       ...invoice,
       amount: formatCurrency(invoice.amount),
     }));
@@ -135,16 +143,27 @@ export async function fetchInvoicesPages(query: string) {
   noStore();
 
   try {
-    const count = await sql`SELECT COUNT(*)
-    FROM invoices
-    JOIN customers ON invoices.customer_id = customers.id
-    WHERE
-      customers.name ILIKE ${`%${query}%`} OR
-      customers.email ILIKE ${`%${query}%`} OR
-      invoices.amount::text ILIKE ${`%${query}%`} OR
-      invoices.date::text ILIKE ${`%${query}%`} OR
-      invoices.status ILIKE ${`%${query}%`}
-  `;
+    console.log(`Query: ${query}`);
+
+    const queryString = `SELECT COUNT(*) FROM invoices JOIN customers ON invoices.customer_id = customers.id WHERE customers.name ILIKE ${`%${query}%`} OR customers.email ILIKE ${`%${query}%`} OR invoices.amount::text ILIKE ${`%${query}%`} OR invoices.date::text ILIKE ${`%${query}%`} OR invoices.status ILIKE ${`%${query}%`}`;
+
+    console.log(`Query: ${queryString}`);
+
+    // const queryString = `SELECT COUNT(*) FROM invoices `;
+
+    const count = await conn.query(queryString);
+
+    console.log(count);
+    //   const count = await sql`SELECT COUNT(*)
+    //   FROM invoices
+    //   JOIN customers ON invoices.customer_id = customers.id
+    //   WHERE
+    //     customers.name ILIKE ${`%${query}%`} OR
+    //     customers.email ILIKE ${`%${query}%`} OR
+    //     invoices.amount::text ILIKE ${`%${query}%`} OR
+    //     invoices.date::text ILIKE ${`%${query}%`} OR
+    //     invoices.status ILIKE ${`%${query}%`}
+    // `;
 
     const totalPages = Math.ceil(Number(count.rows[0].count) / ITEMS_PER_PAGE);
     return totalPages;
@@ -239,7 +258,11 @@ export async function getUser(email: string) {
   noStore();
 
   try {
-    const user = await sql`SELECT * from USERS where email=${email}`;
+    const query = `SELECT * FROM users WHERE email='${email}'`;
+    const user = await conn.query(query);
+    console.log(user.rows[0]);
+
+    // const user = await sql`SELECT * from USERS where email=${email}`;
     return user.rows[0] as User;
   } catch (error) {
     console.error("Failed to fetch user:", error);
