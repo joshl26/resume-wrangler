@@ -53,10 +53,27 @@ const UserSchema = z.object({
   }),
 });
 
+const UserSocialsSchema = z.object({
+  id: z.string(),
+  linkedin: z.string({
+    invalid_type_error: "Please enter a valid linkedin in address",
+  }),
+  twitter: z.string({
+    invalid_type_error: "Please enter a valid twitter in address",
+  }),
+  facebook: z.string({
+    invalid_type_error: "Please enter a valid facebook in address",
+  }),
+  instagram: z.string({
+    invalid_type_error: "Please enter a valid instagram in address",
+  }),
+});
+
 const CreateInvoice = InvoiceSchema.omit({ id: true, date: true });
 const UpdateInvoice = InvoiceSchema.omit({ id: true, date: true });
 const DeleteInvoice = InvoiceSchema.omit({ id: true, date: true });
 const UpdateUser = UserSchema.omit({ id: true, date: true });
+const UpdateSocials = UserSocialsSchema.omit({ id: true, date: true });
 
 // This is temporary until @types/react-dom is updated
 export type State = {
@@ -212,6 +229,49 @@ export async function updateUser(
 
   try {
     const query = `UPDATE users SET name = '${name}', email = '${email}', first_name = '${first_name}', last_name = '${last_name}', address_one = '${address_line_one}', address_two = '${address_line_two}', address_three = '${address_line_three}', phone = '${phone}', website = '${website}' WHERE id = '${id}'`;
+    // console.log(query);
+
+    const data = await conn.query(query);
+
+    // console.log(data);
+
+    // await sql`
+    //     UPDATE invoices
+    //     SET name = '${name}', email = '${email}'
+    //     WHERE id = ${id}
+    //   `;
+  } catch (error) {
+    return { message: "Database Error: Failed to Update Invoice." };
+  }
+
+  revalidatePath("/dashboard/user-profile");
+  redirect("/dashboard/user-profile");
+}
+
+export async function updateSocials(
+  id: string,
+  prevState: State,
+  formData: FormData
+) {
+  console.log(formData);
+  const validatedFields = UpdateSocials.safeParse({
+    linkedin: formData.get("linkedin"),
+    twitter: formData.get("twitter"),
+    facebook: formData.get("facebook"),
+    instagram: formData.get("instagram"),
+  });
+
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: "Missing Fields. Failed to Update Invoice.",
+    };
+  }
+
+  const { linkedin, twitter, facebook, instagram } = validatedFields.data;
+
+  try {
+    const query = `UPDATE users SET linked_in = '${linkedin}', twitter = '${twitter}', facebook = '${facebook}', instagram = '${instagram}' WHERE id = '${id}'`;
     // console.log(query);
 
     const data = await conn.query(query);
