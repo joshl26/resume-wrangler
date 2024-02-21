@@ -2,7 +2,7 @@
 
 import { User } from "@/app/lib/definitions";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useFormState } from "react-dom";
 import { Button } from "../button";
 import { updateUser, updateSocials } from "@/app/lib/actions";
@@ -147,57 +147,231 @@ const UserSocialsEditForm = ({ user }: { user: User | null }) => {
   const updateSocialsWithId = updateSocials.bind(null, user?.id!);
   const [state, dispatch] = useFormState(updateSocialsWithId, initialState);
 
+  const [showSocial, setShowSocial] = useState(user?.show_socials);
+
+  const clickHandler = () => {
+    console.log("click");
+
+    console.log(showSocial);
+
+    if (showSocial === "true") {
+      setShowSocial("false");
+    } else {
+      setShowSocial("true");
+    }
+  };
+
+  useEffect(() => {}, [showSocial, setShowSocial]);
+
   return (
     <form action={dispatch}>
       <input type="hidden" name="id" value={user?.id} />
-      <div>
-        <label htmlFor="linkedin" className="mb-2 block text-sm font-medium">
-          LinkedIn
-        </label>
-        <input
-          id="linkedin"
-          name="linkedin"
-          type="text"
-          placeholder="Type your linkedin address"
-          defaultValue={user?.linked_in}
-        />
-      </div>
-      <div>
-        <label htmlFor="twitter" className="mb-2 block text-sm font-medium">
-          Twitter
-        </label>
-        <input
-          id="twitter"
-          name="twitter"
-          type="text"
-          placeholder="Type your twitter address"
-          defaultValue={user?.twitter}
-        />
-      </div>
-      <div>
-        <label htmlFor="facebook" className="mb-2 block text-sm font-medium">
-          Facebook
-        </label>
-        <input
-          id="facebook"
-          name="facebook"
-          type="text"
-          placeholder="Type your facebook address"
-          defaultValue={user?.facebook}
-        />
-      </div>
-      <div>
-        <label htmlFor="instagram" className="mb-2 block text-sm font-medium">
-          Instagram
-        </label>
-        <input
-          id="instagram"
-          name="instagram"
-          type="text"
-          placeholder="Type your instagram address"
-          defaultValue={user?.instagram}
-        />
-      </div>
+      {showSocial === "true" ? (
+        <div>
+          <div>
+            <label
+              htmlFor="linkedin"
+              className="mb-2 block text-sm font-medium"
+            >
+              LinkedIn
+            </label>
+            <input
+              id="linkedin"
+              name="linkedin"
+              type="text"
+              placeholder="Type your linkedin address"
+              defaultValue={user?.linked_in}
+            />
+          </div>
+          <div>
+            <label htmlFor="twitter" className="mb-2 block text-sm font-medium">
+              Twitter
+            </label>
+            <input
+              id="twitter"
+              name="twitter"
+              type="text"
+              placeholder="Type your twitter address"
+              defaultValue={user?.twitter}
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="facebook"
+              className="mb-2 block text-sm font-medium"
+            >
+              Facebook
+            </label>
+            <input
+              id="facebook"
+              name="facebook"
+              type="text"
+              placeholder="Type your facebook address"
+              defaultValue={user?.facebook}
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="instagram"
+              className="mb-2 block text-sm font-medium"
+            >
+              Instagram
+            </label>
+            <input
+              id="instagram"
+              name="instagram"
+              type="text"
+              placeholder="Type your instagram address"
+              defaultValue={user?.instagram}
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="instagram"
+              className="mb-2 block text-sm font-medium"
+            >
+              Instagram
+            </label>
+            <input
+              id="instagram"
+              name="instagram"
+              type="text"
+              placeholder="Type your instagram address"
+              defaultValue={user?.instagram}
+            />
+          </div>
+          <div>
+            <label htmlFor="github" className="mb-2 block text-sm font-medium">
+              Github
+            </label>
+            <input
+              id="github"
+              name="github"
+              type="text"
+              placeholder="Type your Github address"
+              defaultValue={user?.github}
+            />
+          </div>
+          <label htmlFor="show-socials">
+            <input
+              type="checkbox"
+              name="show-socials"
+              value="true"
+              checked={true}
+              onClick={clickHandler}
+              id="show-socials"
+            />
+            Show social icons?
+          </label>
+        </div>
+      ) : (
+        <div>
+          <div style={{ display: "none" }}>
+            <div>
+              <label
+                htmlFor="linkedin"
+                className="mb-2 block text-sm font-medium"
+              >
+                LinkedIn
+              </label>
+              <input
+                id="linkedin"
+                name="linkedin"
+                type="text"
+                placeholder="Type your linkedin address"
+                defaultValue={user?.linked_in}
+              />
+            </div>
+            <div>
+              <label
+                htmlFor="twitter"
+                className="mb-2 block text-sm font-medium"
+              >
+                Twitter
+              </label>
+              <input
+                id="twitter"
+                name="twitter"
+                type="text"
+                placeholder="Type your twitter address"
+                defaultValue={user?.twitter}
+              />
+            </div>
+            <div>
+              <label
+                htmlFor="facebook"
+                className="mb-2 block text-sm font-medium"
+              >
+                Facebook
+              </label>
+              <input
+                id="facebook"
+                name="facebook"
+                type="text"
+                placeholder="Type your facebook address"
+                defaultValue={user?.facebook}
+              />
+            </div>
+            <div>
+              <label
+                htmlFor="instagram"
+                className="mb-2 block text-sm font-medium"
+              >
+                Instagram
+              </label>
+              <input
+                id="instagram"
+                name="instagram"
+                type="text"
+                placeholder="Type your instagram address"
+                defaultValue={user?.instagram}
+              />
+            </div>
+            <div>
+              <label
+                htmlFor="instagram"
+                className="mb-2 block text-sm font-medium"
+              >
+                Instagram
+              </label>
+              <input
+                id="instagram"
+                name="instagram"
+                type="text"
+                placeholder="Type your instagram address"
+                defaultValue={user?.instagram}
+              />
+            </div>
+            <div>
+              <label
+                htmlFor="github"
+                className="mb-2 block text-sm font-medium"
+              >
+                Github
+              </label>
+              <input
+                id="github"
+                name="github"
+                type="text"
+                placeholder="Type your Github address"
+                defaultValue={user?.github}
+              />
+            </div>
+          </div>
+          <label htmlFor="show-socials">
+            <input type="hidden" value="false" name="show-socials" />
+            <input
+              type="checkbox"
+              name="show-socials"
+              value="false"
+              defaultChecked={false}
+              onClick={clickHandler}
+              id="show-socials"
+            />
+            Show social icons?
+          </label>
+        </div>
+      )}
 
       <div className="mt-6 flex justify-start gap-4">
         <Link

@@ -67,6 +67,12 @@ const UserSocialsSchema = z.object({
   instagram: z.string({
     invalid_type_error: "Please enter a valid instagram in address",
   }),
+  show_socials: z.string({
+    invalid_type_error: "Please enter a valid show_socials in address",
+  }),
+  github: z.string({
+    invalid_type_error: "Please enter a valid github in address",
+  }),
 });
 
 const CreateInvoice = InvoiceSchema.omit({ id: true, date: true });
@@ -259,13 +265,17 @@ export async function updateSocials(
   prevState: State,
   formData: FormData
 ) {
-  console.log(formData);
+  // console.log(formData);
   const validatedFields = UpdateSocials.safeParse({
     linkedin: formData.get("linkedin"),
     twitter: formData.get("twitter"),
     facebook: formData.get("facebook"),
     instagram: formData.get("instagram"),
+    show_socials: formData.get("show-socials"),
+    github: formData.get("github"),
   });
+
+  console.log(validatedFields);
 
   if (!validatedFields.success) {
     return {
@@ -274,11 +284,12 @@ export async function updateSocials(
     };
   }
 
-  const { linkedin, twitter, facebook, instagram } = validatedFields.data;
+  const { linkedin, twitter, facebook, instagram, show_socials, github } =
+    validatedFields.data;
 
   try {
-    const query = `UPDATE users SET linked_in = '${linkedin}', twitter = '${twitter}', facebook = '${facebook}', instagram = '${instagram}' WHERE id = '${id}'`;
-    // console.log(query);
+    const query = `UPDATE users SET linked_in = '${linkedin}', twitter = '${twitter}', facebook = '${facebook}', instagram = '${instagram}', show_socials = '${show_socials}', github = '${github}' WHERE id = '${id}'`;
+    console.log(query);
 
     const data = await conn.query(query);
 
