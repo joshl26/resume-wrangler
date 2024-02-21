@@ -7,9 +7,9 @@ import { useFormState } from "react-dom";
 import { Button } from "../button";
 import { updateUser } from "@/app/lib/actions";
 
-const UserEditForm = ({ user }: any) => {
+const UserEditForm = ({ user }: { user: User }) => {
   const initialState = { message: null, errors: {} };
-  const updateUserWithId = updateUser.bind(null, user?.id);
+  const updateUserWithId = updateUser.bind(null, user.id);
   const [state, dispatch] = useFormState(updateUserWithId, initialState);
 
   return (
