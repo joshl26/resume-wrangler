@@ -8,14 +8,12 @@ export default async function Layout({
   children: React.ReactNode;
 }) {
   const session = await auth();
-  // console.log(session);
   if (session?.user) {
     session.user = {
       name: session.user.name,
       email: session.user.email,
       // image: session.user.image,
     };
-    // console.log(session.user);
   }
 
   return (

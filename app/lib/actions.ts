@@ -170,7 +170,7 @@ export async function updateUser(
   prevState: State,
   formData: FormData
 ) {
-  console.log(formData);
+  // console.log(formData);
   const validatedFields = UpdateUser.safeParse({
     name: formData.get("name"),
     email: formData.get("email"),
@@ -200,11 +200,11 @@ export async function updateUser(
 
   try {
     const query = `UPDATE users SET name = '${name}', email = '${email}', first_name = '${first_name}', last_name = '${last_name}', address_one = '${address_line_one}', address_two = '${address_line_two}', address_three = '${address_line_three}' WHERE id = '${id}'`;
-    console.log(query);
+    // console.log(query);
 
     const data = await conn.query(query);
 
-    console.log(data);
+    // console.log(data);
 
     // await sql`
     //     UPDATE invoices

@@ -260,7 +260,7 @@ export async function getUser(email: string) {
   try {
     const query = `SELECT * FROM users WHERE email='${email}'`;
     const user = await conn.query(query);
-    console.log(user.rows[0]);
+    // console.log(user.rows[0]);
 
     // const user = await sql`SELECT * from USERS where email=${email}`;
     return user.rows[0] as User;
