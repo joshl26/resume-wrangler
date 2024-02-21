@@ -2,7 +2,7 @@
 
 import { z } from "zod";
 import { sql } from "@vercel/postgres";
-import { conn } from "../lib/database";
+import { conn } from "@/app/lib/database";
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";

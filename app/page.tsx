@@ -20,7 +20,7 @@ export default async function Page() {
           <AcmeLogo />
           <div className="text-center flex gap-4">
             <Link
-              href="/new-user"
+              href="/register"
               className="flex items-center gap-5 self-start rounded-lg bg-[#FC440F] px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-blue-400 md:text-base"
             >
               <span>Create Account</span>
