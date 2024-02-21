@@ -90,6 +90,12 @@ export type State = {
     address_line_three?: string[];
     phone?: string[];
     website?: string[];
+    linked_in?: string[];
+    twitter?: string[];
+    facebook?: string[];
+    instagram?: string[];
+    show_socials?: string[];
+    github?: string[];
   };
   message?: string | null;
 };

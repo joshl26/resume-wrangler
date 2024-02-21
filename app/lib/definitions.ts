@@ -15,11 +15,12 @@ export type User = {
   phone: string;
   website: string;
   thummbnail: string;
-  linkedin: string;
+  linked_in: string;
   twitter: string;
   facebook: string;
   instagram: string;
   show_socials: string;
+  github: string;
 };
 
 export type Customer = {

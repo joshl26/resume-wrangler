@@ -39,7 +39,7 @@ export default async function RevenueChart() {
             ))}
           </div>
 
-          {revenue.map((month) => (
+          {/* {revenue.map((month) => (
             <div key={month.month} className="flex flex-col items-center gap-2">
               <div
                 className="w-full rounded-md bg-blue-300"
@@ -51,7 +51,7 @@ export default async function RevenueChart() {
                 {month.month}
               </p>
             </div>
-          ))}
+          ))} */}
         </div>
         <div className="flex items-center pb-2 pt-6">
           <CalendarIcon className="h-5 w-5 text-gray-500" />

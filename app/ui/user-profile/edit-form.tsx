@@ -143,7 +143,7 @@ const UserDetailsEditForm = ({ user }: { user: User | null }) => {
 };
 
 const UserSocialsEditForm = ({ user }: { user: User | null }) => {
-  const initialState = { message: null, errors: {} };
+  const initialState = { message: "inital state", formData: null, errors: {} };
   const updateSocialsWithId = updateSocials.bind(null, user?.id!);
   const [state, dispatch] = useFormState(updateSocialsWithId, initialState);
 
@@ -159,7 +159,7 @@ const UserSocialsEditForm = ({ user }: { user: User | null }) => {
           name="linkedin"
           type="text"
           placeholder="Type your linkedin address"
-          defaultValue={user?.linkedin}
+          defaultValue={user?.linked_in}
         />
       </div>
       <div>
@@ -213,10 +213,6 @@ const UserSocialsEditForm = ({ user }: { user: User | null }) => {
 };
 
 const UserEditForm = ({ user }: { user: User | null }) => {
-  const initialState = { message: null, errors: {} };
-  const updateUserWithId = updateUser.bind(null, user?.id!);
-  const [state, dispatch] = useFormState(updateUserWithId, initialState);
-
   return (
     <div>
       <UserDetailsEditForm user={user} />
