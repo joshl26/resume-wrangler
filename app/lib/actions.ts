@@ -27,12 +27,29 @@ const UserSchema = z.object({
   name: z.string({
     invalid_type_error: "Please select a username.",
   }),
-  email: z.string(),
+  email: z.string({
+    invalid_type_error: "Please enter a valid email address.",
+  }),
+  first_name: z.string({
+    invalid_type_error: "Please enter a valid first_name.",
+  }),
+  last_name: z.string({
+    invalid_type_error: "Please enter a valid last_name.",
+  }),
+  address_line_one: z.string({
+    invalid_type_error: "Please enter a valid address_line_one.",
+  }),
+  address_line_two: z.string({
+    invalid_type_error: "Please enter a valid address_line_two.",
+  }),
+  address_line_three: z.string({
+    invalid_type_error: "Please enter a valid address_line_three.",
+  }),
 });
 
 const CreateInvoice = InvoiceSchema.omit({ id: true, date: true });
 const UpdateInvoice = InvoiceSchema.omit({ id: true, date: true });
-const DeleteInvoice = InvoiceSchema.omit({ date: true, id: true });
+const DeleteInvoice = InvoiceSchema.omit({ id: true, date: true });
 const UpdateUser = UserSchema.omit({ id: true, date: true });
 
 // This is temporary until @types/react-dom is updated
@@ -43,6 +60,11 @@ export type State = {
     status?: string[];
     name?: string[];
     email?: string[];
+    first_name?: string[];
+    last_name?: string[];
+    address_line_one?: string[];
+    address_line_two?: string[];
+    address_line_three?: string[];
   };
   message?: string | null;
 };
@@ -148,9 +170,15 @@ export async function updateUser(
   prevState: State,
   formData: FormData
 ) {
+  console.log(formData);
   const validatedFields = UpdateUser.safeParse({
     name: formData.get("name"),
     email: formData.get("email"),
+    first_name: formData.get("first-name"),
+    last_name: formData.get("last-name"),
+    address_line_one: formData.get("address-one"),
+    address_line_two: formData.get("address-two"),
+    address_line_three: formData.get("address-three"),
   });
 
   if (!validatedFields.success) {
@@ -160,13 +188,23 @@ export async function updateUser(
     };
   }
 
-  const { name, email } = validatedFields.data;
-  // const amountInCents = amount * 100;
+  const {
+    name,
+    email,
+    first_name,
+    last_name,
+    address_line_one,
+    address_line_two,
+    address_line_three,
+  } = validatedFields.data;
 
   try {
-    const query = `UPDATE users SET name = '${name}', email = '${email}'
-    WHERE id = '${id}'`;
+    const query = `UPDATE users SET name = '${name}', email = '${email}', first_name = '${first_name}', last_name = '${last_name}', address_one = '${address_line_one}', address_two = '${address_line_two}', address_three = '${address_line_three}' WHERE id = '${id}'`;
+    console.log(query);
+
     const data = await conn.query(query);
+
+    console.log(data);
 
     // await sql`
     //     UPDATE invoices

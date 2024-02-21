@@ -16,7 +16,7 @@ export default async function AuthTest({
   //   const { data: session, update, status } = useSession();
 
   const user: User = await getUser(session?.user?.email!);
-  console.log(user);
+  //   console.log(user);
 
   return <UserEditForm user={user} />;
 }
