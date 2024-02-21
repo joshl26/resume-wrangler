@@ -2,6 +2,7 @@
 
 import { z } from "zod";
 import { sql } from "@vercel/postgres";
+import { conn } from "../lib/database";
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
@@ -20,9 +21,19 @@ const InvoiceSchema = z.object({
   }),
   date: z.string(),
 });
+
+const UserSchema = z.object({
+  id: z.string(),
+  name: z.string({
+    invalid_type_error: "Please select a username.",
+  }),
+  email: z.string(),
+});
+
 const CreateInvoice = InvoiceSchema.omit({ id: true, date: true });
 const UpdateInvoice = InvoiceSchema.omit({ id: true, date: true });
 const DeleteInvoice = InvoiceSchema.omit({ date: true, id: true });
+const UpdateUser = UserSchema.omit({ id: true, date: true });
 
 // This is temporary until @types/react-dom is updated
 export type State = {
@@ -30,6 +41,8 @@ export type State = {
     customerId?: string[];
     amount?: string[];
     status?: string[];
+    name?: string[];
+    email?: string[];
   };
   message?: string | null;
 };
@@ -128,4 +141,42 @@ export async function deleteInvoice(id: string) {
   } catch (error) {
     return { message: "Database Error: Failed to Delete Invoice." };
   }
+}
+
+export async function updateUser(
+  id: string,
+  prevState: State,
+  formData: FormData
+) {
+  const validatedFields = UpdateUser.safeParse({
+    name: formData.get("name"),
+    email: formData.get("email"),
+  });
+
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: "Missing Fields. Failed to Update Invoice.",
+    };
+  }
+
+  const { name, email } = validatedFields.data;
+  // const amountInCents = amount * 100;
+
+  try {
+    const query = `UPDATE users SET name = '${name}', email = '${email}'
+    WHERE id = '${id}'`;
+    const data = await conn.query(query);
+
+    // await sql`
+    //     UPDATE invoices
+    //     SET name = '${name}', email = '${email}'
+    //     WHERE id = ${id}
+    //   `;
+  } catch (error) {
+    return { message: "Database Error: Failed to Update Invoice." };
+  }
+
+  revalidatePath("/dashboard/user-profile");
+  redirect("/dashboard/user-profile");
 }
