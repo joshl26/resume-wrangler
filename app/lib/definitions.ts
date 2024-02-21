@@ -7,7 +7,19 @@ export type User = {
   name: string;
   email: string;
   password: string;
+  first_name: string;
+  last_name: string;
+  address_one: string;
+  address_two: string;
+  address_three: string;
+  phone: string;
+  website: string;
   thummbnail: string;
+  linkedin: string;
+  twitter: string;
+  facebook: string;
+  instagram: string;
+  show_socials: string;
 };
 
 export type Customer = {
