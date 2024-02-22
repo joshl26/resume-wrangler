@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import { hash } from "bcrypt";
-import { sql } from "@vercel/postgres";
+// import { hash } from "bcrypt";
+// import { sql } from "@vercel/postgres";
 import { conn } from "@/app/lib/database";
 const bcrypt = require("bcrypt");
 
@@ -15,9 +15,14 @@ export async function POST(request: Request) {
     const hashedPassword = await bcrypt.hash(password, 10);
     // // const hashedPassword = await hash(password, 10);
 
-    const query = `INSERT INTO users (name, email, password) VALUES ('${username}', '${email}', '${hashedPassword}')`;
+    // const query = `INSERT INTO users (name, email, password) VALUES ('${username}', '${email}', '${hashedPassword}')`;
 
-    const data = await conn.query(query);
+    const delay = (delayInms: number) => {
+      return new Promise((resolve) => setTimeout(resolve, delayInms));
+    };
+
+    // const data = await conn.query(query);
+    let delayres = await delay(3000);
 
     // const response = await sql`
     //   INSERT INTO users (email, password)

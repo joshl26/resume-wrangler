@@ -101,8 +101,9 @@ function SignupButton() {
   const { pending } = useFormStatus();
 
   return (
-    <Button className="mt-4 w-full" aria-disabled={pending}>
-      Create account <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50" />
+    <Button className="mt-4 w-full" disabled={pending}>
+      {pending ? "Submitting..." : "Submit"}
+      <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50" />
     </Button>
   );
 }
