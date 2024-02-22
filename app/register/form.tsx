@@ -1,10 +1,11 @@
 "use client";
 
-import { FormEvent } from "react";
+import { FormEvent, useState } from "react";
 import { Button } from "../ui/button";
 import { useFormState, useFormStatus } from "react-dom";
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
 import { authenticate } from "../lib/actions";
+import { redirect } from "next/navigation";
 
 function SignupButton() {
   const { pending } = useFormStatus();
@@ -103,8 +104,11 @@ function SignupInputs() {
 // }
 
 export default function Form() {
-  const [code, action] = useFormState(authenticate, undefined);
+  //   const [code, action] = useFormState(authenticate, undefined);
 
+  const [error, setError] = useState("");
+
+  //TODO make this into form action, handleSubmit should be something like signup in our @/app/lib/actions.ts file
   const handleSubmit = async (formData: FormData) => {
     // e.preventDefault();
     // const formData = new FormData(e.currentTarget);
@@ -116,7 +120,21 @@ export default function Form() {
         password: formData.get("password"),
       }),
     });
-    console.log({ response });
+
+    // if ({ response. } === "success") {
+    // }
+
+    if (response.status === 200) {
+      redirect("/login");
+    }
+
+    if (response.status === 500) {
+      //   setError(response.statusText);
+      setError("Email address already in use. Please try another.");
+    }
+
+    console.log(response);
+    console.log(error);
   };
 
   return (
@@ -126,6 +144,7 @@ export default function Form() {
     >
       <SignupInputs />
       <SignupButton />
+      {error && <p>{error}</p>}
     </form>
   );
 }
