@@ -25,80 +25,96 @@ export default function ClassicResume() {
   };
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <>
-        <div>
-          <label htmlFor="header-font">Choose a Heading Font:</label>
-          <select
-            value={headingFont}
-            onChange={(e) => headerFontAction(e)}
-            name="header-font"
-            id="header-font"
+    <main className="flex w-full">
+      <div className="flex flex-row w-full">
+        <div className="flex flex-col h-full overflow-scroll px-6">
+          <a
+            href={`/api/pdf?bodyFont=${bodyFont}&headerFont=${headingFont}`}
+            download="generated_pdf.pdf"
+            className="downloadBtn"
           >
-            {headerFonts.map((font) => {
-              return (
-                <option className={font.name} key={font.id} value={font.name}>
-                  {font.description}
-                </option>
-              );
-            })}
-          </select>
-          <label htmlFor="header-font">Choose a Body Font:</label>
-          <select
-            value={bodyFont}
-            onChange={(e) => bodyFontAction(e)}
-            name="header-font"
-            id="header-font"
-          >
-            {bodyFonts.map((font) => {
-              return (
-                <option className={font.name} key={font.id} value={font.name}>
-                  {font.description}
-                </option>
-              );
-            })}
-          </select>
-          <select
-            value={resumeTemplate}
-            onChange={(e) => resumeTemplateAction(e)}
-            name="resume-templates"
-            id="resume-templates"
-          >
-            {resumeTemplates.map((resume) => {
-              return (
-                <option
-                  className={resume.name}
-                  key={resume.id}
-                  value={resume.name}
-                >
-                  {resume.description}
-                </option>
-              );
-            })}
-          </select>
+            Download PDF
+          </a>
+          <div>
+            <div className="flex flex-col">
+              <label htmlFor="header-font">Choose a Heading Font:</label>
+              <select
+                value={headingFont}
+                onChange={(e) => headerFontAction(e)}
+                name="header-font"
+                id="header-font"
+              >
+                {headerFonts.map((font) => {
+                  return (
+                    <option
+                      className={font.name}
+                      key={font.id}
+                      value={font.name}
+                    >
+                      {font.description}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+            <div className="flex flex-col">
+              <label htmlFor="header-font">Choose a Body Font:</label>
+              <select
+                value={bodyFont}
+                onChange={(e) => bodyFontAction(e)}
+                name="header-font"
+                id="header-font"
+              >
+                {bodyFonts.map((font) => {
+                  return (
+                    <option
+                      className={font.name}
+                      key={font.id}
+                      value={font.name}
+                    >
+                      {font.description}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+            <div className="flex flex-col">
+              <label htmlFor="resume-templates">
+                Choose a Resume Template:
+              </label>
+              <select
+                value={resumeTemplate}
+                onChange={(e) => resumeTemplateAction(e)}
+                name="resume-templates"
+                id="resume-templates"
+              >
+                {resumeTemplates.map((resume) => {
+                  return (
+                    <option
+                      className={resume.name}
+                      key={resume.id}
+                      value={resume.name}
+                    >
+                      {resume.description}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+          </div>
         </div>
-        <a
-          href={`/api/pdf?bodyFont=${bodyFont}&headerFont=${headingFont}`}
-          download="generated_pdf.pdf"
-          className="downloadBtn"
-        >
-          Download PDF
-        </a>
-
-        {resumeTemplate === "classic" && (
-          <Suspense>
-            <Classic
-              headingFont={headingFont}
-              bodyFont={bodyFont}
-              user={user}
-            />
-          </Suspense>
-        )}
-
-        {/* {resumeTemplate === "cubic" && (
-        <Cubic headingFont={headingFont} bodyFont={bodyFont} user={user} />
-      )} */}
-      </>
+        <div className="flex flex-col h-full m-auto overflow-scroll">
+          {resumeTemplate === "classic" && (
+            <Suspense>
+              <Classic
+                headingFont={headingFont}
+                bodyFont={bodyFont}
+                user={user}
+              />
+            </Suspense>
+          )}
+        </div>
+      </div>
     </main>
   );
 }
