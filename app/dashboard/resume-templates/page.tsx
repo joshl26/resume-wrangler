@@ -1,8 +1,6 @@
 "use client";
 
-import Image from "next/image";
 import { Suspense, useState } from "react";
-import type { NextPage } from "next";
 
 import { resumeTemplates, bodyFonts, headerFonts } from "../../data/data";
 import { user } from "../../data/user-details";

@@ -45,7 +45,7 @@ export async function GET(req: NextRequest) {
       }
     );
 
-    await page.emulateMediaType("screen");
+    await page.emulateMediaType("print");
 
     await page.evaluateHandle("document.fonts.ready");
 
@@ -54,8 +54,10 @@ export async function GET(req: NextRequest) {
       printBackground: true,
     });
 
+    browser.close();
+
     return new Response(buffer, { headers: { "content-type": "image/png" } });
-    // browser.close();
+
     // Close browser **after** we returned the PDF to the caller.
   } catch (error) {
     return new Response();

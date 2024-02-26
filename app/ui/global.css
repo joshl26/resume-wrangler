@@ -63,7 +63,7 @@ h1 {
 
 @font-face {
   font-family: breeSerif;
-  src: url(/fonts/BreeSerif-Regular.ttf);
+  src: url(../fonts/BreeSerif-Regular.ttf);
 }
 
 .font-bree {
