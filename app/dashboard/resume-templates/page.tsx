@@ -26,8 +26,8 @@ export default function ClassicResume() {
 
   return (
     <main className="flex w-full">
-      <div className="flex flex-row w-full">
-        <div className="flex flex-col h-full overflow-scroll px-6">
+      <div className="flex flex-row w-full overflow-auto">
+        <div className="flex flex-col h-full overflow-scroll px-6 fixed">
           <a
             href={`/api/pdf?bodyFont=${bodyFont}&headerFont=${headingFont}`}
             download="generated_pdf.pdf"
@@ -103,7 +103,7 @@ export default function ClassicResume() {
             </div>
           </div>
         </div>
-        <div className="flex flex-col h-full m-auto overflow-scroll">
+        <div className="flex flex-col m-auto">
           {resumeTemplate === "classic" && (
             <Suspense>
               <Classic

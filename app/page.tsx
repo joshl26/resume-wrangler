@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 
 export default async function Page() {
   return (
-    <div className="min-w-full  bg-lime-400">
+    <div className="min-w-full bg-lime-400">
       <header className="flex flex-row h-20 bg-slate-400">
         <nav className="max-w-screen-xl w-full m-auto flex justify-between">
           <AcmeLogo />

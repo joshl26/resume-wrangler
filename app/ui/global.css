@@ -73,7 +73,7 @@ h1 {
 
 @font-face {
   font-family: crimsonPro;
-  src: url(/fonts/CrimsonPro-Regular.ttf);
+  src: url(../fonts/CrimsonPro-Regular.ttf);
 }
 
 .font-crimson {
@@ -82,7 +82,7 @@ h1 {
 
 @font-face {
   font-family: dancingScript;
-  src: url(/fonts/DancingScript-Regular.ttf);
+  src: url(../fonts/DancingScript-Regular.ttf);
 }
 
 .font-dancing {
@@ -91,7 +91,7 @@ h1 {
 
 @font-face {
   font-family: ledger;
-  src: url(/fonts/Ledger-Regular.ttf);
+  src: url(../fonts/Ledger-Regular.ttf);
 }
 
 .font-ledger {
@@ -100,7 +100,7 @@ h1 {
 
 @font-face {
   font-family: lora;
-  src: url(/fonts/Lora-Regular.ttf);
+  src: url(../fonts/Lora-Regular.ttf);
 }
 
 .font-lora {
@@ -109,7 +109,7 @@ h1 {
 
 @font-face {
   font-family: lusitana;
-  src: url(/fonts/Lusitana-Regular.ttf);
+  src: url(../fonts/Lusitana-Regular.ttf);
 }
 
 .font-lusitana {
@@ -118,7 +118,7 @@ h1 {
 
 @font-face {
   font-family: mallanna;
-  src: url(/fonts/Mallanna-Regular.ttf);
+  src: url(../fonts/Mallanna-Regular.ttf);
 }
 
 .font-dancing {
@@ -127,7 +127,7 @@ h1 {
 
 @font-face {
   font-family: montserrat;
-  src: url(/fonts/Montserrat-Regular.ttf);
+  src: url(../fonts/Montserrat-Regular.ttf);
 }
 
 .font-dancing {
@@ -136,7 +136,7 @@ h1 {
 
 @font-face {
   font-family: openSans;
-  src: url(/fonts/OpenSans-Regular.ttf);
+  src: url(../fonts/OpenSans-Regular.ttf);
 }
 
 .font-dancing {
@@ -145,7 +145,7 @@ h1 {
 
 @font-face {
   font-family: oswald;
-  src: url(/fonts/Oswald-Regular.ttf);
+  src: url(../fonts/Oswald-Regular.ttf);
 }
 
 .font-oswald {
@@ -154,7 +154,7 @@ h1 {
 
 @font-face {
   font-family: pacifico;
-  src: url(/fonts/Pacifico-Regular.ttf);
+  src: url(../fonts/Pacifico-Regular.ttf);
 }
 
 .font-pacifico {
@@ -163,7 +163,7 @@ h1 {
 
 @font-face {
   font-family: playfairDisplay;
-  src: url(/fonts/PlayfairDisplay-Regular.ttf);
+  src: url(../fonts/PlayfairDisplay-Regular.ttf);
 }
 
 .font-dancing {
@@ -172,7 +172,7 @@ h1 {
 
 @font-face {
   font-family: poppins;
-  src: url(/fonts/Poppins-Regular.ttf);
+  src: url(../fonts/Poppins-Regular.ttf);
 }
 
 .font-poppins {
@@ -181,7 +181,7 @@ h1 {
 
 @font-face {
   font-family: quicksand;
-  src: url(/fonts/Quicksand-Regular.ttf);
+  src: url(../fonts/Quicksand-Regular.ttf);
 }
 
 .font-quicksand {
@@ -190,7 +190,7 @@ h1 {
 
 @font-face {
   font-family: raleway;
-  src: url(/fonts/Raleway-Regular.ttf);
+  src: url(../fonts/Raleway-Regular.ttf);
 }
 
 .font-raleway {
@@ -199,7 +199,7 @@ h1 {
 
 @font-face {
   font-family: ralewayBold;
-  src: url(/fonts/Raleway-Bold.ttf);
+  src: url(../fonts/Raleway-Bold.ttf);
 }
 
 .font-raleway-bold {
@@ -208,7 +208,7 @@ h1 {
 
 @font-face {
   font-family: roboto;
-  src: url(/fonts/Roboto-Regular.ttf);
+  src: url(../fonts/Roboto-Regular.ttf);
 }
 
 .font-roboto {
@@ -217,7 +217,7 @@ h1 {
 
 @font-face {
   font-family: robotoMono;
-  src: url(/fonts/RobotoMono-Regular.ttf);
+  src: url(../fonts/RobotoMono-Regular.ttf);
 }
 
 .font-robotomono {
@@ -226,7 +226,7 @@ h1 {
 
 @font-face {
   font-family: rokkitt;
-  src: url(/fonts/Rokkitt-Regular.ttf);
+  src: url(../fonts/Rokkitt-Regular.ttf);
 }
 
 .font-rokkitt {
@@ -235,7 +235,7 @@ h1 {
 
 @font-face {
   font-family: rubik;
-  src: url(/fonts/Rubik-Regular.ttf);
+  src: url(../fonts/Rubik-Regular.ttf);
 }
 
 .font-rubik {
@@ -244,7 +244,7 @@ h1 {
 
 @font-face {
   font-family: sacramento;
-  src: url(/fonts/Sacramento-Regular.ttf);
+  src: url(../fonts/Sacramento-Regular.ttf);
 }
 
 .font-sacramento {
@@ -253,7 +253,7 @@ h1 {
 
 @font-face {
   font-family: sourceCode;
-  src: url(/fonts/SourceCodePro-Regular.ttf);
+  src: url(../fonts/SourceCodePro-Regular.ttf);
 }
 
 .font-source {
@@ -262,7 +262,7 @@ h1 {
 
 @font-face {
   font-family: yellowtail;
-  src: url(/fonts/Yellowtail-Regular.ttf);
+  src: url(../fonts/Yellowtail-Regular.ttf);
 }
 
 .font-dancing {
