@@ -17,8 +17,257 @@ input[type="number"]::-webkit-outer-spin-button {
   margin: 0;
 }
 
-.body {
-  font-size: 0;
-  margin: 0;
+html {
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+html,
+body {
   padding: 0;
+  margin: 0;
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    Segoe UI,
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    Fira Sans,
+    Droid Sans,
+    Helvetica Neue,
+    sans-serif;
+  background: #f1f5f9;
+  width: 100%;
+  height: 100%;
+}
+
+#__next {
+  height: 100vh;
+  display: grid;
+}
+
+* {
+  box-sizing: border-box;
+  /* border: red 1px solid; */
+}
+
+.downloadBtn {
+  position: relative;
+  top: 0;
+}
+
+h1 {
+  margin: 0;
+}
+
+@font-face {
+  font-family: breeSerif;
+  src: url(/fonts/BreeSerif-Regular.ttf);
+}
+
+.font-bree {
+  font-family: breeSerif;
+}
+
+@font-face {
+  font-family: crimsonPro;
+  src: url(/fonts/CrimsonPro-Regular.ttf);
+}
+
+.font-crimson {
+  font-family: crimsonPro;
+}
+
+@font-face {
+  font-family: dancingScript;
+  src: url(/fonts/DancingScript-Regular.ttf);
+}
+
+.font-dancing {
+  font-family: dancingScript;
+}
+
+@font-face {
+  font-family: ledger;
+  src: url(/fonts/Ledger-Regular.ttf);
+}
+
+.font-ledger {
+  font-family: ledger;
+}
+
+@font-face {
+  font-family: lora;
+  src: url(/fonts/Lora-Regular.ttf);
+}
+
+.font-lora {
+  font-family: lora;
+}
+
+@font-face {
+  font-family: lusitana;
+  src: url(/fonts/Lusitana-Regular.ttf);
+}
+
+.font-lusitana {
+  font-family: lusitana;
+}
+
+@font-face {
+  font-family: mallanna;
+  src: url(/fonts/Mallanna-Regular.ttf);
+}
+
+.font-dancing {
+  font-family: mallanna;
+}
+
+@font-face {
+  font-family: montserrat;
+  src: url(/fonts/Montserrat-Regular.ttf);
+}
+
+.font-dancing {
+  font-family: montserrat;
+}
+
+@font-face {
+  font-family: openSans;
+  src: url(/fonts/OpenSans-Regular.ttf);
+}
+
+.font-dancing {
+  font-family: openSans;
+}
+
+@font-face {
+  font-family: oswald;
+  src: url(/fonts/Oswald-Regular.ttf);
+}
+
+.font-oswald {
+  font-family: oswald;
+}
+
+@font-face {
+  font-family: pacifico;
+  src: url(/fonts/Pacifico-Regular.ttf);
+}
+
+.font-pacifico {
+  font-family: pacifico;
+}
+
+@font-face {
+  font-family: playfairDisplay;
+  src: url(/fonts/PlayfairDisplay-Regular.ttf);
+}
+
+.font-dancing {
+  font-family: dancingScript;
+}
+
+@font-face {
+  font-family: poppins;
+  src: url(/fonts/Poppins-Regular.ttf);
+}
+
+.font-poppins {
+  font-family: poppins;
+}
+
+@font-face {
+  font-family: quicksand;
+  src: url(/fonts/Quicksand-Regular.ttf);
+}
+
+.font-quicksand {
+  font-family: quicksand;
+}
+
+@font-face {
+  font-family: raleway;
+  src: url(/fonts/Raleway-Regular.ttf);
+}
+
+.font-raleway {
+  font-family: raleway;
+}
+
+@font-face {
+  font-family: ralewayBold;
+  src: url(/fonts/Raleway-Bold.ttf);
+}
+
+.font-raleway-bold {
+  font-family: ralewayBold;
+}
+
+@font-face {
+  font-family: roboto;
+  src: url(/fonts/Roboto-Regular.ttf);
+}
+
+.font-roboto {
+  font-family: roboto;
+}
+
+@font-face {
+  font-family: robotoMono;
+  src: url(/fonts/RobotoMono-Regular.ttf);
+}
+
+.font-robotomono {
+  font-family: robotoMono;
+}
+
+@font-face {
+  font-family: rokkitt;
+  src: url(/fonts/Rokkitt-Regular.ttf);
+}
+
+.font-rokkitt {
+  font-family: rokkitt;
+}
+
+@font-face {
+  font-family: rubik;
+  src: url(/fonts/Rubik-Regular.ttf);
+}
+
+.font-rubik {
+  font-family: rubik;
+}
+
+@font-face {
+  font-family: sacramento;
+  src: url(/fonts/Sacramento-Regular.ttf);
+}
+
+.font-sacramento {
+  font-family: sacramento;
+}
+
+@font-face {
+  font-family: sourceCode;
+  src: url(/fonts/SourceCodePro-Regular.ttf);
+}
+
+.font-source {
+  font-family: sourceCode;
+}
+
+@font-face {
+  font-family: yellowtail;
+  src: url(/fonts/Yellowtail-Regular.ttf);
+}
+
+.font-dancing {
+  font-family: yellowTail;
+}
+
+.border-red {
+  border: 1px red solid;
 }
