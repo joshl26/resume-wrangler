@@ -10,35 +10,43 @@ import Classic from "../../ui/resume/classic/page";
 const colors = [
   {
     id: 1,
-    name: "black",
+    name: "White",
+    color: "bg-white",
   },
   {
     id: 2,
-    name: "black",
+    name: "Dark Grey",
+    color: "bg-slate-400",
   },
   {
     id: 3,
-    name: "black",
+    name: "Pink",
+    color: "bg-pink-300",
   },
   {
     id: 4,
-    name: "black",
+    name: "Red",
+    color: "bg-red-400",
   },
   {
     id: 5,
-    name: "black",
+    name: "Orange",
+    color: "bg-orange-300",
   },
   {
     id: 6,
-    name: "black",
+    name: "Yellow",
+    color: "bg-yellow-200",
   },
   {
     id: 7,
-    name: "black",
+    name: "Green",
+    color: "bg-emerald-400",
   },
   {
     id: 8,
-    name: "black",
+    name: "Blue",
+    color: "bg-cyan-500",
   },
 ];
 
@@ -81,8 +89,9 @@ export default function ClassicResume() {
                   Resume Title
                 </label>
                 <input
-                  className="rounded"
+                  className="rounded bg-slate-200"
                   value={resumeTitle}
+                  onChange={(e) => setResumeTitle(e.target.value)}
                   placeholder="Resume Title"
                 ></input>
               </div>
@@ -91,7 +100,7 @@ export default function ClassicResume() {
                   Resume Template
                 </label>
                 <select
-                  className="rounded bg-amber-400"
+                  className="rounded bg-amber-300"
                   value={resumeTemplate}
                   onChange={(e) => resumeTemplateAction(e)}
                   name="resume-template"
@@ -118,10 +127,11 @@ export default function ClassicResume() {
                   <div className="flex flex-row justify-around">
                     {colors.map((color) => (
                       <div
+                        style={{ cursor: "pointer" }}
                         key={color.id}
                         id={color.name}
                         onClick={(e) => setColor(e)}
-                        className="rounded-[16px] border-2 border-black h-8 w-8 bg-slate-400 "
+                        className={`rounded-[16px] border-2 border-black h-8 w-8 ${color.color} hover:-translate-y-1 duration-500`}
                       ></div>
                     ))}
                   </div>
