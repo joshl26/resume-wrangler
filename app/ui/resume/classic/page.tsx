@@ -39,8 +39,8 @@ const Classic = ({
                   style={{
                     display: "flex",
                     margin: "auto",
-                    fontSize: "0.75rem",
-                    lineHeight: "1.25",
+                    fontSize: "0.85rem",
+                    lineHeight: "1",
                     height: "100%",
                   }}
                 >
@@ -133,14 +133,50 @@ const Classic = ({
                   fontSize: "1rem",
                   lineHeight: "1.5",
                   margin: "1rem 0 0.25rem 0",
+                  fontWeight: "bold",
                 }}
               >
                 TECHNICAL SKILLS
               </h2>
               <div style={{ display: "flex" }}>
-                <h3 className={bodyFont} style={{ margin: 0 }}>
+                <h3
+                  className={bodyFont}
+                  style={{ margin: 0, fontWeight: "bold", fontSize: "0.95rem" }}
+                >
                   Frontend:{" "}
                 </h3>{" "}
+                <p
+                  className={bodyFont}
+                  style={{
+                    margin: 0,
+                    paddingLeft: "0.25rem",
+                    fontSize: "0.9rem",
+                  }}
+                >
+                  {resumeSkills.frontendSkills}
+                </p>
+              </div>
+              <div style={{ display: "flex", fontSize: "0.95rem" }}>
+                <h3
+                  className={bodyFont}
+                  style={{ margin: 0, fontWeight: "bold" }}
+                >
+                  Backend:{" "}
+                </h3>
+                <p
+                  className={bodyFont}
+                  style={{ margin: 0, paddingLeft: "0.25rem" }}
+                >
+                  {resumeSkills.backendSkills}
+                </p>
+              </div>
+              <div style={{ display: "flex", fontSize: "0.95rem" }}>
+                <h3
+                  className={bodyFont}
+                  style={{ margin: 0, fontWeight: "bold" }}
+                >
+                  Frameworks and Libraries:{" "}
+                </h3>
                 <p
                   className={bodyFont}
                   style={{ margin: 0, paddingLeft: "0.25rem" }}
@@ -148,21 +184,21 @@ const Classic = ({
                   {resumeSkills.frontendSkills}
                 </p>
               </div>
-              <div style={{ display: "flex" }}>
-                <h3 style={{ margin: 0 }}>Backend: </h3>
-                <p style={{ margin: 0, paddingLeft: "0.25rem" }}>
-                  {resumeSkills.backendSkills}
-                </p>
-              </div>
-              <div style={{ display: "flex" }}>
-                <h3 style={{ margin: 0 }}>Frameworks and Libraries: </h3>
-                <p style={{ margin: 0, paddingLeft: "0.25rem" }}>
-                  {resumeSkills.frontendSkills}
-                </p>
-              </div>
-              <div style={{ display: "flex" }}>
-                <h3 style={{ margin: 0 }}>Developer Tools:</h3>
-                <p style={{ margin: 0, paddingLeft: "0.25rem" }}>
+              <div style={{ display: "flex", fontSize: "0.95rem" }}>
+                <h3
+                  className={bodyFont}
+                  style={{ margin: 0, fontWeight: "bold" }}
+                >
+                  Developer Tools:
+                </h3>
+                <p
+                  className={bodyFont}
+                  style={{
+                    margin: 0,
+                    paddingLeft: "0.25rem",
+                    fontWeight: "lighter",
+                  }}
+                >
                   {" "}
                   {resumeSkills.frontendSkills}
                 </p>
@@ -174,6 +210,7 @@ const Classic = ({
           {resumeExperiences && (
             <div>
               <h2
+                className={bodyFont}
                 style={{
                   textTransform: "uppercase",
                   textDecoration: "underline",
@@ -181,21 +218,25 @@ const Classic = ({
                   fontSize: "1rem",
                   lineHeight: "1.5",
                   margin: "1rem 0 0.25rem 0",
+                  fontWeight: "bold",
                 }}
               >
                 Work Experience
               </h2>
               <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <h3
+                  className={bodyFont}
                   style={{
                     fontSize: "1rem",
                     lineHeight: "1.5",
                     margin: "0.25rem 0 0.25rem 0",
+                    fontWeight: "bold",
                   }}
                 >
                   {resumeExperiences[0].title}
                 </h3>
                 <h3
+                  className={bodyFont}
                   style={{
                     fontSize: "1rem",
                     lineHeight: "1.5",
@@ -207,8 +248,9 @@ const Classic = ({
               </div>
               <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <p
+                  className={bodyFont}
                   style={{
-                    fontSize: "0.8rem",
+                    fontSize: "1rem",
                     lineHeight: "1.25",
                     margin: "0.25rem 0 0.25rem 0",
                   }}
@@ -222,16 +264,35 @@ const Classic = ({
                     justifyContent: "space-between",
                   }}
                 >
-                  <a href={resumeExperiences[0].linkUrl}>LIVE DEMO</a>
-                  <a href={resumeExperiences[0].gitUrl}>GIT REPO</a>
+                  <a
+                    style={{ fontWeight: "bold", fontSize: "0.9rem" }}
+                    className={bodyFont}
+                    href={resumeExperiences[0].linkUrl}
+                  >
+                    LIVE DEMO
+                  </a>
+                  <a
+                    style={{ fontWeight: "bold", fontSize: "0.9rem" }}
+                    className={bodyFont}
+                    href={resumeExperiences[0].gitUrl}
+                  >
+                    GIT REPO
+                  </a>
                 </div>
               </div>
               <div>
-                <ul style={{ margin: "0.25rem 0 0.25rem 0" }}>
+                <ul
+                  style={{
+                    margin: "0.25rem 0 0.25rem 0",
+                    listStyle: "circle",
+                    paddingLeft: "1rem",
+                  }}
+                >
                   <li>
                     <p
+                      className={bodyFont}
                       style={{
-                        fontSize: "0.8rem",
+                        fontSize: "0.85rem",
                         lineHeight: "1.25",
                         margin: "0",
                       }}
@@ -242,8 +303,9 @@ const Classic = ({
 
                   <li>
                     <p
+                      className={bodyFont}
                       style={{
-                        fontSize: "0.8rem",
+                        fontSize: "0.85rem",
                         lineHeight: "1.25",
                         margin: "0",
                       }}
@@ -255,8 +317,9 @@ const Classic = ({
                   {resumeExperiences[0].descriptionThree && (
                     <li>
                       <p
+                        className={bodyFont}
                         style={{
-                          fontSize: "0.8rem",
+                          fontSize: "0.85rem",
                           lineHeight: "1.25",
                           margin: "0",
                         }}
@@ -268,8 +331,9 @@ const Classic = ({
                   {resumeExperiences[0].descriptionFour && (
                     <li>
                       <p
+                        className={bodyFont}
                         style={{
-                          fontSize: "0.8rem",
+                          fontSize: "0.85rem",
                           lineHeight: "1.25",
                           margin: "0",
                         }}
@@ -283,20 +347,24 @@ const Classic = ({
             </div>
           )}
         </div>
+        <div style={{ height: "0.5rem" }}></div>
         <div id="work-experience-2">
           {resumeExperiences && (
             <div>
               <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <h3
+                  className={bodyFont}
                   style={{
                     fontSize: "1rem",
                     lineHeight: "1.5",
                     margin: "0.25rem 0 0.25rem 0",
+                    fontWeight: "bold",
                   }}
                 >
                   {resumeExperiences[1].title}
                 </h3>
                 <h3
+                  className={bodyFont}
                   style={{
                     fontSize: "1rem",
                     lineHeight: "1.5",
@@ -308,8 +376,9 @@ const Classic = ({
               </div>
               <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <p
+                  className={bodyFont}
                   style={{
-                    fontSize: "0.8rem",
+                    fontSize: "1rem",
                     lineHeight: "1.25",
                     margin: "0.25rem 0 0.25rem 0",
                   }}
@@ -323,16 +392,35 @@ const Classic = ({
                     justifyContent: "space-between",
                   }}
                 >
-                  <a href={resumeExperiences[1].linkUrl}>LIVE DEMO</a>
-                  <a href={resumeExperiences[1].gitUrl}>GIT REPO</a>
+                  <a
+                    style={{ fontSize: "0.9rem", fontWeight: "bold" }}
+                    className={bodyFont}
+                    href={resumeExperiences[1].linkUrl}
+                  >
+                    LIVE DEMO
+                  </a>
+                  <a
+                    style={{ fontWeight: "bold", fontSize: "0.9rem" }}
+                    className={bodyFont}
+                    href={resumeExperiences[1].gitUrl}
+                  >
+                    GIT REPO
+                  </a>
                 </div>
               </div>
               <div>
-                <ul style={{ margin: "0.25rem 0 0.25rem 0" }}>
+                <ul
+                  style={{
+                    margin: "0.25rem 0 0.25rem 0",
+                    listStyle: "circle",
+                    paddingLeft: "1rem",
+                  }}
+                >
                   <li>
                     <p
+                      className={bodyFont}
                       style={{
-                        fontSize: "0.8rem",
+                        fontSize: "0.85rem",
                         lineHeight: "1.25",
                         margin: "0",
                       }}
@@ -343,8 +431,9 @@ const Classic = ({
 
                   <li>
                     <p
+                      className={bodyFont}
                       style={{
-                        fontSize: "0.8rem",
+                        fontSize: "0.85rem",
                         lineHeight: "1.25",
                         margin: "0",
                       }}
@@ -355,8 +444,9 @@ const Classic = ({
                   {resumeExperiences[0].descriptionThree && (
                     <li>
                       <p
+                        className={bodyFont}
                         style={{
-                          fontSize: "0.8rem",
+                          fontSize: "0.85rem",
                           lineHeight: "1.25",
                           margin: "0",
                         }}
@@ -369,8 +459,9 @@ const Classic = ({
                   {resumeExperiences[2].descriptionFour && (
                     <li>
                       <p
+                        className={bodyFont}
                         style={{
-                          fontSize: "0.8rem",
+                          fontSize: "0.85rem",
                           lineHeight: "1.25",
                           margin: "0",
                         }}
@@ -384,20 +475,25 @@ const Classic = ({
             </div>
           )}
         </div>
+        <div style={{ height: "0.5rem" }}></div>
+
         <div id="work-experience-3">
           {resumeExperiences && (
             <div>
               <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <h3
+                  className={bodyFont}
                   style={{
                     fontSize: "1rem",
                     lineHeight: "1.5",
                     margin: "0.25rem 0 0.25rem 0",
+                    fontWeight: "bold",
                   }}
                 >
                   {resumeExperiences[2].title}
                 </h3>
                 <h3
+                  className={bodyFont}
                   style={{
                     fontSize: "1rem",
                     lineHeight: "1.5",
@@ -409,8 +505,9 @@ const Classic = ({
               </div>
               <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <p
+                  className={bodyFont}
                   style={{
-                    fontSize: "0.8rem",
+                    fontSize: "1rem",
                     lineHeight: "1.25",
                     margin: "0.25rem 0 0.25rem 0",
                   }}
@@ -424,16 +521,35 @@ const Classic = ({
                     justifyContent: "space-between",
                   }}
                 >
-                  <a href={resumeExperiences[2].linkUrl}>LIVE DEMO</a>
-                  <a href={resumeExperiences[2].gitUrl}>GIT REPO</a>
+                  <a
+                    style={{ fontWeight: "bold", fontSize: "0.9rem" }}
+                    className={bodyFont}
+                    href={resumeExperiences[2].linkUrl}
+                  >
+                    LIVE DEMO
+                  </a>
+                  <a
+                    style={{ fontWeight: "bold", fontSize: "0.9rem" }}
+                    className={bodyFont}
+                    href={resumeExperiences[2].gitUrl}
+                  >
+                    GIT REPO
+                  </a>
                 </div>
               </div>
               <div>
-                <ul style={{ margin: "0.25rem 0 0.25rem 0" }}>
+                <ul
+                  style={{
+                    margin: "0.25rem 0 0.25rem 0",
+                    listStyle: "circle",
+                    paddingLeft: "1rem",
+                  }}
+                >
                   <li>
                     <p
+                      className={bodyFont}
                       style={{
-                        fontSize: "0.8rem",
+                        fontSize: "0.85rem",
                         lineHeight: "1.25",
                         margin: "0",
                       }}
@@ -444,8 +560,9 @@ const Classic = ({
 
                   <li>
                     <p
+                      className={bodyFont}
                       style={{
-                        fontSize: "0.8rem",
+                        fontSize: "0.85rem",
                         lineHeight: "1.25",
                         margin: "0",
                       }}
@@ -457,21 +574,23 @@ const Classic = ({
                   {resumeExperiences[2].descriptionThree && (
                     <li>
                       <p
+                        className={bodyFont}
                         style={{
-                          fontSize: "0.8rem",
+                          fontSize: "0.85rem",
                           lineHeight: "1.25",
                           margin: "0",
                         }}
                       >
-                        {resumeExperiences[2].decriptionThree}
+                        {resumeExperiences[2].descriptionThree}
                       </p>
                     </li>
                   )}
                   {resumeExperiences[2].descriptionFour && (
                     <li>
                       <p
+                        className={bodyFont}
                         style={{
-                          fontSize: "0.8rem",
+                          fontSize: "0.85rem",
                           lineHeight: "1.25",
                           margin: "0",
                         }}
@@ -489,6 +608,7 @@ const Classic = ({
           {resumeExperiences && (
             <div>
               <h2
+                className={bodyFont}
                 style={{
                   textTransform: "uppercase",
                   textDecoration: "underline",
@@ -496,21 +616,25 @@ const Classic = ({
                   fontSize: "1rem",
                   lineHeight: "1.5",
                   margin: "1rem 0 0.25rem 0",
+                  fontWeight: "bold",
                 }}
               >
                 Education
               </h2>
               <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <h3
+                  className={bodyFont}
                   style={{
                     fontSize: "1rem",
                     lineHeight: "1.5",
                     margin: "0.25rem 0 0.25rem 0",
+                    fontWeight: "bold",
                   }}
                 >
                   {resumeExperiences[3].title}
                 </h3>
                 <h3
+                  className={bodyFont}
                   style={{
                     fontSize: "1rem",
                     lineHeight: "1.5",
@@ -522,9 +646,10 @@ const Classic = ({
               </div>
               <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <a
+                  className={bodyFont}
                   href={resumeExperiences[3].linkUrl}
                   style={{
-                    fontSize: "0.8rem",
+                    fontSize: "1rem",
                     lineHeight: "1.25",
                     margin: "0.25rem 0 0.25rem 0",
                   }}
@@ -537,8 +662,9 @@ const Classic = ({
                   }}
                 >
                   <p
+                    className={bodyFont}
                     style={{
-                      fontSize: "0.8rem",
+                      fontSize: "0.9rem",
                       lineHeight: "1.25",
                       margin: "0",
                     }}
@@ -548,11 +674,18 @@ const Classic = ({
                 </div>
               </div>
               <div>
-                <ul style={{ margin: "0.25rem 0 0.25rem 0" }}>
+                <ul
+                  style={{
+                    margin: "0.25rem 0 0.25rem 0",
+                    listStyle: "circle",
+                    paddingLeft: "1rem",
+                  }}
+                >
                   <li>
                     <p
+                      className={bodyFont}
                       style={{
-                        fontSize: "0.8rem",
+                        fontSize: "0.85rem",
                         lineHeight: "1.25",
                         margin: "0",
                       }}
@@ -563,8 +696,9 @@ const Classic = ({
 
                   <li>
                     <p
+                      className={bodyFont}
                       style={{
-                        fontSize: "0.8rem",
+                        fontSize: "0.85rem",
                         lineHeight: "1.25",
                         margin: "0",
                       }}
@@ -576,8 +710,9 @@ const Classic = ({
                   {resumeExperiences[3].descriptionThree && (
                     <li>
                       <p
+                        className={bodyFont}
                         style={{
-                          fontSize: "0.8rem",
+                          fontSize: "0.85rem",
                           lineHeight: "1.25",
                           margin: "0",
                         }}
@@ -589,8 +724,9 @@ const Classic = ({
                   {resumeExperiences[3].descriptionFour && (
                     <li>
                       <p
+                        className={bodyFont}
                         style={{
-                          fontSize: "0.8rem",
+                          fontSize: "0.85rem",
                           lineHeight: "1.25",
                           margin: "0",
                         }}
@@ -610,6 +746,7 @@ const Classic = ({
           {resumeExperiences && (
             <div>
               <h2
+                className={bodyFont}
                 style={{
                   textTransform: "uppercase",
                   textDecoration: "underline",
@@ -617,21 +754,25 @@ const Classic = ({
                   fontSize: "1rem",
                   lineHeight: "1.5",
                   margin: "1rem 0 0.25rem 0",
+                  fontWeight: "bold",
                 }}
               >
                 Education Continued
               </h2>
               <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <h3
+                  className={bodyFont}
                   style={{
                     fontSize: "1rem",
                     lineHeight: "1.5",
                     margin: "0.25rem 0 0.25rem 0",
+                    fontWeight: "bold",
                   }}
                 >
                   {resumeExperiences[4].title}
                 </h3>
                 <h3
+                  className={bodyFont}
                   style={{
                     fontSize: "1rem",
                     lineHeight: "1.5",
@@ -643,9 +784,10 @@ const Classic = ({
               </div>
               <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <a
+                  className={bodyFont}
                   href={resumeExperiences[4].linkUrl}
                   style={{
-                    fontSize: "0.8rem",
+                    fontSize: "1rem",
                     lineHeight: "1.25",
                     margin: "0.25rem 0 0.25rem 0",
                   }}
@@ -658,8 +800,9 @@ const Classic = ({
                   }}
                 >
                   <p
+                    className={bodyFont}
                     style={{
-                      fontSize: "0.8rem",
+                      fontSize: "0.85rem",
                       lineHeight: "1.25",
                       margin: "0",
                     }}
@@ -669,11 +812,18 @@ const Classic = ({
                 </div>
               </div>
               <div>
-                <ul style={{ margin: "0.25rem 0 0.25rem 0" }}>
+                <ul
+                  style={{
+                    margin: "0.25rem 0 0.25rem 0",
+                    listStyle: "circle",
+                    paddingLeft: "1rem",
+                  }}
+                >
                   <li>
                     <p
+                      className={bodyFont}
                       style={{
-                        fontSize: "0.8rem",
+                        fontSize: "0.85rem",
                         lineHeight: "1.25",
                         margin: "0",
                       }}
@@ -684,8 +834,9 @@ const Classic = ({
 
                   <li>
                     <p
+                      className={bodyFont}
                       style={{
-                        fontSize: "0.8rem",
+                        fontSize: "0.85rem",
                         lineHeight: "1.25",
                         margin: "0",
                       }}
@@ -697,8 +848,9 @@ const Classic = ({
                   {resumeExperiences[4].descriptionThree && (
                     <li>
                       <p
+                        className={bodyFont}
                         style={{
-                          fontSize: "0.8rem",
+                          fontSize: "0.85rem",
                           lineHeight: "1.25",
                           margin: "0",
                         }}
@@ -710,8 +862,9 @@ const Classic = ({
                   {resumeExperiences[4].descriptionFour && (
                     <li>
                       <p
+                        className={bodyFont}
                         style={{
-                          fontSize: "0.8rem",
+                          fontSize: "0.85rem",
                           lineHeight: "1.25",
                           margin: "0",
                         }}
@@ -729,6 +882,7 @@ const Classic = ({
           {resumeExperiences && (
             <div>
               <h2
+                className={bodyFont}
                 style={{
                   textTransform: "uppercase",
                   textDecoration: "underline",
@@ -736,21 +890,25 @@ const Classic = ({
                   fontSize: "1rem",
                   lineHeight: "1.5",
                   margin: "1rem 0 0.25rem 0",
+                  fontWeight: "bold",
                 }}
               >
                 Technical Projects
               </h2>
               <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <h3
+                  className={bodyFont}
                   style={{
                     fontSize: "1rem",
                     lineHeight: "1.5",
                     margin: "0.25rem 0 0.25rem 0",
+                    fontWeight: "bold",
                   }}
                 >
                   {resumeExperiences[6].title}
                 </h3>
                 <h3
+                  className={bodyFont}
                   style={{
                     fontSize: "1rem",
                     lineHeight: "1.5",
@@ -762,9 +920,10 @@ const Classic = ({
               </div>
               <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <a
+                  className={bodyFont}
                   href={resumeExperiences[6].linkUrl}
                   style={{
-                    fontSize: "0.8rem",
+                    fontSize: "1rem",
                     lineHeight: "1.25",
                     margin: "0.25rem 0 0.25rem 0",
                   }}
@@ -777,8 +936,9 @@ const Classic = ({
                   }}
                 >
                   <p
+                    className={bodyFont}
                     style={{
-                      fontSize: "0.8rem",
+                      fontSize: "0.9rem",
                       lineHeight: "1.25",
                       margin: "0",
                     }}
@@ -788,11 +948,18 @@ const Classic = ({
                 </div>
               </div>
               <div>
-                <ul style={{ margin: "0.25rem 0 0.25rem 0" }}>
+                <ul
+                  style={{
+                    margin: "0.25rem 0 0.25rem 0",
+                    listStyle: "circle",
+                    paddingLeft: "1rem",
+                  }}
+                >
                   <li>
                     <p
+                      className={bodyFont}
                       style={{
-                        fontSize: "0.8rem",
+                        fontSize: "0.85rem",
                         lineHeight: "1.25",
                         margin: "0",
                       }}
@@ -803,8 +970,9 @@ const Classic = ({
 
                   <li>
                     <p
+                      className={bodyFont}
                       style={{
-                        fontSize: "0.8rem",
+                        fontSize: "0.85rem",
                         lineHeight: "1.25",
                         margin: "0",
                       }}
@@ -816,21 +984,23 @@ const Classic = ({
                   {resumeExperiences[6].descriptionThree && (
                     <li>
                       <p
+                        className={bodyFont}
                         style={{
-                          fontSize: "0.8rem",
+                          fontSize: "0.85rem",
                           lineHeight: "1.25",
                           margin: "0",
                         }}
                       >
-                        {resumeExperiences[6].decriptionThree}
+                        {resumeExperiences[6].descriptionThree}
                       </p>
                     </li>
                   )}
-                  {resumeExperiences[6].descriptionFour && (
+                  {resumeExperiences[6].descriptionFour != "" && (
                     <li>
                       <p
+                        className={bodyFont}
                         style={{
-                          fontSize: "0.8rem",
+                          fontSize: "0.85rem",
                           lineHeight: "1.25",
                           margin: "0",
                         }}
@@ -849,15 +1019,18 @@ const Classic = ({
             <div>
               <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <h3
+                  className={bodyFont}
                   style={{
                     fontSize: "1rem",
                     lineHeight: "1.5",
                     margin: "0.25rem 0 0.25rem 0",
+                    fontWeight: "bold",
                   }}
                 >
                   {resumeExperiences[7].title}
                 </h3>
                 <h3
+                  className={bodyFont}
                   style={{
                     fontSize: "1rem",
                     lineHeight: "1.5",
@@ -869,9 +1042,10 @@ const Classic = ({
               </div>
               <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <a
+                  className={bodyFont}
                   href={resumeExperiences[7].linkUrl}
                   style={{
-                    fontSize: "0.8rem",
+                    fontSize: "1rem",
                     lineHeight: "1.25",
                     margin: "0.25rem 0 0.25rem 0",
                   }}
@@ -884,8 +1058,9 @@ const Classic = ({
                   }}
                 >
                   <p
+                    className={bodyFont}
                     style={{
-                      fontSize: "0.8rem",
+                      fontSize: "0.9rem",
                       lineHeight: "1.25",
                       margin: "0",
                     }}
@@ -895,11 +1070,18 @@ const Classic = ({
                 </div>
               </div>
               <div>
-                <ul style={{ margin: "0.25rem 0 0.25rem 0" }}>
+                <ul
+                  style={{
+                    margin: "0.25rem 0 0.25rem 0",
+                    listStyle: "circle",
+                    paddingLeft: "1rem",
+                  }}
+                >
                   <li>
                     <p
+                      className={bodyFont}
                       style={{
-                        fontSize: "0.8rem",
+                        fontSize: "0.85rem",
                         lineHeight: "1.25",
                         margin: "0",
                       }}
@@ -910,8 +1092,9 @@ const Classic = ({
 
                   <li>
                     <p
+                      className={bodyFont}
                       style={{
-                        fontSize: "0.8rem",
+                        fontSize: "0.85rem",
                         lineHeight: "1.25",
                         margin: "0",
                       }}
@@ -923,21 +1106,23 @@ const Classic = ({
                   {resumeExperiences[7].descriptionThree && (
                     <li>
                       <p
+                        className={bodyFont}
                         style={{
-                          fontSize: "0.8rem",
+                          fontSize: "0.85rem",
                           lineHeight: "1.25",
                           margin: "0",
                         }}
                       >
-                        {resumeExperiences[7].decriptionThree}
+                        {resumeExperiences[7].descriptionThree}
                       </p>
                     </li>
                   )}
                   {resumeExperiences[7].descriptionFour && (
                     <li>
                       <p
+                        className={bodyFont}
                         style={{
-                          fontSize: "0.8rem",
+                          fontSize: "0.85rem",
                           lineHeight: "1.25",
                           margin: "0",
                         }}
@@ -956,15 +1141,18 @@ const Classic = ({
             <div>
               <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <h3
+                  className={bodyFont}
                   style={{
                     fontSize: "1rem",
                     lineHeight: "1.5",
                     margin: "0.25rem 0 0.25rem 0",
+                    fontWeight: "bold",
                   }}
                 >
                   {resumeExperiences[8].title}
                 </h3>
                 <h3
+                  className={bodyFont}
                   style={{
                     fontSize: "1rem",
                     lineHeight: "1.5",
@@ -976,9 +1164,10 @@ const Classic = ({
               </div>
               <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <a
+                  className={bodyFont}
                   href={resumeExperiences[8].linkUrl}
                   style={{
-                    fontSize: "0.8rem",
+                    fontSize: "1rem",
                     lineHeight: "1.25",
                     margin: "0.25rem 0 0.25rem 0",
                   }}
@@ -991,8 +1180,9 @@ const Classic = ({
                   }}
                 >
                   <p
+                    className={bodyFont}
                     style={{
-                      fontSize: "0.8rem",
+                      fontSize: "0.9rem",
                       lineHeight: "1.25",
                       margin: "0",
                     }}
@@ -1002,11 +1192,18 @@ const Classic = ({
                 </div>
               </div>
               <div>
-                <ul style={{ margin: "0.25rem 0 0.25rem 0" }}>
+                <ul
+                  style={{
+                    margin: "0.25rem 0 0.25rem 0",
+                    listStyle: "circle",
+                    paddingLeft: "1rem",
+                  }}
+                >
                   <li>
                     <p
+                      className={bodyFont}
                       style={{
-                        fontSize: "0.8rem",
+                        fontSize: "0.85rem",
                         lineHeight: "1.25",
                         margin: "0",
                       }}
@@ -1017,8 +1214,9 @@ const Classic = ({
 
                   <li>
                     <p
+                      className={bodyFont}
                       style={{
-                        fontSize: "0.8rem",
+                        fontSize: "0.85rem",
                         lineHeight: "1.25",
                         margin: "0",
                       }}
@@ -1030,8 +1228,9 @@ const Classic = ({
                   {resumeExperiences[8].descriptionThree && (
                     <li>
                       <p
+                        className={bodyFont}
                         style={{
-                          fontSize: "0.8rem",
+                          fontSize: "0.85rem",
                           lineHeight: "1.25",
                           margin: "0",
                         }}
@@ -1043,8 +1242,9 @@ const Classic = ({
                   {resumeExperiences[8].descriptionFour && (
                     <li>
                       <p
+                        className={bodyFont}
                         style={{
-                          fontSize: "0.8rem",
+                          fontSize: "0.85rem",
                           lineHeight: "1.25",
                           margin: "0",
                         }}
@@ -1062,6 +1262,7 @@ const Classic = ({
           {resumeExperiences && (
             <div>
               <h2
+                className={bodyFont}
                 style={{
                   textTransform: "uppercase",
                   textDecoration: "underline",
@@ -1069,15 +1270,17 @@ const Classic = ({
                   fontSize: "1rem",
                   lineHeight: "1.5",
                   margin: "1rem 0 0.25rem 0",
+                  fontWeight: "bold",
                 }}
               >
                 Professional Statement
               </h2>
               <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <p
+                  className={bodyFont}
                   style={{
                     fontSize: "0.9rem",
-                    lineHeight: "1.25",
+                    lineHeight: "1.5",
                     margin: "0.25rem 0 0.25rem 0",
                   }}
                 >

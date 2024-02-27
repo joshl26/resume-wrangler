@@ -1,3 +1,46 @@
+export const colors = [
+  {
+    id: 1,
+    name: "White",
+    color: "bg-white",
+  },
+  {
+    id: 2,
+    name: "Dark Grey",
+    color: "bg-slate-400",
+  },
+  {
+    id: 3,
+    name: "Pink",
+    color: "bg-pink-300",
+  },
+  {
+    id: 4,
+    name: "Red",
+    color: "bg-red-400",
+  },
+  {
+    id: 5,
+    name: "Orange",
+    color: "bg-orange-300",
+  },
+  {
+    id: 6,
+    name: "Yellow",
+    color: "bg-yellow-200",
+  },
+  {
+    id: 7,
+    name: "Green",
+    color: "bg-emerald-400",
+  },
+  {
+    id: 8,
+    name: "Blue",
+    color: "bg-cyan-500",
+  },
+];
+
 export const resumeTemplates = [
   {
     id: 1,
