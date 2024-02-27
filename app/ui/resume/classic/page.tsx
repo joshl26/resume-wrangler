@@ -39,7 +39,7 @@ const Classic = ({
                   style={{
                     display: "flex",
                     margin: "auto",
-                    fontSize: "0.9rem",
+                    fontSize: "0.85rem",
                     lineHeight: "1",
                     height: "100%",
                   }}

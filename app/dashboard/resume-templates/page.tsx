@@ -11,6 +11,7 @@ export default function ClassicResume() {
   const [headingFont, setHeadingFont] = useState("font-quicksand");
   const [bodyFont, setBodyFont] = useState("font-quicksand");
   const [resumeTemplate, setResumeTemplate] = useState("classic");
+  const [resumeTitle, setResumeTitle] = useState("");
 
   const bodyFontAction = (e: any) => {
     setBodyFont(e.target.value);
@@ -34,34 +35,72 @@ export default function ClassicResume() {
             </div>
 
             <div className="border-[1px] border-slate-300 rounded px-5 py-2 ">
-              <div className="flex flex-col">
+              <div className="flex flex-col py-1">
                 <label className="py-1" htmlFor="header-font">
-                  Heading Font:
+                  Resume title:
+                </label>
+                <input
+                  className="rounded"
+                  value={resumeTitle}
+                  placeholder="Resume Title"
+                ></input>
+              </div>
+              <div className="flex flex-col py-1">
+                <label className="py-1" htmlFor="resume-template">
+                  Resume Template
                 </label>
                 <select
-                  value={headingFont}
-                  onChange={(e) => headerFontAction(e)}
-                  name="header-font"
-                  id="header-font"
+                  className="rounded bg-amber-400"
+                  value={resumeTemplate}
+                  onChange={(e) => resumeTemplateAction(e)}
+                  name="resume-template"
+                  id="resume-template"
                 >
-                  {headerFonts.map((font) => {
+                  {resumeTemplates.map((resume) => {
                     return (
                       <option
-                        className={font.name}
-                        key={font.id}
-                        value={font.name}
+                        className={resume.name}
+                        key={resume.id}
+                        value={resume.name}
                       >
-                        {font.description}
+                        {resume.description}
                       </option>
                     );
                   })}
                 </select>
               </div>
               <div className="flex flex-col">
+                <div className="py-1 flex flex-col">
+                  <label className="py-1" htmlFor="header-font">
+                    Heading Font:
+                  </label>
+                  <select
+                    className={`${headingFont} rounded`}
+                    value={headingFont}
+                    onChange={(e) => headerFontAction(e)}
+                    name="header-font"
+                    id="header-font"
+                  >
+                    {headerFonts.map((font) => {
+                      return (
+                        <option
+                          className={font.name}
+                          key={font.id}
+                          value={font.name}
+                        >
+                          {font.description}
+                        </option>
+                      );
+                    })}
+                  </select>
+                </div>
+              </div>
+              <div className="flex flex-col py-1">
                 <label className="py-1" htmlFor="header-font">
                   Body Font:
                 </label>
                 <select
+                  className={`${bodyFont} rounded`}
                   value={bodyFont}
                   onChange={(e) => bodyFontAction(e)}
                   name="header-font"
@@ -80,29 +119,7 @@ export default function ClassicResume() {
                   })}
                 </select>
               </div>
-              <div className="flex flex-col py-2">
-                <label className="py-1" htmlFor="resume-templates">
-                  Resume Template:
-                </label>
-                <select
-                  value={resumeTemplate}
-                  onChange={(e) => resumeTemplateAction(e)}
-                  name="resume-templates"
-                  id="resume-templates"
-                >
-                  {resumeTemplates.map((resume) => {
-                    return (
-                      <option
-                        className={resume.name}
-                        key={resume.id}
-                        value={resume.name}
-                      >
-                        {resume.description}
-                      </option>
-                    );
-                  })}
-                </select>
-              </div>
+
               <div style={{ height: "0.5rem" }}></div>
             </div>
           </div>
