@@ -138,10 +138,10 @@ const Classic = ({
               >
                 TECHNICAL SKILLS
               </h2>
-              <div style={{ display: "flex", fontSize: "0.95rem" }}>
+              <div style={{ display: "flex" }}>
                 <h3
                   className={bodyFont}
-                  style={{ margin: 0, fontWeight: "bold" }}
+                  style={{ margin: 0, fontWeight: "bold", fontSize: "0.95rem" }}
                 >
                   Frontend:{" "}
                 </h3>{" "}
@@ -150,6 +150,7 @@ const Classic = ({
                   style={{
                     margin: 0,
                     paddingLeft: "0.25rem",
+                    fontSize: "0.9rem",
                   }}
                 >
                   {resumeSkills.frontendSkills}

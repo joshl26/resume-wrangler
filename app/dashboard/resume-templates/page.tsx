@@ -26,84 +26,93 @@ export default function ClassicResume() {
 
   return (
     <main className="flex w-full">
-      <div className="flex flex-row w-full overflow-auto">
-        <div className="flex flex-col h-full overflow-scroll px-6 fixed">
-          <a
-            href={`/api/pdf?bodyFont=${bodyFont}&headerFont=${headingFont}`}
-            download="generated_pdf.pdf"
-            className="downloadBtn"
-          >
-            Download PDF
-          </a>
-          <div>
-            <div className="flex flex-col">
-              <label htmlFor="header-font">Choose a Heading Font:</label>
-              <select
-                value={headingFont}
-                onChange={(e) => headerFontAction(e)}
-                name="header-font"
-                id="header-font"
-              >
-                {headerFonts.map((font) => {
-                  return (
-                    <option
-                      className={font.name}
-                      key={font.id}
-                      value={font.name}
-                    >
-                      {font.description}
-                    </option>
-                  );
-                })}
-              </select>
+      <div className="flex flex-row h-full w-full">
+        <div className="flex flex-col h-full overflow-scroll px-6 w-1/2 ">
+          <div className="">
+            <div className="py-2 font-bold text-xl">
+              <h2>Resume Styling</h2>
             </div>
-            <div className="flex flex-col">
-              <label htmlFor="header-font">Choose a Body Font:</label>
-              <select
-                value={bodyFont}
-                onChange={(e) => bodyFontAction(e)}
-                name="header-font"
-                id="header-font"
-              >
-                {bodyFonts.map((font) => {
-                  return (
-                    <option
-                      className={font.name}
-                      key={font.id}
-                      value={font.name}
-                    >
-                      {font.description}
-                    </option>
-                  );
-                })}
-              </select>
-            </div>
-            <div className="flex flex-col">
-              <label htmlFor="resume-templates">
-                Choose a Resume Template:
-              </label>
-              <select
-                value={resumeTemplate}
-                onChange={(e) => resumeTemplateAction(e)}
-                name="resume-templates"
-                id="resume-templates"
-              >
-                {resumeTemplates.map((resume) => {
-                  return (
-                    <option
-                      className={resume.name}
-                      key={resume.id}
-                      value={resume.name}
-                    >
-                      {resume.description}
-                    </option>
-                  );
-                })}
-              </select>
+
+            <div className="border-[1px] border-slate-300 rounded px-3 ">
+              <div className="flex flex-col py-2">
+                <label htmlFor="header-font">Choose a Heading Font:</label>
+                <select
+                  value={headingFont}
+                  onChange={(e) => headerFontAction(e)}
+                  name="header-font"
+                  id="header-font"
+                >
+                  {headerFonts.map((font) => {
+                    return (
+                      <option
+                        className={font.name}
+                        key={font.id}
+                        value={font.name}
+                      >
+                        {font.description}
+                      </option>
+                    );
+                  })}
+                </select>
+              </div>
+              <div className="flex flex-col">
+                <label htmlFor="header-font">Choose a Body Font:</label>
+                <select
+                  value={bodyFont}
+                  onChange={(e) => bodyFontAction(e)}
+                  name="header-font"
+                  id="header-font"
+                >
+                  {bodyFonts.map((font) => {
+                    return (
+                      <option
+                        className={font.name}
+                        key={font.id}
+                        value={font.name}
+                      >
+                        {font.description}
+                      </option>
+                    );
+                  })}
+                </select>
+              </div>
+              <div className="flex flex-col py-2">
+                <label htmlFor="resume-templates">
+                  Choose a Resume Template:
+                </label>
+                <select
+                  value={resumeTemplate}
+                  onChange={(e) => resumeTemplateAction(e)}
+                  name="resume-templates"
+                  id="resume-templates"
+                >
+                  {resumeTemplates.map((resume) => {
+                    return (
+                      <option
+                        className={resume.name}
+                        key={resume.id}
+                        value={resume.name}
+                      >
+                        {resume.description}
+                      </option>
+                    );
+                  })}
+                </select>
+              </div>
+              <div style={{ height: "0.5rem" }}></div>
             </div>
           </div>
+          <div className="p-2">
+            <a
+              href={`/api/pdf?bodyFont=${bodyFont}&headerFont=${headingFont}`}
+              download="generated_pdf.pdf"
+              className="downloadBtn"
+            >
+              Download PDF
+            </a>
+          </div>
         </div>
-        <div className="flex flex-col m-auto">
+        <div className="flex flex-col h-full w-full m-auto overflow-scroll right-0">
           {resumeTemplate === "classic" && (
             <Suspense>
               <Classic
