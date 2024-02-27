@@ -33,9 +33,11 @@ export default function ClassicResume() {
               <h2>Resume Styling</h2>
             </div>
 
-            <div className="border-[1px] border-slate-300 rounded px-3 ">
-              <div className="flex flex-col py-2">
-                <label htmlFor="header-font">Choose a Heading Font:</label>
+            <div className="border-[1px] border-slate-300 rounded px-5 py-2 ">
+              <div className="flex flex-col">
+                <label className="py-1" htmlFor="header-font">
+                  Heading Font:
+                </label>
                 <select
                   value={headingFont}
                   onChange={(e) => headerFontAction(e)}
@@ -56,7 +58,9 @@ export default function ClassicResume() {
                 </select>
               </div>
               <div className="flex flex-col">
-                <label htmlFor="header-font">Choose a Body Font:</label>
+                <label className="py-1" htmlFor="header-font">
+                  Body Font:
+                </label>
                 <select
                   value={bodyFont}
                   onChange={(e) => bodyFontAction(e)}
@@ -77,8 +81,8 @@ export default function ClassicResume() {
                 </select>
               </div>
               <div className="flex flex-col py-2">
-                <label htmlFor="resume-templates">
-                  Choose a Resume Template:
+                <label className="py-1" htmlFor="resume-templates">
+                  Resume Template:
                 </label>
                 <select
                   value={resumeTemplate}
@@ -102,7 +106,7 @@ export default function ClassicResume() {
               <div style={{ height: "0.5rem" }}></div>
             </div>
           </div>
-          <div className="p-2">
+          <div className="p-2 text-center">
             <a
               href={`/api/pdf?bodyFont=${bodyFont}&headerFont=${headingFont}`}
               download="generated_pdf.pdf"
