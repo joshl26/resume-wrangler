@@ -7,22 +7,64 @@ import { user } from "../../data/user-details";
 import Classic from "../../ui/resume/classic/page";
 // import Cubic from "./components/templates/resume/cubic/page";
 
+const colors = [
+  {
+    id: 1,
+    name: "black",
+  },
+  {
+    id: 2,
+    name: "black",
+  },
+  {
+    id: 3,
+    name: "black",
+  },
+  {
+    id: 4,
+    name: "black",
+  },
+  {
+    id: 5,
+    name: "black",
+  },
+  {
+    id: 6,
+    name: "black",
+  },
+  {
+    id: 7,
+    name: "black",
+  },
+  {
+    id: 8,
+    name: "black",
+  },
+];
+
 export default function ClassicResume() {
   const [headingFont, setHeadingFont] = useState("font-quicksand");
   const [bodyFont, setBodyFont] = useState("font-quicksand");
   const [resumeTemplate, setResumeTemplate] = useState("classic");
   const [resumeTitle, setResumeTitle] = useState("");
+  const [resumeColor, setResumeColor] = useState("white");
 
-  const bodyFontAction = (e: any) => {
+  const bodyFontAction = (e: { target: HTMLSelectElement }) => {
     setBodyFont(e.target.value);
   };
 
-  const headerFontAction = (e: any) => {
+  const headerFontAction = (e: { target: HTMLSelectElement }) => {
     setHeadingFont(e.target.value);
   };
 
-  const resumeTemplateAction = (e: any) => {
+  const resumeTemplateAction = (e: { target: HTMLSelectElement }) => {
     setResumeTemplate(e.target.value);
+  };
+
+  const setColor = (e: React.MouseEvent<HTMLDivElement>) => {
+    const target = e.currentTarget.id;
+    console.log(target);
+    setResumeColor(target);
   };
 
   return (
@@ -33,11 +75,10 @@ export default function ClassicResume() {
             <div className="py-2 font-bold text-xl">
               <h2>Resume Styling</h2>
             </div>
-
             <div className="border-[1px] border-slate-300 rounded px-5 py-2 ">
               <div className="flex flex-col py-1">
                 <label className="py-1" htmlFor="header-font">
-                  Resume title:
+                  Resume Title
                 </label>
                 <input
                   className="rounded"
@@ -72,7 +113,25 @@ export default function ClassicResume() {
               <div className="flex flex-col">
                 <div className="py-1 flex flex-col">
                   <label className="py-1" htmlFor="header-font">
-                    Heading Font:
+                    Colors
+                  </label>
+                  <div className="flex flex-row justify-around">
+                    {colors.map((color) => (
+                      <div
+                        key={color.id}
+                        id={color.name}
+                        onClick={(e) => setColor(e)}
+                        className="rounded-[16px] border-2 border-black h-8 w-8 bg-slate-400 "
+                      ></div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex flex-col">
+                <div className="py-1 flex flex-col">
+                  <label className="py-1" htmlFor="header-font">
+                    Heading Font
                   </label>
                   <select
                     className={`${headingFont} rounded`}
@@ -97,7 +156,7 @@ export default function ClassicResume() {
               </div>
               <div className="flex flex-col py-1">
                 <label className="py-1" htmlFor="header-font">
-                  Body Font:
+                  Body Font
                 </label>
                 <select
                   className={`${bodyFont} rounded`}
