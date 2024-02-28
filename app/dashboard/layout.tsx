@@ -18,8 +18,8 @@ export default async function Layout({
 
   return (
     <SessionProvider session={session}>
-      <div className="flex h-screen flex-col md:flex-row md:overflow-hidden">
-        <div className="w-full flex-none md:w-64">
+      <div className="flex flex-col md:flex-row md:overflow-hidden h-screen w-screen">
+        <div className="flex-none md:w-64">
           <SideNav />
         </div>
         <div className="pt-4 pb-4 w-full flex">{children}</div>
