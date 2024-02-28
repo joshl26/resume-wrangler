@@ -76,6 +76,10 @@ export default function ClassicResume() {
     }));
   };
 
+  const deleteSkill = (e: any) => {
+    console.log(e);
+  };
+
   const ResumeStyling = () => {
     return (
       <div className="resume-styling">
@@ -225,6 +229,7 @@ export default function ClassicResume() {
                   First Name
                 </label>
                 <input
+                  id="first-name"
                   className="rounded bg-slate-200"
                   value={resumeStyling.resumeTitle}
                   onChange={(e) => resumeTitleAction(e)}
@@ -236,6 +241,7 @@ export default function ClassicResume() {
                   Last Name
                 </label>
                 <input
+                  id="last-name"
                   className="rounded bg-slate-200"
                   value={resumeStyling.resumeTitle}
                   onChange={(e) => resumeTitleAction(e)}
@@ -249,6 +255,7 @@ export default function ClassicResume() {
                   Address One
                 </label>
                 <input
+                  id="address-one"
                   className="rounded bg-slate-200"
                   value={resumeStyling.resumeTitle}
                   onChange={(e) => resumeTitleAction(e)}
@@ -262,6 +269,7 @@ export default function ClassicResume() {
                   Address Two
                 </label>
                 <input
+                  id="address-two"
                   className="rounded bg-slate-200"
                   value={resumeStyling.resumeTitle}
                   onChange={(e) => resumeTitleAction(e)}
@@ -275,6 +283,7 @@ export default function ClassicResume() {
                   Address Three
                 </label>
                 <input
+                  id="address-three"
                   className="rounded bg-slate-200"
                   value={resumeStyling.resumeTitle}
                   onChange={(e) => resumeTitleAction(e)}
@@ -288,6 +297,7 @@ export default function ClassicResume() {
                   Country
                 </label>
                 <input
+                  id="country"
                   className="rounded bg-slate-200"
                   value={resumeStyling.resumeTitle}
                   onChange={(e) => resumeTitleAction(e)}
@@ -301,6 +311,7 @@ export default function ClassicResume() {
                   Phone
                 </label>
                 <input
+                  id="phone"
                   className="rounded bg-slate-200"
                   value={resumeStyling.resumeTitle}
                   onChange={(e) => resumeTitleAction(e)}
@@ -314,6 +325,7 @@ export default function ClassicResume() {
                   Email
                 </label>
                 <input
+                  id="email"
                   className="rounded bg-slate-200"
                   value={resumeStyling.resumeTitle}
                   onChange={(e) => resumeTitleAction(e)}
@@ -327,6 +339,7 @@ export default function ClassicResume() {
                   Website
                 </label>
                 <input
+                  id="website"
                   className="rounded bg-slate-200"
                   value={resumeStyling.resumeTitle}
                   onChange={(e) => resumeTitleAction(e)}
@@ -349,6 +362,7 @@ export default function ClassicResume() {
                   LinkedIn
                 </label>
                 <input
+                  id="linked-in"
                   className="rounded bg-slate-200"
                   value={resumeStyling.resumeTitle}
                   onChange={(e) => resumeTitleAction(e)}
@@ -360,6 +374,7 @@ export default function ClassicResume() {
                   Facebook
                 </label>
                 <input
+                  id="facebook"
                   className="rounded bg-slate-200"
                   value={resumeStyling.resumeTitle}
                   onChange={(e) => resumeTitleAction(e)}
@@ -369,10 +384,11 @@ export default function ClassicResume() {
             </div>
             <div className="flex flex-row justify-between w-auto">
               <div className="flex flex-col w-1/2 py-1 px-1">
-                <label className="py-1" htmlFor="linked-in">
+                <label className="py-1" htmlFor="instagram">
                   Instagram
                 </label>
                 <input
+                  id="instagram"
                   className="rounded bg-slate-200"
                   value={resumeStyling.resumeTitle}
                   onChange={(e) => resumeTitleAction(e)}
@@ -380,10 +396,11 @@ export default function ClassicResume() {
                 ></input>
               </div>
               <div className="flex flex-col w-1/2 py-1">
-                <label className="py-1" htmlFor="facebook">
+                <label className="py-1" htmlFor="twitter">
                   Twitter
                 </label>
                 <input
+                  id="twitter"
                   className="rounded bg-slate-200"
                   value={resumeStyling.resumeTitle}
                   onChange={(e) => resumeTitleAction(e)}
@@ -393,10 +410,11 @@ export default function ClassicResume() {
             </div>
             <div className="flex flex-row justify-between w-auto">
               <div className="flex flex-col w-full py-1 px-1">
-                <label className="py-1" htmlFor="linked-in">
+                <label className="py-1" htmlFor="github">
                   Github
                 </label>
                 <input
+                  id="github"
                   className="rounded bg-slate-200"
                   value={resumeStyling.resumeTitle}
                   onChange={(e) => resumeTitleAction(e)}
@@ -404,23 +422,123 @@ export default function ClassicResume() {
                 ></input>
               </div>
             </div>
-            <div className="flex flex-col py-1">
-              <label className="py-1" htmlFor="social-icons">
-                Show Social Icons?
-              </label>
-              <input
-                id="social-icons"
-                type="checkbox"
-                className="rounded bg-slate-200"
-                value={resumeStyling.resumeTitle}
-                onChange={(e) => resumeTitleAction(e)}
-                placeholder="show-social"
-              ></input>
-            </div>
+            <div className="flex flex-row py-1">
+              <div className="flex flex-col px-1 py-2">
+                <input
+                  id="social-icons"
+                  type="checkbox"
+                  className="rounded bg-slate-200"
+                  value={resumeStyling.resumeTitle}
+                  onChange={(e) => resumeTitleAction(e)}
+                ></input>
+              </div>
 
+              <div className="flex flex-col">
+                <label className="py-1 px-1" htmlFor="social-icons">
+                  Show Social Icons?
+                </label>
+              </div>
+            </div>
             <div style={{ height: "0.5rem" }}></div>
           </div>
         </div>
+      </div>
+    );
+  };
+
+  const YourSkills = () => {
+    return (
+      <div>
+        <div className="your-skills">
+          <div className="flex flex-row justify-between">
+            <div className="flex flex-col">
+              <div className="py-2 font-bold text-xl">
+                <h2>Your Skills</h2>
+              </div>
+            </div>
+            <div className="flex flex-col ">
+              <div className="flex flex-row m-auto">
+                <div className="flex flex-col px-4">Move Up</div>
+                <div className="flex flex-col">Move Down</div>
+              </div>
+            </div>
+          </div>
+
+          <div className="drop-shadow-md border-[1px] border-slate-300 rounded px-5 py-2 ">
+            <div className="flex flex-row w-auto">
+              <div className="flex flex-col w-full py-1 px-1">
+                <label className="py-1" htmlFor="section-title">
+                  Section Title
+                </label>
+                <input
+                  id="section-title"
+                  className="rounded bg-slate-200"
+                  value={resumeStyling.resumeTitle}
+                  onChange={(e) => resumeTitleAction(e)}
+                  placeholder="Section Title"
+                ></input>
+              </div>
+            </div>
+            <div className="flex flex-col w-full py-2 px-1">
+              <label className="py-1" htmlFor="resume-template" hidden>
+                Profile Image
+              </label>
+              <button
+                className="rounded bg-amber-300 h-10 border border-black"
+                value={resumeStyling.resumeTemplate}
+                // onChange={(e) => resumeTemplateAction(e)}
+                name="resume-template"
+                id="resume-template"
+              >
+                Add Skill
+              </button>
+            </div>
+            <div className="flex flex-col">
+              <div className="flex flex-col py-1 px-1">
+                <label className="py-1" htmlFor="skills">
+                  Skills
+                </label>
+                <div className="flex flex-row justify-between">
+                  <div className="flex flex-col w-3/4">
+                    <div className="flex flex-row w-full">
+                      <input
+                        id="skills"
+                        value={"TEST"}
+                        className="rounded bg-slate-200 w-full"
+                      ></input>
+                    </div>
+                    <div className="flex flex-row py-3">
+                      <input className="w-full" type="range"></input>
+                    </div>
+                  </div>
+                  <div className="flex flex-col w-auto align-middle">
+                    <p onClick={(e) => deleteSkill(e)}>Delete</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="flex flex-col">
+              <div className="flex flex-row">
+                <div className="px-1 flex align-middle">
+                  <input className="m-auto" type="checkbox"></input>
+                </div>
+                <div className="flex flex-col">
+                  <p>Show skills section?</p>
+                </div>
+              </div>
+              <div className="flex flex-row py-2">
+                <div className="px-1 flex align-middle">
+                  <input className="m-auto" type="checkbox"></input>
+                </div>
+                <div className="flex flex-col">
+                  <p>Show skills progress bars?</p>
+                </div>
+              </div>
+            </div>
+            <div style={{ height: "0.5rem" }}></div>
+          </div>
+        </div>
+        <div className="py-2"></div>
       </div>
     );
   };
@@ -432,6 +550,8 @@ export default function ClassicResume() {
           <ResumeStyling />
           <div className="py-2"></div>
           <YourProfile />
+          <div className="py-2"></div>
+          <YourSkills />
           <div className="p-2 text-center">
             <a
               href={`/api/pdf?bodyFont=${resumeStyling.bodyFont}&headerFont=${resumeStyling.headingFont}`}
