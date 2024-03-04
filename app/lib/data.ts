@@ -269,3 +269,18 @@ export async function getUser(email: string) {
     throw new Error("Failed to fetch user.");
   }
 }
+
+export async function getResumeTemplates() {
+  // Add noStore() here prevent the response from being cached.
+  // This is equivalent to in fetch(..., {cache: 'no-store'}).
+  noStore();
+
+  try {
+    const query = "SELECT * FROM resume_templates ORDER BY name ASC";
+    const latestResumeTemplates = await conn.query(query);
+    return latestResumeTemplates.rows;
+  } catch (error: any) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to fetch the latest applications.");
+  }
+}
