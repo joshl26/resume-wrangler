@@ -4,8 +4,8 @@ import React from "react";
 const Page = () => {
   return (
     <div className="h-full w-full">
+      <h1 className="">Applications</h1>
       <Applications />
-      
     </div>
   );
 };

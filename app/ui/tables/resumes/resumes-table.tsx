@@ -1,6 +1,6 @@
 import React from "react";
 
-const Applications = () => {
+const ResumesLetters = () => {
   return (
     <div className="relative overflow-x-auto overflow-y-auto shadow-md sm:rounded-lg px-4 pt-4">
       <table className="w-full text-sm text-left rtl:text-right text-gray-200 dark:text-gray-200">
@@ -525,4 +525,4 @@ const Applications = () => {
   );
 };
 
-export default Applications;
+export default ResumesLetters;
