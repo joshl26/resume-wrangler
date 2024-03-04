@@ -22,24 +22,30 @@ const links = [
   // },
   // { name: "Customers", href: "/dashboard/customers", icon: UserGroupIcon },
   {
+    name: "Applications",
+    href: "/dashboard/applications",
+    icon: ListBulletIcon,
+  },
+
+  {
+    name: "Cover Letter Templates",
+    href: "/dashboard/cover-templates",
+    icon: DocumentDuplicateIcon,
+  },
+  {
+    name: "Resume Templates",
+    href: "/dashboard/resume-templates",
+    icon: DocumentDuplicateIcon,
+  },
+  {
     name: "User Profile",
     href: "/dashboard/user-profile",
     icon: AdjustmentsVerticalIcon,
   },
   {
-    name: "Cover Letter Templates",
-    href: "/dashboard/cover-templates",
-    icon: ListBulletIcon,
-  },
-  {
-    name: "Resume Templates",
-    href: "/dashboard/resume-templates",
-    icon: ListBulletIcon,
-  },
-  {
-    name: "Applications",
-    href: "/dashboard/applications",
-    icon: ListBulletIcon,
+    name: "Upgrade to PRO",
+    href: "/",
+    icon: UserGroupIcon,
   },
 ];
 

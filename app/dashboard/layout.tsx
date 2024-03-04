@@ -20,7 +20,7 @@ export default async function Layout({
     <SessionProvider session={session}>
       <div className="flex flex-col md:flex-row md:overflow-hidden h-screen w-screen">
         <div className="flex-none md:w-64">
-          <SideNav />
+          <SideNav session={session} />
         </div>
         <div className="pt-4 pb-4 w-full flex">{children}</div>
       </div>
