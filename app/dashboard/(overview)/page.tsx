@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import { CardsSkeleton } from "@/app/ui/skeletons";
 import { Button } from "@/app/ui/button";
 import Applications from "@/app/ui/tables/applications/applications-table";
+import CoverLetters from "@/app/ui/tables/cover-letters/covers-table";
 
 export default async function Page() {
   return (
@@ -18,16 +19,16 @@ export default async function Page() {
             </p>
           </div>
           <div className="flex flex-row gap-6 mt-6 ml-4 mr-4 border-red h-10 bg-slate-200">
-            <Button>Applications</Button>
-            <Button>Résumés</Button>
-            <Button>Cover Letters</Button>
-
-            {/* <div className="flex flex-column bg-slate-500 h-auto w-1/4 my-1 mr-1 rounded"></div>
-            <div className="flex flex-column bg-slate-500 h-auto w-1/4 my-1 mr-1 rounded"></div>
-            <div className="flex flex-column bg-slate-500 h-auto w-1/4 my-1 mr-1 rounded"></div>
-            <div className="flex flex-column bg-slate-500 h-auto w-1/4 my-1  rounded"></div> */}
+            <Button>Your Applications</Button>
+            <Button>Cover Letter Templates</Button>
+            <Button>Your Cover Letters</Button>
+            <Button>Résumé Templates</Button>
+            <Button>Your Résumés</Button>
+            <Button>User Profile</Button>
+            <Button>Upgrade to PRO</Button>
           </div>
           <Applications />
+          <CoverLetters />
         </div>
       </Suspense>
     </main>
