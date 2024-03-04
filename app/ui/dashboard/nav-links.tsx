@@ -33,8 +33,19 @@ const links = [
     icon: DocumentDuplicateIcon,
   },
   {
+    name: "Cover Letter Styling",
+    href: "/dashboard/cover-styling",
+    icon: DocumentDuplicateIcon,
+  },
+
+  {
     name: "Resume Templates",
     href: "/dashboard/resume-templates",
+    icon: DocumentDuplicateIcon,
+  },
+  {
+    name: "Resume Styling",
+    href: "/dashboard/resume-styling",
     icon: DocumentDuplicateIcon,
   },
   {
