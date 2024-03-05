@@ -5,7 +5,7 @@ import ResumeTemplates from "@/app/ui/resume-templates/resume-templates";
 export default async function Page() {
   const resumeTemplates = await getResumeTemplates();
 
-  console.log(resumeTemplates);
+  // console.log(resumeTemplates);
   return (
     <div className="w-full h-full pl-3 pr-4">
       <h1 className="">Start with a Résumé Template</h1>
