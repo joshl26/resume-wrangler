@@ -1,10 +1,10 @@
 import styles from "./Page.module.css";
 
 type Props = {
-  children: React.ReactNode;
+  children: any | never;
 };
 
-const Page = ({ children }: Props) => (
+const Page = ({ children }: any) => (
   <div className={styles.page}>{children}</div>
 );
 

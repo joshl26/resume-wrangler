@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import Classic from "../ui/resume/classic/page";
+import Classic from "../ui/resume/classic/classic-resume";
 import { user } from "../data/user-details";
 import { useSearchParams } from "next/navigation";
 

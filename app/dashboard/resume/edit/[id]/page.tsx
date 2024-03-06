@@ -7,9 +7,9 @@ import {
   bodyFonts,
   headerFonts,
   colors,
-} from "../../data/data";
+} from "@/app/data/data";
 import { user } from "@/app/data/user-details";
-import Classic from "@/app/ui/resume/classic/page";
+import Classic from "@/app/ui/resume/classic/classic-resume";
 // import Cubic from "./components/templates/resume/cubic/page";
 
 export default function ClassicResume() {

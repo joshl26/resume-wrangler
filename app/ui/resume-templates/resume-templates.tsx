@@ -15,7 +15,7 @@ const ResumeTemplates = ({ resumeTemplates }: { resumeTemplates: any }) => {
               src={template.thumbnail_url}
             />
             <h1>{template.name}</h1>
-            <a href={`/dashboard/resume-templates/${template.id}`}>Preview</a>
+            <a href={`/dashboard/resume/${template.id}`}>Preview</a>
           </div>
         ))}
       </div>
