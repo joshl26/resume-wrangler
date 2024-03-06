@@ -10,6 +10,7 @@ import {
 } from "@/app/data/data";
 import { user } from "@/app/data/user-details";
 import Classic from "@/app/ui/resume/classic/classic-resume";
+import PreviewButton from "@/app/ui/preview-button";
 // import Cubic from "./components/templates/resume/cubic/page";
 
 export default function ClassicResume() {
@@ -1094,6 +1095,7 @@ export default function ClassicResume() {
           )}
         </div>
       </div>
+      <PreviewButton />
     </main>
   );
 }

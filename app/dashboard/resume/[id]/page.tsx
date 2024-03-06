@@ -1,4 +1,5 @@
 import { fetchResumeTemplateById } from "@/app/lib/data";
+import EditButton from "@/app/ui/edit-button";
 import Image from "next/image";
 import React from "react";
 
@@ -15,6 +16,7 @@ export default async function Page({ params }: { params: { id: string } }) {
         width={1500}
         src={resumeTemplate[0].thumbnail_url}
       />
+      <EditButton />
     </div>
   );
 }
