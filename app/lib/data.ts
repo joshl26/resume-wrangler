@@ -284,3 +284,19 @@ export async function getResumeTemplates() {
     throw new Error("Failed to fetch the latest applications.");
   }
 }
+
+export async function fetchResumeTemplateById(id: string) {
+  noStore();
+
+  // console.log(id);
+
+  try {
+    const query = `SELECT * FROM resume_templates WHERE resume_templates.id = '${id}'`;
+    // console.log(query);
+    const resumeTemplate = await conn.query(query);
+    return resumeTemplate.rows;
+  } catch (error: any) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to fetch resume template by id.");
+  }
+}

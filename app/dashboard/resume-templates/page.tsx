@@ -1,9 +1,12 @@
 import React from "react";
-import { getResumeTemplates } from "@/app/lib/data";
 import ResumeTemplates from "@/app/ui/resume-templates/resume-templates";
+import { getProducts } from "@/app/api/resumeTemplates";
+import { getResumeTemplates } from "@/app/lib/data";
 
 export default async function Page() {
   const resumeTemplates = await getResumeTemplates();
+
+  // const resumeTemplates = await getProducts();
 
   // console.log(resumeTemplates);
   return (

@@ -1,8 +1,20 @@
+import { fetchResumeTemplateById } from "@/app/lib/data";
+import Image from "next/image";
 import React from "react";
 
-const page = ({ params }: { params: { id: string } }) => {
+export default async function Page({ params }: { params: { id: string } }) {
   const id = params.id;
-  return <div>{id}</div>;
-};
+  const resumeTemplate = await fetchResumeTemplateById(id);
 
-export default page;
+  return (
+    <div className="w-full h-full overflow-y-auto">
+      <Image
+        className="w-3/4 m-auto"
+        alt=""
+        height={100}
+        width={1500}
+        src={resumeTemplate[0].thumbnail_url}
+      />
+    </div>
+  );
+}

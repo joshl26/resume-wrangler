@@ -16,8 +16,6 @@ export default async function Layout({
     };
   }
 
-
-
   return (
     <SessionProvider session={session}>
       <div className="flex flex-col md:flex-row md:overflow-hidden h-screen w-screen">
