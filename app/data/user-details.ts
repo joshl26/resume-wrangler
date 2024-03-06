@@ -19,7 +19,7 @@ export type User = {
   country: string;
 };
 
-export const user: User = {
+export const user = {
   id: "1",
   name: "Josh",
   email: "joshl26@hotmail.com",

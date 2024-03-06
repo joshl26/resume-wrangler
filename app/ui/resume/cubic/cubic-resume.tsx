@@ -1,22 +1,20 @@
+import { User } from "@/app/lib/definitions";
 import Page from "../page";
-import { User } from "../../../data/user-details";
 import { resumeSkills } from "../../../data/resume-skills";
 import { resumeExperiences } from "../../../data/resume-experiences";
 
-const Classic = ({
-  user,
-  headingFont,
-  bodyFont,
-}: {
+interface Props {
   user: User;
   bodyFont: string;
   headingFont: string;
-}) => {
+}
+
+const Cubic = (props: Props) => {
   return (
     <>
       <Page>
         <div id="user_details">
-          {user && (
+          {props.user && (
             <div>
               <h1
                 style={{
@@ -26,9 +24,9 @@ const Classic = ({
                   lineHeight: "1.3",
                   fontWeight: "bold",
                 }}
-                className={headingFont}
+                className={props.headingFont}
               >
-                {user.first_name} {user.last_name}
+                {props.user.first_name} {props.user.last_name}
               </h1>
               <div
                 style={{
@@ -48,15 +46,15 @@ const Classic = ({
                     style={{
                       margin: "0.25rem",
                     }}
-                    className={bodyFont}
+                    className={props.bodyFont}
                   >
-                    {user.address_three}
+                    {props.user.address_three}
                   </p>
                   <p
                     style={{
                       margin: "0.25rem",
                     }}
-                    className={bodyFont}
+                    className={props.bodyFont}
                   >
                     |
                   </p>
@@ -64,15 +62,15 @@ const Classic = ({
                     style={{
                       margin: "0.25rem",
                     }}
-                    className={bodyFont}
+                    className={props.bodyFont}
                   >
-                    {user.phone}
+                    {props.user.phone}
                   </p>
                   <p
                     style={{
                       margin: "0.25rem",
                     }}
-                    className={bodyFont}
+                    className={props.bodyFont}
                   >
                     |
                   </p>
@@ -80,15 +78,15 @@ const Classic = ({
                     style={{
                       margin: "0.25rem",
                     }}
-                    className={bodyFont}
+                    className={props.bodyFont}
                   >
-                    {user.email}
+                    {props.user.email}
                   </p>
                   <p
                     style={{
                       margin: "0.25rem",
                     }}
-                    className={bodyFont}
+                    className={props.bodyFont}
                   >
                     |
                   </p>
@@ -96,15 +94,15 @@ const Classic = ({
                     style={{
                       margin: "0.25rem",
                     }}
-                    className={bodyFont}
+                    className={props.bodyFont}
                   >
-                    {user.linked_in}
+                    {props.user.linked_in}
                   </p>
                   <p
                     style={{
                       margin: "0.25rem",
                     }}
-                    className={bodyFont}
+                    className={props.bodyFont}
                   >
                     |
                   </p>
@@ -112,9 +110,9 @@ const Classic = ({
                     style={{
                       margin: "0.25rem",
                     }}
-                    className={bodyFont}
+                    className={props.bodyFont}
                   >
-                    {user.website}
+                    {props.user.website}
                   </p>
                 </div>
               </div>
@@ -125,7 +123,7 @@ const Classic = ({
           {resumeSkills && (
             <div>
               <h2
-                className={bodyFont}
+                className={props.bodyFont}
                 style={{
                   textTransform: "uppercase",
                   textDecoration: "underline",
@@ -140,13 +138,13 @@ const Classic = ({
               </h2>
               <div style={{ display: "flex" }}>
                 <h3
-                  className={bodyFont}
+                  className={props.bodyFont}
                   style={{ margin: 0, fontWeight: "bold", fontSize: "0.95rem" }}
                 >
                   Frontend:{" "}
                 </h3>{" "}
                 <p
-                  className={bodyFont}
+                  className={props.bodyFont}
                   style={{
                     margin: 0,
                     paddingLeft: "0.25rem",
@@ -158,13 +156,13 @@ const Classic = ({
               </div>
               <div style={{ display: "flex", fontSize: "0.95rem" }}>
                 <h3
-                  className={bodyFont}
+                  className={props.bodyFont}
                   style={{ margin: 0, fontWeight: "bold" }}
                 >
                   Backend:{" "}
                 </h3>
                 <p
-                  className={bodyFont}
+                  className={props.bodyFont}
                   style={{ margin: 0, paddingLeft: "0.25rem" }}
                 >
                   {resumeSkills.backendSkills}
@@ -172,13 +170,13 @@ const Classic = ({
               </div>
               <div style={{ display: "flex", fontSize: "0.95rem" }}>
                 <h3
-                  className={bodyFont}
+                  className={props.bodyFont}
                   style={{ margin: 0, fontWeight: "bold" }}
                 >
                   Frameworks and Libraries:{" "}
                 </h3>
                 <p
-                  className={bodyFont}
+                  className={props.bodyFont}
                   style={{ margin: 0, paddingLeft: "0.25rem" }}
                 >
                   {resumeSkills.frontendSkills}
@@ -186,13 +184,13 @@ const Classic = ({
               </div>
               <div style={{ display: "flex", fontSize: "0.95rem" }}>
                 <h3
-                  className={bodyFont}
+                  className={props.bodyFont}
                   style={{ margin: 0, fontWeight: "bold" }}
                 >
                   Developer Tools:
                 </h3>
                 <p
-                  className={bodyFont}
+                  className={props.bodyFont}
                   style={{
                     margin: 0,
                     paddingLeft: "0.25rem",
@@ -210,7 +208,7 @@ const Classic = ({
           {resumeExperiences && (
             <div>
               <h2
-                className={bodyFont}
+                className={props.bodyFont}
                 style={{
                   textTransform: "uppercase",
                   textDecoration: "underline",
@@ -225,7 +223,7 @@ const Classic = ({
               </h2>
               <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <h3
-                  className={bodyFont}
+                  className={props.bodyFont}
                   style={{
                     fontSize: "1rem",
                     lineHeight: "1.5",
@@ -236,7 +234,7 @@ const Classic = ({
                   {resumeExperiences[0].title}
                 </h3>
                 <h3
-                  className={bodyFont}
+                  className={props.bodyFont}
                   style={{
                     fontSize: "1rem",
                     lineHeight: "1.5",
@@ -248,7 +246,7 @@ const Classic = ({
               </div>
               <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <p
-                  className={bodyFont}
+                  className={props.bodyFont}
                   style={{
                     fontSize: "1rem",
                     lineHeight: "1.25",
@@ -266,14 +264,14 @@ const Classic = ({
                 >
                   <a
                     style={{ fontWeight: "bold", fontSize: "0.9rem" }}
-                    className={bodyFont}
+                    className={props.bodyFont}
                     href={resumeExperiences[0].linkUrl}
                   >
                     LIVE DEMO
                   </a>
                   <a
                     style={{ fontWeight: "bold", fontSize: "0.9rem" }}
-                    className={bodyFont}
+                    className={props.bodyFont}
                     href={resumeExperiences[0].gitUrl}
                   >
                     GIT REPO
@@ -290,7 +288,7 @@ const Classic = ({
                 >
                   <li>
                     <p
-                      className={bodyFont}
+                      className={props.bodyFont}
                       style={{
                         fontSize: "0.85rem",
                         lineHeight: "1.25",
@@ -303,7 +301,7 @@ const Classic = ({
 
                   <li>
                     <p
-                      className={bodyFont}
+                      className={props.bodyFont}
                       style={{
                         fontSize: "0.85rem",
                         lineHeight: "1.25",
@@ -317,7 +315,7 @@ const Classic = ({
                   {resumeExperiences[0].descriptionThree && (
                     <li>
                       <p
-                        className={bodyFont}
+                        className={props.bodyFont}
                         style={{
                           fontSize: "0.85rem",
                           lineHeight: "1.25",
@@ -331,7 +329,7 @@ const Classic = ({
                   {resumeExperiences[0].descriptionFour && (
                     <li>
                       <p
-                        className={bodyFont}
+                        className={props.bodyFont}
                         style={{
                           fontSize: "0.85rem",
                           lineHeight: "1.25",
@@ -353,7 +351,7 @@ const Classic = ({
             <div>
               <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <h3
-                  className={bodyFont}
+                  className={props.bodyFont}
                   style={{
                     fontSize: "1rem",
                     lineHeight: "1.5",
@@ -364,7 +362,7 @@ const Classic = ({
                   {resumeExperiences[1].title}
                 </h3>
                 <h3
-                  className={bodyFont}
+                  className={props.bodyFont}
                   style={{
                     fontSize: "1rem",
                     lineHeight: "1.5",
@@ -376,7 +374,7 @@ const Classic = ({
               </div>
               <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <p
-                  className={bodyFont}
+                  className={props.bodyFont}
                   style={{
                     fontSize: "1rem",
                     lineHeight: "1.25",
@@ -394,14 +392,14 @@ const Classic = ({
                 >
                   <a
                     style={{ fontSize: "0.9rem", fontWeight: "bold" }}
-                    className={bodyFont}
+                    className={props.bodyFont}
                     href={resumeExperiences[1].linkUrl}
                   >
                     LIVE DEMO
                   </a>
                   <a
                     style={{ fontWeight: "bold", fontSize: "0.9rem" }}
-                    className={bodyFont}
+                    className={props.bodyFont}
                     href={resumeExperiences[1].gitUrl}
                   >
                     GIT REPO
@@ -418,7 +416,7 @@ const Classic = ({
                 >
                   <li>
                     <p
-                      className={bodyFont}
+                      className={props.bodyFont}
                       style={{
                         fontSize: "0.85rem",
                         lineHeight: "1.25",
@@ -431,7 +429,7 @@ const Classic = ({
 
                   <li>
                     <p
-                      className={bodyFont}
+                      className={props.bodyFont}
                       style={{
                         fontSize: "0.85rem",
                         lineHeight: "1.25",
@@ -444,7 +442,7 @@ const Classic = ({
                   {resumeExperiences[0].descriptionThree && (
                     <li>
                       <p
-                        className={bodyFont}
+                        className={props.bodyFont}
                         style={{
                           fontSize: "0.85rem",
                           lineHeight: "1.25",
@@ -459,7 +457,7 @@ const Classic = ({
                   {resumeExperiences[2].descriptionFour && (
                     <li>
                       <p
-                        className={bodyFont}
+                        className={props.bodyFont}
                         style={{
                           fontSize: "0.85rem",
                           lineHeight: "1.25",
@@ -482,7 +480,7 @@ const Classic = ({
             <div>
               <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <h3
-                  className={bodyFont}
+                  className={props.bodyFont}
                   style={{
                     fontSize: "1rem",
                     lineHeight: "1.5",
@@ -493,7 +491,7 @@ const Classic = ({
                   {resumeExperiences[2].title}
                 </h3>
                 <h3
-                  className={bodyFont}
+                  className={props.bodyFont}
                   style={{
                     fontSize: "1rem",
                     lineHeight: "1.5",
@@ -505,7 +503,7 @@ const Classic = ({
               </div>
               <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <p
-                  className={bodyFont}
+                  className={props.bodyFont}
                   style={{
                     fontSize: "1rem",
                     lineHeight: "1.25",
@@ -523,14 +521,14 @@ const Classic = ({
                 >
                   <a
                     style={{ fontWeight: "bold", fontSize: "0.9rem" }}
-                    className={bodyFont}
+                    className={props.bodyFont}
                     href={resumeExperiences[2].linkUrl}
                   >
                     LIVE DEMO
                   </a>
                   <a
                     style={{ fontWeight: "bold", fontSize: "0.9rem" }}
-                    className={bodyFont}
+                    className={props.bodyFont}
                     href={resumeExperiences[2].gitUrl}
                   >
                     GIT REPO
@@ -547,7 +545,7 @@ const Classic = ({
                 >
                   <li>
                     <p
-                      className={bodyFont}
+                      className={props.bodyFont}
                       style={{
                         fontSize: "0.85rem",
                         lineHeight: "1.25",
@@ -560,7 +558,7 @@ const Classic = ({
 
                   <li>
                     <p
-                      className={bodyFont}
+                      className={props.bodyFont}
                       style={{
                         fontSize: "0.85rem",
                         lineHeight: "1.25",
@@ -574,7 +572,7 @@ const Classic = ({
                   {resumeExperiences[2].descriptionThree && (
                     <li>
                       <p
-                        className={bodyFont}
+                        className={props.bodyFont}
                         style={{
                           fontSize: "0.85rem",
                           lineHeight: "1.25",
@@ -588,7 +586,7 @@ const Classic = ({
                   {resumeExperiences[2].descriptionFour && (
                     <li>
                       <p
-                        className={bodyFont}
+                        className={props.bodyFont}
                         style={{
                           fontSize: "0.85rem",
                           lineHeight: "1.25",
@@ -608,7 +606,7 @@ const Classic = ({
           {resumeExperiences && (
             <div>
               <h2
-                className={bodyFont}
+                className={props.bodyFont}
                 style={{
                   textTransform: "uppercase",
                   textDecoration: "underline",
@@ -623,7 +621,7 @@ const Classic = ({
               </h2>
               <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <h3
-                  className={bodyFont}
+                  className={props.bodyFont}
                   style={{
                     fontSize: "1rem",
                     lineHeight: "1.5",
@@ -634,7 +632,7 @@ const Classic = ({
                   {resumeExperiences[3].title}
                 </h3>
                 <h3
-                  className={bodyFont}
+                  className={props.bodyFont}
                   style={{
                     fontSize: "1rem",
                     lineHeight: "1.5",
@@ -646,7 +644,7 @@ const Classic = ({
               </div>
               <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <a
-                  className={bodyFont}
+                  className={props.bodyFont}
                   href={resumeExperiences[3].linkUrl}
                   style={{
                     fontSize: "1rem",
@@ -662,7 +660,7 @@ const Classic = ({
                   }}
                 >
                   <p
-                    className={bodyFont}
+                    className={props.bodyFont}
                     style={{
                       fontSize: "0.9rem",
                       lineHeight: "1.25",
@@ -683,7 +681,7 @@ const Classic = ({
                 >
                   <li>
                     <p
-                      className={bodyFont}
+                      className={props.bodyFont}
                       style={{
                         fontSize: "0.85rem",
                         lineHeight: "1.25",
@@ -696,7 +694,7 @@ const Classic = ({
 
                   <li>
                     <p
-                      className={bodyFont}
+                      className={props.bodyFont}
                       style={{
                         fontSize: "0.85rem",
                         lineHeight: "1.25",
@@ -710,7 +708,7 @@ const Classic = ({
                   {resumeExperiences[3].descriptionThree && (
                     <li>
                       <p
-                        className={bodyFont}
+                        className={props.bodyFont}
                         style={{
                           fontSize: "0.85rem",
                           lineHeight: "1.25",
@@ -724,7 +722,7 @@ const Classic = ({
                   {resumeExperiences[3].descriptionFour && (
                     <li>
                       <p
-                        className={bodyFont}
+                        className={props.bodyFont}
                         style={{
                           fontSize: "0.85rem",
                           lineHeight: "1.25",
@@ -746,7 +744,7 @@ const Classic = ({
           {resumeExperiences && (
             <div>
               <h2
-                className={bodyFont}
+                className={props.bodyFont}
                 style={{
                   textTransform: "uppercase",
                   textDecoration: "underline",
@@ -761,7 +759,7 @@ const Classic = ({
               </h2>
               <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <h3
-                  className={bodyFont}
+                  className={props.bodyFont}
                   style={{
                     fontSize: "1rem",
                     lineHeight: "1.5",
@@ -772,7 +770,7 @@ const Classic = ({
                   {resumeExperiences[4].title}
                 </h3>
                 <h3
-                  className={bodyFont}
+                  className={props.bodyFont}
                   style={{
                     fontSize: "1rem",
                     lineHeight: "1.5",
@@ -784,7 +782,7 @@ const Classic = ({
               </div>
               <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <a
-                  className={bodyFont}
+                  className={props.bodyFont}
                   href={resumeExperiences[4].linkUrl}
                   style={{
                     fontSize: "1rem",
@@ -800,7 +798,7 @@ const Classic = ({
                   }}
                 >
                   <p
-                    className={bodyFont}
+                    className={props.bodyFont}
                     style={{
                       fontSize: "0.85rem",
                       lineHeight: "1.25",
@@ -821,7 +819,7 @@ const Classic = ({
                 >
                   <li>
                     <p
-                      className={bodyFont}
+                      className={props.bodyFont}
                       style={{
                         fontSize: "0.85rem",
                         lineHeight: "1.25",
@@ -834,7 +832,7 @@ const Classic = ({
 
                   <li>
                     <p
-                      className={bodyFont}
+                      className={props.bodyFont}
                       style={{
                         fontSize: "0.85rem",
                         lineHeight: "1.25",
@@ -848,7 +846,7 @@ const Classic = ({
                   {resumeExperiences[4].descriptionThree && (
                     <li>
                       <p
-                        className={bodyFont}
+                        className={props.bodyFont}
                         style={{
                           fontSize: "0.85rem",
                           lineHeight: "1.25",
@@ -862,7 +860,7 @@ const Classic = ({
                   {resumeExperiences[4].descriptionFour && (
                     <li>
                       <p
-                        className={bodyFont}
+                        className={props.bodyFont}
                         style={{
                           fontSize: "0.85rem",
                           lineHeight: "1.25",
@@ -882,7 +880,7 @@ const Classic = ({
           {resumeExperiences && (
             <div>
               <h2
-                className={bodyFont}
+                className={props.bodyFont}
                 style={{
                   textTransform: "uppercase",
                   textDecoration: "underline",
@@ -897,7 +895,7 @@ const Classic = ({
               </h2>
               <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <h3
-                  className={bodyFont}
+                  className={props.bodyFont}
                   style={{
                     fontSize: "1rem",
                     lineHeight: "1.5",
@@ -908,7 +906,7 @@ const Classic = ({
                   {resumeExperiences[6].title}
                 </h3>
                 <h3
-                  className={bodyFont}
+                  className={props.bodyFont}
                   style={{
                     fontSize: "1rem",
                     lineHeight: "1.5",
@@ -920,7 +918,7 @@ const Classic = ({
               </div>
               <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <a
-                  className={bodyFont}
+                  className={props.bodyFont}
                   href={resumeExperiences[6].linkUrl}
                   style={{
                     fontSize: "1rem",
@@ -936,7 +934,7 @@ const Classic = ({
                   }}
                 >
                   <p
-                    className={bodyFont}
+                    className={props.bodyFont}
                     style={{
                       fontSize: "0.9rem",
                       lineHeight: "1.25",
@@ -957,7 +955,7 @@ const Classic = ({
                 >
                   <li>
                     <p
-                      className={bodyFont}
+                      className={props.bodyFont}
                       style={{
                         fontSize: "0.85rem",
                         lineHeight: "1.25",
@@ -970,7 +968,7 @@ const Classic = ({
 
                   <li>
                     <p
-                      className={bodyFont}
+                      className={props.bodyFont}
                       style={{
                         fontSize: "0.85rem",
                         lineHeight: "1.25",
@@ -984,7 +982,7 @@ const Classic = ({
                   {resumeExperiences[6].descriptionThree && (
                     <li>
                       <p
-                        className={bodyFont}
+                        className={props.bodyFont}
                         style={{
                           fontSize: "0.85rem",
                           lineHeight: "1.25",
@@ -998,7 +996,7 @@ const Classic = ({
                   {resumeExperiences[6].descriptionFour != "" && (
                     <li>
                       <p
-                        className={bodyFont}
+                        className={props.bodyFont}
                         style={{
                           fontSize: "0.85rem",
                           lineHeight: "1.25",
@@ -1019,7 +1017,7 @@ const Classic = ({
             <div>
               <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <h3
-                  className={bodyFont}
+                  className={props.bodyFont}
                   style={{
                     fontSize: "1rem",
                     lineHeight: "1.5",
@@ -1030,7 +1028,7 @@ const Classic = ({
                   {resumeExperiences[7].title}
                 </h3>
                 <h3
-                  className={bodyFont}
+                  className={props.bodyFont}
                   style={{
                     fontSize: "1rem",
                     lineHeight: "1.5",
@@ -1042,7 +1040,7 @@ const Classic = ({
               </div>
               <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <a
-                  className={bodyFont}
+                  className={props.bodyFont}
                   href={resumeExperiences[7].linkUrl}
                   style={{
                     fontSize: "1rem",
@@ -1058,7 +1056,7 @@ const Classic = ({
                   }}
                 >
                   <p
-                    className={bodyFont}
+                    className={props.bodyFont}
                     style={{
                       fontSize: "0.9rem",
                       lineHeight: "1.25",
@@ -1079,7 +1077,7 @@ const Classic = ({
                 >
                   <li>
                     <p
-                      className={bodyFont}
+                      className={props.bodyFont}
                       style={{
                         fontSize: "0.85rem",
                         lineHeight: "1.25",
@@ -1092,7 +1090,7 @@ const Classic = ({
 
                   <li>
                     <p
-                      className={bodyFont}
+                      className={props.bodyFont}
                       style={{
                         fontSize: "0.85rem",
                         lineHeight: "1.25",
@@ -1106,7 +1104,7 @@ const Classic = ({
                   {resumeExperiences[7].descriptionThree && (
                     <li>
                       <p
-                        className={bodyFont}
+                        className={props.bodyFont}
                         style={{
                           fontSize: "0.85rem",
                           lineHeight: "1.25",
@@ -1120,7 +1118,7 @@ const Classic = ({
                   {resumeExperiences[7].descriptionFour && (
                     <li>
                       <p
-                        className={bodyFont}
+                        className={props.bodyFont}
                         style={{
                           fontSize: "0.85rem",
                           lineHeight: "1.25",
@@ -1141,7 +1139,7 @@ const Classic = ({
             <div>
               <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <h3
-                  className={bodyFont}
+                  className={props.bodyFont}
                   style={{
                     fontSize: "1rem",
                     lineHeight: "1.5",
@@ -1152,7 +1150,7 @@ const Classic = ({
                   {resumeExperiences[8].title}
                 </h3>
                 <h3
-                  className={bodyFont}
+                  className={props.bodyFont}
                   style={{
                     fontSize: "1rem",
                     lineHeight: "1.5",
@@ -1164,7 +1162,7 @@ const Classic = ({
               </div>
               <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <a
-                  className={bodyFont}
+                  className={props.bodyFont}
                   href={resumeExperiences[8].linkUrl}
                   style={{
                     fontSize: "1rem",
@@ -1180,7 +1178,7 @@ const Classic = ({
                   }}
                 >
                   <p
-                    className={bodyFont}
+                    className={props.bodyFont}
                     style={{
                       fontSize: "0.9rem",
                       lineHeight: "1.25",
@@ -1201,7 +1199,7 @@ const Classic = ({
                 >
                   <li>
                     <p
-                      className={bodyFont}
+                      className={props.bodyFont}
                       style={{
                         fontSize: "0.85rem",
                         lineHeight: "1.25",
@@ -1214,7 +1212,7 @@ const Classic = ({
 
                   <li>
                     <p
-                      className={bodyFont}
+                      className={props.bodyFont}
                       style={{
                         fontSize: "0.85rem",
                         lineHeight: "1.25",
@@ -1228,7 +1226,7 @@ const Classic = ({
                   {resumeExperiences[8].descriptionThree && (
                     <li>
                       <p
-                        className={bodyFont}
+                        className={props.bodyFont}
                         style={{
                           fontSize: "0.85rem",
                           lineHeight: "1.25",
@@ -1242,7 +1240,7 @@ const Classic = ({
                   {resumeExperiences[8].descriptionFour && (
                     <li>
                       <p
-                        className={bodyFont}
+                        className={props.bodyFont}
                         style={{
                           fontSize: "0.85rem",
                           lineHeight: "1.25",
@@ -1262,7 +1260,7 @@ const Classic = ({
           {resumeExperiences && (
             <div>
               <h2
-                className={bodyFont}
+                className={props.bodyFont}
                 style={{
                   textTransform: "uppercase",
                   textDecoration: "underline",
@@ -1277,7 +1275,7 @@ const Classic = ({
               </h2>
               <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <p
-                  className={bodyFont}
+                  className={props.bodyFont}
                   style={{
                     fontSize: "0.9rem",
                     lineHeight: "1.5",
@@ -1295,4 +1293,4 @@ const Classic = ({
   );
 };
 
-export default Classic;
+export default Cubic;

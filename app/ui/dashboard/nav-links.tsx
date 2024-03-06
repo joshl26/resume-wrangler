@@ -40,12 +40,12 @@ const links = [
 
   {
     name: "Resume Templates",
-    href: "/dashboard/resume-templates",
+    href: "/dashboard/resume",
     icon: DocumentDuplicateIcon,
   },
   {
     name: "Resume Styling",
-    href: "/dashboard/resume-styling",
+    href: "/dashboard/resume/edit/1453bf56-d92f-4893-a6a8-34decd76bbd7",
     icon: DocumentDuplicateIcon,
   },
   {
