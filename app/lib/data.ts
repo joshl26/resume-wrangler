@@ -12,6 +12,7 @@ import {
 } from "./definitions";
 import { formatCurrency } from "./utils";
 import { unstable_noStore as noStore } from "next/cache";
+import { UUID } from "crypto";
 
 export async function fetchRevenue() {
   // Add noStore() here prevent the response from being cached.
@@ -281,7 +282,8 @@ export async function getResumeTemplates() {
     return latestResumeTemplates.rows;
   } catch (error: any) {
     console.error("Database Error:", error);
-    throw new Error("Failed to fetch the latest applications.");
+    // throw new Error("Failed to fetch resume templates.");
+    return {};
   }
 }
 
@@ -297,6 +299,56 @@ export async function fetchResumeTemplateById(id: string) {
     return resumeTemplate.rows;
   } catch (error: any) {
     console.error("Database Error:", error);
-    throw new Error("Failed to fetch resume template by id.");
+    // throw new Error("Failed to fetch resume template by id.");
+    return {};
+  }
+}
+
+export async function fetchApplicationsByUserId(userId: string) {
+  noStore();
+
+  // console.log(id);
+
+  try {
+    const query = `SELECT * FROM applications WHERE user_id = '${userId}'`;
+    console.log(query);
+    const resumeTemplate = await conn.query(query);
+    return resumeTemplate.rows;
+  } catch (error: any) {
+    console.error("Database Error:", error);
+    // throw new Error("Failed to fetch resume template by id.");
+    return {};
+  }
+}
+
+export async function fetchCompanyNameById(id: string) {
+  noStore();
+
+  try {
+    const query = `SELECT * FROM companies WHERE id = '${id}'`;
+    // console.log(query);
+    const company = await conn.query(query);
+    console.log(company);
+    return company.rows[0].name;
+  } catch (error: any) {
+    console.error("Database Error:", error);
+    // throw new Error("Failed to fetch resume template by id.");
+    return {};
+  }
+}
+
+export async function fetchLatestCompanies() {
+  noStore();
+
+  try {
+    const query = `SELECT * FROM companies`;
+    // console.log(query);
+    const companies = await conn.query(query);
+    console.log(companies);
+    return companies.rows;
+  } catch (error: any) {
+    console.error("Database Error:", error);
+    // throw new Error("Failed to fetch resume template by id.");
+    return {};
   }
 }
