@@ -10,7 +10,7 @@ const Applications = ({
   // console.log(companies.find(({ id }: any) => id === "1").name);
 
   return (
-    <div className="relative overflow-x-auto overflow-y-auto shadow-md sm:rounded-lg px-4 pt-4">
+    <div className="relative overflow-x-auto overflow-y-auto shadow-md sm:rounded-lg px-4 py-4">
       <table className="w-full text-sm text-left rtl:text-right text-gray-200 dark:text-gray-200">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
@@ -37,6 +37,12 @@ const Applications = ({
             </th>
             <th scope="col" className="px-6 py-3">
               Submitted
+            </th>
+            <th scope="col" className="px-6 py-3">
+              Cover
+            </th>
+            <th scope="col" className="px-6 py-3">
+              Resume
             </th>
             <th scope="col" className="px-6 py-3">
               Action
@@ -90,7 +96,23 @@ const Applications = ({
                 <td className="px-6 py-4">
                   {application?.is_complete === false ? "False" : "true"}
                 </td>
-                <td className="flex items-center px-6 py-4">
+                <td className="text-left px-6 py-4">
+                  <a
+                    href="#"
+                    className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                  >
+                    Edit
+                  </a>
+                </td>
+                <td className="text-left px-6 py-4">
+                  <a
+                    href="#"
+                    className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                  >
+                    Edit
+                  </a>
+                </td>
+                <td className="text-left px-6 py-4">
                   <a
                     href="#"
                     className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
@@ -126,11 +148,11 @@ const Applications = ({
       >
         <span className="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">
           Showing{" "}
-          <span className="font-semibold text-gray-900 dark:text-white">
+          <span className="font-semibold text-gray-900 dark:text-black">
             1-10
           </span>{" "}
           of{" "}
-          <span className="font-semibold text-gray-900 dark:text-white">
+          <span className="font-semibold text-gray-900 dark:text-black">
             1000
           </span>
         </span>

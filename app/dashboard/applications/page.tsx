@@ -20,7 +20,7 @@ export default async function Page() {
 
   const user = await getUser(session?.user?.email!);
 
-  const applications = await fetchApplicationsByUserId("user?.id!");
+  const applications = await fetchApplicationsByUserId(user?.id!);
   const companies = await fetchLatestCompanies();
   console.log(companies);
   return (
