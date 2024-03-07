@@ -27,7 +27,7 @@ export default async function Page() {
             <Button>User Profile</Button>
             <Button>Upgrade to PRO</Button>
           </div>
-          <Applications />
+          {/* <Applications  /> */}
           <CoverLetters />
         </div>
       </Suspense>

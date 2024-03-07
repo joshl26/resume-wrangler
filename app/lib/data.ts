@@ -339,11 +339,11 @@ export async function fetchCompanyNameById(id: string) {
   }
 }
 
-export async function fetchLatestCompanies() {
+export async function fetchLatestCompaniesByUserId(userId: string) {
   noStore();
 
   try {
-    const query = `SELECT * FROM companies`;
+    const query = `SELECT * FROM companies WHERE user_id = '${userId}'`;
     // console.log(query);
     const companies = await conn.query(query);
     // console.log(companies);
