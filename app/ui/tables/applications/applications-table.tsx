@@ -7,7 +7,7 @@ const Applications = ({
   applications: any;
   companies: any;
 }) => {
-  console.log(companies.find(({ id }: any) => id === "1").name);
+  // console.log(companies.find(({ id }: any) => id === "1").name);
 
   return (
     <div className="relative overflow-x-auto overflow-y-auto shadow-md sm:rounded-lg px-4 pt-4">
@@ -44,60 +44,80 @@ const Applications = ({
           </tr>
         </thead>
         <tbody>
-          {applications?.map((application: any) => (
-            <tr
-              key={application.id}
-              className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
-            >
-              <td className="w-4 p-4">
-                <div className="flex items-center">
-                  <input
-                    id="checkbox-table-search-1"
-                    type="checkbox"
-                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                  />
-                  <label htmlFor="checkbox-table-search-1" className="sr-only">
-                    checkbox
-                  </label>
-                </div>
-              </td>
-              <th
-                scope="row"
-                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+          {applications.length > 0 ? (
+            applications?.map((application: any) => (
+              <tr
+                key={application.id}
+                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
               >
-                {application?.job_position ? application?.job_position : "N/A"}
-              </th>
-              <td className="px-6 py-4">
-                {application?.company_id
-                  ? companies.find(
-                      ({ id }: any) => id === application?.company_id
-                    ).name
-                  : "N/A"}
-              </td>
-              <td className="px-6 py-4">
-                {application?.company_id
-                  ? companies.find(
-                      ({ id }: any) => id === application?.company_id
-                    ).address_one
-                  : "N/A"}
-              </td>
-              <td className="px-6 py-4">Yes</td>
+                <td className="w-4 p-4">
+                  <div className="flex items-center">
+                    <input
+                      id="checkbox-table-search-1"
+                      type="checkbox"
+                      className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                    />
+                    <label
+                      htmlFor="checkbox-table-search-1"
+                      className="sr-only"
+                    >
+                      checkbox
+                    </label>
+                  </div>
+                </td>
+                <th
+                  scope="row"
+                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                >
+                  {application?.job_position
+                    ? application?.job_position
+                    : "N/A"}
+                </th>
+                <td className="px-6 py-4">
+                  {application?.company_id
+                    ? companies.find(
+                        ({ id }: any) => id === application?.company_id
+                      ).name
+                    : "N/A"}
+                </td>
+                <td className="px-6 py-4">
+                  {application?.company_id
+                    ? companies.find(
+                        ({ id }: any) => id === application?.company_id
+                      ).address_one
+                    : "N/A"}
+                </td>
+                <td className="px-6 py-4">
+                  {application?.is_complete === false ? "False" : "true"}
+                </td>
+                <td className="flex items-center px-6 py-4">
+                  <a
+                    href="#"
+                    className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                  >
+                    Edit
+                  </a>
+                  <a
+                    href="#"
+                    className="font-medium text-red-600 dark:text-red-500 hover:underline ms-3"
+                  >
+                    Remove
+                  </a>
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
               <td className="flex items-center px-6 py-4">
                 <a
-                  href="#"
-                  className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                  className="text-xl text-black"
+                  href="/dashboard/application/new"
                 >
-                  Edit
-                </a>
-                <a
-                  href="#"
-                  className="font-medium text-red-600 dark:text-red-500 hover:underline ms-3"
-                >
-                  Remove
+                  Start by creating your first application here
                 </a>
               </td>
             </tr>
-          ))}
+          )}
         </tbody>
       </table>
       <nav

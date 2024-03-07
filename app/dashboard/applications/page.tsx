@@ -20,12 +20,12 @@ export default async function Page() {
 
   const user = await getUser(session?.user?.email!);
 
-  const applications = await fetchApplicationsByUserId(user?.id!);
+  const applications = await fetchApplicationsByUserId("user?.id!");
   const companies = await fetchLatestCompanies();
   console.log(companies);
   return (
     <div className="h-full w-full">
-      <h1 className="">Applications</h1>
+      <h1 className="text-[2rem] font-bold">Applications</h1>
       <Applications applications={applications} companies={companies} />
     </div>
   );
