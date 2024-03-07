@@ -1,3 +1,7 @@
+"use client";
+
+import Link from "next/link";
+import { redirect } from "next/navigation";
 import React from "react";
 
 const Applications = ({
@@ -56,6 +60,10 @@ const Applications = ({
                 key={application.id}
                 className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
               >
+                {/* <Link
+                  className="w-full "
+                  href={`/dashboard/application/edit/${application.id}`}
+                > */}
                 <td className="w-4 p-4">
                   <div className="flex items-center">
                     <input
@@ -126,18 +134,16 @@ const Applications = ({
                     Remove
                   </a>
                 </td>
+                {/* </Link> */}
               </tr>
             ))
           ) : (
             <tr>
+              {/* <Link href="/dashboard/application/new"> */}
               <td className="flex items-center px-6 py-4">
-                <a
-                  className="text-xl text-black"
-                  href="/dashboard/application/new"
-                >
-                  Start by creating your first application here
-                </a>
-              </td>
+                Start by creating your first application here
+              </td>{" "}
+              {/* </Link> */}
             </tr>
           )}
         </tbody>

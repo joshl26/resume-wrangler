@@ -26,7 +26,11 @@ const links = [
     href: "/dashboard/applications",
     icon: ListBulletIcon,
   },
-
+  {
+    name: "Companies",
+    href: "/dashboard/companies",
+    icon: ListBulletIcon,
+  },
   {
     name: "Cover Letter Templates",
     href: "/dashboard/cover-templates",
