@@ -75,11 +75,19 @@ const UserSocialsSchema = z.object({
   }),
 });
 
+const ApplicationSchema = z.object({
+  id: z.string(),
+  postingText: z.string({
+    invalid_type_error: "Please enter posting text.",
+  }),
+});
+
 const CreateInvoice = InvoiceSchema.omit({ id: true, date: true });
 const UpdateInvoice = InvoiceSchema.omit({ id: true, date: true });
 const DeleteInvoice = InvoiceSchema.omit({ id: true, date: true });
 const UpdateUser = UserSchema.omit({ id: true, date: true });
 const UpdateSocials = UserSocialsSchema.omit({ id: true, date: true });
+const UpdateApplication = ApplicationSchema;
 
 // This is temporary until @types/react-dom is updated
 export type State = {
@@ -289,7 +297,7 @@ export async function updateSocials(
 
   try {
     const query = `UPDATE users SET linked_in = '${linkedin}', twitter = '${twitter}', facebook = '${facebook}', instagram = '${instagram}', show_socials = '${show_socials}', github = '${github}' WHERE id = '${id}'`;
-    console.log(query);
+    // console.log(query);
 
     const data = await conn.query(query);
 
@@ -306,4 +314,34 @@ export async function updateSocials(
 
   revalidatePath("/dashboard/user-profile");
   redirect("/dashboard/user-profile");
+}
+
+export async function updateApplication(formData: FormData) {
+  // console.log(formData);
+  const validatedFields = UpdateApplication.safeParse({
+    id: formData.get("application_id"),
+    postingText: formData.get("posting_text"),
+  });
+
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: "Missing Fields. Failed to Update Invoice.",
+    };
+  }
+
+  const { id, postingText } = validatedFields.data;
+
+  try {
+    const query = `UPDATE applications SET posting_text = '${postingText}' WHERE id = '${id}'`;
+    // console.log(query);
+
+    const data = await conn.query(query);
+    // console.log(data);
+  } catch (error) {
+    return { message: `Database Error: Failed to Update Invoice. ${error}` };
+  }
+
+  revalidatePath("/dashboard/applications");
+  redirect("/dashboard/applications");
 }

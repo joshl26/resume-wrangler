@@ -255,6 +255,8 @@ export async function fetchFilteredCustomers(query: string) {
   }
 }
 
+//TODO ////////////////////////////////////
+
 export async function getUser(email: string) {
   noStore();
 
@@ -311,7 +313,7 @@ export async function fetchApplicationsByUserId(userId: string) {
 
   try {
     const query = `SELECT * FROM applications WHERE user_id = '${userId}'`;
-    console.log(query);
+    // console.log(query);
     const resumeTemplate = await conn.query(query);
     return resumeTemplate.rows;
   } catch (error: any) {
@@ -328,7 +330,7 @@ export async function fetchCompanyNameById(id: string) {
     const query = `SELECT * FROM companies WHERE id = '${id}'`;
     // console.log(query);
     const company = await conn.query(query);
-    console.log(company);
+    // console.log(company);
     return company.rows[0].name;
   } catch (error: any) {
     console.error("Database Error:", error);
@@ -344,8 +346,25 @@ export async function fetchLatestCompanies() {
     const query = `SELECT * FROM companies`;
     // console.log(query);
     const companies = await conn.query(query);
-    console.log(companies);
+    // console.log(companies);
     return companies.rows;
+  } catch (error: any) {
+    console.error("Database Error:", error);
+    // throw new Error("Failed to fetch resume template by id.");
+    return {};
+  }
+}
+
+export async function fetchApplicationById(id: string) {
+  noStore();
+
+  // console.log(id);
+
+  try {
+    const query = `SELECT * FROM applications WHERE id = '${id}'`;
+    // console.log(query);
+    const application = await conn.query(query);
+    return application.rows[0];
   } catch (error: any) {
     console.error("Database Error:", error);
     // throw new Error("Failed to fetch resume template by id.");

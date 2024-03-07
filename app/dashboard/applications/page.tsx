@@ -22,7 +22,7 @@ export default async function Page() {
 
   const applications = await fetchApplicationsByUserId(user?.id!);
   const companies = await fetchLatestCompanies();
-  console.log(companies);
+  // console.log(applications);
   return (
     <div className="h-full w-full">
       <h1 className="text-[2rem] font-bold">Applications</h1>

@@ -50,7 +50,7 @@ const Applications = ({
           </tr>
         </thead>
         <tbody>
-          {applications.length > 0 ? (
+          {applications?.length > 0 ? (
             applications?.map((application: any) => (
               <tr
                 key={application.id}
@@ -114,7 +114,7 @@ const Applications = ({
                 </td>
                 <td className="text-left px-6 py-4">
                   <a
-                    href="#"
+                    href={`/dashboard/applications/edit/${application.id}`}
                     className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                   >
                     Edit
