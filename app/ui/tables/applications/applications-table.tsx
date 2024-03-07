@@ -1,5 +1,6 @@
 "use client";
 
+import { deleteApplication } from "@/app/lib/actions";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import React from "react";
@@ -128,7 +129,7 @@ const Applications = ({
                     Edit
                   </a>
                   <a
-                    href="#"
+                    onClick={async () => deleteApplication(application.id)}
                     className="font-medium text-red-600 dark:text-red-500 hover:underline ms-3"
                   >
                     Remove

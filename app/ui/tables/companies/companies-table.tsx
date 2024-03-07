@@ -49,7 +49,7 @@ const Companies = ({ companies }: { companies: any }) => {
           {companies?.length > 0 ? (
             companies?.map((company: any) => (
               <tr
-                key={company.id}
+                key={company?.id}
                 className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
               >
                 {/* <Link

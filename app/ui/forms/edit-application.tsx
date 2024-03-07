@@ -123,21 +123,13 @@ export default async function EditApplication({
               Select an option
             </label>
             <select
-              multiple
+              defaultValue={application?.company_id}
               id="company_id"
               name="company_id"
               className=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-100 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500"
             >
               {companies.map((company: any) => (
-                <option
-                  selected={
-                    companies.find(
-                      ({ id }: any) => id === application?.company_id
-                    ).id === company.id
-                  }
-                  key={company.id}
-                  value={company.id}
-                >
+                <option key={company.id} value={company.id}>
                   {company.name}
                 </option>
               ))}

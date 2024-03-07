@@ -341,7 +341,7 @@ export async function updateSocials(
 }
 
 export async function updateApplication(formData: FormData) {
-  console.log(formData);
+  // console.log(formData);
   const validatedFields = UpdateApplication.safeParse({
     id: formData.get("application_id"),
     postingText: formData.get("posting_text"),
@@ -352,7 +352,7 @@ export async function updateApplication(formData: FormData) {
     companyId: formData.get("company_id"),
   });
 
-  console.log(validatedFields);
+  // console.log(validatedFields);
 
   if (!validatedFields.success) {
     return {
@@ -378,6 +378,70 @@ export async function updateApplication(formData: FormData) {
     // console.log(data);
   } catch (error) {
     return { message: `Database Error: Failed to Update Invoice. ${error}` };
+  }
+
+  revalidatePath("/dashboard/applications");
+  redirect("/dashboard/applications");
+}
+
+export async function createApplication(formData: FormData) {
+  // console.log(formData);
+  const validatedFields = UpdateApplication.safeParse({
+    id: formData.get("user_id"),
+    postingText: formData.get("posting_text"),
+    // isComplete: formData.get("is_complete"),
+    jobPosition: formData.get("job_position"),
+    postingUrl: formData.get("posting_url"),
+    analyzedPostingText: formData.get("analyzed_posting_text"),
+    companyId: formData.get("company_id"),
+  });
+
+  // console.log(validatedFields);
+
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: "Missing Fields. Failed to Update Invoice.",
+    };
+  }
+
+  const {
+    id,
+    postingText,
+    jobPosition,
+    postingUrl,
+    analyzedPostingText,
+    companyId,
+  } = validatedFields.data;
+
+  // INSERT INTO invoices (customer_id, amount, status, date)
+  // VALUES (${customerId}, ${amountInCents}, ${status}, ${date})
+
+  try {
+    const query = `INSERT INTO applications (posting_text, job_position, posting_url, analyzed_posting_text, company_id, user_id) VALUES ('${postingText}', '${jobPosition}', '${postingUrl}', '${analyzedPostingText}', '${companyId}', '${id}')`;
+    // console.log(query);
+
+    const data = await conn.query(query);
+    // console.log(data);
+  } catch (error) {
+    return { message: `Database Error: Failed to Update Invoice. ${error}` };
+  }
+
+  revalidatePath("/dashboard/applications");
+  redirect("/dashboard/applications");
+}
+
+export async function deleteApplication(id: string) {
+  try {
+    const query = `DELETE FROM applications WHERE id = ${id}`;
+    // console.log(query);
+
+    const data = await conn.query(query);
+    // console.log(data);
+  } catch (error) {
+    return {
+      message: `Database Error: Failed to Delete Application. ${error}`,
+    };
   }
 
   revalidatePath("/dashboard/applications");

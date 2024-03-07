@@ -1,4 +1,5 @@
 import { fetchLatestCompaniesByUserId, getUser } from "@/app/lib/data";
+import { Button } from "@/app/ui/button";
 import Companies from "@/app/ui/tables/companies/companies-table";
 import { auth } from "@/auth";
 import React from "react";
@@ -21,8 +22,17 @@ export default async function Page() {
   // console.log(applications);
   return (
     <div className="h-full w-full">
-      <div className="flex flex-row">
-        <h1 className="text-[2rem] font-bold">Applications</h1>
+      <div className="flex flex-row justify-between">
+        <div className="flex flex-col ">
+          <h1 className="text-[2rem] font-bold">Companies</h1>
+        </div>
+        <div className="flex flex-col px-4">
+          <Button className="w-[200px] text-center">
+            <a href="/dashboard/companies/new" className="m-auto">
+              Add new company
+            </a>
+          </Button>
+        </div>
       </div>
       <Companies companies={companies} />
     </div>
