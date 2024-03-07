@@ -75,10 +75,34 @@ const UserSocialsSchema = z.object({
   }),
 });
 
+// { name: 'application_id', value: '2' },
+//     { name: 'posting_text', value: '631a Electrician Apprenticeship' },
+//     { name: 'is_complete', value: 'off' },
+//     { name: 'is_complete', value: 'on' },
+//     { name: 'job_position', value: '631a Electrician Apprenticeship' },
+//     { name: 'posting_url', value: 'test' },
+//     { name: 'analyzed_posting_text', value: '' },
+//     { name: 'company_id', value: '1' }
+
 const ApplicationSchema = z.object({
   id: z.string(),
   postingText: z.string({
-    invalid_type_error: "Please enter posting text.",
+    invalid_type_error: "Please enter a string.",
+  }),
+  // isComplete: z.string({
+  //   invalid_type_error: "Please enter a boolean.",
+  // }),
+  jobPosition: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  postingUrl: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  analyzedPostingText: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  companyId: z.string({
+    invalid_type_error: "Please enter a number.",
   }),
 });
 
@@ -317,11 +341,18 @@ export async function updateSocials(
 }
 
 export async function updateApplication(formData: FormData) {
-  // console.log(formData);
+  console.log(formData);
   const validatedFields = UpdateApplication.safeParse({
     id: formData.get("application_id"),
     postingText: formData.get("posting_text"),
+    // isComplete: formData.get("is_complete"),
+    jobPosition: formData.get("job_position"),
+    postingUrl: formData.get("posting_url"),
+    analyzedPostingText: formData.get("analyzed_posting_text"),
+    companyId: formData.get("company_id"),
   });
+
+  console.log(validatedFields);
 
   if (!validatedFields.success) {
     return {
@@ -330,10 +361,17 @@ export async function updateApplication(formData: FormData) {
     };
   }
 
-  const { id, postingText } = validatedFields.data;
+  const {
+    id,
+    postingText,
+    jobPosition,
+    postingUrl,
+    analyzedPostingText,
+    companyId,
+  } = validatedFields.data;
 
   try {
-    const query = `UPDATE applications SET posting_text = '${postingText}' WHERE id = '${id}'`;
+    const query = `UPDATE applications SET posting_text = '${postingText}', job_position = '${jobPosition}', posting_url = '${postingUrl}', analyzed_posting_text = '${analyzedPostingText}', company_id = '${companyId}' WHERE id = '${id}'`;
     // console.log(query);
 
     const data = await conn.query(query);
