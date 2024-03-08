@@ -106,6 +106,31 @@ const ApplicationSchema = z.object({
   }),
 });
 
+const CompanySchema = z.object({
+  id: z.string(),
+  name: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  addressOne: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  addressTwo: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  recipientTitle: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  email: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  phone: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  website: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+});
+
 const CreateInvoice = InvoiceSchema.omit({ id: true, date: true });
 const UpdateInvoice = InvoiceSchema.omit({ id: true, date: true });
 const DeleteInvoice = InvoiceSchema.omit({ id: true, date: true });
@@ -396,8 +421,6 @@ export async function createApplication(formData: FormData) {
     companyId: formData.get("company_id"),
   });
 
-  // console.log(validatedFields);
-
   if (!validatedFields.success) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
@@ -446,4 +469,117 @@ export async function deleteApplication(id: string) {
 
   revalidatePath("/dashboard/applications");
   redirect("/dashboard/applications");
+}
+
+export async function updateCompany(formData: FormData) {
+  //console.log(formData);
+  const validatedFields = CompanySchema.safeParse({
+    id: formData.get("company_id"),
+    name: formData.get("company_name"),
+    addressOne: formData.get("address_one"),
+    addressTwo: formData.get("address_two"),
+    recipientTitle: formData.get("recipient_title"),
+    email: formData.get("email"),
+    phone: formData.get("phone"),
+    website: formData.get("website_url"),
+  });
+
+  //console.log(validatedFields);
+
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: "Missing Fields. Failed to Update Invoice.",
+    };
+  }
+
+  const {
+    id,
+    name,
+    addressOne,
+    addressTwo,
+    recipientTitle,
+    email,
+    phone,
+    website,
+  } = validatedFields.data;
+
+  try {
+    const query = `UPDATE companies SET name = '${name}', address_one = '${addressOne}', address_two = '${addressTwo}', recipient_title = '${recipientTitle}', email = '${email}', phone = '${phone}', website_url = '${website}' WHERE id = '${id}'`;
+    // console.log(query);
+
+    const data = await conn.query(query);
+    //console.log(data);
+  } catch (error) {
+    return { message: `Database Error: Failed to Update Invoice. ${error}` };
+  }
+
+  revalidatePath("/dashboard/companies");
+  redirect("/dashboard/companies");
+}
+
+export async function createCompany(formData: FormData) {
+  // console.log(formData);
+  const validatedFields = CompanySchema.safeParse({
+    id: formData.get("user_id"),
+    name: formData.get("company_name"),
+    addressOne: formData.get("address_one"),
+    addressTwo: formData.get("address_two"),
+    recipientTitle: formData.get("recipient_title"),
+    email: formData.get("email"),
+    phone: formData.get("phone"),
+    website: formData.get("website_url"),
+  });
+
+  //console.log(validatedFields);
+
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: "Missing Fields. Failed to Update Invoice.",
+    };
+  }
+
+  const {
+    id,
+    name,
+    addressOne,
+    addressTwo,
+    recipientTitle,
+    email,
+    phone,
+    website,
+  } = validatedFields.data;
+
+  try {
+    const query = `INSERT INTO companies (name, address_one, address_two, recipient_title, email, phone, website_url , user_id) VALUES ('${name}', '${addressOne}', '${addressTwo}', '${recipientTitle}', '${email}', '${phone}', '${website}', '${id}')`;
+    //console.log(query);
+
+    const data = await conn.query(query);
+    // console.log(data);
+  } catch (error) {
+    return {
+      message: `Database Error: Failed to create new company. ${error}`,
+    };
+  }
+
+  revalidatePath("/dashboard/companies");
+  redirect("/dashboard/companies");
+}
+
+export async function deleteCompany(id: string) {
+  try {
+    const query = `DELETE FROM companies WHERE id = ${id}`;
+    // console.log(query);
+
+    const data = await conn.query(query);
+    // console.log(data);
+  } catch (error) {
+    return {
+      message: `Database Error: Failed to Delete Company. ${error}`,
+    };
+  }
+
+  revalidatePath("/dashboard/companies");
+  redirect("/dashboard/companies");
 }

@@ -1,5 +1,6 @@
 "use client";
 
+import { deleteCompany } from "@/app/lib/actions";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import React from "react";
@@ -98,7 +99,7 @@ const Companies = ({ companies }: { companies: any }) => {
                     Edit
                   </a>
                   <a
-                    href="#"
+                    onClick={() => deleteCompany(company.id)}
                     className="font-medium text-red-600 dark:text-red-500 hover:underline ms-3"
                   >
                     Remove

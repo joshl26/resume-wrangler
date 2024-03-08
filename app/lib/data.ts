@@ -371,3 +371,19 @@ export async function fetchApplicationById(id: string) {
     return {};
   }
 }
+
+export async function fetchCompanyById(id: string) {
+
+  noStore();
+
+  try {
+    const query = `SELECT * FROM companies WHERE id = '${id}'`;
+    // console.log(query);
+    const application = await conn.query(query);
+    return application.rows[0];
+  } catch (error: any) {
+    console.error("Database Error:", error);
+    // throw new Error("Failed to fetch resume template by id.");
+    return {};
+  }
+}
