@@ -1,15 +1,25 @@
 "use client";
 
-import { deleteApplication } from "@/app/lib/actions";
+import {
+  createCoverLetter,
+  deleteApplication,
+  deleteCoverLetter,
+} from "@/app/lib/actions";
 
 const Applications = ({
+  user,
+  resumes,
+  coverLetters,
   applications,
   companies,
 }: {
+  user: any;
+  resumes: any;
+  coverLetters: any;
   applications: any;
   companies: any;
 }) => {
-  // console.log(companies.find(({ id }: any) => id === "1").name);
+  // console.log(resumes);
 
   return (
     <div className="relative overflow-x-auto overflow-y-auto shadow-md sm:rounded-lg px-4 py-4">
@@ -103,20 +113,89 @@ const Applications = ({
                   {application?.is_complete === false ? "False" : "true"}
                 </td>
                 <td className="text-left px-6 py-4">
-                  <a
-                    href="#"
-                    className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                  >
-                    Edit
-                  </a>
+                  {coverLetters?.find(
+                    (coverLetter: any) =>
+                      coverLetter?.application_id === application.id
+                  )?.id > 0 ? (
+                    <>
+                      {" "}
+                      <a
+                        href={`/dashboard/cover/edit/${coverLetters.find(
+                          (coverLetter: any) =>
+                            coverLetter?.application_id === application.id
+                        )?.id}`}
+                        className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                      >
+                        Edit
+                      </a>
+                      <a
+                        onClick={async () =>
+                          deleteCoverLetter(
+                            coverLetters.find(
+                              (coverLetter: any) =>
+                                coverLetter?.application_id === application.id
+                            )?.id
+                          )
+                        }
+                        className="font-medium text-red-600 dark:text-red-500 hover:underline ms-3"
+                      >
+                        Remove
+                      </a>
+                    </>
+                  ) : (
+                    <form action={createCoverLetter}>
+                      <input
+                        type="text"
+                        required
+                        hidden
+                        name="user_id"
+                        value={user.id}
+                      />
+                      <input
+                        type="text"
+                        required
+                        hidden
+                        name="application_id"
+                        value={application.id}
+                      />
+                      <input
+                        type="text"
+                        required
+                        hidden
+                        name="company_id"
+                        value={application.company_id}
+                      />
+                      <button
+                        type="submit"
+                        className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                      >
+                        Create
+                      </button>
+                    </form>
+                  )}
                 </td>
+
                 <td className="text-left px-6 py-4">
-                  <a
-                    href="#"
-                    className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                  >
-                    Edit
-                  </a>
+                  {resumes?.find(
+                    (resume: any) => resume.application_id === application.id
+                  )?.id > 0 ? (
+                    <a
+                      href={`/dashboard/resume/edit/${resumes.find(
+                        (resume: any) =>
+                          resume.application_id === application.id
+                      )?.id}`}
+                      className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                    >
+                      Edit
+                    </a>
+                  ) : (
+                    <a
+                      href={`/dashboard/resume/new/${application.id}`}
+                      className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                    >
+                      Create
+                    </a>
+                  )}
                 </td>
                 <td className="text-left px-6 py-4">
                   <a

@@ -11,6 +11,7 @@ import {
 import { user } from "@/app/data/user-details";
 import Classic from "@/app/ui/resume/classic/classic-resume";
 import PreviewButton from "@/app/ui/preview-button";
+import ElectricalEngineer from "@/app/ui/resume/electrical-engineer/electrical-engineer";
 // import Cubic from "./components/templates/resume/cubic/page";
 
 export default function ClassicResume() {
@@ -1087,6 +1088,15 @@ export default function ClassicResume() {
           {resumeStyling.resumeTemplate === "classic" && (
             <Suspense>
               <Classic
+                headingFont={resumeStyling.headingFont}
+                bodyFont={resumeStyling.bodyFont}
+                user={user}
+              />
+            </Suspense>
+          )}
+          {resumeStyling.resumeTemplate === "electrical-engineer" && (
+            <Suspense>
+              <ElectricalEngineer
                 headingFont={resumeStyling.headingFont}
                 bodyFont={resumeStyling.bodyFont}
                 user={user}

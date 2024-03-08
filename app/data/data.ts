@@ -49,8 +49,8 @@ export const resumeTemplates = [
   },
   {
     id: 2,
-    name: "cubic",
-    description: "Cubic",
+    name: "electrical-engineer",
+    description: "Electrical Engineer",
   },
   {
     id: 3,

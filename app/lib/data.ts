@@ -373,7 +373,6 @@ export async function fetchApplicationById(id: string) {
 }
 
 export async function fetchCompanyById(id: string) {
-
   noStore();
 
   try {
@@ -385,5 +384,35 @@ export async function fetchCompanyById(id: string) {
     console.error("Database Error:", error);
     // throw new Error("Failed to fetch resume template by id.");
     return {};
+  }
+}
+
+export async function fetchResumesByUserId(userId: string) {
+  noStore();
+
+  try {
+    const query = `SELECT * FROM resumes WHERE user_id = '${userId}'`;
+    // console.log(query);
+    const resumes = await conn.query(query);
+    return resumes.rows;
+  } catch (error: any) {
+    console.error("Database Error:", error);
+    // throw new Error("Failed to fetch resume template by id.");
+    return [null];
+  }
+}
+
+export async function fetchCoverLettersByUserId(userId: string) {
+  noStore();
+
+  try {
+    const query = `SELECT * FROM cover_letters WHERE user_id = '${userId}'`;
+    // console.log(query);
+    const coverLetters = await conn.query(query);
+    return coverLetters.rows;
+  } catch (error: any) {
+    console.error("Database Error:", error);
+    // throw new Error("Failed to fetch resume template by id.");
+    return [null];
   }
 }

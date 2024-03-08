@@ -1,6 +1,8 @@
 import {
   fetchApplicationsByUserId,
+  fetchCoverLettersByUserId,
   fetchLatestCompaniesByUserId,
+  fetchResumesByUserId,
   getUser,
 } from "@/app/lib/data";
 import { Button } from "@/app/ui/button";
@@ -23,6 +25,9 @@ export default async function Page() {
 
   const applications = await fetchApplicationsByUserId(user?.id!);
   const companies = await fetchLatestCompaniesByUserId(user?.id!);
+  const resumes = await fetchResumesByUserId(user?.id!);
+  const coverLetters = await fetchCoverLettersByUserId(user?.id!);
+
   // console.log(applications);
   return (
     <div className="h-full w-full">
@@ -39,7 +44,13 @@ export default async function Page() {
         </div>
       </div>
 
-      <Applications applications={applications} companies={companies} />
+      <Applications
+        user={user}
+        resumes={resumes}
+        coverLetters={coverLetters}
+        applications={applications}
+        companies={companies}
+      />
     </div>
   );
 }
