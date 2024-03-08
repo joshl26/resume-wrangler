@@ -131,21 +131,59 @@ const CompanySchema = z.object({
   }),
 });
 
-const CoverLetterSchema = z.object({
-  id: z.string(),
-  companyId: z.string({
+// const CoverLetterSchema = z.object({
+//   id: z.string({
+//     invalid_type_error: "Please enter a string.",
+//   }),
+//   company_id: z.string({
+//     invalid_type_error: "Please enter a string.",
+//   }),
+//   first_name: z.string({
+//     invalid_type_error: "Please enter a string.",
+//   }),
+//   last_name: z.string({
+//     invalid_type_error: "Please enter a string.",
+//   }),
+//   recipient_title: z.string({
+//     invalid_type_error: "Please enter a string.",
+//   }),
+//   intro_text_start: z.string({
+//     invalid_type_error: "Please enter a string.",
+//   }),
+//   intro_skills: z.string({
+//     invalid_type_error: "Please enter a string.",
+//   }),
+//   intro_experience: z.string({
+//     invalid_type_error: "Please enter a string.",
+//   }),
+//   application_id: z.string({
+//     invalid_type_error: "Please enter a string.",
+//   }),
+//   intro_text_end: z.string({
+//     invalid_type_error: "Please enter a string.",
+//   }),
+//   salutation_text: z.string({
+//     invalid_type_error: "Please enter a string.",
+//   }),
+//   conclusion_text: z.string({
+//     invalid_type_error: "Please enter a string.",
+//   }),
+//   thanks_text: z.string({
+//     invalid_type_error: "Please enter a string.",
+//   }),
+//   user_id: z.string({
+//     invalid_type_error: "Please enter a string.",
+//   }),
+// });
+
+const CreateCoverLetterSchema = z.object({
+  application_id: z.string({
     invalid_type_error: "Please enter a string.",
   }),
-  firstName: z.string({
+  company_id: z.string({
     invalid_type_error: "Please enter a string.",
   }),
-  lastName: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  recipientTitle: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  introTextStart: z.string({
+  user_id: z.string({
     invalid_type_error: "Please enter a string.",
   }),
 });
@@ -156,7 +194,6 @@ const DeleteInvoice = InvoiceSchema.omit({ id: true, date: true });
 const UpdateUser = UserSchema.omit({ id: true, date: true });
 const UpdateSocials = UserSocialsSchema.omit({ id: true, date: true });
 const UpdateApplication = ApplicationSchema;
-// const CreateCoverLetter =
 
 // This is temporary until @types/react-dom is updated
 export type State = {
@@ -605,8 +642,10 @@ export async function deleteCompany(id: string) {
 }
 
 export async function deleteCoverLetter(id: string) {
+  // console.log(id);
+
   try {
-    const query = `DELETE * FROM cover_letters WHERE id = ${id}`;
+    const query = `DELETE FROM cover_letters WHERE id = ${id}`;
     // console.log(query);
 
     const data = await conn.query(query);
@@ -622,50 +661,34 @@ export async function deleteCoverLetter(id: string) {
 }
 
 export async function createCoverLetter(formData: FormData) {
-  console.log(formData);
-  // const validatedFields = CompanySchema.safeParse({
-  //   id: formData.get("user_id"),
-  //   name: formData.get("company_name"),
-  //   addressOne: formData.get("address_one"),
-  //   addressTwo: formData.get("address_two"),
-  //   recipientTitle: formData.get("recipient_title"),
-  //   email: formData.get("email"),
-  //   phone: formData.get("phone"),
-  //   website: formData.get("website_url"),
-  // });
+  const validatedFields = CreateCoverLetterSchema.safeParse({
+    user_id: formData.get("user_id"),
+    application_id: formData.get("application_id"),
+    company_id: formData.get("company_id"),
+  });
 
-  //console.log(validatedFields);
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: "Missing Fields. Failed to Update Invoice.",
+    };
+  }
 
-  // if (!validatedFields.success) {
-  //   return {
-  //     errors: validatedFields.error.flatten().fieldErrors,
-  //     message: "Missing Fields. Failed to Update Invoice.",
-  //   };
-  // }
+  const { user_id, application_id, company_id } = validatedFields.data;
 
-  // const {
-  //   id,
-  //   name,
-  //   addressOne,
-  //   addressTwo,
-  //   recipientTitle,
-  //   email,
-  //   phone,
-  //   website,
-  // } = validatedFields.data;
+  // console.log(user_id, application_id, company_id);
 
-  // try {
-  //   const query = `INSERT INTO cover_letters (id) VALUES ('${name}', '${addressOne}', '${addressTwo}', '${recipientTitle}', '${email}', '${phone}', '${website}', '${id}')`;
-  //   //console.log(query);
+  try {
+    const query = `INSERT INTO cover_letters (user_id, company_id, application_id) VALUES ('${user_id}', '${company_id}', '${application_id}')`;
+    //console.log(query);
 
-  //   const data = await conn.query(query);
-  //   // console.log(data);
-  // } catch (error) {
-  //   return {
-  //     message: `Database Error: Failed to create new company. ${error}`,
-  //   };
-  // }
-
-  revalidatePath("/dashboard/applications");
-  redirect("/dashboard/applications");
+    const data = await conn.query(query);
+    revalidatePath("/dashboard/applications");
+    redirect("/dashboard/applications");
+    // console.log(data);
+  } catch (error) {
+    return {
+      message: `Database Error: Failed to create new company. ${error}`,
+    };
+  }
 }

@@ -128,8 +128,8 @@ const Applications = ({
                       >
                         Edit
                       </a>
-                      <a
-                        onClick={async () =>
+                      <button
+                        onClick={() =>
                           deleteCoverLetter(
                             coverLetters.find(
                               (coverLetter: any) =>
@@ -140,7 +140,7 @@ const Applications = ({
                         className="font-medium text-red-600 dark:text-red-500 hover:underline ms-3"
                       >
                         Remove
-                      </a>
+                      </button>
                     </>
                   ) : (
                     <form action={createCoverLetter}>
