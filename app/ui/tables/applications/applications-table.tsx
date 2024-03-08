@@ -2,8 +2,10 @@
 
 import {
   createCoverLetter,
+  createResume,
   deleteApplication,
   deleteCoverLetter,
+  deleteResume,
 } from "@/app/lib/actions";
 
 const Applications = ({
@@ -68,10 +70,6 @@ const Applications = ({
                 key={application.id}
                 className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
               >
-                {/* <Link
-                  className="w-full "
-                  href={`/dashboard/application/edit/${application.id}`}
-                > */}
                 <td className="w-4 p-4">
                   <div className="flex items-center">
                     <input
@@ -117,8 +115,7 @@ const Applications = ({
                     (coverLetter: any) =>
                       coverLetter?.application_id === application.id
                   )?.id > 0 ? (
-                    <>
-                      {" "}
+                    <div className="flex flex-row">
                       <a
                         href={`/dashboard/cover/edit/${coverLetters.find(
                           (coverLetter: any) =>
@@ -141,7 +138,7 @@ const Applications = ({
                       >
                         Remove
                       </button>
-                    </>
+                    </div>
                   ) : (
                     <form action={createCoverLetter}>
                       <input
@@ -179,22 +176,60 @@ const Applications = ({
                   {resumes?.find(
                     (resume: any) => resume.application_id === application.id
                   )?.id > 0 ? (
-                    <a
-                      href={`/dashboard/resume/edit/${resumes.find(
-                        (resume: any) =>
-                          resume.application_id === application.id
-                      )?.id}`}
-                      className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                    >
-                      Edit
-                    </a>
+                    <div className="flex flex-row">
+                      <a
+                        href={`/dashboard/resume/edit/${resumes.find(
+                          (resume: any) =>
+                            resume.application_id === application.id
+                        )?.id}`}
+                        className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                      >
+                        Edit
+                      </a>
+                      <button
+                        onClick={() =>
+                          deleteResume(
+                            resumes.find(
+                              (resume: any) =>
+                                resume?.application_id === application.id
+                            )?.id
+                          )
+                        }
+                        className="font-medium text-red-600 dark:text-red-500 hover:underline ms-3"
+                      >
+                        Remove
+                      </button>
+                    </div>
                   ) : (
-                    <a
-                      href={`/dashboard/resume/new/${application.id}`}
-                      className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                    >
-                      Create
-                    </a>
+                    <form action={createResume}>
+                      <input
+                        type="text"
+                        required
+                        hidden
+                        name="user_id"
+                        value={user.id}
+                      />
+                      <input
+                        type="text"
+                        required
+                        hidden
+                        name="application_id"
+                        value={application.id}
+                      />
+                      <input
+                        type="text"
+                        required
+                        hidden
+                        name="company_id"
+                        value={application.company_id}
+                      />
+                      <button
+                        type="submit"
+                        className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                      >
+                        Create
+                      </button>
+                    </form>
                   )}
                 </td>
                 <td className="text-left px-6 py-4">

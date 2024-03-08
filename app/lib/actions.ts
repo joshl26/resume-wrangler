@@ -188,6 +188,18 @@ const CreateCoverLetterSchema = z.object({
   }),
 });
 
+const CreateResumeSchema = z.object({
+  application_id: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  company_id: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  user_id: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+});
+
 const CreateInvoice = InvoiceSchema.omit({ id: true, date: true });
 const UpdateInvoice = InvoiceSchema.omit({ id: true, date: true });
 const DeleteInvoice = InvoiceSchema.omit({ id: true, date: true });
@@ -680,6 +692,58 @@ export async function createCoverLetter(formData: FormData) {
 
   try {
     const query = `INSERT INTO cover_letters (user_id, company_id, application_id) VALUES ('${user_id}', '${company_id}', '${application_id}')`;
+    //console.log(query);
+
+    const data = await conn.query(query);
+    revalidatePath("/dashboard/applications");
+    redirect("/dashboard/applications");
+    // console.log(data);
+  } catch (error) {
+    return {
+      message: `Database Error: Failed to create new company. ${error}`,
+    };
+  }
+}
+
+export async function deleteResume(id: string) {
+  // console.log(id);
+
+  try {
+    const query = `DELETE FROM resumes WHERE id = ${id}`;
+    // console.log(query);
+
+    const data = await conn.query(query);
+    // console.log(data);
+  } catch (error) {
+    return {
+      message: `Database Error: Failed to Delete Resume. ${error}`,
+    };
+  }
+
+  revalidatePath("/dashboard/applications");
+  redirect("/dashboard/applications");
+}
+
+export async function createResume(formData: FormData) {
+  const validatedFields = CreateResumeSchema.safeParse({
+    user_id: formData.get("user_id"),
+    application_id: formData.get("application_id"),
+    company_id: formData.get("company_id"),
+  });
+
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: "Missing Fields. Failed to Update Invoice.",
+    };
+  }
+
+  const { user_id, application_id, company_id } = validatedFields.data;
+
+  // console.log(user_id, application_id, company_id);
+
+  try {
+    const query = `INSERT INTO resumes (user_id, company_id, application_id) VALUES ('${user_id}', '${company_id}', '${application_id}')`;
     //console.log(query);
 
     const data = await conn.query(query);
