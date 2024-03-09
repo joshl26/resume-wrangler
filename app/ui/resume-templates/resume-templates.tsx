@@ -1,17 +1,7 @@
 import Image from "next/image";
 import React from "react";
 
-const ResumeTemplates = ({
-  resumeTemplates,
-  resumeColors,
-  bodyFonts,
-  headerFonts,
-}: {
-  resumeTemplates: any;
-  resumeColors: any;
-  bodyFonts: any;
-  headerFonts: any;
-}) => {
+const ResumeTemplates = ({ resumeTemplates }: { resumeTemplates: any }) => {
   return (
     <div className="h-full overflow-y-auto">
       <div className="flex flex-row flex-wrap gap-4 justify-around w-full">

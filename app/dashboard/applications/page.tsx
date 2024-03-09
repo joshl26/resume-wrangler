@@ -47,14 +47,12 @@ export default async function Page() {
           </Button>
         </div>
       </div>
-
       <Applications
         user={user}
         resumes={resumes}
         coverLetters={coverLetters}
         applications={applications}
         companies={companies}
-       
       />
     </div>
   );

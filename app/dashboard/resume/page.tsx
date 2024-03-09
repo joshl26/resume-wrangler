@@ -14,9 +14,6 @@ export default async function Page() {
   // const resumeTemplates = await getResumeTemplates();
   const selectedResume = "";
   const resumeTemplates = await fetchResumeTemplates();
-  const resumeColors = await fetchResumeColors();
-  const bodyFonts = await fetchBodyFonts();
-  const headerFonts = await fetchHeaderFonts();
 
   // const resumeTemplates = await getProducts();
 
@@ -42,12 +39,7 @@ export default async function Page() {
         </div>
       </div>
 
-      <ResumeTemplates
-        resumeTemplates={resumeTemplates}
-        resumeColors={resumeColors}
-        headerFonts={headerFonts}
-        bodyFonts={bodyFonts}
-      />
+      <ResumeTemplates resumeTemplates={resumeTemplates} />
     </div>
   );
 }
