@@ -75,23 +75,11 @@ const UserSocialsSchema = z.object({
   }),
 });
 
-// { name: 'application_id', value: '2' },
-//     { name: 'posting_text', value: '631a Electrician Apprenticeship' },
-//     { name: 'is_complete', value: 'off' },
-//     { name: 'is_complete', value: 'on' },
-//     { name: 'job_position', value: '631a Electrician Apprenticeship' },
-//     { name: 'posting_url', value: 'test' },
-//     { name: 'analyzed_posting_text', value: '' },
-//     { name: 'company_id', value: '1' }
-
 const ApplicationSchema = z.object({
   id: z.string(),
   postingText: z.string({
     invalid_type_error: "Please enter a string.",
   }),
-  // isComplete: z.string({
-  //   invalid_type_error: "Please enter a boolean.",
-  // }),
   jobPosition: z.string({
     invalid_type_error: "Please enter a string.",
   }),
@@ -131,51 +119,6 @@ const CompanySchema = z.object({
   }),
 });
 
-// const CoverLetterSchema = z.object({
-//   id: z.string({
-//     invalid_type_error: "Please enter a string.",
-//   }),
-//   company_id: z.string({
-//     invalid_type_error: "Please enter a string.",
-//   }),
-//   first_name: z.string({
-//     invalid_type_error: "Please enter a string.",
-//   }),
-//   last_name: z.string({
-//     invalid_type_error: "Please enter a string.",
-//   }),
-//   recipient_title: z.string({
-//     invalid_type_error: "Please enter a string.",
-//   }),
-//   intro_text_start: z.string({
-//     invalid_type_error: "Please enter a string.",
-//   }),
-//   intro_skills: z.string({
-//     invalid_type_error: "Please enter a string.",
-//   }),
-//   intro_experience: z.string({
-//     invalid_type_error: "Please enter a string.",
-//   }),
-//   application_id: z.string({
-//     invalid_type_error: "Please enter a string.",
-//   }),
-//   intro_text_end: z.string({
-//     invalid_type_error: "Please enter a string.",
-//   }),
-//   salutation_text: z.string({
-//     invalid_type_error: "Please enter a string.",
-//   }),
-//   conclusion_text: z.string({
-//     invalid_type_error: "Please enter a string.",
-//   }),
-//   thanks_text: z.string({
-//     invalid_type_error: "Please enter a string.",
-//   }),
-//   user_id: z.string({
-//     invalid_type_error: "Please enter a string.",
-//   }),
-// });
-
 const CreateCoverLetterSchema = z.object({
   application_id: z.string({
     invalid_type_error: "Please enter a string.",
@@ -196,6 +139,24 @@ const CreateResumeSchema = z.object({
     invalid_type_error: "Please enter a string.",
   }),
   user_id: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+});
+
+const YourResumeStyleSchema = z.object({
+  resume_title: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  resume_template: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  color: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  header_font: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  body_font: z.string({
     invalid_type_error: "Please enter a string.",
   }),
 });
@@ -760,3 +721,8 @@ export async function createResume(formData: FormData) {
 export async function updateYourResumeStyle(formData: FormData) {
   console.log(formData);
 }
+// { name: 'resume-title', value: 'First Resumes' },
+//     { name: 'resume-template', value: '3d-animator' },
+//     { name: 'color', value: 'bg-red-400' },
+//     { name: 'header-font', value: 'font-bree' },
+//     { name: 'body-font', value: 'font-bree' }
