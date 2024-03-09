@@ -1,6 +1,6 @@
 import Page from "../page";
 import { User } from "../../../data/user-details";
-import { resumeSkills } from "../../../data/resume-skills";
+//import { resumeSkills } from "../../../data/resume-skills";
 import { resumeExperiences } from "../../../data/resume-experiences";
 
 interface Props {
@@ -10,6 +10,10 @@ interface Props {
 }
 
 const Classic = (props: Props) => {
+  console.log(props.user);
+
+  const resumeSkills: any = [{}];
+
   return (
     <>
       <Page>
@@ -121,89 +125,94 @@ const Classic = (props: Props) => {
           </div>
         </div>
         <div id="resume_skills">
-          {resumeSkills && (
-            <div>
-              <h2
+          <div>
+            <h2
+              className={props.bodyFont}
+              style={{
+                textTransform: "uppercase",
+                textDecoration: "underline",
+                textAlign: "center",
+                fontSize: "1rem",
+                lineHeight: "1.5",
+                margin: "1rem 0 0.25rem 0",
+                fontWeight: "bold",
+              }}
+            >
+              TECHNICAL SKILLS
+            </h2>
+            <div style={{ display: "flex" }}>
+              <h3
+                className={props.bodyFont}
+                style={{ margin: 0, fontWeight: "bold", fontSize: "0.95rem" }}
+              >
+                Frontend:{" "}
+              </h3>{" "}
+              <p
                 className={props.bodyFont}
                 style={{
-                  textTransform: "uppercase",
-                  textDecoration: "underline",
-                  textAlign: "center",
-                  fontSize: "1rem",
-                  lineHeight: "1.5",
-                  margin: "1rem 0 0.25rem 0",
-                  fontWeight: "bold",
+                  margin: 0,
+                  paddingLeft: "0.25rem",
+                  fontSize: "0.9rem",
                 }}
               >
-                TECHNICAL SKILLS
-              </h2>
-              <div style={{ display: "flex" }}>
-                <h3
-                  className={props.bodyFont}
-                  style={{ margin: 0, fontWeight: "bold", fontSize: "0.95rem" }}
-                >
-                  Frontend:{" "}
-                </h3>{" "}
-                <p
-                  className={props.bodyFont}
-                  style={{
-                    margin: 0,
-                    paddingLeft: "0.25rem",
-                    fontSize: "0.9rem",
-                  }}
-                >
-                  {resumeSkills.frontendSkills}
-                </p>
-              </div>
-              <div style={{ display: "flex", fontSize: "0.95rem" }}>
-                <h3
-                  className={props.bodyFont}
-                  style={{ margin: 0, fontWeight: "bold" }}
-                >
-                  Backend:{" "}
-                </h3>
-                <p
-                  className={props.bodyFont}
-                  style={{ margin: 0, paddingLeft: "0.25rem" }}
-                >
-                  {resumeSkills.backendSkills}
-                </p>
-              </div>
-              <div style={{ display: "flex", fontSize: "0.95rem" }}>
-                <h3
-                  className={props.bodyFont}
-                  style={{ margin: 0, fontWeight: "bold" }}
-                >
-                  Frameworks and Libraries:{" "}
-                </h3>
-                <p
-                  className={props.bodyFont}
-                  style={{ margin: 0, paddingLeft: "0.25rem" }}
-                >
-                  {resumeSkills.frontendSkills}
-                </p>
-              </div>
-              <div style={{ display: "flex", fontSize: "0.95rem" }}>
-                <h3
-                  className={props.bodyFont}
-                  style={{ margin: 0, fontWeight: "bold" }}
-                >
-                  Developer Tools:
-                </h3>
-                <p
-                  className={props.bodyFont}
-                  style={{
-                    margin: 0,
-                    paddingLeft: "0.25rem",
-                    fontWeight: "lighter",
-                  }}
-                >
-                  {" "}
-                  {resumeSkills.frontendSkills}
-                </p>
-              </div>
+                {!resumeSkills?.frontendSkills
+                  ? "List your frontend skills here..."
+                  : resumeSkills.frontendSkills}
+              </p>
             </div>
-          )}
+            <div style={{ display: "flex", fontSize: "0.95rem" }}>
+              <h3
+                className={props.bodyFont}
+                style={{ margin: 0, fontWeight: "bold" }}
+              >
+                Backend:{" "}
+              </h3>
+              <p
+                className={props.bodyFont}
+                style={{ margin: 0, paddingLeft: "0.25rem" }}
+              >
+                {!resumeSkills?.backendSkills
+                  ? "List your backend skills here..."
+                  : resumeSkills.backendSkills}
+              </p>
+            </div>
+            <div style={{ display: "flex", fontSize: "0.95rem" }}>
+              <h3
+                className={props.bodyFont}
+                style={{ margin: 0, fontWeight: "bold" }}
+              >
+                Frameworks and Libraries:{" "}
+              </h3>
+              <p
+                className={props.bodyFont}
+                style={{ margin: 0, paddingLeft: "0.25rem" }}
+              >
+                {!resumeSkills?.frameworks
+                  ? "List your frameworks here..."
+                  : resumeSkills.frameworks}
+              </p>
+            </div>
+            <div style={{ display: "flex", fontSize: "0.95rem" }}>
+              <h3
+                className={props.bodyFont}
+                style={{ margin: 0, fontWeight: "bold" }}
+              >
+                Developer Tools:
+              </h3>
+              <p
+                className={props.bodyFont}
+                style={{
+                  margin: 0,
+                  paddingLeft: "0.25rem",
+                  fontWeight: "lighter",
+                }}
+              >
+                {!resumeSkills?.developerTools
+                  ? "List your developer tools here..."
+                  : resumeSkills.developerTools}
+              </p>
+            </div>
+          </div>
         </div>
         <div id="work-experience-1">
           {resumeExperiences && (
