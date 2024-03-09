@@ -1,9 +1,6 @@
 "use client";
 
 import { Suspense, useState } from "react";
-
-import { colors } from "@/app/data/data";
-import { user } from "@/app/data/user-details";
 import Classic from "@/app/ui/resume/classic/classic-resume";
 import PreviewButton from "@/app/ui/preview-button";
 import ElectricalEngineer from "@/app/ui/resume/electrical-engineer/electrical-engineer";
@@ -14,11 +11,13 @@ export default function ResumeStyling({
   resumeColors,
   bodyFonts,
   headerFonts,
+  user,
 }: {
   resumeTemplates: any;
   resumeColors: any;
   bodyFonts: any;
   headerFonts: any;
+  user: any;
 }) {
   const [resumeStyling, setResumeStyling] = useState({
     resumeTitle: "",

@@ -14,110 +14,109 @@ const Classic = (props: Props) => {
     <>
       <Page>
         <div id="user_details">
-          {props.user && (
-            <div>
-              <h1
-                style={{
-                  textAlign: "center",
-                  textTransform: "uppercase",
-                  fontSize: "50px",
-                  lineHeight: "1.3",
-                  fontWeight: "bold",
-                }}
-                className={props.headingFont}
-              >
-                {props.user.first_name} {props.user.last_name}
-              </h1>
+          <div>
+            <h1
+              style={{
+                textAlign: "center",
+                textTransform: "uppercase",
+                fontSize: "50px",
+                lineHeight: "1.3",
+                fontWeight: "bold",
+              }}
+              className={props.headingFont}
+            >
+              {props.user === null ? "First" : props.user.first_name}{" "}
+              {props.user === null ? "Last" : props.user.last_name}
+            </h1>
+            <div
+              style={{
+                display: "flex",
+              }}
+            >
               <div
                 style={{
                   display: "flex",
+                  margin: "auto",
+                  fontSize: "0.85rem",
+                  lineHeight: "1",
+                  height: "100%",
                 }}
               >
-                <div
+                <p
                   style={{
-                    display: "flex",
-                    margin: "auto",
-                    fontSize: "0.85rem",
-                    lineHeight: "1",
-                    height: "100%",
+                    margin: "0.25rem",
                   }}
+                  className={props.bodyFont}
                 >
-                  <p
-                    style={{
-                      margin: "0.25rem",
-                    }}
-                    className={props.bodyFont}
-                  >
-                    {props.user.address_three}
-                  </p>
-                  <p
-                    style={{
-                      margin: "0.25rem",
-                    }}
-                    className={props.bodyFont}
-                  >
-                    |
-                  </p>
-                  <p
-                    style={{
-                      margin: "0.25rem",
-                    }}
-                    className={props.bodyFont}
-                  >
-                    {props.user.phone}
-                  </p>
-                  <p
-                    style={{
-                      margin: "0.25rem",
-                    }}
-                    className={props.bodyFont}
-                  >
-                    |
-                  </p>
-                  <p
-                    style={{
-                      margin: "0.25rem",
-                    }}
-                    className={props.bodyFont}
-                  >
-                    {props.user.email}
-                  </p>
-                  <p
-                    style={{
-                      margin: "0.25rem",
-                    }}
-                    className={props.bodyFont}
-                  >
-                    |
-                  </p>
-                  <p
-                    style={{
-                      margin: "0.25rem",
-                    }}
-                    className={props.bodyFont}
-                  >
-                    {props.user.linked_in}
-                  </p>
-                  <p
-                    style={{
-                      margin: "0.25rem",
-                    }}
-                    className={props.bodyFont}
-                  >
-                    |
-                  </p>
-                  <p
-                    style={{
-                      margin: "0.25rem",
-                    }}
-                    className={props.bodyFont}
-                  >
-                    {props.user.website}
-                  </p>
-                </div>
+                  {props.user === null ? "Address" : props.user.address_three}
+                </p>
+                <p
+                  style={{
+                    margin: "0.25rem",
+                  }}
+                  className={props.bodyFont}
+                >
+                  |
+                </p>
+                <p
+                  style={{
+                    margin: "0.25rem",
+                  }}
+                  className={props.bodyFont}
+                >
+                  {props.user === null ? "Phone" : props.user.phone}
+                </p>
+                <p
+                  style={{
+                    margin: "0.25rem",
+                  }}
+                  className={props.bodyFont}
+                >
+                  |
+                </p>
+                <p
+                  style={{
+                    margin: "0.25rem",
+                  }}
+                  className={props.bodyFont}
+                >
+                  {props.user === null ? "Email" : props.user.email}
+                </p>
+                <p
+                  style={{
+                    margin: "0.25rem",
+                  }}
+                  className={props.bodyFont}
+                >
+                  |
+                </p>
+                <p
+                  style={{
+                    margin: "0.25rem",
+                  }}
+                  className={props.bodyFont}
+                >
+                  {props.user === null ? "LinkedIn" : props.user.linked_in}
+                </p>
+                <p
+                  style={{
+                    margin: "0.25rem",
+                  }}
+                  className={props.bodyFont}
+                >
+                  |
+                </p>
+                <p
+                  style={{
+                    margin: "0.25rem",
+                  }}
+                  className={props.bodyFont}
+                >
+                  {props.user === null ? "Website" : props.user.website}
+                </p>
               </div>
             </div>
-          )}
+          </div>
         </div>
         <div id="resume_skills">
           {resumeSkills && (
