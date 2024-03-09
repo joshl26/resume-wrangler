@@ -1,11 +1,7 @@
 import {
   fetchApplicationsByUserId,
-  fetchBodyFonts,
   fetchCoverLettersByUserId,
-  fetchHeaderFonts,
   fetchLatestCompaniesByUserId,
-  fetchResumeColors,
-  fetchResumeTemplates,
   fetchResumesByUserId,
   getUser,
 } from "@/app/lib/data";
