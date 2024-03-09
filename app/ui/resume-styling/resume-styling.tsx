@@ -1,5 +1,3 @@
-"use client";
-
 import { Suspense, useState } from "react";
 import Classic from "@/app/ui/resume/classic/classic-resume";
 import PreviewButton from "@/app/ui/preview-button";
@@ -97,15 +95,21 @@ export default function ResumeStyling({
     <main className="flex w-full">
       <div className="flex flex-row h-full w-full">
         <div className="flex flex-col h-full w-[400px] overflow-scroll px-3">
-          <YourResumeStyling />
-          <div className="py-2"></div>
+          <YourResumeStyling
+            resume={resume}
+            resumeTemplates={resumeTemplates}
+            resumeColors={resumeColors}
+            headerFonts={headerFonts}
+            bodyFonts={bodyFonts}
+          />
+          {/* <div className="py-2"></div>
           <YourProfile />
           <div className="py-2"></div>
           <YourSkills />
           <YourEducation />
           <YourWorkExperiences />
           <YourOrganizations />
-          <YourCertifications />
+          <YourCertifications /> */}
           <div className="p-2 text-center">
             <a
               href={`/api/pdf?bodyFont=${resume.bodyFont}&headerFont=${resume.headingFont}`}

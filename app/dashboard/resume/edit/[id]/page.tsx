@@ -39,7 +39,7 @@ export default async function EditResume({
       fetchResumeById(id),
     ]);
 
-  console.log(resume);
+  // console.log(resume);
 
   if (
     !resumeTemplates ??
@@ -54,11 +54,11 @@ export default async function EditResume({
 
   return (
     <ResumeStyling
-      resumeTemplates={[]}
-      resumeColors={[]}
-      bodyFonts={[]}
-      headerFonts={[]}
-      user={[]}
+      resumeTemplates={resumeTemplates}
+      resumeColors={resumeColors}
+      bodyFonts={bodyFonts}
+      headerFonts={headerFonts}
+      user={user}
       resume={resume}
     />
   );
