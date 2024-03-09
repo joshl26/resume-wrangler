@@ -10,7 +10,7 @@ interface Props {
 }
 
 const Classic = (props: Props) => {
-  console.log(props.user);
+  // console.log(props.user);
 
   const resumeSkills: any = [{}];
 

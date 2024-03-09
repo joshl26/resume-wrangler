@@ -12,20 +12,24 @@ export default function ResumeStyling({
   bodyFonts,
   headerFonts,
   user,
+  resume,
 }: {
   resumeTemplates: any;
   resumeColors: any;
   bodyFonts: any;
   headerFonts: any;
   user: any;
+  resume: any;
 }) {
   const [resumeStyling, setResumeStyling] = useState({
-    resumeTitle: "",
-    resumeTemplate: "classic",
-    headingFont: "font-quicksand",
-    bodyFont: "font-quicksand",
-    color: "white",
+    resumeTitle: resume.title,
+    resumeTemplate: resume.template,
+    headingFont: resume.heading_font,
+    bodyFont: resume.body_font,
+    color: resume.color,
   });
+
+  const [resumeStylingChanged, setResumeStylingChanged] = useState(false);
 
   const resumeTitleAction = (e: { target: HTMLInputElement }) => {
     let updatedValue = {};
@@ -36,6 +40,13 @@ export default function ResumeStyling({
       ...resumeStyling,
       ...updatedValue,
     }));
+  };
+
+  const resumeStylingOnChangeHandler = (e: any) => {
+    // if (resumeStylingChanged === false) {
+    //   setResumeStylingChanged(true);
+    // }
+    resumeTitleAction(e);
   };
 
   const bodyFontAction = (e: { target: HTMLSelectElement }) => {
@@ -91,6 +102,7 @@ export default function ResumeStyling({
       <div className="resume-styling">
         <div className="pb-2 font-bold text-xl">
           <h2>Resume Styling</h2>
+          <p>{resumeStylingChanged === false ? "false" : "true"}</p>
         </div>
         <div className="drop-shadow-md border-[1px] border-slate-300 rounded px-5 py-2 ">
           <div className="flex flex-col py-1">
@@ -100,7 +112,7 @@ export default function ResumeStyling({
             <input
               className="rounded bg-slate-200"
               value={resumeStyling.resumeTitle}
-              onChange={(e) => resumeTitleAction(e)}
+              onChange={(e) => resumeStylingOnChangeHandler(e)}
               placeholder="Resume Title"
             ></input>
           </div>
@@ -111,7 +123,7 @@ export default function ResumeStyling({
             <select
               className="rounded bg-amber-300"
               value={resumeStyling.resumeTemplate}
-              onChange={(e) => resumeTemplateAction(e)}
+              onChange={(e) => resumeStylingOnChangeHandler(e)}
               name="resume-template"
               id="resume-template"
             >
@@ -238,7 +250,7 @@ export default function ResumeStyling({
                   id="first-name"
                   className="rounded bg-slate-200"
                   value={resumeStyling.resumeTitle}
-                  onChange={(e) => resumeTitleAction(e)}
+                  onChange={(e) => resumeStylingOnChangeHandler(e)}
                   placeholder="First Name"
                 ></input>
               </div>
@@ -1071,13 +1083,13 @@ export default function ResumeStyling({
         <div className="flex flex-col h-full w-[400px] overflow-scroll px-3">
           <ResumeStyling />
           <div className="py-2"></div>
-          <YourProfile />
+          {/* <YourProfile />
           <div className="py-2"></div>
           <YourSkills />
           <YourEducation />
           <YourWorkExperiences />
           <YourOrganizations />
-          <YourCertifications />
+          <YourCertifications /> */}
           <div className="p-2 text-center">
             <a
               href={`/api/pdf?bodyFont=${resumeStyling.bodyFont}&headerFont=${resumeStyling.headingFont}`}

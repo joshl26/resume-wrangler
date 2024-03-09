@@ -1,13 +1,6 @@
 import React from "react";
 import ResumeTemplates from "@/app/ui/resume-templates/resume-templates";
-import { getProducts } from "@/app/api/resumeTemplates";
-import {
-  fetchBodyFonts,
-  fetchHeaderFonts,
-  fetchResumeColors,
-  fetchResumeTemplates,
-  getResumeTemplates,
-} from "@/app/lib/data";
+import { fetchResumeTemplates } from "@/app/lib/data";
 import { Button } from "@/app/ui/button";
 
 export default async function Page() {
@@ -38,7 +31,6 @@ export default async function Page() {
           </div>
         </div>
       </div>
-
       <ResumeTemplates resumeTemplates={resumeTemplates} />
     </div>
   );
