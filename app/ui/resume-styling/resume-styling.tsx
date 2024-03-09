@@ -1,3 +1,5 @@
+"use client";
+
 import { Suspense, useState } from "react";
 import Classic from "@/app/ui/resume/classic/classic-resume";
 import PreviewButton from "@/app/ui/preview-button";
@@ -86,6 +88,8 @@ export default function ResumeStyling({
   //     ...updatedValue,
   //   }));
   // };
+
+  const [edited, setEdited] = useState(false);
 
   const deleteSkill = (e: any) => {
     console.log(e);

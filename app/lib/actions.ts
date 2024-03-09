@@ -756,3 +756,7 @@ export async function createResume(formData: FormData) {
     };
   }
 }
+
+export async function updateYourResumeStyle(formData: FormData) {
+  console.log(formData);
+}
