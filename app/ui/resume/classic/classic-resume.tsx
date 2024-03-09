@@ -25,8 +25,8 @@ const Classic = (props: Props) => {
               }}
               className={props.headingFont}
             >
-              {props.user === null ? "First" : props.user.first_name}{" "}
-              {props.user === null ? "Last" : props.user.last_name}
+              {!props?.user?.first_name ? "First" : props.user.first_name}{" "}
+              {!props?.user?.last_name ? "Last" : props.user.last_name}
             </h1>
             <div
               style={{
@@ -48,7 +48,9 @@ const Classic = (props: Props) => {
                   }}
                   className={props.bodyFont}
                 >
-                  {props.user === null ? "Address" : props.user.address_three}
+                  {!props?.user?.address_three
+                    ? "address"
+                    : props.user.address_three}
                 </p>
                 <p
                   style={{
@@ -64,7 +66,7 @@ const Classic = (props: Props) => {
                   }}
                   className={props.bodyFont}
                 >
-                  {props.user === null ? "Phone" : props.user.phone}
+                  {!props?.user?.phone ? "Phone" : props.user.phone}
                 </p>
                 <p
                   style={{
@@ -80,7 +82,7 @@ const Classic = (props: Props) => {
                   }}
                   className={props.bodyFont}
                 >
-                  {props.user === null ? "Email" : props.user.email}
+                  {!props?.user?.email ? "Email" : props.user.email}
                 </p>
                 <p
                   style={{
@@ -96,7 +98,7 @@ const Classic = (props: Props) => {
                   }}
                   className={props.bodyFont}
                 >
-                  {props.user === null ? "LinkedIn" : props.user.linked_in}
+                  {!props?.user?.linked_in ? "LinkedIn" : props.user.linked_in}
                 </p>
                 <p
                   style={{
@@ -112,7 +114,7 @@ const Classic = (props: Props) => {
                   }}
                   className={props.bodyFont}
                 >
-                  {props.user === null ? "Website" : props.user.website}
+                  {!props?.user?.website ? "Website" : props.user.website}
                 </p>
               </div>
             </div>

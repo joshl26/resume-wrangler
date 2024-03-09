@@ -47,7 +47,7 @@ export default async function EditResume() {
       resumeColors={resumeColors}
       bodyFonts={bodyFonts}
       headerFonts={headerFonts}
-      user={null}
+      user={user}
     />
   );
 }
