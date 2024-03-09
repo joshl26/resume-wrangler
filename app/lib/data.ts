@@ -416,3 +416,63 @@ export async function fetchCoverLettersByUserId(userId: string) {
     return [null];
   }
 }
+
+export async function fetchResumeTemplates() {
+  noStore();
+
+  try {
+    const query = `SELECT * FROM resume_templates ORDER BY name ASC`;
+    // console.log(query);
+    const resumeTemplates = await conn.query(query);
+    return resumeTemplates.rows;
+  } catch (error: any) {
+    console.error("Database Error:", error);
+    // throw new Error("Failed to fetch resume template by id.");
+    return [null];
+  }
+}
+
+export async function fetchResumeColors() {
+  noStore();
+
+  try {
+    const query = `SELECT * FROM resume_colors ORDER BY name ASC`;
+    // console.log(query);
+    const resumeColors = await conn.query(query);
+    return resumeColors.rows;
+  } catch (error: any) {
+    console.error("Database Error:", error);
+    // throw new Error("Failed to fetch resume template by id.");
+    return [null];
+  }
+}
+
+export async function fetchBodyFonts() {
+  noStore();
+
+  try {
+    const query = `SELECT * FROM body_fonts ORDER BY name ASC`;
+    // console.log(query);
+    const bodyFonts = await conn.query(query);
+    return bodyFonts.rows;
+  } catch (error: any) {
+    console.error("Database Error:", error);
+    // throw new Error("Failed to fetch resume template by id.");
+    return [null];
+  }
+}
+
+export async function fetchHeaderFonts() {
+  noStore();
+
+  try {
+    const query = `SELECT * FROM header_fonts ORDER BY name ASC`;
+    // console.log(query);
+    const headerFonts = await conn.query(query);
+    return headerFonts.rows;
+  } catch (error: any) {
+    console.error("Database Error:", error);
+    // throw new Error("Failed to fetch resume template by id.");
+    return [null];
+  }
+}

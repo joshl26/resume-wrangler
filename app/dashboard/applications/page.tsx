@@ -1,7 +1,11 @@
 import {
   fetchApplicationsByUserId,
+  fetchBodyFonts,
   fetchCoverLettersByUserId,
+  fetchHeaderFonts,
   fetchLatestCompaniesByUserId,
+  fetchResumeColors,
+  fetchResumeTemplates,
   fetchResumesByUserId,
   getUser,
 } from "@/app/lib/data";
@@ -28,7 +32,7 @@ export default async function Page() {
   const resumes = await fetchResumesByUserId(user?.id!);
   const coverLetters = await fetchCoverLettersByUserId(user?.id!);
 
-  // console.log(applications);
+  // console.log(bodyFonts);
   return (
     <div className="h-full w-full">
       <div className="flex flex-row justify-between">
@@ -50,6 +54,7 @@ export default async function Page() {
         coverLetters={coverLetters}
         applications={applications}
         companies={companies}
+       
       />
     </div>
   );

@@ -1,12 +1,22 @@
 import React from "react";
 import ResumeTemplates from "@/app/ui/resume-templates/resume-templates";
 import { getProducts } from "@/app/api/resumeTemplates";
-import { getResumeTemplates } from "@/app/lib/data";
+import {
+  fetchBodyFonts,
+  fetchHeaderFonts,
+  fetchResumeColors,
+  fetchResumeTemplates,
+  getResumeTemplates,
+} from "@/app/lib/data";
 import { Button } from "@/app/ui/button";
 
 export default async function Page() {
-  const resumeTemplates = await getResumeTemplates();
-  const selectedResume = "1453bf56-d92f-4893-a6a8-34decd76bbd7";
+  // const resumeTemplates = await getResumeTemplates();
+  const selectedResume = "";
+  const resumeTemplates = await fetchResumeTemplates();
+  const resumeColors = await fetchResumeColors();
+  const bodyFonts = await fetchBodyFonts();
+  const headerFonts = await fetchHeaderFonts();
 
   // const resumeTemplates = await getProducts();
 
@@ -32,7 +42,12 @@ export default async function Page() {
         </div>
       </div>
 
-      <ResumeTemplates resumeTemplates={resumeTemplates} />
+      <ResumeTemplates
+        resumeTemplates={resumeTemplates}
+        resumeColors={resumeColors}
+        headerFonts={headerFonts}
+        bodyFonts={bodyFonts}
+      />
     </div>
   );
 }
