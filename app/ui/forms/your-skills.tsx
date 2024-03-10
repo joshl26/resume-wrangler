@@ -1,4 +1,5 @@
-export default function YourSkills() {
+export default function YourSkills({ userSkills }: { userSkills: any }) {
+  console.log(userSkills);
   return (
     <div>
       <div className="your-skills">
@@ -18,15 +19,16 @@ export default function YourSkills() {
         <div className="drop-shadow-md border-[1px] border-slate-300 rounded px-5 py-2 ">
           <div className="flex flex-row w-auto">
             <div className="flex flex-col w-full py-1 px-1">
-              <label className="py-1" htmlFor="section-title">
-                Section Title
+              <label className="py-1" htmlFor="skill_title">
+                Skill Title
               </label>
               <input
-                id="section-title"
+                id="skill_title"
+                name="skill_title"
                 className="rounded bg-slate-200"
-                // value={resumeStyling.resumeTitle}
-                // onChange={(e) => resumeTitleAction(e)}
-                placeholder="Section Title"
+                value={""}
+                onChange={() => {}}
+                placeholder="Skill Title"
               ></input>
             </div>
           </div>
@@ -46,26 +48,31 @@ export default function YourSkills() {
           </div>
           <div className="flex flex-col">
             <div className="flex flex-col py-1 px-1">
-              <label className="py-1" htmlFor="skills">
-                Skills
-              </label>
-              <div className="flex flex-row justify-between">
-                <div className="flex flex-col w-3/4">
-                  <div className="flex flex-row w-full">
-                    <input
-                      id="skills"
-                      value={"TEST"}
-                      className="rounded bg-slate-200 w-full"
-                    ></input>
+              <p className="py-1">Skills</p>
+              {userSkills?.map((userSkill: any) => (
+                <div
+                  key={userSkill.id}
+                  className="flex flex-row justify-between"
+                >
+                  <div className="flex flex-col w-3/4">
+                    <div className="flex text-center align-middle flex-col w-full h-full">
+                      <p className="rounded bg-slate-200 w-full h-[35px]">
+                        {userSkill.skill}
+                      </p>
+                    </div>
+                    <div className="flex flex-row py-3">
+                      <input
+                        className="w-full"
+                        defaultValue={userSkill.skill_level * 100}
+                        type="range"
+                      ></input>
+                    </div>
                   </div>
-                  <div className="flex flex-row py-3">
-                    <input className="w-full" type="range"></input>
+                  <div className="flex flex-col w-auto align-middle">
+                    <button onClick={(e) => {}}>Delete</button>
                   </div>
                 </div>
-                <div className="flex flex-col w-auto align-middle">
-                  {/* <p onClick={(e) => deleteSkill(e)}>Delete</p> */}
-                </div>
-              </div>
+              ))}
             </div>
           </div>
           <div className="flex flex-col">

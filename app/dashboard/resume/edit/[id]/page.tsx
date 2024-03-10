@@ -4,6 +4,7 @@ import {
   fetchResumeById,
   fetchResumeColors,
   fetchResumeTemplates,
+  fetchSkillsByUserId,
   getUser,
 } from "@/app/lib/data";
 import ResumeStyling from "@/app/ui/resume-styling/resume-styling";
@@ -39,6 +40,8 @@ export default async function EditResume({
       fetchResumeById(id),
     ]);
 
+  const [userSkills] = await Promise.all([fetchSkillsByUserId(user.id)]);
+
   // console.log(resume);
 
   if (
@@ -47,7 +50,8 @@ export default async function EditResume({
     !bodyFonts ??
     !headerFonts ??
     !user ??
-    !resume
+    !resume ??
+    !userSkills
   ) {
     notFound();
   }
@@ -60,6 +64,7 @@ export default async function EditResume({
       headerFonts={headerFonts}
       user={user}
       resume={resume}
+      userSkills={userSkills}
     />
   );
 }

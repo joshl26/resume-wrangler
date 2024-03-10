@@ -20,6 +20,7 @@ export default function ResumeStyling({
   headerFonts,
   user,
   resume,
+  userSkills,
 }: {
   resumeTemplates: any;
   resumeColors: any;
@@ -27,7 +28,9 @@ export default function ResumeStyling({
   headerFonts: any;
   user: any;
   resume: any;
+  userSkills: any;
 }) {
+  // console.log(userSkills);
   // const resumeTitleAction = (e: { target: HTMLInputElement }) => {
   //   let updatedValue = {};
 
@@ -105,7 +108,7 @@ export default function ResumeStyling({
           <YourProfile user={user} />
           <YourSocialLinks user={user} />
           <div className="py-2"></div>
-          <YourSkills />
+          <YourSkills userSkills={userSkills} />
           {/*
           <YourEducation />
           <YourWorkExperiences />
