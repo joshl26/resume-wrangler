@@ -11,6 +11,7 @@ import YourEducation from "../forms/your-education";
 import YourWorkExperiences from "../forms/your-work-experiences";
 import YourOrganizations from "../forms/your-organizations";
 import YourCertifications from "../forms/your-certifications";
+import YourSocialLinks from "../forms/your-social-links";
 
 export default function ResumeStyling({
   resumeTemplates,
@@ -89,12 +90,6 @@ export default function ResumeStyling({
   //   }));
   // };
 
-  const [edited, setEdited] = useState(false);
-
-  const deleteSkill = (e: any) => {
-    console.log(e);
-  };
-
   return (
     <main className="flex w-full">
       <div className="flex flex-row h-full w-full">
@@ -106,8 +101,10 @@ export default function ResumeStyling({
             headerFonts={headerFonts}
             bodyFonts={bodyFonts}
           />
-          {/* <div className="py-2"></div>
-          <YourProfile />
+          <div className="py-2"></div>
+          <YourProfile user={user} />
+          <YourSocialLinks user={user} />
+          {/* 
           <div className="py-2"></div>
           <YourSkills />
           <YourEducation />
