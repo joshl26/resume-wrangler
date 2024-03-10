@@ -25,105 +25,128 @@ export default function YourEducation({
           <div className="flex flex-row w-auto">
             <div className="flex flex-col w-full py-1 px-1">
               <label className="py-1" htmlFor="school-name">
-                Schools
+                Education
               </label>
-              <div className="rounded border border-black w-full px-2">
+              <form className="rounded border border-black w-full px-2">
                 <div className="flex flex-row w-auto">
                   <div className="flex flex-col w-full py-1 px-1">
-                    <label className="py-1" htmlFor="school-name">
-                      School Name
+                    <label className="py-1" htmlFor="institution_name">
+                      Institution Name
                     </label>
                     <input
-                      id="school-name"
+                      id="institution_name"
+                      name="institution_name"
                       className="rounded bg-slate-200"
-                      //   value={resumeStyling.resumeTitle}
-                      //   onChange={(e) => resumeTitleAction(e)}
-                      placeholder="School Name"
+                      onChange={(e) => {}}
+                      placeholder="Institution Name"
                     ></input>
                   </div>
                 </div>
                 <div className="flex flex-row w-auto">
                   <div className="flex flex-col w-full py-1 px-1">
-                    <label className="py-1" htmlFor="section-location">
-                      School Location
+                    <label className="py-1" htmlFor="location">
+                      Location
                     </label>
                     <input
-                      id="section-location"
+                      id="location"
+                      name="location"
                       className="rounded bg-slate-200"
-                      //   value={resumeStyling.resumeTitle}
-                      //   onChange={(e) => resumeTitleAction(e)}
-                      placeholder="School Location"
+                      onChange={(e) => {}}
+                      placeholder="Location"
                     ></input>
                   </div>
                 </div>
                 <div className="flex flex-row w-auto">
                   <div className="flex flex-col w-1/3 py-1 px-1">
-                    <label className="py-1" htmlFor="start-date">
+                    <label className="py-1" htmlFor="start_date">
                       Start Date
                     </label>
                     <input
-                      id="start-date"
+                      id="start_date"
+                      name="start_date"
                       className="rounded bg-slate-200"
-                      //   value={resumeStyling.resumeTitle}
-                      //   onChange={(e) => resumeTitleAction(e)}
+                      onChange={(e) => {}}
                       placeholder="Start Date"
                     ></input>
                   </div>
                   <div className="flex flex-col w-1/3 py-1 px-1">
-                    <label className="py-1" htmlFor="end-date">
+                    <label className="py-1" htmlFor="end_date">
                       End Date
                     </label>
                     <input
-                      id="end-date"
+                      id="end_date"
+                      name="end_date"
                       className="rounded bg-slate-200"
-                      //   value={resumeStyling.resumeTitle}
-                      //   onChange={(e) => resumeTitleAction(e)}
+                      onChange={(e) => {}}
                       placeholder="End Date"
                     ></input>
                   </div>
                   <div className="flex flex-col w-1/3 py-1 px-1">
-                    <label className="py-1" htmlFor="section-title">
+                    <label className="py-1" htmlFor="grade">
                       GPA/AVG
                     </label>
                     <input
-                      id="section-title"
+                      id="grade"
+                      name="grade"
                       className="rounded bg-slate-200"
-                      //   value={resumeStyling.resumeTitle}
-                      //   onChange={(e) => resumeTitleAction(e)}
+                      onChange={(e) => {}}
                       placeholder="GPA/AVG"
                     ></input>
                   </div>
                 </div>
                 <div className="flex flex-row w-auto">
                   <div className="flex flex-col w-full py-1 px-1">
-                    <label className="py-1" htmlFor="degree">
-                      Degree
+                    <label className="py-1" htmlFor="program">
+                      Program
                     </label>
                     <input
-                      id="degree"
+                      id="program"
+                      name="program"
                       className="rounded bg-slate-200"
-                      //   value={resumeStyling.resumeTitle}
-                      //   onChange={(e) => resumeTitleAction(e)}
+                      onChange={(e) => {}}
                       placeholder="Degree"
                     ></input>
                   </div>
                 </div>
-                <div className="flex flex-row justify-end py-2 px-2 font-bold">
-                  <p>Delete</p>
+                <div className="flex flex-row w-auto pt-2 pb-2">
+                  <div className="flex flex-col w-full py-1 px-1">
+                    <button
+                      type="submit"
+                      className="rounded bg-amber-300 h-10 border border-black"
+                      //   value={resumeStyling.resumeTemplate}
+                      // onChange={(e) => resumeTemplateAction(e)}
+                      name="add-school"
+                      id="add-school"
+                    >
+                      Add School
+                    </button>
+                  </div>
                 </div>
-              </div>
+              </form>
             </div>
           </div>
+          <div className="flex flex-col w-full py-2 px-1"></div>
+
           <div className="flex flex-col w-full py-2 px-1">
-            <button
-              className="rounded bg-amber-300 h-10 border border-black"
-              //   value={resumeStyling.resumeTemplate}
-              // onChange={(e) => resumeTemplateAction(e)}
-              name="add-school"
-              id="add-school"
-            >
-              Add School
-            </button>
+            {" "}
+            <ul>
+              {userEducation.map((education: any) => (
+                <li key={education.id}>
+                  <div className="p-2 my-4 rounded border border-black">
+                    <div className="flex flex-row justify-between">
+                      <div className="flex flex-col">
+                        <h2>{education.institution_name}</h2>
+                        <p>{education.location}</p>
+                        <p>{education.program}</p>
+                      </div>
+                      <div className="flex flex-col">
+                        <button>Delete</button>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              ))}
+            </ul>
           </div>
           <div className="flex flex-col">
             <div className="flex flex-row py-2">
