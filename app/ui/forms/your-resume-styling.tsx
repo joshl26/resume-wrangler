@@ -38,6 +38,12 @@ export default function YourResumeStyling({
         className="drop-shadow-md border-[1px] border-slate-300 rounded px-5 py-2 "
       >
         <div className="flex flex-col py-1">
+          <input
+            hidden
+            id="resume_id"
+            name="resume_id"
+            defaultValue={resume.id}
+          />
           <label className="py-1" htmlFor="resume_title">
             Resume Title
           </label>
