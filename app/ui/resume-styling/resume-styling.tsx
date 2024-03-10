@@ -21,6 +21,7 @@ export default function ResumeStyling({
   user,
   resume,
   userSkills,
+  userEducation,
 }: {
   resumeTemplates: any;
   resumeColors: any;
@@ -29,6 +30,7 @@ export default function ResumeStyling({
   user: any;
   resume: any;
   userSkills: any;
+  userEducation: any;
 }) {
   // console.log(userSkills);
   // const resumeTitleAction = (e: { target: HTMLInputElement }) => {
@@ -97,7 +99,7 @@ export default function ResumeStyling({
     <main className="flex w-full">
       <div className="flex flex-row h-full w-full">
         <div className="flex flex-col h-full w-[400px] overflow-scroll px-3">
-          <YourResumeStyling
+          {/* <YourResumeStyling
             resume={resume}
             resumeTemplates={resumeTemplates}
             resumeColors={resumeColors}
@@ -108,8 +110,8 @@ export default function ResumeStyling({
           <YourProfile user={user} />
           <YourSocialLinks user={user} />
           <div className="py-2"></div>
-          <YourSkills user={user} userSkills={userSkills} />
-          <YourEducation />
+          <YourSkills user={user} userSkills={userSkills} /> */}
+          <YourEducation userEducation={userEducation} />
           {/*
           <YourWorkExperiences />
           <YourOrganizations />

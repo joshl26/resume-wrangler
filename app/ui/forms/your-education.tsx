@@ -1,4 +1,10 @@
-export default function YourEducation() {
+export default function YourEducation({
+  userEducation,
+}: {
+  userEducation: any;
+}) {
+  console.log(userEducation);
+
   return (
     <div>
       <div className="your-education">
