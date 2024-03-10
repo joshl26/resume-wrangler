@@ -109,8 +109,8 @@ export default function ResumeStyling({
           <YourSocialLinks user={user} />
           <div className="py-2"></div>
           <YourSkills user={user} userSkills={userSkills} />
-          {/*
           <YourEducation />
+          {/*
           <YourWorkExperiences />
           <YourOrganizations />
           <YourCertifications /> */}
