@@ -764,3 +764,51 @@ export async function updateYourResumeStyle(formData: FormData) {
   revalidatePath(`/dashboard/resume/edit/${resume_id}`);
   redirect(`/dashboard/resume/edit/${resume_id}`);
 }
+
+export async function updateYourSkills(formData: FormData) {
+  console.log(formData);
+
+  // const validatedFields = YourResumeStyleSchema.safeParse({
+  //   resume_title: formData.get("resume_title"),
+  //   resume_template: formData.get("resume_template"),
+  //   color: formData.get("color"),
+  //   header_font: formData.get("header_font"),
+  //   body_font: formData.get("body_font"),
+  //   resume_id: formData.get("resume_id"),
+  // });
+
+  // console.log(validatedFields);
+
+  // if (!validatedFields.success) {
+  //   return {
+  //     errors: validatedFields.error.flatten().fieldErrors,
+  //     message: "Missing Fields. Failed to Update Invoice.",
+  //   };
+  // }
+
+  // const {
+  //   resume_title,
+  //   resume_template,
+  //   color,
+  //   header_font,
+  //   body_font,
+  //   resume_id,
+  // } = validatedFields.data;
+
+  // try {
+  //   const query = `UPDATE resumes SET title = '${resume_title}', template = '${resume_template}', color = '${color}', heading_font = '${header_font}', body_font = '${body_font}' WHERE id = '${resume_id}'`;
+  //   // console.log(query);
+
+  //   const data = await conn.query(query);
+  //   //console.log(data);
+  // } catch (error) {
+  //   return { message: `Database Error: Failed to Update Invoice. ${error}` };
+  // }
+
+  // revalidatePath(`/dashboard/resume/edit/${resume_id}`);
+  // redirect(`/dashboard/resume/edit/${resume_id}`);
+}
+
+export async function createUserSkill(formData: FormData) {
+  console.log(formData);
+}
