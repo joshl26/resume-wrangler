@@ -164,6 +164,24 @@ const YourResumeStyleSchema = z.object({
   }),
 });
 
+const CreateSkillsSchema = z.object({
+  skill_title: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  skill_level: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  user_id: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+});
+
+const DeleteSkillsSchema = z.object({
+  id: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+});
+
 const CreateInvoice = InvoiceSchema.omit({ id: true, date: true });
 const UpdateInvoice = InvoiceSchema.omit({ id: true, date: true });
 const DeleteInvoice = InvoiceSchema.omit({ id: true, date: true });
@@ -766,49 +784,67 @@ export async function updateYourResumeStyle(formData: FormData) {
 }
 
 export async function updateYourSkills(formData: FormData) {
-  console.log(formData);
-
-  // const validatedFields = YourResumeStyleSchema.safeParse({
-  //   resume_title: formData.get("resume_title"),
-  //   resume_template: formData.get("resume_template"),
-  //   color: formData.get("color"),
-  //   header_font: formData.get("header_font"),
-  //   body_font: formData.get("body_font"),
-  //   resume_id: formData.get("resume_id"),
-  // });
-
-  // console.log(validatedFields);
-
-  // if (!validatedFields.success) {
-  //   return {
-  //     errors: validatedFields.error.flatten().fieldErrors,
-  //     message: "Missing Fields. Failed to Update Invoice.",
-  //   };
-  // }
-
-  // const {
-  //   resume_title,
-  //   resume_template,
-  //   color,
-  //   header_font,
-  //   body_font,
-  //   resume_id,
-  // } = validatedFields.data;
-
-  // try {
-  //   const query = `UPDATE resumes SET title = '${resume_title}', template = '${resume_template}', color = '${color}', heading_font = '${header_font}', body_font = '${body_font}' WHERE id = '${resume_id}'`;
-  //   // console.log(query);
-
-  //   const data = await conn.query(query);
-  //   //console.log(data);
-  // } catch (error) {
-  //   return { message: `Database Error: Failed to Update Invoice. ${error}` };
-  // }
-
-  // revalidatePath(`/dashboard/resume/edit/${resume_id}`);
-  // redirect(`/dashboard/resume/edit/${resume_id}`);
+  // console.log(formData);
 }
 
 export async function createUserSkill(formData: FormData) {
   console.log(formData);
+
+  const validatedFields = CreateSkillsSchema.safeParse({
+    skill_title: formData.get("skill_title"),
+    user_id: formData.get("user_id"),
+    skill_level: formData.get("skill_level"),
+  });
+
+  console.log(validatedFields);
+
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: "Missing Fields. Failed to Create user skill.",
+    };
+  }
+  const { skill_title, skill_level, user_id } = validatedFields.data;
+
+  // console.log(skill_title, skill_level, user_id);
+
+  try {
+    const query = `INSERT INTO user_skills (skill, skill_level, user_id) VALUES ('${skill_title}', '${skill_level}', '${user_id}')`; // console.log(query);
+    const data = await conn.query(query);
+    //console.log(data);
+  } catch (error) {
+    return { message: `Database Error: Failed to Update Invoice. ${error}` };
+  }
+  revalidatePath(`/dashboard/resume/edit/`);
+  redirect(`/dashboard/resume/edit/`);
+}
+
+export async function deleteUserSkill(formData: FormData) {
+  console.log(formData);
+
+  const validatedFields = DeleteSkillsSchema.safeParse({
+    id: formData.get("id"),
+  });
+
+  console.log(validatedFields);
+
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: "Missing Fields. Failed to Create user skill.",
+    };
+  }
+  const { id } = validatedFields.data;
+
+  // console.log(skill_title, skill_level, user_id);
+
+  try {
+    const query = `DELETE FROM user_skills WHERE id = '${id}'`;
+    const data = await conn.query(query);
+    //console.log(data);
+  } catch (error) {
+    return { message: `Database Error: Failed to Delete user skill. ${error}` };
+  }
+  revalidatePath(`/dashboard/resume/edit/`);
+  redirect(`/dashboard/resume/edit/`);
 }

@@ -1,8 +1,18 @@
-import { createUserSkill, updateYourSkills } from "@/app/lib/actions";
+import {
+  createUserSkill,
+  deleteUserSkill,
+  updateYourSkills,
+} from "@/app/lib/actions";
 import { useState } from "react";
 
-export default function YourSkills({ userSkills }: { userSkills: any }) {
-  console.log(userSkills);
+export default function YourSkills({
+  userSkills,
+  user,
+}: {
+  userSkills: any;
+  user: any;
+}) {
+  // console.log(userSkills);
 
   const [edited, setEdited] = useState(false);
 
@@ -30,11 +40,20 @@ export default function YourSkills({ userSkills }: { userSkills: any }) {
       <div className="drop-shadow-md border-[1px] border-slate-300 rounded px-5 py-2 ">
         <form action={createUserSkill}>
           <div className="flex flex-row w-auto">
-            <form className="flex flex-col w-full py-1 px-1">
+            <div className="flex flex-col w-full py-1 px-1">
+              <label hidden htmlFor="user_id" />
+              <input
+                hidden
+                id="user_id"
+                name="user_id"
+                defaultValue={user.id}
+                type="text"
+              />
               <label className="py-1" htmlFor="skill_title">
                 Skill Title
               </label>
               <input
+                required
                 id="skill_title"
                 name="skill_title"
                 className="rounded bg-slate-200"
@@ -42,19 +61,22 @@ export default function YourSkills({ userSkills }: { userSkills: any }) {
                 onChange={(e) => onChangeHandler(e)}
                 placeholder="Skill Title"
               ></input>
-            </form>
+              <label hidden htmlFor="skill_level" />
+              <input
+                className="py-4"
+                id="skill_level"
+                name="skill_level"
+                type="range"
+                defaultValue={50}
+              />
+            </div>
           </div>
-          <div className="flex flex-col w-full py-2 px-1">
-            <label className="py-1" htmlFor="skill" hidden>
-              Add Skill
-            </label>
-
+          <div className="flex flex-col w-full pb-1 px-1">
             <button
+              type="submit"
               className="rounded bg-amber-300 h-10 border border-black"
               //   value={resumeStyling.resumeTemplate}
               // onChange={(e) => resumeTemplateAction(e)}
-              name="resume-template"
-              id="resume-template"
             >
               Add Skill
             </button>
@@ -74,13 +96,23 @@ export default function YourSkills({ userSkills }: { userSkills: any }) {
                   <div className="flex flex-row py-3">
                     <input
                       className="w-full"
-                      defaultValue={userSkill.skill_level * 100}
+                      defaultValue={userSkill.skill_level}
                       type="range"
                     ></input>
                   </div>
                 </div>
                 <div className="flex flex-col w-auto align-middle">
-                  <button onClick={(e) => {}}>Delete</button>
+                  <form action={deleteUserSkill}>
+                    <label hidden htmlFor="id" />
+                    <input
+                      type="text"
+                      name="id"
+                      id="id"
+                      defaultValue={userSkill.id}
+                      hidden
+                    />
+                    <button type="submit">Delete</button>
+                  </form>
                 </div>
               </div>
             ))}
