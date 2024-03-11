@@ -834,7 +834,7 @@ export async function updateYourSkills(formData: FormData) {
 }
 
 export async function createUserSkill(formData: FormData) {
-  console.log(formData);
+  // console.log(formData);
 
   const validatedFields = CreateSkillsSchema.safeParse({
     skill_title: formData.get("skill_title"),
@@ -866,13 +866,13 @@ export async function createUserSkill(formData: FormData) {
 }
 
 export async function deleteUserSkill(formData: FormData) {
-  console.log(formData);
+  // console.log(formData);
 
   const validatedFields = DeleteSkillsSchema.safeParse({
     id: formData.get("id"),
   });
 
-  console.log(validatedFields);
+  // console.log(validatedFields);
 
   if (!validatedFields.success) {
     return {
@@ -896,7 +896,7 @@ export async function deleteUserSkill(formData: FormData) {
 }
 
 export async function createUserEducation(formData: FormData) {
-  console.log(formData);
+  // console.log(formData);
 
   const validatedFields = CreateEducationSchema.safeParse({
     user_id: formData.get("user_id"),
@@ -944,14 +944,14 @@ export async function createUserEducation(formData: FormData) {
 }
 
 export async function deleteEducation(formData: FormData) {
-  console.log(formData);
+  // console.log(formData);
 
   const validatedFields = DeleteEducationSchema.safeParse({
     id: formData.get("education_id"),
     resume_id: formData.get("resume_id"),
   });
 
-  console.log(validatedFields);
+  // console.log(validatedFields);
 
   if (!validatedFields.success) {
     return {
@@ -975,7 +975,7 @@ export async function deleteEducation(formData: FormData) {
 }
 
 export async function createOrganization(formData: FormData) {
-  console.log(formData);
+  // console.log(formData);
 
   const validatedFields = CreateOrganizationSchema.safeParse({
     user_id: formData.get("user_id"),
@@ -988,7 +988,7 @@ export async function createOrganization(formData: FormData) {
     resume_id: formData.get("resume_id"),
   });
 
-  console.log(validatedFields);
+  // console.log(validatedFields);
 
   if (!validatedFields.success) {
     return {
@@ -1067,12 +1067,12 @@ export async function deleteOrganization(formData: FormData) {
 }
 
 export async function deleteCertification(formData: FormData) {
-  console.log(formData);
+  // console.log(formData);
   const validatedFields = DeleteOrganizationSchema.safeParse({
     id: formData.get("certification_id"),
     resume_id: formData.get("resume_id"),
   });
-  console.log(validatedFields);
+  // console.log(validatedFields);
   if (!validatedFields.success) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
@@ -1093,7 +1093,7 @@ export async function deleteCertification(formData: FormData) {
 }
 
 export async function createCertification(formData: FormData) {
-  console.log(formData);
+  // console.log(formData);
   const validatedFields = CreateCertificationSchema.safeParse({
     user_id: formData.get("user_id"),
     section_title: formData.get("section_title"),
@@ -1101,7 +1101,7 @@ export async function createCertification(formData: FormData) {
     certification_location: formData.get("certification_location"),
     resume_id: formData.get("resume_id"),
   });
-  console.log(validatedFields);
+  // console.log(validatedFields);
   if (!validatedFields.success) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
@@ -1132,7 +1132,7 @@ export async function createCertification(formData: FormData) {
 }
 
 export async function deleteWorkExperience(formData: FormData) {
-  console.log(formData);
+  // console.log(formData);
   const validatedFields = DeleteWorkExperienceSchema.safeParse({
     id: formData.get("work_experience_id"),
     resume_id: formData.get("resume_id"),
@@ -1158,7 +1158,7 @@ export async function deleteWorkExperience(formData: FormData) {
 }
 
 export async function createWorkExperience(formData: FormData) {
-  console.log(formData);
+  // console.log(formData);
   const validatedFields = CreateWorkExperienceSchema.safeParse({
     user_id: formData.get("user_id"),
     resume_id: formData.get("resume_id"),
@@ -1169,7 +1169,7 @@ export async function createWorkExperience(formData: FormData) {
     end_date: formData.get("end_date"),
     description: formData.get("description"),
   });
-  console.log(validatedFields);
+  // console.log(validatedFields);
   if (!validatedFields.success) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
@@ -1200,7 +1200,7 @@ export async function createWorkExperience(formData: FormData) {
     const query = `INSERT INTO user_work_experience (job_title, company_name, user_id, location, start_date, end_date, description_one) VALUES ('${job_title}', '${company_name}', '${user_id}', '${location}', '${start_date}', '${end_date}', '${description}') `;
     const data = await conn.query(query);
 
-    console.log(data);
+    // console.log(data);
   } catch (error) {
     return { message: `Database Error: Failed to Delete user skill. ${error}` };
   }
