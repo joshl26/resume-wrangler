@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense } from "react";
+import { Suspense, useState } from "react";
 import Classic from "@/app/ui/resume/classic/classic-resume";
 import PreviewButton from "@/app/ui/preview-button";
 import ElectricalEngineer from "@/app/ui/resume/electrical-engineer/electrical-engineer";
@@ -38,16 +38,35 @@ export default function ResumeStyling({
   userCertifications: any;
   userWorkExperiences: any;
 }) {
+  const [selectedResumeTemplate, setSelectedResumeTemplate] = useState(
+    resume?.template
+  );
+
+  const [selectedResumeBodyFont, setSelectedResumeBodyFont] = useState(
+    resume?.body_font
+  );
+
+  const [selectedResumeHeadingFont, setSelectedResumeHeadingFont] = useState(
+    resume?.heading_font
+  );
+
   return (
     <main className="flex w-full">
       <div className="flex flex-row h-full w-full">
         <div className="flex flex-col h-full w-[400px] overflow-scroll px-3">
+          <h1>{selectedResumeTemplate}</h1>
           <YourResumeStyling
             resume={resume}
             resumeTemplates={resumeTemplates}
             resumeColors={resumeColors}
             headerFonts={headerFonts}
             bodyFonts={bodyFonts}
+            setSelectedResumeTemplate={setSelectedResumeTemplate}
+            setSelectedResumeHeadingFont={setSelectedResumeHeadingFont}
+            setSelectedResumeBodyFont={setSelectedResumeBodyFont}
+            selectedResumeTemplate={selectedResumeTemplate}
+            selectedResumeBodyFont={selectedResumeBodyFont}
+            selectedResumeHeadingFont={selectedResumeHeadingFont}
           />
           <div className="py-2"></div>
           <YourProfile user={user} />
@@ -89,20 +108,20 @@ export default function ResumeStyling({
           </div>
         </div>
         <div className="flex flex-col m-auto h-full overflow-scroll right-0">
-          {resume.template === "classic" && (
+          {selectedResumeTemplate === "classic" && (
             <Suspense>
               <Classic
-                headingFont={resume.heading_font}
-                bodyFont={resume.body_font}
+                headingFont={selectedResumeHeadingFont}
+                bodyFont={selectedResumeBodyFont}
                 user={user}
               />
             </Suspense>
           )}
-          {resume.resumeTemplate === "electrical-engineer" && (
+          {selectedResumeTemplate === "electrical-engineer" && (
             <Suspense>
               <ElectricalEngineer
-                headingFont={resume.headingFont}
-                bodyFont={resume.bodyFont}
+                headingFont={selectedResumeHeadingFont}
+                bodyFont={selectedResumeBodyFont}
                 user={user}
               />
             </Suspense>

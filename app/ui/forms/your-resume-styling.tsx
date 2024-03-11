@@ -9,12 +9,24 @@ export default function YourResumeStyling({
   resumeColors,
   headerFonts,
   bodyFonts,
+  setSelectedResumeTemplate,
+  setSelectedResumeHeadingFont,
+  setSelectedResumeBodyFont,
+  selectedResumeTemplate,
+  selectedResumeBodyFont,
+  selectedResumeHeadingFont,
 }: {
   resume: any;
   resumeTemplates: any;
   resumeColors: any;
   headerFonts: any;
   bodyFonts: any;
+  setSelectedResumeTemplate: (e: any) => void;
+  setSelectedResumeHeadingFont: (e: any) => void;
+  setSelectedResumeBodyFont: (e: any) => void;
+  selectedResumeTemplate: any;
+  selectedResumeBodyFont: any;
+  selectedResumeHeadingFont: any;
 }) {
   const [edited, setEdited] = useState(false);
   const [color, setColor] = useState(resume.color);
@@ -62,8 +74,8 @@ export default function YourResumeStyling({
           </label>
           <select
             className="rounded bg-amber-300"
-            defaultValue={resume.template}
-            onChange={(e) => onChangeHandler(e)}
+            defaultValue={selectedResumeTemplate}
+            onChange={(e) => setSelectedResumeTemplate(e.target.value)}
             name="resume_template"
             id="resume_template"
           >
@@ -105,8 +117,8 @@ export default function YourResumeStyling({
             </label>
             <select
               className={`${resume.heading_font} rounded`}
-              defaultValue={resume.heading_font}
-              onChange={(e) => onChangeHandler(e)}
+              defaultValue={selectedResumeHeadingFont}
+              onChange={(e) => setSelectedResumeHeadingFont(e.target.value)}
               name="header_font"
               id="header_font"
             >
@@ -127,7 +139,7 @@ export default function YourResumeStyling({
           <select
             className={`${resume.body_font} rounded`}
             defaultValue={resume.body_font}
-            onChange={(e) => onChangeHandler(e)}
+            onChange={(e) => setSelectedResumeBodyFont(e.target.value)}
             name="body_font"
             id="body_font"
           >
