@@ -110,11 +110,15 @@ export default function ResumeStyling({
           <YourProfile user={user} />
           <YourSocialLinks user={user} />
           <div className="py-2"></div>
-          <YourSkills user={user} userSkills={userSkills} /> */}
-          <YourEducation userEducation={userEducation} />
-          {/*
-          <YourWorkExperiences />
+          <YourSkills user={user} userSkills={userSkills} />
+          <YourEducation
+            resume={resume}
+            user={user}
+            userEducation={userEducation}
+          />
+          <YourWorkExperiences /> */}
           <YourOrganizations />
+          {/*
           <YourCertifications /> */}
           <div className="p-2 text-center">
             <a

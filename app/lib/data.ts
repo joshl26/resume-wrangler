@@ -1,4 +1,5 @@
 // import { sql } from "@vercel/postgres";
+import { UUID } from "crypto";
 import { conn } from "../lib/database";
 
 import {
@@ -290,7 +291,9 @@ export async function getResumeTemplates() {
 export async function fetchResumeTemplateById(id: string) {
   noStore();
 
-  // console.log(id);
+  console.log(id);
+
+  // let uuid = id as UUID;
 
   try {
     const query = `SELECT * FROM resume_templates WHERE resume_templates.id = '${id}'`;

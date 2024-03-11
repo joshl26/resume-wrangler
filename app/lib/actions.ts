@@ -182,6 +182,45 @@ const DeleteSkillsSchema = z.object({
   }),
 });
 
+const CreateEducationSchema = z.object({
+  user_id: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  institution_name: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  location: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  start_date: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  end_date: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  grade: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  program: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  url: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  resume_id: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+});
+
+const DeleteEducationSchema = z.object({
+  id: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  resume_id: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+});
+
 const CreateInvoice = InvoiceSchema.omit({ id: true, date: true });
 const UpdateInvoice = InvoiceSchema.omit({ id: true, date: true });
 const DeleteInvoice = InvoiceSchema.omit({ id: true, date: true });
@@ -847,4 +886,83 @@ export async function deleteUserSkill(formData: FormData) {
   }
   revalidatePath(`/dashboard/resume/edit/`);
   redirect(`/dashboard/resume/edit/`);
+}
+
+export async function createUserEducation(formData: FormData) {
+  console.log(formData);
+
+  const validatedFields = CreateEducationSchema.safeParse({
+    user_id: formData.get("user_id"),
+    institution_name: formData.get("institution_name"),
+    location: formData.get("location"),
+    start_date: formData.get("start_date"),
+    end_date: formData.get("end_date"),
+    grade: formData.get("grade"),
+    program: formData.get("program"),
+    url: formData.get("url"),
+    resume_id: formData.get("resume_id"),
+  });
+
+  // console.log(validatedFields);
+
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: "Missing Fields. Failed to Create user skill.",
+    };
+  }
+  const {
+    user_id,
+    institution_name,
+    location,
+    start_date,
+    end_date,
+    grade,
+    program,
+    url,
+    resume_id,
+  } = validatedFields.data;
+
+  // // console.log(skill_title, skill_level, user_id);
+
+  try {
+    const query = `INSERT INTO user_education (user_id, institution_name, location, start_date, end_date, grade, program, url) VALUES ('${user_id}', '${institution_name}', '${location}', '${start_date}' , '${end_date}' , '${grade}' , '${program}' , '${url}')`; // console.log(query);
+    const data = await conn.query(query);
+    //console.log(data);
+  } catch (error) {
+    return { message: `Database Error: Failed to Update Invoice. ${error}` };
+  }
+  revalidatePath(`/dashboard/resume/edit/${resume_id}`);
+  redirect(`/dashboard/resume/edit/${resume_id}`);
+}
+
+export async function deleteEducation(formData: FormData) {
+  console.log(formData);
+
+  const validatedFields = DeleteEducationSchema.safeParse({
+    id: formData.get("education_id"),
+    resume_id: formData.get("resume_id"),
+  });
+
+  console.log(validatedFields);
+
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: "Missing Fields. Failed to Create user skill.",
+    };
+  }
+  const { id, resume_id } = validatedFields.data;
+
+  // console.log(skill_title, skill_level, user_id);
+
+  try {
+    const query = `DELETE FROM user_education WHERE id = '${id}'`;
+    const data = await conn.query(query);
+    //console.log(data);
+  } catch (error) {
+    return { message: `Database Error: Failed to Delete user skill. ${error}` };
+  }
+  revalidatePath(`/dashboard/resume/edit/${resume_id}`);
+  redirect(`/dashboard/resume/edit/${resume_id}`);
 }

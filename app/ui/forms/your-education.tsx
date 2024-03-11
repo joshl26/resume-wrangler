@@ -1,9 +1,15 @@
+import { createUserEducation, deleteEducation } from "@/app/lib/actions";
+
 export default function YourEducation({
   userEducation,
+  user,
+  resume,
 }: {
   userEducation: any;
+  user: any;
+  resume: any;
 }) {
-  console.log(userEducation);
+  // console.log(user);
 
   return (
     <div>
@@ -27,9 +33,26 @@ export default function YourEducation({
               <label className="py-1" htmlFor="school-name">
                 Education
               </label>
-              <form className="rounded border border-black w-full px-2">
+              <form
+                action={createUserEducation}
+                className="rounded border border-black w-full px-2"
+              >
                 <div className="flex flex-row w-auto">
                   <div className="flex flex-col w-full py-1 px-1">
+                    <label htmlFor="resume_id" hidden />
+                    <input
+                      hidden
+                      defaultValue={resume.id}
+                      name="resume_id"
+                      id="resume_id"
+                    />
+                    <label htmlFor="user_id" hidden />
+                    <input
+                      hidden
+                      defaultValue={user.id}
+                      name="user_id"
+                      id="user_id"
+                    />
                     <label className="py-1" htmlFor="institution_name">
                       Institution Name
                     </label>
@@ -108,15 +131,25 @@ export default function YourEducation({
                     ></input>
                   </div>
                 </div>
+                <div className="flex flex-row w-auto">
+                  <div className="flex flex-col w-full py-1 px-1">
+                    <label className="py-1" htmlFor="url">
+                      Web Link
+                    </label>
+                    <input
+                      id="url"
+                      name="url"
+                      className="rounded bg-slate-200"
+                      onChange={(e) => {}}
+                      placeholder="Web link"
+                    ></input>
+                  </div>
+                </div>
                 <div className="flex flex-row w-auto pt-2 pb-2">
                   <div className="flex flex-col w-full py-1 px-1">
                     <button
                       type="submit"
                       className="rounded bg-amber-300 h-10 border border-black"
-                      //   value={resumeStyling.resumeTemplate}
-                      // onChange={(e) => resumeTemplateAction(e)}
-                      name="add-school"
-                      id="add-school"
                     >
                       Add School
                     </button>
@@ -128,22 +161,46 @@ export default function YourEducation({
           <div className="flex flex-col w-full py-2 px-1"></div>
 
           <div className="flex flex-col w-full py-2 px-1">
-            {" "}
+            <div className="flex flex-col ">
+              <div className="flex flex-row m-auto">
+                <button className="flex flex-col px-4">Move Up</button>
+                <button className="flex flex-col">Move Down</button>
+              </div>
+            </div>
             <ul>
               {userEducation.map((education: any) => (
                 <li key={education.id}>
-                  <div className="p-2 my-4 rounded border border-black">
+                  <form
+                    action={deleteEducation}
+                    className="p-2 my-4 rounded border border-black"
+                  >
+                    <label hidden htmlFor="resume_id" />
+                    <input
+                      hidden
+                      name="resume_id"
+                      id="resume_id"
+                      defaultValue={resume.id}
+                    />
+                    <label hidden htmlFor="education_id" />
+                    <input
+                      hidden
+                      name="education_id"
+                      id="education_id"
+                      defaultValue={education.id}
+                    />
                     <div className="flex flex-row justify-between">
                       <div className="flex flex-col">
-                        <h2>{education.institution_name}</h2>
+                        <h2 className="font-bold">
+                          {education.institution_name}
+                        </h2>
                         <p>{education.location}</p>
                         <p>{education.program}</p>
                       </div>
                       <div className="flex flex-col">
-                        <button>Delete</button>
+                        <button type="submit">Delete</button>
                       </div>
                     </div>
-                  </div>
+                  </form>
                 </li>
               ))}
             </ul>

@@ -5,7 +5,7 @@ export default function YourOrganizations() {
         <div className="flex flex-row justify-between">
           <div className="flex flex-col">
             <div className="py-2 font-bold text-xl">
-              <h2>Organization</h2>
+              <h2>Organizations</h2>
             </div>
           </div>
           <div className="flex flex-col ">
@@ -33,7 +33,7 @@ export default function YourOrganizations() {
           <div className="flex flex-row w-auto">
             <div className="flex flex-col w-full py-1 px-1">
               <label className="py-1" htmlFor="organization">
-                Organizations
+                Organization
               </label>
               <div className="rounded border border-black w-full px-2">
                 <div className="flex flex-row w-auto">
