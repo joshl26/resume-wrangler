@@ -1094,3 +1094,29 @@ export async function deleteOrganization(formData: FormData) {
   revalidatePath(`/dashboard/resume/edit/${resume_id}`);
   redirect(`/dashboard/resume/edit/${resume_id}`);
 }
+
+export async function deleteCertification(formData: FormData) {
+  // console.log(formData);
+  // const validatedFields = DeleteOrganizationSchema.safeParse({
+  //   id: formData.get("organization_id"),
+  //   resume_id: formData.get("resume_id"),
+  // });
+  // // console.log(validatedFields);
+  // if (!validatedFields.success) {
+  //   return {
+  //     errors: validatedFields.error.flatten().fieldErrors,
+  //     message: "Missing Fields. Failed to Create user skill.",
+  //   };
+  // }
+  // const { id, resume_id } = validatedFields.data;
+  // // console.log(skill_title, skill_level, user_id);
+  // try {
+  //   const query = `DELETE FROM user_custom_section_one WHERE id = '${id}'`;
+  //   const data = await conn.query(query);
+  //   //console.log(data);
+  // } catch (error) {
+  //   return { message: `Database Error: Failed to Delete user skill. ${error}` };
+  // }
+  // revalidatePath(`/dashboard/resume/edit/${resume_id}`);
+  // redirect(`/dashboard/resume/edit/${resume_id}`);
+}

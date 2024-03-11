@@ -1,12 +1,16 @@
-import { createOrganization, deleteOrganization } from "@/app/lib/actions";
+import {
+  createOrganization,
+  deleteCertification,
+  deleteOrganization,
+} from "@/app/lib/actions";
 import { use, useState } from "react";
 
 export default function YourOrganizations({
-  userOrganizations,
+  userCertifications,
   resume,
   user,
 }: {
-  userOrganizations: any;
+  userCertifications: any;
   resume: any;
   user: any;
 }) {
@@ -148,15 +152,15 @@ export default function YourOrganizations({
           </div>
         </form>
         <ul>
-          {userOrganizations.map((organization: any) => (
-            <li key={organization.id}>
-              <form action={deleteOrganization}>
-                <label hidden htmlFor="organization_id" />
+          {userCertifications.map((certification: any) => (
+            <li key={certification.id}>
+              <form action={deleteCertification}>
+                <label hidden htmlFor="certification_id" />
                 <input
                   hidden
-                  name="organization_id"
-                  id="organization_id"
-                  value={organization.id}
+                  name="certification_id"
+                  id="certification_id"
+                  value={certification.id}
                 />
                 <label hidden htmlFor="resume_id" />
                 <input
@@ -165,12 +169,12 @@ export default function YourOrganizations({
                   id="resume_id"
                   value={resume.id}
                 />
-                <h2 className="font-bold">{organization.name}</h2>
+                <h2 className="font-bold">{certification.name}</h2>
                 <div className="flex flex-row justify-between">
                   <div className="flex flex-col">
-                    <p>{organization.location}</p>
+                    <p>{certification.location}</p>
                     <p>
-                      {organization.start_date} - {organization.end_date}
+                      {certification.start_date} - {certification.end_date}
                     </p>
                   </div>
                   <div className="flex flex-col">

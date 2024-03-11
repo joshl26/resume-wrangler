@@ -23,6 +23,7 @@ export default function ResumeStyling({
   userSkills,
   userEducation,
   userOrganizations,
+  userCertifications,
 }: {
   resumeTemplates: any;
   resumeColors: any;
@@ -33,6 +34,7 @@ export default function ResumeStyling({
   userSkills: any;
   userEducation: any;
   userOrganizations: any;
+  userCertifications: any;
 }) {
   // console.log(userSkills);
   // const resumeTitleAction = (e: { target: HTMLInputElement }) => {
@@ -118,14 +120,18 @@ export default function ResumeStyling({
             user={user}
             userEducation={userEducation}
           />
-          <YourWorkExperiences /> */}
+          <YourWorkExperiences /> 
           <YourOrganizations
             user={user}
             resume={resume}
             userOrganizations={userOrganizations}
+          />*/}
+
+          <YourCertifications
+            resume={resume}
+            user={user}
+            userOrganizations={userOrganizations}
           />
-          {/*
-          <YourCertifications /> */}
           <div className="p-2 text-center">
             <a
               href={`/api/pdf?bodyFont=${resume.bodyFont}&headerFont=${resume.headingFont}`}
