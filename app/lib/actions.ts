@@ -221,6 +221,42 @@ const DeleteEducationSchema = z.object({
   }),
 });
 
+const DeleteOrganizationSchema = z.object({
+  id: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  resume_id: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+});
+
+const CreateOrganizationSchema = z.object({
+  user_id: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  section_title: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  organization_name: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  organization_location: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  organization_start: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  organization_end: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  organization_description: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  resume_id: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+});
+
 const CreateInvoice = InvoiceSchema.omit({ id: true, date: true });
 const UpdateInvoice = InvoiceSchema.omit({ id: true, date: true });
 const DeleteInvoice = InvoiceSchema.omit({ id: true, date: true });
@@ -958,6 +994,98 @@ export async function deleteEducation(formData: FormData) {
 
   try {
     const query = `DELETE FROM user_education WHERE id = '${id}'`;
+    const data = await conn.query(query);
+    //console.log(data);
+  } catch (error) {
+    return { message: `Database Error: Failed to Delete user skill. ${error}` };
+  }
+  revalidatePath(`/dashboard/resume/edit/${resume_id}`);
+  redirect(`/dashboard/resume/edit/${resume_id}`);
+}
+
+export async function createOrganization(formData: FormData) {
+  console.log(formData);
+
+  const validatedFields = CreateOrganizationSchema.safeParse({
+    user_id: formData.get("user_id"),
+    section_title: formData.get("section_title"),
+    organization_name: formData.get("organization_name"),
+    organization_location: formData.get("organization_location"),
+    organization_start: formData.get("organization_start"),
+    organization_end: formData.get("organization_end"),
+    organization_description: formData.get("organization_description"),
+    resume_id: formData.get("resume_id"),
+  });
+
+  console.log(validatedFields);
+
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: "Missing Fields. Failed to Create user skill.",
+    };
+  }
+  const {
+    user_id,
+    section_title,
+    organization_name,
+    organization_location,
+    organization_start,
+    organization_end,
+    organization_description,
+    resume_id,
+  } = validatedFields.data;
+
+  // console.log(
+  //   user_id,
+  //   section_title,
+  //   organization_name,
+  //   organization_location,
+  //   organization_start,
+  //   organization_end,
+  //   organization_description
+  // );
+
+  try {
+    const query = `INSERT INTO user_custom_section_one (user_id, name, location, start_date, end_date, description) VALUES ('${user_id}', '${organization_name}', '${organization_location}', '${organization_start}' , '${organization_end}' , '${organization_description}' )`; // console.log(query);
+    const data = await conn.query(query);
+
+    const query2 = `UPDATE resumes SET custom_section_one_name = '${section_title}' WHERE id = '${resume_id}'`; // console.log(query);
+    const data2 = await conn.query(query2);
+
+    //console.log(data);
+  } catch (error) {
+    return {
+      message: `Database Error: Failed to Create new organization. ${error}`,
+    };
+  }
+
+  revalidatePath(`/dashboard/resume/edit/${resume_id}`);
+  redirect(`/dashboard/resume/edit/${resume_id}`);
+}
+
+export async function deleteOrganization(formData: FormData) {
+  // console.log(formData);
+
+  const validatedFields = DeleteOrganizationSchema.safeParse({
+    id: formData.get("organization_id"),
+    resume_id: formData.get("resume_id"),
+  });
+
+  // console.log(validatedFields);
+
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: "Missing Fields. Failed to Create user skill.",
+    };
+  }
+  const { id, resume_id } = validatedFields.data;
+
+  // console.log(skill_title, skill_level, user_id);
+
+  try {
+    const query = `DELETE FROM user_custom_section_one WHERE id = '${id}'`;
     const data = await conn.query(query);
     //console.log(data);
   } catch (error) {

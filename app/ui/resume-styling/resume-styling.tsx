@@ -120,6 +120,7 @@ export default function ResumeStyling({
           />
           <YourWorkExperiences /> */}
           <YourOrganizations
+            user={user}
             resume={resume}
             userOrganizations={userOrganizations}
           />
