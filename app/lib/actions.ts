@@ -1,7 +1,6 @@
 "use server";
 
 import { z } from "zod";
-import { sql } from "@vercel/postgres";
 import { conn } from "@/app/lib/database";
 
 import { revalidatePath } from "next/cache";
@@ -257,12 +256,6 @@ const CreateOrganizationSchema = z.object({
   }),
 });
 
-const CertificationSchema = z.object({
-  id: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-});
-
 const CreateCertificationSchema = z.object({
   user_id: z.string({
     invalid_type_error: "Please enter a string.",
@@ -281,9 +274,45 @@ const CreateCertificationSchema = z.object({
   }),
 });
 
+const CreateWorkExperienceSchema = z.object({
+  user_id: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  resume_id: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  company_name: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  job_title: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  location: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  start_date: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  end_date: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  description: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+});
+
+const DeleteWorkExperienceSchema = z.object({
+  id: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  resume_id: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+});
+
 const CreateInvoice = InvoiceSchema.omit({ id: true, date: true });
 const UpdateInvoice = InvoiceSchema.omit({ id: true, date: true });
-const DeleteInvoice = InvoiceSchema.omit({ id: true, date: true });
+// const DeleteInvoice = InvoiceSchema.omit({ id: true, date: true });
 const UpdateUser = UserSchema.omit({ id: true, date: true });
 const UpdateSocials = UserSocialsSchema.omit({ id: true, date: true });
 const UpdateApplication = ApplicationSchema;
@@ -324,88 +353,6 @@ export async function authenticate(
       return "CredentialSignin";
     }
     throw error;
-  }
-}
-
-export async function createInvoice(prevState: State, formData: FormData) {
-  // Validate form using Zod
-  const validatedFields = CreateInvoice.safeParse({
-    customerId: formData.get("customerId"),
-    amount: formData.get("amount"),
-    status: formData.get("status"),
-  });
-
-  // If form validation fails, return errors early. Otherwise, continue.
-  if (!validatedFields.success) {
-    return {
-      errors: validatedFields.error.flatten().fieldErrors,
-      message: "Missing Fields. Failed to Create Invoice.",
-    };
-  }
-
-  // Prepare data for insertion into the database
-  const { customerId, amount, status } = validatedFields.data;
-  const amountInCents = amount * 100;
-  const date = new Date().toISOString().split("T")[0];
-
-  // Insert data into the database
-  try {
-    await sql`
-        INSERT INTO invoices (customer_id, amount, status, date)
-        VALUES (${customerId}, ${amountInCents}, ${status}, ${date})
-      `;
-  } catch (error) {
-    // If a database error occurs, return a more specific error.
-    return {
-      message: "Database Error: Failed to Create Invoice.",
-    };
-  }
-
-  // Revalidate the cache for the invoices page and redirect the user.
-  revalidatePath("/dashboard/invoices");
-  redirect("/dashboard/invoices");
-}
-export async function updateInvoice(
-  id: string,
-  prevState: State,
-  formData: FormData
-) {
-  const validatedFields = UpdateInvoice.safeParse({
-    customerId: formData.get("customerId"),
-    amount: formData.get("amount"),
-    status: formData.get("status"),
-  });
-
-  if (!validatedFields.success) {
-    return {
-      errors: validatedFields.error.flatten().fieldErrors,
-      message: "Missing Fields. Failed to Update Invoice.",
-    };
-  }
-
-  const { customerId, amount, status } = validatedFields.data;
-  const amountInCents = amount * 100;
-
-  try {
-    await sql`
-        UPDATE invoices
-        SET customer_id = ${customerId}, amount = ${amountInCents}, status = ${status}
-        WHERE id = ${id}
-      `;
-  } catch (error) {
-    return { message: "Database Error: Failed to Update Invoice." };
-  }
-
-  revalidatePath("/dashboard/invoices");
-  redirect("/dashboard/invoices");
-}
-export async function deleteInvoice(id: string) {
-  try {
-    await sql`DELETE FROM invoices WHERE id = ${id}`;
-    revalidatePath("/dashboard/invoices");
-    return { message: "Deleted Invoice." };
-  } catch (error) {
-    return { message: "Database Error: Failed to Delete Invoice." };
   }
 }
 
@@ -1186,65 +1133,77 @@ export async function createCertification(formData: FormData) {
 
 export async function deleteWorkExperience(formData: FormData) {
   console.log(formData);
-  // const validatedFields = DeleteOrganizationSchema.safeParse({
-  //   id: formData.get("certification_id"),
-  //   resume_id: formData.get("resume_id"),
-  // });
-  // console.log(validatedFields);
-  // if (!validatedFields.success) {
-  //   return {
-  //     errors: validatedFields.error.flatten().fieldErrors,
-  //     message: "Missing Fields. Failed to Create user skill.",
-  //   };
-  // }
-  // const { id, resume_id } = validatedFields.data;
-  // // console.log(skill_title, skill_level, user_id);
-  // try {
-  //   const query = `DELETE FROM user_custom_section_two WHERE id = '${id}'`;
-  //   const data = await conn.query(query);
-  //   //console.log(data);
-  // } catch (error) {
-  //   return { message: `Database Error: Failed to Delete user skill. ${error}` };
-  // }
-  // revalidatePath(`/dashboard/resume/edit/${resume_id}`);
-  // redirect(`/dashboard/resume/edit/${resume_id}`);
+  const validatedFields = DeleteWorkExperienceSchema.safeParse({
+    id: formData.get("work_experience_id"),
+    resume_id: formData.get("resume_id"),
+  });
+  console.log(validatedFields);
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: "Missing Fields. Failed to Create user skill.",
+    };
+  }
+  const { id, resume_id } = validatedFields.data;
+  // console.log(skill_title, skill_level, user_id);
+  try {
+    const query = `DELETE FROM user_work_experience WHERE id = '${id}'`;
+    const data = await conn.query(query);
+    //console.log(data);
+  } catch (error) {
+    return { message: `Database Error: Failed to Delete user skill. ${error}` };
+  }
+  revalidatePath(`/dashboard/resume/edit/${resume_id}`);
+  redirect(`/dashboard/resume/edit/${resume_id}`);
 }
 
 export async function createWorkExperience(formData: FormData) {
   console.log(formData);
-  // const validatedFields = CreateCertificationSchema.safeParse({
-  //   user_id: formData.get("user_id"),
-  //   section_title: formData.get("section_title"),
-  //   certification_name: formData.get("certification_name"),
-  //   certification_location: formData.get("certification_location"),
-  //   resume_id: formData.get("resume_id"),
-  // });
-  // console.log(validatedFields);
-  // if (!validatedFields.success) {
-  //   return {
-  //     errors: validatedFields.error.flatten().fieldErrors,
-  //     message: "Missing Fields. Failed to Create user skill.",
-  //   };
-  // }
-  // const {
-  //   user_id,
-  //   section_title,
-  //   certification_name,
-  //   certification_location,
-  //   resume_id,
-  // } = validatedFields.data;
-  // // // console.log(skill_title, skill_level, user_id);
-  // try {
-  //   const query = `INSERT INTO user_custom_section_two (user_id, name, location) VALUES ('${user_id}', '${certification_name}', '${certification_location}' )`;
-  //   const data = await conn.query(query);
+  const validatedFields = CreateWorkExperienceSchema.safeParse({
+    user_id: formData.get("user_id"),
+    resume_id: formData.get("resume_id"),
+    company_name: formData.get("company_name"),
+    job_title: formData.get("job_title"),
+    location: formData.get("location"),
+    start_date: formData.get("start_date"),
+    end_date: formData.get("end_date"),
+    description: formData.get("description"),
+  });
+  console.log(validatedFields);
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: "Missing Fields. Failed to Create user skill.",
+    };
+  }
+  const {
+    user_id,
+    resume_id,
+    company_name,
+    job_title,
+    location,
+    start_date,
+    end_date,
+    description,
+  } = validatedFields.data;
+  console.log(
+    user_id,
+    resume_id,
+    company_name,
+    job_title,
+    location,
+    start_date,
+    end_date,
+    description
+  );
+  try {
+    const query = `INSERT INTO user_work_experience (job_title, company_name, user_id, location, start_date, end_date, description_one) VALUES ('${job_title}', '${company_name}', '${user_id}', '${location}', '${start_date}', '${end_date}', '${description}') `;
+    const data = await conn.query(query);
 
-  //   const query2 = `UPDATE resumes SET custom_section_two_name = '${section_title}' WHERE id = '${resume_id}'`; // console.log(query);
-  //   const data2 = await conn.query(query2);
-
-  //   //console.log(data);
-  // } catch (error) {
-  //   return { message: `Database Error: Failed to Delete user skill. ${error}` };
-  // }
-  // revalidatePath(`/dashboard/resume/edit/${resume_id}`);
-  // redirect(`/dashboard/resume/edit/${resume_id}`);
+    console.log(data);
+  } catch (error) {
+    return { message: `Database Error: Failed to Delete user skill. ${error}` };
+  }
+  revalidatePath(`/dashboard/resume/edit/${resume_id}`);
+  redirect(`/dashboard/resume/edit/${resume_id}`);
 }

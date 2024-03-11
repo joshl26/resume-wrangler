@@ -62,6 +62,7 @@ export default function ResumeStyling({
           <YourWorkExperiences
             userWorkExperiences={userWorkExperiences}
             user={user}
+            resume={resume}
           />
           {/* <YourOrganizations
             user={user}
