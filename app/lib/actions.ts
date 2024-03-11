@@ -1183,3 +1183,68 @@ export async function createCertification(formData: FormData) {
   revalidatePath(`/dashboard/resume/edit/${resume_id}`);
   redirect(`/dashboard/resume/edit/${resume_id}`);
 }
+
+export async function deleteWorkExperience(formData: FormData) {
+  console.log(formData);
+  // const validatedFields = DeleteOrganizationSchema.safeParse({
+  //   id: formData.get("certification_id"),
+  //   resume_id: formData.get("resume_id"),
+  // });
+  // console.log(validatedFields);
+  // if (!validatedFields.success) {
+  //   return {
+  //     errors: validatedFields.error.flatten().fieldErrors,
+  //     message: "Missing Fields. Failed to Create user skill.",
+  //   };
+  // }
+  // const { id, resume_id } = validatedFields.data;
+  // // console.log(skill_title, skill_level, user_id);
+  // try {
+  //   const query = `DELETE FROM user_custom_section_two WHERE id = '${id}'`;
+  //   const data = await conn.query(query);
+  //   //console.log(data);
+  // } catch (error) {
+  //   return { message: `Database Error: Failed to Delete user skill. ${error}` };
+  // }
+  // revalidatePath(`/dashboard/resume/edit/${resume_id}`);
+  // redirect(`/dashboard/resume/edit/${resume_id}`);
+}
+
+export async function createWorkExperience(formData: FormData) {
+  console.log(formData);
+  // const validatedFields = CreateCertificationSchema.safeParse({
+  //   user_id: formData.get("user_id"),
+  //   section_title: formData.get("section_title"),
+  //   certification_name: formData.get("certification_name"),
+  //   certification_location: formData.get("certification_location"),
+  //   resume_id: formData.get("resume_id"),
+  // });
+  // console.log(validatedFields);
+  // if (!validatedFields.success) {
+  //   return {
+  //     errors: validatedFields.error.flatten().fieldErrors,
+  //     message: "Missing Fields. Failed to Create user skill.",
+  //   };
+  // }
+  // const {
+  //   user_id,
+  //   section_title,
+  //   certification_name,
+  //   certification_location,
+  //   resume_id,
+  // } = validatedFields.data;
+  // // // console.log(skill_title, skill_level, user_id);
+  // try {
+  //   const query = `INSERT INTO user_custom_section_two (user_id, name, location) VALUES ('${user_id}', '${certification_name}', '${certification_location}' )`;
+  //   const data = await conn.query(query);
+
+  //   const query2 = `UPDATE resumes SET custom_section_two_name = '${section_title}' WHERE id = '${resume_id}'`; // console.log(query);
+  //   const data2 = await conn.query(query2);
+
+  //   //console.log(data);
+  // } catch (error) {
+  //   return { message: `Database Error: Failed to Delete user skill. ${error}` };
+  // }
+  // revalidatePath(`/dashboard/resume/edit/${resume_id}`);
+  // redirect(`/dashboard/resume/edit/${resume_id}`);
+}

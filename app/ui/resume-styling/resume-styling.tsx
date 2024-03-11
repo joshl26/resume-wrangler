@@ -24,6 +24,7 @@ export default function ResumeStyling({
   userEducation,
   userOrganizations,
   userCertifications,
+  userWorkExperiences,
 }: {
   resumeTemplates: any;
   resumeColors: any;
@@ -35,30 +36,34 @@ export default function ResumeStyling({
   userEducation: any;
   userOrganizations: any;
   userCertifications: any;
+  userWorkExperiences: any;
 }) {
   return (
     <main className="flex w-full">
       <div className="flex flex-row h-full w-full">
         <div className="flex flex-col h-full w-[400px] overflow-scroll px-3">
-          <YourResumeStyling
+          {/* <YourResumeStyling
             resume={resume}
             resumeTemplates={resumeTemplates}
             resumeColors={resumeColors}
             headerFonts={headerFonts}
             bodyFonts={bodyFonts}
-          />
-          <div className="py-2"></div>
+          /> */}
+          {/* <div className="py-2"></div>
           <YourProfile user={user} />
           <YourSocialLinks user={user} />
-          <div className="py-2"></div>
-          <YourSkills user={user} userSkills={userSkills} />
+          <div className="py-2"></div> */}
+          {/* <YourSkills user={user} userSkills={userSkills} />
           <YourEducation
             resume={resume}
             user={user}
             userEducation={userEducation}
+          /> */}
+          <YourWorkExperiences
+            userWorkExperiences={userWorkExperiences}
+            user={user}
           />
-          <YourWorkExperiences />
-          <YourOrganizations
+          {/* <YourOrganizations
             user={user}
             resume={resume}
             userOrganizations={userOrganizations}
@@ -68,7 +73,7 @@ export default function ResumeStyling({
             resume={resume}
             user={user}
             userCertifications={userCertifications}
-          />
+          /> */}
           <div className="p-2 text-center">
             <a
               href={`/api/pdf?bodyFont=${resume.bodyFont}&headerFont=${resume.headingFont}`}

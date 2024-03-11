@@ -1,4 +1,13 @@
-export default function YourWorkExperiences() {
+import { createWorkExperience, deleteWorkExperience } from "@/app/lib/actions";
+
+export default function YourWorkExperiences({
+  userWorkExperiences,
+  user,
+}: {
+  userWorkExperiences: any;
+  user: any;
+}) {
+  // console.log(userWorkExperiences);
   return (
     <div>
       <div className="your-work-experiences">
@@ -15,7 +24,10 @@ export default function YourWorkExperiences() {
             </div>
           </div>
         </div>
-        <div className="drop-shadow-md border-[1px] border-slate-300 rounded px-5 py-2 ">
+        <form
+          action={createWorkExperience}
+          className="drop-shadow-md border-[1px] border-slate-300 rounded px-5 py-2 "
+        >
           <div className="flex flex-row w-auto">
             <div className="flex flex-col w-full py-1 px-1">
               <label className="py-1" htmlFor="work-experience">
@@ -120,7 +132,24 @@ export default function YourWorkExperiences() {
               Add Work Experience
             </button>
           </div>
-        </div>
+        </form>
+        <ul>
+          {userWorkExperiences.map((workExperience: any) => (
+            <li className="pt-3" key={workExperience.id}>
+              <form action={deleteWorkExperience}>
+                <div className="flex flex-row">
+                  <div className="flex flex-col w-3/4">
+                    <h2 className="font-bold">{workExperience.job_title}</h2>
+                    <p>{workExperience.company_name}</p>
+                  </div>
+                  <div className="flex flex-col w-1/4">
+                    <button type="submit">Delete</button>
+                  </div>
+                </div>
+              </form>
+            </li>
+          ))}
+        </ul>
       </div>
       <div className="py-2"></div>
     </div>

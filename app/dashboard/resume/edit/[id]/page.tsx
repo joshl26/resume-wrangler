@@ -8,6 +8,7 @@ import {
   fetchResumeColors,
   fetchResumeTemplates,
   fetchSkillsByUserId,
+  fetchWorkExperiencesByUserId,
   getUser,
 } from "@/app/lib/data";
 import ResumeStyling from "@/app/ui/resume-styling/resume-styling";
@@ -43,13 +44,19 @@ export default async function EditResume({
       fetchResumeById(id),
     ]);
 
-  const [userSkills, userEducation, userOrganizations, userCertifications] =
-    await Promise.all([
-      fetchSkillsByUserId(user.id),
-      fetchEducationByUserId(user.id),
-      fetchOrganizationsByUserId(user.id),
-      fetchCerftificationsByUserId(user.id),
-    ]);
+  const [
+    userSkills,
+    userEducation,
+    userOrganizations,
+    userCertifications,
+    userWorkExperiences,
+  ] = await Promise.all([
+    fetchSkillsByUserId(user.id),
+    fetchEducationByUserId(user.id),
+    fetchOrganizationsByUserId(user.id),
+    fetchCerftificationsByUserId(user.id),
+    fetchWorkExperiencesByUserId(user.id),
+  ]);
 
   // console.log(resume);
 
@@ -63,7 +70,8 @@ export default async function EditResume({
     !userSkills ??
     !userEducation ??
     !userOrganizations ??
-    !userCertifications
+    !userCertifications ??
+    !userWorkExperiences
   ) {
     notFound();
   }
@@ -80,6 +88,7 @@ export default async function EditResume({
       userEducation={userEducation}
       userOrganizations={userOrganizations}
       userCertifications={userCertifications}
+      userWorkExperiences={userWorkExperiences}
     />
   );
 }
