@@ -1,4 +1,5 @@
 // import { sql } from "@vercel/postgres";
+import { UUID } from "crypto";
 import { conn } from "../lib/database";
 
 import {
@@ -290,7 +291,9 @@ export async function getResumeTemplates() {
 export async function fetchResumeTemplateById(id: string) {
   noStore();
 
-  // console.log(id);
+  console.log(id);
+
+  // let uuid = id as UUID;
 
   try {
     const query = `SELECT * FROM resume_templates WHERE resume_templates.id = '${id}'`;
@@ -487,6 +490,116 @@ export async function fetchResumeById(id: string) {
 
     if (resume.rows[0]) {
       return resume.rows[0];
+    } else {
+      return [null];
+    }
+  } catch (error: any) {
+    console.error("Database Error:", error);
+    // throw new Error("Failed to fetch resume template by id.");
+    return [null];
+  }
+}
+
+export async function fetchSkillsByUserId(userId: string) {
+  noStore();
+
+  // console.log(id);
+
+  try {
+    const query = `SELECT * FROM user_skills WHERE user_id = '${userId}'`;
+    // console.log(query);
+    const resume = await conn.query(query);
+
+    if (resume.rows[0]) {
+      return resume.rows;
+    } else {
+      return [null];
+    }
+  } catch (error: any) {
+    console.error("Database Error:", error);
+    // throw new Error("Failed to fetch resume template by id.");
+    return [null];
+  }
+}
+
+export async function fetchEducationByUserId(userId: string) {
+  noStore();
+
+  // console.log(id);
+
+  try {
+    const query = `SELECT * FROM user_education WHERE user_id = '${userId}'`;
+    // console.log(query);
+    const resume = await conn.query(query);
+
+    if (resume.rows[0]) {
+      return resume.rows;
+    } else {
+      return [null];
+    }
+  } catch (error: any) {
+    console.error("Database Error:", error);
+    // throw new Error("Failed to fetch resume template by id.");
+    return [null];
+  }
+}
+
+export async function fetchOrganizationsByUserId(userId: string) {
+  noStore();
+
+  // console.log(id);
+
+  try {
+    const query = `SELECT * FROM user_custom_section_one WHERE user_id = '${userId}'`;
+    // console.log(query);
+    const resume = await conn.query(query);
+
+    if (resume.rows[0]) {
+      return resume.rows;
+    } else {
+      return [null];
+    }
+  } catch (error: any) {
+    console.error("Database Error:", error);
+    // throw new Error("Failed to fetch resume template by id.");
+    return [null];
+  }
+}
+
+export async function fetchCerftificationsByUserId(userId: string) {
+  noStore();
+
+  // console.log(id);
+
+  try {
+    const query = `SELECT * FROM user_custom_section_two WHERE user_id = '${userId}'`;
+    // console.log(query);
+    const resume = await conn.query(query);
+
+    if (resume.rows[0]) {
+      return resume.rows;
+    } else {
+      return [null];
+    }
+  } catch (error: any) {
+    console.error("Database Error:", error);
+    // throw new Error("Failed to fetch resume template by id.");
+    return [null];
+  }
+}
+
+export async function fetchWorkExperiencesByUserId(userId: string) {
+  noStore();
+
+  // console.log(id);
+
+  try {
+    const query = `SELECT * FROM user_work_experience WHERE user_id = '${userId}'`;
+    // console.log(query);
+    const resume = await conn.query(query);
+
+    if (resume.rows[0]) {
+      return resume.rows;
     } else {
       return [null];
     }

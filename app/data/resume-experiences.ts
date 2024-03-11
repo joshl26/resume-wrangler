@@ -44,7 +44,7 @@ export const resumeExperiences = [
     gitUrl: "",
   },
   {
-    title: "Junior Mech. Design Engineer | JuniorWeb Dev",
+    title: "Junior Mech. Design Engineer | Junior Web Dev",
     company: "Nye Manufacturing",
     detail: "Mississauga, ON",
     time: "Oct. 2006 - Feb. 2018",

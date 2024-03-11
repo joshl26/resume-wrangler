@@ -1,9 +1,14 @@
 import {
   fetchBodyFonts,
+  fetchCerftificationsByUserId,
+  fetchEducationByUserId,
   fetchHeaderFonts,
+  fetchOrganizationsByUserId,
   fetchResumeById,
   fetchResumeColors,
   fetchResumeTemplates,
+  fetchSkillsByUserId,
+  fetchWorkExperiencesByUserId,
   getUser,
 } from "@/app/lib/data";
 import ResumeStyling from "@/app/ui/resume-styling/resume-styling";
@@ -39,7 +44,21 @@ export default async function EditResume({
       fetchResumeById(id),
     ]);
 
-  console.log(resume);
+  const [
+    userSkills,
+    userEducation,
+    userOrganizations,
+    userCertifications,
+    userWorkExperiences,
+  ] = await Promise.all([
+    fetchSkillsByUserId(user.id),
+    fetchEducationByUserId(user.id),
+    fetchOrganizationsByUserId(user.id),
+    fetchCerftificationsByUserId(user.id),
+    fetchWorkExperiencesByUserId(user.id),
+  ]);
+
+  // console.log(resume);
 
   if (
     !resumeTemplates ??
@@ -47,19 +66,29 @@ export default async function EditResume({
     !bodyFonts ??
     !headerFonts ??
     !user ??
-    !resume
+    !resume ??
+    !userSkills ??
+    !userEducation ??
+    !userOrganizations ??
+    !userCertifications ??
+    !userWorkExperiences
   ) {
     notFound();
   }
 
   return (
     <ResumeStyling
-      resumeTemplates={[]}
-      resumeColors={[]}
-      bodyFonts={[]}
-      headerFonts={[]}
-      user={[]}
+      resumeTemplates={resumeTemplates}
+      resumeColors={resumeColors}
+      bodyFonts={bodyFonts}
+      headerFonts={headerFonts}
+      user={user}
       resume={resume}
+      userSkills={userSkills}
+      userEducation={userEducation}
+      userOrganizations={userOrganizations}
+      userCertifications={userCertifications}
+      userWorkExperiences={userWorkExperiences}
     />
   );
 }
