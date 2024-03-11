@@ -1,16 +1,12 @@
-import {
-  createOrganization,
-  deleteCertification,
-  deleteOrganization,
-} from "@/app/lib/actions";
+import { createOrganization, deleteOrganization } from "@/app/lib/actions";
 import { use, useState } from "react";
 
 export default function YourOrganizations({
-  userCertifications,
+  userOrganizations,
   resume,
   user,
 }: {
-  userCertifications: any;
+  userOrganizations: any;
   resume: any;
   user: any;
 }) {
@@ -40,14 +36,21 @@ export default function YourOrganizations({
           <div className="flex flex-col w-full py-1 px-1">
             <label hidden htmlFor="resume_id" />
             <input
+              readOnly
               hidden
               name="resume_id"
               id="resume_id"
-              defaultValue={resume.id}
+              value={resume.id}
             />
 
             <label hidden htmlFor="user_id" />
-            <input hidden name="user_id" id="user_id" defaultValue={user.id} />
+            <input
+              readOnly
+              hidden
+              name="user_id"
+              id="user_id"
+              value={user.id}
+            />
             <label className="py-1" htmlFor="section_title">
               Section Title
             </label>
@@ -152,29 +155,31 @@ export default function YourOrganizations({
           </div>
         </form>
         <ul>
-          {userCertifications.map((certification: any) => (
-            <li key={certification.id}>
-              <form action={deleteCertification}>
-                <label hidden htmlFor="certification_id" />
+          {userOrganizations.map((organization: any) => (
+            <li key={organization.id}>
+              <form action={deleteOrganization}>
+                <label hidden htmlFor="organization_id" />
                 <input
+                  readOnly
                   hidden
-                  name="certification_id"
-                  id="certification_id"
-                  value={certification.id}
+                  name="organization_id"
+                  id="organization_id"
+                  value={organization.id}
                 />
                 <label hidden htmlFor="resume_id" />
                 <input
+                  readOnly
                   hidden
                   name="resume_id"
                   id="resume_id"
                   value={resume.id}
                 />
-                <h2 className="font-bold">{certification.name}</h2>
+                <h2 className="font-bold">{organization.name}</h2>
                 <div className="flex flex-row justify-between">
                   <div className="flex flex-col">
-                    <p>{certification.location}</p>
+                    <p>{organization.location}</p>
                     <p>
-                      {certification.start_date} - {certification.end_date}
+                      {organization.start_date} - {organization.end_date}
                     </p>
                   </div>
                   <div className="flex flex-col">

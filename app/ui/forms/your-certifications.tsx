@@ -1,24 +1,24 @@
-import { createOrganization, deleteOrganization } from "@/app/lib/actions";
-import { use, useState } from "react";
+import { createCertification, deleteCertification } from "@/app/lib/actions";
+import { useState } from "react";
 
 export default function YourCertifications({
-  userOrganizations,
+  userCertifications,
   resume,
   user,
 }: {
-  userOrganizations: any;
+  userCertifications: any;
   resume: any;
   user: any;
 }) {
   // console.log(user.id);
 
   const [sectionTitle, setSectionTitle] = useState(
-    resume?.custom_section_one_name
+    resume?.custom_section_two_name
   );
 
   return (
     <div className="rounded border border-black w-full px-2">
-      <div className="your-organizations">
+      <div className="your-certifications">
         <div className="flex flex-row justify-between">
           <div className="flex flex-col">
             <div className="py-2 font-bold text-xl">
@@ -32,10 +32,11 @@ export default function YourCertifications({
             </div>
           </div>
         </div>
-        <form action={createOrganization} className="flex flex-row w-auto">
+        <form action={createCertification} className="flex flex-row w-auto">
           <div className="flex flex-col w-full py-1 px-1">
             <label hidden htmlFor="resume_id" />
             <input
+              readOnly
               hidden
               name="resume_id"
               id="resume_id"
@@ -62,13 +63,13 @@ export default function YourCertifications({
             <div className="rounded border border-black w-full px-2">
               <div className="flex flex-row w-auto">
                 <div className="flex flex-col w-full py-1 px-1">
-                  <label className="py-1" htmlFor="organization_name">
+                  <label className="py-1" htmlFor="certification_name">
                     Name
                   </label>
                   <input
                     required
-                    id="organization_name"
-                    name="organization_name"
+                    id="certification_name"
+                    name="certification_name"
                     className="rounded bg-slate-200"
                     defaultValue={""}
                     onChange={(e) => {}}
@@ -78,12 +79,12 @@ export default function YourCertifications({
               </div>
               <div className="flex flex-row w-auto">
                 <div className="flex flex-col w-full py-1 pb-3 px-1">
-                  <label className="py-1" htmlFor="organization_location">
+                  <label className="py-1" htmlFor="certification_location">
                     Location
                   </label>
                   <input
-                    id="organization_location"
-                    name="organization_location"
+                    id="certification_location"
+                    name="certification_location"
                     className="rounded bg-slate-200"
                     defaultValue={""}
                     onChange={(e) => {}}
@@ -103,29 +104,31 @@ export default function YourCertifications({
           </div>
         </form>
         <ul>
-          {userOrganizations.map((organization: any) => (
-            <li key={organization.id}>
-              <form action={deleteOrganization}>
-                <label hidden htmlFor="organization_id" />
+          {userCertifications?.map((certification: any) => (
+            <li key={certification?.id}>
+              <form action={deleteCertification}>
+                <label hidden htmlFor="certification_id" />
                 <input
+                  readOnly
                   hidden
-                  name="organization_id"
-                  id="organization_id"
-                  value={organization.id}
+                  name="certification_id"
+                  id="certification_id"
+                  value={certification?.id}
                 />
                 <label hidden htmlFor="resume_id" />
                 <input
+                  readOnly
                   hidden
                   name="resume_id"
                   id="resume_id"
                   value={resume.id}
                 />
-                <h2 className="font-bold">{organization.name}</h2>
+                <h2 className="font-bold">{certification?.name}</h2>
                 <div className="flex flex-row justify-between">
                   <div className="flex flex-col">
-                    <p>{organization.location}</p>
+                    <p>{certification?.location}</p>
                     <p>
-                      {organization.start_date} - {organization.end_date}
+                      {certification?.start_date} - {certification?.end_date}
                     </p>
                   </div>
                   <div className="flex flex-col">

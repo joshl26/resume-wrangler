@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useState } from "react";
+import { Suspense } from "react";
 import Classic from "@/app/ui/resume/classic/classic-resume";
 import PreviewButton from "@/app/ui/preview-button";
 import ElectricalEngineer from "@/app/ui/resume/electrical-engineer/electrical-engineer";
@@ -36,74 +36,11 @@ export default function ResumeStyling({
   userOrganizations: any;
   userCertifications: any;
 }) {
-  // console.log(userSkills);
-  // const resumeTitleAction = (e: { target: HTMLInputElement }) => {
-  //   let updatedValue = {};
-
-  //   updatedValue = { resumeTitle: e.target.value };
-
-  //   setResumeStyling((resumeStyling) => ({
-  //     ...resumeStyling,
-  //     ...updatedValue,
-  //   }));
-  // };
-
-  // const resumeStylingOnChangeHandler = (e: any) => {
-  //   // if (resumeStylingChanged === false) {
-  //   //   setResumeStylingChanged(true);
-  //   // }
-  //   resumeTitleAction(e);
-  // };
-
-  // const bodyFontAction = (e: { target: HTMLSelectElement }) => {
-  //   let updatedValue = {};
-
-  //   updatedValue = { bodyFont: e.target.value };
-
-  //   setResumeStyling((resumeStyling) => ({
-  //     ...resumeStyling,
-  //     ...updatedValue,
-  //   }));
-  // };
-
-  // const headerFontAction = (e: { target: HTMLSelectElement }) => {
-  //   let updatedValue = {};
-
-  //   updatedValue = { headingFont: e.target.value };
-
-  //   setResumeStyling((resumeStyling) => ({
-  //     ...resumeStyling,
-  //     ...updatedValue,
-  //   }));
-  // };
-
-  // const resumeTemplateAction = (e: { target: HTMLSelectElement }) => {
-  //   let updatedValue = {};
-
-  //   updatedValue = { resumeTemplate: e.target.value };
-
-  //   setResumeStyling((resumeStyling) => ({
-  //     ...resumeStyling,
-  //     ...updatedValue,
-  //   }));
-  // };
-
-  // const colorAction = (e: React.MouseEvent<HTMLDivElement>) => {
-  //   let updatedValue = {};
-
-  //   updatedValue = { color: e.currentTarget.id };
-
-  //   setResumeStyling((resumeStyling) => ({
-  //     ...resumeStyling,
-  //     ...updatedValue,
-  //   }));
-  // };
-
   return (
     <main className="flex w-full">
       <div className="flex flex-row h-full w-full">
         <div className="flex flex-col h-full w-[400px] overflow-scroll px-3">
-          {/* <YourResumeStyling
+          <YourResumeStyling
             resume={resume}
             resumeTemplates={resumeTemplates}
             resumeColors={resumeColors}
@@ -120,17 +57,17 @@ export default function ResumeStyling({
             user={user}
             userEducation={userEducation}
           />
-          <YourWorkExperiences /> 
+          <YourWorkExperiences />
           <YourOrganizations
             user={user}
             resume={resume}
             userOrganizations={userOrganizations}
-          />*/}
+          />
 
           <YourCertifications
             resume={resume}
             user={user}
-            userOrganizations={userOrganizations}
+            userCertifications={userCertifications}
           />
           <div className="p-2 text-center">
             <a
@@ -152,7 +89,7 @@ export default function ResumeStyling({
               />
             </Suspense>
           )}
-          {/* {resume.resumeTemplate === "electrical-engineer" && (
+          {resume.resumeTemplate === "electrical-engineer" && (
             <Suspense>
               <ElectricalEngineer
                 headingFont={resume.headingFont}
@@ -160,7 +97,7 @@ export default function ResumeStyling({
                 user={user}
               />
             </Suspense>
-          )} */}
+          )}
         </div>
       </div>
       <PreviewButton />
