@@ -22,6 +22,7 @@ export default function ResumeStyling({
   resume,
   userSkills,
   userEducation,
+  userOrganizations,
 }: {
   resumeTemplates: any;
   resumeColors: any;
@@ -31,6 +32,7 @@ export default function ResumeStyling({
   resume: any;
   userSkills: any;
   userEducation: any;
+  userOrganizations: any;
 }) {
   // console.log(userSkills);
   // const resumeTitleAction = (e: { target: HTMLInputElement }) => {
@@ -117,7 +119,10 @@ export default function ResumeStyling({
             userEducation={userEducation}
           />
           <YourWorkExperiences /> */}
-          <YourOrganizations />
+          <YourOrganizations
+            resume={resume}
+            userOrganizations={userOrganizations}
+          />
           {/*
           <YourCertifications /> */}
           <div className="p-2 text-center">

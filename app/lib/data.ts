@@ -543,3 +543,25 @@ export async function fetchEducationByUserId(userId: string) {
     return [null];
   }
 }
+
+export async function fetchOrganizationsByUserId(userId: string) {
+  noStore();
+
+  // console.log(id);
+
+  try {
+    const query = `SELECT * FROM user_custom_section_one WHERE user_id = '${userId}'`;
+    // console.log(query);
+    const resume = await conn.query(query);
+
+    if (resume.rows[0]) {
+      return resume.rows;
+    } else {
+      return [null];
+    }
+  } catch (error: any) {
+    console.error("Database Error:", error);
+    // throw new Error("Failed to fetch resume template by id.");
+    return [null];
+  }
+}

@@ -2,6 +2,7 @@ import {
   fetchBodyFonts,
   fetchEducationByUserId,
   fetchHeaderFonts,
+  fetchOrganizationsByUserId,
   fetchResumeById,
   fetchResumeColors,
   fetchResumeTemplates,
@@ -41,9 +42,10 @@ export default async function EditResume({
       fetchResumeById(id),
     ]);
 
-  const [userSkills, userEducation] = await Promise.all([
+  const [userSkills, userEducation, userOrganizations] = await Promise.all([
     fetchSkillsByUserId(user.id),
     fetchEducationByUserId(user.id),
+    fetchOrganizationsByUserId(user.id),
   ]);
 
   // console.log(resume);
@@ -56,7 +58,8 @@ export default async function EditResume({
     !user ??
     !resume ??
     !userSkills ??
-    !userEducation
+    !userEducation ??
+    !userOrganizations
   ) {
     notFound();
   }
@@ -71,6 +74,7 @@ export default async function EditResume({
       resume={resume}
       userSkills={userSkills}
       userEducation={userEducation}
+      userOrganizations={userOrganizations}
     />
   );
 }

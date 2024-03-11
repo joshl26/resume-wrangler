@@ -1,11 +1,25 @@
-export default function YourOrganizations() {
+import { use, useState } from "react";
+
+export default function YourOrganizations({
+  userOrganizations,
+  resume,
+}: {
+  userOrganizations: any;
+  resume: any;
+}) {
+  console.log(userOrganizations);
+
+  const [sectionTitle, setSectionTitle] = useState(
+    resume?.custom_section_one_name
+  );
+
   return (
     <div>
       <div className="your-organizations">
         <div className="flex flex-row justify-between">
           <div className="flex flex-col">
             <div className="py-2 font-bold text-xl">
-              <h2>Organizations</h2>
+              <h2>{sectionTitle}</h2>
             </div>
           </div>
           <div className="flex flex-col ">
@@ -22,10 +36,12 @@ export default function YourOrganizations() {
                 Section Title
               </label>
               <input
-                id="section-title"
+                type="text"
+                maxLength={14}
+                id="section_title"
                 className="rounded bg-slate-200"
-                // value={resumeStyling.resumeTitle}
-                // onChange={(e) => resumeTitleAction(e)}
+                defaultValue={sectionTitle}
+                onChange={(e) => setSectionTitle(e.target.value)}
                 placeholder="Section Title"
               ></input>
             </div>
@@ -33,7 +49,7 @@ export default function YourOrganizations() {
           <div className="flex flex-row w-auto">
             <div className="flex flex-col w-full py-1 px-1">
               <label className="py-1" htmlFor="organization">
-                Organization
+                {sectionTitle}
               </label>
               <div className="rounded border border-black w-full px-2">
                 <div className="flex flex-row w-auto">
