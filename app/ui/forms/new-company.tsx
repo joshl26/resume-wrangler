@@ -4,24 +4,10 @@ import { createCompany } from "@/app/lib/actions";
 import { Button } from "../button";
 
 export default async function NewCompany({ user }: { user: any }) {
-  async function newCompany(formData: FormData) {
-    "use server";
-
-    // const rawFormData = {
-    //   applicationId: formData.get("application_id"),
-    //   postingText: formData.get("posting_text"),
-    //   isComplete: formData.get("is_complete"),
-    // };
-
-    //console.log(formData);
-
-    await createCompany(formData);
-  }
-
   //   console.log(application);
   return (
     <div>
-      <form action={newCompany} className="flex flex-col w-[500px] px-1">
+      <form action={createCompany} className="flex flex-col w-[500px] px-1">
         <div hidden>
           <label hidden htmlFor="user_id">
             User Id

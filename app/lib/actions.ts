@@ -429,7 +429,7 @@ export async function updateSocials(
     github: formData.get("github"),
   });
 
-  console.log(validatedFields);
+  // console.log(validatedFields);
 
   if (!validatedFields.success) {
     return {
@@ -797,7 +797,7 @@ export async function updateYourResumeStyle(formData: FormData) {
     resume_id: formData.get("resume_id"),
   });
 
-  console.log(validatedFields);
+  // console.log(validatedFields);
 
   if (!validatedFields.success) {
     return {
@@ -842,7 +842,7 @@ export async function createUserSkill(formData: FormData) {
     skill_level: formData.get("skill_level"),
   });
 
-  console.log(validatedFields);
+  // console.log(validatedFields);
 
   if (!validatedFields.success) {
     return {
@@ -855,7 +855,8 @@ export async function createUserSkill(formData: FormData) {
   // console.log(skill_title, skill_level, user_id);
 
   try {
-    const query = `INSERT INTO user_skills (skill, skill_level, user_id) VALUES ('${skill_title}', '${skill_level}', '${user_id}')`; // console.log(query);
+    const query = `INSERT INTO user_skills (skill, skill_level, user_id) VALUES ('${skill_title}', '${skill_level}', '${user_id}')`;
+    // console.log(query);
     const data = await conn.query(query);
     //console.log(data);
   } catch (error) {
@@ -933,7 +934,8 @@ export async function createUserEducation(formData: FormData) {
   // // console.log(skill_title, skill_level, user_id);
 
   try {
-    const query = `INSERT INTO user_education (user_id, institution_name, location, start_date, end_date, grade, program, url) VALUES ('${user_id}', '${institution_name}', '${location}', '${start_date}' , '${end_date}' , '${grade}' , '${program}' , '${url}')`; // console.log(query);
+    const query = `INSERT INTO user_education (user_id, institution_name, location, start_date, end_date, grade, program, url) VALUES ('${user_id}', '${institution_name}', '${location}', '${start_date}' , '${end_date}' , '${grade}' , '${program}' , '${url}')`;
+    // console.log(query);
     const data = await conn.query(query);
     //console.log(data);
   } catch (error) {
@@ -1018,10 +1020,12 @@ export async function createOrganization(formData: FormData) {
   // );
 
   try {
-    const query = `INSERT INTO user_custom_section_one (user_id, name, location, start_date, end_date, description) VALUES ('${user_id}', '${organization_name}', '${organization_location}', '${organization_start}' , '${organization_end}' , '${organization_description}' )`; // console.log(query);
+    const query = `INSERT INTO user_custom_section_one (user_id, name, location, start_date, end_date, description) VALUES ('${user_id}', '${organization_name}', '${organization_location}', '${organization_start}' , '${organization_end}' , '${organization_description}' )`;
+    // console.log(query);
     const data = await conn.query(query);
 
-    const query2 = `UPDATE resumes SET custom_section_one_name = '${section_title}' WHERE id = '${resume_id}'`; // console.log(query);
+    const query2 = `UPDATE resumes SET custom_section_one_name = '${section_title}' WHERE id = '${resume_id}'`;
+    // console.log(query);
     const data2 = await conn.query(query2);
 
     //console.log(data);
@@ -1120,7 +1124,8 @@ export async function createCertification(formData: FormData) {
     const query = `INSERT INTO user_custom_section_two (user_id, name, location) VALUES ('${user_id}', '${certification_name}', '${certification_location}' )`;
     const data = await conn.query(query);
 
-    const query2 = `UPDATE resumes SET custom_section_two_name = '${section_title}' WHERE id = '${resume_id}'`; // console.log(query);
+    const query2 = `UPDATE resumes SET custom_section_two_name = '${section_title}' WHERE id = '${resume_id}'`;
+    // console.log(query);
     const data2 = await conn.query(query2);
 
     //console.log(data);
@@ -1137,7 +1142,7 @@ export async function deleteWorkExperience(formData: FormData) {
     id: formData.get("work_experience_id"),
     resume_id: formData.get("resume_id"),
   });
-  console.log(validatedFields);
+  // console.log(validatedFields);
   if (!validatedFields.success) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
@@ -1186,16 +1191,16 @@ export async function createWorkExperience(formData: FormData) {
     end_date,
     description,
   } = validatedFields.data;
-  console.log(
-    user_id,
-    resume_id,
-    company_name,
-    job_title,
-    location,
-    start_date,
-    end_date,
-    description
-  );
+  // console.log(
+  //   user_id,
+  //   resume_id,
+  //   company_name,
+  //   job_title,
+  //   location,
+  //   start_date,
+  //   end_date,
+  //   description
+  // );
   try {
     const query = `INSERT INTO user_work_experience (job_title, company_name, user_id, location, start_date, end_date, description_one) VALUES ('${job_title}', '${company_name}', '${user_id}', '${location}', '${start_date}', '${end_date}', '${description}') `;
     const data = await conn.query(query);
