@@ -183,7 +183,13 @@ export default function YourResumeStyling({
           </select>
         </div>
         <div style={{ height: "0.5rem" }}></div>
-        {edited && <SubmitButton>Save</SubmitButton>}
+        {edited && (
+          <SubmitButton>
+            <div className="bg-yellow-400 my-4 p-2 text-center w-auto animate-pulse">
+              Save Change
+            </div>
+          </SubmitButton>
+        )}
       </form>
     </div>
   );

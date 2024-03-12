@@ -6,6 +6,8 @@ export function SubmitButton({ children }: { children: any }) {
   const { pending } = useFormStatus();
 
   return (
-    <button type="submit">{pending === false ? children : "Saving"}</button>
+    <button className="w-full" type="submit">
+      {pending === false ? children : "Saving"}
+    </button>
   );
 }
