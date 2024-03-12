@@ -73,7 +73,7 @@ export default function ResumeStyling({
             selectedResumeColor={selectedResumeColor}
           />
           <div className="py-2"></div>
-          <YourProfile user={user} />
+          <YourProfile resume={resume} user={user} />
           <YourSocialLinks user={user} />
           <div className="py-2"></div>
           <YourSkills user={user} userSkills={userSkills} resume={resume} />

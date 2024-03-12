@@ -50,6 +50,9 @@ const UserSchema = z.object({
   website: z.string({
     invalid_type_error: "Please enter a valid website.",
   }),
+  resume_id: z.string({
+    invalid_type_error: "Please enter a valid website.",
+  }),
 });
 
 const UserSocialsSchema = z.object({
@@ -370,17 +373,18 @@ export async function updateUser(
   prevState: State,
   formData: FormData
 ) {
-  // console.log(formData);
+  console.log(formData);
   const validatedFields = UpdateUser.safeParse({
     name: formData.get("name"),
     email: formData.get("email"),
-    first_name: formData.get("first-name"),
-    last_name: formData.get("last-name"),
-    address_line_one: formData.get("address-one"),
-    address_line_two: formData.get("address-two"),
-    address_line_three: formData.get("address-three"),
+    first_name: formData.get("first_name"),
+    last_name: formData.get("last_name"),
+    address_line_one: formData.get("address_one"),
+    address_line_two: formData.get("address_two"),
+    address_line_three: formData.get("address_three"),
     phone: formData.get("phone"),
     website: formData.get("website"),
+    resume_id: formData.get("resume_id"),
   });
 
   if (!validatedFields.success) {
@@ -400,6 +404,7 @@ export async function updateUser(
     address_line_three,
     phone,
     website,
+    resume_id,
   } = validatedFields.data;
 
   try {
@@ -419,8 +424,8 @@ export async function updateUser(
     return { message: "Database Error: Failed to Update Invoice." };
   }
 
-  revalidatePath("/dashboard/user-profile");
-  redirect("/dashboard/user-profile");
+  revalidatePath(`/dashboard/resume/edit/${resume_id}`);
+  redirect(`/dashboard/resume/edit/${resume_id}`);
 }
 
 export async function updateSocials(

@@ -4,7 +4,13 @@ import { useState } from "react";
 import { useFormState } from "react-dom";
 import { SubmitButton } from "../submit-button";
 
-export default function YourProfile({ user }: { user: any }) {
+export default function YourProfile({
+  user,
+  resume,
+}: {
+  user: any;
+  resume: any;
+}) {
   const initialState = { message: null, errors: {} };
   const updateUserWithId = updateUser.bind(null, user?.id!);
   const [state, dispatch] = useFormState(updateUserWithId, initialState);
@@ -54,9 +60,25 @@ export default function YourProfile({ user }: { user: any }) {
         </div>
         <div className="py-2"></div>
         <div className="drop-shadow-md border-[1px] border-slate-300 rounded px-5 py-2 ">
-          <form>
+          <form onSubmit={() => setEdited(false)} action={dispatch}>
             <div className="flex flex-row justify-between w-auto">
               <div className="flex flex-col w-1/2 py-1 px-1">
+                <label hidden htmlFor="resume_id" />
+                <input
+                  hidden
+                  readOnly
+                  value={resume.id}
+                  id="resume_id"
+                  name="resume_id"
+                />
+                <label hidden htmlFor="name" />
+                <input
+                  hidden
+                  readOnly
+                  value={user.name}
+                  id="name"
+                  name="name"
+                />
                 <label className="py-1" htmlFor="first_name">
                   First Name
                 </label>
@@ -65,7 +87,7 @@ export default function YourProfile({ user }: { user: any }) {
                   name="first_name"
                   className="rounded bg-slate-200"
                   defaultValue={user.first_name}
-                  onChange={(e) => {}}
+                  onChange={(e) => onChangeHandler(e)}
                   placeholder="First Name"
                 ></input>
               </div>
@@ -78,7 +100,7 @@ export default function YourProfile({ user }: { user: any }) {
                   name="last_name"
                   className="rounded bg-slate-200"
                   defaultValue={user.last_name}
-                  onChange={(e) => {}}
+                  onChange={(e) => onChangeHandler(e)}
                   placeholder="Last Name"
                 ></input>
               </div>
@@ -93,7 +115,7 @@ export default function YourProfile({ user }: { user: any }) {
                   name="address_one"
                   className="rounded bg-slate-200"
                   defaultValue={user.address_one}
-                  onChange={(e) => {}}
+                  onChange={(e) => onChangeHandler(e)}
                   placeholder="City, Prov/State"
                 ></input>
               </div>
@@ -108,7 +130,7 @@ export default function YourProfile({ user }: { user: any }) {
                   name="address_two"
                   className="rounded bg-slate-200"
                   defaultValue={user.address_two}
-                  onChange={(e) => {}}
+                  onChange={(e) => onChangeHandler(e)}
                   placeholder="Street Address"
                 ></input>
               </div>
@@ -123,7 +145,7 @@ export default function YourProfile({ user }: { user: any }) {
                   name="address_three"
                   className="rounded bg-slate-200"
                   defaultValue={user.address_three}
-                  onChange={(e) => {}}
+                  onChange={(e) => onChangeHandler(e)}
                   placeholder="Apartment/Buzzer"
                 ></input>
               </div>
@@ -137,7 +159,7 @@ export default function YourProfile({ user }: { user: any }) {
                   id="country"
                   className="rounded bg-slate-200"
                   defaultValue={user.country}
-                  onChange={(e) => {}}
+                  onChange={(e) => onChangeHandler(e)}
                   placeholder="Country"
                 ></input>
               </div>
@@ -152,22 +174,23 @@ export default function YourProfile({ user }: { user: any }) {
                   name="phone"
                   className="rounded bg-slate-200"
                   defaultValue={user.phone}
-                  onChange={(e) => {}}
+                  onChange={(e) => onChangeHandler(e)}
                   placeholder="City, Prov/State"
                 ></input>
               </div>
             </div>
             <div className="flex flex-col">
               <div className="flex flex-col py-1 px-1">
-                <label className="py-1" htmlFor="email">
+                <label hidden className="py-1" htmlFor="email">
                   Email
                 </label>
                 <input
+                  hidden
+                  readOnly
                   id="email"
                   name="email"
                   className="rounded bg-slate-200"
                   defaultValue={user.email}
-                  onChange={(e) => {}}
                   placeholder="Email Address"
                 ></input>
               </div>
@@ -179,6 +202,7 @@ export default function YourProfile({ user }: { user: any }) {
                 </label>
                 <input
                   id="website"
+                  name="website"
                   className="rounded bg-slate-200"
                   defaultValue={user.website}
                   onChange={(e) => onChangeHandler(e)}
