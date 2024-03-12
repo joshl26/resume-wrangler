@@ -16,12 +16,12 @@ const ElectricalEngineer = (props: Props) => {
     <>
       <Page>
         <div className="flex flex-row">
-          <div className="flex flex-col w-[450px] rounded">
+          <div className="flex flex-col w-[600px] rounded">
             <Image
               className="rounded-lg"
               alt={props.user.thumbnail}
-              width={125}
-              height={125}
+              width={150}
+              height={150}
               src={props.user.thumbnail}
             />
           </div>
@@ -40,6 +40,16 @@ const ElectricalEngineer = (props: Props) => {
             </h1>
             <p className="text-lg">{props.resume.description}</p>
           </div>
+        </div>
+        <div className="border-gray border-b-2 py-3"></div>
+        <div className="flex flex-row pt-6">
+          <div className="flex flex-col w-3/4">
+            <div className="flex flex-row">
+              <h2>WORK EXPERIENCE</h2>
+            </div>
+            <div className="flex flex-row"></div>
+          </div>
+          <div className="flex flex-col w-1/4"></div>
         </div>
         {/* <div id="user_details">
           {props.user && (

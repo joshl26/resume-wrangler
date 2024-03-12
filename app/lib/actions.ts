@@ -161,6 +161,9 @@ const YourResumeStyleSchema = z.object({
   resume_id: z.string({
     invalid_type_error: "Please enter a string.",
   }),
+  description: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
 });
 
 const CreateSkillsSchema = z.object({
@@ -795,6 +798,7 @@ export async function updateYourResumeStyle(formData: FormData) {
     header_font: formData.get("header_font"),
     body_font: formData.get("body_font"),
     resume_id: formData.get("resume_id"),
+    description: formData.get("description"),
   });
 
   // console.log(validatedFields);
@@ -813,10 +817,11 @@ export async function updateYourResumeStyle(formData: FormData) {
     header_font,
     body_font,
     resume_id,
+    description,
   } = validatedFields.data;
 
   try {
-    const query = `UPDATE resumes SET title = '${resume_title}', template = '${resume_template}', color = '${color}', heading_font = '${header_font}', body_font = '${body_font}' WHERE id = '${resume_id}'`;
+    const query = `UPDATE resumes SET title = '${resume_title}', template = '${resume_template}', color = '${color}', heading_font = '${header_font}', body_font = '${body_font}', description = '${description}' WHERE id = '${resume_id}'`;
     // console.log(query);
 
     const data = await conn.query(query);

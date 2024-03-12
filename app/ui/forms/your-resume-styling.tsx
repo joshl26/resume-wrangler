@@ -69,6 +69,25 @@ export default function YourResumeStyling({
           />
         </div>
         <div className="flex flex-col py-1">
+          <input
+            hidden
+            id="resume_id"
+            name="resume_id"
+            defaultValue={resume.id}
+          />
+          <label className="py-1" htmlFor="description">
+            Description
+          </label>
+          <textarea
+            name="description"
+            id="description"
+            className="rounded bg-slate-200 h-[200px]"
+            defaultValue={resume.description}
+            onChange={(e) => onChangeHandler(e)}
+            placeholder="Resume Description"
+          />
+        </div>
+        <div className="flex flex-col py-1">
           <label className="py-1" htmlFor="resume_template">
             Resume Template
           </label>
