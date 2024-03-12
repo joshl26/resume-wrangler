@@ -99,7 +99,7 @@ export default function ResumeStyling({
           />
           <div className="p-2 text-center">
             <a
-              href={`/api/pdf?bodyFont=${resume.bodyFont}&headerFont=${resume.headingFont}`}
+              href={`/api/pdf?bodyFont=${selectedResumeBodyFont}&headerFont=${selectedResumeHeadingFont}`}
               download="generated_pdf.pdf"
               className="downloadBtn"
             >
@@ -123,6 +123,7 @@ export default function ResumeStyling({
                 headingFont={selectedResumeHeadingFont}
                 bodyFont={selectedResumeBodyFont}
                 user={user}
+                resume={resume}
               />
             </Suspense>
           )}

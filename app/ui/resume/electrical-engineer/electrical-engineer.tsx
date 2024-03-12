@@ -2,18 +2,46 @@ import Page from "../page";
 import { User } from "../../../data/user-details";
 import { resumeSkills } from "../../../data/resume-skills";
 import { resumeExperiences } from "../../../data/resume-experiences";
+import Image from "next/image";
 
 interface Props {
   user: User;
   bodyFont: string;
   headingFont: string;
+  resume: any;
 }
 
 const ElectricalEngineer = (props: Props) => {
   return (
     <>
       <Page>
-        <div id="user_details">
+        <div className="flex flex-row">
+          <div className="flex flex-col w-[450px] rounded">
+            <Image
+              className="rounded-lg"
+              alt={props.user.thumbnail}
+              width={125}
+              height={125}
+              src={props.user.thumbnail}
+            />
+          </div>
+          <div className="flex flex-col w-auto">
+            <h1
+              style={{
+                textAlign: "left",
+                textTransform: "uppercase",
+                fontSize: "50px",
+                lineHeight: "1.3",
+                fontWeight: "bold",
+              }}
+              className={props.headingFont}
+            >
+              {props.user.first_name} {props.user.last_name}
+            </h1>
+            <p className="text-lg">{props.resume.description}</p>
+          </div>
+        </div>
+        {/* <div id="user_details">
           {props.user && (
             <div>
               <h1
@@ -118,7 +146,7 @@ const ElectricalEngineer = (props: Props) => {
               </div>
             </div>
           )}
-        </div>
+        </div> */}
         {/* <div id="resume_skills">
           {resumeSkills && (
             <div>

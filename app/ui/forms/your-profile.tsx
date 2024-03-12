@@ -13,7 +13,13 @@ export default function YourProfile({ user }: { user: any }) {
             <label className="py-1" htmlFor="resume-template">
               Profile Image
             </label>
-            <Image alt="" height={100} width={100} src={user.thumbnail} />
+            <Image
+              className="m-auto py-4"
+              alt=""
+              height={250}
+              width={250}
+              src={user.thumbnail}
+            />
             <button
               className="rounded bg-amber-300 h-10 border border-black"
               // value={resumeStyling.resumeTemplate}
