@@ -1,7 +1,5 @@
 import Page from "../page";
 import { User } from "../../../data/user-details";
-import { resumeSkills } from "../../../data/resume-skills";
-import { resumeExperiences } from "../../../data/resume-experiences";
 import Image from "next/image";
 import clsx from "clsx";
 import {
@@ -75,23 +73,23 @@ const ElectricalEngineer = (props: Props) => {
               {props.userWorkExperiences.map((userWorkExperience: any) => (
                 <li className="list-disc py-2" key={userWorkExperience.id}>
                   <h2 className="font-bold">{userWorkExperience.job_title}</h2>
-                  <p>
+                  <p className={clsx("", props.bodyFont)}>
                     {userWorkExperience.location}{" "}
                     {userWorkExperience.start_date} -{" "}
                     {userWorkExperience.end_date}
                   </p>
                   {userWorkExperience?.description_one && (
-                    <p className=" text-sm">
+                    <p className={clsx("text-sm", props.bodyFont)}>
                       {userWorkExperience.description_one}
                     </p>
                   )}
                   {userWorkExperience?.description_two && (
-                    <p className=" text-sm">
+                    <p className={clsx("text-sm", props.bodyFont)}>
                       {userWorkExperience?.description_two}
                     </p>
                   )}
                   {userWorkExperience?.description_three && (
-                    <p className=" text-sm">
+                    <p className={clsx("text-sm", props.bodyFont)}>
                       {userWorkExperience?.description_three}
                     </p>
                   )}
@@ -102,25 +100,31 @@ const ElectricalEngineer = (props: Props) => {
           <div className="flex flex-col w-1/4">
             <div className="flex flex-col pb-3">
               <h2 className={props.headingFont}>PROFILE</h2>
-              <div className="flex flex-row">
+              <div className="flex flex-row pt-4">
                 <div className="flex flex-col w-[30px]">
                   <MapPinIcon className="w-[20px] m-auto" />
                 </div>
                 <div className="flex flex-col w-3/4">
-                  {props.user.address_one}
+                  <p className={clsx("", props.bodyFont)}>
+                    {props.user.address_one}
+                  </p>
                 </div>
               </div>
               <div className="flex flex-row">
                 <div className="flex flex-col w-[30px] ">
                   <PhoneIcon className="w-[18px] m-auto" />
                 </div>
-                <div className="flex flex-col w-3/4">{props.user.phone}</div>
+                <div className="flex flex-col w-3/4">
+                  <p className={clsx("", props.bodyFont)}>{props.user.phone}</p>
+                </div>
               </div>
               <div className="flex flex-row">
                 <div className="flex flex-col w-[30px] ">
                   <EnvelopeIcon className="w-[18px] m-auto" />
                 </div>
-                <div className="flex flex-col w-3/4">{props.user.email}</div>
+                <div className="flex flex-col w-3/4">
+                  <p className={clsx("", props.bodyFont)}>{props.user.email}</p>
+                </div>
               </div>
               <div className="flex flex-row">
                 <div className="flex flex-col w-[30px] ">
@@ -129,7 +133,11 @@ const ElectricalEngineer = (props: Props) => {
                     className="w-[18px] m-auto"
                   />
                 </div>
-                <div className="flex flex-col w-3/4">{props.user.facebook}</div>
+                <div className="flex flex-col w-3/4">
+                  <p className={clsx("", props.bodyFont)}>
+                    {props.user.facebook}
+                  </p>
+                </div>
               </div>
               <div className="flex flex-row">
                 <div className="flex flex-col w-[30px] ">
@@ -139,38 +147,71 @@ const ElectricalEngineer = (props: Props) => {
                   />
                 </div>
                 <div className="flex flex-col w-3/4">
-                  {props.user.linked_in}
+                  <p className={clsx("", props.bodyFont)}>
+                    {props.user.linked_in}
+                  </p>
                 </div>
               </div>
             </div>
-            <div className="flex flex-col pb-3">
-              <ul>
-                <h2 className={props.headingFont}>SKILLS</h2>
+            <div className="flex flex-col pb-3 pt-2">
+              <h2 className={props.headingFont}>SKILLS</h2>
+              <ul className="pt-2">
                 {props.userSkills.map((userSkill: any) => (
-                  <li className="flex flex-col" key={userSkill.id}>
-                    <p>{userSkill.skill}</p>
-                    <input
-                      readOnly
-                      value={userSkill.skill_level}
-                      type="range"
-                    />
+                  <li className="flex flex-col py-[3px]" key={userSkill.id}>
+                    <p className={clsx("text-sm", props.headingFont)}>
+                      {userSkill.skill}
+                    </p>
+                    <div className="progress-container ">
+                      <div
+                        className="rounded-[1rem]"
+                        style={{ border: "1px solid black", height: "1rem" }}
+                      >
+                        <div
+                          className={clsx(
+                            "progress-bar rounded-[1rem]",
+                            props.resumeColor
+                          )}
+                          style={{
+                            width: `${userSkill.skill_level}%`,
+                            backgroundColor: `${props.resumeColor}`,
+                            height: "100%",
+                          }}
+                        ></div>
+                      </div>
+                    </div>
+                    {/* <progress
+                      // className={props.resumeColor}
+                      style={{ backgroundColor: "red" }}
+                      color={"red"}
+                      value={userSkill.skill_level / 100}
+                    /> */}
                   </li>
                 ))}
               </ul>
             </div>
-            <div className="flex flex-row pb-3">
+            <div className="flex flex-row pb-3 pt-2">
               <ul>
                 <h2 className={props.headingFont}>EDUCATION</h2>
                 {props.userEducation.map((userEducation: any) => (
-                  <li className="flex flex-col py-3" key={userEducation.id}>
-                    <h2 className="font-bold">
+                  <li className="flex flex-col pt-2" key={userEducation.id}>
+                    <h2 className={clsx("font-bold", props.headingFont)}>
                       {userEducation.institution_name}
                     </h2>
-                    <p>{userEducation.location}</p>
-                    <p>
+                    <p className={clsx("text-sm", props.bodyFont)}>
+                      {userEducation.location}
+                    </p>
+                    <p className={clsx("text-sm", props.bodyFont)}>
                       {userEducation.start_date} - {userEducation.end_date}
                     </p>
-                    <p>{userEducation.program}</p>
+                    <p
+                      className={clsx(
+                        "text-sm italic font-black",
+                        props.headingFont
+                      )}
+                    >
+                      {" "}
+                      {userEducation.program}
+                    </p>
                   </li>
                 ))}
               </ul>
