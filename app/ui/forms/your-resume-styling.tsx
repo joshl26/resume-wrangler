@@ -12,9 +12,11 @@ export default function YourResumeStyling({
   setSelectedResumeTemplate,
   setSelectedResumeHeadingFont,
   setSelectedResumeBodyFont,
+  setSelectedResumeColor,
   selectedResumeTemplate,
   selectedResumeBodyFont,
   selectedResumeHeadingFont,
+  selectedResumeColor,
 }: {
   resume: any;
   resumeTemplates: any;
@@ -24,12 +26,14 @@ export default function YourResumeStyling({
   setSelectedResumeTemplate: (e: any) => void;
   setSelectedResumeHeadingFont: (e: any) => void;
   setSelectedResumeBodyFont: (e: any) => void;
+  setSelectedResumeColor: (e: any) => void;
   selectedResumeTemplate: any;
   selectedResumeBodyFont: any;
   selectedResumeHeadingFont: any;
+  selectedResumeColor: any;
 }) {
   const [edited, setEdited] = useState(false);
-  const [color, setColor] = useState(resume.color);
+  // const [color, setColor] = useState(resume.color);
 
   // console.log(resumeTemplates);
 
@@ -112,7 +116,12 @@ export default function YourResumeStyling({
             <label className="py-1" htmlFor="color">
               Colors
             </label>
-            <input hidden id="color" name="color" defaultValue={color} />
+            <input
+              hidden
+              id="color"
+              name="color"
+              defaultValue={selectedResumeColor}
+            />
             <div className="flex flex-row justify-around">
               {resumeColors.map((color: any) => (
                 <div
@@ -120,7 +129,7 @@ export default function YourResumeStyling({
                   key={color.id}
                   id={color.color}
                   onClick={(e: any) => {
-                    setColor(e.target.id);
+                    setSelectedResumeColor(e.target.id);
                     onChangeHandler(e);
                   }}
                   className={`rounded-[16px] border-2 border-black h-8 w-8 ${color.color} hover:-translate-y-1 duration-500`}
@@ -157,7 +166,7 @@ export default function YourResumeStyling({
           </label>
           <select
             className={`${resume.body_font} rounded`}
-            defaultValue={resume.body_font}
+            defaultValue={selectedResumeBodyFont}
             onChange={(e) => setSelectedResumeBodyFont(e.target.value)}
             name="body_font"
             id="body_font"

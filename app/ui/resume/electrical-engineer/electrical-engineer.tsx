@@ -19,6 +19,7 @@ interface Props {
   user: User;
   bodyFont: string;
   headingFont: string;
+  resumeColor: string;
   resume: any;
   userWorkExperiences: any;
   userSkills: any;
@@ -58,7 +59,12 @@ const ElectricalEngineer = (props: Props) => {
             </p>
           </div>
         </div>
-        <div className="border-gray border-b-2 py-3"></div>
+        <div
+          className={clsx(
+            props.resumeColor,
+            "border-gray-500 border-b-[1px] mt-4 w-full h-[3px]"
+          )}
+        ></div>
         <div className="flex flex-row pt-6">
           <div className="flex flex-col w-3/4">
             <div className="flex flex-row">
@@ -75,19 +81,19 @@ const ElectricalEngineer = (props: Props) => {
                     {userWorkExperience.end_date}
                   </p>
                   {userWorkExperience?.description_one && (
-                    <li className="mx-4 text-sm">
+                    <p className=" text-sm">
                       {userWorkExperience.description_one}
-                    </li>
+                    </p>
                   )}
                   {userWorkExperience?.description_two && (
-                    <li className="mx-4 text-sm">
+                    <p className=" text-sm">
                       {userWorkExperience?.description_two}
-                    </li>
+                    </p>
                   )}
                   {userWorkExperience?.description_three && (
-                    <li className="mx-4 text-sm">
+                    <p className=" text-sm">
                       {userWorkExperience?.description_three}
-                    </li>
+                    </p>
                   )}
                 </li>
               ))}
@@ -143,7 +149,11 @@ const ElectricalEngineer = (props: Props) => {
                 {props.userSkills.map((userSkill: any) => (
                   <li className="flex flex-col" key={userSkill.id}>
                     <p>{userSkill.skill}</p>
-                    <input value={userSkill.skill_level} type="range" />
+                    <input
+                      readOnly
+                      value={userSkill.skill_level}
+                      type="range"
+                    />
                   </li>
                 ))}
               </ul>

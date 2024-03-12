@@ -50,6 +50,8 @@ export default function ResumeStyling({
     resume?.heading_font
   );
 
+  const [selectedResumeColor, setSelectedResumeColor] = useState(resume?.color);
+
   return (
     <main className="flex w-full">
       <div className="flex flex-row h-full w-full">
@@ -64,9 +66,11 @@ export default function ResumeStyling({
             setSelectedResumeTemplate={setSelectedResumeTemplate}
             setSelectedResumeHeadingFont={setSelectedResumeHeadingFont}
             setSelectedResumeBodyFont={setSelectedResumeBodyFont}
+            setSelectedResumeColor={setSelectedResumeColor}
             selectedResumeTemplate={selectedResumeTemplate}
             selectedResumeBodyFont={selectedResumeBodyFont}
             selectedResumeHeadingFont={selectedResumeHeadingFont}
+            selectedResumeColor={selectedResumeColor}
           />
           <div className="py-2"></div>
           <YourProfile user={user} />
@@ -122,6 +126,7 @@ export default function ResumeStyling({
               <ElectricalEngineer
                 headingFont={selectedResumeHeadingFont}
                 bodyFont={selectedResumeBodyFont}
+                resumeColor={selectedResumeColor}
                 user={user}
                 resume={resume}
                 userWorkExperiences={userWorkExperiences}
