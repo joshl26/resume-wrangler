@@ -176,10 +176,16 @@ const CreateSkillsSchema = z.object({
   user_id: z.string({
     invalid_type_error: "Please enter a string.",
   }),
+  resume_id: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
 });
 
 const DeleteSkillsSchema = z.object({
   id: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  resume_id: z.string({
     invalid_type_error: "Please enter a string.",
   }),
 });
@@ -845,6 +851,7 @@ export async function createUserSkill(formData: FormData) {
     skill_title: formData.get("skill_title"),
     user_id: formData.get("user_id"),
     skill_level: formData.get("skill_level"),
+    resume_id: formData.get("resume_id"),
   });
 
   // console.log(validatedFields);
@@ -855,7 +862,7 @@ export async function createUserSkill(formData: FormData) {
       message: "Missing Fields. Failed to Create user skill.",
     };
   }
-  const { skill_title, skill_level, user_id } = validatedFields.data;
+  const { skill_title, skill_level, user_id, resume_id } = validatedFields.data;
 
   // console.log(skill_title, skill_level, user_id);
 
@@ -867,8 +874,8 @@ export async function createUserSkill(formData: FormData) {
   } catch (error) {
     return { message: `Database Error: Failed to Update Invoice. ${error}` };
   }
-  revalidatePath(`/dashboard/resume/edit/`);
-  redirect(`/dashboard/resume/edit/`);
+  revalidatePath(`/dashboard/resume/edit/${resume_id}`);
+  redirect(`/dashboard/resume/edit/${resume_id}`);
 }
 
 export async function deleteUserSkill(formData: FormData) {
@@ -876,6 +883,7 @@ export async function deleteUserSkill(formData: FormData) {
 
   const validatedFields = DeleteSkillsSchema.safeParse({
     id: formData.get("id"),
+    resume_id: formData.get("resume_id"),
   });
 
   // console.log(validatedFields);
@@ -886,7 +894,7 @@ export async function deleteUserSkill(formData: FormData) {
       message: "Missing Fields. Failed to Create user skill.",
     };
   }
-  const { id } = validatedFields.data;
+  const { id, resume_id } = validatedFields.data;
 
   // console.log(skill_title, skill_level, user_id);
 
@@ -897,8 +905,8 @@ export async function deleteUserSkill(formData: FormData) {
   } catch (error) {
     return { message: `Database Error: Failed to Delete user skill. ${error}` };
   }
-  revalidatePath(`/dashboard/resume/edit/`);
-  redirect(`/dashboard/resume/edit/`);
+  revalidatePath(`/dashboard/resume/edit/${resume_id}`);
+  redirect(`/dashboard/resume/edit/${resume_id}`);
 }
 
 export async function createUserEducation(formData: FormData) {

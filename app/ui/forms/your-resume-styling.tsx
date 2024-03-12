@@ -2,6 +2,7 @@
 
 import { updateYourResumeStyle } from "@/app/lib/actions";
 import { useState } from "react";
+import { SubmitButton } from "../submit-button";
 
 export default function YourResumeStyling({
   resume,
@@ -47,10 +48,11 @@ export default function YourResumeStyling({
     <div className="resume-styling">
       <div className="pb-2 font-bold text-xl">
         <h2>Resume Styling</h2>
-        <p>{edited === false ? "false" : "true"}</p>
+        {/* <p>{edited === false ? "false" : "true"}</p> */}
       </div>
       <form
         action={updateYourResumeStyle}
+        onSubmit={() => setEdited(false)}
         className="drop-shadow-md border-[1px] border-slate-300 rounded px-5 py-2 "
       >
         <div className="flex flex-col py-1">
@@ -181,7 +183,7 @@ export default function YourResumeStyling({
           </select>
         </div>
         <div style={{ height: "0.5rem" }}></div>
-        {edited && <button type="submit">Save</button>}
+        {edited && <SubmitButton>Save</SubmitButton>}
       </form>
     </div>
   );

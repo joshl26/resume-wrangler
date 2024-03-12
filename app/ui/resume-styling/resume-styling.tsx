@@ -56,7 +56,7 @@ export default function ResumeStyling({
     <main className="flex w-full">
       <div className="flex flex-row h-full w-full">
         <div className="flex flex-col h-full w-[400px] overflow-scroll px-3">
-          <h1>{selectedResumeTemplate}</h1>
+          {/* <h1>{selectedResumeTemplate}</h1> */}
           <YourResumeStyling
             resume={resume}
             resumeTemplates={resumeTemplates}
@@ -76,7 +76,7 @@ export default function ResumeStyling({
           <YourProfile user={user} />
           <YourSocialLinks user={user} />
           <div className="py-2"></div>
-          <YourSkills user={user} userSkills={userSkills} />
+          <YourSkills user={user} userSkills={userSkills} resume={resume} />
           <div className="py-2"></div>
           <YourEducation
             resume={resume}

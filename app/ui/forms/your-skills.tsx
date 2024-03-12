@@ -8,9 +8,11 @@ import { useState } from "react";
 export default function YourSkills({
   userSkills,
   user,
+  resume,
 }: {
   userSkills: any;
   user: any;
+  resume: any;
 }) {
   // console.log(userSkills);
 
@@ -47,6 +49,14 @@ export default function YourSkills({
                 id="user_id"
                 name="user_id"
                 defaultValue={user.id}
+                type="text"
+              />
+              <label hidden htmlFor="resume_id" />
+              <input
+                hidden
+                id="resume_id"
+                name="resume_id"
+                defaultValue={resume.id}
                 type="text"
               />
               <label className="py-1" htmlFor="skill_title">
@@ -103,6 +113,14 @@ export default function YourSkills({
                 </div>
                 <div className="flex flex-col w-auto align-middle">
                   <form action={deleteUserSkill}>
+                    <label hidden htmlFor="resume_id" />
+                    <input
+                      hidden
+                      id="resume_id"
+                      name="resume_id"
+                      defaultValue={resume.id}
+                      type="text"
+                    />
                     <label hidden htmlFor="id" />
                     <input
                       type="text"
