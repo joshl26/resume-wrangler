@@ -124,6 +124,10 @@ export default function ResumeStyling({
                 bodyFont={selectedResumeBodyFont}
                 user={user}
                 resume={resume}
+                userWorkExperiences={userWorkExperiences}
+                userSkills={userSkills}
+                userEducation={userEducation}
+                userCertifications={userCertifications}
               />
             </Suspense>
           )}
