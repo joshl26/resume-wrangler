@@ -840,7 +840,7 @@ export async function updateYourResumeStyle(formData: FormData) {
   redirect(`/dashboard/resume/edit/${resume_id}`);
 }
 
-export async function updateYourSkills(formData: FormData) {
+export async function updateUserSkills(formData: FormData) {
   // console.log(formData);
 }
 
@@ -1224,4 +1224,12 @@ export async function createWorkExperience(formData: FormData) {
   }
   revalidatePath(`/dashboard/resume/edit/${resume_id}`);
   redirect(`/dashboard/resume/edit/${resume_id}`);
+}
+
+export async function createUserImage(formData: FormData) {
+  // console.log(formData);
+}
+
+export async function updateUserImage(formData: FormData) {
+  console.log(formData);
 }

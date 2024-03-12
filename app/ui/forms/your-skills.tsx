@@ -1,8 +1,4 @@
-import {
-  createUserSkill,
-  deleteUserSkill,
-  updateYourSkills,
-} from "@/app/lib/actions";
+import { createUserSkill, deleteUserSkill } from "@/app/lib/actions";
 import { useState } from "react";
 
 export default function YourSkills({

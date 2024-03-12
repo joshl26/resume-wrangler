@@ -38,7 +38,7 @@ export default function YourResumeStyling({
 
   // console.log(resumeTemplates);
 
-  const onChangeHandler = (e: any) => {
+  const onChangeHandler = () => {
     if (edited === false) {
       setEdited(true);
     }
@@ -70,7 +70,7 @@ export default function YourResumeStyling({
             id="resume_title"
             className="rounded bg-slate-200"
             defaultValue={resume.title}
-            onChange={(e) => onChangeHandler(e)}
+            onChange={(e) => onChangeHandler()}
             placeholder="Resume Title"
           />
         </div>
@@ -89,7 +89,7 @@ export default function YourResumeStyling({
             id="description"
             className="rounded bg-slate-200 h-[200px]"
             defaultValue={resume.description}
-            onChange={(e) => onChangeHandler(e)}
+            onChange={(e) => onChangeHandler()}
             placeholder="Resume Description"
           />
         </div>
@@ -100,7 +100,10 @@ export default function YourResumeStyling({
           <select
             className="rounded bg-amber-300"
             defaultValue={selectedResumeTemplate}
-            onChange={(e) => setSelectedResumeTemplate(e.target.value)}
+            onChange={(e) => {
+              setEdited(true);
+              setSelectedResumeTemplate(e.target.value);
+            }}
             name="resume_template"
             id="resume_template"
           >
@@ -132,7 +135,7 @@ export default function YourResumeStyling({
                   id={color.color}
                   onClick={(e: any) => {
                     setSelectedResumeColor(e.target.id);
-                    onChangeHandler(e);
+                    onChangeHandler();
                   }}
                   className={`rounded-[16px] border-2 border-black h-8 w-8 ${color.color} hover:-translate-y-1 duration-500`}
                 ></div>
@@ -148,7 +151,10 @@ export default function YourResumeStyling({
             <select
               className={`${resume.heading_font} rounded`}
               defaultValue={selectedResumeHeadingFont}
-              onChange={(e) => setSelectedResumeHeadingFont(e.target.value)}
+              onChange={(e) => {
+                onChangeHandler();
+                setSelectedResumeHeadingFont(e.target.value);
+              }}
               name="header_font"
               id="header_font"
             >
@@ -169,7 +175,10 @@ export default function YourResumeStyling({
           <select
             className={`${resume.body_font} rounded`}
             defaultValue={selectedResumeBodyFont}
-            onChange={(e) => setSelectedResumeBodyFont(e.target.value)}
+            onChange={(e) => {
+              onChangeHandler();
+              setSelectedResumeBodyFont(e.target.value);
+            }}
             name="body_font"
             id="body_font"
           >
