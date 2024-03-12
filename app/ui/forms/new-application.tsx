@@ -111,10 +111,9 @@ export default async function NewApplication({
           ></textarea>
         </div>
 
-        <SubmitButton
-          buttonText={"Create New Application"}
-          className="hover:bg-blue-400 bg-blue-600 text-white w-[200px] m-auto py-1 my-2 rounded"
-        />
+        <SubmitButton className="hover:bg-blue-400 bg-blue-600 text-white w-[200px] m-auto py-1 my-2 rounded">
+          Create New Application
+        </SubmitButton>
       </form>
     </div>
   );

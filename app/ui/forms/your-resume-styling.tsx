@@ -14,10 +14,12 @@ export default function YourResumeStyling({
   setSelectedResumeHeadingFont,
   setSelectedResumeBodyFont,
   setSelectedResumeColor,
+  setSelectedResumeHighlightColor,
   selectedResumeTemplate,
   selectedResumeBodyFont,
   selectedResumeHeadingFont,
   selectedResumeColor,
+  selectedResumeHighlightColor,
 }: {
   resume: any;
   resumeTemplates: any;
@@ -28,15 +30,17 @@ export default function YourResumeStyling({
   setSelectedResumeHeadingFont: (e: any) => void;
   setSelectedResumeBodyFont: (e: any) => void;
   setSelectedResumeColor: (e: any) => void;
+  setSelectedResumeHighlightColor: (e: any) => void;
   selectedResumeTemplate: any;
   selectedResumeBodyFont: any;
   selectedResumeHeadingFont: any;
   selectedResumeColor: any;
+  selectedResumeHighlightColor: any;
 }) {
   const [edited, setEdited] = useState(false);
   // const [color, setColor] = useState(resume.color);
 
-  // console.log(resumeTemplates);
+  console.log(resumeColors);
 
   const onChangeHandler = () => {
     if (edited === false) {
@@ -48,6 +52,7 @@ export default function YourResumeStyling({
     <div className="resume-styling">
       <div className="pb-2 font-bold text-xl">
         <h2>Resume Styling</h2>
+        {selectedResumeHighlightColor}
         {/* <p>{edited === false ? "false" : "true"}</p> */}
       </div>
       <form
@@ -134,6 +139,7 @@ export default function YourResumeStyling({
                   key={color.id}
                   id={color.color}
                   onClick={(e: any) => {
+                    setSelectedResumeHighlightColor(color.highlight_color);
                     setSelectedResumeColor(e.target.id);
                     onChangeHandler();
                   }}
@@ -193,10 +199,12 @@ export default function YourResumeStyling({
         </div>
         <div style={{ height: "0.5rem" }}></div>
         {edited && (
-          <SubmitButton>
-            <div className="bg-yellow-400 my-4 p-2 text-center w-auto animate-pulse">
-              Save Change
-            </div>
+          <SubmitButton
+            className={
+              "bg-yellow-400 my-4 p-2 text-center w-auto animate-pulse"
+            }
+          >
+            Save Change
           </SubmitButton>
         )}
       </form>

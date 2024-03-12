@@ -11,6 +11,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faSquareFacebook,
   faLinkedin,
+  faSquareInstagram,
+  faSquareTwitter,
+  faSquareGithub,
 } from "@fortawesome/free-brands-svg-icons";
 
 interface Props {
@@ -23,6 +26,7 @@ interface Props {
   userSkills: any;
   userEducation: any;
   userCertifications: any;
+  selectedResumeHighlightColor: any;
 }
 
 const ElectricalEngineer = (props: Props) => {
@@ -72,26 +76,68 @@ const ElectricalEngineer = (props: Props) => {
             <ul className="px-3 py-2">
               {props.userWorkExperiences.map((userWorkExperience: any) => (
                 <li className="list-disc py-2" key={userWorkExperience.id}>
-                  <h2 className="font-bold">{userWorkExperience.job_title}</h2>
+                  <h2 className={clsx("font-bold", props.headingFont)}>
+                    {userWorkExperience.job_title}
+                  </h2>
                   <p className={clsx("", props.bodyFont)}>
                     {userWorkExperience.location}{" "}
                     {userWorkExperience.start_date} -{" "}
                     {userWorkExperience.end_date}
                   </p>
                   {userWorkExperience?.description_one && (
-                    <p className={clsx("text-sm", props.bodyFont)}>
-                      {userWorkExperience.description_one}
-                    </p>
+                    <div className="flex flex-row justify-start">
+                      <div className="flex flex-col pr-3 pt-[10px]">
+                        <div
+                          className={clsx(
+                            "h-[7px] w-[7px] rounded-full ",
+                            props.bodyFont,
+                            props.resumeColor
+                          )}
+                        />
+                      </div>
+                      <div className="flex flex-col w-auto text-left">
+                        <p className={clsx("text-sm py-1", props.bodyFont)}>
+                          {userWorkExperience.description_one}
+                        </p>
+                      </div>
+                    </div>
                   )}
                   {userWorkExperience?.description_two && (
-                    <p className={clsx("text-sm", props.bodyFont)}>
-                      {userWorkExperience?.description_two}
-                    </p>
+                    <div className="flex flex-row justify-start">
+                      <div className="flex flex-col pr-3 pt-[10px]">
+                        <div
+                          className={clsx(
+                            "h-[7px] w-[7px] rounded-full",
+                            props.bodyFont,
+                            props.resumeColor
+                          )}
+                        />
+                      </div>
+                      <div className="flex flex-col">
+                        <p className={clsx("text-sm py-1", props.bodyFont)}>
+                          {userWorkExperience.description_two}
+                        </p>
+                      </div>
+                    </div>
                   )}
+
                   {userWorkExperience?.description_three && (
-                    <p className={clsx("text-sm", props.bodyFont)}>
-                      {userWorkExperience?.description_three}
-                    </p>
+                    <div className="flex flex-row justify-start">
+                      <div className="flex flex-col pr-3 pt-[10px]">
+                        <div
+                          className={clsx(
+                            "h-[7px] w-[7px] rounded-full",
+                            props.bodyFont,
+                            props.resumeColor
+                          )}
+                        />
+                      </div>
+                      <div className="flex flex-col">
+                        <p className={clsx("text-sm py-1", props.bodyFont)}>
+                          {userWorkExperience.description_three}
+                        </p>
+                      </div>
+                    </div>
                   )}
                 </li>
               ))}
@@ -130,32 +176,91 @@ const ElectricalEngineer = (props: Props) => {
               {props.resume.show_social_icons === "true" ? (
                 <>
                   {" "}
-                  <div className="flex flex-row">
-                    <div className="flex flex-col w-[30px] ">
-                      <FontAwesomeIcon
-                        icon={faSquareFacebook}
-                        className="w-[18px] m-auto"
-                      />
+                  {props.user.linked_in === "" ? (
+                    ""
+                  ) : (
+                    <div className="flex flex-row">
+                      <div className="flex flex-col w-[30px] ">
+                        <FontAwesomeIcon
+                          icon={faLinkedin}
+                          className="w-[18px] m-auto"
+                        />
+                      </div>
+                      <div className="flex flex-col w-3/4">
+                        <p className={clsx("", props.bodyFont)}>
+                          {props.user.linked_in}
+                        </p>
+                      </div>
                     </div>
-                    <div className="flex flex-col w-3/4">
-                      <p className={clsx("", props.bodyFont)}>
-                        {props.user.facebook}
-                      </p>
+                  )}
+                  {props.user.facebook === "" ? (
+                    ""
+                  ) : (
+                    <div className="flex flex-row">
+                      <div className="flex flex-col w-[30px] ">
+                        <FontAwesomeIcon
+                          icon={faSquareFacebook}
+                          className="w-[18px] m-auto"
+                        />
+                      </div>
+                      <div className="flex flex-col w-3/4">
+                        <p className={clsx("", props.bodyFont)}>
+                          {props.user.facebook}
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                  <div className="flex flex-row">
-                    <div className="flex flex-col w-[30px] ">
-                      <FontAwesomeIcon
-                        icon={faLinkedin}
-                        className="w-[18px] m-auto"
-                      />
+                  )}
+                  {props.user.instagram === "" ? (
+                    ""
+                  ) : (
+                    <div className="flex flex-row">
+                      <div className="flex flex-col w-[30px] ">
+                        <FontAwesomeIcon
+                          icon={faSquareInstagram}
+                          className="w-[18px] m-auto"
+                        />
+                      </div>
+                      <div className="flex flex-col w-3/4">
+                        <p className={clsx("", props.bodyFont)}>
+                          {props.user.instagram}
+                        </p>
+                      </div>
                     </div>
-                    <div className="flex flex-col w-3/4">
-                      <p className={clsx("", props.bodyFont)}>
-                        {props.user.linked_in}
-                      </p>
+                  )}
+                  {props.user.twitter === "" ? (
+                    ""
+                  ) : (
+                    <div className="flex flex-row">
+                      <div className="flex flex-col w-[30px] ">
+                        <FontAwesomeIcon
+                          icon={faSquareTwitter}
+                          className="w-[18px] m-auto"
+                        />
+                      </div>
+                      <div className="flex flex-col w-3/4">
+                        <p className={clsx("", props.bodyFont)}>
+                          {props.user.twitter}
+                        </p>
+                      </div>
                     </div>
-                  </div>
+                  )}
+                  {props.user.github === "" ? (
+                    ""
+                  ) : (
+                    <div className="flex flex-row">
+                      <div className="flex flex-col w-[30px] ">
+                        <FontAwesomeIcon
+                          icon={faSquareGithub}
+                          className="w-[18px] m-auto"
+                        />
+                      </div>
+                      <div className="flex flex-col w-3/4">
+                        <p className={clsx("", props.bodyFont)}>
+                          {props.user.github}
+                        </p>
+                      </div>
+                    </div>
+                  )}
                 </>
               ) : (
                 ""
@@ -171,8 +276,10 @@ const ElectricalEngineer = (props: Props) => {
                     </p>
                     <div className="progress-container ">
                       <div
-                        className="rounded-[1rem]"
-                        style={{ border: "1px solid black", height: "1rem" }}
+                        className={clsx(
+                          props.selectedResumeHighlightColor,
+                          "rounded-[1rem] h-[1rem] border border-black"
+                        )}
                       >
                         <div
                           className={clsx(
@@ -181,7 +288,6 @@ const ElectricalEngineer = (props: Props) => {
                           )}
                           style={{
                             width: `${userSkill.skill_level}%`,
-                            backgroundColor: `${props.resumeColor}`,
                             height: "100%",
                           }}
                         ></div>
@@ -229,11 +335,15 @@ const ElectricalEngineer = (props: Props) => {
             </div> */}
             <div className="flex flex-row pb-3">
               <ul>
-                <h2 className={props.headingFont}>CERTIFICATION</h2>
+                <h2 className={clsx("", props.headingFont)}>CERTIFICATION</h2>
                 {props.userCertifications.map((userCertification: any) => (
                   <li className="flex flex-col" key={userCertification.id}>
-                    <p>{userCertification.name}</p>
-                    <p>{userCertification.location}</p>
+                    <p className={clsx("text-sm", props.bodyFont)}>
+                      {userCertification.name}
+                    </p>
+                    <p className={clsx("text-sm", props.bodyFont)}>
+                      {userCertification.location}
+                    </p>
                   </li>
                 ))}
               </ul>

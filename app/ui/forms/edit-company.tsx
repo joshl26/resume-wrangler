@@ -120,10 +120,9 @@ export default async function EditCompany({ company }: { company: any }) {
             type="text"
           ></input>
         </div>
-        <SubmitButton
-          buttonText={"Update Company"}
-          className="hover:bg-blue-400 bg-blue-600 text-white w-[200px] m-auto py-1 my-2 rounded"
-        />
+        <SubmitButton className="hover:bg-blue-400 bg-blue-600 text-white w-[200px] m-auto py-1 my-2 rounded">
+          Update Company
+        </SubmitButton>
       </form>
     </div>
   );

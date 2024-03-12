@@ -144,10 +144,9 @@ export default async function EditApplication({
             </a>
           </div>
         </div>
-        <SubmitButton
-          buttonText={"Update Application"}
-          className="hover:bg-blue-400 bg-blue-600 text-white w-[200px] m-auto py-1 my-2 rounded"
-        />
+        <SubmitButton className="hover:bg-blue-400 bg-blue-600 text-white w-[200px] m-auto py-1 my-2 rounded">
+          Update Application
+        </SubmitButton>
       </form>
     </div>
   );

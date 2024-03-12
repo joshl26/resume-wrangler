@@ -146,10 +146,8 @@ const YourSocialLinks = ({ user, resume }: { user: any; resume: any }) => {
           </div>
         </div>
         {edited && (
-          <SubmitButton>
-            <div className="bg-yellow-400 my-4 p-2 text-center w-auto animate-pulse">
-              Save Change
-            </div>
+          <SubmitButton className="bg-yellow-400 my-4 p-2 text-center w-auto animate-pulse">
+            Save Change
           </SubmitButton>
         )}
       </form>
