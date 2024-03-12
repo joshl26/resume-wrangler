@@ -57,7 +57,7 @@ const UserSchema = z.object({
 
 const UserSocialsSchema = z.object({
   id: z.string(),
-  linkedin: z.string({
+  linked_in: z.string({
     invalid_type_error: "Please enter a valid linkedin in address",
   }),
   twitter: z.string({
@@ -73,6 +73,9 @@ const UserSocialsSchema = z.object({
     invalid_type_error: "Please enter a valid show_socials in address",
   }),
   github: z.string({
+    invalid_type_error: "Please enter a valid github in address",
+  }),
+  resume_id: z.string({
     invalid_type_error: "Please enter a valid github in address",
   }),
 });
@@ -433,14 +436,15 @@ export async function updateSocials(
   prevState: State,
   formData: FormData
 ) {
-  // console.log(formData);
+  console.log(formData);
   const validatedFields = UpdateSocials.safeParse({
-    linkedin: formData.get("linkedin"),
+    linked_in: formData.get("linked_in"),
     twitter: formData.get("twitter"),
     facebook: formData.get("facebook"),
     instagram: formData.get("instagram"),
-    show_socials: formData.get("show-socials"),
+    show_socials: formData.get("show_socials"),
     github: formData.get("github"),
+    resume_id: formData.get("resume_id"),
   });
 
   // console.log(validatedFields);
@@ -452,15 +456,25 @@ export async function updateSocials(
     };
   }
 
-  const { linkedin, twitter, facebook, instagram, show_socials, github } =
-    validatedFields.data;
+  const {
+    linked_in,
+    twitter,
+    facebook,
+    instagram,
+    show_socials,
+    github,
+    resume_id,
+  } = validatedFields.data;
 
   try {
-    const query = `UPDATE users SET linked_in = '${linkedin}', twitter = '${twitter}', facebook = '${facebook}', instagram = '${instagram}', show_socials = '${show_socials}', github = '${github}' WHERE id = '${id}'`;
+    const query = `UPDATE users SET linked_in = '${linked_in}', twitter = '${twitter}', facebook = '${facebook}', instagram = '${instagram}', show_socials = '${show_socials}', github = '${github}' WHERE id = '${id}'`;
     // console.log(query);
 
     const data = await conn.query(query);
 
+    const query2 = `UPDATE resumes SET show_social_icons = '${show_socials}' WHERE id = '${resume_id}'`;
+
+    const data2 = await conn.query(query2);
     // console.log(data);
 
     // await sql`
@@ -472,8 +486,8 @@ export async function updateSocials(
     return { message: "Database Error: Failed to Update Invoice." };
   }
 
-  revalidatePath("/dashboard/user-profile");
-  redirect("/dashboard/user-profile");
+  revalidatePath(`/dashboard/resume/edit/${resume_id}`);
+  redirect(`/dashboard/resume/edit/${resume_id}`);
 }
 
 export async function updateApplication(formData: FormData) {

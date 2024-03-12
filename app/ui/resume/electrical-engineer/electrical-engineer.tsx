@@ -126,32 +126,40 @@ const ElectricalEngineer = (props: Props) => {
                   <p className={clsx("", props.bodyFont)}>{props.user.email}</p>
                 </div>
               </div>
-              <div className="flex flex-row">
-                <div className="flex flex-col w-[30px] ">
-                  <FontAwesomeIcon
-                    icon={faSquareFacebook}
-                    className="w-[18px] m-auto"
-                  />
-                </div>
-                <div className="flex flex-col w-3/4">
-                  <p className={clsx("", props.bodyFont)}>
-                    {props.user.facebook}
-                  </p>
-                </div>
-              </div>
-              <div className="flex flex-row">
-                <div className="flex flex-col w-[30px] ">
-                  <FontAwesomeIcon
-                    icon={faLinkedin}
-                    className="w-[18px] m-auto"
-                  />
-                </div>
-                <div className="flex flex-col w-3/4">
-                  <p className={clsx("", props.bodyFont)}>
-                    {props.user.linked_in}
-                  </p>
-                </div>
-              </div>
+
+              {props.resume.show_social_icons === "true" ? (
+                <>
+                  {" "}
+                  <div className="flex flex-row">
+                    <div className="flex flex-col w-[30px] ">
+                      <FontAwesomeIcon
+                        icon={faSquareFacebook}
+                        className="w-[18px] m-auto"
+                      />
+                    </div>
+                    <div className="flex flex-col w-3/4">
+                      <p className={clsx("", props.bodyFont)}>
+                        {props.user.facebook}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex flex-row">
+                    <div className="flex flex-col w-[30px] ">
+                      <FontAwesomeIcon
+                        icon={faLinkedin}
+                        className="w-[18px] m-auto"
+                      />
+                    </div>
+                    <div className="flex flex-col w-3/4">
+                      <p className={clsx("", props.bodyFont)}>
+                        {props.user.linked_in}
+                      </p>
+                    </div>
+                  </div>
+                </>
+              ) : (
+                ""
+              )}
             </div>
             <div className="flex flex-col pb-3 pt-2">
               <h2 className={props.headingFont}>SKILLS</h2>

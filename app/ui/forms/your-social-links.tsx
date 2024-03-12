@@ -1,14 +1,57 @@
-import React from "react";
+"use client";
 
-const YourSocialLinks = ({ user }: { user: any }) => {
+import React, { useState } from "react";
+import { SubmitButton } from "../submit-button";
+import { updateSocials } from "@/app/lib/actions";
+import { useFormState } from "react-dom";
+
+const YourSocialLinks = ({ user, resume }: { user: any; resume: any }) => {
+  const [edited, setEdited] = useState(false);
+  const [showSocials, setShowSocials] = useState(user.show_socials);
+
+  const initialState = { message: "inital state", formData: null, errors: {} };
+  const updateSocialsWithId = updateSocials.bind(null, user?.id!);
+  const [state, dispatch] = useFormState(updateSocialsWithId, initialState);
+
+  const onChangeHandler = (e: any) => {
+    if (edited === false) {
+      setEdited(true);
+    }
+  };
+
+  const showSocialsOnChangeHandler = (e: any) => {
+    console.log(e.target.checked);
+    if (e.target.checked === true) {
+      setShowSocials("true");
+    } else {
+      setShowSocials("false");
+    }
+
+    if (edited === false) {
+      setEdited(true);
+    }
+  };
+
   return (
-    <div className="your-profile">
+    <div className="your-profile pt-4">
       <div className="py-2 font-bold text-xl">
         <h2>Your Social Links</h2>
       </div>
-      <div className="drop-shadow-md border-[1px] border-slate-300 rounded px-5 py-2 ">
+      <form
+        onSubmit={() => setEdited(false)}
+        action={dispatch}
+        className="drop-shadow-md border-[1px] border-slate-300 rounded px-5 py-2 "
+      >
         <div className="flex flex-row justify-between w-auto">
           <div className="flex flex-col w-1/2 py-1 px-1">
+            <label hidden htmlFor="resume_id" />
+            <input
+              hidden
+              readOnly
+              value={resume.id}
+              id="resume_id"
+              name="resume_id"
+            />
             <label className="py-1" htmlFor="linked_in">
               LinkedIn
             </label>
@@ -16,8 +59,8 @@ const YourSocialLinks = ({ user }: { user: any }) => {
               id="linked_in"
               name="linked_in"
               className="rounded bg-slate-200"
-              value={user.linked_in}
-              onChange={(e) => {}}
+              defaultValue={user.linked_in}
+              onChange={(e) => onChangeHandler(e)}
               placeholder="LinkedIn"
             ></input>
           </div>
@@ -29,8 +72,8 @@ const YourSocialLinks = ({ user }: { user: any }) => {
               id="facebook"
               name="facebook"
               className="rounded bg-slate-200"
-              value={user.facebook}
-              onChange={(e) => {}}
+              defaultValue={user.facebook}
+              onChange={(e) => onChangeHandler(e)}
               placeholder="Facebook"
             ></input>
           </div>
@@ -44,8 +87,8 @@ const YourSocialLinks = ({ user }: { user: any }) => {
               id="instagram"
               name="instagram"
               className="rounded bg-slate-200"
-              value={user.instagram}
-              onChange={(e) => {}}
+              defaultValue={user.instagram}
+              onChange={(e) => onChangeHandler(e)}
               placeholder="Instagram"
             ></input>
           </div>
@@ -57,8 +100,8 @@ const YourSocialLinks = ({ user }: { user: any }) => {
               id="twitter"
               name="twitter"
               className="rounded bg-slate-200"
-              value={user.twitter}
-              onChange={(e) => {}}
+              defaultValue={user.twitter}
+              onChange={(e) => onChangeHandler(e)}
               placeholder="Twitter"
             ></input>
           </div>
@@ -72,22 +115,28 @@ const YourSocialLinks = ({ user }: { user: any }) => {
               id="github"
               name="github"
               className="rounded bg-slate-200"
-              value={user.github}
-              onChange={(e) => {}}
+              defaultValue={user.github}
+              onChange={(e) => onChangeHandler(e)}
               placeholder="Github"
             ></input>
           </div>
         </div>
         <div className="flex flex-row py-1">
           <div className="flex flex-col px-1 py-2">
+            <label hidden htmlFor="show_socials" />
             <input
+              hidden
+              readOnly
               id="show_socials"
               name="show_socials"
+              value={showSocials}
+            />
+            <input
               type="checkbox"
               className="rounded bg-slate-200"
-              defaultChecked={user.show_socials}
-              defaultValue={user.show_socials}
-              onChange={(e) => {}}
+              checked={showSocials === "true" ? true : false}
+              value={showSocials}
+              onChange={showSocialsOnChangeHandler}
             ></input>
           </div>
           <div className="flex flex-col">
@@ -96,7 +145,14 @@ const YourSocialLinks = ({ user }: { user: any }) => {
             </label>
           </div>
         </div>
-      </div>
+        {edited && (
+          <SubmitButton>
+            <div className="bg-yellow-400 my-4 p-2 text-center w-auto animate-pulse">
+              Save Change
+            </div>
+          </SubmitButton>
+        )}
+      </form>
     </div>
   );
 };

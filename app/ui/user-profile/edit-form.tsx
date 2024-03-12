@@ -42,48 +42,48 @@ const UserDetailsEditForm = ({ user }: { user: User | null }) => {
         />
       </div>
       <div>
-        <label htmlFor="first-name" className="mb-2 block text-sm font-medium">
+        <label htmlFor="first_name" className="mb-2 block text-sm font-medium">
           First Name
         </label>
         <input
-          id="first-name"
-          name="first-name"
+          id="first_name"
+          name="first_name"
           type="text"
           placeholder="Type your first name"
           defaultValue={user?.first_name}
         />
       </div>
       <div>
-        <label htmlFor="last-name" className="mb-2 block text-sm font-medium">
+        <label htmlFor="last_name" className="mb-2 block text-sm font-medium">
           Last Name
         </label>
         <input
-          id="last-name"
-          name="last-name"
+          id="last_name"
+          name="last_name"
           type="text"
           defaultValue={user?.last_name}
           placeholder="Type your last name"
         />
       </div>
       <div>
-        <label htmlFor="address-one" className="mb-2 block text-sm font-medium">
+        <label htmlFor="address_one" className="mb-2 block text-sm font-medium">
           Address Line One
         </label>
         <input
-          id="address-one"
-          name="address-one"
+          id="address_one"
+          name="address_one"
           type="text"
           defaultValue={user?.address_one}
           placeholder="City, Province OR State"
         />
       </div>
       <div>
-        <label htmlFor="address-two" className="mb-2 block text-sm font-medium">
+        <label htmlFor="address_two" className="mb-2 block text-sm font-medium">
           Address Line Two
         </label>
         <input
-          id="address-two"
-          name="address-two"
+          id="address_two"
+          name="address_two"
           type="text"
           defaultValue={user?.address_two}
           placeholder="Optional, not currently used"
@@ -91,14 +91,14 @@ const UserDetailsEditForm = ({ user }: { user: User | null }) => {
       </div>
       <div>
         <label
-          htmlFor="address-three"
+          htmlFor="address_three"
           className="mb-2 block text-sm font-medium"
         >
           Address Line Three
         </label>
         <input
-          id="address-three"
-          name="address-three"
+          id="address_three"
+          name="address_three"
           type="text"
           defaultValue={user?.address_three}
           placeholder="Optional, not currently used"
@@ -252,14 +252,14 @@ const UserSocialsEditForm = ({ user }: { user: User | null }) => {
               defaultValue={user?.github}
             />
           </div>
-          <label htmlFor="show-socials">
+          <label htmlFor="show_socials">
             <input
               type="checkbox"
-              name="show-socials"
+              name="show_socials"
               value="true"
               checked={true}
               onClick={clickHandler}
-              id="show-socials"
+              id="show_socials"
             />
             Show social icons?
           </label>
@@ -358,15 +358,15 @@ const UserSocialsEditForm = ({ user }: { user: User | null }) => {
               />
             </div>
           </div>
-          <label htmlFor="show-socials">
-            <input type="hidden" value="false" name="show-socials" />
+          <label htmlFor="show_socials">
+            <input type="hidden" value="false" name="show_socials" />
             <input
               type="checkbox"
-              name="show-socials"
+              name="show_socials"
               value="false"
               defaultChecked={false}
               onClick={clickHandler}
-              id="show-socials"
+              id="show_socials"
             />
             Show social icons?
           </label>
