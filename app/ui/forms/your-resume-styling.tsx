@@ -40,8 +40,6 @@ export default function YourResumeStyling({
   const [edited, setEdited] = useState(false);
   // const [color, setColor] = useState(resume.color);
 
-  console.log(resumeColors);
-
   const onChangeHandler = () => {
     if (edited === false) {
       setEdited(true);

@@ -1,4 +1,5 @@
 import { createWorkExperience, deleteWorkExperience } from "@/app/lib/actions";
+import { useState } from "react";
 
 export default function YourWorkExperiences({
   userWorkExperiences,
@@ -10,6 +11,15 @@ export default function YourWorkExperiences({
   resume: any;
 }) {
   // console.log(userWorkExperiences);
+
+  const [edited, setEdited] = useState(false);
+
+  const onChangeHandler = (e: any) => {
+    if (edited === false) {
+      setEdited(true);
+    }
+  };
+
   return (
     <div>
       <div className="your-work-experiences">
@@ -157,34 +167,142 @@ export default function YourWorkExperiences({
         <ul>
           {userWorkExperiences.map((workExperience: any) => (
             <li className="pt-3" key={workExperience.id}>
-              <form action={deleteWorkExperience}>
-                <div className="flex flex-row">
-                  <div className="flex flex-col w-3/4">
-                    <h2 className="font-bold">{workExperience.job_title}</h2>
-                    <p>{workExperience.company_name}</p>
-                    <p>{workExperience.location}</p>
+              <div className="flex flex-row w-auto">
+                <label hidden htmlFor="resume_id" />
+                <input
+                  readOnly
+                  hidden
+                  name="resume_id"
+                  id="resume_id"
+                  value={workExperience.id}
+                />
+                <label hidden htmlFor="user_id" />
+                <input
+                  readOnly
+                  hidden
+                  name="user_id"
+                  id="user_id"
+                  value={user.id}
+                />
+                <div className="flex flex-col w-full py-1 px-1">
+                  <div className="flex flex-row justify-between">
+                    <label className="py-1" htmlFor="work-experience">
+                      Work Experience
+                    </label>
+                    <form action={deleteWorkExperience}>
+                      <label hidden htmlFor="work_experience_id" />
+                      <input
+                        readOnly
+                        hidden
+                        name="work_experience_id"
+                        id="work_experience_id"
+                        value={workExperience.id}
+                      />
+                      <label hidden htmlFor="resume_id" />
+                      <input
+                        readOnly
+                        hidden
+                        name="resume_id"
+                        id="resume_id"
+                        value={resume.id}
+                      />
+                      <button type="submit">Delete</button>
+                    </form>
                   </div>
-                  <div className="flex flex-col w-1/4">
-                    <label hidden htmlFor="resume_id" />
-                    <input
-                      readOnly
-                      hidden
-                      name="resume_id"
-                      id="resume_id"
-                      value={resume.id}
-                    />
-                    <label hidden htmlFor="work_experience_id" />
-                    <input
-                      readOnly
-                      hidden
-                      name="work_experience_id"
-                      id="work_experience_id"
-                      value={workExperience.id}
-                    />
-                    <button type="submit">Delete</button>
-                  </div>
+                  <form className="rounded border border-black w-full pb-2 px-2">
+                    <div className="flex flex-row w-auto">
+                      <div className="flex flex-col w-full py-1 px-1">
+                        <label className="py-1" htmlFor="company_name">
+                          Company Name
+                        </label>
+                        <input
+                          required
+                          id="company_name"
+                          name="company_name"
+                          className="rounded bg-slate-200"
+                          defaultValue={workExperience.company_name}
+                          onChange={(e) => onChangeHandler(e)}
+                          placeholder="Company Name"
+                        ></input>
+                      </div>
+                    </div>
+                    <div className="flex flex-row w-auto">
+                      <div className="flex flex-col w-full py-1 px-1">
+                        <label className="py-1" htmlFor="job_title">
+                          Job Title
+                        </label>
+                        <input
+                          required
+                          id="job_title"
+                          name="job_title"
+                          className="rounded bg-slate-200"
+                          defaultValue={workExperience.job_title}
+                          onChange={(e) => onChangeHandler(e)}
+                          placeholder="Job Title"
+                        ></input>
+                      </div>
+                    </div>
+                    <div className="flex flex-row w-auto">
+                      <div className="flex flex-col w-full py-1 px-1">
+                        <label className="py-1" htmlFor="location">
+                          Loation
+                        </label>
+                        <input
+                          id="location"
+                          name="location"
+                          className="rounded bg-slate-200"
+                          defaultValue={workExperience.location}
+                          onChange={(e) => onChangeHandler(e)}
+                          placeholder="Company Location"
+                        ></input>
+                      </div>
+                    </div>
+                    <div className="flex flex-row w-auto">
+                      <div className="flex flex-col w-1/2 py-1 px-1">
+                        <label className="py-1" htmlFor="start_date">
+                          Start Date
+                        </label>
+                        <input
+                          id="start_date"
+                          name="start_date"
+                          className="rounded bg-slate-200"
+                          defaultValue={workExperience.start_date}
+                          onChange={(e) => onChangeHandler(e)}
+                          placeholder="Start Date"
+                        ></input>
+                      </div>
+                      <div className="flex flex-col w-1/2 py-1 px-1">
+                        <label className="py-1" htmlFor="end_date">
+                          End Date
+                        </label>
+                        <input
+                          id="end_date"
+                          name="end_date"
+                          className="rounded bg-slate-200"
+                          defaultValue={""}
+                          onChange={(e) => onChangeHandler(e)}
+                          placeholder="End Date"
+                        ></input>
+                      </div>
+                    </div>
+                    <div className="flex flex-row w-auto">
+                      <div className="flex flex-col w-full py-1 px-1">
+                        <label className="py-1" htmlFor="description">
+                          Description
+                        </label>
+                        <textarea
+                          id="description"
+                          name="description"
+                          className="rounded bg-slate-200"
+                          defaultValue={""}
+                          onChange={(e) => onChangeHandler(e)}
+                          placeholder="Description"
+                        ></textarea>
+                      </div>
+                    </div>
+                  </form>
                 </div>
-              </form>
+              </div>
             </li>
           ))}
         </ul>
