@@ -82,30 +82,30 @@ export default function ResumeStyling({
           <YourSocialLinks resume={resume} user={user} />
           <div className="py-2"></div>
           <YourSkills user={user} userSkills={userSkills} resume={resume} />
-          <div className="py-2"></div>
-          <YourEducation
+          <div className="py-2"></div>*/}
+          {/* <YourEducation
             resume={resume}
             user={user}
             userEducation={userEducation}
           />
           <div className="py-2"></div> */}
-          <YourWorkExperiences
+          {/* <YourWorkExperiences
             userWorkExperiences={userWorkExperiences}
             user={user}
             resume={resume}
           />
-          <div className="py-2"></div>
+          <div className="py-2"></div> */}
           {/* <YourOrganizations
             user={user}
             resume={resume}
             userOrganizations={userOrganizations}
-          />
+          />*/}
           <div className="py-2"></div>
           <YourCertifications
             resume={resume}
             user={user}
             userCertifications={userCertifications}
-          /> */}
+          />
           <div className="p-2 text-center">
             <a
               href={`/api/pdf?bodyFont=${selectedResumeBodyFont}&headerFont=${selectedResumeHeadingFont}`}

@@ -226,6 +226,36 @@ const CreateEducationSchema = z.object({
   }),
 });
 
+const UpdateEducationSchema = z.object({
+  education_id: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  institution_name: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  location: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  start_date: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  end_date: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  grade: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  program: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  url: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  resume_id: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+});
+
 const DeleteEducationSchema = z.object({
   id: z.string({
     invalid_type_error: "Please enter a string.",
@@ -1362,6 +1392,67 @@ export async function updateUserWorkExperience(formData: FormData) {
     //console.log(query);
 
     const data = await conn.query(query);
+    //console.log(data);
+  } catch (error) {
+    return { message: `Database Error: Failed to Update Invoice. ${error}` };
+  }
+
+  revalidatePath(`/dashboard/resume/edit/${resume_id}`);
+  redirect(`/dashboard/resume/edit/${resume_id}`);
+}
+
+export async function updateUserEducation(formData: FormData) {
+  console.log(formData);
+
+  const validatedFields = UpdateEducationSchema.safeParse({
+    education_id: formData.get("education_id"),
+    resume_id: formData.get("resume_id"),
+    institution_name: formData.get("institution_name"),
+    location: formData.get("location"),
+    start_date: formData.get("start_date"),
+    end_date: formData.get("end_date"),
+    grade: formData.get("grade"),
+    program: formData.get("program"),
+    url: formData.get("url"),
+  });
+  console.log(validatedFields);
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: "Missing Fields. Failed to Create user skill.",
+    };
+  }
+  const {
+    education_id,
+    resume_id,
+    institution_name,
+    location,
+    start_date,
+    end_date,
+    grade,
+    program,
+    url,
+  } = validatedFields.data;
+  // console.log(
+  //   education_id,
+  //   resume_id,
+  //   institution_name,
+  //   location,
+  //   start_date,
+  //   end_date,
+  //   grade,
+  //   program,
+  //   url
+  // );
+
+  try {
+    const query = `UPDATE user_education SET institution_name = '${institution_name}', location = '${location}', start_date = '${start_date}', end_date = '${end_date}', grade = '${grade}', program = '${program}', url = '${url}' WHERE id = '${education_id}'`;
+    //console.log(query);
+
+    const data = await conn.query(query);
+
+    // const query2 = `UPDATE user SET show_education_section = '${show_education}' WHERE id = '${resume_id}'`;
+
     //console.log(data);
   } catch (error) {
     return { message: `Database Error: Failed to Update Invoice. ${error}` };
