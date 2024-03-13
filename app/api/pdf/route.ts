@@ -15,8 +15,8 @@ export async function GET(req: NextRequest) {
   }
 
   try {
-    const bodyFont = params.bodyFont as string;
-    const headerFont = params.headerFont as string;
+    const resumeId = params.resumeId as string;
+    const userEmail = params.userEmail as string;
 
     // console.log(headerFont);
 
@@ -43,19 +43,16 @@ export async function GET(req: NextRequest) {
 
     // await page.waitForNavigation(); // <------------------------- Wait for Navigation
 
-    await page.goto(
-      `http://localhost:3000/resume?bodyFont=${bodyFont}&headerFont=${headerFont}`,
-      {
-        waitUntil: "networkidle0",
-      }
-    );
+    await page.goto(`http://localhost:3000/resume/${resumeId}/${userEmail}`, {
+      waitUntil: "networkidle0",
+    });
 
-    await page.emulateMediaType("print");
+    await page.emulateMediaType("screen");
 
     await page.evaluateHandle("document.fonts.ready");
 
     const buffer = await page.pdf({
-      format: "a4",
+      format: "A4",
       printBackground: true,
     });
 

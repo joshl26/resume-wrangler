@@ -60,7 +60,7 @@ export default function ResumeStyling({
       <div className="flex flex-row h-full w-full">
         <div className="flex flex-col h-full w-[400px] overflow-scroll px-3">
           {/* <h1>{selectedResumeTemplate}</h1> */}
-          {/* <YourResumeStyling
+          <YourResumeStyling
             resume={resume}
             resumeTemplates={resumeTemplates}
             resumeColors={resumeColors}
@@ -82,24 +82,24 @@ export default function ResumeStyling({
           <YourSocialLinks resume={resume} user={user} />
           <div className="py-2"></div>
           <YourSkills user={user} userSkills={userSkills} resume={resume} />
-          <div className="py-2"></div>*/}
-          {/* <YourEducation
+          <div className="py-2"></div>
+          <YourEducation
             resume={resume}
             user={user}
             userEducation={userEducation}
           />
-          <div className="py-2"></div> */}
-          {/* <YourWorkExperiences
+          <div className="py-2"></div>
+          <YourWorkExperiences
             userWorkExperiences={userWorkExperiences}
             user={user}
             resume={resume}
           />
-          <div className="py-2"></div> */}
-          {/* <YourOrganizations
+          <div className="py-2"></div>
+          <YourOrganizations
             user={user}
             resume={resume}
             userOrganizations={userOrganizations}
-          />*/}
+          />
           <div className="py-2"></div>
           <YourCertifications
             resume={resume}
@@ -108,7 +108,7 @@ export default function ResumeStyling({
           />
           <div className="p-2 text-center">
             <a
-              href={`/api/pdf?bodyFont=${selectedResumeBodyFont}&headerFont=${selectedResumeHeadingFont}`}
+              href={`/api/pdf?resumeId=${resume?.id}&userEmail=${user?.email}`}
               download="generated_pdf.pdf"
               className="downloadBtn"
             >
@@ -129,9 +129,9 @@ export default function ResumeStyling({
           {selectedResumeTemplate === "electrical-engineer" && (
             <Suspense>
               <ElectricalEngineer
-                headingFont={selectedResumeHeadingFont}
-                bodyFont={selectedResumeBodyFont}
-                resumeColor={selectedResumeColor}
+                heading_font={selectedResumeHeadingFont}
+                body_font={selectedResumeBodyFont}
+                color={selectedResumeColor}
                 selectedResumeHighlightColor={selectedResumeHighlightColor}
                 user={user}
                 resume={resume}

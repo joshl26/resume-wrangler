@@ -513,6 +513,7 @@ export async function fetchWorkExperiencesByUserId(userId: string) {
 }
 
 export async function getData(resumeId: string, userEmail: string) {
+  noStore();
   // The return value is *not* serialized
   // You can return Date, Map, Set, etc.
 
