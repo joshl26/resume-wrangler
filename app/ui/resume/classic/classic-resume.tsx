@@ -2,6 +2,7 @@ import Page from "../page";
 import { User } from "../../../data/user-details";
 //import { resumeSkills } from "../../../data/resume-skills";
 import { resumeExperiences } from "../../../data/resume-experiences";
+import { fetchResumeTemplates } from "@/app/lib/data";
 
 interface Props {
   user: User;
@@ -9,8 +10,37 @@ interface Props {
   headingFont: string;
 }
 
-const Classic = (props: Props) => {
+async function Classic(props: Props) {
   // console.log(props.user);
+
+  // , resumeColors, bodyFonts, headerFonts, user, resume
+
+  //   return (
+  //      const [resumeTemplates] = await Promise.all([
+  //   fetchResumeTemplates(),
+  //   // fetchResumeColors(),
+  //   // fetchBodyFonts(),
+  //   // fetchHeaderFonts(),
+  //   // getUser(session?.user?.email!),
+  //   // fetchResumeById(id),
+  // ])
+  //   )
+
+  // console.log(resumeTemplates);
+
+  // const [
+  //   userSkills,
+  //   userEducation,
+  //   userOrganizations,
+  //   userCertifications,
+  //   userWorkExperiences,
+  // ] = await Promise.all([
+  //   fetchSkillsByUserId(user.id),
+  //   fetchEducationByUserId(user.id),
+  //   fetchOrganizationsByUserId(user.id),
+  //   fetchCerftificationsByUserId(user.id),
+  //   fetchWorkExperiencesByUserId(user.id),
+  // ]);
 
   const resumeSkills: any = [{}];
 
@@ -1301,6 +1331,6 @@ const Classic = (props: Props) => {
       </Page>
     </>
   );
-};
+}
 
 export default Classic;

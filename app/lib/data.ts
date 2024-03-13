@@ -511,3 +511,18 @@ export async function fetchWorkExperiencesByUserId(userId: string) {
     return [null];
   }
 }
+
+export async function getData(resumeId: string, userEmail: string) {
+  // The return value is *not* serialized
+  // You can return Date, Map, Set, etc.
+
+  const res = await fetch(
+    `http://localhost:3000/api/resume-data?resumeId=${resumeId}&userEmail=${userEmail}`
+  );
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch data");
+  }
+
+  return res.json();
+}

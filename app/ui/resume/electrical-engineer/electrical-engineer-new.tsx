@@ -15,6 +15,7 @@ import {
   faSquareTwitter,
   faSquareGithub,
 } from "@fortawesome/free-brands-svg-icons";
+import { getData } from "@/app/lib/data";
 
 interface Props {
   user: User;
@@ -44,21 +45,22 @@ interface Props {
 //   return res.json();
 // }
 
-export default async function ElectricalEngineer(props: Props) {
-  // const data = await getData();
+export default async function ElectricalEngineer({ props }: { props: Props }) {
+  // const data = await getData("4", "user@nextmail.com");
 
-  // console.log(data);
+  console.log(props.user);
+
   return (
     <>
-      <Page>
+      {/* <Page>
         <div className="flex flex-row">
           <div className="flex flex-col w-[600px] rounded">
             <Image
               className="rounded-lg"
-              alt={props?.user?.thumbnail}
+              alt={data.user.thumbnail}
               width={150}
               height={150}
-              src={props?.user?.thumbnail}
+              src={data.user.thumbnail}
             />
           </div>
           <div className="flex flex-col w-auto">
@@ -70,34 +72,34 @@ export default async function ElectricalEngineer(props: Props) {
                 lineHeight: "1",
                 fontWeight: "bold",
               }}
-              className={props.headingFont}
+              className={data.resume.heading_font}
             >
-              {props.user?.first_name} {props.user?.last_name}
+              {data.user.first_name} {data.user.last_name}
             </h1>
-            <p className={clsx("text-lg", props.bodyFont)}>
-              {props.resume?.description}
+            <p className={clsx("text-lg", data.resume.body_font)}>
+              {data.resume.description}
             </p>
           </div>
         </div>
         <div
           className={clsx(
-            props.resumeColor,
+            data.resume.color,
             "border-gray-500 border-b-[1px] mt-4 w-full h-[3px]"
           )}
         ></div>
         <div className="flex flex-row pt-6">
           <div className="flex flex-col w-3/4">
             <div className="flex flex-row">
-              <h2 className={props.headingFont}>WORK EXPERIENCE</h2>
+              <h2 className={data.resume.heading_font}>WORK EXPERIENCE</h2>
             </div>
             <div className="flex flex-row"></div>{" "}
             <ul className="px-3 py-2">
-              {props.userWorkExperiences?.map((userWorkExperience: any) => (
+              {data.userWorkExperiences.map((userWorkExperience: any) => (
                 <li className="list-disc py-2" key={userWorkExperience.id}>
-                  <h2 className={clsx("font-bold", props.headingFont)}>
+                  <h2 className={clsx("font-bold", data.resume.heading_font)}>
                     {userWorkExperience.job_title}
                   </h2>
-                  <p className={clsx("", props.bodyFont)}>
+                  <p className={clsx("", data.resume.body_font)}>
                     {userWorkExperience.company_name} -{" "}
                     {userWorkExperience.location} (
                     {userWorkExperience.start_date} -{" "}
@@ -109,13 +111,18 @@ export default async function ElectricalEngineer(props: Props) {
                         <div
                           className={clsx(
                             "h-[7px] w-[7px] rounded-full ",
-                            props.bodyFont,
-                            props.resumeColor
+                            data.resume.body_font,
+                            data.resume.color
                           )}
                         />
                       </div>
                       <div className="flex flex-col w-auto text-left">
-                        <p className={clsx("text-sm py-1", props.bodyFont)}>
+                        <p
+                          className={clsx(
+                            "text-sm py-1",
+                            data.resume.body_font
+                          )}
+                        >
                           {userWorkExperience.description_one}
                         </p>
                       </div>
@@ -127,13 +134,18 @@ export default async function ElectricalEngineer(props: Props) {
                         <div
                           className={clsx(
                             "h-[7px] w-[7px] rounded-full",
-                            props.bodyFont,
-                            props.resumeColor
+                            data.resume.body_font,
+                            data.resume.color
                           )}
                         />
                       </div>
                       <div className="flex flex-col">
-                        <p className={clsx("text-sm py-1", props.bodyFont)}>
+                        <p
+                          className={clsx(
+                            "text-sm py-1",
+                            data.resume.body_font
+                          )}
+                        >
                           {userWorkExperience.description_two}
                         </p>
                       </div>
@@ -145,13 +157,18 @@ export default async function ElectricalEngineer(props: Props) {
                         <div
                           className={clsx(
                             "h-[7px] w-[7px] rounded-full",
-                            props.bodyFont,
-                            props.resumeColor
+                            data.resume.body_font,
+                            data.resume.color
                           )}
                         />
                       </div>
                       <div className="flex flex-col">
-                        <p className={clsx("text-sm py-1", props.bodyFont)}>
+                        <p
+                          className={clsx(
+                            "text-sm py-1",
+                            data.resume.body_font
+                          )}
+                        >
                           {userWorkExperience.description_three}
                         </p>
                       </div>
@@ -163,13 +180,18 @@ export default async function ElectricalEngineer(props: Props) {
                         <div
                           className={clsx(
                             "h-[7px] w-[7px] rounded-full",
-                            props.bodyFont,
-                            props.resumeColor
+                            data.resume.body_font,
+                            data.resume.color
                           )}
                         />
                       </div>
                       <div className="flex flex-col">
-                        <p className={clsx("text-sm py-1", props.bodyFont)}>
+                        <p
+                          className={clsx(
+                            "text-sm py-1",
+                            data.resume.body_font
+                          )}
+                        >
                           {userWorkExperience.description_four}
                         </p>
                       </div>
@@ -181,14 +203,14 @@ export default async function ElectricalEngineer(props: Props) {
           </div>
           <div className="flex flex-col w-1/4">
             <div className="flex flex-col pb-3">
-              <h2 className={props.headingFont}>PROFILE</h2>
+              <h2 className={data.resume.heading_font}>PROFILE</h2>
               <div className="flex flex-row pt-4">
                 <div className="flex flex-col w-[30px]">
                   <MapPinIcon className="w-[20px] m-auto" />
                 </div>
                 <div className="flex flex-col w-3/4">
-                  <p className={clsx("", props.bodyFont)}>
-                    {props.user?.address_one}
+                  <p className={clsx("", data.resume.body_font)}>
+                    {data.user.address_one}
                   </p>
                 </div>
               </div>
@@ -197,8 +219,8 @@ export default async function ElectricalEngineer(props: Props) {
                   <PhoneIcon className="w-[18px] m-auto" />
                 </div>
                 <div className="flex flex-col w-3/4">
-                  <p className={clsx("", props.bodyFont)}>
-                    {props.user?.phone}
+                  <p className={clsx("", data.resume.body_font)}>
+                    {data.user.phone}
                   </p>
                 </div>
               </div>
@@ -207,16 +229,16 @@ export default async function ElectricalEngineer(props: Props) {
                   <EnvelopeIcon className="w-[18px] m-auto" />
                 </div>
                 <div className="flex flex-col w-3/4">
-                  <p className={clsx("", props.bodyFont)}>
-                    {props.user?.email}
+                  <p className={clsx("", data.resume.body_font)}>
+                    {data.user.email}
                   </p>
                 </div>
               </div>
 
-              {props.resume?.show_social_icons === "true" ? (
+              {data.resume.show_social_icons === "true" ? (
                 <>
                   {" "}
-                  {props.user.linked_in === "" ? (
+                  {data.user.linked_in === "" ? (
                     ""
                   ) : (
                     <div className="flex flex-row">
@@ -227,13 +249,13 @@ export default async function ElectricalEngineer(props: Props) {
                         />
                       </div>
                       <div className="flex flex-col w-3/4">
-                        <p className={clsx("", props.bodyFont)}>
-                          {props.user.linked_in}
+                        <p className={clsx("", data.resume.body_font)}>
+                          {data.user.linked_in}
                         </p>
                       </div>
                     </div>
                   )}
-                  {props.user.facebook === "" ? (
+                  {data.user.facebook === "" ? (
                     ""
                   ) : (
                     <div className="flex flex-row">
@@ -244,13 +266,13 @@ export default async function ElectricalEngineer(props: Props) {
                         />
                       </div>
                       <div className="flex flex-col w-3/4">
-                        <p className={clsx("", props.bodyFont)}>
-                          {props.user.facebook}
+                        <p className={clsx("", data.resume.body_font)}>
+                          {data.user.facebook}
                         </p>
                       </div>
                     </div>
                   )}
-                  {props.user.instagram === "" ? (
+                  {data.user.instagram === "" ? (
                     ""
                   ) : (
                     <div className="flex flex-row">
@@ -261,13 +283,13 @@ export default async function ElectricalEngineer(props: Props) {
                         />
                       </div>
                       <div className="flex flex-col w-3/4">
-                        <p className={clsx("", props.bodyFont)}>
-                          {props.user.instagram}
+                        <p className={clsx("", data.resume.body_font)}>
+                          {data.user.instagram}
                         </p>
                       </div>
                     </div>
                   )}
-                  {props.user.twitter === "" ? (
+                  {data.user.twitter === "" ? (
                     ""
                   ) : (
                     <div className="flex flex-row">
@@ -278,13 +300,13 @@ export default async function ElectricalEngineer(props: Props) {
                         />
                       </div>
                       <div className="flex flex-col w-3/4">
-                        <p className={clsx("", props.bodyFont)}>
-                          {props.user.twitter}
+                        <p className={clsx("", data.resume.body_font)}>
+                          {data.user.twitter}
                         </p>
                       </div>
                     </div>
                   )}
-                  {props.user.github === "" ? (
+                  {data.user.github === "" ? (
                     ""
                   ) : (
                     <div className="flex flex-row">
@@ -295,8 +317,8 @@ export default async function ElectricalEngineer(props: Props) {
                         />
                       </div>
                       <div className="flex flex-col w-3/4">
-                        <p className={clsx("", props.bodyFont)}>
-                          {props.user.github}
+                        <p className={clsx("", data.resume.body_font)}>
+                          {data.user.github}
                         </p>
                       </div>
                     </div>
@@ -307,24 +329,24 @@ export default async function ElectricalEngineer(props: Props) {
               )}
             </div>
             <div className="flex flex-col pb-3 pt-2">
-              <h2 className={props.headingFont}>SKILLS</h2>
+              <h2 className={data.resume.heading_font}>SKILLS</h2>
               <ul className="pt-2">
-                {props.userSkills?.map((userSkill: any) => (
+                {data.userSkills.map((userSkill: any) => (
                   <li className="flex flex-col py-[3px]" key={userSkill.id}>
-                    <p className={clsx("text-sm", props.headingFont)}>
+                    <p className={clsx("text-sm", data.resume.heading_font)}>
                       {userSkill.skill}
                     </p>
                     <div className="progress-container ">
                       <div
                         className={clsx(
-                          props.selectedResumeHighlightColor,
+                          data.selectedResumeHighlightColor,
                           "rounded-[1rem] h-[1rem] border border-black"
                         )}
                       >
                         <div
                           className={clsx(
                             "progress-bar rounded-[1rem]",
-                            props.resumeColor
+                            data.resume.color
                           )}
                           style={{
                             width: `${userSkill.skill_level}%`,
@@ -339,22 +361,22 @@ export default async function ElectricalEngineer(props: Props) {
             </div>
             <div className="flex flex-row pb-3 pt-2">
               <ul>
-                <h2 className={props.headingFont}>EDUCATION</h2>
-                {props.userEducation?.map((userEducation: any) => (
+                <h2 className={data.resume.heading_font}>EDUCATION</h2>
+                {data.userEducation.map((userEducation: any) => (
                   <li className="flex flex-col pt-2" key={userEducation.id}>
-                    <h2 className={clsx("font-bold", props.headingFont)}>
+                    <h2 className={clsx("font-bold", data.resume.heading_font)}>
                       {userEducation.institution_name}
                     </h2>
-                    <p className={clsx("text-sm", props.bodyFont)}>
+                    <p className={clsx("text-sm", data.resume.body_font)}>
                       {userEducation.location}
                     </p>
-                    <p className={clsx("text-sm", props.bodyFont)}>
+                    <p className={clsx("text-sm", data.resume.body_font)}>
                       {userEducation.start_date} - {userEducation.end_date}
                     </p>
                     <p
                       className={clsx(
                         "text-sm italic font-black",
-                        props.headingFont
+                        data.resume.heading_font
                       )}
                     >
                       {" "}
@@ -366,13 +388,15 @@ export default async function ElectricalEngineer(props: Props) {
             </div>
             <div className="flex flex-row pb-3">
               <ul>
-                <h2 className={clsx("", props.headingFont)}>CERTIFICATION</h2>
-                {props.userCertifications?.map((userCertification: any) => (
+                <h2 className={clsx("", data.resume.heading_font)}>
+                  CERTIFICATION
+                </h2>
+                {data.userCertifications.map((userCertification: any) => (
                   <li className="flex flex-col" key={userCertification.id}>
-                    <p className={clsx("text-sm", props.bodyFont)}>
+                    <p className={clsx("text-sm", data.resume.body_font)}>
                       {userCertification.name}
                     </p>
-                    <p className={clsx("text-sm", props.bodyFont)}>
+                    <p className={clsx("text-sm", data.resume.body_font)}>
                       {userCertification.location}
                     </p>
                   </li>
@@ -381,7 +405,7 @@ export default async function ElectricalEngineer(props: Props) {
             </div>
           </div>
         </div>
-      </Page>
+      </Page> */}
       {/* <Page></Page> */}
     </>
   );

@@ -1,6 +1,11 @@
 import { NextRequest } from "next/server";
 import puppeteer from "puppeteer";
 
+//TODO simpler way of doing below, consider implementing
+// export async function GET(request: Request) {
+//   const { searchParams } = new URL(request.url);
+//   const bodyFont = searchParams.get("bodyFont");
+
 export async function GET(req: NextRequest) {
   // console.log(req.nextUrl.searchParams);
 
