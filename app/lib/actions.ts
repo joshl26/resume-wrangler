@@ -311,7 +311,52 @@ const CreateWorkExperienceSchema = z.object({
   end_date: z.string({
     invalid_type_error: "Please enter a string.",
   }),
-  description: z.string({
+  description_one: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  description_two: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  description_three: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  description_four: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+});
+
+const UpdateWorkExperienceSchema = z.object({
+  experience_id: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  resume_id: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  company_name: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  job_title: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  location: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  start_date: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  end_date: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  description_one: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  description_two: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  description_three: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  description_four: z.string({
     invalid_type_error: "Please enter a string.",
   }),
 });
@@ -1204,7 +1249,10 @@ export async function createWorkExperience(formData: FormData) {
     location: formData.get("location"),
     start_date: formData.get("start_date"),
     end_date: formData.get("end_date"),
-    description: formData.get("description"),
+    description_one: formData.get("description_one"),
+    description_two: formData.get("description_two"),
+    description_three: formData.get("description_three"),
+    description_four: formData.get("description_four"),
   });
   // console.log(validatedFields);
   if (!validatedFields.success) {
@@ -1221,7 +1269,10 @@ export async function createWorkExperience(formData: FormData) {
     location,
     start_date,
     end_date,
-    description,
+    description_one,
+    description_two,
+    description_three,
+    description_four,
   } = validatedFields.data;
   // console.log(
   //   user_id,
@@ -1231,10 +1282,13 @@ export async function createWorkExperience(formData: FormData) {
   //   location,
   //   start_date,
   //   end_date,
-  //   description
+  //  description_one,
+  // description_two,
+  // description_three,
+  // description_four,
   // );
   try {
-    const query = `INSERT INTO user_work_experience (job_title, company_name, user_id, location, start_date, end_date, description_one) VALUES ('${job_title}', '${company_name}', '${user_id}', '${location}', '${start_date}', '${end_date}', '${description}') `;
+    const query = `INSERT INTO user_work_experience (job_title, company_name, user_id, location, start_date, end_date, description_one, description_two, description_three, description_four) VALUES ('${job_title}', '${company_name}', '${user_id}', '${location}', '${start_date}', '${end_date}', '${description_one}', '${description_two}', '${description_three}', '${description_four}') `;
     const data = await conn.query(query);
 
     // console.log(data);
@@ -1251,4 +1305,68 @@ export async function createUserImage(formData: FormData) {
 
 export async function updateUserImage(formData: FormData) {
   console.log(formData);
+}
+
+export async function updateUserWorkExperience(formData: FormData) {
+  // console.log(formData);
+
+  const validatedFields = UpdateWorkExperienceSchema.safeParse({
+    experience_id: formData.get("experience_id"),
+    resume_id: formData.get("resume_id"),
+    company_name: formData.get("company_name"),
+    job_title: formData.get("job_title"),
+    location: formData.get("location"),
+    start_date: formData.get("start_date"),
+    end_date: formData.get("end_date"),
+    description_one: formData.get("description_one"),
+    description_two: formData.get("description_two"),
+    description_three: formData.get("description_three"),
+    description_four: formData.get("description_four"),
+  });
+  // console.log(validatedFields);
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: "Missing Fields. Failed to Create user skill.",
+    };
+  }
+  const {
+    experience_id,
+    resume_id,
+    company_name,
+    job_title,
+    location,
+    start_date,
+    end_date,
+    description_one,
+    description_two,
+    description_three,
+    description_four,
+  } = validatedFields.data;
+  // console.log(
+  //   experience_id,
+  //   resume_id,
+  //   company_name,
+  //   job_title,
+  //   location,
+  //   start_date,
+  //   end_date,
+  //   description_one,
+  //   description_two,
+  //   description_three,
+  //   description_four
+  // );
+
+  try {
+    const query = `UPDATE user_work_experience SET company_name = '${company_name}', job_title = '${job_title}', location = '${location}', start_date = '${start_date}', end_date = '${end_date}', description_one = '${description_one}', description_two = '${description_two}', description_three = '${description_three}', description_four = '${description_four}' WHERE id = '${experience_id}'`;
+    //console.log(query);
+
+    const data = await conn.query(query);
+    //console.log(data);
+  } catch (error) {
+    return { message: `Database Error: Failed to Update Invoice. ${error}` };
+  }
+
+  revalidatePath(`/dashboard/resume/edit/${resume_id}`);
+  redirect(`/dashboard/resume/edit/${resume_id}`);
 }

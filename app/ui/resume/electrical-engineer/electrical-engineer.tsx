@@ -49,7 +49,7 @@ const ElectricalEngineer = (props: Props) => {
                 textAlign: "left",
                 textTransform: "uppercase",
                 fontSize: "50px",
-                lineHeight: "1.3",
+                lineHeight: "1",
                 fontWeight: "bold",
               }}
               className={props.headingFont}
@@ -80,9 +80,10 @@ const ElectricalEngineer = (props: Props) => {
                     {userWorkExperience.job_title}
                   </h2>
                   <p className={clsx("", props.bodyFont)}>
-                    {userWorkExperience.location}{" "}
+                    {userWorkExperience.company_name} -{" "}
+                    {userWorkExperience.location} (
                     {userWorkExperience.start_date} -{" "}
-                    {userWorkExperience.end_date}
+                    {userWorkExperience.end_date})
                   </p>
                   {userWorkExperience?.description_one && (
                     <div className="flex flex-row justify-start">
@@ -120,7 +121,6 @@ const ElectricalEngineer = (props: Props) => {
                       </div>
                     </div>
                   )}
-
                   {userWorkExperience?.description_three && (
                     <div className="flex flex-row justify-start">
                       <div className="flex flex-col pr-3 pt-[10px]">
@@ -135,6 +135,24 @@ const ElectricalEngineer = (props: Props) => {
                       <div className="flex flex-col">
                         <p className={clsx("text-sm py-1", props.bodyFont)}>
                           {userWorkExperience.description_three}
+                        </p>
+                      </div>
+                    </div>
+                  )}
+                  {userWorkExperience?.description_four && (
+                    <div className="flex flex-row justify-start">
+                      <div className="flex flex-col pr-3 pt-[10px]">
+                        <div
+                          className={clsx(
+                            "h-[7px] w-[7px] rounded-full",
+                            props.bodyFont,
+                            props.resumeColor
+                          )}
+                        />
+                      </div>
+                      <div className="flex flex-col">
+                        <p className={clsx("text-sm py-1", props.bodyFont)}>
+                          {userWorkExperience.description_four}
                         </p>
                       </div>
                     </div>
@@ -293,12 +311,6 @@ const ElectricalEngineer = (props: Props) => {
                         ></div>
                       </div>
                     </div>
-                    {/* <progress
-                      // className={props.resumeColor}
-                      style={{ backgroundColor: "red" }}
-                      color={"red"}
-                      value={userSkill.skill_level / 100}
-                    /> */}
                   </li>
                 ))}
               </ul>
@@ -330,9 +342,6 @@ const ElectricalEngineer = (props: Props) => {
                 ))}
               </ul>
             </div>
-            {/* <div className="flex flex-row pb-3">
-              <h2 className={props.headingFont}>EDUCATION</h2>
-            </div> */}
             <div className="flex flex-row pb-3">
               <ul>
                 <h2 className={clsx("", props.headingFont)}>CERTIFICATION</h2>

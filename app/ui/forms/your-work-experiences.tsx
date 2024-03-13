@@ -1,5 +1,11 @@
-import { createWorkExperience, deleteWorkExperience } from "@/app/lib/actions";
+import {
+  createWorkExperience,
+  deleteWorkExperience,
+  updateApplication,
+  updateUserWorkExperience,
+} from "@/app/lib/actions";
 import { useState } from "react";
+import { SubmitButton } from "../submit-button";
 
 export default function YourWorkExperiences({
   userWorkExperiences,
@@ -139,16 +145,61 @@ export default function YourWorkExperiences({
                 </div>
                 <div className="flex flex-row w-auto">
                   <div className="flex flex-col w-full py-1 px-1">
-                    <label className="py-1" htmlFor="description">
-                      Description
+                    <label className="py-1" htmlFor="description_one">
+                      Description One
                     </label>
                     <textarea
-                      id="description"
-                      name="description"
+                      id="description_one"
+                      name="description_one"
                       className="rounded bg-slate-200"
                       defaultValue={""}
                       onChange={(e) => {}}
-                      placeholder="Description"
+                      placeholder="Description One"
+                    ></textarea>
+                  </div>
+                </div>
+                <div className="flex flex-row w-auto">
+                  <div className="flex flex-col w-full py-1 px-1">
+                    <label className="py-1" htmlFor="description_two">
+                      Description Two
+                    </label>
+                    <textarea
+                      id="description_two"
+                      name="description_two"
+                      className="rounded bg-slate-200"
+                      defaultValue={""}
+                      onChange={(e) => {}}
+                      placeholder="Description Two"
+                    ></textarea>
+                  </div>
+                </div>
+                <div className="flex flex-row w-auto">
+                  <div className="flex flex-col w-full py-1 px-1">
+                    <label className="py-1" htmlFor="description_three">
+                      Description Three
+                    </label>
+                    <textarea
+                      id="description_three"
+                      name="description_three"
+                      className="rounded bg-slate-200"
+                      defaultValue={""}
+                      onChange={(e) => {}}
+                      placeholder="Description Three"
+                    ></textarea>
+                  </div>
+                </div>
+                <div className="flex flex-row w-auto">
+                  <div className="flex flex-col w-full py-1 px-1">
+                    <label className="py-1" htmlFor="description_four">
+                      Description Four
+                    </label>
+                    <textarea
+                      id="description_four"
+                      name="description_four"
+                      className="rounded bg-slate-200"
+                      defaultValue={""}
+                      onChange={(e) => {}}
+                      placeholder="Description Four"
                     ></textarea>
                   </div>
                 </div>
@@ -209,9 +260,29 @@ export default function YourWorkExperiences({
                       <button type="submit">Delete</button>
                     </form>
                   </div>
-                  <form className="rounded border border-black w-full pb-2 px-2">
+                  <form
+                    onSubmit={() => setEdited(false)}
+                    action={updateUserWorkExperience}
+                    className="rounded border border-black w-full pb-2 px-2"
+                  >
                     <div className="flex flex-row w-auto">
                       <div className="flex flex-col w-full py-1 px-1">
+                        <label hidden htmlFor="experience_id" />
+                        <input
+                          hidden
+                          readOnly
+                          id="experience_id"
+                          name="experience_id"
+                          value={workExperience.id}
+                        />
+                        <label hidden htmlFor="resume_id" />
+                        <input
+                          hidden
+                          readOnly
+                          value={resume.id}
+                          id="resume_id"
+                          name="resume_id"
+                        />
                         <label className="py-1" htmlFor="company_name">
                           Company Name
                         </label>
@@ -279,7 +350,7 @@ export default function YourWorkExperiences({
                           id="end_date"
                           name="end_date"
                           className="rounded bg-slate-200"
-                          defaultValue={""}
+                          defaultValue={workExperience.end_date}
                           onChange={(e) => onChangeHandler(e)}
                           placeholder="End Date"
                         ></input>
@@ -288,18 +359,70 @@ export default function YourWorkExperiences({
                     <div className="flex flex-row w-auto">
                       <div className="flex flex-col w-full py-1 px-1">
                         <label className="py-1" htmlFor="description">
-                          Description
+                          Description One
                         </label>
                         <textarea
-                          id="description"
-                          name="description"
-                          className="rounded bg-slate-200"
-                          defaultValue={""}
+                          id="description_one"
+                          name="description_one"
+                          className="rounded bg-slate-200 h-[150px]"
+                          defaultValue={workExperience.description_one}
                           onChange={(e) => onChangeHandler(e)}
-                          placeholder="Description"
+                          placeholder="Description One"
                         ></textarea>
                       </div>
                     </div>
+                    <div className="flex flex-row w-auto">
+                      <div className="flex flex-col w-full py-1 px-1">
+                        <label className="py-1" htmlFor="description_two">
+                          Description Two
+                        </label>
+                        <textarea
+                          id="description_two"
+                          name="description_two"
+                          className="rounded bg-slate-200 h-[150px]"
+                          defaultValue={workExperience.description_two}
+                          onChange={(e) => onChangeHandler(e)}
+                          placeholder="Description Two"
+                        ></textarea>
+                      </div>
+                    </div>
+                    <div className="flex flex-row w-auto">
+                      <div className="flex flex-col w-full py-1 px-1">
+                        <label className="py-1" htmlFor="description_three">
+                          Description Three
+                        </label>
+                        <textarea
+                          id="description_three"
+                          name="description_three"
+                          className="rounded bg-slate-200 h-[150px]"
+                          defaultValue={workExperience.description_three}
+                          onChange={(e) => onChangeHandler(e)}
+                          placeholder="Description One"
+                        ></textarea>
+                      </div>
+                    </div>
+                    <div className="flex flex-row w-auto">
+                      <div className="flex flex-col w-full py-1 px-1">
+                        <label className="py-1" htmlFor="description_four">
+                          Description Four
+                        </label>
+                        <textarea
+                          id="description_four"
+                          name="description_four"
+                          className="rounded bg-slate-200 h-[150px]"
+                          defaultValue={workExperience.description_four}
+                          onChange={(e) => onChangeHandler(e)}
+                          placeholder="Description Four"
+                        ></textarea>
+                      </div>
+                    </div>
+                    {edited && (
+                      <SubmitButton className={""}>
+                        <div className="bg-yellow-400 my-4 p-2 text-center w-auto animate-pulse">
+                          Save Change
+                        </div>
+                      </SubmitButton>
+                    )}
                   </form>
                 </div>
               </div>
@@ -307,7 +430,6 @@ export default function YourWorkExperiences({
           ))}
         </ul>
       </div>
-      <div className="py-2"></div>
     </div>
   );
 }
