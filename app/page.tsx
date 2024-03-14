@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   title: "Resume Wrangler",
   description:
     "Tame your Job Search in seconds. Try Resume Wrangler FREE today!",
-  metadataBase: new URL("https://blacrockdesign.store/resume-wrangler.ca"),
+  metadataBase: new URL("https://resume-wrangler.vercel.app/"),
 };
 
 export default async function Page() {
