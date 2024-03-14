@@ -3,10 +3,15 @@
   background: white;
   position: relative;
 
-  border: 1px solid red;
+  /* border: 1px solid red; */
 
-  width: 210mm;
-  height: 297mm;
+  /* A4 page size */
+  /* width: 210mm;
+  height: 297mm; */
+
+  /* letter page size */
+  width: 216mm;
+  height: 279mm;
 
   padding: 32px;
   color: black;
@@ -14,7 +19,12 @@
     drop-shadow(0 4px 3px rgb(0 0 0 / 0.1)); */
 }
 
-@page {
+/* @page {
   size: A4;
+  margin: 0;
+} */
+
+@page {
+  size: letter;
   margin: 0;
 }

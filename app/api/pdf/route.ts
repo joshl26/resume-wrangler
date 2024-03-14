@@ -47,12 +47,14 @@ export async function GET(req: NextRequest) {
       waitUntil: "networkidle0",
     });
 
-    await page.emulateMediaType("screen");
+    await page.emulateMediaType("print");
 
     await page.evaluateHandle("document.fonts.ready");
 
     const buffer = await page.pdf({
-      format: "A4",
+      displayHeaderFooter: false,
+      // format: "a4",
+      format: "letter",
       printBackground: true,
     });
 
