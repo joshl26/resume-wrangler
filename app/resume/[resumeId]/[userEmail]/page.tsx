@@ -1,9 +1,7 @@
 import React from "react";
-import Classic from "../../../ui/resume/classic/classic-resume";
-import { user } from "../../../data/user-details";
-import { useSearchParams } from "next/navigation";
-import ElectricalEngineer from "../../../ui/resume/electrical-engineer/electrical-engineer";
-import { getData } from "../../../lib/data";
+import ElectricalEngineer from "@/app/ui/resume/electrical-engineer/electrical-engineer";
+import Classic from "@/app/ui/resume/classic/classic-resume";
+import { getData } from "@/app/lib/data";
 
 async function Page({
   params: { resumeId, userEmail },
@@ -24,8 +22,10 @@ async function Page({
 
   return (
     <div>
-      <ElectricalEngineer {...props} />
-      {/* <Classic user={user} bodyFont={bodyFont} headingFont={headerFont} /> */}
+      {props.resume.template === "electrical-engineer" && (
+        <ElectricalEngineer {...props} />
+      )}
+      {props.resume.template === "classic" && <Classic {...props} />}
     </div>
   );
 }
