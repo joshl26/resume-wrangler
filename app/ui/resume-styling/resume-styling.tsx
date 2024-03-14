@@ -4,14 +4,14 @@ import { Suspense, useState } from "react";
 import Classic from "@/app/ui/resume/classic/classic-resume";
 import PreviewButton from "@/app/ui/preview-button";
 import ElectricalEngineer from "@/app/ui/resume/electrical-engineer/electrical-engineer";
-import YourResumeStyling from "../forms/your-resume-styling";
-import YourProfile from "../forms/your-profile";
-import YourSkills from "../forms/your-skills";
-import YourEducation from "../forms/your-education";
-import YourWorkExperiences from "../forms/your-work-experiences";
-import YourOrganizations from "../forms/your-organizations";
-import YourCertifications from "../forms/your-certifications";
-import YourSocialLinks from "../forms/your-social-links";
+import YourResumeStyling from "@/app/ui/forms/your-resume-styling";
+import YourProfile from "@/app/ui/forms/your-profile";
+import YourSkills from "@/app/ui/forms/your-skills";
+import YourEducation from "@/app/ui/forms/your-education";
+import YourWorkExperiences from "@/app/ui/forms/your-work-experiences";
+import YourOrganizations from "@/app/ui/forms/your-organizations";
+import YourCertifications from "@/app/ui/forms/your-certifications";
+import YourSocialLinks from "@/app/ui/forms/your-social-links";
 
 export default function ResumeStyling({
   resumeTemplates,
@@ -59,7 +59,6 @@ export default function ResumeStyling({
     <main className="flex w-full">
       <div className="flex flex-row h-full w-full">
         <div className="flex flex-col h-full w-[400px] overflow-scroll px-3">
-          {/* <h1>{selectedResumeTemplate}</h1> */}
           <YourResumeStyling
             resume={resume}
             resumeTemplates={resumeTemplates}
@@ -144,7 +143,7 @@ export default function ResumeStyling({
           )}
         </div>
       </div>
-      <PreviewButton />
+      <PreviewButton resume={resume} user={user} />
     </main>
   );
 }

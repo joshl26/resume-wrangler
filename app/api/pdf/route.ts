@@ -18,8 +18,6 @@ export async function GET(req: NextRequest) {
     const resumeId = params.resumeId as string;
     const userEmail = params.userEmail as string;
 
-    // console.log(headerFont);
-
     const browser = await puppeteer.launch({
       headless: true,
       args: [

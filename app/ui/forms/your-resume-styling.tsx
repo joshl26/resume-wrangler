@@ -50,8 +50,6 @@ export default function YourResumeStyling({
     <div className="resume-styling">
       <div className="pb-2 font-bold text-xl">
         <h2>Resume Styling</h2>
-        {selectedResumeColor}
-        {/* <p>{edited === false ? "false" : "true"}</p> */}
       </div>
       <form
         action={updateYourResumeStyle}

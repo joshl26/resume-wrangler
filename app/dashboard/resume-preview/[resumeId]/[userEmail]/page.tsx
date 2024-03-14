@@ -12,7 +12,7 @@ async function Page({
   const props = await getData(resumeId, userEmail);
 
   return (
-    <div>
+    <div className="h-auto overflow-y-auto w-full">
       {props.resume.template === "electrical-engineer" && (
         <ElectricalEngineer {...props} />
       )}
