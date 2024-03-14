@@ -6,8 +6,9 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Resume Wrangler",
-  description: "The official website of Resume Wrangler.",
-  metadataBase: new URL("https://resume-wrangler.ca"),
+  description:
+    "Tame your Job Search in seconds. Try Resume Wrangler FREE today!",
+  metadataBase: new URL("https://blacrockdesign.store/resume-wrangler.ca"),
 };
 
 export default async function Page() {
