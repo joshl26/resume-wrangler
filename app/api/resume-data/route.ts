@@ -12,8 +12,8 @@ import {
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
-  const resumeId = searchParams.get("resumeId");
-  const userEmail = searchParams.get("userEmail");
+  const resumeId: string | null = searchParams.get("resumeId");
+  const userEmail: string | null = searchParams.get("userEmail");
 
   if (resumeId === null) {
     return Response.json({ message: "no resume id" });
