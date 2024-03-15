@@ -117,10 +117,12 @@ const Applications = ({
                   )?.id > 0 ? (
                     <div className="flex flex-row">
                       <a
-                        href={`/dashboard/cover/edit/${coverLetters.find(
-                          (coverLetter: any) =>
-                            coverLetter?.application_id === application.id
-                        )?.id}`}
+                        href={`/dashboard/cover/edit/${
+                          coverLetters.find(
+                            (coverLetter: any) =>
+                              coverLetter?.application_id === application.id
+                          )?.id
+                        }`}
                         className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                       >
                         Edit
@@ -146,12 +148,14 @@ const Applications = ({
                         required
                         hidden
                         name="user_id"
+                        readOnly
                         value={user.id}
                       />
                       <input
                         type="text"
                         required
                         hidden
+                        readOnly
                         name="application_id"
                         value={application.id}
                       />
@@ -160,6 +164,7 @@ const Applications = ({
                         required
                         hidden
                         name="company_id"
+                        readOnly
                         value={application.company_id}
                       />
                       <button
@@ -178,10 +183,12 @@ const Applications = ({
                   )?.id > 0 ? (
                     <div className="flex flex-row">
                       <a
-                        href={`/dashboard/resume/edit/${resumes.find(
-                          (resume: any) =>
-                            resume.application_id === application.id
-                        )?.id}`}
+                        href={`/dashboard/resume/edit/${
+                          resumes.find(
+                            (resume: any) =>
+                              resume.application_id === application.id
+                          )?.id
+                        }`}
                         className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                       >
                         Edit
@@ -207,6 +214,7 @@ const Applications = ({
                         required
                         hidden
                         name="user_id"
+                        readOnly
                         value={user.id}
                       />
                       <input
@@ -214,6 +222,7 @@ const Applications = ({
                         required
                         hidden
                         name="application_id"
+                        readOnly
                         value={application.id}
                       />
                       <input
@@ -221,6 +230,7 @@ const Applications = ({
                         required
                         hidden
                         name="company_id"
+                        readOnly
                         value={application.company_id}
                       />
                       <button
