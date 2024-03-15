@@ -30,9 +30,9 @@ const puppeteer = require("puppeteer-core");
 //   const bodyFont = searchParams.get("bodyFont");
 
 export async function GET(req: NextRequest) {
-  // console.log(req.nextUrl.searchParams);
-
   const executablePath = await chrome.executablePath;
+
+  console.log(executablePath);
 
   let params: any = {};
   for (const [key, val] of req.nextUrl.searchParams.entries()) {
