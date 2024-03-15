@@ -4,7 +4,7 @@ import { NextRequest } from "next/server";
 
 const chrome = require("@sparticuz/chromium-min");
 const puppeteer = require("puppeteer-core");
-const { executablePath } = require("puppeteer-core");
+
 //   puppeteer = require("puppeteer-core");
 // import chrome from "chrome-aws-lambda";
 // import puppeteer from "puppeteer-core";
@@ -32,6 +32,8 @@ const { executablePath } = require("puppeteer-core");
 export async function GET(req: NextRequest) {
   // console.log(req.nextUrl.searchParams);
 
+  const executablePath = await chrome.executablePath;
+
   let params: any = {};
   for (const [key, val] of req.nextUrl.searchParams.entries()) {
     params[key] = val;
@@ -44,7 +46,7 @@ export async function GET(req: NextRequest) {
     const options = process.env.AWS_REGION
       ? {
           args: chrome.args,
-          executablePath: executablePath(),
+          executablePath: executablePath,
           headless: chrome.headless,
         }
       : {
