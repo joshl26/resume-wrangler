@@ -82,7 +82,9 @@ export async function GET(req: NextRequest) {
             "--use-gl=swiftshader",
             "--use-mock-keychain",
           ],
-          executablePath: "/usr/bin/google-chrome",
+          executablePath: await chrome.executablePath(
+            "https://github.com/Sparticuz/chromium/releases/download/v119.0.2/chromium-v119.0.2-pack.tar"
+          ),
           headless: true,
         }
       : {
