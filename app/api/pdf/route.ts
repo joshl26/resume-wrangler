@@ -1,21 +1,27 @@
+// import Chromium from "chrome-aws-lambda";
 import { NextRequest } from "next/server";
-import { PuppeteerNode } from "puppeteer";
+// import { PuppeteerNode } from "puppeteer";
 
+const chrome = require("chrome-aws-lambda");
+const puppeteer = require("puppeteer-core");
+//   puppeteer = require("puppeteer-core");
+// import chrome from "chrome-aws-lambda";
+// import puppeteer from "puppeteer-core";
 // import puppeteer from "puppeteer";
 
-let chrome = { args: "", defaultViewport: null, executablePath: "" };
-let puppeteer: PuppeteerNode;
+// let chrome = { args: "", defaultViewport: null, executablePath: "" };
+// let puppeteer: PuppeteerNode;
 
-console.log(process.env.DEPLOY === "true");
+// console.log(process.env.DEPLOY === "true");
 
-if (process.env.DEPLOY == "true") {
-  // running on the Vercel platform.
-  chrome = require("chrome-aws-lambda");
-  puppeteer = require("puppeteer-core");
-} else {
-  // running locally.
-  puppeteer = require("puppeteer");
-}
+// if (process.env.DEPLOY == "true") {
+//   // running on the Vercel platform.
+//   chrome = require("chrome-aws-lambda");
+//   puppeteer = require("puppeteer-core");
+// } else {
+//   // running locally.
+//   puppeteer = require("puppeteer");
+// }
 
 //TODO simpler way of doing below, consider implementing
 // export async function GET(request: Request) {
@@ -25,14 +31,68 @@ if (process.env.DEPLOY == "true") {
 export async function GET(req: NextRequest) {
   // console.log(req.nextUrl.searchParams);
 
-  // let params: any = {};
-  // for (const [key, val] of req.nextUrl.searchParams.entries()) {
-  //   params[key] = val;
-  // }
+  let params: any = {};
+  for (const [key, val] of req.nextUrl.searchParams.entries()) {
+    params[key] = val;
+  }
 
   try {
-    //   const resumeId = params.resumeId as string;
-    //   const userEmail = params.userEmail as string;
+    const resumeId = params.resumeId as string;
+    const userEmail = params.userEmail as string;
+
+    // const options = process.env.AWS_REGION
+    //   ? {
+    //       args: chrome.args,
+    //       executablePath: await chrome.executablePath,
+    //       headless: chrome.headless,
+    //     }
+    //   : {
+    //       args: [
+    //         "--no-sandbox",
+    //         "--disable-web-security",
+    //         "--font-render-hinting=none",
+    //         "--force-color-profile=srgb",
+    //       ],
+    //       executablePath:
+    //         "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+    //     };
+
+    const options = process.env.AWS_REGION
+      ? {
+          args: chrome.args,
+          executablePath: await chrome.executablePath,
+          headless: chrome.headless,
+        }
+      : {
+          headless: true,
+          ignoreHTTPSErrors: true,
+          args: [
+            "--no-sandbox",
+            "--disable-web-security",
+            "--font-render-hinting=none",
+            "--force-color-profile=srgb",
+          ],
+          executablePath:
+            "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+        };
+
+    const browser = await puppeteer.launch(options);
+    const page = await browser.newPage();
+    await page.setViewport({ width: 2000, height: 1000 });
+    await page.goto(
+      `http://${process.env.DEPLOYMENT_URL}/resume/${resumeId}/${userEmail}`,
+      { waitUntil: "networkidle0" }
+    );
+    return await page.screenshot({ type: "png" });
+
+    // const browser = await puppeteer.launch(options);
+
+    // const page = await browser.newPage();
+
+    // await page.setViewport({ width: 2000, height: 1000 });
+    // await page.setUserAgent(
+    //   "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36"
+    // );
 
     //   const browser = await puppeteer.launch({
     //     // headless: true,
@@ -62,27 +122,27 @@ export async function GET(req: NextRequest) {
 
     //   // await page.waitForNavigation(); // <------------------------- Wait for Navigation
 
-    //   await page.goto(
-    //     `http://${process.env.DEPLOYMENT_URL}/resume/${resumeId}/${userEmail}`,
-    //     {
-    //       waitUntil: "networkidle0",
-    //     }
-    //   );
+    // await page.goto(
+    //   `http://${process.env.DEPLOYMENT_URL}/resume/${resumeId}/${userEmail}`,
+    //   {
+    //     waitUntil: "networkidle0",
+    //   }
+    // );
 
-    //   await page.emulateMediaType("print");
+    // await page.emulateMediaType("print");
 
-    //   await page.evaluateHandle("document.fonts.ready");
+    // await page.evaluateHandle("document.fonts.ready");
 
-    //   const buffer = await page.pdf({
-    //     displayHeaderFooter: false,
-    //     // format: "a4",
-    //     format: "letter",
-    //     printBackground: true,
-    //   });
+    // const buffer = await page.pdf({
+    //   displayHeaderFooter: false,
+    //   // format: "a4",
+    //   format: "letter",
+    //   printBackground: true,
+    // });
 
-    //   browser.close();
+    // browser.close();
 
-    return new Response("", { headers: { "content-type": "image/png" } });
+    // return new Response(buffer, { headers: { "content-type": "image/png" } });
 
     // Close browser **after** we returned the PDF to the caller.
   } catch (error) {
