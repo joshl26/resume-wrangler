@@ -1,5 +1,4 @@
-export const maxDuration = 60; // This function can run for a maximum of 5 seconds
-export const dynamic = "force-dynamic";
+// export const maxDuration = 60; // This function can run for a maximum of 5 seconds
 
 // import Chromium from "chrome-aws-lambda";
 import { NextRequest } from "next/server";
@@ -8,6 +7,8 @@ import { NextRequest } from "next/server";
 const chrome = require("@sparticuz/chromium-min");
 const puppeteer = require("puppeteer-core");
 
+// export const dynamic = "force-dynamic";
+// export const runtime = "edge";
 //   puppeteer = require("puppeteer-core");
 // import chrome from "chrome-aws-lambda";
 // import puppeteer from "puppeteer-core";
@@ -102,9 +103,9 @@ export async function GET(req: NextRequest) {
     const browser = await puppeteer.launch(options);
     const page = await browser.newPage();
 
-    await page.setUserAgent(
-      "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36"
-    );
+    // await page.setUserAgent(
+    //   "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36"
+    // );
 
     //   // await page.goto("http://localhost:3000/login");
 

@@ -13,10 +13,10 @@ async function Page({
 
   return (
     <div>
-      {props.resume.template === "electrical-engineer" && (
+      {props.resume?.template === "electrical-engineer" && (
         <ElectricalEngineer {...props} />
       )}
-      {props.resume.template === "classic" && <Classic {...props} />}
+      {props.resume?.template === "classic" && <Classic {...props} />}
     </div>
   );
 }
