@@ -2,8 +2,6 @@
 import { NextRequest } from "next/server";
 // import { PuppeteerNode } from "puppeteer";
 
-const test = {};
-
 const chrome = require("@sparticuz/chromium-min");
 const puppeteer = require("puppeteer-core");
 //   puppeteer = require("puppeteer-core");
