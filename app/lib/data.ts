@@ -518,7 +518,7 @@ export async function getData(resumeId: string, userEmail: string) {
   // You can return Date, Map, Set, etc.
 
   const res = await fetch(
-    `https://${process.env.DEPLOYMENT_URL}/api/resume-data?resumeId=${resumeId}&userEmail=${userEmail}`
+    `http://${process.env.DEPLOYMENT_URL}/api/resume-data?resumeId=${resumeId}&userEmail=${userEmail}`
     // `http://localhost:3000/api/resume-data?resumeId=${resumeId}&userEmail=${userEmail}`
   );
   if (!res.ok) {
