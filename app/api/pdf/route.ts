@@ -2,7 +2,7 @@
 import { NextRequest } from "next/server";
 // import { PuppeteerNode } from "puppeteer";
 
-const chrome = require("@sparticuz/chromium");
+const chrome = require("@sparticuz/chromium-min");
 const puppeteer = require("puppeteer-core");
 //   puppeteer = require("puppeteer-core");
 // import chrome from "chrome-aws-lambda";
