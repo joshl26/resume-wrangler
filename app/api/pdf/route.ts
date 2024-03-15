@@ -46,7 +46,7 @@ export async function GET(req: NextRequest) {
     const options = process.env.AWS_REGION
       ? {
           args: chrome.args,
-          executablePath: executablePath,
+          executablePath,
           headless: chrome.headless,
         }
       : {
