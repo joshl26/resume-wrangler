@@ -1,5 +1,3 @@
-//test
-
 export const colors = [
   {
     id: 1,
