@@ -82,7 +82,7 @@ export async function GET(req: NextRequest) {
             "--use-gl=swiftshader",
             "--use-mock-keychain",
           ],
-          executablePath: executablePath,
+          executablePath,
           headless: true,
         }
       : {
