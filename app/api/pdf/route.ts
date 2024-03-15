@@ -1,3 +1,6 @@
+export const maxDuration = 60; // This function can run for a maximum of 5 seconds
+export const dynamic = "force-dynamic";
+
 // import Chromium from "chrome-aws-lambda";
 import { NextRequest } from "next/server";
 // import { PuppeteerNode } from "puppeteer";
