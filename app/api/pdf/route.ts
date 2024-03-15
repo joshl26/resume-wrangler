@@ -42,7 +42,7 @@ export async function GET(req: NextRequest) {
     // await page.waitForNavigation(); // <------------------------- Wait for Navigation
 
     await page.goto(
-      `https://${process.env.DEPLOYMENT_URL}/resume/${resumeId}/${userEmail}`,
+      `http://${process.env.DEPLOYMENT_URL}/resume/${resumeId}/${userEmail}`,
       {
         waitUntil: "networkidle0",
       }
