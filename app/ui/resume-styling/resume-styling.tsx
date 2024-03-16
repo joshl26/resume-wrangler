@@ -57,13 +57,29 @@ export default function ResumeStyling({
 
   const [showSocials, setShowSocials] = useState(resume?.show_social_icons);
 
-  const [showSkills, setShowSkills] = useState();
+  const [showSkills, setShowSkills] = useState(resume?.show_skills_section);
+
+  const [showSkillProgress, setShowSkillProgress] = useState(
+    resume?.show_skills_progress
+  );
+
+  const [showEducation, setShowEducation] = useState(
+    resume?.show_education_skills
+  );
+
+  const [showCustomSectionOne, setShowCustomSectionOne] = useState(
+    resume?.show_custom_section_one
+  );
+
+  const [showCustomSectionTwo, setShowCustomSectionTwo] = useState(
+    resume?.show_custom_section_two
+  );
 
   return (
     <main className="flex w-full">
       <div className="flex flex-row h-full w-full">
         <div className="flex flex-col h-full w-[400px] overflow-scroll px-3">
-          <YourResumeStyling
+          {/* <YourResumeStyling
             resume={resume}
             resumeTemplates={resumeTemplates}
             resumeColors={resumeColors}
@@ -87,10 +103,18 @@ export default function ResumeStyling({
             user={user}
             showSocials={showSocials}
             setShowSocials={setShowSocials}
+          /> */}
+          <div className="py-2"></div>
+          <YourSkills
+            user={user}
+            userSkills={userSkills}
+            resume={resume}
+            setShowSkills={setShowSkills}
+            showSkills={showSkills}
+            setShowSkillProgress={setShowSkillProgress}
+            showSkillProgress={showSkillProgress}
           />
-          <div className="py-2"></div>
-          <YourSkills user={user} userSkills={userSkills} resume={resume} />
-          <div className="py-2"></div>
+          {/* <div className="py-2"></div>
           <YourEducation
             resume={resume}
             user={user}
@@ -113,7 +137,7 @@ export default function ResumeStyling({
             resume={resume}
             user={user}
             userCertifications={userCertifications}
-          />
+          /> */}
           <div className="p-2 text-center">
             <a
               href={`/api/pdf?resumeId=${resume?.id}&userEmail=${user?.email}`}

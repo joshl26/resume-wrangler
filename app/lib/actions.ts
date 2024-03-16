@@ -551,12 +551,7 @@ export async function updateSocials(
 
     const data2 = await conn.query(query2);
     //console.log(query2);
-
-    // await sql`
-    //     UPDATE invoices
-    //     SET name = '${name}', email = '${email}'
-    //     WHERE id = ${id}
-    //   `;
+  
   } catch (error) {
     return { message: "Database Error: Failed to Update Invoice." };
   }
