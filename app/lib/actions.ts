@@ -502,7 +502,7 @@ export async function updateUser(
   prevState: State,
   formData: FormData
 ) {
-  console.log(formData);
+  // console.log(formData);
   const validatedFields = UpdateUser.safeParse({
     name: formData.get("name"),
     email: formData.get("email"),
@@ -562,7 +562,7 @@ export async function updateSocials(
   prevState: State,
   formData: FormData
 ) {
-  console.log(formData);
+  // console.log(formData);
   const validatedFields = UpdateSocials.safeParse({
     linked_in: formData.get("linked_in"),
     twitter: formData.get("twitter"),
@@ -1447,7 +1447,7 @@ export async function updateUserWorkExperience(formData: FormData) {
 }
 
 export async function updateUserEducation(formData: FormData) {
-  console.log(formData);
+  // console.log(formData);
 
   const validatedFields = UpdateEducationSchema.safeParse({
     education_id: formData.get("education_id"),
@@ -1460,7 +1460,7 @@ export async function updateUserEducation(formData: FormData) {
     program: formData.get("program"),
     url: formData.get("url"),
   });
-  console.log(validatedFields);
+  // console.log(validatedFields);
   if (!validatedFields.success) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
@@ -1532,11 +1532,11 @@ export async function updateSkillsSection(formData: FormData) {
   // console.log(user_id, resume_id, show_skills_section, show_skill_progress);
 
   try {
-    const query1 = `UPDATE resumes SET show_skill_progress = '${show_skill_progress}', show_skills_section = '${show_skills_section}' WHERE id = '${resume_id}'`;
+    const query = `UPDATE resumes SET show_skill_progress = '${show_skill_progress}', show_skills_section = '${show_skills_section}' WHERE id = '${resume_id}'`;
 
-    const data = await conn.query(query1);
+    const data = await conn.query(query);
 
-    console.log(query1);
+    // console.log(query);
   } catch (error) {
     return { message: `Database Error: Failed to Update Invoice. ${error}` };
   }
@@ -1546,7 +1546,7 @@ export async function updateSkillsSection(formData: FormData) {
 }
 
 export async function updateEducationSection(formData: FormData) {
-  console.log(formData);
+  // console.log(formData);
 
   const validatedFields = UpdateEducationSectionSchema.safeParse({
     user_id: formData.get("user_id"),
@@ -1554,7 +1554,7 @@ export async function updateEducationSection(formData: FormData) {
     show_education_section: formData.get("show_education_section"),
   });
 
-  console.log(validatedFields);
+  // console.log(validatedFields);
 
   // console.log(validatedFields);
   if (!validatedFields.success) {
@@ -1618,13 +1618,13 @@ export async function updateOrganizationSection(formData: FormData) {
 }
 
 export async function updateCertificationsSection(formData: FormData) {
-  console.log(formData);
+  // console.log(formData);
   const validatedFields = UpdateCertificationsSectionSchema.safeParse({
     user_id: formData.get("user_id"),
     resume_id: formData.get("resume_id"),
     show_custom_section_two: formData.get("show_custom_section_two"),
   });
-  console.log(validatedFields);
+  // console.log(validatedFields);
   // // console.log(validatedFields);
   if (!validatedFields.success) {
     return {
