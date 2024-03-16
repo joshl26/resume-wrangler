@@ -28,6 +28,8 @@ interface Props {
   userCertifications: any;
   selectedResumeHighlightColor: any;
   showSocials: any;
+  showSkills: any;
+  showSkillProgress: any;
 }
 
 export default async function ElectricalEngineer(props: Props) {
@@ -362,50 +364,59 @@ export default async function ElectricalEngineer(props: Props) {
               ""
             )}
           </div>
-          <div className="flex flex-col pb-3 pt-2">
-            <h2
-              className={clsx(
-                "font-bold",
-                props?.heading_font || props?.resume?.heading_font
-              )}
-            >
-              SKILLS
-            </h2>
-            <ul className="pt-2">
-              {props?.userSkills?.map((userSkill: any) => (
-                <li className="flex flex-col py-[3px]" key={userSkill.id}>
-                  <p
-                    className={clsx(
-                      "text-sm font-bold",
-                      props?.heading_font || props?.resume?.heading_font
-                    )}
-                  >
-                    {userSkill.skill}
-                  </p>
-                  <div className="progress-container ">
-                    <div
+          {props.showSkills === "true" ? (
+            <div className="flex flex-col pb-3 pt-2">
+              <h2
+                className={clsx(
+                  "font-bold",
+                  props?.heading_font || props?.resume?.heading_font
+                )}
+              >
+                SKILLS
+              </h2>
+              <ul className="pt-2">
+                {props?.userSkills?.map((userSkill: any) => (
+                  <li className="flex flex-col py-[3px]" key={userSkill.id}>
+                    <p
                       className={clsx(
-                        props?.resume?.highlight_color ||
-                          props?.resume?.highlight_color,
-                        "rounded-[1rem] h-[1rem] border border-black"
+                        "text-sm font-bold",
+                        props?.heading_font || props?.resume?.heading_font
                       )}
                     >
-                      <div
-                        className={clsx(
-                          "progress-bar rounded-[1rem]",
-                          props?.color || props?.resume?.color
-                        )}
-                        style={{
-                          width: `${userSkill?.skill_level}%`,
-                          height: "100%",
-                        }}
-                      ></div>
-                    </div>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
+                      {userSkill.skill}
+                    </p>
+                    {props.showSkillProgress === "true" ? (
+                      <div className="progress-container ">
+                        <div
+                          className={clsx(
+                            props?.resume?.highlight_color ||
+                              props?.resume?.highlight_color,
+                            "rounded-[1rem] h-[1rem] border border-black"
+                          )}
+                        >
+                          <div
+                            className={clsx(
+                              "progress-bar rounded-[1rem]",
+                              props?.color || props?.resume?.color
+                            )}
+                            style={{
+                              width: `${userSkill?.skill_level}%`,
+                              height: "100%",
+                            }}
+                          ></div>
+                        </div>
+                      </div>
+                    ) : (
+                      ""
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : (
+            ""
+          )}
+
           <div className="flex flex-row pb-3 pt-2">
             <ul>
               <h1

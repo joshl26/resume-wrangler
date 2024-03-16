@@ -60,7 +60,7 @@ export default function ResumeStyling({
   const [showSkills, setShowSkills] = useState(resume?.show_skills_section);
 
   const [showSkillProgress, setShowSkillProgress] = useState(
-    resume?.show_skills_progress
+    resume?.show_skill_progress
   );
 
   const [showEducation, setShowEducation] = useState(
@@ -79,7 +79,7 @@ export default function ResumeStyling({
     <main className="flex w-full">
       <div className="flex flex-row h-full w-full">
         <div className="flex flex-col h-full w-[400px] overflow-scroll px-3">
-          {/* <YourResumeStyling
+          <YourResumeStyling
             resume={resume}
             resumeTemplates={resumeTemplates}
             resumeColors={resumeColors}
@@ -103,7 +103,7 @@ export default function ResumeStyling({
             user={user}
             showSocials={showSocials}
             setShowSocials={setShowSocials}
-          /> */}
+          />
           <div className="py-2"></div>
           <YourSkills
             user={user}
@@ -114,7 +114,7 @@ export default function ResumeStyling({
             setShowSkillProgress={setShowSkillProgress}
             showSkillProgress={showSkillProgress}
           />
-          {/* <div className="py-2"></div>
+          <div className="py-2"></div>
           <YourEducation
             resume={resume}
             user={user}
@@ -137,7 +137,7 @@ export default function ResumeStyling({
             resume={resume}
             user={user}
             userCertifications={userCertifications}
-          /> */}
+          />
           <div className="p-2 text-center">
             <a
               href={`/api/pdf?resumeId=${resume?.id}&userEmail=${user?.email}`}
@@ -172,6 +172,8 @@ export default function ResumeStyling({
                 userSkills={userSkills}
                 userEducation={userEducation}
                 userCertifications={userCertifications}
+                showSkills={showSkills}
+                showSkillProgress={showSkillProgress}
               />
             </Suspense>
           )}

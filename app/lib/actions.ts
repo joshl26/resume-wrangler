@@ -187,6 +187,21 @@ const CreateSkillsSchema = z.object({
   }),
 });
 
+const UpdateSkillsSectionSchema = z.object({
+  user_id: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  resume_id: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  show_skills_section: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  show_skill_progress: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+});
+
 const DeleteSkillsSchema = z.object({
   id: z.string({
     invalid_type_error: "Please enter a string.",
@@ -551,7 +566,6 @@ export async function updateSocials(
 
     const data2 = await conn.query(query2);
     //console.log(query2);
-  
   } catch (error) {
     return { message: "Database Error: Failed to Update Invoice." };
   }
@@ -1449,6 +1463,44 @@ export async function updateUserEducation(formData: FormData) {
     // const query2 = `UPDATE user SET show_education_section = '${show_education}' WHERE id = '${resume_id}'`;
 
     //console.log(data);
+  } catch (error) {
+    return { message: `Database Error: Failed to Update Invoice. ${error}` };
+  }
+
+  revalidatePath(`/dashboard/resume/edit/${resume_id}`);
+  redirect(`/dashboard/resume/edit/${resume_id}`);
+}
+
+export async function updateSkills(formData: FormData) {
+  // console.log(formData);
+
+  const validatedFields = UpdateSkillsSectionSchema.safeParse({
+    user_id: formData.get("user_id"),
+    resume_id: formData.get("resume_id"),
+    show_skills_section: formData.get("show_skills_section"),
+    show_skill_progress: formData.get("show_skill_progress"),
+  });
+
+  // console.log(validatedFields);
+
+  // // console.log(validatedFields);
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: "Missing Fields. Failed to Create user skill.",
+    };
+  }
+
+  const { user_id, resume_id, show_skills_section, show_skill_progress } =
+    validatedFields.data;
+  // console.log(user_id, resume_id, show_skills_section, show_skill_progress);
+
+  try {
+    const query1 = `UPDATE resumes SET show_skill_progress = '${show_skill_progress}', show_skills_section = '${show_skills_section}' WHERE id = '${resume_id}'`;
+
+    const data = await conn.query(query1);
+
+    console.log(query1);
   } catch (error) {
     return { message: `Database Error: Failed to Update Invoice. ${error}` };
   }

@@ -1,5 +1,10 @@
-import { createUserSkill, deleteUserSkill } from "@/app/lib/actions";
+import {
+  createUserSkill,
+  deleteUserSkill,
+  updateSkills,
+} from "@/app/lib/actions";
 import { useState } from "react";
+import { SubmitButton } from "../submit-button";
 
 export default function YourSkills({
   userSkills,
@@ -60,8 +65,8 @@ export default function YourSkills({
         <div className="flex flex-col">
           <div className="py-2 font-bold text-xl">
             <h2>Your Skills</h2>
-            {showSkills}
-            {showSkillProgress}
+            {/* {showSkills}
+            {showSkillProgress} */}
           </div>
         </div>
         <div className="flex flex-col ">
@@ -74,7 +79,11 @@ export default function YourSkills({
       <div className="drop-shadow-md border-[1px] border-slate-300 rounded px-5 py-2 ">
         {showSkills === "true" ? (
           <>
-            <form action={createUserSkill}>
+            <form
+              // className="border border-red"
+              onSubmit={() => setEdited(false)}
+              action={createUserSkill}
+            >
               <div className="flex flex-row w-auto">
                 <div className="flex flex-col w-full py-1 px-1">
                   <label hidden htmlFor="user_id" />
@@ -102,7 +111,7 @@ export default function YourSkills({
                     name="skill_title"
                     className="rounded bg-slate-200"
                     defaultValue={""}
-                    onChange={(e) => onChangeHandler(e)}
+                    onChange={(e) => {}}
                     placeholder="Skill Title"
                   ></input>
                   <label hidden htmlFor="skill_level" />
@@ -147,15 +156,20 @@ export default function YourSkills({
                   >
                     <div className="flex flex-col w-3/4">
                       <div className="flex text-center align-middle flex-col w-full h-full">
-                        <p className="rounded bg-slate-200 w-full h-[35px]">
-                          {userSkill.skill}
-                        </p>
+                        <input
+                          readOnly
+                          type="text"
+                          onChange={(e) => {}}
+                          defaultValue={userSkill.skill}
+                          className="rounded bg-slate-200 w-full h-[35px]"
+                        />
                       </div>
                       {showSkillProgress === "true" ? (
                         <div className="flex flex-row py-3">
                           <input
+                            readOnly
                             className="w-full"
-                            defaultValue={userSkill.skill_level}
+                            value={userSkill.skill_level}
                             type="range"
                           ></input>
                         </div>
@@ -170,8 +184,11 @@ export default function YourSkills({
                         </div>
                       )}
                     </div>
-                    <div className="flex flex-col w-auto align-middle">
-                      <form action={deleteUserSkill}>
+                    <div className="flex flex-col w-auto align-middle ">
+                      <form
+                        className="border border-black rounded p-1"
+                        action={deleteUserSkill}
+                      >
                         <label hidden htmlFor="resume_id" />
                         <input
                           hidden
@@ -199,7 +216,11 @@ export default function YourSkills({
         ) : (
           ""
         )}
-        <div className="flex flex-col">
+        <form
+          onSubmit={() => setEdited(false)}
+          action={updateSkills}
+          className="flex flex-col"
+        >
           {showSkills === "true" ? (
             <div className="flex flex-row py-2">
               <div className="px-1 flex align-middle">
@@ -216,24 +237,56 @@ export default function YourSkills({
                   onChange={showSkillProgressBarsOnChangeHandler}
                   className="m-auto bg-slate-200 rounded"
                   type="checkbox"
-                ></input>
+                />
               </div>
               <div className="flex flex-col">
                 <p>Show skills progress bars?</p>
               </div>
             </div>
           ) : (
-            ""
-          )}
-
-          <div className="flex flex-row py-1">
-            <div className="flex flex-col px-1 py-2">
-              <label hidden htmlFor="show_socials" />
+            <div className="px-1 flex align-middle">
               <input
                 hidden
                 readOnly
-                id="show_socials"
-                name="show_socials"
+                id="show_skill_progress"
+                name="show_skill_progress"
+                value={showSkillProgress}
+              />
+              {/* <input
+                hidden
+                readOnly
+                checked={showSkillProgress === "true" ? true : false}
+                value={showSkillProgress}
+                onChange={() => {}}
+                className="m-auto bg-slate-200 rounded"
+                type="checkbox"
+              /> */}
+            </div>
+          )}
+          <div className="flex flex-row py-1">
+            <div className="flex flex-col px-1 py-2">
+              <label hidden htmlFor="user_id" />
+              <input
+                hidden
+                readOnly
+                id="user_id"
+                name="user_id"
+                value={user?.id}
+              />
+              <label hidden htmlFor="resume_id" />
+              <input
+                hidden
+                readOnly
+                id="resume_id"
+                name="resume_id"
+                value={resume.id}
+              />
+              <label hidden htmlFor="show_skills_section" />
+              <input
+                hidden
+                readOnly
+                id="show_skills_section"
+                name="show_skills_section"
                 value={showSkills}
               />
               <input
@@ -242,7 +295,7 @@ export default function YourSkills({
                 checked={showSkills === "true" ? true : false}
                 value={showSkills}
                 onChange={showSkillsOnChangeHandler}
-              ></input>
+              />
             </div>
             <div className="flex flex-col">
               <label className="py-1 px-1" htmlFor="social_icons">
@@ -250,11 +303,16 @@ export default function YourSkills({
               </label>
             </div>
           </div>
-        </div>
-        <div style={{ height: "0.5rem" }}></div>{" "}
-        {edited && <button type="submit">Save</button>}
+          {edited && (
+            <>
+              <div style={{ height: "0.5rem" }} />
+              <SubmitButton className="bg-yellow-400 my-4 p-2 text-center w-auto animate-pulse">
+                Save Change
+              </SubmitButton>
+            </>
+          )}
+        </form>
       </div>
-      <div className="py-2"></div>
     </div>
   );
 }
