@@ -194,9 +194,12 @@ export default function YourEducation({
                 </div>
               </div>
               <div className="flex flex-col w-full py-2 px-1">
-                <ul>
+                <ul className="">
                   {userEducation.map((education: any) => (
-                    <li className="py-3" key={education.id}>
+                    <li
+                      className="mt-3 p-2 py-3 rounded border border-black "
+                      key={education.id}
+                    >
                       <form action={deleteEducation}>
                         <label hidden htmlFor="resume_id" />
                         <input
@@ -216,7 +219,6 @@ export default function YourEducation({
                           <button type="submit">Delete</button>
                         </div>
                       </form>
-
                       <form
                         onSubmit={() => setEdited(false)}
                         action={updateUserEducation}
@@ -337,6 +339,13 @@ export default function YourEducation({
                             ></input>
                           </div>
                         </div>
+                        {edited && (
+                          <SubmitButton className={""}>
+                            <div className="bg-yellow-400 my-4 p-2 text-center w-auto animate-pulse">
+                              Save Change
+                            </div>
+                          </SubmitButton>
+                        )}
                       </form>
                     </li>
                   ))}
@@ -400,7 +409,6 @@ export default function YourEducation({
           </form>
         </div>
       </div>
-      <div className="py-2"></div>
     </div>
   );
 }

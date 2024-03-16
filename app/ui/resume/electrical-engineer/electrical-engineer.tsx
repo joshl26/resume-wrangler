@@ -27,14 +27,16 @@ interface Props {
   userEducation: any;
   userCertifications: any;
   selectedResumeHighlightColor: any;
-  showSocials: any;
-  showSkills: any;
-  showSkillProgress: any;
-  showEducation: any;
-  showCustomSectionOne: any;
+  show_social_icons: any;
+  show_skills_section: any;
+  show_skill_progress: any;
+  show_education_section: any;
+  show_custom_section_one: any;
+  show_custom_section_two: any;
 }
 
 export default async function ElectricalEngineer(props: Props) {
+  console.log(props.resume);
   return (
     <Page>
       <div className="flex flex-row">
@@ -254,7 +256,8 @@ export default async function ElectricalEngineer(props: Props) {
               </div>
             </div>
 
-            {props?.showSocials === "true" ? (
+            {props?.show_social_icons ||
+            props?.resume?.show_social_icons === "true" ? (
               <>
                 {props?.user?.linked_in === "" ? (
                   ""
@@ -366,7 +369,8 @@ export default async function ElectricalEngineer(props: Props) {
               ""
             )}
           </div>
-          {props.showSkills === "true" ? (
+          {props.show_skills_section ||
+          props?.resume?.show_skills_section === "true" ? (
             <div className="flex flex-col pb-3 pt-2">
               <h2
                 className={clsx(
@@ -387,7 +391,8 @@ export default async function ElectricalEngineer(props: Props) {
                     >
                       {userSkill.skill}
                     </p>
-                    {props.showSkillProgress === "true" ? (
+                    {props.show_skill_progress ||
+                    props?.resume?.show_skill_progress === "true" ? (
                       <div className="progress-container ">
                         <div
                           className={clsx(
@@ -418,7 +423,8 @@ export default async function ElectricalEngineer(props: Props) {
           ) : (
             ""
           )}
-          {props.showEducation === "true" ? (
+          {props.show_education_section ||
+          props.resume.show_education_section === "true" ? (
             <div className="flex flex-row pb-3 pt-2">
               <ul>
                 <h1
@@ -470,7 +476,8 @@ export default async function ElectricalEngineer(props: Props) {
           ) : (
             ""
           )}
-          {props.showCustomSectionOne === "true" ? (
+          {props.show_custom_section_one ||
+          props.resume.show_custom_section_one === "true" ? (
             <div className="flex flex-row pb-3">
               <ul>
                 <h2

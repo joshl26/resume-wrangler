@@ -171,17 +171,18 @@ export default function ResumeStyling({
                 body_font={selectedResumeBodyFont}
                 color={selectedResumeColor}
                 selectedResumeHighlightColor={selectedResumeHighlightColor}
-                showSocials={showSocials}
+                show_social_icons={showSocials}
                 user={user}
                 resume={resume}
                 userWorkExperiences={userWorkExperiences}
                 userSkills={userSkills}
                 userEducation={userEducation}
                 userCertifications={userCertifications}
-                showSkills={showSkills}
-                showSkillProgress={showSkillProgress}
-                showEducation={showEducation}
-                showCustomSectionOne={showCustomSectionOne}
+                show_skills_section={showSkills}
+                show_skill_progress={showSkillProgress}
+                show_education_section={showEducation}
+                show_custom_section_one={showCustomSectionOne}
+                show_custom_section_two={showCustomSectionTwo}
               />
             </Suspense>
           )}
