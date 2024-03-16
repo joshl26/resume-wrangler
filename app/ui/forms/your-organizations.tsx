@@ -1,4 +1,8 @@
-import { createOrganization, deleteOrganization } from "@/app/lib/actions";
+import {
+  createOrganization,
+  deleteOrganization,
+  updateOrganizationSection,
+} from "@/app/lib/actions";
 import { use, useState } from "react";
 import { SubmitButton } from "../submit-button";
 
@@ -242,9 +246,40 @@ export default function YourOrganizations({
           ""
         )}
 
-        <form onSubmit={() => setEdited(false)}>
+        <form
+          action={updateOrganizationSection}
+          onSubmit={() => setEdited(false)}
+        >
           <div className="flex flex-row py-2">
             <div className="px-1 flex align-middle">
+              <label hidden htmlFor="user_id" />
+              <input
+                hidden
+                readOnly
+                id="user_id"
+                name="user_id"
+                value={user.id}
+                onChange={() => {}}
+              />
+              <label hidden htmlFor="resume_id" />
+              <input
+                hidden
+                readOnly
+                id="resume_id"
+                name="resume_id"
+                value={resume.id}
+                onChange={() => {}}
+              />
+              <label htmlFor="show_custom_section_one" hidden />
+              <input
+                hidden
+                readOnly
+                name="show_custom_section_one"
+                id="show_custom_section_one"
+                type="text"
+                value={showCustomSectionOne}
+                onChange={() => {}}
+              />
               <input
                 className="m-auto bg-slate-200 rounded"
                 type="checkbox"

@@ -301,6 +301,18 @@ const DeleteOrganizationSchema = z.object({
   }),
 });
 
+const UpdateOrganizationsSectionSchema = z.object({
+  user_id: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  resume_id: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  show_custom_section_one: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+});
+
 const CreateOrganizationSchema = z.object({
   user_id: z.string({
     invalid_type_error: "Please enter a string.",
@@ -1549,6 +1561,42 @@ export async function updateEducationSection(formData: FormData) {
     const data = await conn.query(query1);
 
     console.log(query1);
+  } catch (error) {
+    return { message: `Database Error: Failed to Update Invoice. ${error}` };
+  }
+
+  revalidatePath(`/dashboard/resume/edit/${resume_id}`);
+  redirect(`/dashboard/resume/edit/${resume_id}`);
+}
+
+export async function updateOrganizationSection(formData: FormData) {
+  // console.log(formData);
+
+  const validatedFields = UpdateOrganizationsSectionSchema.safeParse({
+    user_id: formData.get("user_id"),
+    resume_id: formData.get("resume_id"),
+    show_custom_section_one: formData.get("show_custom_section_one"),
+  });
+
+  // console.log(validatedFields);
+
+  // // console.log(validatedFields);
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: "Missing Fields. Failed to Create user skill.",
+    };
+  }
+
+  const { user_id, resume_id, show_custom_section_one } = validatedFields.data;
+  // //   // console.log(user_id, resume_id, show_skills_section, show_skill_progress);
+
+  try {
+    const query1 = `UPDATE resumes SET show_custom_section_one = '${show_custom_section_one}' WHERE id = '${resume_id}'`;
+
+    const data = await conn.query(query1);
+
+    // console.log(query1);
   } catch (error) {
     return { message: `Database Error: Failed to Update Invoice. ${error}` };
   }

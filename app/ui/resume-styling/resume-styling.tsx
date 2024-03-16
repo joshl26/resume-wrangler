@@ -179,6 +179,7 @@ export default function ResumeStyling({
                 showSkills={showSkills}
                 showSkillProgress={showSkillProgress}
                 showEducation={showEducation}
+                showCustomSectionOne={showCustomSectionOne}
               />
             </Suspense>
           )}
