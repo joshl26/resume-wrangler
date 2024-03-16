@@ -55,6 +55,8 @@ export default function ResumeStyling({
   const [selectedResumeHighlightColor, setSelectedResumeHighlightColor] =
     useState(resume?.highlight_color);
 
+  const [showSocials, setShowSocials] = useState(user?.show_socials);
+
   return (
     <main className="flex w-full">
       <div className="flex flex-row h-full w-full">
