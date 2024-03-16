@@ -30,6 +30,7 @@ interface Props {
   showSocials: any;
   showSkills: any;
   showSkillProgress: any;
+  showEducation: any;
 }
 
 export default async function ElectricalEngineer(props: Props) {
@@ -417,54 +418,58 @@ export default async function ElectricalEngineer(props: Props) {
             ""
           )}
 
-          <div className="flex flex-row pb-3 pt-2">
-            <ul>
-              <h1
-                className={clsx(
-                  "font-bold",
-                  props?.heading_font || props?.resume?.heading_font
-                )}
-              >
-                EDUCATION
-              </h1>
-              {props?.userEducation?.map((userEducation: any) => (
-                <li className="flex flex-col pt-2" key={userEducation.id}>
-                  <h2
-                    className={clsx(
-                      "font-bold text-sm",
-                      props?.heading_font || props?.resume?.heading_font
-                    )}
-                  >
-                    {userEducation?.institution_name}
-                  </h2>
-                  <p
-                    className={clsx(
-                      "text-sm",
-                      props?.body_font || props?.resume?.body_font
-                    )}
-                  >
-                    {userEducation?.location}
-                  </p>
-                  <p
-                    className={clsx(
-                      "text-sm",
-                      props?.body_font || props?.resume?.body_font
-                    )}
-                  >
-                    {userEducation?.start_date} - {userEducation?.end_date}
-                  </p>
-                  <p
-                    className={clsx(
-                      "text-sm italic font-black",
-                      props?.body_font || props?.resume?.body_font
-                    )}
-                  >
-                    {userEducation?.program}
-                  </p>
-                </li>
-              ))}
-            </ul>
-          </div>
+          {props.showEducation === "true" ? (
+            <div className="flex flex-row pb-3 pt-2">
+              <ul>
+                <h1
+                  className={clsx(
+                    "font-bold",
+                    props?.heading_font || props?.resume?.heading_font
+                  )}
+                >
+                  EDUCATION
+                </h1>
+                {props?.userEducation?.map((userEducation: any) => (
+                  <li className="flex flex-col pt-2" key={userEducation.id}>
+                    <h2
+                      className={clsx(
+                        "font-bold text-sm",
+                        props?.heading_font || props?.resume?.heading_font
+                      )}
+                    >
+                      {userEducation?.institution_name}
+                    </h2>
+                    <p
+                      className={clsx(
+                        "text-sm",
+                        props?.body_font || props?.resume?.body_font
+                      )}
+                    >
+                      {userEducation?.location}
+                    </p>
+                    <p
+                      className={clsx(
+                        "text-sm",
+                        props?.body_font || props?.resume?.body_font
+                      )}
+                    >
+                      {userEducation?.start_date} - {userEducation?.end_date}
+                    </p>
+                    <p
+                      className={clsx(
+                        "text-sm italic font-black",
+                        props?.body_font || props?.resume?.body_font
+                      )}
+                    >
+                      {userEducation?.program}
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : (
+            ""
+          )}
           <div className="flex flex-row pb-3">
             <ul>
               <h2

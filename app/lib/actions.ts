@@ -241,6 +241,18 @@ const CreateEducationSchema = z.object({
   }),
 });
 
+const UpdateEducationSectionSchema = z.object({
+  user_id: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  resume_id: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  show_education_section: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+});
+
 const UpdateEducationSchema = z.object({
   education_id: z.string({
     invalid_type_error: "Please enter a string.",
@@ -1471,7 +1483,7 @@ export async function updateUserEducation(formData: FormData) {
   redirect(`/dashboard/resume/edit/${resume_id}`);
 }
 
-export async function updateSkills(formData: FormData) {
+export async function updateSkillsSection(formData: FormData) {
   // console.log(formData);
 
   const validatedFields = UpdateSkillsSectionSchema.safeParse({
@@ -1497,6 +1509,42 @@ export async function updateSkills(formData: FormData) {
 
   try {
     const query1 = `UPDATE resumes SET show_skill_progress = '${show_skill_progress}', show_skills_section = '${show_skills_section}' WHERE id = '${resume_id}'`;
+
+    const data = await conn.query(query1);
+
+    console.log(query1);
+  } catch (error) {
+    return { message: `Database Error: Failed to Update Invoice. ${error}` };
+  }
+
+  revalidatePath(`/dashboard/resume/edit/${resume_id}`);
+  redirect(`/dashboard/resume/edit/${resume_id}`);
+}
+
+export async function updateEducationSection(formData: FormData) {
+  console.log(formData);
+
+  const validatedFields = UpdateEducationSectionSchema.safeParse({
+    user_id: formData.get("user_id"),
+    resume_id: formData.get("resume_id"),
+    show_education_section: formData.get("show_education_section"),
+  });
+
+  console.log(validatedFields);
+
+  // console.log(validatedFields);
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: "Missing Fields. Failed to Create user skill.",
+    };
+  }
+
+  const { user_id, resume_id, show_education_section } = validatedFields.data;
+  //   // console.log(user_id, resume_id, show_skills_section, show_skill_progress);
+
+  try {
+    const query1 = `UPDATE resumes SET show_education_section = '${show_education_section}' WHERE id = '${resume_id}'`;
 
     const data = await conn.query(query1);
 

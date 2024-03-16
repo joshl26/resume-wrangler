@@ -1,7 +1,7 @@
 import {
   createUserSkill,
   deleteUserSkill,
-  updateSkills,
+  updateSkillsSection,
 } from "@/app/lib/actions";
 import { useState } from "react";
 import { SubmitButton } from "../submit-button";
@@ -218,7 +218,7 @@ export default function YourSkills({
         )}
         <form
           onSubmit={() => setEdited(false)}
-          action={updateSkills}
+          action={updateSkillsSection}
           className="flex flex-col"
         >
           {showSkills === "true" ? (

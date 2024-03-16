@@ -64,7 +64,7 @@ export default function ResumeStyling({
   );
 
   const [showEducation, setShowEducation] = useState(
-    resume?.show_education_skills
+    resume?.show_education_section
   );
 
   const [showCustomSectionOne, setShowCustomSectionOne] = useState(
@@ -119,9 +119,11 @@ export default function ResumeStyling({
             resume={resume}
             user={user}
             userEducation={userEducation}
+            showEducation={showEducation}
+            setShowEducation={setShowEducation}
           />
           <div className="py-2"></div>
-          <YourWorkExperiences
+          {/* <YourWorkExperiences
             userWorkExperiences={userWorkExperiences}
             user={user}
             resume={resume}
@@ -137,7 +139,7 @@ export default function ResumeStyling({
             resume={resume}
             user={user}
             userCertifications={userCertifications}
-          />
+          /> */}
           <div className="p-2 text-center">
             <a
               href={`/api/pdf?resumeId=${resume?.id}&userEmail=${user?.email}`}
@@ -174,6 +176,7 @@ export default function ResumeStyling({
                 userCertifications={userCertifications}
                 showSkills={showSkills}
                 showSkillProgress={showSkillProgress}
+                showEducation={showEducation}
               />
             </Suspense>
           )}
