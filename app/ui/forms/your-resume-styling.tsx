@@ -20,6 +20,7 @@ export default function YourResumeStyling({
   selectedResumeHeadingFont,
   selectedResumeColor,
   selectedResumeHighlightColor,
+  
 }: {
   resume: any;
   resumeTemplates: any;

@@ -27,6 +27,7 @@ interface Props {
   userEducation: any;
   userCertifications: any;
   selectedResumeHighlightColor: any;
+  showSocials: any;
 }
 
 export default async function ElectricalEngineer(props: Props) {
@@ -249,7 +250,7 @@ export default async function ElectricalEngineer(props: Props) {
               </div>
             </div>
 
-            {props?.resume?.show_social_icons === "true" ? (
+            {props?.showSocials === "true" ? (
               <>
                 {props?.user?.linked_in === "" ? (
                   ""
