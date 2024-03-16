@@ -542,7 +542,7 @@ export async function updateSocials(
   } = validatedFields.data;
 
   try {
-    const query = `UPDATE users SET linked_in = '${linked_in}', twitter = '${twitter}', facebook = '${facebook}', instagram = '${instagram}', show_socials = '${show_socials}', github = '${github}' WHERE id = '${id}'`;
+    const query = `UPDATE users SET linked_in = '${linked_in}', twitter = '${twitter}', facebook = '${facebook}', instagram = '${instagram}', github = '${github}' WHERE id = '${id}'`;
     // console.log(query);
 
     const data = await conn.query(query);
@@ -550,7 +550,7 @@ export async function updateSocials(
     const query2 = `UPDATE resumes SET show_social_icons = '${show_socials}' WHERE id = '${resume_id}'`;
 
     const data2 = await conn.query(query2);
-    // console.log(data);
+    //console.log(query2);
 
     // await sql`
     //     UPDATE invoices
