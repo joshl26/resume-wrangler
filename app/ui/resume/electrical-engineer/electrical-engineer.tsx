@@ -257,7 +257,7 @@ export default async function ElectricalEngineer(props: Props) {
               </div>
             </div>
 
-            {props?.show_social_icons ||
+            {props?.show_social_icons === "true" ||
             props?.resume?.show_social_icons === "true" ? (
               <>
                 {props?.user?.linked_in === "" ? (
@@ -370,7 +370,7 @@ export default async function ElectricalEngineer(props: Props) {
               ""
             )}
           </div>
-          {props.show_skills_section ||
+          {props.show_skills_section === "true" ||
           props?.resume?.show_skills_section === "true" ? (
             <div className="flex flex-col pb-3 pt-2">
               <h2
@@ -424,7 +424,7 @@ export default async function ElectricalEngineer(props: Props) {
           ) : (
             ""
           )}
-          {props.show_education_section ||
+          {props.show_education_section === "true" ||
           props.resume.show_education_section === "true" ? (
             <div className="flex flex-row pb-3 pt-2">
               <ul>
