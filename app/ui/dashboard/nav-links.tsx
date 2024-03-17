@@ -16,25 +16,40 @@ import { usePathname } from "next/navigation";
 const links = [
   { name: "Home", href: "/dashboard", icon: HomeIcon },
   {
-    name: "Applications",
+    name: "Your Applications",
     href: "/dashboard/applications",
     icon: ListBulletIcon,
   },
   {
-    name: "Companies",
+    name: "Your Companies",
     href: "/dashboard/companies",
     icon: ListBulletIcon,
   },
   {
-    name: "Cover Letter Templates",
-    href: "/dashboard/cover-templates",
-    icon: DocumentDuplicateIcon,
+    name: "Your Work Experience",
+    href: "/dashboard/work-experience",
+    icon: ListBulletIcon,
   },
   {
-    name: "Cover Letter Styling",
-    href: "/dashboard/cover-styling",
-    icon: DocumentDuplicateIcon,
+    name: "Your Certifications",
+    href: "/dashboard/certification",
+    icon: ListBulletIcon,
   },
+  {
+    name: "Your Organizations",
+    href: "/dashboard/work-experience",
+    icon: ListBulletIcon,
+  },
+  // {
+  //   name: "Cover Letter Templates",
+  //   href: "/dashboard/cover-templates",
+  //   icon: DocumentDuplicateIcon,
+  // },
+  // {
+  //   name: "Cover Letter Styling",
+  //   href: "/dashboard/cover-styling",
+  //   icon: DocumentDuplicateIcon,
+  // },
 
   {
     name: "Resume Templates",

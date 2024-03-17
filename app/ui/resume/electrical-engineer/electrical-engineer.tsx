@@ -494,8 +494,8 @@ export default async function ElectricalEngineer(props: Props) {
                   <li className="flex flex-col" key={userOrganizations?.id}>
                     <p
                       className={clsx(
-                        "text-sm",
-                        props?.body_font || props?.resume?.body_font
+                        "text-sm font-bold",
+                        props?.heading_font || props?.resume?.heading_font
                       )}
                     >
                       {userOrganizations?.name}

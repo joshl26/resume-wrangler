@@ -1,8 +1,13 @@
 import React from "react";
-import AuthTest from "@/app/ui/user-profile/auth-test";
 import { auth } from "@/auth";
+import { getUser } from "@/app/lib/data";
+import { User } from "@/app/lib/definitions";
+import UserEditForm from "@/app/ui/user-profile/edit-form";
 
 export default async function Page() {
   const session = await auth();
-  return <AuthTest session={session} />;
+
+  const user: User = await getUser(session?.user?.email!);
+
+  return <UserEditForm user={user} />;
 }
