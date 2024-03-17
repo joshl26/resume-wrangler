@@ -3,6 +3,7 @@ import {
   deleteCertification,
   updateCertificationSectionTitle,
   updateCertificationsSection,
+  updateUserCertfication,
 } from "@/app/lib/actions";
 import { useState } from "react";
 import { SubmitButton } from "../submit-button";
@@ -20,7 +21,7 @@ export default function YourCertifications({
   showCustomSectionTwo: any;
   setShowCustomSectionTwo: (e: any) => void;
 }) {
-  // console.log(user.id);
+  // console.log(userCertifications);
 
   const [sectionTitle, setSectionTitle] = useState(
     resume?.custom_section_two_name
@@ -216,43 +217,100 @@ export default function YourCertifications({
               </div>
             </form>
             <ul>
-              {userCertifications?.map((certification: any) => (
-                <li key={certification?.id}>
-                  <form action={deleteCertification}>
-                    <label hidden htmlFor="certification_id" />
-                    <input
-                      readOnly
-                      hidden
-                      name="certification_id"
-                      id="certification_id"
-                      value={certification?.id}
-                    />
-                    <label hidden htmlFor="resume_id" />
-                    <input
-                      readOnly
-                      hidden
-                      name="resume_id"
-                      id="resume_id"
-                      value={resume.id}
-                    />
-                    <h2 className="font-bold">{certification?.name}</h2>
+              {userCertifications[0] &&
+                userCertifications?.map((certification: any) => (
+                  <li className="pt-2" key={certification?.id}>
                     <div className="flex flex-row justify-between">
-                      <div className="flex flex-col">
-                        <p>{certification?.location}</p>
-                        <p>
-                          {certification?.start_date} -{" "}
-                          {certification?.end_date}
-                        </p>
-                      </div>
-                      <div className="flex flex-col">
-                        <button type="submit" className="font-bold">
-                          Delete
-                        </button>
-                      </div>
+                      <h2 className="font-bold">{certification?.name}</h2>
+                      <form action={deleteCertification}>
+                        <label hidden htmlFor="certification_id" />
+                        <input
+                          readOnly
+                          hidden
+                          name="certification_id"
+                          id="certification_id"
+                          value={certification?.id}
+                        />
+                        <label hidden htmlFor="resume_id" />
+                        <input
+                          readOnly
+                          hidden
+                          name="resume_id"
+                          id="resume_id"
+                          value={resume.id}
+                        />
+                        <div className="flex flex-col">
+                          <button type="submit" className="font-bold">
+                            Delete
+                          </button>
+                        </div>
+                      </form>
                     </div>
-                  </form>
-                </li>
-              ))}
+                    <form
+                      onSubmit={() => setEdited(false)}
+                      action={updateUserCertfication}
+                    >
+                      <div className="flex flex-col">
+                        <label hidden htmlFor="user_id" />
+                        <input
+                          readOnly
+                          hidden
+                          name="user_id"
+                          id="user_id"
+                          value={user?.id}
+                        />
+                        <label hidden htmlFor="certification_id" />
+                        <input
+                          readOnly
+                          hidden
+                          name="certification_id"
+                          id="certification_id"
+                          value={certification?.id}
+                        />
+                        <label hidden htmlFor="resume_id" />
+                        <input
+                          readOnly
+                          hidden
+                          name="resume_id"
+                          id="resume_id"
+                          value={resume.id}
+                        />
+                        <label className="py-1" htmlFor="certification_name">
+                          Name
+                        </label>
+                        <input
+                          required
+                          id="certification_name"
+                          name="certification_name"
+                          className="rounded bg-slate-200"
+                          defaultValue={certification?.name}
+                          onChange={(e) => onChangeHandler(e)}
+                          placeholder="Title, Activity, name, etc.."
+                        ></input>
+                        <label className="py-1" htmlFor="location_name">
+                          Location
+                        </label>
+                        <input
+                          required
+                          id="location_name"
+                          name="location_name"
+                          className="rounded bg-slate-200"
+                          defaultValue={certification?.location}
+                          onChange={(e) => onChangeHandler(e)}
+                          placeholder="Title, Activity, name, etc.."
+                        ></input>
+                      </div>
+                      {edited && (
+                        <div>
+                          <div style={{ height: "0.5rem" }} />
+                          <SubmitButton className="bg-yellow-400 my-4 p-2 text-center w-auto animate-pulse">
+                            Save Change
+                          </SubmitButton>
+                        </div>
+                      )}
+                    </form>
+                  </li>
+                ))}
             </ul>
           </>
         ) : (
@@ -260,7 +318,7 @@ export default function YourCertifications({
         )}
 
         <form
-          onSubmit={() => setEdited(false)}
+          onSubmit={() => setEditSection(false)}
           action={updateCertificationsSection}
         >
           <label hidden htmlFor="user_id" />
@@ -305,7 +363,7 @@ export default function YourCertifications({
               <p>Show {sectionTitle} section?</p>
             </div>
           </div>
-          {edited && (
+          {editSection && (
             <>
               <div style={{ height: "0.5rem" }} />
               <SubmitButton className="bg-yellow-400 my-4 p-2 text-center w-auto animate-pulse">

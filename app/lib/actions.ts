@@ -409,6 +409,24 @@ const UpdateCertificationsSectionSchema = z.object({
   }),
 });
 
+const UpdateCertificationSchema = z.object({
+  user_id: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  resume_id: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  certification_id: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  certification_name: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  certification_location: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+});
+
 const CreateWorkExperienceSchema = z.object({
   user_id: z.string({
     invalid_type_error: "Please enter a string.",
@@ -1776,6 +1794,42 @@ export async function updateCertificationSectionTitle(formData: FormData) {
 
   try {
     const query = `UPDATE resumes SET custom_section_two_name = '${section_title}' WHERE id = '${resume_id}'`;
+    const data = await conn.query(query);
+    // console.log(query1);
+  } catch (error) {
+    return { message: `Database Error: Failed to Update Invoice. ${error}` };
+  }
+  revalidatePath(`/dashboard/resume/edit/${resume_id}`);
+  redirect(`/dashboard/resume/edit/${resume_id}`);
+}
+
+export async function updateUserCertfication(formData: FormData) {
+  console.log(formData);
+  const validatedFields = UpdateCertificationSchema.safeParse({
+    user_id: formData.get("user_id"),
+    certification_id: formData.get("certification_id"),
+    resume_id: formData.get("resume_id"),
+    certification_name: formData.get("certification_name"),
+    certification_location: formData.get("location_name"),
+  });
+  // console.log(validatedFields);
+  // // // console.log(validatedFields);
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: "Missing Fields. Failed to Create user skill.",
+    };
+  }
+  const {
+    user_id,
+    resume_id,
+    certification_id,
+    certification_name,
+    certification_location,
+  } = validatedFields.data;
+
+  try {
+    const query = `UPDATE user_custom_section_two SET name = '${certification_name}', location = '${certification_location}' WHERE id = '${certification_id}'`;
     const data = await conn.query(query);
     // console.log(query1);
   } catch (error) {

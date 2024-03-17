@@ -97,7 +97,7 @@ export default async function ElectricalEngineer(props: Props) {
           <div className="flex flex-row"></div>{" "}
           <ul className="px-3 py-2">
             {props?.userWorkExperiences?.map((userWorkExperience: any) => (
-              <li className="list-disc py-2" key={userWorkExperience.id}>
+              <li className="list-disc py-2" key={userWorkExperience?.id}>
                 <h2
                   className={clsx(
                     "font-bold",
@@ -383,7 +383,7 @@ export default async function ElectricalEngineer(props: Props) {
               </h2>
               <ul className="pt-2">
                 {props?.userSkills?.map((userSkill: any) => (
-                  <li className="flex flex-col py-[3px]" key={userSkill.id}>
+                  <li className="flex flex-col py-[3px]" key={userSkill?.id}>
                     <p
                       className={clsx(
                         "text-sm font-bold",
@@ -437,7 +437,7 @@ export default async function ElectricalEngineer(props: Props) {
                   EDUCATION
                 </h1>
                 {props?.userEducation?.map((userEducation: any) => (
-                  <li className="flex flex-col pt-2" key={userEducation.id}>
+                  <li className="flex flex-col pt-2" key={userEducation?.id}>
                     <h2
                       className={clsx(
                         "font-bold text-sm",
@@ -515,7 +515,7 @@ export default async function ElectricalEngineer(props: Props) {
           ) : (
             ""
           )}
-          {props.show_custom_section_one ||
+          {props.show_custom_section_two === "true" ||
           props.resume.show_custom_section_two === "true" ? (
             <div className="flex flex-row pb-3">
               <ul>
