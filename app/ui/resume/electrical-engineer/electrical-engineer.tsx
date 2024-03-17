@@ -491,14 +491,14 @@ export default async function ElectricalEngineer(props: Props) {
                   {props?.resume?.custom_section_one_name}
                 </h2>
                 {props?.userOrganizations?.map((userOrganizations: any) => (
-                  <li className="flex flex-col" key={userOrganizations.id}>
+                  <li className="flex flex-col" key={userOrganizations?.id}>
                     <p
                       className={clsx(
                         "text-sm",
                         props?.body_font || props?.resume?.body_font
                       )}
                     >
-                      {userOrganizations.name}
+                      {userOrganizations?.name}
                     </p>
                     <p
                       className={clsx(
@@ -528,14 +528,14 @@ export default async function ElectricalEngineer(props: Props) {
                   {props?.resume?.custom_section_two_name}
                 </h2>
                 {props?.userCertifications?.map((userCertification: any) => (
-                  <li className="flex flex-col" key={userCertification.id}>
+                  <li className="flex flex-col" key={userCertification?.id}>
                     <p
                       className={clsx(
                         "text-sm",
                         props?.body_font || props?.resume?.body_font
                       )}
                     >
-                      {userCertification.name}
+                      {userCertification?.name}
                     </p>
                     <p
                       className={clsx(
