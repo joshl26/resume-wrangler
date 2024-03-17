@@ -127,7 +127,7 @@ export default function ResumeStyling({
             userWorkExperiences={userWorkExperiences}
             user={user}
             resume={resume}
-          /> */}
+          /> 
           <div className="py-2"></div>
           <YourOrganizations
             user={user}
@@ -135,15 +135,15 @@ export default function ResumeStyling({
             userOrganizations={userOrganizations}
             showCustomSectionOne={showCustomSectionOne}
             setShowCustomSectionOne={setShowCustomSectionOne}
-          />
-          {/* <div className="py-2"></div>
+          />*/}
+          <div className="py-2"></div>
           <YourCertifications
             resume={resume}
             user={user}
             userCertifications={userCertifications}
             showCustomSectionTwo={showCustomSectionTwo}
             setShowCustomSectionTwo={setShowCustomSectionTwo}
-          /> */}
+          />
           <div className="p-2 text-center">
             <a
               href={`/api/pdf?resumeId=${resume?.id}&userEmail=${user?.email}`}

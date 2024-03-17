@@ -1,6 +1,7 @@
 import {
   createCertification,
   deleteCertification,
+  updateCertificationSectionTitle,
   updateCertificationsSection,
 } from "@/app/lib/actions";
 import { useState } from "react";
@@ -26,6 +27,24 @@ export default function YourCertifications({
   );
 
   const [edited, setEdited] = useState(false);
+  const [editSection, setEditSection] = useState(false);
+  const [editSectionTitle, setEditSectionTitle] = useState(false);
+
+  const onChangeHandler = (e: any) => {
+    if (edited === false) {
+      setEdited(true);
+    }
+  };
+
+  const setSectionTitleOnChangeHandler = (e: any) => {
+    console.log(e);
+
+    setSectionTitle(e);
+
+    if (edited === false) {
+      setEditSectionTitle(true);
+    }
+  };
 
   const showCertificationsOnChangeHandler = (e: any) => {
     console.log(e.target.checked);
@@ -36,9 +55,22 @@ export default function YourCertifications({
     }
 
     if (edited === false) {
-      setEdited(true);
+      setEditSection(true);
     }
   };
+
+  // const showCertificationsOnChangeHandler = (e: any) => {
+  //   console.log(e.target.checked);
+  //   if (e.target.checked === true) {
+  //     setShowCustomSectionTwo("true");
+  //   } else {
+  //     setShowCustomSectionTwo("false");
+  //   }
+
+  //   if (edited === false) {
+  //     setEdited(true);
+  //   }
+  // };
 
   return (
     <div className="rounded border border-black w-full px-2">
@@ -58,6 +90,54 @@ export default function YourCertifications({
         </div>
         {showCustomSectionTwo === "true" ? (
           <>
+            <form
+              onSubmit={() => setEditSectionTitle(false)}
+              action={updateCertificationSectionTitle}
+              className="pb-2"
+            >
+              <div className="flex flex-col">
+                <label hidden htmlFor="resume_id" />
+                <input
+                  readOnly
+                  hidden
+                  name="resume_id"
+                  id="resume_id"
+                  value={resume.id}
+                />
+                <label hidden htmlFor="user_id" />
+                <input
+                  readOnly
+                  hidden
+                  name="user_id"
+                  id="user_id"
+                  value={user.id}
+                />
+                <label className="py-1" htmlFor="section_title">
+                  Section Title
+                </label>
+                <input
+                  required
+                  type="text"
+                  maxLength={14}
+                  id="section_title"
+                  name="section_title"
+                  className="rounded bg-slate-200"
+                  defaultValue={sectionTitle}
+                  onChange={(e) =>
+                    setSectionTitleOnChangeHandler(e.target.value)
+                  }
+                  placeholder="Section Title"
+                ></input>
+              </div>
+              {editSectionTitle && (
+                <>
+                  <div style={{ height: "0.5rem" }} />
+                  <SubmitButton className="bg-yellow-400 my-4 p-2 text-center w-auto animate-pulse">
+                    Save Change
+                  </SubmitButton>
+                </>
+              )}
+            </form>
             <form action={createCertification} className="flex flex-row w-auto">
               <div className="flex flex-col w-full py-1 px-1">
                 <label hidden htmlFor="resume_id" />
@@ -76,10 +156,11 @@ export default function YourCertifications({
                   id="user_id"
                   defaultValue={user.id}
                 />
-                <label className="py-1" htmlFor="section_title">
+                <label hidden className="py-1" htmlFor="section_title">
                   Section Title
                 </label>
                 <input
+                  hidden
                   required
                   type="text"
                   maxLength={14}

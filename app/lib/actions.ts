@@ -313,6 +313,18 @@ const UpdateOrganizationsSectionSchema = z.object({
   }),
 });
 
+const UpdateOrganizationsSectionTitleSchema = z.object({
+  user_id: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  resume_id: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  section_title: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+});
+
 const UpdateOrganizationSchema = z.object({
   user_id: z.string({
     invalid_type_error: "Please enter a string.",
@@ -1276,7 +1288,7 @@ export async function deleteCertification(formData: FormData) {
 }
 
 export async function createCertification(formData: FormData) {
-  // console.log(formData);
+  console.log(formData);
   const validatedFields = CreateCertificationSchema.safeParse({
     user_id: formData.get("user_id"),
     section_title: formData.get("section_title"),
@@ -1706,6 +1718,64 @@ export async function updateUserOrganization(formData: FormData) {
 
   try {
     const query = `UPDATE user_custom_section_one SET name = '${organization_name}', location = '${organization_location}', start_date = '${organization_start}', end_date = '${organization_end}', description = '${organization_description}' WHERE id = '${organization_id}'`;
+    const data = await conn.query(query);
+    // console.log(query1);
+  } catch (error) {
+    return { message: `Database Error: Failed to Update Invoice. ${error}` };
+  }
+  revalidatePath(`/dashboard/resume/edit/${resume_id}`);
+  redirect(`/dashboard/resume/edit/${resume_id}`);
+}
+
+export async function updateOrganizationSectionTitle(formData: FormData) {
+  console.log(formData);
+  const validatedFields = UpdateOrganizationsSectionTitleSchema.safeParse({
+    user_id: formData.get("user_id"),
+    resume_id: formData.get("resume_id"),
+    section_title: formData.get("section_title"),
+  });
+
+  console.log(validatedFields);
+  // // // console.log(validatedFields);
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: "Missing Fields. Failed to Create user skill.",
+    };
+  }
+  const { user_id, resume_id, section_title } = validatedFields.data;
+
+  try {
+    const query = `UPDATE resumes SET custom_section_one_name = '${section_title}' WHERE id = '${resume_id}'`;
+    const data = await conn.query(query);
+    // console.log(query1);
+  } catch (error) {
+    return { message: `Database Error: Failed to Update Invoice. ${error}` };
+  }
+  revalidatePath(`/dashboard/resume/edit/${resume_id}`);
+  redirect(`/dashboard/resume/edit/${resume_id}`);
+}
+
+export async function updateCertificationSectionTitle(formData: FormData) {
+  console.log(formData);
+  const validatedFields = UpdateOrganizationsSectionTitleSchema.safeParse({
+    user_id: formData.get("user_id"),
+    resume_id: formData.get("resume_id"),
+    section_title: formData.get("section_title"),
+  });
+
+  console.log(validatedFields);
+  // // // // console.log(validatedFields);
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: "Missing Fields. Failed to Create user skill.",
+    };
+  }
+  const { user_id, resume_id, section_title } = validatedFields.data;
+
+  try {
+    const query = `UPDATE resumes SET custom_section_two_name = '${section_title}' WHERE id = '${resume_id}'`;
     const data = await conn.query(query);
     // console.log(query1);
   } catch (error) {

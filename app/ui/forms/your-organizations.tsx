@@ -2,6 +2,7 @@ import {
   createOrganization,
   deleteOrganization,
   updateOrganizationSection,
+  updateOrganizationSectionTitle,
   updateUserOrganization,
 } from "@/app/lib/actions";
 import { useState } from "react";
@@ -77,6 +78,56 @@ export default function YourOrganizations({
         </div>
         {showCustomSectionOne === "true" ? (
           <>
+            <form
+              onSubmit={() => setEditSectionTitle(false)}
+              action={updateOrganizationSectionTitle}
+              className="pb-2"
+            >
+              <div className="flex flex-col">
+                <label hidden htmlFor="resume_id" />
+                <input
+                  readOnly
+                  hidden
+                  name="resume_id"
+                  id="resume_id"
+                  value={resume.id}
+                />
+                <label hidden htmlFor="user_id" />
+                <input
+                  readOnly
+                  hidden
+                  name="user_id"
+                  id="user_id"
+                  value={user.id}
+                />
+
+                <label className="py-1" htmlFor="section_title">
+                  Section Title
+                </label>
+                <input
+                  required
+                  type="text"
+                  maxLength={14}
+                  id="section_title"
+                  name="section_title"
+                  className="rounded bg-slate-200"
+                  defaultValue={sectionTitle}
+                  onChange={(e) =>
+                    setSectionTitleOnChangeHandler(e.target.value)
+                  }
+                  placeholder="Section Title"
+                ></input>
+              </div>
+              {editSectionTitle && (
+                <>
+                  <div style={{ height: "0.5rem" }} />
+                  <SubmitButton className="bg-yellow-400 my-4 p-2 text-center w-auto animate-pulse">
+                    Save Change
+                  </SubmitButton>
+                </>
+              )}
+            </form>
+            <h2 className="py-1">{sectionTitle}</h2>
             <form action={createOrganization} className="flex flex-row w-auto">
               <div className="flex flex-col w-full py-1 px-1">
                 <label hidden htmlFor="resume_id" />
@@ -95,23 +146,7 @@ export default function YourOrganizations({
                   id="user_id"
                   value={user.id}
                 />
-                <label className="py-1" htmlFor="section_title">
-                  Section Title
-                </label>
-                <input
-                  required
-                  type="text"
-                  maxLength={14}
-                  id="section_title"
-                  name="section_title"
-                  className="rounded bg-slate-200"
-                  defaultValue={sectionTitle}
-                  onChange={(e) =>
-                    setSectionTitleOnChangeHandler(e.target.value)
-                  }
-                  placeholder="Section Title"
-                ></input>
-                <h2 className="py-1">{sectionTitle}</h2>
+
                 <div className="rounded border border-black w-full px-2">
                   <div className="flex flex-row w-auto">
                     <div className="flex flex-col w-full py-1 px-1">
