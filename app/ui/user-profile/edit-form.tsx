@@ -1,10 +1,8 @@
 "use client";
 
 import { User } from "@/app/lib/definitions";
-import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { useFormState } from "react-dom";
-import { Button } from "../button";
 import { updateUser, updateSocials } from "@/app/lib/actions";
 import { SubmitButton } from "../submit-button";
 
@@ -23,7 +21,6 @@ const UserDetailsEditForm = ({ user }: { user: User | null }) => {
 
   return (
     <div className="p-3">
-      {" "}
       <h2>Edit User Details</h2>
       <form
         className="flex flex-col p-3 border border-black rounded m-3"
@@ -197,22 +194,6 @@ const UserSocialsEditForm = ({ user }: { user: User | null }) => {
   const updateSocialsWithId = updateSocials.bind(null, user?.id!);
   const [state, dispatch] = useFormState(updateSocialsWithId, initialState);
 
-  const [showSocial, setShowSocial] = useState(user?.show_socials);
-
-  const clickHandler = () => {
-    console.log("click");
-
-    console.log(showSocial);
-
-    if (showSocial === "true") {
-      setShowSocial("false");
-    } else {
-      setShowSocial("true");
-    }
-  };
-
-  useEffect(() => {}, [showSocial, setShowSocial]);
-
   const [edited, setEdited] = useState(false);
 
   const onChangeHandler = (e: any) => {
@@ -262,9 +243,7 @@ const UserSocialsEditForm = ({ user }: { user: User | null }) => {
             />
           </div>
         </div>
-
         <div className="flex flex-row ">
-          {" "}
           <div className="flex flex-col p-1">
             <label
               htmlFor="facebook"
@@ -331,19 +310,6 @@ const UserSocialsEditForm = ({ user }: { user: User | null }) => {
             />
           </div>
         </div>
-
-        {/* <label htmlFor="show_socials">
-          <input
-            type="checkbox"
-            name="show_socials"
-            value="true"
-            checked={true}
-            onClick={clickHandler}
-            id="show_socials"
-          />
-          Show social icons?
-        </label> */}
-
         {edited && (
           <div className="w-1/2 m-auto">
             <div style={{ height: "0.5rem" }} />

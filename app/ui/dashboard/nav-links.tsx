@@ -37,7 +37,7 @@ const links = [
   },
   {
     name: "Your Organizations",
-    href: "/dashboard/work-experience",
+    href: "/dashboard/organizations",
     icon: ListBulletIcon,
   },
   // {
