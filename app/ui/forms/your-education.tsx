@@ -23,6 +23,7 @@ export default function YourEducation({
   // console.log(user);
 
   const [edited, setEdited] = useState(false);
+  const [sectionEdited, setSectionEdited] = useState(false);
 
   const showEducationOnChangeHandler = (e: any) => {
     console.log(e.target.checked);
@@ -32,8 +33,8 @@ export default function YourEducation({
       setShowEducation("false");
     }
 
-    if (edited === false) {
-      setEdited(true);
+    if (sectionEdited === false) {
+      setSectionEdited(true);
     }
   };
 
@@ -356,7 +357,7 @@ export default function YourEducation({
             ""
           )}
           <form
-            onSubmit={() => setEdited(false)}
+            onSubmit={() => setSectionEdited(false)}
             action={updateEducationSection}
           >
             <div className="flex flex-row py-1">
@@ -399,7 +400,7 @@ export default function YourEducation({
                 </label>
               </div>
             </div>
-            {edited && (
+            {sectionEdited && (
               <SubmitButton className={""}>
                 <div className="bg-yellow-400 my-4 p-2 text-center w-auto animate-pulse">
                   Save Change
