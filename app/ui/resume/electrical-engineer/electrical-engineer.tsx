@@ -37,7 +37,7 @@ interface Props {
 }
 
 export default async function ElectricalEngineer(props: Props) {
-  console.log(props.resume);
+  // console.log(props.resume);
   return (
     <Page>
       <div className="flex flex-row">
@@ -518,7 +518,7 @@ export default async function ElectricalEngineer(props: Props) {
           {props.show_custom_section_two === "true" ||
           props.resume.show_custom_section_two === "true" ? (
             <div className="flex flex-row pb-3">
-              <ul>
+              <div className="flex flex-col">
                 <h2
                   className={clsx(
                     "font-bold",
@@ -527,27 +527,30 @@ export default async function ElectricalEngineer(props: Props) {
                 >
                   {props?.resume?.custom_section_two_name}
                 </h2>
-                {props?.userCertifications?.map((userCertification: any) => (
-                  <li className="flex flex-col" key={userCertification?.id}>
-                    <p
-                      className={clsx(
-                        "text-sm",
-                        props?.body_font || props?.resume?.body_font
-                      )}
-                    >
-                      {userCertification?.name}
-                    </p>
-                    <p
-                      className={clsx(
-                        "text-sm",
-                        props?.body_font || props?.resume?.body_font
-                      )}
-                    >
-                      {userCertification?.location}
-                    </p>
-                  </li>
-                ))}
-              </ul>
+                <ul>
+                  {!props?.userCertifications &&
+                    props?.userCertifications?.map((userCertification: any) => (
+                      <li className="flex flex-col" key={userCertification?.id}>
+                        <p
+                          className={clsx(
+                            "text-sm",
+                            props?.body_font || props?.resume?.body_font
+                          )}
+                        >
+                          {userCertification?.name}
+                        </p>
+                        <p
+                          className={clsx(
+                            "text-sm",
+                            props?.body_font || props?.resume?.body_font
+                          )}
+                        >
+                          {userCertification?.location}
+                        </p>
+                      </li>
+                    ))}
+                </ul>
+              </div>
             </div>
           ) : (
             ""
