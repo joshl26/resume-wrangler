@@ -26,6 +26,7 @@ interface Props {
   userSkills: any;
   userEducation: any;
   userCertifications: any;
+  userOrganizations: any;
   selectedResumeHighlightColor: any;
   show_social_icons: any;
   show_skills_section: any;
@@ -476,7 +477,8 @@ export default async function ElectricalEngineer(props: Props) {
           ) : (
             ""
           )}
-          {props.show_custom_section_one ||
+
+          {props.show_custom_section_one === "true" ||
           props.resume.show_custom_section_one === "true" ? (
             <div className="flex flex-row pb-3">
               <ul>
@@ -487,6 +489,43 @@ export default async function ElectricalEngineer(props: Props) {
                   )}
                 >
                   {props?.resume?.custom_section_one_name}
+                </h2>
+                {props?.userOrganizations?.map((userOrganizations: any) => (
+                  <li className="flex flex-col" key={userOrganizations.id}>
+                    <p
+                      className={clsx(
+                        "text-sm",
+                        props?.body_font || props?.resume?.body_font
+                      )}
+                    >
+                      {userOrganizations.name}
+                    </p>
+                    <p
+                      className={clsx(
+                        "text-sm",
+                        props?.body_font || props?.resume?.body_font
+                      )}
+                    >
+                      {userOrganizations?.location}
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : (
+            ""
+          )}
+          {props.show_custom_section_one ||
+          props.resume.show_custom_section_two === "true" ? (
+            <div className="flex flex-row pb-3">
+              <ul>
+                <h2
+                  className={clsx(
+                    "font-bold",
+                    props?.heading_font || props?.resume?.heading_font
+                  )}
+                >
+                  {props?.resume?.custom_section_two_name}
                 </h2>
                 {props?.userCertifications?.map((userCertification: any) => (
                   <li className="flex flex-col" key={userCertification.id}>

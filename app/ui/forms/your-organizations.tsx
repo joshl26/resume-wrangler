@@ -2,8 +2,9 @@ import {
   createOrganization,
   deleteOrganization,
   updateOrganizationSection,
+  updateUserOrganization,
 } from "@/app/lib/actions";
-import { use, useState } from "react";
+import { useState } from "react";
 import { SubmitButton } from "../submit-button";
 
 export default function YourOrganizations({
@@ -26,6 +27,8 @@ export default function YourOrganizations({
   );
 
   const [edited, setEdited] = useState(false);
+  const [editSection, setEditSection] = useState(false);
+  const [editSectionTitle, setEditSectionTitle] = useState(false);
 
   const onChangeHandler = (e: any) => {
     if (edited === false) {
@@ -35,16 +38,11 @@ export default function YourOrganizations({
 
   const setSectionTitleOnChangeHandler = (e: any) => {
     console.log(e);
-    if (e.target.checked === true) {
-      setShowCustomSectionOne("true");
-    } else {
-      setShowCustomSectionOne("false");
-    }
 
     setSectionTitle(e);
 
     if (edited === false) {
-      setEdited(true);
+      setEditSectionTitle(true);
     }
   };
 
@@ -57,7 +55,7 @@ export default function YourOrganizations({
     }
 
     if (edited === false) {
-      setEdited(true);
+      setEditSection(true);
     }
   };
 
@@ -108,7 +106,9 @@ export default function YourOrganizations({
                   name="section_title"
                   className="rounded bg-slate-200"
                   defaultValue={sectionTitle}
-                  // onChange={(e) => setSectionTitleOnChangeHandler(e.target.value)}
+                  onChange={(e) =>
+                    setSectionTitleOnChangeHandler(e.target.value)
+                  }
                   placeholder="Section Title"
                 ></input>
                 <h2 className="py-1">{sectionTitle}</h2>
@@ -207,6 +207,41 @@ export default function YourOrganizations({
               {userOrganizations.map((organization: any) => (
                 <li key={organization.id}>
                   <form action={deleteOrganization}>
+                    <label hidden htmlFor="resume_id" />
+                    <input
+                      readOnly
+                      hidden
+                      name="resume_id"
+                      id="resume_id"
+                      value={resume.id}
+                    />
+                    <label hidden htmlFor="organization_id" />
+                    <input
+                      readOnly
+                      hidden
+                      name="organization_id"
+                      id="organization_id"
+                      value={organization.id}
+                    />
+
+                    <div className="flex flex-row w-full justify-end">
+                      <button type="submit" className="font-bold">
+                        Delete
+                      </button>
+                    </div>
+                  </form>
+                  <form
+                    onSubmit={() => setEdited(false)}
+                    action={updateUserOrganization}
+                  >
+                    <label hidden htmlFor="user_id" />
+                    <input
+                      readOnly
+                      hidden
+                      name="user_id"
+                      id="user_id"
+                      value={user.id}
+                    />
                     <label hidden htmlFor="organization_id" />
                     <input
                       readOnly
@@ -223,20 +258,98 @@ export default function YourOrganizations({
                       id="resume_id"
                       value={resume.id}
                     />
-                    <h2 className="font-bold">{organization.name}</h2>
-                    <div className="flex flex-row justify-between">
-                      <div className="flex flex-col">
-                        <p>{organization.location}</p>
-                        <p>
-                          {organization.start_date} - {organization.end_date}
-                        </p>
+                    {/* <h2 className="font-bold">{organization.name}</h2> */}
+                    <div className="rounded border border-black w-full px-2 ">
+                      <div className="flex flex-row w-auto">
+                        <div className="flex flex-col w-full py-1 px-1">
+                          <label className="py-1" htmlFor="organization_name">
+                            Name
+                          </label>
+                          <input
+                            required
+                            id="organization_name"
+                            name="organization_name"
+                            className="rounded bg-slate-200"
+                            defaultValue={organization.name}
+                            onChange={(e) => onChangeHandler(e)}
+                            placeholder="Title, Activity, name, etc.."
+                          ></input>
+                        </div>
                       </div>
-                      <div className="flex flex-col">
-                        <button type="submit" className="font-bold">
-                          Delete
-                        </button>
+                      <div className="flex flex-row w-auto">
+                        <div className="flex flex-col w-full py-1 px-1">
+                          <label
+                            className="py-1"
+                            htmlFor="organization_location"
+                          >
+                            Location
+                          </label>
+                          <input
+                            id="organization_location"
+                            name="organization_location"
+                            className="rounded bg-slate-200"
+                            defaultValue={organization.location}
+                            onChange={(e) => onChangeHandler(e)}
+                            placeholder="Location"
+                          ></input>
+                        </div>
+                      </div>
+                      <div className="flex flex-row w-auto">
+                        <div className="flex flex-col w-full py-1 px-1">
+                          <label className="py-1" htmlFor="organization_start">
+                            Start Date
+                          </label>
+                          <input
+                            id="organization_start"
+                            name="organization_start"
+                            defaultValue={organization.start_date}
+                            onChange={(e) => onChangeHandler(e)}
+                            className="rounded bg-slate-200"
+                            placeholder="Start Date"
+                          ></input>
+                        </div>
+                      </div>
+                      <div className="flex flex-row w-auto">
+                        <div className="flex flex-col w-full py-1 px-1">
+                          <label className="py-1" htmlFor="organization_end">
+                            End Date
+                          </label>
+                          <input
+                            id="organization_end"
+                            name="organization_end"
+                            defaultValue={organization.end_date}
+                            onChange={(e) => onChangeHandler(e)}
+                            className="rounded bg-slate-200"
+                            placeholder="End Date"
+                          ></input>
+                        </div>
+                      </div>
+                      <div className="flex flex-row w-auto pb-3">
+                        <div className="flex flex-col w-full pt-1  px-1">
+                          <label
+                            className="py-1"
+                            htmlFor="organization_description"
+                          >
+                            Description
+                          </label>
+                          <textarea
+                            id="organization_description"
+                            name="organization_description"
+                            defaultValue={organization.description}
+                            onChange={(e) => onChangeHandler(e)}
+                            className="rounded bg-slate-200"
+                            placeholder="Description"
+                          ></textarea>
+                        </div>
                       </div>
                     </div>
+                    {edited && (
+                      <>
+                        <SubmitButton className="bg-yellow-400 my-4 p-2 text-center w-auto animate-pulse">
+                          Save Change
+                        </SubmitButton>
+                      </>
+                    )}
                   </form>
                 </li>
               ))}
@@ -245,10 +358,10 @@ export default function YourOrganizations({
         ) : (
           ""
         )}
-
+        <div className="py-2"></div>
         <form
           action={updateOrganizationSection}
-          onSubmit={() => setEdited(false)}
+          onSubmit={() => setEditSection(false)}
         >
           <div className="flex flex-row py-2">
             <div className="px-1 flex align-middle">
@@ -292,7 +405,7 @@ export default function YourOrganizations({
               <p>Show {sectionTitle} section?</p>
             </div>
           </div>
-          {edited && (
+          {editSection && (
             <>
               <div style={{ height: "0.5rem" }} />
               <SubmitButton className="bg-yellow-400 my-4 p-2 text-center w-auto animate-pulse">

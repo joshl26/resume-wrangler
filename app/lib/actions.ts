@@ -313,6 +313,33 @@ const UpdateOrganizationsSectionSchema = z.object({
   }),
 });
 
+const UpdateOrganizationSchema = z.object({
+  user_id: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  resume_id: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  organization_id: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  organization_name: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  organization_location: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  organization_start: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  organization_end: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  organization_description: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+});
+
 const CreateOrganizationSchema = z.object({
   user_id: z.string({
     invalid_type_error: "Please enter a string.",
@@ -1636,6 +1663,49 @@ export async function updateCertificationsSection(formData: FormData) {
   // // //   // console.log(user_id, resume_id, show_skills_section, show_skill_progress);
   try {
     const query = `UPDATE resumes SET show_custom_section_two = '${show_custom_section_two}' WHERE id = '${resume_id}'`;
+    const data = await conn.query(query);
+    // console.log(query1);
+  } catch (error) {
+    return { message: `Database Error: Failed to Update Invoice. ${error}` };
+  }
+  revalidatePath(`/dashboard/resume/edit/${resume_id}`);
+  redirect(`/dashboard/resume/edit/${resume_id}`);
+}
+
+export async function updateUserOrganization(formData: FormData) {
+  // console.log(formData);
+  const validatedFields = UpdateOrganizationSchema.safeParse({
+    user_id: formData.get("user_id"),
+    resume_id: formData.get("resume_id"),
+    organization_id: formData.get("organization_id"),
+    organization_name: formData.get("organization_name"),
+    organization_location: formData.get("organization_location"),
+    organization_start: formData.get("organization_start"),
+    organization_end: formData.get("organization_end"),
+    organization_description: formData.get("organization_description"),
+  });
+
+  // console.log(validatedFields);
+  // // console.log(validatedFields);
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: "Missing Fields. Failed to Create user skill.",
+    };
+  }
+  const {
+    user_id,
+    resume_id,
+    organization_id,
+    organization_name,
+    organization_location,
+    organization_start,
+    organization_end,
+    organization_description,
+  } = validatedFields.data;
+
+  try {
+    const query = `UPDATE user_custom_section_one SET name = '${organization_name}', location = '${organization_location}', start_date = '${organization_start}', end_date = '${organization_end}', description = '${organization_description}' WHERE id = '${organization_id}'`;
     const data = await conn.query(query);
     // console.log(query1);
   } catch (error) {

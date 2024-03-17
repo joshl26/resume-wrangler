@@ -79,7 +79,7 @@ export default function ResumeStyling({
     <main className="flex w-full">
       <div className="flex flex-row h-full w-full">
         <div className="flex flex-col h-full w-[400px] overflow-scroll px-3">
-          <YourResumeStyling
+          {/* <YourResumeStyling
             resume={resume}
             resumeTemplates={resumeTemplates}
             resumeColors={resumeColors}
@@ -127,7 +127,7 @@ export default function ResumeStyling({
             userWorkExperiences={userWorkExperiences}
             user={user}
             resume={resume}
-          />
+          /> */}
           <div className="py-2"></div>
           <YourOrganizations
             user={user}
@@ -136,14 +136,14 @@ export default function ResumeStyling({
             showCustomSectionOne={showCustomSectionOne}
             setShowCustomSectionOne={setShowCustomSectionOne}
           />
-          <div className="py-2"></div>
+          {/* <div className="py-2"></div>
           <YourCertifications
             resume={resume}
             user={user}
             userCertifications={userCertifications}
             showCustomSectionTwo={showCustomSectionTwo}
             setShowCustomSectionTwo={setShowCustomSectionTwo}
-          />
+          /> */}
           <div className="p-2 text-center">
             <a
               href={`/api/pdf?resumeId=${resume?.id}&userEmail=${user?.email}`}
@@ -178,6 +178,7 @@ export default function ResumeStyling({
                 userSkills={userSkills}
                 userEducation={userEducation}
                 userCertifications={userCertifications}
+                userOrganizations={userOrganizations}
                 show_skills_section={showSkills}
                 show_skill_progress={showSkillProgress}
                 show_education_section={showEducation}
