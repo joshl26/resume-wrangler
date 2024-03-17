@@ -1440,7 +1440,7 @@ export async function updateUserImage(formData: FormData) {
 }
 
 export async function updateUserWorkExperience(formData: FormData) {
-  // console.log(formData);
+  console.log(formData);
 
   const validatedFields = UpdateWorkExperienceSchema.safeParse({
     experience_id: formData.get("experience_id"),
@@ -1455,7 +1455,7 @@ export async function updateUserWorkExperience(formData: FormData) {
     description_three: formData.get("description_three"),
     description_four: formData.get("description_four"),
   });
-  // console.log(validatedFields);
+  console.log(validatedFields);
   if (!validatedFields.success) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
@@ -1499,8 +1499,12 @@ export async function updateUserWorkExperience(formData: FormData) {
     return { message: `Database Error: Failed to Update Invoice. ${error}` };
   }
 
-  revalidatePath(`/dashboard/resume/edit/${resume_id}`);
+  if(resume_id !== "blank"){
+    revalidatePath(`/dashboard/resume/edit/${resume_id}`);
   redirect(`/dashboard/resume/edit/${resume_id}`);
+  }
+
+  
 }
 
 export async function updateUserEducation(formData: FormData) {

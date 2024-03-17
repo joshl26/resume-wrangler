@@ -18,7 +18,7 @@ export default async function Page() {
               </a>
             </p>
           </div>
-          <div className="flex flex-row gap-6 mt-6 ml-4 mr-4 border-red h-10 bg-slate-200">
+          {/* <div className="flex flex-row gap-6 mt-6 ml-4 mr-4 border-red h-10 bg-slate-200">
             <Button>Your Applications</Button>
             <Button>Cover Letter Templates</Button>
             <Button>Your Cover Letters</Button>
@@ -27,8 +27,7 @@ export default async function Page() {
             <Button>User Profile</Button>
             <Button>Upgrade to PRO</Button>
           </div>
-          {/* <Applications  /> */}
-          <CoverLetters />
+          <CoverLetters /> */}
         </div>
       </Suspense>
     </main>

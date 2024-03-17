@@ -70,12 +70,11 @@ const WorkExperience = ({ workExperiences }: { workExperiences: any }) => {
                     </label>
                   </div>
                 </td> */}
-                <th
-                  scope="row"
-                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                >
-                  {workExperience?.name ? workExperience?.name : "N/A"}
-                </th>
+                <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  {workExperience?.company_name
+                    ? workExperience?.company_name
+                    : "N/A"}
+                </td>
                 <td className="px-6 py-4">
                   {workExperience?.location ? workExperience?.location : "N/A"}
                 </td>
@@ -87,11 +86,6 @@ const WorkExperience = ({ workExperiences }: { workExperiences: any }) => {
                 <td className="px-6 py-4">
                   {workExperience?.end_date ? workExperience?.end_date : "N/A"}
                 </td>
-                {/* <td className="text-left px-6 py-4">
-                  {organization?.description
-                    ? organization?.description
-                    : "N/A"}
-                </td> */}
 
                 <td className="text-left px-6 py-4">
                   <a
@@ -101,6 +95,7 @@ const WorkExperience = ({ workExperiences }: { workExperiences: any }) => {
                     Edit
                   </a>
                   <a
+                    href=""
                     onClick={() => deleteWorkExperience(workExperience.id)}
                     className="font-medium text-red-600 dark:text-red-500 hover:underline ms-3"
                   >
