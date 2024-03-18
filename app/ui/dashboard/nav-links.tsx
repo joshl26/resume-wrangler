@@ -56,11 +56,11 @@ const links = [
     href: "/dashboard/resume",
     icon: DocumentDuplicateIcon,
   },
-  {
-    name: "Resume Styling",
-    href: "/dashboard/resume/edit/1453bf56-d92f-4893-a6a8-34decd76bbd7",
-    icon: DocumentDuplicateIcon,
-  },
+  // {
+  //   name: "Resume Styling",
+  //   href: "/dashboard/resume/edit/1453bf56-d92f-4893-a6a8-34decd76bbd7",
+  //   icon: DocumentDuplicateIcon,
+  // },
   {
     name: "User Profile",
     href: "/dashboard/user-profile",
