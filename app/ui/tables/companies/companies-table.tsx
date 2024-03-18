@@ -92,19 +92,23 @@ const Companies = ({ companies }: { companies: any }) => {
                 </td>
 
                 <td className="text-left px-6 py-4">
-                  <a
-                    href={`/dashboard/companies/edit/${company.id}`}
-                    className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                  >
-                    Edit
-                  </a>
-                  <a
-                    href=""
-                    onClick={() => deleteCompany(company.id)}
-                    className="font-medium text-red-600 dark:text-red-500 hover:underline ms-3"
-                  >
-                    Remove
-                  </a>
+                  <div className="flex flex-row">
+                    {" "}
+                    <a
+                      href={`/dashboard/companies/edit/${company.id}`}
+                      className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                    >
+                      Edit
+                    </a>
+                    <form action={() => deleteCompany(company.id)}>
+                      <button
+                        type="submit"
+                        className="font-medium text-red-600 dark:text-red-500 hover:underline ms-3"
+                      >
+                        Remove
+                      </button>
+                    </form>
+                  </div>
                 </td>
                 {/* </Link> */}
               </tr>

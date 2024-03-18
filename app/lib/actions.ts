@@ -870,20 +870,21 @@ export async function createCompany(formData: FormData) {
 }
 
 export async function deleteCompany(id: string) {
+  console.log(id);
+
   try {
     const query = `DELETE FROM companies WHERE id = ${id}`;
     // console.log(query);
 
     const data = await conn.query(query);
     // console.log(data);
+    revalidatePath("/dashboard/companies");
+    redirect("/dashboard/companies");
   } catch (error) {
     return {
       message: `Database Error: Failed to Delete Company. ${error}`,
     };
   }
-
-  revalidatePath("/dashboard/companies");
-  redirect("/dashboard/companies");
 }
 
 export async function deleteCoverLetter(id: string) {
@@ -1757,8 +1758,14 @@ export async function updateUserOrganization(formData: FormData) {
   } catch (error) {
     return { message: `Database Error: Failed to Update Invoice. ${error}` };
   }
-  revalidatePath(`/dashboard/resume/edit/${resume_id}`);
-  redirect(`/dashboard/resume/edit/${resume_id}`);
+
+  if (resume_id !== "blank") {
+    revalidatePath(`/dashboard/resume/edit/${resume_id}`);
+    redirect(`/dashboard/resume/edit/${resume_id}`);
+  } else {
+    revalidatePath(`/dashboard/organizations`);
+    redirect(`/dashboard/organizations`);
+  }
 }
 
 export async function updateOrganizationSectionTitle(formData: FormData) {

@@ -54,36 +54,39 @@ const Certifications = ({ certifications }: { certifications: any }) => {
                   {certification?.end_date ? certification?.end_date : "N/A"}
                 </td>
                 <td className="text-left px-6 py-4">
-                  <a
-                    href={`/dashboard/certifications/edit/${certification?.id}`}
-                    className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                  >
-                    Edit
-                  </a>
-                  <form action={deleteCertification}>
-                    <label hidden htmlFor="resume_id" />
-                    <input
-                      hidden
-                      id="resume_id"
-                      name="resume_id"
-                      readOnly
-                      value="blank"
-                    />
-                    <label hidden htmlFor="certification_id" />
-                    <input
-                      hidden
-                      id="certification_id"
-                      name="certification_id"
-                      readOnly
-                      value={certification.id}
-                    />
-                    <button
-                      type="submit"
-                      className="font-medium text-red-600 dark:text-red-500 hover:underline ms-3"
+                  <div className="flex flex-row">
+                    {" "}
+                    <a
+                      href={`/dashboard/certifications/edit/${certification?.id}`}
+                      className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                     >
-                      Remove
-                    </button>
-                  </form>
+                      Edit
+                    </a>
+                    <form action={deleteCertification}>
+                      <label hidden htmlFor="resume_id" />
+                      <input
+                        hidden
+                        id="resume_id"
+                        name="resume_id"
+                        readOnly
+                        value="blank"
+                      />
+                      <label hidden htmlFor="certification_id" />
+                      <input
+                        hidden
+                        id="certification_id"
+                        name="certification_id"
+                        readOnly
+                        value={certification.id}
+                      />
+                      <button
+                        type="submit"
+                        className="font-medium text-red-600 dark:text-red-500 hover:underline ms-3"
+                      >
+                        Remove
+                      </button>
+                    </form>
+                  </div>
                 </td>
               </tr>
             ))

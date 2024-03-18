@@ -4,7 +4,7 @@ import { deleteOrganization } from "@/app/lib/actions";
 import Link from "next/link";
 import React from "react";
 
-const Organization = ({ organizations }: { organizations: any }) => {
+const Organizations = ({ organizations }: { organizations: any }) => {
   // console.log(organization.find(({ id }: any) => id === "1").name);
 
   return (
@@ -93,7 +93,7 @@ const Organization = ({ organizations }: { organizations: any }) => {
 
                 <td className="text-left px-6 py-4">
                   <a
-                    href={`/dashboard/organization/edit/${organization.id}`}
+                    href={`/dashboard/organizations/edit/${organization.id}`}
                     className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                   >
                     Edit
@@ -197,4 +197,4 @@ const Organization = ({ organizations }: { organizations: any }) => {
   );
 };
 
-export default Organization;
+export default Organizations;
