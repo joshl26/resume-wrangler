@@ -1,7 +1,5 @@
-import { fetchCertificationById, fetchCompanyById } from "@/app/lib/data";
+import { fetchCertificationById } from "@/app/lib/data";
 import EditCertification from "@/app/ui/forms/edit-certification";
-import EditCompany from "@/app/ui/forms/edit-company";
-import { notFound } from "next/navigation";
 import React from "react";
 
 export default async function Page({ params }: { params: { id: string } }) {
@@ -9,11 +7,13 @@ export default async function Page({ params }: { params: { id: string } }) {
 
   const certification = await fetchCertificationById(id);
 
-  console.log(certification);
-
   if (certification?.length === 0) {
     // notFound();
     throw new Error("Application not found");
   }
-  return <div>{/* <EditCertification certification={certification} /> */}</div>;
+  return (
+    <div>
+      <EditCertification certification={certification} />
+    </div>
+  );
 }

@@ -37,8 +37,8 @@ export default async function Page() {
         </div>
         <div className="flex flex-col px-4">
           <Button className="w-[200px] text-center">
-            <a href="/dashboard/companies/new" className="m-auto">
-              Add new company
+            <a href="/dashboard/certifications/new" className="m-auto">
+              Add new certification
             </a>
           </Button>
         </div>

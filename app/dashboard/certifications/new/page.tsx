@@ -1,8 +1,7 @@
-import { fetchCompanyById, getUser } from "@/app/lib/data";
-import EditCompany from "@/app/ui/forms/edit-company";
+import { getUser } from "@/app/lib/data";
+import NewCertification from "@/app/ui/forms/new-certification";
 import NewCompany from "@/app/ui/forms/new-company";
 import { auth } from "@/auth";
-import { notFound } from "next/navigation";
 import React from "react";
 
 export default async function Page() {
@@ -19,7 +18,7 @@ export default async function Page() {
 
     return (
       <div>
-        <NewCompany user={user} />
+        <NewCertification user={user} />
       </div>
     );
   }

@@ -20,11 +20,11 @@ export default async function EditCompany({ company }: { company: any }) {
         <div className="flex flex-row justify-between">
           <div className="flex flex-col">
             <h1 className="font-bold">Date Created</h1>
-            <p>{company?.created_at.toString().slice(0, 24)}</p>
+            <p>{company?.created_at?.toString().slice(0, 24)}</p>
           </div>
           <div className="flex flex-col">
             <h1 className="font-bold">Date Updated</h1>
-            <p>{company?.updated_at.toString().slice(0, 24)}</p>
+            <p>{company?.updated_at?.toString().slice(0, 24)}</p>
           </div>
         </div>
         <div className="flex flex-col py-2">

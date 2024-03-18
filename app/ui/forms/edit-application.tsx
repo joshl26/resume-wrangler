@@ -1,7 +1,6 @@
 import React from "react";
 import { SubmitButton } from "../submit-button";
 import { updateApplication } from "@/app/lib/actions";
-import { Button } from "../button";
 
 export default async function EditApplication({
   application,
@@ -10,24 +9,10 @@ export default async function EditApplication({
   application: any;
   companies: any;
 }) {
-  async function editApplication(formData: FormData) {
-    "use server";
-
-    // const rawFormData = {
-    //   applicationId: formData.get("application_id"),
-    //   postingText: formData.get("posting_text"),
-    //   isComplete: formData.get("is_complete"),
-    // };
-
-    //console.log(formData);
-
-    await updateApplication(formData);
-  }
-
   //   console.log(application);
   return (
     <div>
-      <form action={editApplication} className="flex flex-col w-[500px] px-1">
+      <form action={updateApplication} className="flex flex-col w-[500px] px-1">
         <div hidden>
           <label hidden htmlFor="application_id">
             Application Id

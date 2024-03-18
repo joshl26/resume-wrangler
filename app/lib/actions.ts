@@ -1301,8 +1301,14 @@ export async function deleteCertification(formData: FormData) {
   } catch (error) {
     return { message: `Database Error: Failed to Delete user skill. ${error}` };
   }
-  revalidatePath(`/dashboard/resume/edit/${resume_id}`);
-  redirect(`/dashboard/resume/edit/${resume_id}`);
+
+  if (resume_id !== "blank") {
+    revalidatePath(`/dashboard/resume/edit/${resume_id}`);
+    redirect(`/dashboard/resume/edit/${resume_id}`);
+  } else {
+    revalidatePath(`/dashboard/certifications`);
+    redirect(`/dashboard/certifications`);
+  }
 }
 
 export async function createCertification(formData: FormData) {
@@ -1333,16 +1339,24 @@ export async function createCertification(formData: FormData) {
     const query = `INSERT INTO user_custom_section_two (user_id, name, location) VALUES ('${user_id}', '${certification_name}', '${certification_location}' )`;
     const data = await conn.query(query);
 
-    const query2 = `UPDATE resumes SET custom_section_two_name = '${section_title}' WHERE id = '${resume_id}'`;
-    // console.log(query);
-    const data2 = await conn.query(query2);
+    if (section_title !== "blank") {
+      const query2 = `UPDATE resumes SET custom_section_two_name = '${section_title}' WHERE id = '${resume_id}'`;
+      // console.log(query);
+      const data2 = await conn.query(query2);
+    }
 
     //console.log(data);
   } catch (error) {
     return { message: `Database Error: Failed to Delete user skill. ${error}` };
   }
-  revalidatePath(`/dashboard/resume/edit/${resume_id}`);
-  redirect(`/dashboard/resume/edit/${resume_id}`);
+
+  if (resume_id !== "blank") {
+    revalidatePath(`/dashboard/resume/edit/${resume_id}`);
+    redirect(`/dashboard/resume/edit/${resume_id}`);
+  } else {
+    revalidatePath(`/dashboard/certifications/`);
+    redirect(`/dashboard/certifications/`);
+  }
 }
 
 export async function deleteWorkExperience(formData: FormData) {
@@ -1499,12 +1513,10 @@ export async function updateUserWorkExperience(formData: FormData) {
     return { message: `Database Error: Failed to Update Invoice. ${error}` };
   }
 
-  if(resume_id !== "blank"){
+  if (resume_id !== "blank") {
     revalidatePath(`/dashboard/resume/edit/${resume_id}`);
-  redirect(`/dashboard/resume/edit/${resume_id}`);
+    redirect(`/dashboard/resume/edit/${resume_id}`);
   }
-
-  
 }
 
 export async function updateUserEducation(formData: FormData) {
@@ -1816,7 +1828,7 @@ export async function updateUserCertfication(formData: FormData) {
     certification_name: formData.get("certification_name"),
     certification_location: formData.get("location_name"),
   });
-  // console.log(validatedFields);
+  console.log(validatedFields);
   // // // console.log(validatedFields);
   if (!validatedFields.success) {
     return {
@@ -1839,6 +1851,12 @@ export async function updateUserCertfication(formData: FormData) {
   } catch (error) {
     return { message: `Database Error: Failed to Update Invoice. ${error}` };
   }
-  revalidatePath(`/dashboard/resume/edit/${resume_id}`);
-  redirect(`/dashboard/resume/edit/${resume_id}`);
+
+  if (resume_id !== "blank") {
+    revalidatePath(`/dashboard/resume/edit/${resume_id}`);
+    redirect(`/dashboard/resume/edit/${resume_id}`);
+  } else {
+    revalidatePath(`/dashboard/certifications/`);
+    redirect(`/dashboard/certifications/`);
+  }
 }
