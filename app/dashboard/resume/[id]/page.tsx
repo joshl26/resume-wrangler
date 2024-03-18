@@ -16,7 +16,7 @@ export default async function Page({ params }: { params: { id: string } }) {
         width={1500}
         src={resumeTemplate[0]?.thumbnail_url}
       />
-      <EditButton />
+      <EditButton resumeId={id} />
     </div>
   );
 }
