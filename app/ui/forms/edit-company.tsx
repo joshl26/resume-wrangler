@@ -1,27 +1,12 @@
 import React from "react";
 import { SubmitButton } from "../submit-button";
-import { updateApplication, updateCompany } from "@/app/lib/actions";
-import { Button } from "../button";
+import { updateCompany } from "@/app/lib/actions";
 
 export default async function EditCompany({ company }: { company: any }) {
-  async function editCompany(formData: FormData) {
-    "use server";
-
-    // const rawFormData = {
-    //   applicationId: formData.get("application_id"),
-    //   postingText: formData.get("posting_text"),
-    //   isComplete: formData.get("is_complete"),
-    // };
-
-    // console.log(formData);
-
-    await updateCompany(formData);
-  }
-
   //   console.log(application);
   return (
     <div>
-      <form action={editCompany} className="flex flex-col w-[500px] px-1">
+      <form action={updateCompany} className="flex flex-col w-[500px] px-1">
         <div hidden>
           <label hidden htmlFor="company_id">
             Company Id

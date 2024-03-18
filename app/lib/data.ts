@@ -550,3 +550,25 @@ export async function fetchWorkExperienceById(id: string) {
     return [null];
   }
 }
+
+export async function fetchCertificationById(id: string) {
+  noStore();
+
+  console.log(id);
+
+  try {
+    const query = `SELECT * FROM user_custom_section_two WHERE id = '${id}'`;
+    // console.log(query);
+    const resume = await conn.query(query);
+
+    if (resume.rows[0]) {
+      return resume.rows[0];
+    } else {
+      return [null];
+    }
+  } catch (error: any) {
+    console.error("Database Error:", error);
+    // throw new Error("Failed to fetch resume template by id.");
+    return [null];
+  }
+}

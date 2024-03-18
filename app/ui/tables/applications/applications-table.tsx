@@ -250,6 +250,7 @@ const Applications = ({
                     Edit
                   </a>
                   <a
+                    href=""
                     onClick={async () => deleteApplication(application.id)}
                     className="font-medium text-red-600 dark:text-red-500 hover:underline ms-3"
                   >

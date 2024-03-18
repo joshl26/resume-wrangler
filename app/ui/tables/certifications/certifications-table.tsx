@@ -1,121 +1,82 @@
 "use client";
 
-import { deleteCompany } from "@/app/lib/actions";
+import { deleteCertification } from "@/app/lib/actions";
 import Link from "next/link";
-import { redirect } from "next/navigation";
 import React from "react";
 
-const Companies = ({ companies }: { companies: any }) => {
-  // console.log(companies.find(({ id }: any) => id === "1").name);
+const Certifications = ({ certifications }: { certifications: any }) => {
+  // console.log(organization.find(({ id }: any) => id === "1").name);
 
   return (
     <div className="relative overflow-x-auto overflow-y-auto shadow-md sm:rounded-lg px-4 py-4">
       <table className="w-full text-sm text-left rtl:text-right text-gray-200 dark:text-gray-200">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
-            <th scope="col" className="p-4">
-              <div className="flex items-center">
-                <input
-                  id="checkbox-all-search"
-                  type="checkbox"
-                  className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                />
-                <label htmlFor="checkbox-all-search" className="sr-only">
-                  checkbox
-                </label>
-              </div>
+            <th scope="col" className="px-6 py-3">
+              Certification Name
             </th>
             <th scope="col" className="px-6 py-3">
-              Company Name
+              Location
             </th>
             <th scope="col" className="px-6 py-3">
-              Address One
+              Start Date
             </th>
             <th scope="col" className="px-6 py-3">
-              Recipient
+              End Date
             </th>
-            <th scope="col" className="px-6 py-3">
-              Email
-            </th>
-            <th scope="col" className="px-6 py-3">
-              Phone
-            </th>
-
             <th scope="col" className="px-6 py-3">
               Action
             </th>
           </tr>
         </thead>
         <tbody>
-          {companies?.length > 0 ? (
-            companies?.map((company: any) => (
+          {certifications[0] ? (
+            certifications?.map((certification: any) => (
               <tr
-                key={company?.id}
+                key={certification?.id}
                 className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
               >
-                {/* <Link
-                  className="w-full "
-                  href={`/dashboard/company/edit/${company.id}`}
-                > */}
-                <td className="w-4 p-4">
-                  <div className="flex items-center">
-                    <input
-                      id="checkbox-table-search-1"
-                      type="checkbox"
-                      className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                    />
-                    <label
-                      htmlFor="checkbox-table-search-1"
-                      className="sr-only"
-                    >
-                      checkbox
-                    </label>
-                  </div>
-                </td>
                 <th
                   scope="row"
                   className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                 >
-                  {company?.name ? company?.name : "N/A"}
+                  {certification?.name ? certification?.name : "N/A"}
                 </th>
                 <td className="px-6 py-4">
-                  {company?.address_one ? company?.address_one : "N/A"}
+                  {certification?.location ? certification?.location : "N/A"}
                 </td>
                 <td className="px-6 py-4">
-                  {company?.recipient_title ? company?.recipient_title : "N/A"}
+                  {certification?.start_date
+                    ? certification?.start_date
+                    : "N/A"}
                 </td>
                 <td className="px-6 py-4">
-                  {company?.email ? company?.email : "N/A"}
+                  {certification?.end_date ? certification?.end_date : "N/A"}
                 </td>
-                <td className="text-left px-6 py-4">
-                  {company?.phone ? company?.phone : "N/A"}
-                </td>
-
                 <td className="text-left px-6 py-4">
                   <a
-                    href={`/dashboard/companies/edit/${company.id}`}
+                    href={`/dashboard/certifications/edit/${certification?.id}`}
                     className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                   >
                     Edit
                   </a>
                   <a
                     href=""
-                    onClick={() => deleteCompany(company.id)}
+                    onClick={() => deleteCertification(certification.id)}
                     className="font-medium text-red-600 dark:text-red-500 hover:underline ms-3"
                   >
                     Remove
                   </a>
                 </td>
-                {/* </Link> */}
               </tr>
             ))
           ) : (
             <tr>
-              {/* <Link href="/dashboard/company/new"> */}
-              <td className="flex items-center px-6 py-4">
-                Start by creating your first company here
-              </td>{" "}
-              {/* </Link> */}
+              <Link href="/dashboard/organization/new">
+                <td className="flex items-center px-6 py-4">
+                  Start by creating your first organization here
+                </td>{" "}
+              </Link>
             </tr>
           )}
         </tbody>
@@ -198,4 +159,4 @@ const Companies = ({ companies }: { companies: any }) => {
   );
 };
 
-export default Companies;
+export default Certifications;

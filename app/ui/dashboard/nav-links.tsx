@@ -32,7 +32,7 @@ const links = [
   },
   {
     name: "Your Certifications",
-    href: "/dashboard/certification",
+    href: "/dashboard/certifications",
     icon: ListBulletIcon,
   },
   {
