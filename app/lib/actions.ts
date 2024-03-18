@@ -1187,7 +1187,7 @@ export async function deleteEducation(formData: FormData) {
 }
 
 export async function createOrganization(formData: FormData) {
-  // console.log(formData);
+  console.log(formData);
 
   const validatedFields = CreateOrganizationSchema.safeParse({
     user_id: formData.get("user_id"),
@@ -1234,9 +1234,11 @@ export async function createOrganization(formData: FormData) {
     // console.log(query);
     const data = await conn.query(query);
 
-    const query2 = `UPDATE resumes SET custom_section_one_name = '${section_title}' WHERE id = '${resume_id}'`;
-    // console.log(query);
-    const data2 = await conn.query(query2);
+    if (section_title !== "blank") {
+      const query2 = `UPDATE resumes SET custom_section_one_name = '${section_title}' WHERE id = '${resume_id}'`;
+      // console.log(query);
+      const data2 = await conn.query(query2);
+    }
 
     //console.log(data);
   } catch (error) {
@@ -1245,8 +1247,13 @@ export async function createOrganization(formData: FormData) {
     };
   }
 
-  revalidatePath(`/dashboard/resume/edit/${resume_id}`);
-  redirect(`/dashboard/resume/edit/${resume_id}`);
+  if (resume_id !== "blank") {
+    revalidatePath(`/dashboard/resume/edit/${resume_id}`);
+    redirect(`/dashboard/resume/edit/${resume_id}`);
+  } else {
+    revalidatePath(`/dashboard/organizations`);
+    redirect(`/dashboard/organizations`);
+  }
 }
 
 export async function deleteOrganization(formData: FormData) {
@@ -1276,8 +1283,14 @@ export async function deleteOrganization(formData: FormData) {
   } catch (error) {
     return { message: `Database Error: Failed to Delete user skill. ${error}` };
   }
-  revalidatePath(`/dashboard/resume/edit/${resume_id}`);
-  redirect(`/dashboard/resume/edit/${resume_id}`);
+
+  if (resume_id !== "blank") {
+    revalidatePath(`/dashboard/resume/edit/${resume_id}`);
+    redirect(`/dashboard/resume/edit/${resume_id}`);
+  } else {
+    revalidatePath(`/dashboard/organizations`);
+    redirect(`/dashboard/organizations`);
+  }
 }
 
 export async function deleteCertification(formData: FormData) {
@@ -1769,14 +1782,14 @@ export async function updateUserOrganization(formData: FormData) {
 }
 
 export async function updateOrganizationSectionTitle(formData: FormData) {
-  console.log(formData);
+  // console.log(formData);
   const validatedFields = UpdateOrganizationsSectionTitleSchema.safeParse({
     user_id: formData.get("user_id"),
     resume_id: formData.get("resume_id"),
     section_title: formData.get("section_title"),
   });
 
-  console.log(validatedFields);
+  // console.log(validatedFields);
   // // // console.log(validatedFields);
   if (!validatedFields.success) {
     return {
@@ -1798,14 +1811,14 @@ export async function updateOrganizationSectionTitle(formData: FormData) {
 }
 
 export async function updateCertificationSectionTitle(formData: FormData) {
-  console.log(formData);
+  // console.log(formData);
   const validatedFields = UpdateOrganizationsSectionTitleSchema.safeParse({
     user_id: formData.get("user_id"),
     resume_id: formData.get("resume_id"),
     section_title: formData.get("section_title"),
   });
 
-  console.log(validatedFields);
+  // console.log(validatedFields);
   // // // // console.log(validatedFields);
   if (!validatedFields.success) {
     return {
@@ -1827,7 +1840,7 @@ export async function updateCertificationSectionTitle(formData: FormData) {
 }
 
 export async function updateUserCertfication(formData: FormData) {
-  console.log(formData);
+  // console.log(formData);
   const validatedFields = UpdateCertificationSchema.safeParse({
     user_id: formData.get("user_id"),
     certification_id: formData.get("certification_id"),

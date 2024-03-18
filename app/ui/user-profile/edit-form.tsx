@@ -21,7 +21,7 @@ const UserDetailsEditForm = ({ user }: { user: User | null }) => {
 
   return (
     <div className="p-3">
-      <h2>Edit User Details</h2>
+      <h2 className="font-bold text-[2rem]">Edit User Details</h2>
       <form
         className="flex flex-col p-3 border border-black rounded m-3"
         onSubmit={() => setEdited(false)}
@@ -204,7 +204,7 @@ const UserSocialsEditForm = ({ user }: { user: User | null }) => {
 
   return (
     <div className="p-3">
-      <h2>Edit Social Links</h2>
+      <h2 className="font-bold text-[2rem]">Edit Social Links</h2>
       <form
         className="flex flex-col p-3 border border-black rounded m-3"
         onSubmit={() => setEdited(false)}

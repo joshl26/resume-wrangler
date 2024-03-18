@@ -33,7 +33,7 @@ export default async function Page() {
         <div className="flex flex-col px-4">
           <Button className="w-[200px] text-center">
             <a href="/dashboard/organizations/new" className="m-auto">
-              Add new certification
+              Add new organization
             </a>
           </Button>
         </div>

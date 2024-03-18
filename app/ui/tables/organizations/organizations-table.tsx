@@ -92,18 +92,39 @@ const Organizations = ({ organizations }: { organizations: any }) => {
                 </td> */}
 
                 <td className="text-left px-6 py-4">
-                  <a
-                    href={`/dashboard/organizations/edit/${organization.id}`}
-                    className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                  >
-                    Edit
-                  </a>
-                  <a
-                    onClick={() => deleteOrganization(organization.id)}
-                    className="font-medium text-red-600 dark:text-red-500 hover:underline ms-3"
-                  >
-                    Remove
-                  </a>
+                  <div className="flex flex-row">
+                    {" "}
+                    <a
+                      href={`/dashboard/organizations/edit/${organization.id}`}
+                      className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                    >
+                      Edit
+                    </a>
+                    <form action={deleteOrganization}>
+                      <label hidden htmlFor="resume_id" />
+                      <input
+                        hidden
+                        id="resume_id"
+                        name="resume_id"
+                        readOnly
+                        value="blank"
+                      />
+                      <label hidden htmlFor="organization_id" />
+                      <input
+                        hidden
+                        id="organization_id"
+                        name="organization_id"
+                        readOnly
+                        value={organization.id}
+                      />
+                      <button
+                        type="submit"
+                        className="font-medium text-red-600 dark:text-red-500 hover:underline ms-3"
+                      >
+                        Remove
+                      </button>
+                    </form>
+                  </div>
                 </td>
                 {/* </Link> */}
               </tr>

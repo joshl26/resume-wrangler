@@ -1,6 +1,7 @@
 import { getUser } from "@/app/lib/data";
 import NewCertification from "@/app/ui/forms/new-certification";
 import NewCompany from "@/app/ui/forms/new-company";
+import NewOrganization from "@/app/ui/forms/new-organization";
 import { auth } from "@/auth";
 import React from "react";
 
@@ -18,7 +19,7 @@ export default async function Page() {
 
     return (
       <div>
-        <NewCertification user={user} />
+        <NewOrganization user={user} />
       </div>
     );
   }
