@@ -25,6 +25,7 @@ export default function ResumeStyling({
   userOrganizations,
   userCertifications,
   userWorkExperiences,
+  educationResumeLines,
 }: {
   resumeTemplates: any;
   resumeColors: any;
@@ -37,6 +38,7 @@ export default function ResumeStyling({
   userOrganizations: any;
   userCertifications: any;
   userWorkExperiences: any;
+  educationResumeLines: any;
 }) {
   const [selectedResumeTemplate, setSelectedResumeTemplate] = useState(
     resume?.template
@@ -121,6 +123,7 @@ export default function ResumeStyling({
             userEducation={userEducation}
             showEducation={showEducation}
             setShowEducation={setShowEducation}
+            educationResumeLines={educationResumeLines}
           />
           <div className="py-2"></div>
           {/* <YourWorkExperiences

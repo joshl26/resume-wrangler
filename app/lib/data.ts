@@ -594,3 +594,43 @@ export async function fetchOrganizationById(id: string) {
     return [null];
   }
 }
+
+export async function fetchLatestResumeLinesbyResumeID(id: string) {
+  noStore();
+
+  try {
+    const query = `SELECT * FROM resume_lines WHERE resume_id = '${id}'`;
+    // console.log(query);
+    const resumeLines = await conn.query(query);
+
+    if (resumeLines.rows[0]) {
+      return resumeLines.rows;
+    } else {
+      return [null];
+    }
+  } catch (error: any) {
+    console.error("Database Error:", error);
+    // throw new Error("Failed to fetch resume template by id.");
+    return [null];
+  }
+}
+
+export async function fetchEducationResumeLinesbyResumeID(id: string) {
+  noStore();
+
+  try {
+    const query = `SELECT * FROM resume_lines WHERE resume_id = '${id}' AND user_education_id IS NOT NULL`;
+    // console.log(query);
+    const resumeLines = await conn.query(query);
+
+    if (resumeLines.rows[0]) {
+      return resumeLines.rows;
+    } else {
+      return [null];
+    }
+  } catch (error: any) {
+    console.error("Database Error:", error);
+    // throw new Error("Failed to fetch resume template by id.");
+    return [null];
+  }
+}

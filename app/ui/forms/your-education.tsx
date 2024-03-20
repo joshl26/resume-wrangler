@@ -13,14 +13,16 @@ export default function YourEducation({
   resume,
   showEducation,
   setShowEducation,
+  educationResumeLines,
 }: {
   userEducation: any;
   user: any;
   resume: any;
   showEducation: any;
   setShowEducation: (e: any) => void;
+  educationResumeLines: any;
 }) {
-  // console.log(user);
+  console.log(educationResumeLines);
 
   const [edited, setEdited] = useState(false);
   const [sectionEdited, setSectionEdited] = useState(false);
