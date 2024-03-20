@@ -508,6 +508,18 @@ const DeleteWorkExperienceSchema = z.object({
   }),
 });
 
+const CreateResumeLineSchema = z.object({
+  user_id: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  resume_id: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  line_type: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+});
+
 const CreateInvoice = InvoiceSchema.omit({ id: true, date: true });
 const UpdateInvoice = InvoiceSchema.omit({ id: true, date: true });
 // const DeleteInvoice = InvoiceSchema.omit({ id: true, date: true });
@@ -1922,9 +1934,9 @@ export async function updateResumeLine(formData: FormData) {
 }
 
 export async function deleteResumeLine(formData: FormData) {
-  console.log(formData)
+  console.log(formData);
 }
 
 export async function createResumeLine(formData: FormData) {
-  console.log(formData)
+  console.log(formData);
 }
