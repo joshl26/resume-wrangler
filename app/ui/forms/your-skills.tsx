@@ -151,7 +151,7 @@ export default function YourSkills({
                 <p className="py-1">Skills</p>
                 {userSkills?.map((userSkill: any) => (
                   <div
-                    key={userSkill.id}
+                    key={userSkill?.id}
                     className="flex flex-row justify-between"
                   >
                     <div className="flex flex-col w-3/4">
@@ -160,7 +160,7 @@ export default function YourSkills({
                           readOnly
                           type="text"
                           onChange={(e) => {}}
-                          defaultValue={userSkill.skill}
+                          defaultValue={userSkill?.skill}
                           className="rounded bg-slate-200 w-full h-[35px]"
                         />
                       </div>
@@ -169,7 +169,7 @@ export default function YourSkills({
                           <input
                             readOnly
                             className="w-full"
-                            value={userSkill.skill_level}
+                            value={userSkill?.skill_level}
                             type="range"
                           ></input>
                         </div>
@@ -178,7 +178,7 @@ export default function YourSkills({
                           <input
                             hidden
                             className="w-full"
-                            defaultValue={userSkill.skill_level}
+                            defaultValue={userSkill?.skill_level}
                             type="range"
                           ></input>
                         </div>
@@ -194,7 +194,7 @@ export default function YourSkills({
                           hidden
                           id="resume_id"
                           name="resume_id"
-                          defaultValue={resume.id}
+                          defaultValue={resume?.id}
                           type="text"
                         />
                         <label hidden htmlFor="id" />
@@ -202,7 +202,7 @@ export default function YourSkills({
                           type="text"
                           name="id"
                           id="id"
-                          defaultValue={userSkill.id}
+                          defaultValue={userSkill?.id}
                           hidden
                         />
                         <button type="submit">Delete</button>

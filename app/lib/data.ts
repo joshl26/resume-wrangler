@@ -554,7 +554,7 @@ export async function fetchWorkExperienceById(id: string) {
 export async function fetchCertificationById(id: string) {
   noStore();
 
-  console.log(id);
+  // console.log(id);
 
   try {
     const query = `SELECT * FROM user_custom_section_two WHERE id = '${id}'`;
@@ -576,7 +576,7 @@ export async function fetchCertificationById(id: string) {
 export async function fetchOrganizationById(id: string) {
   noStore();
 
-  console.log(id);
+  // console.log(id);
 
   try {
     const query = `SELECT * FROM user_custom_section_one WHERE id = '${id}'`;

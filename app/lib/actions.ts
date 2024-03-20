@@ -870,7 +870,7 @@ export async function createCompany(formData: FormData) {
 }
 
 export async function deleteCompany(id: string) {
-  console.log(id);
+  // console.log(id);
 
   try {
     const query = `DELETE FROM companies WHERE id = ${id}`;
@@ -992,7 +992,7 @@ export async function createResume(formData: FormData) {
 }
 
 export async function updateYourResumeStyle(formData: FormData) {
-  // console.log(formData);
+  console.log(formData);
 
   const validatedFields = YourResumeStyleSchema.safeParse({
     resume_title: formData.get("resume_title"),
@@ -1004,7 +1004,7 @@ export async function updateYourResumeStyle(formData: FormData) {
     description: formData.get("description"),
   });
 
-  // console.log(validatedFields);
+  console.log(validatedFields);
 
   if (!validatedFields.success) {
     return {
@@ -1187,7 +1187,7 @@ export async function deleteEducation(formData: FormData) {
 }
 
 export async function createOrganization(formData: FormData) {
-  console.log(formData);
+  // console.log(formData);
 
   const validatedFields = CreateOrganizationSchema.safeParse({
     user_id: formData.get("user_id"),
@@ -1326,7 +1326,7 @@ export async function deleteCertification(formData: FormData) {
 }
 
 export async function createCertification(formData: FormData) {
-  console.log(formData);
+  // console.log(formData);
   const validatedFields = CreateCertificationSchema.safeParse({
     user_id: formData.get("user_id"),
     section_title: formData.get("section_title"),
@@ -1464,11 +1464,11 @@ export async function createUserImage(formData: FormData) {
 }
 
 export async function updateUserImage(formData: FormData) {
-  console.log(formData);
+  // console.log(formData);
 }
 
 export async function updateUserWorkExperience(formData: FormData) {
-  console.log(formData);
+  // console.log(formData);
 
   const validatedFields = UpdateWorkExperienceSchema.safeParse({
     experience_id: formData.get("experience_id"),
@@ -1483,7 +1483,7 @@ export async function updateUserWorkExperience(formData: FormData) {
     description_three: formData.get("description_three"),
     description_four: formData.get("description_four"),
   });
-  console.log(validatedFields);
+  // console.log(validatedFields);
   if (!validatedFields.success) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
@@ -1848,7 +1848,7 @@ export async function updateUserCertfication(formData: FormData) {
     certification_name: formData.get("certification_name"),
     certification_location: formData.get("location_name"),
   });
-  console.log(validatedFields);
+  // console.log(validatedFields);
   // // // console.log(validatedFields);
   if (!validatedFields.success) {
     return {

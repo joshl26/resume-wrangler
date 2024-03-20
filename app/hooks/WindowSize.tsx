@@ -3,6 +3,7 @@
 import React from "react";
 
 import { useWindowSize } from "./useWindowSize";
+import DeviceSize from "../ui/dashboard/device-size";
 
 const WindowSize = ({ children }: { children: React.ReactNode }) => {
   const size = useWindowSize();
@@ -15,7 +16,7 @@ const WindowSize = ({ children }: { children: React.ReactNode }) => {
   } else if (size.height === 0 && size.width === 0) {
     <></>;
   } else {
-    return <div>PLEASE LOGIN USING A DEVICE WITH A LARGER SCREEN SIZE!</div>;
+    return <DeviceSize />;
   }
 };
 

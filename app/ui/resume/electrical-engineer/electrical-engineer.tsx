@@ -50,7 +50,7 @@ export default async function ElectricalEngineer(props: Props) {
             src={props?.user?.thumbnail}
           />
         </div>
-        <div className="flex flex-col w-auto">
+        <div className="flex flex-col w-auto px-6">
           <h1
             style={{
               textAlign: "left",
@@ -390,9 +390,9 @@ export default async function ElectricalEngineer(props: Props) {
                         props?.heading_font || props?.resume?.heading_font
                       )}
                     >
-                      {userSkill.skill}
+                      {userSkill?.skill}
                     </p>
-                    {props.show_skill_progress ||
+                    {props?.show_skill_progress === "true" ||
                     props?.resume?.show_skill_progress === "true" ? (
                       <div className="progress-container ">
                         <div
@@ -521,34 +521,33 @@ export default async function ElectricalEngineer(props: Props) {
               <div className="flex flex-col">
                 <h2
                   className={clsx(
-                    "font-bold",
+                    "font-bold ",
                     props?.heading_font || props?.resume?.heading_font
                   )}
                 >
                   {props?.resume?.custom_section_two_name}
                 </h2>
                 <ul>
-                  {!props?.userCertifications &&
-                    props?.userCertifications?.map((userCertification: any) => (
-                      <li className="flex flex-col" key={userCertification?.id}>
-                        <p
-                          className={clsx(
-                            "text-sm",
-                            props?.body_font || props?.resume?.body_font
-                          )}
-                        >
-                          {userCertification?.name}
-                        </p>
-                        <p
-                          className={clsx(
-                            "text-sm",
-                            props?.body_font || props?.resume?.body_font
-                          )}
-                        >
-                          {userCertification?.location}
-                        </p>
-                      </li>
-                    ))}
+                  {props?.userCertifications?.map((userCertification: any) => (
+                    <li className="flex flex-col" key={userCertification?.id}>
+                      <p
+                        className={clsx(
+                          "text-sm font-bold pt-2",
+                          props?.body_font || props?.resume?.body_font
+                        )}
+                      >
+                        {userCertification?.name}
+                      </p>
+                      <p
+                        className={clsx(
+                          "text-sm",
+                          props?.body_font || props?.resume?.body_font
+                        )}
+                      >
+                        {userCertification?.location}
+                      </p>
+                    </li>
+                  ))}
                 </ul>
               </div>
             </div>
