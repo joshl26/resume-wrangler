@@ -1949,14 +1949,14 @@ export async function updateResumeLine(formData: FormData) {
 }
 
 export async function deleteResumeLine(formData: FormData) {
-  console.log(formData);
+  // console.log(formData);
 
   const validatedFields = DeleteResumeLineSchema.safeParse({
     user_id: formData.get("user_id"),
     user_education_id: formData.get("user_education_id"),
     resume_id: formData.get("resume_id"),
   });
-  console.log(validatedFields);
+  // console.log(validatedFields);
 
   if (!validatedFields.success) {
     return {
@@ -1987,7 +1987,7 @@ export async function deleteResumeLine(formData: FormData) {
 }
 
 export async function createResumeLine(formData: FormData) {
-  console.log(formData);
+  // console.log(formData);
 
   const validatedFields = CreateResumeLineSchema.safeParse({
     user_id: formData.get("user_id"),
@@ -1995,7 +1995,7 @@ export async function createResumeLine(formData: FormData) {
     line_type: formData.get("line_type"),
     education_id: formData.get("education_id"),
   });
-  console.log(validatedFields);
+  // console.log(validatedFields);
 
   if (!validatedFields.success) {
     return {

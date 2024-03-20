@@ -25,7 +25,7 @@ export default function YourEducation({
   setShowEducation: (e: any) => void;
   educationResumeLines: any;
 }) {
-  console.log(educationResumeLines);
+  // console.log(educationResumeLines);
 
   const [edited, setEdited] = useState(false);
   const [sectionEdited, setSectionEdited] = useState(false);

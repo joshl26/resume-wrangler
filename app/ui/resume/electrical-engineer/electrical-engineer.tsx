@@ -34,11 +34,11 @@ interface Props {
   show_education_section: any;
   show_custom_section_one: any;
   show_custom_section_two: any;
-  education_resume_lines: any;
+  educationResumeLines: any;
 }
 
 export default async function ElectricalEngineer(props: Props) {
-  // console.log(props.resume);
+  // console.log(props.educationResumeLines);
   return (
     <Page>
       <div className="flex flex-row">
@@ -437,7 +437,7 @@ export default async function ElectricalEngineer(props: Props) {
                 >
                   EDUCATION
                 </h1>
-                {props?.education_resume_lines?.map((userEducation: any) => (
+                {props?.educationResumeLines?.map((userEducation: any) => (
                   <li className="flex flex-col pt-2" key={userEducation?.id}>
                     <h2
                       className={clsx(
