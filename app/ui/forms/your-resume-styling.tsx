@@ -20,7 +20,6 @@ export default function YourResumeStyling({
   selectedResumeHeadingFont,
   selectedResumeColor,
   selectedResumeHighlightColor,
-  
 }: {
   resume: any;
   resumeTemplates: any;
@@ -51,6 +50,7 @@ export default function YourResumeStyling({
     <div className="resume-styling">
       <div className="pb-2 font-bold text-xl">
         <h2>Resume Styling</h2>
+        {selectedResumeColor}
       </div>
       <form
         action={updateYourResumeStyle}
@@ -123,14 +123,9 @@ export default function YourResumeStyling({
             <label className="py-1" htmlFor="color">
               Colors
             </label>
-            <input
-              hidden
-              id="color"
-              name="color"
-              defaultValue={selectedResumeColor}
-            />
+            <input hidden id="color" name="color" value={selectedResumeColor} />
             <div className="flex flex-row justify-around">
-              {resumeColors.map((color: any) => (
+              {resumeColors?.map((color: any) => (
                 <div
                   style={{ cursor: "pointer" }}
                   key={color.id}
