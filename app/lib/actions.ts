@@ -1880,3 +1880,51 @@ export async function updateUserCertfication(formData: FormData) {
     redirect(`/dashboard/certifications/`);
   }
 }
+
+export async function updateResumeLine(formData: FormData) {
+  // console.log(formData);
+  // const validatedFields = UpdateCertificationSchema.safeParse({
+  //   user_id: formData.get("user_id"),
+  //   certification_id: formData.get("certification_id"),
+  //   resume_id: formData.get("resume_id"),
+  //   certification_name: formData.get("certification_name"),
+  //   certification_location: formData.get("location_name"),
+  // });
+  // // console.log(validatedFields);
+  // // // // console.log(validatedFields);
+  // if (!validatedFields.success) {
+  //   return {
+  //     errors: validatedFields.error.flatten().fieldErrors,
+  //     message: "Missing Fields. Failed to Create user skill.",
+  //   };
+  // }
+  // const {
+  //   user_id,
+  //   resume_id,
+  //   certification_id,
+  //   certification_name,
+  //   certification_location,
+  // } = validatedFields.data;
+  // try {
+  //   const query = `UPDATE user_custom_section_two SET name = '${certification_name}', location = '${certification_location}' WHERE id = '${certification_id}'`;
+  //   const data = await conn.query(query);
+  //   // console.log(query1);
+  // } catch (error) {
+  //   return { message: `Database Error: Failed to Update Invoice. ${error}` };
+  // }
+  // if (resume_id !== "blank") {
+  //   revalidatePath(`/dashboard/resume/edit/${resume_id}`);
+  //   redirect(`/dashboard/resume/edit/${resume_id}`);
+  // } else {
+  //   revalidatePath(`/dashboard/certifications/`);
+  //   redirect(`/dashboard/certifications/`);
+  // }
+}
+
+export async function deleteResumeLine(formData: FormData) {
+  console.log(formData)
+}
+
+export async function createResumeLine(formData: FormData) {
+  console.log(formData)
+}

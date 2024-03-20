@@ -1,7 +1,10 @@
 import {
+  createResumeLine,
   createUserEducation,
   deleteEducation,
+  deleteResumeLine,
   updateEducationSection,
+  updateResumeLine,
   updateUserEducation,
 } from "@/app/lib/actions";
 import { useState } from "react";
@@ -46,6 +49,10 @@ export default function YourEducation({
     }
   };
 
+  const buttonClickHandler = (e: any) => {
+    console.log(e);
+  };
+
   return (
     <div>
       <div className="your-education">
@@ -56,17 +63,16 @@ export default function YourEducation({
             </div>
           </div>
           <div className="flex flex-col ">
-            <div className="flex flex-row m-auto">
+            {/* <div className="flex flex-row m-auto">
               <div className="flex flex-col px-4">Move Up</div>
               <div className="flex flex-col">Move Down</div>
-            </div>
+            </div> */}
           </div>
         </div>
         <div className="drop-shadow-md border-[1px] border-slate-300 rounded px-5 py-2 ">
           {showEducation === "true" ? (
             <>
-              {" "}
-              <div className="flex flex-row w-auto">
+              {/* <div className="flex flex-row w-auto">
                 <div className="flex flex-col w-full py-1 px-1">
                   <label className="py-1" htmlFor="school-name">
                     Education
@@ -195,8 +201,32 @@ export default function YourEducation({
                     </div>
                   </form>
                 </div>
+              </div> */}
+              <div className="h-[100px] overflow-y-auto">
+                <ul>
+                  {userEducation.map((education: any) => (
+                    <li key={education.id}>
+                      <div className="flex flex-row pt-2 ">
+                        <div className="flex flex-col w-3/4">
+                          <h2 className="font-bold">
+                            {education.institution_name}
+                          </h2>
+                          <p>{education.program}</p>
+                        </div>
+                        <div className="flex flex-col pt-3 pr-6">
+                          <form action={createResumeLine}>
+                            <SubmitButton className={""}>Add</SubmitButton>
+                          </form>
+                          <form action={deleteResumeLine}>
+                            <SubmitButton className={""}>Remove</SubmitButton>
+                          </form>
+                        </div>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
               </div>
-              <div className="flex flex-col w-full py-2 px-1">
+              {/* <div className="flex flex-col w-full py-2 px-1">
                 <ul className="">
                   {educationResumeLines[0] &&
                     educationResumeLines?.map((education: any) => (
@@ -204,25 +234,43 @@ export default function YourEducation({
                         className="mt-3 p-2 py-3 rounded border border-black "
                         key={education?.id}
                       >
-                        <form action={deleteEducation}>
-                          <label hidden htmlFor="resume_id" />
-                          <input
-                            hidden
-                            name="resume_id"
-                            id="resume_id"
-                            defaultValue={resume?.id}
-                          />
-                          <label hidden htmlFor="education_id" />
-                          <input
-                            hidden
-                            name="education_id"
-                            id="education_id"
-                            defaultValue={education?.id}
-                          />
-                          <div className="flex flex-row justify-end">
-                            <button type="submit">Delete</button>
+                        <div className="flex flex-row justify-between">
+                          <div className="flex flex-col w-1/3">
+                            <div className="flex flex-row justify-between">
+                              <form action={updateResumeLine}>
+                                <SubmitButton className={""}>Up</SubmitButton>
+                              </form>
+                              <form action={updateResumeLine}>
+                                <SubmitButton className={""}>Down</SubmitButton>
+                              </form>
+                            </div>
                           </div>
-                        </form>
+                          <div className="flex flex-col"></div>
+                          <div className="flex flex-col">
+                            <form action={deleteResumeLine}>
+                              <label hidden htmlFor="resume_id" />
+                              <input
+                                hidden
+                                name="resume_id"
+                                id="resume_id"
+                                defaultValue={resume?.id}
+                              />
+                              <label hidden htmlFor="education_id" />
+                              <input
+                                hidden
+                                name="education_id"
+                                id="education_id"
+                                defaultValue={education?.id}
+                              />
+                              <div className="flex flex-row justify-end">
+                                <SubmitButton className={""}>
+                                  Delete
+                                </SubmitButton>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+
                         <form
                           onSubmit={() => setEdited(false)}
                           action={updateUserEducation}
@@ -357,7 +405,7 @@ export default function YourEducation({
                       </li>
                     ))}
                 </ul>
-              </div>
+              </div> */}
             </>
           ) : (
             ""
