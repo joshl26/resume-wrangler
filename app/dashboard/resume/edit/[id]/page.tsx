@@ -2,9 +2,8 @@ import {
   fetchBodyFonts,
   fetchCerftificationsByUserId,
   fetchEducationByUserId,
-  fetchEducationResumeLinesbyResumeID,
+  fetchEducationExperiencesbyResumeID,
   fetchHeaderFonts,
-  fetchLatestResumeLinesbyResumeID,
   fetchOrganizationsByUserId,
   fetchResumeById,
   fetchResumeColors,
@@ -60,7 +59,7 @@ export default async function EditResume({
     fetchWorkExperiencesByUserId(user.id),
   ]);
 
-  const educationResumeLines = await fetchEducationResumeLinesbyResumeID(id);
+  const educationResumeLines = await fetchEducationExperiencesbyResumeID(id);
   // console.log(educationResumeLines);
 
   if (

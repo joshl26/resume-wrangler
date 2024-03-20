@@ -615,13 +615,24 @@ export async function fetchLatestResumeLinesbyResumeID(id: string) {
   }
 }
 
-export async function fetchEducationResumeLinesbyResumeID(id: string) {
+export async function fetchEducationExperiencesbyResumeID(id: string) {
   noStore();
 
   try {
-    const query = `SELECT * FROM resume_lines WHERE resume_id = '${id}' AND user_education_id IS NOT NULL`;
+    const query = `SELECT * FROM resume_lines r JOIN user_education u ON r.user_education_id = u.id WHERE r.resume_id = '${id}' ORDER BY position ASC`;
+
     // console.log(query);
     const resumeLines = await conn.query(query);
+
+    console.log(resumeLines.rowCount);
+
+    let rows: any = [];
+
+    resumeLines.rows.map((row: any) => {
+      rows.push(row.description_one);
+    });
+
+    console.log(rows);
 
     if (resumeLines.rows[0]) {
       return resumeLines.rows;
