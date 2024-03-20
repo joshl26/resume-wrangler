@@ -624,15 +624,7 @@ export async function fetchEducationExperiencesbyResumeID(id: string) {
     // console.log(query);
     const resumeLines = await conn.query(query);
 
-    console.log(resumeLines.rowCount);
-
-    let rows: any = [];
-
-    resumeLines.rows.map((row: any) => {
-      rows.push(row.description_one);
-    });
-
-    console.log(rows);
+    // console.log(resumeLines.rowCount);
 
     if (resumeLines.rows[0]) {
       return resumeLines.rows;

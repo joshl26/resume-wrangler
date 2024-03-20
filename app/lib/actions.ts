@@ -518,6 +518,21 @@ const CreateResumeLineSchema = z.object({
   line_type: z.string({
     invalid_type_error: "Please enter a string.",
   }),
+  education_id: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+});
+
+const DeleteResumeLineSchema = z.object({
+  user_id: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  user_education_id: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  resume_id: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
 });
 
 const CreateInvoice = InvoiceSchema.omit({ id: true, date: true });
@@ -1935,8 +1950,103 @@ export async function updateResumeLine(formData: FormData) {
 
 export async function deleteResumeLine(formData: FormData) {
   console.log(formData);
+
+  const validatedFields = DeleteResumeLineSchema.safeParse({
+    user_id: formData.get("user_id"),
+    user_education_id: formData.get("user_education_id"),
+    resume_id: formData.get("resume_id"),
+  });
+  console.log(validatedFields);
+
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: "Missing Fields. Failed to Create user skill.",
+    };
+  }
+  const { user_id, resume_id, user_education_id } = validatedFields.data;
+
+  try {
+    const query = `DELETE FROM resume_lines WHERE resume_id = '${resume_id}' AND user_education_id = '${user_education_id}'`;
+
+    //console.log(query);
+
+    const data = await conn.query(query);
+    // console.log(query1);
+  } catch (error) {
+    return { message: `Database Error: Failed to Update Invoice. ${error}` };
+  }
+
+  if (resume_id !== "blank") {
+    revalidatePath(`/dashboard/resume/edit/${resume_id}`);
+    redirect(`/dashboard/resume/edit/${resume_id}`);
+  } else {
+    revalidatePath(`/dashboard/education/`);
+    redirect(`/dashboard/education/`);
+  }
 }
 
 export async function createResumeLine(formData: FormData) {
   console.log(formData);
+
+  const validatedFields = CreateResumeLineSchema.safeParse({
+    user_id: formData.get("user_id"),
+    resume_id: formData.get("resume_id"),
+    line_type: formData.get("line_type"),
+    education_id: formData.get("education_id"),
+  });
+  console.log(validatedFields);
+
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: "Missing Fields. Failed to Create user skill.",
+    };
+  }
+  const { user_id, resume_id, line_type, education_id } = validatedFields.data;
+
+  //TODO check to see if education is already on resume, if not the add new line
+
+  let data1;
+
+  try {
+    const query = `SELECT * FROM resume_lines WHERE resume_id = '${resume_id}' AND user_education_id = '${education_id}'`;
+    //console.log(query);
+    data1 = await conn.query(query);
+
+    // console.log(data.rowCount);
+  } catch (error) {
+    return {
+      message: `Database Error: Resume already has ${education_id} included. ${error}`,
+    };
+  }
+
+  if (data1.rowCount > 0) {
+    return {
+      message: `Database Error: Resume already has ${education_id} included.`,
+    };
+  } else {
+    let query;
+
+    if (line_type === "education") {
+      query = `INSERT INTO resume_lines (user_id, resume_id, user_education_id, line_type, position) VALUES ('${user_id}', '${resume_id}', '${education_id}', '${line_type}', '0' )`;
+    }
+
+    try {
+      const data = await conn.query(query);
+      // console.log(query1);
+    } catch (error) {
+      return {
+        message: `Database Error: Failed to create resume ${line_type} line. ${error}`,
+      };
+    }
+
+    if (resume_id !== "blank") {
+      revalidatePath(`/dashboard/resume/edit/${resume_id}`);
+      redirect(`/dashboard/resume/edit/${resume_id}`);
+    } else {
+      revalidatePath(`/dashboard/education/`);
+      redirect(`/dashboard/education/`);
+    }
+  }
 }

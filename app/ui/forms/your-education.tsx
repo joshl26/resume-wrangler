@@ -215,9 +215,51 @@ export default function YourEducation({
                         </div>
                         <div className="flex flex-col pt-3 pr-6">
                           <form action={createResumeLine}>
+                            <input
+                              hidden
+                              readOnly
+                              name="resume_id"
+                              value={resume.id}
+                            />
+                            <input
+                              hidden
+                              readOnly
+                              name="user_id"
+                              value={user.id}
+                            />
+                            <input
+                              hidden
+                              readOnly
+                              name="line_type"
+                              value={"education"}
+                            />
+                            <input
+                              hidden
+                              readOnly
+                              name="education_id"
+                              value={education.id}
+                            />
                             <SubmitButton className={""}>Add</SubmitButton>
                           </form>
                           <form action={deleteResumeLine}>
+                            <input
+                              hidden
+                              readOnly
+                              name="user_id"
+                              value={user.id}
+                            />
+                            <input
+                              hidden
+                              readOnly
+                              name="user_education_id"
+                              value={education.id}
+                            />
+                            <input
+                              hidden
+                              readOnly
+                              name="resume_id"
+                              value={resume.id}
+                            />
                             <SubmitButton className={""}>Remove</SubmitButton>
                           </form>
                         </div>
@@ -226,9 +268,18 @@ export default function YourEducation({
                   ))}
                 </ul>
               </div>
-              {/* <div className="flex flex-col w-full py-2 px-1">
+              {/* <div>
+                <ul>
+                  {educationResumeLines?.map((education: any) => (
+                    <li key={userEducation?.id}>
+                      <h2>{education?.institution_name}</h2>
+                    </li>
+                  ))}
+                </ul>
+              </div> */}
+              <div className="flex flex-col w-full py-2 px-1">
                 <ul className="">
-                  {educationResumeLines[0] &&
+                  {educationResumeLines[0] ? (
                     educationResumeLines?.map((education: any) => (
                       <li
                         className="mt-3 p-2 py-3 rounded border border-black "
@@ -248,29 +299,34 @@ export default function YourEducation({
                           <div className="flex flex-col"></div>
                           <div className="flex flex-col">
                             <form action={deleteResumeLine}>
-                              <label hidden htmlFor="resume_id" />
                               <input
                                 hidden
+                                readOnly
+                                name="user_id"
+                                id="user_id"
+                                value={user?.id}
+                              />
+                              <input
+                                hidden
+                                readOnly
                                 name="resume_id"
                                 id="resume_id"
-                                defaultValue={resume?.id}
+                                value={resume?.id}
                               />
-                              <label hidden htmlFor="education_id" />
                               <input
                                 hidden
-                                name="education_id"
-                                id="education_id"
-                                defaultValue={education?.id}
+                                name="user_education_id"
+                                id="user_education_id"
+                                value={education?.user_education_id}
                               />
                               <div className="flex flex-row justify-end">
                                 <SubmitButton className={""}>
-                                  Delete
+                                  Remove
                                 </SubmitButton>
                               </div>
                             </form>
                           </div>
                         </div>
-
                         <form
                           onSubmit={() => setEdited(false)}
                           action={updateUserEducation}
@@ -403,9 +459,12 @@ export default function YourEducation({
                           )}
                         </form>
                       </li>
-                    ))}
+                    ))
+                  ) : (
+                    <li></li>
+                  )}
                 </ul>
-              </div> */}
+              </div>
             </>
           ) : (
             ""
