@@ -27,6 +27,7 @@ export default function ResumeStyling({
   userWorkExperiences,
   educationResumeLines,
   workResumeLines,
+  skillResumeLines,
 }: {
   resumeTemplates: any;
   resumeColors: any;
@@ -41,6 +42,7 @@ export default function ResumeStyling({
   userWorkExperiences: any;
   educationResumeLines: any;
   workResumeLines: any;
+  skillResumeLines: any;
 }) {
   const [selectedResumeTemplate, setSelectedResumeTemplate] = useState(
     resume?.template
@@ -117,6 +119,7 @@ export default function ResumeStyling({
             showSkills={showSkills}
             setShowSkillProgress={setShowSkillProgress}
             showSkillProgress={showSkillProgress}
+            skillResumeLines={skillResumeLines}
           />
           <div className="py-2"></div>
           <YourEducation
@@ -192,6 +195,7 @@ export default function ResumeStyling({
                 show_custom_section_two={showCustomSectionTwo}
                 educationResumeLines={educationResumeLines}
                 workResumeLines={workResumeLines}
+                skillResumeLines={skillResumeLines}
               />
             </Suspense>
           )}

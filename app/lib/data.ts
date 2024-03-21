@@ -694,3 +694,26 @@ export async function fetchWorkExperiencesbyResumeID(id: string) {
     return [null];
   }
 }
+
+export async function fetchSkillsByResumeID(id: string) {
+  noStore();
+
+  try {
+    const query = `SELECT * FROM resume_lines r JOIN user_skills u ON r.user_skills_id = u.id WHERE r.resume_id = '${id}' ORDER BY position ASC`;
+
+    // console.log(query);
+    const skillLines = await conn.query(query);
+
+    // console.log(skillLines.rowCount);
+
+    if (skillLines.rows[0]) {
+      return skillLines.rows;
+    } else {
+      return [null];
+    }
+  } catch (error: any) {
+    console.error("Database Error:", error);
+    // throw new Error("Failed to fetch resume template by id.");
+    return [null];
+  }
+}

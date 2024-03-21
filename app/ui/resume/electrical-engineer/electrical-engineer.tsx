@@ -36,6 +36,7 @@ interface Props {
   show_custom_section_two: any;
   educationResumeLines: any;
   workResumeLines: any;
+  skillResumeLines: any;
 }
 
 export default async function ElectricalEngineer(props: Props) {
@@ -384,43 +385,44 @@ export default async function ElectricalEngineer(props: Props) {
                 SKILLS
               </h2>
               <ul className="pt-2">
-                {props?.userSkills?.map((userSkill: any) => (
-                  <li className="flex flex-col py-[3px]" key={userSkill?.id}>
-                    <p
-                      className={clsx(
-                        "text-sm font-bold",
-                        props?.heading_font || props?.resume?.heading_font
-                      )}
-                    >
-                      {userSkill?.skill}
-                    </p>
-                    {props?.show_skill_progress === "true" ||
-                    props?.resume?.show_skill_progress === "true" ? (
-                      <div className="progress-container ">
-                        <div
-                          className={clsx(
-                            props?.resume?.highlight_color ||
-                              props?.resume?.highlight_color,
-                            "rounded-[1rem] h-[1rem] border border-black"
-                          )}
-                        >
+                {props?.skillResumeLines[0] &&
+                  props?.skillResumeLines?.map((userSkill: any) => (
+                    <li className="flex flex-col py-[3px]" key={userSkill?.id}>
+                      <p
+                        className={clsx(
+                          "text-sm font-bold",
+                          props?.heading_font || props?.resume?.heading_font
+                        )}
+                      >
+                        {userSkill?.skill}
+                      </p>
+                      {props?.show_skill_progress === "true" ||
+                      props?.resume?.show_skill_progress === "true" ? (
+                        <div className="progress-container py-1">
                           <div
                             className={clsx(
-                              "progress-bar rounded-[1rem]",
-                              props?.color || props?.resume?.color
+                              props?.resume?.highlight_color ||
+                                props?.resume?.highlight_color,
+                              "rounded-[1rem] h-[1rem] border border-black"
                             )}
-                            style={{
-                              width: `${userSkill?.skill_level}%`,
-                              height: "100%",
-                            }}
-                          ></div>
+                          >
+                            <div
+                              className={clsx(
+                                "progress-bar rounded-[1rem]",
+                                props?.color || props?.resume?.color
+                              )}
+                              style={{
+                                width: `${userSkill?.skill_level}%`,
+                                height: "100%",
+                              }}
+                            ></div>
+                          </div>
                         </div>
-                      </div>
-                    ) : (
-                      ""
-                    )}
-                  </li>
-                ))}
+                      ) : (
+                        ""
+                      )}
+                    </li>
+                  ))}
               </ul>
             </div>
           ) : (
