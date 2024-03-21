@@ -151,7 +151,7 @@ export default function YourSkills({
             <div className="flex flex-row">
               <ul>
                 {userSkills.map((skill: any) => (
-                  <li key={skill?.id}>
+                  <li className="border my-2 p-2" key={skill?.id}>
                     <div className="flex flex-row justify-between py-1">
                       <div className="flex flex-col w-[150px]">
                         <h2 className="font-bold">{skill.skill}</h2>
@@ -160,28 +160,31 @@ export default function YourSkills({
                         <input type="range" value={skill.skill_level} />
                       </div>
                       <div className="flex flex-col w-1/3 m-auto">
-                        <form action={createResumeLine}>
-                          <input
-                            hidden
-                            readOnly
-                            name="resume_id"
-                            value={resume.id}
-                          />
-                          <input
-                            hidden
-                            readOnly
-                            name="user_id"
-                            value={user.id}
-                          />
-                          <input
-                            hidden
-                            readOnly
-                            name="line_type"
-                            value={"skill"}
-                          />
-                          <input hidden readOnly name="id" value={skill.id} />
-                          <SubmitButton className={""}>Add</SubmitButton>
-                        </form>
+                        <div className="flex flex-row justify-end">
+                          {" "}
+                          <form action={createResumeLine}>
+                            <input
+                              hidden
+                              readOnly
+                              name="resume_id"
+                              value={resume.id}
+                            />
+                            <input
+                              hidden
+                              readOnly
+                              name="user_id"
+                              value={user.id}
+                            />
+                            <input
+                              hidden
+                              readOnly
+                              name="line_type"
+                              value={"skill"}
+                            />
+                            <input hidden readOnly name="id" value={skill.id} />
+                            <SubmitButton className={""}>Add</SubmitButton>
+                          </form>
+                        </div>
                       </div>
                     </div>
                   </li>
@@ -191,7 +194,7 @@ export default function YourSkills({
             <div className="flex flex-col">
               <div className="flex flex-col py-1 px-1">
                 <p className="py-1">Resume Skills</p>
-                {skillResumeLines[0] &&
+                {skillResumeLines[0] ? (
                   skillResumeLines?.map((userSkill: any) => (
                     <div
                       key={userSkill?.id}
@@ -228,10 +231,7 @@ export default function YourSkills({
                         )}
                       </div>
                       <div className="flex flex-col w-auto align-middle ">
-                        <form
-                          className="border border-black rounded p-1"
-                          action={deleteResumeLine}
-                        >
+                        <form className="p-1" action={deleteResumeLine}>
                           <input
                             hidden
                             readOnly
@@ -260,11 +260,16 @@ export default function YourSkills({
                             defaultValue={userSkill?.id}
                             hidden
                           />
-                          <button type="submit">Remove</button>
+                          <SubmitButton className={""}>Remove</SubmitButton>
                         </form>
                       </div>
                     </div>
-                  ))}
+                  ))
+                ) : (
+                  <h2 className="text-center animate-pulse py-2">
+                    Please add a skill from the list above
+                  </h2>
+                )}
               </div>
             </div>
           </>
