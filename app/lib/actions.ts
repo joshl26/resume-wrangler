@@ -545,10 +545,13 @@ const DeleteResumeLineSchema = z.object({
   user_id: z.string({
     invalid_type_error: "Please enter a string.",
   }),
-  user_education_id: z.string({
+  id: z.string({
     invalid_type_error: "Please enter a string.",
   }),
   resume_id: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  line_type: z.string({
     invalid_type_error: "Please enter a string.",
   }),
 });
@@ -2036,8 +2039,9 @@ export async function deleteResumeLine(formData: FormData) {
 
   const validatedFields = DeleteResumeLineSchema.safeParse({
     user_id: formData.get("user_id"),
-    user_education_id: formData.get("user_education_id"),
+    id: formData.get("id"),
     resume_id: formData.get("resume_id"),
+    line_type: formData.get("line_type"),
   });
   // console.log(validatedFields);
 
@@ -2047,12 +2051,29 @@ export async function deleteResumeLine(formData: FormData) {
       message: "Missing Fields. Failed to Create user skill.",
     };
   }
-  const { user_id, resume_id, user_education_id } = validatedFields.data;
+  const { user_id, id, resume_id, line_type } = validatedFields.data;
 
   try {
-    const query = `DELETE FROM resume_lines WHERE resume_id = '${resume_id}' AND user_education_id = '${user_education_id}'`;
+    // const query = `DELETE FROM resume_lines WHERE resume_id = '${resume_id}' AND user_education_id = '${user_education_id}'`;
 
-    //console.log(query);
+    let query;
+
+    //check the linetype and formulate a specific query
+    if (line_type === "education") {
+      query = `DELETE FROM resume_lines WHERE resume_id = '${resume_id}' AND user_education_id = '${id}'`;
+    } else if (line_type === "custom-section-one") {
+      query = `DELETE FROM resume_lines WHERE resume_id = '${resume_id}' AND user_custom_section_one_id = '${id}'`;
+    } else if (line_type === "custom-section-two") {
+      query = `DELETE FROM resume_lines WHERE resume_id = '${resume_id}' AND user_custom_section_two_id = '${id}'`;
+    } else if (line_type === "skill") {
+      query = `DELETE FROM resume_lines WHERE resume_id = '${resume_id}' AND user_skills_id = '${id}'`;
+    } else if (line_type === "work") {
+      query = `DELETE FROM resume_lines WHERE resume_id = '${resume_id}' AND work_experience_id = '${id}'`;
+    } else {
+      query = "";
+    }
+
+    // console.log(query);
 
     const data = await conn.query(query);
     // console.log(query1);
@@ -2060,13 +2081,33 @@ export async function deleteResumeLine(formData: FormData) {
     return { message: `Database Error: Failed to Update Invoice. ${error}` };
   }
 
-  if (resume_id !== "blank") {
-    revalidatePath(`/dashboard/resume/edit/${resume_id}`);
-    redirect(`/dashboard/resume/edit/${resume_id}`);
-  } else {
+  if (resume_id === "blank" ?? line_type === "education") {
     revalidatePath(`/dashboard/education/`);
     redirect(`/dashboard/education/`);
+  } else if (resume_id === "blank" ?? line_type === "skill") {
+    revalidatePath(`/dashboard/skills/`);
+    redirect(`/dashboard/skills/`);
+  } else if (resume_id === "blank" ?? line_type === "work") {
+    revalidatePath(`/dashboard/work-experience/`);
+    redirect(`/dashboard/work-experience/`);
+  } else if (resume_id === "blank" ?? line_type === "custom-section-one") {
+    revalidatePath(`/dashboard/organizations/`);
+    redirect(`/dashboard/organizations/`);
+  } else if (resume_id === "blank" ?? line_type === "custom-section-two") {
+    revalidatePath(`/dashboard/certifications/`);
+    redirect(`/dashboard/certifications/`);
+  } else if (resume_id !== "blank") {
+    revalidatePath(`/dashboard/resume/edit/${resume_id}`);
+    redirect(`/dashboard/resume/edit/${resume_id}`);
   }
+
+  // if (resume_id !== "blank") {
+  //   revalidatePath(`/dashboard/resume/edit/${resume_id}`);
+  //   redirect(`/dashboard/resume/edit/${resume_id}`);
+  // } else {
+  //   revalidatePath(`/dashboard/education/`);
+  //   redirect(`/dashboard/education/`);
+  // }
 }
 
 export async function createResumeLine(formData: FormData) {
@@ -2078,7 +2119,7 @@ export async function createResumeLine(formData: FormData) {
     line_type: formData.get("line_type"),
     id: formData.get("id"),
   });
-  // console.log(validatedFields);
+  console.log(validatedFields);
 
   if (!validatedFields.success) {
     return {

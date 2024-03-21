@@ -83,7 +83,7 @@ export default function ResumeStyling({
     <main className="flex w-full">
       <div className="flex flex-row h-full w-full">
         <div className="flex flex-col h-full w-[400px] overflow-scroll px-3">
-          {/* <YourResumeStyling
+          <YourResumeStyling
             resume={resume}
             resumeTemplates={resumeTemplates}
             resumeColors={resumeColors}
@@ -99,8 +99,8 @@ export default function ResumeStyling({
             selectedResumeHeadingFont={selectedResumeHeadingFont}
             selectedResumeColor={selectedResumeColor}
             selectedResumeHighlightColor={selectedResumeHighlightColor}
-          /> */}
-          {/* <div className="py-2"></div>
+          />
+          <div className="py-2"></div>
           <YourProfile resume={resume} user={user} />
           <YourSocialLinks
             resume={resume}
@@ -118,8 +118,8 @@ export default function ResumeStyling({
             setShowSkillProgress={setShowSkillProgress}
             showSkillProgress={showSkillProgress}
           />
-          <div className="py-2"></div> */}
-          {/* <YourEducation
+          <div className="py-2"></div>
+          <YourEducation
             resume={resume}
             user={user}
             userEducation={userEducation}
@@ -127,7 +127,7 @@ export default function ResumeStyling({
             setShowEducation={setShowEducation}
             educationResumeLines={educationResumeLines}
           />
-          <div className="py-2"></div> */}
+          <div className="py-2"></div>
           <YourWorkExperiences
             userWorkExperiences={userWorkExperiences}
             user={user}
@@ -135,7 +135,7 @@ export default function ResumeStyling({
             workResumeLines={workResumeLines}
           />
           <div className="py-2"></div>
-          {/* <YourOrganizations
+          <YourOrganizations
             user={user}
             resume={resume}
             userOrganizations={userOrganizations}
@@ -149,7 +149,7 @@ export default function ResumeStyling({
             userCertifications={userCertifications}
             showCustomSectionTwo={showCustomSectionTwo}
             setShowCustomSectionTwo={setShowCustomSectionTwo}
-          /> */}
+          />
           <div className="p-2 text-center">
             <a
               href={`/api/pdf?resumeId=${resume?.id}&userEmail=${user?.email}`}
