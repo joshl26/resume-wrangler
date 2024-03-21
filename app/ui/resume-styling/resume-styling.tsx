@@ -27,6 +27,7 @@ export default function ResumeStyling({
   userWorkExperiences,
   educationResumeLines,
   workResumeLines,
+  skillResumeLines,
 }: {
   resumeTemplates: any;
   resumeColors: any;
@@ -41,6 +42,7 @@ export default function ResumeStyling({
   userWorkExperiences: any;
   educationResumeLines: any;
   workResumeLines: any;
+  skillResumeLines: any;
 }) {
   const [selectedResumeTemplate, setSelectedResumeTemplate] = useState(
     resume?.template
@@ -83,7 +85,7 @@ export default function ResumeStyling({
     <main className="flex w-full">
       <div className="flex flex-row h-full w-full">
         <div className="flex flex-col h-full w-[400px] overflow-scroll px-3">
-          <YourResumeStyling
+          {/* <YourResumeStyling
             resume={resume}
             resumeTemplates={resumeTemplates}
             resumeColors={resumeColors}
@@ -107,7 +109,7 @@ export default function ResumeStyling({
             user={user}
             showSocials={showSocials}
             setShowSocials={setShowSocials}
-          />
+          /> */}
           <div className="py-2"></div>
           <YourSkills
             user={user}
@@ -117,8 +119,9 @@ export default function ResumeStyling({
             showSkills={showSkills}
             setShowSkillProgress={setShowSkillProgress}
             showSkillProgress={showSkillProgress}
+            skillResumeLines={skillResumeLines}
           />
-          <div className="py-2"></div>
+          {/* <div className="py-2"></div>
           <YourEducation
             resume={resume}
             user={user}
@@ -158,7 +161,7 @@ export default function ResumeStyling({
             >
               Download PDF
             </a>
-          </div>
+          </div> */}
         </div>
         <div className="flex flex-col m-auto h-full overflow-scroll right-0">
           {selectedResumeTemplate === "classic" && (
@@ -192,6 +195,7 @@ export default function ResumeStyling({
                 show_custom_section_two={showCustomSectionTwo}
                 educationResumeLines={educationResumeLines}
                 workResumeLines={workResumeLines}
+                skillResumeLines={skillResumeLines}
               />
             </Suspense>
           )}

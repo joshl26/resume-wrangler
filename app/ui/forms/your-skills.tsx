@@ -1,5 +1,7 @@
 import {
+  createResumeLine,
   createUserSkill,
+  deleteResumeLine,
   deleteUserSkill,
   updateSkillsSection,
 } from "@/app/lib/actions";
@@ -14,6 +16,7 @@ export default function YourSkills({
   showSkills,
   showSkillProgress,
   setShowSkillProgress,
+  skillResumeLines,
 }: {
   userSkills: any;
   user: any;
@@ -22,6 +25,7 @@ export default function YourSkills({
   showSkills: any;
   setShowSkillProgress: (e: any) => void;
   showSkillProgress: any;
+  skillResumeLines: any;
 }) {
   // console.log(userSkills);
 
@@ -65,21 +69,19 @@ export default function YourSkills({
         <div className="flex flex-col">
           <div className="py-2 font-bold text-xl">
             <h2>Your Skills</h2>
-            {/* {showSkills}
-            {showSkillProgress} */}
           </div>
         </div>
         <div className="flex flex-col ">
-          <div className="flex flex-row m-auto">
+          {/* <div className="flex flex-row m-auto">
             <div className="flex flex-col px-4">Move Up</div>
             <div className="flex flex-col">Move Down</div>
-          </div>
+          </div> */}
         </div>
       </div>
       <div className="drop-shadow-md border-[1px] border-slate-300 rounded px-5 py-2 ">
         {showSkills === "true" ? (
           <>
-            <form
+            {/* <form
               // className="border border-red"
               onSubmit={() => setEdited(false)}
               action={createUserSkill}
@@ -145,71 +147,124 @@ export default function YourSkills({
                   Add Skill
                 </button>
               </div>
-            </form>
-            <div className="flex flex-col">
-              <div className="flex flex-col py-1 px-1">
-                <p className="py-1">Skills</p>
-                {userSkills?.map((userSkill: any) => (
-                  <div
-                    key={userSkill?.id}
-                    className="flex flex-row justify-between"
-                  >
-                    <div className="flex flex-col w-3/4">
-                      <div className="flex text-center align-middle flex-col w-full h-full">
-                        <input
-                          readOnly
-                          type="text"
-                          onChange={(e) => {}}
-                          defaultValue={userSkill?.skill}
-                          className="rounded bg-slate-200 w-full h-[35px]"
-                        />
+            </form> */}
+            <div className="flex flex-row">
+              <ul>
+                {userSkills.map((skill: any) => (
+                  <li key={skill?.id}>
+                    <div className="flex flex-row justify-between py-1">
+                      <div className="flex flex-col w-[150px]">
+                        <h2 className="font-bold">{skill.skill}</h2>
                       </div>
-                      {showSkillProgress === "true" ? (
-                        <div className="flex flex-row py-3">
-                          <input
-                            readOnly
-                            className="w-full"
-                            value={userSkill?.skill_level}
-                            type="range"
-                          ></input>
-                        </div>
-                      ) : (
-                        <div className="flex flex-row py-3">
+                      <div className="flex flex-col w-1/3 m-auto">
+                        <input type="range" value={skill.skill_level} />
+                      </div>
+                      <div className="flex flex-col w-1/3 m-auto">
+                        <form action={createResumeLine}>
                           <input
                             hidden
-                            className="w-full"
-                            defaultValue={userSkill?.skill_level}
-                            type="range"
-                          ></input>
-                        </div>
-                      )}
+                            readOnly
+                            name="resume_id"
+                            value={resume.id}
+                          />
+                          <input
+                            hidden
+                            readOnly
+                            name="user_id"
+                            value={user.id}
+                          />
+                          <input
+                            hidden
+                            readOnly
+                            name="line_type"
+                            value={"skill"}
+                          />
+                          <input hidden readOnly name="id" value={skill.id} />
+                          <SubmitButton className={""}>Add</SubmitButton>
+                        </form>
+                      </div>
                     </div>
-                    <div className="flex flex-col w-auto align-middle ">
-                      <form
-                        className="border border-black rounded p-1"
-                        action={deleteUserSkill}
-                      >
-                        <label hidden htmlFor="resume_id" />
-                        <input
-                          hidden
-                          id="resume_id"
-                          name="resume_id"
-                          defaultValue={resume?.id}
-                          type="text"
-                        />
-                        <label hidden htmlFor="id" />
-                        <input
-                          type="text"
-                          name="id"
-                          id="id"
-                          defaultValue={userSkill?.id}
-                          hidden
-                        />
-                        <button type="submit">Delete</button>
-                      </form>
-                    </div>
-                  </div>
+                  </li>
                 ))}
+              </ul>
+            </div>
+            <div className="flex flex-col">
+              <div className="flex flex-col py-1 px-1">
+                <p className="py-1">Resume Skills</p>
+                {skillResumeLines[0] &&
+                  skillResumeLines?.map((userSkill: any) => (
+                    <div
+                      key={userSkill?.id}
+                      className="flex flex-row justify-between"
+                    >
+                      <div className="flex flex-col w-3/4">
+                        <div className="flex text-center align-middle flex-col w-full h-full">
+                          <input
+                            readOnly
+                            type="text"
+                            onChange={(e) => {}}
+                            defaultValue={userSkill?.skill}
+                            className="rounded bg-slate-200 w-full h-[35px]"
+                          />
+                        </div>
+                        {showSkillProgress === "true" ? (
+                          <div className="flex flex-row py-3">
+                            <input
+                              readOnly
+                              className="w-full"
+                              value={userSkill?.skill_level}
+                              type="range"
+                            />
+                          </div>
+                        ) : (
+                          <div className="flex flex-row py-3">
+                            <input
+                              hidden
+                              className="w-full"
+                              defaultValue={userSkill?.skill_level}
+                              type="range"
+                            />
+                          </div>
+                        )}
+                      </div>
+                      <div className="flex flex-col w-auto align-middle ">
+                        <form
+                          className="border border-black rounded p-1"
+                          action={deleteResumeLine}
+                        >
+                          <input
+                            hidden
+                            readOnly
+                            name="user_id"
+                            value={user.id}
+                          />
+                          <input
+                            hidden
+                            readOnly
+                            name="line_type"
+                            value={"skill"}
+                          />
+                          <input
+                            hidden
+                            readOnly
+                            id="resume_id"
+                            name="resume_id"
+                            defaultValue={resume?.id}
+                            type="text"
+                          />
+                          <input
+                            readOnly
+                            type="text"
+                            name="id"
+                            id="id"
+                            defaultValue={userSkill?.id}
+                            hidden
+                          />
+                          <button type="submit">Remove</button>
+                        </form>
+                      </div>
+                    </div>
+                  ))}
               </div>
             </div>
           </>
