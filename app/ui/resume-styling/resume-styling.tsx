@@ -119,7 +119,7 @@ export default function ResumeStyling({
             showSkillProgress={showSkillProgress}
           />
           <div className="py-2"></div> */}
-          <YourEducation
+          {/* <YourEducation
             resume={resume}
             user={user}
             userEducation={userEducation}
@@ -127,14 +127,14 @@ export default function ResumeStyling({
             setShowEducation={setShowEducation}
             educationResumeLines={educationResumeLines}
           />
-          <div className="py-2"></div>
-          {/* <YourWorkExperiences
+          <div className="py-2"></div> */}
+          <YourWorkExperiences
             userWorkExperiences={userWorkExperiences}
             user={user}
             resume={resume}
             workResumeLines={workResumeLines}
           />
-          <div className="py-2"></div> */}
+          <div className="py-2"></div>
           {/* <YourOrganizations
             user={user}
             resume={resume}
