@@ -1,8 +1,6 @@
-import { fetchCompanyById, getUser } from "@/app/lib/data";
-import EditCompany from "@/app/ui/forms/edit-company";
+import { getUser } from "@/app/lib/data";
 import NewCompany from "@/app/ui/forms/new-company";
 import { auth } from "@/auth";
-import { notFound } from "next/navigation";
 import React from "react";
 
 export default async function Page() {

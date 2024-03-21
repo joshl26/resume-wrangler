@@ -1,10 +1,4 @@
-import {
-  fetchCertificationById,
-  fetchOrganizationById,
-  fetchSkillById,
-} from "@/app/lib/data";
-import EditCertification from "@/app/ui/forms/edit-certification";
-import EditOrganization from "@/app/ui/forms/edit-organization";
+import { fetchSkillById } from "@/app/lib/data";
 import EditSkill from "@/app/ui/forms/edit-skill";
 import React from "react";
 

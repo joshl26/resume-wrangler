@@ -1,10 +1,5 @@
-import {
-  fetchOrganizationsByUserId,
-  fetchSkillsByUserId,
-  getUser,
-} from "@/app/lib/data";
+import { fetchSkillsByUserId, getUser } from "@/app/lib/data";
 import { Button } from "@/app/ui/button";
-import Organizations from "@/app/ui/tables/organizations/organizations-table";
 import Skills from "@/app/ui/tables/skills/skills-table";
 import { auth } from "@/auth";
 import Link from "next/link";

@@ -49,7 +49,6 @@ const Skills = ({ skills }: { skills: any }) => {
                       Edit
                     </a>
                     <form action={deleteUserSkill}>
-                      <label hidden htmlFor="resume_id" />
                       <input
                         hidden
                         id="resume_id"
@@ -57,11 +56,10 @@ const Skills = ({ skills }: { skills: any }) => {
                         readOnly
                         value="blank"
                       />
-                      <label hidden htmlFor="skill_id" />
                       <input
                         hidden
-                        id="skill_id"
-                        name="skill_id"
+                        id="id"
+                        name="id"
                         readOnly
                         value={skill?.id}
                       />
