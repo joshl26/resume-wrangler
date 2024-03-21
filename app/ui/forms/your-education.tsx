@@ -236,7 +236,7 @@ export default function YourEducation({
                             <input
                               hidden
                               readOnly
-                              name="education_id"
+                              name="id"
                               value={education.id}
                             />
                             <SubmitButton className={""}>Add</SubmitButton>

@@ -35,6 +35,7 @@ interface Props {
   show_custom_section_one: any;
   show_custom_section_two: any;
   educationResumeLines: any;
+  workResumeLines: any;
 }
 
 export default async function ElectricalEngineer(props: Props) {
@@ -97,7 +98,7 @@ export default async function ElectricalEngineer(props: Props) {
           </div>
           <div className="flex flex-row"></div>{" "}
           <ul className="px-3 py-2">
-            {props?.userWorkExperiences?.map((userWorkExperience: any) => (
+            {props?.workResumeLines?.map((userWorkExperience: any) => (
               <li className="list-disc py-2" key={userWorkExperience?.id}>
                 <h2
                   className={clsx(

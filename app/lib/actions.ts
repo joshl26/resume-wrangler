@@ -536,7 +536,7 @@ const CreateResumeLineSchema = z.object({
   line_type: z.string({
     invalid_type_error: "Please enter a string.",
   }),
-  education_id: z.string({
+  id: z.string({
     invalid_type_error: "Please enter a string.",
   }),
 });
@@ -2076,7 +2076,7 @@ export async function createResumeLine(formData: FormData) {
     user_id: formData.get("user_id"),
     resume_id: formData.get("resume_id"),
     line_type: formData.get("line_type"),
-    education_id: formData.get("education_id"),
+    id: formData.get("id"),
   });
   // console.log(validatedFields);
 
@@ -2086,33 +2086,57 @@ export async function createResumeLine(formData: FormData) {
       message: "Missing Fields. Failed to Create user skill.",
     };
   }
-  const { user_id, resume_id, line_type, education_id } = validatedFields.data;
-
-  //TODO check to see if education is already on resume, if not the add new line
+  const { user_id, resume_id, line_type, id } = validatedFields.data;
 
   let data1;
 
   try {
-    const query = `SELECT * FROM resume_lines WHERE resume_id = '${resume_id}' AND user_education_id = '${education_id}'`;
+    let query;
+
+    //check the linetype and formulate a specific query
+    if (line_type === "education") {
+      query = `SELECT * FROM resume_lines WHERE resume_id = '${resume_id}' AND user_education_id = '${id}'`;
+    } else if (line_type === "custom-section-one") {
+      query = `SELECT * FROM resume_lines WHERE resume_id = '${resume_id}' AND user_custom_section_one_id = '${id}'`;
+    } else if (line_type === "custom-section-two") {
+      query = `SELECT * FROM resume_lines WHERE resume_id = '${resume_id}' AND user_custom_section_two_id = '${id}'`;
+    } else if (line_type === "skill") {
+      query = `SELECT * FROM resume_lines WHERE resume_id = '${resume_id}' AND user_skills_id = '${id}'`;
+    } else if (line_type === "work") {
+      query = `SELECT * FROM resume_lines WHERE resume_id = '${resume_id}' AND work_experience_id = '${id}'`;
+    } else {
+      query = "";
+    }
+
     //console.log(query);
     data1 = await conn.query(query);
 
     // console.log(data.rowCount);
   } catch (error) {
     return {
-      message: `Database Error: Resume already has ${education_id} included. ${error}`,
+      message: `Database Error: ${error}`,
     };
   }
 
   if (data1.rowCount > 0) {
     return {
-      message: `Database Error: Resume already has ${education_id} included.`,
+      message: `Database Error: Resume already has ${line_type} ${id} included.`,
     };
   } else {
     let query;
 
     if (line_type === "education") {
-      query = `INSERT INTO resume_lines (user_id, resume_id, user_education_id, line_type, position) VALUES ('${user_id}', '${resume_id}', '${education_id}', '${line_type}', '0' )`;
+      query = `INSERT INTO resume_lines (user_id, resume_id, user_education_id, line_type, position) VALUES ('${user_id}', '${resume_id}', '${id}', '${line_type}', '0' )`;
+    } else if (line_type === "custom-section-one") {
+      query = `INSERT INTO resume_lines (user_id, resume_id, user_custom_section_one_id, line_type, position) VALUES ('${user_id}', '${resume_id}', '${id}', '${line_type}', '0' )`;
+    } else if (line_type === "custom-section-two") {
+      query = `INSERT INTO resume_lines (user_id, resume_id, user_custom_section_two_id, line_type, position) VALUES ('${user_id}', '${resume_id}', '${id}', '${line_type}', '0' )`;
+    } else if (line_type === "skill") {
+      query = `INSERT INTO resume_lines (user_id, resume_id, user_skills_id, line_type, position) VALUES ('${user_id}', '${resume_id}', '${id}', '${line_type}', '0' )`;
+    } else if (line_type === "work") {
+      query = `INSERT INTO resume_lines (user_id, resume_id, work_experience_id, line_type, position) VALUES ('${user_id}', '${resume_id}', '${id}', '${line_type}', '0' )`;
+    } else {
+      query = "";
     }
 
     try {
@@ -2124,12 +2148,24 @@ export async function createResumeLine(formData: FormData) {
       };
     }
 
-    if (resume_id !== "blank") {
-      revalidatePath(`/dashboard/resume/edit/${resume_id}`);
-      redirect(`/dashboard/resume/edit/${resume_id}`);
-    } else {
+    if (resume_id === "blank" ?? line_type === "education") {
       revalidatePath(`/dashboard/education/`);
       redirect(`/dashboard/education/`);
+    } else if (resume_id === "blank" ?? line_type === "skill") {
+      revalidatePath(`/dashboard/skills/`);
+      redirect(`/dashboard/skills/`);
+    } else if (resume_id === "blank" ?? line_type === "work") {
+      revalidatePath(`/dashboard/work-experience/`);
+      redirect(`/dashboard/work-experience/`);
+    } else if (resume_id === "blank" ?? line_type === "custom-section-one") {
+      revalidatePath(`/dashboard/organizations/`);
+      redirect(`/dashboard/organizations/`);
+    } else if (resume_id === "blank" ?? line_type === "custom-section-two") {
+      revalidatePath(`/dashboard/certifications/`);
+      redirect(`/dashboard/certifications/`);
+    } else if (resume_id !== "blank") {
+      revalidatePath(`/dashboard/resume/edit/${resume_id}`);
+      redirect(`/dashboard/resume/edit/${resume_id}`);
     }
   }
 }

@@ -4,7 +4,7 @@ import {
   fetchOrganizationsByUserId,
   fetchResumeById,
   fetchSkillsByUserId,
-  fetchWorkExperiencesByUserId,
+  fetchWorkExperiencesbyResumeID,
   getUser,
 } from "@/app/lib/data";
 //test
@@ -35,13 +35,13 @@ export async function GET(request: Request) {
     educationResumeLines,
     userOrganizations,
     userCertifications,
-    userWorkExperiences,
+    workResumeLines,
   ] = await Promise.all([
     fetchSkillsByUserId(user?.id),
     fetchEducationExperiencesbyResumeID(resumeId),
     fetchOrganizationsByUserId(user?.id),
     fetchCerftificationsByUserId(user?.id),
-    fetchWorkExperiencesByUserId(user?.id),
+    fetchWorkExperiencesbyResumeID(resumeId),
   ]);
 
   return Response.json({
@@ -51,6 +51,6 @@ export async function GET(request: Request) {
     educationResumeLines: educationResumeLines,
     userOrganizations: userOrganizations,
     userCertifications: userCertifications,
-    userWorkExperiences: userWorkExperiences,
+    workResumeLines: workResumeLines,
   });
 }

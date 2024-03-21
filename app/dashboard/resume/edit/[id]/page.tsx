@@ -63,7 +63,7 @@ export default async function EditResume({
   const educationResumeLines = await fetchEducationExperiencesbyResumeID(id);
   const workResumeLines = await fetchWorkExperiencesbyResumeID(id);
 
-  // console.log(educationResumeLines);
+  // console.log(workResumeLines);
 
   if (
     !resumeTemplates ??

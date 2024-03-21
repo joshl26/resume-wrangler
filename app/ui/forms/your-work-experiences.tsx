@@ -44,8 +44,8 @@ export default function YourWorkExperiences({
               <li key={experience.id}>
                 <div className="flex flex-row pt-2 ">
                   <div className="flex flex-col w-3/4">
-                    <h2 className="font-bold">{experience.name}</h2>
-                    <p>{experience.program}</p>
+                    <h2 className="font-bold">{experience.company_name}</h2>
+                    <p>{experience.location}</p>
                   </div>
                   <div className="flex flex-col pt-3 pr-6">
                     <form action={""}>
@@ -115,9 +115,60 @@ export default function YourWorkExperiences({
                 />
                 <div className="flex flex-col w-full py-1 px-1">
                   <div className="flex flex-row justify-between">
-                    {/* <label className="py-1" htmlFor="work-experience">
-                      Work Experience
-                    </label> */}
+                    <div className="flex flex-col w-1/4">
+                      <div className="flex flex-row justify-between">
+                        <form action={""}>
+                          <input
+                            hidden
+                            readOnly
+                            name="resume_id"
+                            value={resume.id}
+                          />
+                          <input
+                            hidden
+                            readOnly
+                            name="user_id"
+                            value={user.id}
+                          />
+                          <input
+                            hidden
+                            readOnly
+                            name="line_type"
+                            value={"education"}
+                          />
+                          {/* <input
+                        hidden
+                        readOnly
+                        name="experience_id"
+                        value={experience.id}
+                      /> */}
+                          <SubmitButton className={""}>Up</SubmitButton>
+                        </form>
+                        <form action={""}>
+                          <input
+                            hidden
+                            readOnly
+                            name="user_id"
+                            value={user.id}
+                          />
+                          {/* <input
+                        hidden
+                        readOnly
+                        name="work_experience_id"
+                        value={experience.id}
+                      /> */}
+                          <input
+                            hidden
+                            readOnly
+                            name="resume_id"
+                            value={resume.id}
+                          />
+                          <SubmitButton className={""}>Down</SubmitButton>
+                        </form>
+                      </div>
+                    </div>
+                    <div className="flex flex-col"> </div>
+
                     <form action={""}>
                       <label hidden htmlFor="work_experience_id" />
                       <input
