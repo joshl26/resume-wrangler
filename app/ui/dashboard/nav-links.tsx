@@ -6,6 +6,14 @@ import {
   UserGroupIcon,
   HomeIcon,
   DocumentDuplicateIcon,
+  BookOpenIcon,
+  CheckIcon,
+  Cog8ToothIcon,
+  AcademicCapIcon,
+  BriefcaseIcon,
+  BuildingOffice2Icon,
+  AdjustmentsHorizontalIcon,
+  NewspaperIcon,
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import clsx from "clsx";
@@ -16,24 +24,34 @@ import { usePathname } from "next/navigation";
 const links = [
   { name: "Home", href: "/dashboard", icon: HomeIcon },
   {
+    name: "Your Education",
+    href: "/dashboard/education",
+    icon: AcademicCapIcon,
+  },
+  {
+    name: "Your Skills",
+    href: "/dashboard/skills",
+    icon: AdjustmentsHorizontalIcon,
+  },
+  {
     name: "Your Applications",
     href: "/dashboard/applications",
-    icon: ListBulletIcon,
+    icon: NewspaperIcon,
   },
   {
     name: "Your Companies",
     href: "/dashboard/companies",
-    icon: ListBulletIcon,
+    icon: BuildingOffice2Icon,
   },
   {
     name: "Your Work Experience",
     href: "/dashboard/work-experience",
-    icon: ListBulletIcon,
+    icon: BriefcaseIcon,
   },
   {
     name: "Your Certifications",
     href: "/dashboard/certifications",
-    icon: ListBulletIcon,
+    icon: CheckIcon,
   },
   {
     name: "Your Organizations",

@@ -1,6 +1,10 @@
-import { fetchOrganizationsByUserId, getUser } from "@/app/lib/data";
+import {
+  fetchEducationByUserId,
+  fetchOrganizationsByUserId,
+  getUser,
+} from "@/app/lib/data";
 import { Button } from "@/app/ui/button";
-import Organizations from "@/app/ui/tables/organizations/organizations-table";
+import Education from "@/app/ui/tables/education/education-table";
 import { auth } from "@/auth";
 import Link from "next/link";
 import React from "react";
@@ -19,7 +23,7 @@ export default async function Page() {
   const user = await getUser(session?.user?.email!);
 
   // const applications = await fetchApplicationsByUserId(user?.id!);
-  const organizations = await fetchOrganizationsByUserId(user.id);
+  const education = await fetchEducationByUserId(user.id);
   // console.log(applications);
   return (
     <div className="h-full w-full">
@@ -28,17 +32,17 @@ export default async function Page() {
       </Link>
       <div className="flex flex-row justify-between">
         <div className="flex flex-col ">
-          <h1 className="text-[2rem] font-bold px-3">Organizations</h1>
+          <h1 className="text-[2rem] font-bold px-3">Education</h1>
         </div>
         <div className="flex flex-col px-4">
           <Button className="w-[200px] text-center">
-            <a href="/dashboard/organizations/new" className="m-auto">
-              Add new organization
+            <a href="/dashboard/education/new" className="m-auto">
+              Add new program
             </a>
           </Button>
         </div>
       </div>
-      <Organizations organizations={organizations} />
+      <Education education={education} />
     </div>
   );
 }

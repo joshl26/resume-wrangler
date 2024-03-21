@@ -1178,8 +1178,14 @@ export async function createUserEducation(formData: FormData) {
   } catch (error) {
     return { message: `Database Error: Failed to Update Invoice. ${error}` };
   }
-  revalidatePath(`/dashboard/resume/edit/${resume_id}`);
-  redirect(`/dashboard/resume/edit/${resume_id}`);
+
+  if (resume_id !== "blank") {
+    revalidatePath(`/dashboard/resume/edit/${resume_id}`);
+    redirect(`/dashboard/resume/edit/${resume_id}`);
+  } else {
+    revalidatePath(`/dashboard/education/`);
+    redirect(`/dashboard/education/`);
+  }
 }
 
 export async function deleteEducation(formData: FormData) {
@@ -1209,8 +1215,14 @@ export async function deleteEducation(formData: FormData) {
   } catch (error) {
     return { message: `Database Error: Failed to Delete user skill. ${error}` };
   }
-  revalidatePath(`/dashboard/resume/edit/${resume_id}`);
-  redirect(`/dashboard/resume/edit/${resume_id}`);
+
+  if (resume_id !== "blank") {
+    revalidatePath(`/dashboard/resume/edit/${resume_id}`);
+    redirect(`/dashboard/resume/edit/${resume_id}`);
+  } else {
+    revalidatePath(`/dashboard/education`);
+    redirect(`/dashboard/education`);
+  }
 }
 
 export async function createOrganization(formData: FormData) {
@@ -1561,7 +1573,7 @@ export async function updateUserWorkExperience(formData: FormData) {
 }
 
 export async function updateUserEducation(formData: FormData) {
-  // console.log(formData);
+  console.log(formData);
 
   const validatedFields = UpdateEducationSchema.safeParse({
     education_id: formData.get("education_id"),
@@ -1574,7 +1586,7 @@ export async function updateUserEducation(formData: FormData) {
     program: formData.get("program"),
     url: formData.get("url"),
   });
-  // console.log(validatedFields);
+  console.log(validatedFields);
   if (!validatedFields.success) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
@@ -1610,15 +1622,18 @@ export async function updateUserEducation(formData: FormData) {
 
     const data = await conn.query(query);
 
-    // const query2 = `UPDATE user SET show_education_section = '${show_education}' WHERE id = '${resume_id}'`;
-
     //console.log(data);
   } catch (error) {
     return { message: `Database Error: Failed to Update Invoice. ${error}` };
   }
 
-  revalidatePath(`/dashboard/resume/edit/${resume_id}`);
-  redirect(`/dashboard/resume/edit/${resume_id}`);
+  if (resume_id !== "blank") {
+    revalidatePath(`/dashboard/resume/edit/${resume_id}`);
+    redirect(`/dashboard/resume/edit/${resume_id}`);
+  } else {
+    revalidatePath(`/dashboard/education/edit/${education_id}`);
+    redirect(`/dashboard/education/edit/${education_id}`);
+  }
 }
 
 export async function updateSkillsSection(formData: FormData) {
