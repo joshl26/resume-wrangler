@@ -3,6 +3,7 @@ import {
   fetchEducationExperiencesbyResumeID,
   fetchOrganizationsByUserId,
   fetchResumeById,
+  fetchSkillsByResumeID,
   fetchSkillsByUserId,
   fetchWorkExperiencesbyResumeID,
   getUser,
@@ -31,13 +32,13 @@ export async function GET(request: Request) {
   }
 
   const [
-    userSkills,
+    skillResumeLines,
     educationResumeLines,
     userOrganizations,
     userCertifications,
     workResumeLines,
   ] = await Promise.all([
-    fetchSkillsByUserId(user?.id),
+    fetchSkillsByResumeID(resumeId),
     fetchEducationExperiencesbyResumeID(resumeId),
     fetchOrganizationsByUserId(user?.id),
     fetchCerftificationsByUserId(user?.id),
@@ -47,7 +48,7 @@ export async function GET(request: Request) {
   return Response.json({
     user: user,
     resume: resume,
-    userSkills: userSkills,
+    skillResumeLines: skillResumeLines,
     educationResumeLines: educationResumeLines,
     userOrganizations: userOrganizations,
     userCertifications: userCertifications,

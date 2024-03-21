@@ -398,7 +398,7 @@ export default async function ElectricalEngineer(props: Props) {
                       </p>
                       {props?.show_skill_progress === "true" ||
                       props?.resume?.show_skill_progress === "true" ? (
-                        <div className="progress-container ">
+                        <div className="progress-container py-1">
                           <div
                             className={clsx(
                               props?.resume?.highlight_color ||
