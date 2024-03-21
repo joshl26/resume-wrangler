@@ -187,6 +187,7 @@ export default function ResumeStyling({
                 show_education_section={showEducation}
                 show_custom_section_one={showCustomSectionOne}
                 show_custom_section_two={showCustomSectionTwo}
+                educationResumeLines={educationResumeLines}
               />
             </Suspense>
           )}

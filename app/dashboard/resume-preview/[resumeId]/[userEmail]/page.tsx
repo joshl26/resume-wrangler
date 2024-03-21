@@ -11,6 +11,7 @@ async function Page({
 }) {
   // const props = await getData("4", "user@nextmail.com");
   const props = await getData(resumeId, userEmail);
+  // console.log(props);
 
   return (
     <div className="h-auto overflow-y-auto w-full">

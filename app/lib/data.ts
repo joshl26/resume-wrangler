@@ -615,13 +615,16 @@ export async function fetchLatestResumeLinesbyResumeID(id: string) {
   }
 }
 
-export async function fetchEducationResumeLinesbyResumeID(id: string) {
+export async function fetchEducationExperiencesbyResumeID(id: string) {
   noStore();
 
   try {
-    const query = `SELECT * FROM resume_lines WHERE resume_id = '${id}' AND user_education_id IS NOT NULL`;
+    const query = `SELECT * FROM resume_lines r JOIN user_education u ON r.user_education_id = u.id WHERE r.resume_id = '${id}' ORDER BY position ASC`;
+
     // console.log(query);
     const resumeLines = await conn.query(query);
+
+    // console.log(resumeLines.rowCount);
 
     if (resumeLines.rows[0]) {
       return resumeLines.rows;
@@ -632,5 +635,22 @@ export async function fetchEducationResumeLinesbyResumeID(id: string) {
     console.error("Database Error:", error);
     // throw new Error("Failed to fetch resume template by id.");
     return [null];
+  }
+}
+
+export async function fetchEducationById(id: string) {
+  noStore();
+
+  // console.log(id);
+
+  try {
+    const query = `SELECT * FROM user_education WHERE id = '${id}'`;
+    // console.log(query);
+    const application = await conn.query(query);
+    return application.rows[0];
+  } catch (error: any) {
+    console.error("Database Error:", error);
+    // throw new Error("Failed to fetch resume template by id.");
+    return {};
   }
 }
