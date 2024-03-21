@@ -187,6 +187,24 @@ const CreateSkillsSchema = z.object({
   }),
 });
 
+const UpdateSkillSchema = z.object({
+  user_id: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  resume_id: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  skill_id: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  skill_level: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  skill_name: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+});
+
 const UpdateSkillsSectionSchema = z.object({
   user_id: z.string({
     invalid_type_error: "Please enter a string.",
@@ -1064,8 +1082,46 @@ export async function updateYourResumeStyle(formData: FormData) {
   redirect(`/dashboard/resume/edit/${resume_id}`);
 }
 
-export async function updateUserSkills(formData: FormData) {
-  // console.log(formData);
+export async function updateUserSkill(formData: FormData) {
+  console.log(formData);
+
+  const validatedFields = UpdateSkillSchema.safeParse({
+    skill_name: formData.get("skill_name"),
+    user_id: formData.get("user_id"),
+    skill_id: formData.get("skill_id"),
+    skill_level: formData.get("skill_level"),
+    resume_id: formData.get("resume_id"),
+  });
+
+  console.log(validatedFields);
+
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: "Missing Fields. Failed to Create user skill.",
+    };
+  }
+  const { skill_name, skill_id, skill_level, user_id, resume_id } =
+    validatedFields.data;
+
+  try {
+    const query = `UPDATE user_skills SET skill = '${skill_name}', skill_level = '${skill_level}' WHERE id = '${skill_id}'`;
+    //console.log(query);
+
+    const data = await conn.query(query);
+
+    //console.log(data);
+  } catch (error) {
+    return { message: `Database Error: Failed to Update Invoice. ${error}` };
+  }
+
+  if (resume_id !== "blank") {
+    revalidatePath(`/dashboard/resume/edit/${resume_id}`);
+    redirect(`/dashboard/resume/edit/${resume_id}`);
+  } else {
+    revalidatePath(`/dashboard/skills/edit/${skill_id}`);
+    redirect(`/dashboard/skills/edit/${skill_id}`);
+  }
 }
 
 export async function createUserSkill(formData: FormData) {

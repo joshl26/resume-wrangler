@@ -654,3 +654,20 @@ export async function fetchEducationById(id: string) {
     return {};
   }
 }
+
+export async function fetchSkillById(id: string) {
+  noStore();
+
+  // console.log(id);
+
+  try {
+    const query = `SELECT * FROM user_skills WHERE id = '${id}'`;
+    // console.log(query);
+    const skills = await conn.query(query);
+    return skills.rows[0];
+  } catch (error: any) {
+    console.error("Database Error:", error);
+    // throw new Error("Failed to fetch resume template by id.");
+    return {};
+  }
+}
