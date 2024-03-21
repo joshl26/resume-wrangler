@@ -10,6 +10,7 @@ import {
   fetchResumeTemplates,
   fetchSkillsByUserId,
   fetchWorkExperiencesByUserId,
+  fetchWorkExperiencesbyResumeID,
   getUser,
 } from "@/app/lib/data";
 import ResumeStyling from "@/app/ui/resume-styling/resume-styling";
@@ -60,6 +61,8 @@ export default async function EditResume({
   ]);
 
   const educationResumeLines = await fetchEducationExperiencesbyResumeID(id);
+  const workResumeLines = await fetchWorkExperiencesbyResumeID(id);
+
   // console.log(educationResumeLines);
 
   if (
@@ -74,7 +77,8 @@ export default async function EditResume({
     !userOrganizations ??
     !userCertifications ??
     !userWorkExperiences ??
-    !educationResumeLines
+    !educationResumeLines ??
+    !workResumeLines
   ) {
     notFound();
   }
@@ -93,6 +97,7 @@ export default async function EditResume({
       userCertifications={userCertifications}
       userWorkExperiences={userWorkExperiences}
       educationResumeLines={educationResumeLines}
+      workResumeLines={workResumeLines}
     />
   );
 }
