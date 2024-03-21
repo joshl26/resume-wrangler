@@ -1,7 +1,6 @@
 import React from "react";
 import { SubmitButton } from "../submit-button";
 import { createCompany } from "@/app/lib/actions";
-import { Button } from "../button";
 
 export default async function NewCompany({ user }: { user: any }) {
   //   console.log(application);
@@ -83,7 +82,7 @@ export default async function NewCompany({ user }: { user: any }) {
           ></input>
         </div>
         <SubmitButton className="hover:bg-blue-400 bg-blue-600 text-white w-[200px] m-auto py-1 my-2 rounded">
-          Update Company
+          Create New Company
         </SubmitButton>
       </form>
     </div>
