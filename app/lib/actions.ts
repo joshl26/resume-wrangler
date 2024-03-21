@@ -2043,7 +2043,7 @@ export async function deleteResumeLine(formData: FormData) {
     resume_id: formData.get("resume_id"),
     line_type: formData.get("line_type"),
   });
-  // console.log(validatedFields);
+  console.log(validatedFields);
 
   if (!validatedFields.success) {
     return {
