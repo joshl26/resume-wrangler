@@ -1,10 +1,9 @@
 import {
-  fetchCerftificationsByUserId,
+  fetchCertificationsByResumeID,
   fetchEducationExperiencesbyResumeID,
-  fetchOrganizationsByUserId,
+  fetchOrganizationsByResumeID,
   fetchResumeById,
   fetchSkillsByResumeID,
-  fetchSkillsByUserId,
   fetchWorkExperiencesbyResumeID,
   getUser,
 } from "@/app/lib/data";
@@ -34,14 +33,14 @@ export async function GET(request: Request) {
   const [
     skillResumeLines,
     educationResumeLines,
-    userOrganizations,
-    userCertifications,
+    organizationResumeLines,
+    certificationResumeLines,
     workResumeLines,
   ] = await Promise.all([
     fetchSkillsByResumeID(resumeId),
     fetchEducationExperiencesbyResumeID(resumeId),
-    fetchOrganizationsByUserId(user?.id),
-    fetchCerftificationsByUserId(user?.id),
+    fetchOrganizationsByResumeID(resumeId),
+    fetchCertificationsByResumeID(resumeId),
     fetchWorkExperiencesbyResumeID(resumeId),
   ]);
 
@@ -50,8 +49,8 @@ export async function GET(request: Request) {
     resume: resume,
     skillResumeLines: skillResumeLines,
     educationResumeLines: educationResumeLines,
-    userOrganizations: userOrganizations,
-    userCertifications: userCertifications,
+    organizationResumeLines: organizationResumeLines,
+    certificationResumeLines: certificationResumeLines,
     workResumeLines: workResumeLines,
   });
 }

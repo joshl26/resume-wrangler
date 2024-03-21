@@ -28,6 +28,8 @@ export default function ResumeStyling({
   educationResumeLines,
   workResumeLines,
   skillResumeLines,
+  certificationResumeLines,
+  organizationResumeLines,
 }: {
   resumeTemplates: any;
   resumeColors: any;
@@ -43,6 +45,8 @@ export default function ResumeStyling({
   educationResumeLines: any;
   workResumeLines: any;
   skillResumeLines: any;
+  certificationResumeLines: any;
+  organizationResumeLines: any;
 }) {
   const [selectedResumeTemplate, setSelectedResumeTemplate] = useState(
     resume?.template
@@ -85,7 +89,7 @@ export default function ResumeStyling({
     <main className="flex w-full">
       <div className="flex flex-row h-full w-full">
         <div className="flex flex-col h-full w-[400px] overflow-scroll px-3">
-          <YourResumeStyling
+          {/* <YourResumeStyling
             resume={resume}
             resumeTemplates={resumeTemplates}
             resumeColors={resumeColors}
@@ -144,7 +148,7 @@ export default function ResumeStyling({
             userOrganizations={userOrganizations}
             showCustomSectionOne={showCustomSectionOne}
             setShowCustomSectionOne={setShowCustomSectionOne}
-          />
+          /> */}
           <div className="py-2"></div>
           <YourCertifications
             resume={resume}
@@ -152,6 +156,7 @@ export default function ResumeStyling({
             userCertifications={userCertifications}
             showCustomSectionTwo={showCustomSectionTwo}
             setShowCustomSectionTwo={setShowCustomSectionTwo}
+            certificationResumeLines={certificationResumeLines}
           />
           <div className="p-2 text-center">
             <a
@@ -196,6 +201,8 @@ export default function ResumeStyling({
                 educationResumeLines={educationResumeLines}
                 workResumeLines={workResumeLines}
                 skillResumeLines={skillResumeLines}
+                organizationResumeLines={organizationResumeLines}
+                certificationResumeLines={certificationResumeLines}
               />
             </Suspense>
           )}

@@ -37,6 +37,8 @@ interface Props {
   educationResumeLines: any;
   workResumeLines: any;
   skillResumeLines: any;
+  organizationResumeLines: any;
+  certificationResumeLines: any;
 }
 
 export default async function ElectricalEngineer(props: Props) {
@@ -494,26 +496,28 @@ export default async function ElectricalEngineer(props: Props) {
                 >
                   {props?.resume?.custom_section_one_name}
                 </h2>
-                {props?.userOrganizations?.map((userOrganizations: any) => (
-                  <li className="flex flex-col" key={userOrganizations?.id}>
-                    <p
-                      className={clsx(
-                        "text-sm font-bold",
-                        props?.heading_font || props?.resume?.heading_font
-                      )}
-                    >
-                      {userOrganizations?.name}
-                    </p>
-                    <p
-                      className={clsx(
-                        "text-sm",
-                        props?.body_font || props?.resume?.body_font
-                      )}
-                    >
-                      {userOrganizations?.location}
-                    </p>
-                  </li>
-                ))}
+                {props?.organizationResumeLines?.map(
+                  (userOrganizations: any) => (
+                    <li className="flex flex-col" key={userOrganizations?.id}>
+                      <p
+                        className={clsx(
+                          "text-sm font-bold",
+                          props?.heading_font || props?.resume?.heading_font
+                        )}
+                      >
+                        {userOrganizations?.name}
+                      </p>
+                      <p
+                        className={clsx(
+                          "text-sm",
+                          props?.body_font || props?.resume?.body_font
+                        )}
+                      >
+                        {userOrganizations?.location}
+                      </p>
+                    </li>
+                  )
+                )}
               </ul>
             </div>
           ) : (
@@ -532,26 +536,28 @@ export default async function ElectricalEngineer(props: Props) {
                   {props?.resume?.custom_section_two_name}
                 </h2>
                 <ul>
-                  {props?.userCertifications?.map((userCertification: any) => (
-                    <li className="flex flex-col" key={userCertification?.id}>
-                      <p
-                        className={clsx(
-                          "text-sm font-bold pt-2",
-                          props?.body_font || props?.resume?.body_font
-                        )}
-                      >
-                        {userCertification?.name}
-                      </p>
-                      <p
-                        className={clsx(
-                          "text-sm",
-                          props?.body_font || props?.resume?.body_font
-                        )}
-                      >
-                        {userCertification?.location}
-                      </p>
-                    </li>
-                  ))}
+                  {props?.certificationResumeLines?.map(
+                    (userCertification: any) => (
+                      <li className="flex flex-col" key={userCertification?.id}>
+                        <p
+                          className={clsx(
+                            "text-sm font-bold pt-2",
+                            props?.body_font || props?.resume?.body_font
+                          )}
+                        >
+                          {userCertification?.name}
+                        </p>
+                        <p
+                          className={clsx(
+                            "text-sm",
+                            props?.body_font || props?.resume?.body_font
+                          )}
+                        >
+                          {userCertification?.location}
+                        </p>
+                      </li>
+                    )
+                  )}
                 </ul>
               </div>
             </div>

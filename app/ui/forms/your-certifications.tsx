@@ -1,6 +1,8 @@
 import {
   createCertification,
+  createResumeLine,
   deleteCertification,
+  deleteResumeLine,
   updateCertificationSectionTitle,
   updateCertificationsSection,
   updateUserCertfication,
@@ -14,12 +16,14 @@ export default function YourCertifications({
   user,
   showCustomSectionTwo,
   setShowCustomSectionTwo,
+  certificationResumeLines,
 }: {
   userCertifications: any;
   resume: any;
   user: any;
   showCustomSectionTwo: any;
   setShowCustomSectionTwo: (e: any) => void;
+  certificationResumeLines: any;
 }) {
   // console.log(userCertifications);
 
@@ -83,10 +87,10 @@ export default function YourCertifications({
             </div>
           </div>
           <div className="flex flex-col ">
-            <div className="flex flex-row m-auto">
+            {/* <div className="flex flex-row m-auto">
               <div className="flex flex-col px-4">Move Up</div>
               <div className="flex flex-col">Move Down</div>
-            </div>
+            </div> */}
           </div>
         </div>
         {showCustomSectionTwo === "true" ? (
@@ -218,20 +222,62 @@ export default function YourCertifications({
             </form>
             <ul>
               {userCertifications[0] &&
-                userCertifications?.map((certification: any) => (
+                userCertifications.map((certification: any) => (
+                  <li className="p-1 border my-3" key={certification.id}>
+                    <form action={createResumeLine}>
+                      <input
+                        hidden
+                        readOnly
+                        name="resume_id"
+                        value={resume.id}
+                      />
+                      <input hidden readOnly name="user_id" value={user.id} />
+                      <input
+                        hidden
+                        readOnly
+                        name="line_type"
+                        value={"custom-section-two"}
+                      />
+                      <input
+                        hidden
+                        readOnly
+                        name="id"
+                        value={certification.id}
+                      />
+                      <div className="flex flex-row justify-between">
+                        <div className="flex flex-col">
+                          <h2 className="font-bold">{certification.name}</h2>
+                          <h2>{certification.location}</h2>
+                        </div>
+                        <div className="flex flex-col">
+                          <SubmitButton className={""}>Add</SubmitButton>
+                        </div>
+                      </div>
+                    </form>
+                  </li>
+                ))}
+            </ul>
+            <ul>
+              {certificationResumeLines[0] &&
+                certificationResumeLines?.map((certification: any) => (
                   <li className="pt-2" key={certification?.id}>
                     <div className="flex flex-row justify-between">
                       <h2 className="font-bold">{certification?.name}</h2>
-                      <form action={deleteCertification}>
-                        <label hidden htmlFor="certification_id" />
+                      <form action={deleteResumeLine}>
+                        <input hidden readOnly name="user_id" value={user.id} />
+                        <input
+                          hidden
+                          readOnly
+                          name="line_type"
+                          value={"custom-section-two"}
+                        />
                         <input
                           readOnly
                           hidden
-                          name="certification_id"
-                          id="certification_id"
+                          name="id"
+                          id="id"
                           value={certification?.id}
                         />
-                        <label hidden htmlFor="resume_id" />
                         <input
                           readOnly
                           hidden
@@ -240,9 +286,9 @@ export default function YourCertifications({
                           value={resume.id}
                         />
                         <div className="flex flex-col">
-                          <button type="submit" className="font-bold">
-                            Delete
-                          </button>
+                          <SubmitButton className="font-bold">
+                            Remove
+                          </SubmitButton>
                         </div>
                       </form>
                     </div>
@@ -349,8 +395,8 @@ export default function YourCertifications({
             value={showCustomSectionTwo}
             onChange={() => {}}
           />
-          <div className="flex flex-row py-2">
-            <div className="px-1 flex align-middle">
+          <div className="flex flex-row pt-4">
+            <div className="px-2 flex align-middle">
               <input
                 className="m-auto bg-slate-200 rounded"
                 type="checkbox"
@@ -359,7 +405,7 @@ export default function YourCertifications({
                 onChange={showCertificationsOnChangeHandler}
               ></input>
             </div>
-            <div className="flex flex-col">
+            <div className="flex flex-col ">
               <p>Show {sectionTitle} section?</p>
             </div>
           </div>

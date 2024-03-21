@@ -1,11 +1,6 @@
-import {
-  fetchCerftificationsByUserId,
-  fetchLatestCompaniesByUserId,
-  getUser,
-} from "@/app/lib/data";
+import { fetchCerftificationsByUserId, getUser } from "@/app/lib/data";
 import { Button } from "@/app/ui/button";
 import Certifications from "@/app/ui/tables/certifications/certifications-table";
-import Companies from "@/app/ui/tables/companies/companies-table";
 import { auth } from "@/auth";
 import Link from "next/link";
 import React from "react";
