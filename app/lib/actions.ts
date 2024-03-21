@@ -1154,8 +1154,14 @@ export async function createUserSkill(formData: FormData) {
   } catch (error) {
     return { message: `Database Error: Failed to Update Invoice. ${error}` };
   }
-  revalidatePath(`/dashboard/resume/edit/${resume_id}`);
-  redirect(`/dashboard/resume/edit/${resume_id}`);
+
+  if (resume_id !== "blank") {
+    revalidatePath(`/dashboard/resume/edit/${resume_id}`);
+    redirect(`/dashboard/resume/edit/${resume_id}`);
+  } else {
+    revalidatePath(`/dashboard/skills`);
+    redirect(`/dashboard/skills`);
+  }
 }
 
 export async function deleteUserSkill(formData: FormData) {
