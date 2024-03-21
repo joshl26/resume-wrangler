@@ -28,6 +28,8 @@ export default function ResumeStyling({
   educationResumeLines,
   workResumeLines,
   skillResumeLines,
+  certificationResumeLines,
+  organizationResumeLines,
 }: {
   resumeTemplates: any;
   resumeColors: any;
@@ -43,6 +45,8 @@ export default function ResumeStyling({
   educationResumeLines: any;
   workResumeLines: any;
   skillResumeLines: any;
+  certificationResumeLines: any;
+  organizationResumeLines: any;
 }) {
   const [selectedResumeTemplate, setSelectedResumeTemplate] = useState(
     resume?.template
@@ -196,6 +200,8 @@ export default function ResumeStyling({
                 educationResumeLines={educationResumeLines}
                 workResumeLines={workResumeLines}
                 skillResumeLines={skillResumeLines}
+                organizationResumeLines={organizationResumeLines}
+                certificationResumeLines={certificationResumeLines}
               />
             </Suspense>
           )}

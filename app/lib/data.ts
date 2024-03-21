@@ -717,3 +717,49 @@ export async function fetchSkillsByResumeID(id: string) {
     return [null];
   }
 }
+
+export async function fetchCertificationsByResumeID(id: string) {
+  noStore();
+
+  try {
+    const query = `SELECT * FROM resume_lines r JOIN user_custom_section_two u ON r.user_custom_section_two_id = u.id WHERE r.resume_id = '${id}' ORDER BY position ASC`;
+
+    // console.log(query);
+    const certificationLines = await conn.query(query);
+
+    // console.log(certificationLines.rowCount);
+
+    if (certificationLines.rows[0]) {
+      return certificationLines.rows;
+    } else {
+      return [null];
+    }
+  } catch (error: any) {
+    console.error("Database Error:", error);
+    // throw new Error("Failed to fetch resume template by id.");
+    return [null];
+  }
+}
+
+export async function fetchOrganizationsByResumeID(id: string) {
+  noStore();
+
+  try {
+    const query = `SELECT * FROM resume_lines r JOIN user_custom_section_one u ON r.user_custom_section_one_id = u.id WHERE r.resume_id = '${id}' ORDER BY position ASC`;
+
+    // console.log(query);
+    const certificationLines = await conn.query(query);
+
+    // console.log(certificationLines.rowCount);
+
+    if (certificationLines.rows[0]) {
+      return certificationLines.rows;
+    } else {
+      return [null];
+    }
+  } catch (error: any) {
+    console.error("Database Error:", error);
+    // throw new Error("Failed to fetch resume template by id.");
+    return [null];
+  }
+}

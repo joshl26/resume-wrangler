@@ -1,9 +1,11 @@
 import {
   fetchBodyFonts,
   fetchCerftificationsByUserId,
+  fetchCertificationsByResumeID,
   fetchEducationByUserId,
   fetchEducationExperiencesbyResumeID,
   fetchHeaderFonts,
+  fetchOrganizationsByResumeID,
   fetchOrganizationsByUserId,
   fetchResumeById,
   fetchResumeColors,
@@ -64,8 +66,10 @@ export default async function EditResume({
   const educationResumeLines = await fetchEducationExperiencesbyResumeID(id);
   const workResumeLines = await fetchWorkExperiencesbyResumeID(id);
   const skillResumeLines = await fetchSkillsByResumeID(id);
+  const certificationResumeLines = await fetchCertificationsByResumeID(id);
+  const organizationResumeLines = await fetchOrganizationsByResumeID(id);
 
-  // console.log(skillResumeLines);
+  // console.log(organizationResumeLines);
 
   if (
     !resumeTemplates ??
@@ -81,7 +85,8 @@ export default async function EditResume({
     !userWorkExperiences ??
     !educationResumeLines ??
     !workResumeLines ??
-    !skillResumeLines
+    !certificationResumeLines ??
+    !organizationResumeLines
   ) {
     notFound();
   }
@@ -102,6 +107,8 @@ export default async function EditResume({
       educationResumeLines={educationResumeLines}
       workResumeLines={workResumeLines}
       skillResumeLines={skillResumeLines}
+      certificationResumeLines={certificationResumeLines}
+      organizationResumeLines={organizationResumeLines}
     />
   );
 }
