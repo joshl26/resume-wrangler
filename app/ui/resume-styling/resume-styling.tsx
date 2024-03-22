@@ -89,7 +89,7 @@ export default function ResumeStyling({
     <main className="flex w-full">
       <div className="flex flex-row h-full w-full">
         <div className="flex flex-col h-full w-[400px] overflow-scroll px-3">
-          {/* <YourResumeStyling
+          <YourResumeStyling
             resume={resume}
             resumeTemplates={resumeTemplates}
             resumeColors={resumeColors}
@@ -148,7 +148,8 @@ export default function ResumeStyling({
             userOrganizations={userOrganizations}
             showCustomSectionOne={showCustomSectionOne}
             setShowCustomSectionOne={setShowCustomSectionOne}
-          /> */}
+            organizationResumeLines={organizationResumeLines}
+          />
           <div className="py-2"></div>
           <YourCertifications
             resume={resume}

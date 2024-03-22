@@ -29,16 +29,13 @@ export default function YourWorkExperiences({
 
   return (
     <div>
-      <div className="your-work-experiences">
-        <div className="flex flex-row justify-between">
-          <div className="flex flex-col">
-            <div className="py-2 font-bold text-xl">
-              <h2>Experience</h2>
-            </div>
-          </div>
-        </div>
-        <div className="h-[100px] overflow-y-auto">
-          <ul>
+      <div className="py-2 font-bold text-xl">
+        <h2>Your Work Experience</h2>
+      </div>
+      <div className="your-work-experiences border rounded p-1">
+        <h3 className="font-medium px-1 pb-1">Previous Experience</h3>
+        <div className="h-[100px] rounded  overflow-y-auto border border-black mx-1 px-2">
+          <ul className="">
             {userWorkExperiences.map((experience: any) => (
               <li key={experience.id}>
                 <div className="flex flex-row pt-2 ">
@@ -59,7 +56,7 @@ export default function YourWorkExperiences({
                       <input hidden readOnly name="id" value={experience.id} />
                       <SubmitButton className={""}>Add</SubmitButton>
                     </form>
-                    <form action={deleteResumeLine}>
+                    {/* <form action={deleteResumeLine}>
                       <input hidden readOnly name="user_id" value={user.id} />
                       <input hidden readOnly name="line_type" value={"work"} />
                       <input hidden readOnly name="id" value={experience.id} />
@@ -70,7 +67,7 @@ export default function YourWorkExperiences({
                         value={resume.id}
                       />
                       <SubmitButton className={""}>Remove</SubmitButton>
-                    </form>
+                    </form> */}
                   </div>
                 </div>
               </li>

@@ -2119,7 +2119,7 @@ export async function createResumeLine(formData: FormData) {
     line_type: formData.get("line_type"),
     id: formData.get("id"),
   });
-  console.log(validatedFields);
+  // console.log(validatedFields);
 
   if (!validatedFields.success) {
     return {
@@ -2149,7 +2149,7 @@ export async function createResumeLine(formData: FormData) {
       query = "";
     }
 
-    //console.log(query);
+    // console.log(query);
     data1 = await conn.query(query);
 
     // console.log(data.rowCount);
@@ -2179,6 +2179,8 @@ export async function createResumeLine(formData: FormData) {
     } else {
       query = "";
     }
+
+    // console.log(query);
 
     try {
       const data = await conn.query(query);

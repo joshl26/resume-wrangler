@@ -78,14 +78,13 @@ export default function YourCertifications({
   // };
 
   return (
-    <div className="rounded border border-black w-full px-2">
-      <div className="your-certifications">
+    <div className=" w-full px-2">
+      <div className=" font-bold text-xl">
+        <h2>Your {sectionTitle}</h2>
+      </div>
+      <div className="your-certifications rounded border p-2">
         <div className="flex flex-row justify-between">
-          <div className="flex flex-col">
-            <div className="py-2 font-bold text-xl">
-              <h2>{sectionTitle}</h2>
-            </div>
-          </div>
+          <div className="flex flex-col"></div>
           <div className="flex flex-col ">
             {/* <div className="flex flex-row m-auto">
               <div className="flex flex-col px-4">Move Up</div>
@@ -293,6 +292,7 @@ export default function YourCertifications({
                       </form>
                     </div>
                     <form
+                      className="pb-4"
                       onSubmit={() => setEdited(false)}
                       action={updateUserCertfication}
                     >
@@ -395,7 +395,7 @@ export default function YourCertifications({
             value={showCustomSectionTwo}
             onChange={() => {}}
           />
-          <div className="flex flex-row pt-4">
+          <div className="flex flex-row ">
             <div className="px-2 flex align-middle">
               <input
                 className="m-auto bg-slate-200 rounded"
@@ -405,7 +405,7 @@ export default function YourCertifications({
                 onChange={showCertificationsOnChangeHandler}
               ></input>
             </div>
-            <div className="flex flex-col ">
+            <div className="flex flex-col py-2">
               <p>Show {sectionTitle} section?</p>
             </div>
           </div>
