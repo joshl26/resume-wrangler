@@ -1,10 +1,7 @@
 import {
   createResumeLine,
-  createUserEducation,
-  deleteEducation,
   deleteResumeLine,
   updateEducationSection,
-  updateResumeLine,
   updateUserEducation,
 } from "@/app/lib/actions";
 import { useState } from "react";

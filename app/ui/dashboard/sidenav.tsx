@@ -8,27 +8,21 @@ export default function SideNav({ session }: { session: any }) {
   return (
     <div className="flex h-full flex-col px-3 py-4 md:px-2">
       <Link
-        className="mb-2 flex  items-end justify-start rounded-md bg-blue-600 p-4 "
+        className="mb-2 flex items-end justify-start rounded-md bg-amber-400 p-4 "
         href="/"
       >
-        <div className="w-32 text-white md:w-40">
+        <div className="w-32 md:w-40">
           <AcmeLogo />
         </div>
       </Link>
-      <div className="flex grow flex-row justify-between space-x-2 md:flex-col md:space-x-0 md:space-y-2 overflow-y-auto">
+      {session && (
+        <p className="font-bold pb-2 px-1">
+          Logged in as User: {session?.user.name}
+        </p>
+      )}
+      <div className="flex grow flex-row justify-between space-x-2 space-y-1 md:flex-col md:space-x-0 ">
         <NavLinks />
         <div className="hidden h-auto w-full grow rounded-md bg-gray-50 md:block"></div>
-        {session && (
-          <>
-            <p className="font-bold text-center">
-              Currently logged in as User: <br></br>{" "}
-            </p>
-            <p className="font-normal text-center">
-              {session?.user.name} ({session?.user.email})
-            </p>
-          </>
-        )}
-
         <form
           action={async () => {
             "use server";
