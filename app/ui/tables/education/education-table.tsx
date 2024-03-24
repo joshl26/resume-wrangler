@@ -9,21 +9,12 @@ const Education = ({ education }: { education: any }) => {
 
   return (
     <div className="relative overflow-x-auto overflow-y-auto shadow-md sm:rounded-lg px-4 py-4">
-      <table className="w-full text-sm text-left rtl:text-right text-gray-200 dark:text-gray-200">
-        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+      <table className="w-full text-sm text-left rtl:text-right text-gray-200 ">
+        <thead
+          className="text-xs text-gray-700 uppercase bg-gray-300 border
+        "
+        >
           <tr>
-            {/* <th scope="col" className="p-4">
-              <div className="flex items-center">
-                <input
-                  id="checkbox-all-search"
-                  type="checkbox"
-                  className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                />
-                <label htmlFor="checkbox-all-search" className="sr-only">
-                  checkbox
-                </label>
-              </div>
-            </th> */}
             <th scope="col" className="px-6 py-3">
               program Name
             </th>
@@ -51,25 +42,6 @@ const Education = ({ education }: { education: any }) => {
                 key={program?.id}
                 className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
               >
-                {/* <Link
-                  className="w-full "
-                  href={`/dashboard/program/edit/${program.id}`}
-                > */}
-                {/* <td className="w-4 p-4">
-                  <div className="flex items-center">
-                    <input
-                      id="checkbox-table-search-1"
-                      type="checkbox"
-                      className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                    />
-                    <label
-                      htmlFor="checkbox-table-search-1"
-                      className="sr-only"
-                    >
-                      checkbox
-                    </label>
-                  </div>
-                </td> */}
                 <th
                   scope="row"
                   className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
@@ -87,18 +59,12 @@ const Education = ({ education }: { education: any }) => {
                 <td className="px-6 py-4">
                   {program?.end_date ? program?.end_date : "N/A"}
                 </td>
-                {/* <td className="text-left px-6 py-4">
-                  {organization?.description
-                    ? organization?.description
-                    : "N/A"}
-                </td> */}
-
                 <td className="text-left px-6 py-4">
                   <div className="flex flex-row">
                     {" "}
                     <a
                       href={`/dashboard/education/edit/${program.id}`}
-                      className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                      className="font-medium text-azure-radiance-600 hover:underline"
                     >
                       Edit
                     </a>
@@ -121,7 +87,7 @@ const Education = ({ education }: { education: any }) => {
                       />
                       <button
                         type="submit"
-                        className="font-medium text-red-600 dark:text-red-500 hover:underline ms-3"
+                        className="font-medium text-rose-600  hover:underline ms-3"
                       >
                         Remove
                       </button>
@@ -160,7 +126,7 @@ const Education = ({ education }: { education: any }) => {
           <li>
             <a
               href="#"
-              className="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+              className="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
             >
               Previous
             </a>
