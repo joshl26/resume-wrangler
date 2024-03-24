@@ -4,6 +4,8 @@ import { auth } from "@/auth";
 import { fetchApplicationsByUserId, getUser } from "@/app/lib/data";
 import ApplicationsCard from "@/app/ui/dashboard/applications-card";
 import WorldMap from "@/app/ui/dashboard/worldmap";
+import Image from "next/image";
+import TrendCard from "@/app/ui/dashboard/trend-card";
 
 export default async function Page() {
   const session = await auth();
@@ -23,7 +25,7 @@ export default async function Page() {
   return (
     <main className="w-full">
       <Suspense fallback={<CardsSkeleton />}>
-        <div className="border border-red w-full h-full">
+        <div className="w-full h-full">
           {/* <div className="flex flex-row px-2 mt-6 ml-4 mr-4 border-red h-10 bg-slate-200">
             <p className="m-auto">
               Youre on the free plan. To create unlimited pdf resumes, export
@@ -34,7 +36,7 @@ export default async function Page() {
             </p>
           </div> */}
 
-          <div className="flex flex-row gap-4 p-4 ">
+          <div className="flex flex-row gap-4 px-4 pb-4 ">
             <div className="shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] flex flex-col bg-international-orange-400 h-[125px] w-full rounded-xl">
               <h2 className="p-2 font-bold">Open Applications</h2>
               <h2 className="text-[3rem] m-auto">3</h2>
@@ -53,9 +55,7 @@ export default async function Page() {
             </div>
           </div>
           <div className="flex flex-row gap-4 px-4">
-            <div className="shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] w-1/2 h-[250px] bg-white rounded-xl">
-              <h2 className="font-bold p-2">Trend</h2>
-            </div>
+            <TrendCard />
             <div className="shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] w-1/4 h-[250px] bg-white rounded-xl">
               <h2 className="font-bold p-2">Job Type</h2>
             </div>

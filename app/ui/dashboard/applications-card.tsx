@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import clsx from "clsx";
+import Link from "next/link";
 
 const ApplicationsCard = ({ applications }: { applications: any }) => {
   const [applicationButton, setApplicationButton] = useState("all");
@@ -69,17 +70,19 @@ const ApplicationsCard = ({ applications }: { applications: any }) => {
         <ul>
           {applications.map((application: any) => (
             <li key={application?.id}>
-              <div className="flex flex-row justify-between p-4 gap-2">
-                <div className="flex flex-col w-[25px]">
-                  <div className="w-[25px] h-[25px] rounded-full bg-azure-radiance-400 m-auto"></div>
+              <Link href={"/dashboard/applications"}>
+                <div className="flex flex-row justify-between px-4 py-1 gap-2 border">
+                  <div className="flex flex-col w-[25px]">
+                    <div className="w-[25px] h-[25px] rounded-full bg-azure-radiance-400 m-auto"></div>
+                  </div>
+                  <div className="flex flex-col p-2 text-left w-full">
+                    {application.job_position}
+                  </div>
+                  <div className="flex flex-col my-auto text-white font-medium border bg-rose-400 rounded-md p-1">
+                    Awaiting
+                  </div>
                 </div>
-                <div className="flex flex-col p-2 text-left w-full">
-                  {application.job_position}
-                </div>
-                <div className="flex flex-col my-auto text-white font-medium border bg-rose-400 rounded-md p-1">
-                  Awaiting
-                </div>
-              </div>
+              </Link>
             </li>
           ))}
         </ul>
