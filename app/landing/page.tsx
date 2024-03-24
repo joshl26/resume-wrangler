@@ -7,11 +7,17 @@ import { ArrowRightIcon } from "@heroicons/react/24/outline";
 const Landing = ({ children }: { children: ReactNode }) => {
   return (
     <>
-      <div className="min-w-full bg-lime-400">
-        <header className="flex flex-row h-20 bg-slate-400">
+      <div className="min-w-full bg-gray-50">
+        <header className="flex flex-row h-20">
           <nav className="max-w-screen-xl w-full m-auto flex justify-between">
-            <div className="h-[50px] w-[50px] rounded">
-              <Image width={0} height={0} alt="" src={ResumeWranglerIcon} />
+            <div className="h-[50px] w-[50px]">
+              <Image
+                className="rounded"
+                width={0}
+                height={0}
+                alt=""
+                src={ResumeWranglerIcon}
+              />
             </div>
             {/* <AcmeLogo /> */}
             <div className="text-center flex gap-4">

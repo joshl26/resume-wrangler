@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useState } from "react";
 
-import { Metadata } from "next";
 import Landing from "../landing/page";
 
 // type Search = {
@@ -101,7 +100,7 @@ const searchProviders = [
 // };
 
 export default function Page() {
-  const [jobTitle, setJobTitle] = useState<string>("");
+  const [jobTitle, setJobTitle] = useState("");
 
   return (
     <Landing>

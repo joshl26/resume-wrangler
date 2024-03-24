@@ -27,9 +27,6 @@ const Education = ({ education }: { education: any }) => {
             <th scope="col" className="px-6 py-3">
               End Date
             </th>
-            {/* <th scope="col" className="px-6 py-3">
-              Description
-            </th> */}
             <th scope="col" className="px-6 py-3">
               Action
             </th>
@@ -94,16 +91,15 @@ const Education = ({ education }: { education: any }) => {
                     </form>
                   </div>
                 </td>
-                {/* </Link> */}
               </tr>
             ))
           ) : (
             <tr>
-              {/* <Link href="/dashboard/organization/new"> */}
-              <td className="flex items-center px-6 py-4">
-                Start by creating your first organization here
-              </td>{" "}
-              {/* </Link> */}
+              <Link href="/dashboard/organization/new">
+                <td className="flex items-center px-6 py-4">
+                  Start by creating your first organization here
+                </td>
+              </Link>
             </tr>
           )}
         </tbody>
