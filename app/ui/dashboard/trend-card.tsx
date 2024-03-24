@@ -17,9 +17,9 @@ const TrendCard = () => {
         </div>
       </div>
       <div className="flex flex-row">
-        <div className="w-full h-full">
+        <div className="w-full h-[175px]">
           <Image
-            className="h-full m-auto"
+            className="h-full w-auto m-auto"
             width={0}
             height={0}
             alt=""
