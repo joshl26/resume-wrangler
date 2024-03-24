@@ -19,13 +19,13 @@ const ApplicationsCard = ({ applications }: { applications: any }) => {
           </select>
         </div>
       </div>
-      <div className="flex flex-row px-2 gap-2">
+      <div className="flex flex-row px-4 gap-2 pb-2">
         <button onClick={(e) => setApplicationButton("all")}>
           <div
             className={clsx(
               applicationButton === "all"
-                ? `font-medium px-6 border border-purple-heart-600 bg-purple-heart-400 rounded-full p-1`
-                : `font-medium px-6 border border-purple-heart-600 bg-white rounded-full p-1`
+                ? `font-medium px-6 border text-white border-purple-heart-400 bg-purple-heart-400 rounded-full p-1`
+                : `font-medium px-6 border border-purple-heart-400 bg-white rounded-full p-1 hover:bg-purple-heart-100`
             )}
           >
             All
@@ -35,8 +35,8 @@ const ApplicationsCard = ({ applications }: { applications: any }) => {
           <div
             className={clsx(
               applicationButton === "open"
-                ? `font-medium px-6 border border-rose-600 bg-rose-600 rounded-full p-1`
-                : `font-medium px-6 border border-rose-600 bg-white rounded-full p-1`
+                ? `font-medium px-6 border text-white border-rose-400 bg-rose-400 rounded-full p-1`
+                : `font-medium px-6 border border-rose-400  bg-white rounded-full p-1 hover:bg-rose-100`
             )}
           >
             Open
@@ -46,8 +46,8 @@ const ApplicationsCard = ({ applications }: { applications: any }) => {
           <div
             className={clsx(
               applicationButton === "pending"
-                ? `font-medium px-6 border bg-international-orange-600 border-international-orange-600  rounded-full p-1`
-                : `font-medium px-6 border border-international-orange-600 bg-white rounded-full p-1`
+                ? `font-medium px-6 text-white border bg-international-orange-400 border-international-orange-400  rounded-full p-1`
+                : `font-medium px-6 border border-international-orange-400 bg-white rounded-full p-1 hover:bg-international-orange-100`
             )}
           >
             Pending
@@ -57,8 +57,8 @@ const ApplicationsCard = ({ applications }: { applications: any }) => {
           <div
             className={clsx(
               applicationButton === "closed"
-                ? `font-medium px-6 bg-amber-600 border border-amber-600   rounded-full p-1`
-                : `font-medium px-6 border border-amber-600 bg-white  rounded-full p-1`
+                ? `font-medium px-6 text-white bg-amber-500 border border-amber-400   rounded-full p-1`
+                : `font-medium px-6 border border-amber-400 bg-white  rounded-full p-1 hover:bg-amber-100`
             )}
           >
             Closed
@@ -69,12 +69,15 @@ const ApplicationsCard = ({ applications }: { applications: any }) => {
         <ul>
           {applications.map((application: any) => (
             <li key={application?.id}>
-              <div className="flex flex-row p-4 gap-2">
-                <div className="flex flex-col border p-2">
+              <div className="flex flex-row justify-between p-4 gap-2">
+                <div className="flex flex-col w-[25px]">
+                  <div className="w-[25px] h-[25px] rounded-full bg-azure-radiance-400 m-auto"></div>
+                </div>
+                <div className="flex flex-col p-2 text-left w-full">
                   {application.job_position}
                 </div>
-                <div className="flex flex-col border p-2">
-                  Awaiting Submission
+                <div className="flex flex-col my-auto text-white font-medium border bg-rose-400 rounded-md p-1">
+                  Awaiting
                 </div>
               </div>
             </li>
