@@ -1,5 +1,6 @@
 import Image from "next/image";
 import React from "react";
+import BarChart from "/public/graphs/BarChart.png";
 
 const TrendCard = () => {
   return (
@@ -16,12 +17,13 @@ const TrendCard = () => {
         </div>
       </div>
       <div className="flex flex-row">
-        <div>
+        <div className="w-full h-full">
           <Image
-            width={50}
-            height={50}
+            className="h-full m-auto"
+            width={0}
+            height={0}
             alt=""
-            src="/public/graphs/BarChart.png"
+            src={BarChart}
           />
         </div>
       </div>

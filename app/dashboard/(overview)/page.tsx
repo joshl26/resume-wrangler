@@ -6,6 +6,9 @@ import ApplicationsCard from "@/app/ui/dashboard/applications-card";
 import WorldMap from "@/app/ui/dashboard/worldmap";
 import Image from "next/image";
 import TrendCard from "@/app/ui/dashboard/trend-card";
+import JobTypeCard from "@/app/ui/dashboard/job-type-card";
+import ResponsesCard from "@/app/ui/dashboard/responses-card";
+import DemographicsCard from "@/app/ui/dashboard/demographics-card";
 
 export default async function Page() {
   const session = await auth();
@@ -56,19 +59,12 @@ export default async function Page() {
           </div>
           <div className="flex flex-row gap-4 px-4">
             <TrendCard />
-            <div className="shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] w-1/4 h-[250px] bg-white rounded-xl">
-              <h2 className="font-bold p-2">Job Type</h2>
-            </div>
-            <div className="shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] w-1/4 h-[250px] bg-white rounded-xl">
-              <h2 className="font-bold p-2">Responses</h2>
-            </div>
+            <JobTypeCard />
+            <ResponsesCard />
           </div>
           <div className="flex flex-row gap-4 px-4 pt-4">
             <ApplicationsCard applications={applications} />{" "}
-            <div className="shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] w-1/2 h-[275px] bg-white rounded-xl">
-              <h2 className="font-bold p-2">Company Demographic</h2>
-              {/* <WorldMap /> */}
-            </div>
+            <DemographicsCard />
           </div>
         </div>
       </Suspense>
