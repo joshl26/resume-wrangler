@@ -5,8 +5,8 @@ import Link from "next/link";
 
 const LandingNavBar = () => {
   return (
-    <nav className="flex  items-center justify-between flex-wrap bg-gray-100 p-6">
-      <div className="max-w-screen-xl h-10 w-full flex m-auto">
+    <nav className=" bg-amber-50 flex fixed opacity-100 t-0 w-screen items-center justify-between flex-wrap p-2">
+      <div className=" max-w-screen-xl w-full flex m-auto">
         <div className="flex items-center flex-shrink-0 mr-6 ">
           <div className="w-[50px] h-[50px]">
             <Image
@@ -46,7 +46,7 @@ const LandingNavBar = () => {
             <div className="flex flex-row justify-end gap-2">
               <Link
                 href="/register"
-                className="w-auto rounded-full bg-gray-100 hover:text-rose-400 px-6 py-3"
+                className="w-auto rounded-full bg-amber-50 hover:text-rose-400 px-6 py-3"
               >
                 Create Account
               </Link>

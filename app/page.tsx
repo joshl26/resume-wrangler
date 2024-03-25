@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 export default async function Page() {
   return (
     <Landing>
-      <div></div>
+      <div className="h-screen w-screen"></div>
     </Landing>
   );
 }
