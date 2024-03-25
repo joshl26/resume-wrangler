@@ -1,10 +1,11 @@
 import Image from "next/image";
 import React from "react";
-import BarChart from "/public/graphs/BarChart.png";
+import BarChart from "@/app/ui/charts/barchart";
 
 const TrendCard = () => {
   return (
     <div className="shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] w-1/2 h-[250px] bg-white rounded-xl">
+      <BarChart />
       <div className="flex flex-row justify-between">
         <h2 className="font-bold p-2">Trend</h2>
         <div className="relative h-auto w-[125px] m-4">
@@ -16,8 +17,9 @@ const TrendCard = () => {
           </select>
         </div>
       </div>
+
       <div className="flex flex-row">
-        <div className="w-full h-[175px]">
+        {/* <div className="w-full h-[175px]">
           <Image
             className="h-full w-auto m-auto"
             width={0}
@@ -25,7 +27,7 @@ const TrendCard = () => {
             alt=""
             src={BarChart}
           />
-        </div>
+        </div> */}
       </div>
     </div>
   );
