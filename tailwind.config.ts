@@ -21,6 +21,11 @@ const config: Config = {
       gridTemplateColumns: {
         "13": "repeat(13, minmax(0, 1fr))",
       },
+      backgroundImage: {
+        "gradient-ocean": "linear-gradient(90deg,#2155BF,#78b9e9 50%,#9ef3e9)",
+        "gradient-harvest":
+          "linear-gradient(90deg,#FFBE0B,#E04807 50%,#E04807)",
+      },
       colors: {
         backgroundLight: "hsla(30,94%,72%,.1)",
         blue: {

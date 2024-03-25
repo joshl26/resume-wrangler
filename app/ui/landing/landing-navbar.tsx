@@ -17,9 +17,9 @@ const LandingNavBar = () => {
               src={ResumeWranglerIcon}
             />
           </div>
-          <span className="font-semibold text-xl tracking-tight ml-4 w-[100px]">
+          {/* <span className="font-semibold text-xl tracking-tight ml-4 w-[100px]">
             Resume Wrangler
-          </span>
+          </span> */}
         </div>
         <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
           <div className="text-sm lg:flex-grow">
@@ -52,7 +52,7 @@ const LandingNavBar = () => {
               </Link>
               <Link
                 href="/login"
-                className="rounded-full border hover:bg-white hover:text-black  hover:border-rose-400 bg-rose-600 px-6 py-3 font-medium text-white"
+                className="rounded-full border hover:bg-white hover:text-black  hover:border-amber-400 bg-amber-400 px-6 py-3 font-medium text-white"
               >
                 Log in
               </Link>

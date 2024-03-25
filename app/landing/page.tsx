@@ -7,7 +7,7 @@ const Landing = ({ children }: { children: ReactNode }) => {
   return (
     <div className="bg-amber-50">
       <LandingNavBar />
-      <main className="max-w-screen-xl w-full h-full m-auto ">{children}</main>
+      <main>{children}</main>
     </div>
   );
 };
