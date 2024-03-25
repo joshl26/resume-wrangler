@@ -15,31 +15,7 @@ export const metadata: Metadata = {
 export default async function Page() {
   return (
     <Landing>
-      <div className="py-10 flex flex-row w-full">
-        <div className="flex flex-col w-3/12">
-          <Link href="/">
-            <h2 className="py-3 font-bold font">Resume Templates</h2>
-          </Link>
-          <Link href="/job-boards">
-            <h2 className="py-3">Job Boards</h2>
-          </Link>
-          <Link href="/how-to-use">
-            <h2 className="py-3">How to Use</h2>
-          </Link>
-        </div>
-        <div className="flex flex-col w-9/12">
-          <div className="bg-stone-300 w-full h-full flex flex-row justify-between">
-            <div className="w-[30%] h-[95%] bg-white flex"></div>
-            <div className="w-[30%] h-[95%] bg-white flex"></div>
-            <div className="w-[30%] h-[95%] bg-white flex"></div>
-          </div>
-          <div className="bg-stone-300 w-full h-full flex flex-row justify-between">
-            <div className="w-[30%] h-[95%] bg-white flex"></div>
-            <div className="w-[30%] h-[95%] bg-white flex"></div>
-            <div className="w-[30%] h-[95%] bg-white flex"></div>
-          </div>
-        </div>
-      </div>
+      <div></div>
     </Landing>
   );
 }
