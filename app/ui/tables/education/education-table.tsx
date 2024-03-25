@@ -8,10 +8,10 @@ const Education = ({ education }: { education: any }) => {
   // console.log(organization.find(({ id }: any) => id === "1").name);
 
   return (
-    <div className="relative overflow-x-auto overflow-y-auto shadow-md sm:rounded-lg px-4 py-4">
+    <div className="relative overflow-x-auto overflow-y-auto  shadow-md sm:rounded-lg px-4 py-4">
       <table className="w-full text-sm text-left rtl:text-right text-gray-200 ">
         <thead
-          className="text-xs text-gray-700 uppercase bg-gray-300 border
+          className="text-xs text-gray-700 uppercase bg-gray-200 border
         "
         >
           <tr>
@@ -37,11 +37,11 @@ const Education = ({ education }: { education: any }) => {
             education?.map((program: any) => (
               <tr
                 key={program?.id}
-                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+                className="bg-gray-100 border-b text-black  hover:bg-gray-50 "
               >
                 <th
                   scope="row"
-                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  className="px-6 py-4 font-medium whitespace-nowrap "
                 >
                   {program?.institution_name
                     ? program?.institution_name

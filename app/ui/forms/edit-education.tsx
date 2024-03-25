@@ -14,7 +14,7 @@ export default function EditEducation({ education }: { education: any }) {
     }
   };
   return (
-    <div>
+    <div className="overflow-y-auto h-full">
       <Link className="px-3 underline" href={"/dashboard/education/"}>
         Back
       </Link>

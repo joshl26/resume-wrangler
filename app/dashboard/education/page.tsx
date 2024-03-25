@@ -26,7 +26,7 @@ export default async function Page() {
   const education = await fetchEducationByUserId(user.id);
   // console.log(applications);
   return (
-    <div className="h-full w-full">
+    <div className="h-full w-full overflow-y-auto">
       <Link className="underline px-4" href={"/dashboard/"}>
         Back
       </Link>
