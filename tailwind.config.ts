@@ -16,6 +16,7 @@ const config: Config = {
       animation: {
         wiggle: "wiggle 1s ease-in-out infinite",
         pulse: "pulse 2s infinite",
+        shine: "shine 1s",
       },
       gridTemplateColumns: {
         "13": "repeat(13, minmax(0, 1fr))",
@@ -94,6 +95,9 @@ const config: Config = {
       },
     },
     keyframes: {
+      shine: {
+        "100%": { left: "125%" },
+      },
       wiggle: {
         "0%, 100%": { transform: "rotate(-3deg)" },
         "50%": { transform: "rotate(3deg)" },

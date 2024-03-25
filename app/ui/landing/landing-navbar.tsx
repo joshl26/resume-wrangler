@@ -24,20 +24,20 @@ const LandingNavBar = () => {
         <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
           <div className="text-sm lg:flex-grow">
             <a
-              href="#responsive-header"
-              className="block mt-4 lg:inline-block lg:mt-0  hover:text-white mr-4"
+              href="/resume-templates"
+              className="block mt-4 lg:inline-block lg:mt-0  hover:text-rose-400 mr-4"
             >
-              Docs
+              Resume Templates
             </a>
             <a
-              href="#responsive-header"
-              className="block mt-4 lg:inline-block lg:mt-0  hover:text-white mr-4"
+              href="/features"
+              className="block mt-4 lg:inline-block lg:mt-0  hover:text-rose-400 mr-4"
             >
-              Examples
+              Features
             </a>
             <a
-              href="#responsive-header"
-              className="block mt-4 lg:inline-block lg:mt-0  hover:text-white"
+              href="/blog"
+              className="block mt-4 lg:inline-block lg:mt-0  hover:text-rose-400"
             >
               Blog
             </a>
@@ -46,13 +46,13 @@ const LandingNavBar = () => {
             <div className="flex flex-row justify-end gap-2">
               <Link
                 href="/register"
-                className="w-auto rounded-full bg-gray-50 px-6 py-3  "
+                className="w-auto rounded-full bg-gray-100 hover:text-rose-400 px-6 py-3"
               >
                 Create Account
               </Link>
               <Link
                 href="/login"
-                className="rounded-full bg-rose-600 px-6 py-3 font-medium text-white"
+                className="rounded-full border hover:bg-white hover:text-black  hover:border-rose-400 bg-rose-600 px-6 py-3 font-medium text-white"
               >
                 Log in
               </Link>
