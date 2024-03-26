@@ -18,7 +18,7 @@ const LandingOne = () => {
           <Image className="mx-auto" alt="" src={Lasso} />
         </div>
         <div className="flex flex-col w-1/2">
-          <h1 className="text-[6rem] font-bold leading-tight">
+          <h1 className="text-[3rem]  sm:text-[4rem] md:text-[6rem]   font-bold leading-tight ">
             Tame your Job Search.
           </h1>
         </div>
