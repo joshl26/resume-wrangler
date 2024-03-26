@@ -1,8 +1,8 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import LandingNavBar from "../ui/landing/landing-navbar";
 import LandingFooter from "../ui/landing/landing-footer";
 
-const Landing = ({ children }: { children: ReactNode }) => {
+const Landing = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="bg-amber-50 overflow-x-hidden">
       <LandingNavBar />
