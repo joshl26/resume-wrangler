@@ -11,7 +11,7 @@ const LandingOne = () => {
         className={"h-[750px] w-[750px] -bottom-[300px] -left-[400px] "}
       />
       <AzureBlob
-        className={"h-[750px] w-[750px] -bottom-[300px] -right-[400px] "}
+        className={"h-[750px] w-[750px] -top-[300px] -right-[400px] "}
       />
       <div className="relative flex flex-row items-center pt-32 pb-20 z-10">
         <div className="flex flex-col w-1/2 ">

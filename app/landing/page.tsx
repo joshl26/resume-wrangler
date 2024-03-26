@@ -5,7 +5,7 @@ import LandingNavBar from "../ui/landing/landing-navbar";
 
 const Landing = ({ children }: { children: ReactNode }) => {
   return (
-    <div className="bg-amber-50">
+    <div className="bg-amber-50 overflow-x-hidden">
       <LandingNavBar />
       <main>{children}</main>
     </div>
