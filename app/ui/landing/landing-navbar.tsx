@@ -45,16 +45,16 @@ const LandingNavBar = () => {
           <div className="invisible lg:visible">
             <div className="flex flex-row justify-end gap-2">
               <Link
-                href="/register"
+                href="/login"
                 className="w-auto rounded-full bg-amber-50 hover:text-rose-400 px-6 py-3"
               >
-                Create Account
+                Log in
               </Link>
               <Link
-                href="/login"
+                href="/register"
                 className="rounded-full border hover:bg-white hover:text-black  hover:border-amber-400 bg-amber-400 px-6 py-3 font-medium text-white"
               >
-                Log in
+                Create Account
               </Link>
             </div>
           </div>
