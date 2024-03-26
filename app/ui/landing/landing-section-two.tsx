@@ -16,20 +16,20 @@ const LandingTwo = () => {
         </h2>
       </div>
       <div className="flex flex-row justify-center pt-2">
-        <span className="text-white font-bold text-[2.5rem] max-w-screen-xl text-center bg-gradient-harvest text-transparent bg-clip-text">
+        <span className="text-white font-bold text-[2.5rem] max-w-screen-xl text-center bg-gradient-harvest text-transparent bg-clip-text px-2">
           Most people spend a large chunk of their life at work… <br></br>
           Choose a company AND a career you’ll love!
         </span>
       </div>
       <div className="flex flex-row justify-center pt-16">
-        <h2 className="font-medium text-center text-white max-w-screen-lg text-[1.25rem]">
+        <h2 className="font-medium text-center text-white max-w-screen-lg text-[1.25rem] px-2">
           Setting us apart from other custom resume generators is our
           understanding that applicants deserve to find their dream company, not
           just their dream role.
         </h2>
       </div>
       <div className="flex flex-row justify-center pt-16">
-        <h2 className="font-medium text-center text-white max-w-screen-lg text-[1.25rem]">
+        <h2 className="font-medium text-center text-white max-w-screen-lg text-[1.25rem] px-2">
           We used cutting edge technology and artifical intelligence to design
           this app. All the while keeping in mind that simplicity is best. With
           this in mind I think you will apppreciate the application we have

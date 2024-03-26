@@ -63,7 +63,7 @@ const LandingNavBar = () => {
         <div className="block lg:hidden">
           <button
             onClick={(e) => setShowMenu(showMenu === false ? true : false)}
-            className="flex items-center px-3 py-2 border rounded  border-black hover:text-international-orange-500 hover:border-international-orange-500"
+            className="flex items-center px-3 py-2 border rounded  border-black hover:text-azure-radiance-900 hover:border-azure-radiance-900"
           >
             <svg
               className="fill-current h-3 w-3"
