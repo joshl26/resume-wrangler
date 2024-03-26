@@ -12,9 +12,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} antialiased`}>
-        <StoreProvider>
-          <Suspense>{children}</Suspense>
-        </StoreProvider>
+        {/* <StoreProvider> */}
+        <Suspense>{children}</Suspense>
+        {/* </StoreProvider> */}
       </body>
     </html>
   );

@@ -2,7 +2,11 @@ import React from "react";
 import LandingNavBar from "../ui/landing/landing-navbar";
 import LandingFooter from "../ui/landing/landing-footer";
 
-const Landing = ({ children }: { children: React.ReactNode }) => {
+export default async function Landing({
+  children,
+}: {
+  children?: React.ReactNode;
+}) {
   return (
     <div className="bg-amber-50 overflow-x-hidden">
       <LandingNavBar />
@@ -10,6 +14,4 @@ const Landing = ({ children }: { children: React.ReactNode }) => {
       <LandingFooter />
     </div>
   );
-};
-
-export default Landing;
+}

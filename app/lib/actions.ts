@@ -621,9 +621,9 @@ export async function updateUser(
     resume_id: formData.get("resume_id"),
   });
 
-  if (!validatedFields.success) {
+  if (validatedFields.success === false) {
     return {
-      errors: validatedFields.error.flatten().fieldErrors,
+      errors: validatedFields?.error?.flatten().fieldErrors,
       message: "Missing Fields. Failed to Update Invoice.",
     };
   }
@@ -680,7 +680,7 @@ export async function updateSocials(
 
   // console.log(validatedFields);
 
-  if (!validatedFields.success) {
+  if (validatedFields.success === false) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
       message: "Missing Fields. Failed to Update Invoice.",
@@ -729,7 +729,7 @@ export async function updateApplication(formData: FormData) {
 
   // console.log(validatedFields);
 
-  if (!validatedFields.success) {
+  if (validatedFields.success === false) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
       message: "Missing Fields. Failed to Update Invoice.",
@@ -771,7 +771,7 @@ export async function createApplication(formData: FormData) {
     companyId: formData.get("company_id"),
   });
 
-  if (!validatedFields.success) {
+  if (validatedFields.success === false) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
       message: "Missing Fields. Failed to Update Invoice.",
@@ -836,7 +836,7 @@ export async function updateCompany(formData: FormData) {
 
   //console.log(validatedFields);
 
-  if (!validatedFields.success) {
+  if (validatedFields.success === false) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
       message: "Missing Fields. Failed to Update Invoice.",
@@ -883,7 +883,7 @@ export async function createCompany(formData: FormData) {
 
   //console.log(validatedFields);
 
-  if (!validatedFields.success) {
+  if (validatedFields.success === false) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
       message: "Missing Fields. Failed to Update Invoice.",
@@ -961,7 +961,7 @@ export async function createCoverLetter(formData: FormData) {
     company_id: formData.get("company_id"),
   });
 
-  if (!validatedFields.success) {
+  if (validatedFields.success === false) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
       message: "Missing Fields. Failed to Update Invoice.",
@@ -1013,7 +1013,7 @@ export async function createResume(formData: FormData) {
     company_id: formData.get("company_id"),
   });
 
-  if (!validatedFields.success) {
+  if (validatedFields.success === false) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
       message: "Missing Fields. Failed to Update Invoice.",
@@ -1054,7 +1054,7 @@ export async function updateYourResumeStyle(formData: FormData) {
 
   // console.log(validatedFields);
 
-  if (!validatedFields.success) {
+  if (validatedFields.success === false) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
       message: "Missing Fields. Failed to Update Invoice.",
@@ -1098,7 +1098,7 @@ export async function updateUserSkill(formData: FormData) {
 
   console.log(validatedFields);
 
-  if (!validatedFields.success) {
+  if (validatedFields.success === false) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
       message: "Missing Fields. Failed to Create user skill.",
@@ -1139,7 +1139,7 @@ export async function createUserSkill(formData: FormData) {
 
   // console.log(validatedFields);
 
-  if (!validatedFields.success) {
+  if (validatedFields.success === false) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
       message: "Missing Fields. Failed to Create user skill.",
@@ -1177,7 +1177,7 @@ export async function deleteUserSkill(formData: FormData) {
 
   // console.log(validatedFields);
 
-  if (!validatedFields.success) {
+  if (validatedFields.success === false) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
       message: "Missing Fields. Failed to Create user skill.",
@@ -1221,7 +1221,7 @@ export async function createUserEducation(formData: FormData) {
 
   // console.log(validatedFields);
 
-  if (!validatedFields.success) {
+  if (validatedFields.success === false) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
       message: "Missing Fields. Failed to Create user skill.",
@@ -1269,7 +1269,7 @@ export async function deleteEducation(formData: FormData) {
 
   // console.log(validatedFields);
 
-  if (!validatedFields.success) {
+  if (validatedFields.success === false) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
       message: "Missing Fields. Failed to Create user skill.",
@@ -1312,7 +1312,7 @@ export async function createOrganization(formData: FormData) {
 
   // console.log(validatedFields);
 
-  if (!validatedFields.success) {
+  if (validatedFields.success === false) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
       message: "Missing Fields. Failed to Create user skill.",
@@ -1376,7 +1376,7 @@ export async function deleteOrganization(formData: FormData) {
 
   // console.log(validatedFields);
 
-  if (!validatedFields.success) {
+  if (validatedFields.success === false) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
       message: "Missing Fields. Failed to Create user skill.",
@@ -1410,7 +1410,7 @@ export async function deleteCertification(formData: FormData) {
     resume_id: formData.get("resume_id"),
   });
   // console.log(validatedFields);
-  if (!validatedFields.success) {
+  if (validatedFields.success === false) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
       message: "Missing Fields. Failed to Create user skill.",
@@ -1445,7 +1445,7 @@ export async function createCertification(formData: FormData) {
     resume_id: formData.get("resume_id"),
   });
   // console.log(validatedFields);
-  if (!validatedFields.success) {
+  if (validatedFields.success === false) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
       message: "Missing Fields. Failed to Create user skill.",
@@ -1490,7 +1490,7 @@ export async function deleteWorkExperience(formData: FormData) {
     resume_id: formData.get("resume_id"),
   });
   // console.log(validatedFields);
-  if (!validatedFields.success) {
+  if (validatedFields.success === false) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
       message: "Missing Fields. Failed to Create user skill.",
@@ -1525,7 +1525,7 @@ export async function createWorkExperience(formData: FormData) {
     description_four: formData.get("description_four"),
   });
   // console.log(validatedFields);
-  if (!validatedFields.success) {
+  if (validatedFields.success === false) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
       message: "Missing Fields. Failed to Create user skill.",
@@ -1594,7 +1594,7 @@ export async function updateUserWorkExperience(formData: FormData) {
     description_four: formData.get("description_four"),
   });
   // console.log(validatedFields);
-  if (!validatedFields.success) {
+  if (validatedFields.success === false) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
       message: "Missing Fields. Failed to Create user skill.",
@@ -1658,7 +1658,7 @@ export async function updateUserEducation(formData: FormData) {
     url: formData.get("url"),
   });
   console.log(validatedFields);
-  if (!validatedFields.success) {
+  if (validatedFields.success === false) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
       message: "Missing Fields. Failed to Create user skill.",
@@ -1720,7 +1720,7 @@ export async function updateSkillsSection(formData: FormData) {
   // console.log(validatedFields);
 
   // // console.log(validatedFields);
-  if (!validatedFields.success) {
+  if (validatedFields.success === false) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
       message: "Missing Fields. Failed to Create user skill.",
@@ -1757,7 +1757,7 @@ export async function updateEducationSection(formData: FormData) {
   // console.log(validatedFields);
 
   // console.log(validatedFields);
-  if (!validatedFields.success) {
+  if (validatedFields.success === false) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
       message: "Missing Fields. Failed to Create user skill.",
@@ -1793,7 +1793,7 @@ export async function updateOrganizationSection(formData: FormData) {
   // console.log(validatedFields);
 
   // // console.log(validatedFields);
-  if (!validatedFields.success) {
+  if (validatedFields.success === false) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
       message: "Missing Fields. Failed to Create user skill.",
@@ -1826,7 +1826,7 @@ export async function updateCertificationsSection(formData: FormData) {
   });
   // console.log(validatedFields);
   // // console.log(validatedFields);
-  if (!validatedFields.success) {
+  if (validatedFields.success === false) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
       message: "Missing Fields. Failed to Create user skill.",
@@ -1860,7 +1860,7 @@ export async function updateUserOrganization(formData: FormData) {
 
   // console.log(validatedFields);
   // // console.log(validatedFields);
-  if (!validatedFields.success) {
+  if (validatedFields.success === false) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
       message: "Missing Fields. Failed to Create user skill.",
@@ -1904,7 +1904,7 @@ export async function updateOrganizationSectionTitle(formData: FormData) {
 
   // console.log(validatedFields);
   // // // console.log(validatedFields);
-  if (!validatedFields.success) {
+  if (validatedFields.success === false) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
       message: "Missing Fields. Failed to Create user skill.",
@@ -1933,7 +1933,7 @@ export async function updateCertificationSectionTitle(formData: FormData) {
 
   // console.log(validatedFields);
   // // // // console.log(validatedFields);
-  if (!validatedFields.success) {
+  if (validatedFields.success === false) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
       message: "Missing Fields. Failed to Create user skill.",
@@ -1963,7 +1963,7 @@ export async function updateUserCertfication(formData: FormData) {
   });
   // console.log(validatedFields);
   // // // console.log(validatedFields);
-  if (!validatedFields.success) {
+  if (validatedFields.success === false) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
       message: "Missing Fields. Failed to Create user skill.",
@@ -2005,7 +2005,7 @@ export async function updateResumeLine(formData: FormData) {
   // });
   // // console.log(validatedFields);
   // // // // console.log(validatedFields);
-  // if (!validatedFields.success) {
+  // if (validatedFields.success === false) {
   //   return {
   //     errors: validatedFields.error.flatten().fieldErrors,
   //     message: "Missing Fields. Failed to Create user skill.",
@@ -2045,7 +2045,7 @@ export async function deleteResumeLine(formData: FormData) {
   });
   console.log(validatedFields);
 
-  if (!validatedFields.success) {
+  if (validatedFields.success === false) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
       message: "Missing Fields. Failed to Create user skill.",
@@ -2121,7 +2121,7 @@ export async function createResumeLine(formData: FormData) {
   });
   // console.log(validatedFields);
 
-  if (!validatedFields.success) {
+  if (validatedFields.success === false) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
       message: "Missing Fields. Failed to Create user skill.",
