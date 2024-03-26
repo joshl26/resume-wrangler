@@ -23,7 +23,6 @@ export default async function Page() {
       <LandingTwo />
       <LandingThree />
       <LandingFour />
-      <div className="h-[2000px]"></div>
     </Landing>
   );
 }

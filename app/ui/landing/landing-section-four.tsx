@@ -28,7 +28,7 @@ const LandingFour = () => {
         <div className="flex flex-col">
           <div className="h-[300px] w-[300px]  p-6">
             <Image className="w-[200px] h-auto m-auto" alt="" src={Graph} />
-            <p className="text-center text-[2rem]">
+            <p className="text-center text-[2rem] text-white">
               Achieve results in your job search.
             </p>
           </div>
@@ -36,19 +36,23 @@ const LandingFour = () => {
         <div className="flex flex-col">
           <div className="h-[300px] w-[300px]  p-6">
             <Image className="w-[175px] h-auto m-auto" alt="" src={Finance} />
-            <p className="text-center text-[2rem]">Increase your net value.</p>
+            <p className="text-center text-[2rem] text-white">
+              Increase your net value.
+            </p>
           </div>
         </div>
         <div className="flex flex-col">
           <div className="h-[300px] w-[300px]  p-6">
             <Image className="w-[175px] h-auto m-auto" alt="" src={Megaphone} />
-            <p className="text-center text-[2rem]">Market your skills.</p>
+            <p className="text-center text-[2rem] text-white">
+              Market your skills.
+            </p>
           </div>
         </div>
         <div className="flex flex-col">
           <div className="h-[300px] w-[300px]  p-6">
             <Image className="w-[175px] h-auto m-auto" alt="" src={Handshake} />
-            <p className="text-center text-[2rem]">
+            <p className="text-center text-[2rem] text-white">
               Connect with the right people.
             </p>
           </div>
@@ -56,7 +60,7 @@ const LandingFour = () => {
         <div className="flex flex-col">
           <div className="h-[300px] w-[300px]  p-6">
             <Image className="w-[175px] h-auto m-auto" alt="" src={Rocket} />
-            <p className="text-center text-[2rem]">
+            <p className="text-center text-[2rem] text-white">
               Launch your career with us.
             </p>
           </div>
@@ -64,7 +68,7 @@ const LandingFour = () => {
         <div className="flex flex-col">
           <div className="h-[300px] w-[300px]  p-6">
             <Image className="w-[175px] h-auto m-auto" alt="" src={Ai} />
-            <p className="text-center text-[2rem]">
+            <p className="text-center text-[2rem] text-white">
               Harness the power of our Ai
             </p>
           </div>
