@@ -22,6 +22,10 @@ const config: Config = {
         "13": "repeat(13, minmax(0, 1fr))",
       },
       backgroundImage: {
+        "gradient-radial-rose":
+          "radial-gradient(50% 50% at 50% 50%, #FF99D6 39.0625%, #FF99D6 100%)",
+        "gradient-radial-azure":
+          "radial-gradient(50% 50% at 50% 50%, #75B8FF 39.0625%, #75B8FF 100%)",
         "gradient-ocean": "linear-gradient(90deg,#2155BF,#78b9e9 50%,#9ef3e9)",
         "gradient-harvest":
           "linear-gradient(90deg,#FFBE0B,#E04807 50%,#E04807)",

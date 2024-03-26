@@ -24,13 +24,15 @@ const LandingThree = () => {
         <div className="flex flex-col m-auto max-w-[300px]">
           <h2 className="font-medium text-center text-[3rem]">2</h2>
           <p className="text-center">
-            add previous work experiences, skills, education and much more.
+            Add previous work experiences, skills, education and much more. All
+            your details are saved for future visits!
           </p>
         </div>
         <div className="flex flex-col m-auto max-w-[300px]">
           <h2 className="font-medium text-center text-[3rem]">3</h2>
           <p className="text-center">
-            Build your perfect resume from a list of curated templates!
+            Build your perfect resume from our list of curated templates! Change
+            font styles, colors and text until you are completely satisifed.
           </p>
         </div>
       </div>

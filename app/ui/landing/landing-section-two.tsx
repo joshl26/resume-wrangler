@@ -9,7 +9,7 @@ import Jooble from "/public/logo-jooble.svg";
 
 const LandingTwo = () => {
   return (
-    <div className="h-auto w-full left-0 bg-azure-radiance-900 pb-20">
+    <div className="relative h-auto w-full left-0 bg-azure-radiance-900 pb-20 z-10">
       <div className="flex flex-row justify-center pt-20">
         <h2 className="font-medium text-center text-white text-[1.25rem]">
           What we do

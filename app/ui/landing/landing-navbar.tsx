@@ -5,7 +5,7 @@ import Link from "next/link";
 
 const LandingNavBar = () => {
   return (
-    <nav className=" bg-amber-50 z-10 flex fixed opacity-100 t-0 w-screen items-center justify-between flex-wrap p-2">
+    <nav className=" bg-amber-50 flex fixed opacity-100 t-0 w-screen items-center justify-between flex-wrap p-2 z-40">
       <div className="max-w-screen-xl w-full flex m-auto">
         <div className="flex items-center flex-shrink-0 mr-6 ">
           <div className="w-[50px] h-[50px]">
