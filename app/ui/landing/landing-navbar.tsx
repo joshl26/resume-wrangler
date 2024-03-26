@@ -24,7 +24,7 @@ const LandingNavBar = () => {
         </div>
         <div className="w-full hidden flex-grow lg:flex lg:items-center lg:w-auto md:visible">
           <div className="text-sm lg:flex-grow">
-            <Link
+            {/* <Link
               href="/resume-templates"
               className="block mt-4 lg:inline-block lg:mt-0  hover:text-rose-400 mr-4"
             >
@@ -41,7 +41,7 @@ const LandingNavBar = () => {
               className="block mt-4 lg:inline-block lg:mt-0  hover:text-rose-400"
             >
               Blog
-            </Link>
+            </Link> */}
           </div>
           <div className="invisible lg:visible">
             <div className="flex flex-row justify-end gap-2">

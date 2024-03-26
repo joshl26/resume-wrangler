@@ -1,6 +1,7 @@
 import React from "react";
 import Logo from "/public/ResumeWranglerLogo.svg";
 import Image from "next/image";
+import Link from "next/link";
 
 const LandingFooter = () => {
   return (
@@ -17,7 +18,9 @@ const LandingFooter = () => {
           </div>
           <div className="flex flex-row py-1">
             <h2 className="text-[0.5rem] sm:text-[1.25rem] w-[100px] sm:w-auto">
-              Blackrock Design Haus, Toronto CA
+              <a href="https://www.joshlehman.ca">
+                Blackrock Design Haus, Toronto CA
+              </a>
             </h2>
           </div>
         </div>
@@ -26,10 +29,14 @@ const LandingFooter = () => {
             <h2 className="text-[0.75rem] sm:text-[2rem]">Socials</h2>
           </div>
           <div className="flex flex-row">
-            <h2 className="text-[0.75rem] sm:text-[1.5rem]">LinkedIn</h2>
+            <h2 className="text-[0.75rem] sm:text-[1.5rem]">
+              <a href="https://linkedin.com">LinkedIn</a>
+            </h2>
           </div>
           <div className="flex flex-row">
-            <h2 className="text-[0.75rem] sm:text-[1.5rem]">Twitter</h2>
+            <h2 className="text-[0.75rem] sm:text-[1.5rem]">
+              <a href="https://twitter.com">Twitter</a>
+            </h2>
           </div>
         </div>
         <div className="flex flex-col m-auto">
@@ -37,10 +44,14 @@ const LandingFooter = () => {
             <h2 className="text-[0.75rem] sm:text-[2rem]">Links</h2>
           </div>
           <div className="flex flex-row">
-            <p className="text-[0.75rem] sm:text-[1.5rem]">Create Account</p>
+            <p className="text-[0.75rem] sm:text-[1.5rem]">
+              <Link href={"/register"}>Create Account</Link>
+            </p>
           </div>
           <div className="flex flex-row">
-            <p className="text-[0.75rem] sm:text-[1.5rem]">Sign In</p>
+            <p className="text-[0.75rem] sm:text-[1.5rem]">
+              <Link href={"/login"}>Log In</Link>
+            </p>
           </div>
         </div>
       </div>
