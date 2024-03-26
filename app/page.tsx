@@ -7,6 +7,7 @@ import Landing from "./landing/page";
 import LandingOne from "./ui/landing/landing-section-one";
 import LandingTwo from "./ui/landing/landing-section-two";
 import LandingThree from "./ui/landing/landing-section-three";
+import LandingFour from "./ui/landing/landing-section-four";
 
 export const metadata: Metadata = {
   title: "Resume Wrangler",
@@ -21,7 +22,7 @@ export default async function Page() {
       <LandingOne />
       <LandingTwo />
       <LandingThree />
-      <div className="h-[2000px] w-full left-0 bg-gradient-harvest"></div>
+      <LandingFour />
       <div className="h-[2000px]"></div>
     </Landing>
   );
