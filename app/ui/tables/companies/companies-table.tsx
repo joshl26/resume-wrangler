@@ -64,15 +64,17 @@ const Companies = ({ companies }: { companies: any }) => {
                   <div className="flex flex-row">
                     {" "}
                     <a
+                      id="edit"
                       href={`/dashboard/companies/edit/${company.id}`}
-                      className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                      className="font-medium  hover:underline"
                     >
                       Edit
                     </a>
                     <form action={() => deleteCompany(company.id)}>
                       <button
+                        id="remove"
                         type="submit"
-                        className="font-medium text-red-600 dark:text-red-500 hover:underline ms-3"
+                        className="font-medium  hover:underline ms-3"
                       >
                         Remove
                       </button>

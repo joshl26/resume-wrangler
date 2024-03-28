@@ -90,17 +90,19 @@ const Applications = ({
                   )?.id > 0 ? (
                     <div className="flex flex-row">
                       <a
+                        id="edit"
                         href={`/dashboard/cover/edit/${
                           coverLetters.find(
                             (coverLetter: any) =>
                               coverLetter?.application_id === application.id
                           )?.id
                         }`}
-                        className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                        className="font-medium hover:underline"
                       >
                         Edit
                       </a>
                       <button
+                        id="remove"
                         onClick={() =>
                           deleteCoverLetter(
                             coverLetters.find(
@@ -109,7 +111,7 @@ const Applications = ({
                             )?.id
                           )
                         }
-                        className="font-medium text-red-600 dark:text-red-500 hover:underline ms-3"
+                        className="font-medium hover:underline ms-3"
                       >
                         Remove
                       </button>
@@ -156,17 +158,19 @@ const Applications = ({
                   )?.id > 0 ? (
                     <div className="flex flex-row">
                       <a
+                        id="edit"
                         href={`/dashboard/resume/edit/${
                           resumes.find(
                             (resume: any) =>
                               resume.application_id === application.id
                           )?.id
                         }`}
-                        className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                        className="font-medium  hover:underline"
                       >
                         Edit
                       </a>
                       <button
+                        id="remove"
                         onClick={() =>
                           deleteResume(
                             resumes.find(
@@ -175,7 +179,7 @@ const Applications = ({
                             )?.id
                           )
                         }
-                        className="font-medium text-red-600 dark:text-red-500 hover:underline ms-3"
+                        className="font-medium hover:underline ms-3"
                       >
                         Remove
                       </button>
@@ -208,27 +212,28 @@ const Applications = ({
                       />
                       <button
                         type="submit"
-                        className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                        className="font-medium text-azure-radiance-600 dark:text-azure-radiance-500 hover:underline"
                       >
                         Create
                       </button>
                     </form>
                   )}
                 </td>
-                <td className="text-left px-6 py-4">
+                <td className="text-left px-2 py-4">
                   <a
+                    id="edit"
                     href={`/dashboard/applications/edit/${application.id}`}
-                    className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                    className="font-medium  hover:underline"
                   >
                     Edit
                   </a>
-                  <a
-                    href=""
+                  <button
+                    id="remove"
                     onClick={async () => deleteApplication(application.id)}
-                    className="font-medium text-red-600 dark:text-red-500 hover:underline ms-3"
+                    className="font-medium hover:underline ms-3"
                   >
                     Remove
-                  </a>
+                  </button>
                 </td>
                 {/* </Link> */}
               </tr>
@@ -262,7 +267,7 @@ const Applications = ({
           <li>
             <a
               href="#"
-              className="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+              className="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 "
             >
               Previous
             </a>
@@ -270,48 +275,16 @@ const Applications = ({
           <li>
             <a
               href="#"
-              className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+              className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700  "
             >
               1
             </a>
           </li>
+
           <li>
             <a
               href="#"
-              className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-            >
-              2
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              aria-current="page"
-              className="flex items-center justify-center px-3 h-8 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white"
-            >
-              3
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-            >
-              4
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-            >
-              5
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+              className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 "
             >
               Next
             </a>
