@@ -86,12 +86,12 @@ const LandingNavBar = () => {
             >
               Resume Templates
             </Link>
-            <Link
+            {/* <Link
               href="/features"
               className="block mt-4 lg:inline-block lg:mt-0  hover:text-rose-400 mr-4"
             >
               Features
-            </Link>
+            </Link> */}
             <Link
               href="/blog"
               className="block mt-4 lg:inline-block lg:mt-0  hover:text-rose-400"

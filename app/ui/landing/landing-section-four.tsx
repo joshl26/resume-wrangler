@@ -9,17 +9,17 @@ import Ai from "/public/ai.svg";
 
 const LandingFour = () => {
   return (
-    <div className="w-full left-0 bg-gradient-harvest pb-24">
+    <div className="w-full left-0 bg-gradient-harvest pb-24 relative">
       <div className="flex flex-row justify-center m-auto w-full pt-20">
         <div className="flex flex-col">
-          <h2 className="text-white font-medium text-[2rem] text-center p-2">
-            Go, wrangle your dream career!
+          <h2 className="text-white font-medium text-[1.25rem] text-center p-2">
+            Wrangle your dream career!
           </h2>
         </div>
       </div>
       <div className="flex flex-row justify-center max-w-screen-xl text-center m-auto w-full pt-20">
         <div className="flex flex-col">
-          <h2 className="text-white font-medium text-[4rem] p-2">
+          <h2 className="text-white font-medium text-[3rem] p-2">
             We have all the tools you need to make it happen!
           </h2>
         </div>
@@ -29,7 +29,7 @@ const LandingFour = () => {
           <div className="h-[300px] w-[300px]  p-6">
             <Image className="w-[200px] h-auto m-auto" alt="" src={Graph} />
             <p className="text-center text-[2rem] text-white">
-              Achieve results in your job search.
+              Achieve results.
             </p>
           </div>
         </div>
