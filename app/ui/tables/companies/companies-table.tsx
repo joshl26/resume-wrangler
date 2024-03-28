@@ -10,21 +10,9 @@ const Companies = ({ companies }: { companies: any }) => {
 
   return (
     <div className="relative overflow-x-auto overflow-y-auto shadow-md sm:rounded-lg px-4 py-4">
-      <table className="w-full text-sm text-left rtl:text-right text-gray-200 dark:text-gray-200">
-        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+      <table className="w-full text-sm text-left rtl:text-right ">
+        <thead className="text-xs  uppercase  ">
           <tr>
-            <th scope="col" className="p-4">
-              <div className="flex items-center">
-                <input
-                  id="checkbox-all-search"
-                  type="checkbox"
-                  className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                />
-                <label htmlFor="checkbox-all-search" className="sr-only">
-                  checkbox
-                </label>
-              </div>
-            </th>
             <th scope="col" className="px-6 py-3">
               Company Name
             </th>
@@ -49,35 +37,16 @@ const Companies = ({ companies }: { companies: any }) => {
         <tbody>
           {companies?.length > 0 ? (
             companies?.map((company: any) => (
-              <tr
-                key={company?.id}
-                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
-              >
-                {/* <Link
-                  className="w-full "
-                  href={`/dashboard/company/edit/${company.id}`}
-                > */}
-                <td className="w-4 p-4">
-                  <div className="flex items-center">
-                    <input
-                      id="checkbox-table-search-1"
-                      type="checkbox"
-                      className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                    />
-                    <label
-                      htmlFor="checkbox-table-search-1"
-                      className="sr-only"
-                    >
-                      checkbox
-                    </label>
-                  </div>
-                </td>
-                <th
-                  scope="row"
-                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                >
-                  {company?.name ? company?.name : "N/A"}
-                </th>
+              <tr key={company?.id} className=" border-b da hover:bg-gray-50 ">
+                <Link href={`/dashboard/companies/edit/${company?.id}`}>
+                  <th
+                    scope="row"
+                    className="px-6 py-4 font-medium  whitespace-nowrap "
+                  >
+                    {company?.name ? company?.name : "N/A"}
+                  </th>
+                </Link>
+
                 <td className="px-6 py-4">
                   {company?.address_one ? company?.address_one : "N/A"}
                 </td>

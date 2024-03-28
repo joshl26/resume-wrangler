@@ -8,10 +8,10 @@ const Education = ({ education }: { education: any }) => {
   // console.log(organization.find(({ id }: any) => id === "1").name);
 
   return (
-    <div className="relative overflow-x-auto overflow-y-auto  shadow-md sm:rounded-lg px-4 py-4">
-      <table className="w-full text-sm text-left rtl:text-right text-gray-200 ">
+    <div className="relative overflow-x-auto overflow-y-auto shadow-md sm:rounded-lg px-4 mr-4 py-4">
+      <table className="w-full text-sm text-left rtl:text-right rounded">
         <thead
-          className="text-xs text-gray-700 uppercase bg-gray-200 border
+          className="text-xs text-black uppercase  border-spacing-2
         "
         >
           <tr>
@@ -35,18 +35,17 @@ const Education = ({ education }: { education: any }) => {
         <tbody>
           {education?.length > 0 ? (
             education?.map((program: any) => (
-              <tr
-                key={program?.id}
-                className="bg-gray-100 border-b text-black  hover:bg-gray-50 "
-              >
-                <th
-                  scope="row"
-                  className="px-6 py-4 font-medium whitespace-nowrap "
-                >
-                  {program?.institution_name
-                    ? program?.institution_name
-                    : "N/A"}
-                </th>
+              <tr key={program?.id} className="border-b">
+                <Link href={`/dashboard/education/edit/${program?.id}`}>
+                  <th
+                    scope="row"
+                    className="px-6 py-4 font-medium whitespace-nowrap "
+                  >
+                    {program?.institution_name
+                      ? program?.institution_name
+                      : "N/A"}
+                  </th>
+                </Link>
                 <td className="px-6 py-4">
                   {program?.location ? program?.location : "N/A"}
                 </td>
@@ -58,10 +57,10 @@ const Education = ({ education }: { education: any }) => {
                 </td>
                 <td className="text-left px-6 py-4">
                   <div className="flex flex-row">
-                    {" "}
                     <a
+                      id="edit"
                       href={`/dashboard/education/edit/${program.id}`}
-                      className="font-medium text-azure-radiance-600 hover:underline"
+                      className="font-medium hover:underline"
                     >
                       Edit
                     </a>
@@ -83,8 +82,9 @@ const Education = ({ education }: { education: any }) => {
                         value={program.id}
                       />
                       <button
+                        id="remove"
                         type="submit"
-                        className="font-medium text-rose-600  hover:underline ms-3"
+                        className="font-medium hover:underline ms-3"
                       >
                         Remove
                       </button>
@@ -135,39 +135,7 @@ const Education = ({ education }: { education: any }) => {
               1
             </a>
           </li>
-          <li>
-            <a
-              href="#"
-              className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-            >
-              2
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              aria-current="page"
-              className="flex items-center justify-center px-3 h-8 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white"
-            >
-              3
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-            >
-              4
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-            >
-              5
-            </a>
-          </li>
+
           <li>
             <a
               href="#"

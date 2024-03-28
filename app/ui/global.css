@@ -295,3 +295,29 @@ h1 {
     box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
   }
 }
+
+thead {
+  background-color: lightgrey;
+  border: #000000 2px solid;
+  color: black;
+}
+
+tbody {
+  background-color: #eeeeee;
+}
+
+tr {
+  color: black;
+}
+
+tr:hover {
+  background-color: white;
+}
+
+a#edit {
+  color: #3a86ff;
+}
+
+button#remove {
+  color: #ff006e;
+}

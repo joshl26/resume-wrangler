@@ -9,21 +9,9 @@ const WorkExperience = ({ workExperiences }: { workExperiences: any }) => {
 
   return (
     <div className="relative overflow-x-auto overflow-y-auto shadow-md sm:rounded-lg px-4 py-4">
-      <table className="w-full text-sm text-left rtl:text-right text-gray-200 dark:text-gray-200">
-        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+      <table className="w-full text-sm text-left rtl:text-right ">
+        <thead className="text-xs  uppercase ">
           <tr>
-            {/* <th scope="col" className="p-4">
-              <div className="flex items-center">
-                <input
-                  id="checkbox-all-search"
-                  type="checkbox"
-                  className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                />
-                <label htmlFor="checkbox-all-search" className="sr-only">
-                  checkbox
-                </label>
-              </div>
-            </th> */}
             <th scope="col" className="px-6 py-3">
               Organization Name
             </th>
@@ -36,9 +24,6 @@ const WorkExperience = ({ workExperiences }: { workExperiences: any }) => {
             <th scope="col" className="px-6 py-3">
               End Date
             </th>
-            {/* <th scope="col" className="px-6 py-3">
-              Description
-            </th> */}
             <th scope="col" className="px-6 py-3">
               Action
             </th>
@@ -49,28 +34,9 @@ const WorkExperience = ({ workExperiences }: { workExperiences: any }) => {
             workExperiences?.map((workExperience: any) => (
               <tr
                 key={workExperience?.id}
-                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+                className="border-b  hover:bg-gray-50 "
               >
-                {/* <Link
-                  className="w-full "
-                  href={`/dashboard/organization/edit/${organization.id}`}
-                > */}
-                {/* <td className="w-4 p-4">
-                  <div className="flex items-center">
-                    <input
-                      id="checkbox-table-search-1"
-                      type="checkbox"
-                      className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                    />
-                    <label
-                      htmlFor="checkbox-table-search-1"
-                      className="sr-only"
-                    >
-                      checkbox
-                    </label>
-                  </div>
-                </td> */}
-                <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                <td className="px-6 py-4 font-medium whitespace-nowrap">
                   {workExperience?.company_name
                     ? workExperience?.company_name
                     : "N/A"}
@@ -89,8 +55,9 @@ const WorkExperience = ({ workExperiences }: { workExperiences: any }) => {
 
                 <td className="text-left px-6 py-4">
                   <a
+                    id="edit"
                     href={`/dashboard/work-experience/edit/${workExperience.id}`}
-                    className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                    className="font-medium text-azure-radiance-600 dark:text-azure-radiance-500 hover:underline"
                   >
                     Edit
                   </a>
