@@ -1,6 +1,6 @@
 import { conn } from "../lib/database";
 
-import { User } from "./definitions";
+import { BodyFont, BodyFonts, User } from "./definitions";
 import { unstable_noStore as noStore } from "next/cache";
 
 // const ITEMS_PER_PAGE = 6;
@@ -355,9 +355,14 @@ export async function fetchBodyFonts() {
 
   try {
     const query = `SELECT * FROM body_fonts ORDER BY name ASC`;
-    // console.log(query);
-    const bodyFonts = await conn.query(query);
-    return bodyFonts.rows;
+
+    const data = await conn.query(query);
+
+    const bodyFonts: BodyFonts = data.rows.map((bodyFont: BodyFont) => ({
+      ...bodyFont,
+    }));
+
+    return bodyFonts;
   } catch (error: any) {
     console.error("Database Error:", error);
     // throw new Error("Failed to fetch resume template by id.");

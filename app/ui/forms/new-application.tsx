@@ -1,33 +1,18 @@
 import React from "react";
 import { SubmitButton } from "../submit-button";
-import { createApplication, updateApplication } from "@/app/lib/actions";
-import { Button } from "../button";
+import { createApplication } from "@/app/lib/actions";
+import { Companies, Company, User } from "@/app/lib/definitions";
 
 export default async function NewApplication({
   companies,
   user,
 }: {
-  companies: any;
-  user: any;
+  companies: Companies;
+  user: User;
 }) {
-  async function newApplication(formData: FormData) {
-    "use server";
-
-    // const rawFormData = {
-    //   applicationId: formData.get("application_id"),
-    //   postingText: formData.get("posting_text"),
-    //   isComplete: formData.get("is_complete"),
-    // };
-
-    // console.log(formData);
-
-    await createApplication(formData);
-  }
-
-  //   console.log(application);
   return (
     <div>
-      <form action={newApplication} className="flex flex-col w-[500px] px-1">
+      <form action={createApplication} className="flex flex-col w-[500px] px-1">
         <div hidden>
           <label hidden htmlFor="user_id">
             User Id
@@ -51,7 +36,7 @@ export default async function NewApplication({
             >
               <option selected></option>
               {companies
-                ? companies?.map((company: any) => (
+                ? companies?.map((company: Company) => (
                     <option key={company.id} value={company.id}>
                       {company.name}
                     </option>

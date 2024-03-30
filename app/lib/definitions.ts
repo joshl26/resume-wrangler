@@ -166,6 +166,27 @@ export interface ResumeColor {
 
 export type ResumeColors = ResumeColor[];
 
+export interface CoverLetter {
+  id: string;
+  created_at: string;
+  updated_at: string;
+  company_id: string;
+  first_name: string;
+  last_name: string;
+  recipient_title: string;
+  intro_text_start: string;
+  intro_skills: string;
+  intro_experience: string;
+  application_id: string;
+  intro_text_end: string;
+  salutation_end: string;
+  conclusion_end: string;
+  thanks_end: string;
+  user_id: string;
+}
+
+export type CoverLetters = CoverLetter[];
+
 export interface ResumeLine {
   id: string;
   user_id: string;

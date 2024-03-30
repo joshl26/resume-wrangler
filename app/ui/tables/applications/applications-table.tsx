@@ -7,7 +7,13 @@ import {
   deleteCoverLetter,
   deleteResume,
 } from "@/app/lib/actions";
-import { Applications, Companies } from "@/app/lib/definitions";
+import {
+  Applications,
+  Companies,
+  CoverLetters,
+  Resumes,
+  User,
+} from "@/app/lib/definitions";
 import Link from "next/link";
 
 const ApplicationsTable = ({
@@ -17,9 +23,9 @@ const ApplicationsTable = ({
   applications,
   companies,
 }: {
-  user: any;
-  resumes: any;
-  coverLetters: any;
+  user: User;
+  resumes: Resumes;
+  coverLetters: CoverLetters;
   applications: Applications;
   companies: Companies;
 }) => {
@@ -88,7 +94,7 @@ const ApplicationsTable = ({
                   {coverLetters?.find(
                     (coverLetter: any) =>
                       coverLetter?.application_id === application.id
-                  )?.id > 0 ? (
+                  )?.id !== undefined ? (
                     <div className="flex flex-row">
                       <a
                         id="edit"
@@ -156,7 +162,7 @@ const ApplicationsTable = ({
                 <td className="text-left px-6 py-4">
                   {resumes?.find(
                     (resume: any) => resume.application_id === application.id
-                  )?.id > 0 ? (
+                  )?.id !== undefined ? (
                     <div className="flex flex-row">
                       <a
                         id="edit"

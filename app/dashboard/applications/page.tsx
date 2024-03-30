@@ -5,7 +5,13 @@ import {
   fetchResumesByUserId,
   getUser,
 } from "@/app/lib/data";
-import { Applications, Companies, User } from "@/app/lib/definitions";
+import {
+  Applications,
+  Companies,
+  CoverLetters,
+  Resumes,
+  User,
+} from "@/app/lib/definitions";
 import { Button } from "@/app/ui/button";
 import ApplicationsTable from "@/app/ui/tables/applications/applications-table";
 import { auth } from "@/auth";
@@ -27,8 +33,8 @@ export default async function Page() {
 
   const applications: Applications = await fetchApplicationsByUserId(user?.id!);
   const companies: Companies = await fetchLatestCompaniesByUserId(user?.id!);
-  const resumes = await fetchResumesByUserId(user?.id!);
-  const coverLetters = await fetchCoverLettersByUserId(user?.id!);
+  const resumes: Resumes = await fetchResumesByUserId(user?.id!);
+  const coverLetters: CoverLetters = await fetchCoverLettersByUserId(user?.id!);
 
   // console.log(bodyFonts);
   return (

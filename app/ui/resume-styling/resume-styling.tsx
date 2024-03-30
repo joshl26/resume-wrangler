@@ -12,6 +12,7 @@ import YourWorkExperiences from "@/app/ui/forms/your-work-experiences";
 import YourOrganizations from "@/app/ui/forms/your-organizations";
 import YourCertifications from "@/app/ui/forms/your-certifications";
 import YourSocialLinks from "@/app/ui/forms/your-social-links";
+import { BodyFonts } from "@/app/lib/definitions";
 
 export default function ResumeStyling({
   resumeTemplates,
@@ -33,7 +34,7 @@ export default function ResumeStyling({
 }: {
   resumeTemplates: any;
   resumeColors: any;
-  bodyFonts: any;
+  bodyFonts: BodyFonts;
   headerFonts: any;
   user: any;
   resume: any;
