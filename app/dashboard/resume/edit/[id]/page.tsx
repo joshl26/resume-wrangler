@@ -25,18 +25,14 @@ export default async function EditResume({
 }: {
   params: { id: string };
 }) {
-  const id = params.id;
-
-  // console.log(id);
+  const id = params?.id;
 
   const session = await auth();
   if (session?.user) {
     session.user = {
       name: session.user.name,
       email: session.user.email,
-      // image: session.user.image,
     };
-    //   console.log(id);
   }
 
   const [resumeTemplates, resumeColors, bodyFonts, headerFonts, user, resume] =
@@ -56,11 +52,11 @@ export default async function EditResume({
     userCertifications,
     userWorkExperiences,
   ] = await Promise.all([
-    fetchSkillsByUserId(user.id),
-    fetchEducationByUserId(user.id),
-    fetchOrganizationsByUserId(user.id),
-    fetchCerftificationsByUserId(user.id),
-    fetchWorkExperiencesByUserId(user.id),
+    fetchSkillsByUserId(user?.id),
+    fetchEducationByUserId(user?.id),
+    fetchOrganizationsByUserId(user?.id),
+    fetchCerftificationsByUserId(user?.id),
+    fetchWorkExperiencesByUserId(user?.id),
   ]);
 
   const educationResumeLines = await fetchEducationExperiencesbyResumeID(id);
@@ -68,8 +64,6 @@ export default async function EditResume({
   const skillResumeLines = await fetchSkillsByResumeID(id);
   const certificationResumeLines = await fetchCertificationsByResumeID(id);
   const organizationResumeLines = await fetchOrganizationsByResumeID(id);
-
-  // console.log(organizationResumeLines);
 
   if (
     !resumeTemplates ??

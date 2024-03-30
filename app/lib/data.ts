@@ -1,6 +1,26 @@
 import { conn } from "../lib/database";
 
-import { BodyFont, BodyFonts, User } from "./definitions";
+import {
+  BodyFont,
+  BodyFonts,
+  HeaderFont,
+  HeaderFonts,
+  Resume,
+  ResumeColor,
+  ResumeColors,
+  ResumeTemplate,
+  ResumeTemplates,
+  Resumes,
+  User,
+  userOrganizations,
+  UserEducations,
+  UserSkills,
+  UserOrganization,
+  UserCertifications,
+  UserCertification,
+  UserWorkExperience,
+  UserWorkExperiences,
+} from "./definitions";
 import { unstable_noStore as noStore } from "next/cache";
 
 // const ITEMS_PER_PAGE = 6;
@@ -41,133 +61,16 @@ import { unstable_noStore as noStore } from "next/cache";
 //   }
 // }
 
-// export async function fetchInvoicesPages(query: string) {
-//   noStore();
-
-//   try {
-//     console.log(`Query: ${query}`);
-
-//     const queryString = `SELECT COUNT(*) FROM invoices JOIN customers ON invoices.customer_id = customers.id WHERE customers.name ILIKE ${`%${query}%`} OR customers.email ILIKE ${`%${query}%`} OR invoices.amount::text ILIKE ${`%${query}%`} OR invoices.date::text ILIKE ${`%${query}%`} OR invoices.status ILIKE ${`%${query}%`}`;
-
-//     console.log(`Query: ${queryString}`);
-
-//     // const queryString = `SELECT COUNT(*) FROM invoices `;
-
-//     const count = await conn.query(queryString);
-
-//     console.log(count);
-//     //   const count = await sql`SELECT COUNT(*)
-//     //   FROM invoices
-//     //   JOIN customers ON invoices.customer_id = customers.id
-//     //   WHERE
-//     //     customers.name ILIKE ${`%${query}%`} OR
-//     //     customers.email ILIKE ${`%${query}%`} OR
-//     //     invoices.amount::text ILIKE ${`%${query}%`} OR
-//     //     invoices.date::text ILIKE ${`%${query}%`} OR
-//     //     invoices.status ILIKE ${`%${query}%`}
-//     // `;
-
-//     const totalPages = Math.ceil(Number(count.rows[0].count) / ITEMS_PER_PAGE);
-//     return totalPages;
-//   } catch (error) {
-//     console.error("Database Error:", error);
-//     throw new Error("Failed to fetch total number of invoices.");
-//   }
-// }
-
-// export async function fetchInvoiceById(id: string) {
-//   noStore();
-
-//   try {
-//     const data = await sql<InvoiceForm>`
-//       SELECT
-//         invoices.id,
-//         invoices.customer_id,
-//         invoices.amount,
-//         invoices.status
-//       FROM invoices
-//       WHERE invoices.id = ${id};
-//     `;
-
-//     const invoice = data.rows.map((invoice) => ({
-//       ...invoice,
-//       // Convert amount from cents to dollars
-//       amount: invoice.amount / 100,
-//     }));
-//     console.log(invoice); // Invoice is an empty array []
-//     return invoice[0];
-//   } catch (error) {
-//     console.error("Database Error:", error);
-//   }
-// }
-
-// // export async function fetchCustomers() {
-// //   noStore();
-
-// //   try {
-// //     const data = await sql<CustomerField>`
-// //       SELECT
-// //         id,
-// //         name
-// //       FROM customers
-// //       ORDER BY name ASC
-// //     `;
-
-// //     const customers = data.rows;
-// //     return customers;
-// //   } catch (err) {
-// //     console.error("Database Error:", err);
-// //     throw new Error("Failed to fetch all customers.");
-// //   }
-// // }
-
-// export async function fetchFilteredCustomers(query: string) {
-//   noStore();
-
-//   try {
-//     const data = await sql<CustomersTable>`
-// 		SELECT
-// 		  customers.id,
-// 		  customers.name,
-// 		  customers.email,
-// 		  customers.image_url,
-// 		  COUNT(invoices.id) AS total_invoices,
-// 		  SUM(CASE WHEN invoices.status = 'pending' THEN invoices.amount ELSE 0 END) AS total_pending,
-// 		  SUM(CASE WHEN invoices.status = 'paid' THEN invoices.amount ELSE 0 END) AS total_paid
-// 		FROM customers
-// 		LEFT JOIN invoices ON customers.id = invoices.customer_id
-// 		WHERE
-// 		  customers.name ILIKE ${`%${query}%`} OR
-//         customers.email ILIKE ${`%${query}%`}
-// 		GROUP BY customers.id, customers.name, customers.email, customers.image_url
-// 		ORDER BY customers.name ASC
-// 	  `;
-
-//     const customers = data.rows.map((customer) => ({
-//       ...customer,
-//       total_pending: formatCurrency(customer.total_pending),
-//       total_paid: formatCurrency(customer.total_paid),
-//     }));
-
-//     return customers;
-//   } catch (err) {
-//     console.error("Database Error:", err);
-//     throw new Error("Failed to fetch customer table.");
-//   }
-// }
-
-//TODO ////////////////////////////////////
-
 export async function getUser(email: string) {
   noStore();
 
   try {
     const query = `SELECT * FROM users WHERE email='${email}'`;
-    const user = await conn.query(query);
-    // console.log(user.rows[0]);
+    const data = await conn.query(query);
 
-    // const user = await sql`SELECT * from USERS where email=${email}`;
-    return user.rows[0] as User;
+    const user: User = data.rows[0];
+
+    return user;
   } catch (error) {
     console.error("Failed to fetch user:", error);
     throw new Error("Failed to fetch user.");
@@ -175,8 +78,6 @@ export async function getUser(email: string) {
 }
 
 export async function getResumeTemplates() {
-  // Add noStore() here prevent the response from being cached.
-  // This is equivalent to in fetch(..., {cache: 'no-store'}).
   noStore();
 
   try {
@@ -192,10 +93,6 @@ export async function getResumeTemplates() {
 
 export async function fetchResumeTemplateById(id: string) {
   noStore();
-
-  // console.log(id);
-
-  // let uuid = id as UUID;
 
   try {
     const query = `SELECT * FROM resume_templates WHERE resume_templates.id = '${id}'`;
@@ -325,9 +222,15 @@ export async function fetchResumeTemplates() {
 
   try {
     const query = `SELECT * FROM resume_templates ORDER BY name ASC`;
-    // console.log(query);
-    const resumeTemplates = await conn.query(query);
-    return resumeTemplates.rows;
+    const data = await conn.query(query);
+
+    const resumeTemplates: ResumeTemplates = data.rows.map(
+      (resumeTemplate: ResumeTemplate) => ({
+        ...resumeTemplate,
+      })
+    );
+
+    return resumeTemplates;
   } catch (error: any) {
     console.error("Database Error:", error);
     // throw new Error("Failed to fetch resume template by id.");
@@ -340,9 +243,15 @@ export async function fetchResumeColors() {
 
   try {
     const query = `SELECT * FROM resume_colors ORDER BY name ASC`;
-    // console.log(query);
-    const resumeColors = await conn.query(query);
-    return resumeColors.rows;
+    const data = await conn.query(query);
+
+    const resumeColors: ResumeColors = data.rows.map(
+      (resumeColor: ResumeColor) => ({
+        ...resumeColor,
+      })
+    );
+
+    return resumeColors;
   } catch (error: any) {
     console.error("Database Error:", error);
     // throw new Error("Failed to fetch resume template by id.");
@@ -375,9 +284,15 @@ export async function fetchHeaderFonts() {
 
   try {
     const query = `SELECT * FROM header_fonts ORDER BY name ASC`;
-    // console.log(query);
-    const headerFonts = await conn.query(query);
-    return headerFonts.rows;
+    const data = await conn.query(query);
+
+    const headerFonts: HeaderFonts = data.rows.map(
+      (headerFont: HeaderFont) => ({
+        ...headerFont,
+      })
+    );
+
+    return headerFonts;
   } catch (error: any) {
     console.error("Database Error:", error);
     // throw new Error("Failed to fetch resume template by id.");
@@ -388,18 +303,13 @@ export async function fetchHeaderFonts() {
 export async function fetchResumeById(id: string) {
   noStore();
 
-  // console.log(id);
-
   try {
     const query = `SELECT * FROM resumes WHERE id = '${id}'`;
-    // console.log(query);
-    const resume = await conn.query(query);
+    const data = await conn.query(query);
 
-    if (resume.rows[0]) {
-      return resume.rows[0];
-    } else {
-      return [null];
-    }
+    const resume: Resume = data?.rows[0];
+
+    return resume;
   } catch (error: any) {
     console.error("Database Error:", error);
     // throw new Error("Failed to fetch resume template by id.");
@@ -410,18 +320,13 @@ export async function fetchResumeById(id: string) {
 export async function fetchSkillsByUserId(userId: string) {
   noStore();
 
-  // console.log(id);
-
   try {
     const query = `SELECT * FROM user_skills WHERE user_id = '${userId}'`;
-    // console.log(query);
-    const resume = await conn.query(query);
+    const data = await conn.query(query);
 
-    if (resume.rows[0]) {
-      return resume.rows;
-    } else {
-      return [null];
-    }
+    const skills: UserSkills = data?.rows;
+
+    return skills;
   } catch (error: any) {
     console.error("Database Error:", error);
     // throw new Error("Failed to fetch resume template by id.");
@@ -432,18 +337,19 @@ export async function fetchSkillsByUserId(userId: string) {
 export async function fetchEducationByUserId(userId: string) {
   noStore();
 
-  // console.log(id);
-
   try {
     const query = `SELECT * FROM user_education WHERE user_id = '${userId}'`;
-    // console.log(query);
-    const resume = await conn.query(query);
+    const data = await conn.query(query);
 
-    if (resume.rows[0]) {
-      return resume.rows;
-    } else {
-      return [null];
-    }
+    // if (resume.rows[0]) {
+    //   return resume.rows;
+    // } else {
+    //   return [null];
+    // }
+
+    const userEducations: UserEducations = data?.rows;
+
+    return userEducations;
   } catch (error: any) {
     console.error("Database Error:", error);
     // throw new Error("Failed to fetch resume template by id.");
@@ -454,18 +360,19 @@ export async function fetchEducationByUserId(userId: string) {
 export async function fetchOrganizationsByUserId(userId: string) {
   noStore();
 
-  // console.log(id);
-
   try {
     const query = `SELECT * FROM user_custom_section_one WHERE user_id = '${userId}'`;
-    // console.log(query);
-    const resume = await conn.query(query);
+    const data = await conn.query(query);
 
-    if (resume.rows[0]) {
-      return resume.rows;
-    } else {
-      return [null];
-    }
+    const userOrganizations: userOrganizations = data?.rows?.map(
+      (userOrganization: UserOrganization) => ({
+        ...userOrganization,
+      })
+    );
+
+    // const userOrganizations: userOrganizations = data?.rows;
+
+    return userOrganizations;
   } catch (error: any) {
     console.error("Database Error:", error);
     // throw new Error("Failed to fetch resume template by id.");
@@ -476,18 +383,17 @@ export async function fetchOrganizationsByUserId(userId: string) {
 export async function fetchCerftificationsByUserId(userId: string) {
   noStore();
 
-  // console.log(id);
-
   try {
     const query = `SELECT * FROM user_custom_section_two WHERE user_id = '${userId}'`;
-    // console.log(query);
-    const resume = await conn.query(query);
+    const data = await conn.query(query);
 
-    if (resume.rows[0]) {
-      return resume.rows;
-    } else {
-      return [null];
-    }
+    const userCertifications: UserCertifications = data?.rows?.map(
+      (userCertification: UserCertification) => ({
+        ...userCertification,
+      })
+    );
+
+    return userCertifications;
   } catch (error: any) {
     console.error("Database Error:", error);
     // throw new Error("Failed to fetch resume template by id.");
@@ -498,18 +404,17 @@ export async function fetchCerftificationsByUserId(userId: string) {
 export async function fetchWorkExperiencesByUserId(userId: string) {
   noStore();
 
-  // console.log(id);
-
   try {
     const query = `SELECT * FROM user_work_experience WHERE user_id = '${userId}'`;
-    // console.log(query);
-    const resume = await conn.query(query);
+    const data = await conn.query(query);
 
-    if (resume.rows[0]) {
-      return resume.rows;
-    } else {
-      return [null];
-    }
+    const userWorkExperiences: UserWorkExperiences = data?.rows?.map(
+      (userWorkExperience: UserWorkExperience) => ({
+        ...userWorkExperience,
+      })
+    );
+
+    return userWorkExperiences;
   } catch (error: any) {
     console.error("Database Error:", error);
     // throw new Error("Failed to fetch resume template by id.");

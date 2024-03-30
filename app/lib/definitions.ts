@@ -228,7 +228,19 @@ export interface Resume {
 
 export type Resumes = Resume[];
 
-export interface UserCustomSectionOne {
+export interface ResumeTemplate {
+  id: string;
+  name: string;
+  thumbnail_url: string;
+  cloudinary_public_url: string;
+  description: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export type ResumeTemplates = ResumeTemplate[];
+
+export interface UserOrganization {
   id: string;
   user_id: string;
   created_at: string;
@@ -240,9 +252,9 @@ export interface UserCustomSectionOne {
   description: string;
 }
 
-export type UserCustomSectionsOne = UserCustomSectionOne[];
+export type userOrganizations = UserOrganization[];
 
-export interface UserCustomSectionTwo {
+export interface UserCertification {
   id: string;
   user_id: string;
   created_at: string;
@@ -254,7 +266,7 @@ export interface UserCustomSectionTwo {
   description: string;
 }
 
-export type UserCustomSectionsTwo = UserCustomSectionTwo[];
+export type UserCertifications = UserCertification[];
 
 export interface UserEducation {
   id: string;
