@@ -607,7 +607,6 @@ export async function updateUser(
   prevState: State,
   formData: FormData
 ) {
-  // console.log(formData);
   const validatedFields = UpdateUser.safeParse({
     name: formData.get("name"),
     email: formData.get("email"),
@@ -643,11 +642,9 @@ export async function updateUser(
 
   try {
     const query = `UPDATE users SET name = '${name}', email = '${email}', first_name = '${first_name}', last_name = '${last_name}', address_one = '${address_line_one}', address_two = '${address_line_two}', address_three = '${address_line_three}', phone = '${phone}', website = '${website}' WHERE id = '${id}'`;
-    // console.log(query);
 
     const data = await conn.query(query);
 
-    // console.log(data);
 
     // await sql`
     //     UPDATE invoices
@@ -667,7 +664,6 @@ export async function updateSocials(
   prevState: State,
   formData: FormData
 ) {
-  // console.log(formData);
   const validatedFields = UpdateSocials.safeParse({
     linked_in: formData.get("linked_in"),
     twitter: formData.get("twitter"),
@@ -678,7 +674,6 @@ export async function updateSocials(
     resume_id: formData.get("resume_id"),
   });
 
-  // console.log(validatedFields);
 
   if (validatedFields.success === false) {
     return {
@@ -699,14 +694,12 @@ export async function updateSocials(
 
   try {
     const query = `UPDATE users SET linked_in = '${linked_in}', twitter = '${twitter}', facebook = '${facebook}', instagram = '${instagram}', github = '${github}' WHERE id = '${id}'`;
-    // console.log(query);
 
     const data = await conn.query(query);
 
     const query2 = `UPDATE resumes SET show_social_icons = '${show_socials}' WHERE id = '${resume_id}'`;
 
     const data2 = await conn.query(query2);
-    //console.log(query2);
   } catch (error) {
     return { message: "Database Error: Failed to Update Invoice." };
   }
@@ -716,18 +709,15 @@ export async function updateSocials(
 }
 
 export async function updateApplication(formData: FormData) {
-  // console.log(formData);
   const validatedFields = UpdateApplication.safeParse({
     id: formData.get("application_id"),
     postingText: formData.get("posting_text"),
-    // isComplete: formData.get("is_complete"),
     jobPosition: formData.get("job_position"),
     postingUrl: formData.get("posting_url"),
     analyzedPostingText: formData.get("analyzed_posting_text"),
     companyId: formData.get("company_id"),
   });
 
-  // console.log(validatedFields);
 
   if (validatedFields.success === false) {
     return {
@@ -747,10 +737,8 @@ export async function updateApplication(formData: FormData) {
 
   try {
     const query = `UPDATE applications SET posting_text = '${postingText}', job_position = '${jobPosition}', posting_url = '${postingUrl}', analyzed_posting_text = '${analyzedPostingText}', company_id = '${companyId}' WHERE id = '${id}'`;
-    // console.log(query);
 
     const data = await conn.query(query);
-    // console.log(data);
   } catch (error) {
     return { message: `Database Error: Failed to Update Invoice. ${error}` };
   }
@@ -760,11 +748,9 @@ export async function updateApplication(formData: FormData) {
 }
 
 export async function createApplication(formData: FormData) {
-  // console.log(formData);
   const validatedFields = UpdateApplication.safeParse({
     id: formData.get("user_id"),
     postingText: formData.get("posting_text"),
-    // isComplete: formData.get("is_complete"),
     jobPosition: formData.get("job_position"),
     postingUrl: formData.get("posting_url"),
     analyzedPostingText: formData.get("analyzed_posting_text"),
@@ -787,15 +773,10 @@ export async function createApplication(formData: FormData) {
     companyId,
   } = validatedFields.data;
 
-  // INSERT INTO invoices (customer_id, amount, status, date)
-  // VALUES (${customerId}, ${amountInCents}, ${status}, ${date})
-
   try {
     const query = `INSERT INTO applications (posting_text, job_position, posting_url, analyzed_posting_text, company_id, user_id) VALUES ('${postingText}', '${jobPosition}', '${postingUrl}', '${analyzedPostingText}', '${companyId}', '${id}')`;
-    // console.log(query);
 
     const data = await conn.query(query);
-    // console.log(data);
   } catch (error) {
     return { message: `Database Error: Failed to Update Invoice. ${error}` };
   }
@@ -807,10 +788,8 @@ export async function createApplication(formData: FormData) {
 export async function deleteApplication(id: string) {
   try {
     const query = `DELETE FROM applications WHERE id = ${id}`;
-    // console.log(query);
 
     const data = await conn.query(query);
-    // console.log(data);
   } catch (error) {
     return {
       message: `Database Error: Failed to Delete Application. ${error}`,
@@ -822,7 +801,6 @@ export async function deleteApplication(id: string) {
 }
 
 export async function updateCompany(formData: FormData) {
-  //console.log(formData);
   const validatedFields = CompanySchema.safeParse({
     id: formData.get("company_id"),
     name: formData.get("company_name"),
@@ -833,8 +811,6 @@ export async function updateCompany(formData: FormData) {
     phone: formData.get("phone"),
     website: formData.get("website_url"),
   });
-
-  //console.log(validatedFields);
 
   if (validatedFields.success === false) {
     return {
@@ -856,10 +832,8 @@ export async function updateCompany(formData: FormData) {
 
   try {
     const query = `UPDATE companies SET name = '${name}', address_one = '${addressOne}', address_two = '${addressTwo}', recipient_title = '${recipientTitle}', email = '${email}', phone = '${phone}', website_url = '${website}' WHERE id = '${id}'`;
-    // console.log(query);
 
     const data = await conn.query(query);
-    //console.log(data);
   } catch (error) {
     return { message: `Database Error: Failed to Update Invoice. ${error}` };
   }
@@ -869,7 +843,6 @@ export async function updateCompany(formData: FormData) {
 }
 
 export async function createCompany(formData: FormData) {
-  // console.log(formData);
   const validatedFields = CompanySchema.safeParse({
     id: formData.get("user_id"),
     name: formData.get("company_name"),
@@ -880,8 +853,6 @@ export async function createCompany(formData: FormData) {
     phone: formData.get("phone"),
     website: formData.get("website_url"),
   });
-
-  //console.log(validatedFields);
 
   if (validatedFields.success === false) {
     return {
@@ -903,10 +874,8 @@ export async function createCompany(formData: FormData) {
 
   try {
     const query = `INSERT INTO companies (name, address_one, address_two, recipient_title, email, phone, website_url , user_id) VALUES ('${name}', '${addressOne}', '${addressTwo}', '${recipientTitle}', '${email}', '${phone}', '${website}', '${id}')`;
-    //console.log(query);
 
     const data = await conn.query(query);
-    // console.log(data);
   } catch (error) {
     return {
       message: `Database Error: Failed to create new company. ${error}`,
@@ -918,14 +887,11 @@ export async function createCompany(formData: FormData) {
 }
 
 export async function deleteCompany(id: string) {
-  // console.log(id);
 
   try {
     const query = `DELETE FROM companies WHERE id = ${id}`;
-    // console.log(query);
 
     const data = await conn.query(query);
-    // console.log(data);
     revalidatePath("/dashboard/companies");
     redirect("/dashboard/companies");
   } catch (error) {
@@ -936,14 +902,11 @@ export async function deleteCompany(id: string) {
 }
 
 export async function deleteCoverLetter(id: string) {
-  // console.log(id);
 
   try {
     const query = `DELETE FROM cover_letters WHERE id = ${id}`;
-    // console.log(query);
 
     const data = await conn.query(query);
-    // console.log(data);
   } catch (error) {
     return {
       message: `Database Error: Failed to Delete Company. ${error}`,
@@ -970,16 +933,12 @@ export async function createCoverLetter(formData: FormData) {
 
   const { user_id, application_id, company_id } = validatedFields.data;
 
-  // console.log(user_id, application_id, company_id);
 
   try {
     const query = `INSERT INTO cover_letters (user_id, company_id, application_id) VALUES ('${user_id}', '${company_id}', '${application_id}')`;
-    //console.log(query);
-
     const data = await conn.query(query);
     revalidatePath("/dashboard/applications");
     redirect("/dashboard/applications");
-    // console.log(data);
   } catch (error) {
     return {
       message: `Database Error: Failed to create new company. ${error}`,
@@ -988,14 +947,10 @@ export async function createCoverLetter(formData: FormData) {
 }
 
 export async function deleteResume(id: string) {
-  // console.log(id);
 
   try {
     const query = `DELETE FROM resumes WHERE id = ${id}`;
-    // console.log(query);
-
     const data = await conn.query(query);
-    // console.log(data);
   } catch (error) {
     return {
       message: `Database Error: Failed to Delete Resume. ${error}`,
@@ -1022,16 +977,11 @@ export async function createResume(formData: FormData) {
 
   const { user_id, application_id, company_id } = validatedFields.data;
 
-  // console.log(user_id, application_id, company_id);
-
   try {
     const query = `INSERT INTO resumes (user_id, company_id, application_id) VALUES ('${user_id}', '${company_id}', '${application_id}')`;
-    //console.log(query);
-
     const data = await conn.query(query);
     revalidatePath("/dashboard/applications");
     redirect("/dashboard/applications");
-    // console.log(data);
   } catch (error) {
     return {
       message: `Database Error: Failed to create new company. ${error}`,
@@ -1040,7 +990,6 @@ export async function createResume(formData: FormData) {
 }
 
 export async function updateYourResumeStyle(formData: FormData) {
-  // console.log(formData);
 
   const validatedFields = YourResumeStyleSchema.safeParse({
     resume_title: formData.get("resume_title"),
@@ -1052,7 +1001,6 @@ export async function updateYourResumeStyle(formData: FormData) {
     description: formData.get("description"),
   });
 
-  // console.log(validatedFields);
 
   if (validatedFields.success === false) {
     return {
@@ -1073,10 +1021,8 @@ export async function updateYourResumeStyle(formData: FormData) {
 
   try {
     const query = `UPDATE resumes SET title = '${resume_title}', template = '${resume_template}', color = '${color}', heading_font = '${header_font}', body_font = '${body_font}', description = '${description}' WHERE id = '${resume_id}'`;
-    // console.log(query);
 
     const data = await conn.query(query);
-    //console.log(data);
   } catch (error) {
     return { message: `Database Error: Failed to Update Invoice. ${error}` };
   }
@@ -1086,7 +1032,6 @@ export async function updateYourResumeStyle(formData: FormData) {
 }
 
 export async function updateUserSkill(formData: FormData) {
-  console.log(formData);
 
   const validatedFields = UpdateSkillSchema.safeParse({
     skill_name: formData.get("skill_name"),
@@ -1096,7 +1041,6 @@ export async function updateUserSkill(formData: FormData) {
     resume_id: formData.get("resume_id"),
   });
 
-  console.log(validatedFields);
 
   if (validatedFields.success === false) {
     return {
@@ -1109,11 +1053,9 @@ export async function updateUserSkill(formData: FormData) {
 
   try {
     const query = `UPDATE user_skills SET skill = '${skill_name}', skill_level = '${skill_level}' WHERE id = '${skill_id}'`;
-    //console.log(query);
 
     const data = await conn.query(query);
 
-    //console.log(data);
   } catch (error) {
     return { message: `Database Error: Failed to Update Invoice. ${error}` };
   }
@@ -1128,7 +1070,6 @@ export async function updateUserSkill(formData: FormData) {
 }
 
 export async function createUserSkill(formData: FormData) {
-  // console.log(formData);
 
   const validatedFields = CreateSkillsSchema.safeParse({
     skill_title: formData.get("skill_title"),
@@ -1137,7 +1078,6 @@ export async function createUserSkill(formData: FormData) {
     resume_id: formData.get("resume_id"),
   });
 
-  // console.log(validatedFields);
 
   if (validatedFields.success === false) {
     return {
@@ -1147,13 +1087,10 @@ export async function createUserSkill(formData: FormData) {
   }
   const { skill_title, skill_level, user_id, resume_id } = validatedFields.data;
 
-  // console.log(skill_title, skill_level, user_id);
 
   try {
     const query = `INSERT INTO user_skills (skill, skill_level, user_id) VALUES ('${skill_title}', '${skill_level}', '${user_id}')`;
-    // console.log(query);
     const data = await conn.query(query);
-    //console.log(data);
   } catch (error) {
     return { message: `Database Error: Failed to Update Invoice. ${error}` };
   }
@@ -1168,14 +1105,12 @@ export async function createUserSkill(formData: FormData) {
 }
 
 export async function deleteUserSkill(formData: FormData) {
-  // console.log(formData);
 
   const validatedFields = DeleteSkillsSchema.safeParse({
     id: formData.get("id"),
     resume_id: formData.get("resume_id"),
   });
 
-  // console.log(validatedFields);
 
   if (validatedFields.success === false) {
     return {
@@ -1185,12 +1120,9 @@ export async function deleteUserSkill(formData: FormData) {
   }
   const { id, resume_id } = validatedFields.data;
 
-  // console.log(skill_title, skill_level, user_id);
-
   try {
     const query = `DELETE FROM user_skills WHERE id = '${id}'`;
     const data = await conn.query(query);
-    //console.log(data);
   } catch (error) {
     return { message: `Database Error: Failed to Delete user skill. ${error}` };
   }
@@ -1205,7 +1137,6 @@ export async function deleteUserSkill(formData: FormData) {
 }
 
 export async function createUserEducation(formData: FormData) {
-  // console.log(formData);
 
   const validatedFields = CreateEducationSchema.safeParse({
     user_id: formData.get("user_id"),
@@ -1219,7 +1150,6 @@ export async function createUserEducation(formData: FormData) {
     resume_id: formData.get("resume_id"),
   });
 
-  // console.log(validatedFields);
 
   if (validatedFields.success === false) {
     return {
@@ -1239,13 +1169,10 @@ export async function createUserEducation(formData: FormData) {
     resume_id,
   } = validatedFields.data;
 
-  // // console.log(skill_title, skill_level, user_id);
 
   try {
     const query = `INSERT INTO user_education (user_id, institution_name, location, start_date, end_date, grade, program, url) VALUES ('${user_id}', '${institution_name}', '${location}', '${start_date}' , '${end_date}' , '${grade}' , '${program}' , '${url}')`;
-    // console.log(query);
     const data = await conn.query(query);
-    //console.log(data);
   } catch (error) {
     return { message: `Database Error: Failed to Update Invoice. ${error}` };
   }
@@ -1260,14 +1187,12 @@ export async function createUserEducation(formData: FormData) {
 }
 
 export async function deleteEducation(formData: FormData) {
-  // console.log(formData);
 
   const validatedFields = DeleteEducationSchema.safeParse({
     id: formData.get("education_id"),
     resume_id: formData.get("resume_id"),
   });
 
-  // console.log(validatedFields);
 
   if (validatedFields.success === false) {
     return {
@@ -1277,12 +1202,10 @@ export async function deleteEducation(formData: FormData) {
   }
   const { id, resume_id } = validatedFields.data;
 
-  // console.log(skill_title, skill_level, user_id);
 
   try {
     const query = `DELETE FROM user_education WHERE id = '${id}'`;
     const data = await conn.query(query);
-    //console.log(data);
   } catch (error) {
     return { message: `Database Error: Failed to Delete user skill. ${error}` };
   }
@@ -1297,7 +1220,6 @@ export async function deleteEducation(formData: FormData) {
 }
 
 export async function createOrganization(formData: FormData) {
-  // console.log(formData);
 
   const validatedFields = CreateOrganizationSchema.safeParse({
     user_id: formData.get("user_id"),
@@ -1310,7 +1232,6 @@ export async function createOrganization(formData: FormData) {
     resume_id: formData.get("resume_id"),
   });
 
-  // console.log(validatedFields);
 
   if (validatedFields.success === false) {
     return {
@@ -1329,28 +1250,16 @@ export async function createOrganization(formData: FormData) {
     resume_id,
   } = validatedFields.data;
 
-  // console.log(
-  //   user_id,
-  //   section_title,
-  //   organization_name,
-  //   organization_location,
-  //   organization_start,
-  //   organization_end,
-  //   organization_description
-  // );
 
   try {
     const query = `INSERT INTO user_custom_section_one (user_id, name, location, start_date, end_date, description) VALUES ('${user_id}', '${organization_name}', '${organization_location}', '${organization_start}' , '${organization_end}' , '${organization_description}' )`;
-    // console.log(query);
     const data = await conn.query(query);
 
     if (section_title !== "blank") {
       const query2 = `UPDATE resumes SET custom_section_one_name = '${section_title}' WHERE id = '${resume_id}'`;
-      // console.log(query);
       const data2 = await conn.query(query2);
     }
 
-    //console.log(data);
   } catch (error) {
     return {
       message: `Database Error: Failed to Create new organization. ${error}`,
@@ -1367,14 +1276,11 @@ export async function createOrganization(formData: FormData) {
 }
 
 export async function deleteOrganization(formData: FormData) {
-  // console.log(formData);
 
   const validatedFields = DeleteOrganizationSchema.safeParse({
     id: formData.get("organization_id"),
     resume_id: formData.get("resume_id"),
   });
-
-  // console.log(validatedFields);
 
   if (validatedFields.success === false) {
     return {
@@ -1384,12 +1290,9 @@ export async function deleteOrganization(formData: FormData) {
   }
   const { id, resume_id } = validatedFields.data;
 
-  // console.log(skill_title, skill_level, user_id);
-
   try {
     const query = `DELETE FROM user_custom_section_one WHERE id = '${id}'`;
     const data = await conn.query(query);
-    //console.log(data);
   } catch (error) {
     return { message: `Database Error: Failed to Delete user skill. ${error}` };
   }
@@ -1404,12 +1307,10 @@ export async function deleteOrganization(formData: FormData) {
 }
 
 export async function deleteCertification(formData: FormData) {
-  // console.log(formData);
   const validatedFields = DeleteOrganizationSchema.safeParse({
     id: formData.get("certification_id"),
     resume_id: formData.get("resume_id"),
   });
-  // console.log(validatedFields);
   if (validatedFields.success === false) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
@@ -1417,11 +1318,9 @@ export async function deleteCertification(formData: FormData) {
     };
   }
   const { id, resume_id } = validatedFields.data;
-  // console.log(skill_title, skill_level, user_id);
   try {
     const query = `DELETE FROM user_custom_section_two WHERE id = '${id}'`;
     const data = await conn.query(query);
-    //console.log(data);
   } catch (error) {
     return { message: `Database Error: Failed to Delete user skill. ${error}` };
   }
@@ -1436,7 +1335,6 @@ export async function deleteCertification(formData: FormData) {
 }
 
 export async function createCertification(formData: FormData) {
-  // console.log(formData);
   const validatedFields = CreateCertificationSchema.safeParse({
     user_id: formData.get("user_id"),
     section_title: formData.get("section_title"),
@@ -1444,7 +1342,6 @@ export async function createCertification(formData: FormData) {
     certification_location: formData.get("certification_location"),
     resume_id: formData.get("resume_id"),
   });
-  // console.log(validatedFields);
   if (validatedFields.success === false) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
@@ -1458,18 +1355,15 @@ export async function createCertification(formData: FormData) {
     certification_location,
     resume_id,
   } = validatedFields.data;
-  // // console.log(skill_title, skill_level, user_id);
   try {
     const query = `INSERT INTO user_custom_section_two (user_id, name, location) VALUES ('${user_id}', '${certification_name}', '${certification_location}' )`;
     const data = await conn.query(query);
 
     if (section_title !== "blank") {
       const query2 = `UPDATE resumes SET custom_section_two_name = '${section_title}' WHERE id = '${resume_id}'`;
-      // console.log(query);
       const data2 = await conn.query(query2);
     }
 
-    //console.log(data);
   } catch (error) {
     return { message: `Database Error: Failed to Delete user skill. ${error}` };
   }
@@ -1484,12 +1378,10 @@ export async function createCertification(formData: FormData) {
 }
 
 export async function deleteWorkExperience(formData: FormData) {
-  // console.log(formData);
   const validatedFields = DeleteWorkExperienceSchema.safeParse({
     id: formData.get("work_experience_id"),
     resume_id: formData.get("resume_id"),
   });
-  // console.log(validatedFields);
   if (validatedFields.success === false) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
@@ -1497,11 +1389,9 @@ export async function deleteWorkExperience(formData: FormData) {
     };
   }
   const { id, resume_id } = validatedFields.data;
-  // console.log(skill_title, skill_level, user_id);
   try {
     const query = `DELETE FROM user_work_experience WHERE id = '${id}'`;
     const data = await conn.query(query);
-    //console.log(data);
   } catch (error) {
     return { message: `Database Error: Failed to Delete user skill. ${error}` };
   }
@@ -1510,7 +1400,6 @@ export async function deleteWorkExperience(formData: FormData) {
 }
 
 export async function createWorkExperience(formData: FormData) {
-  // console.log(formData);
   const validatedFields = CreateWorkExperienceSchema.safeParse({
     user_id: formData.get("user_id"),
     resume_id: formData.get("resume_id"),
@@ -1524,7 +1413,6 @@ export async function createWorkExperience(formData: FormData) {
     description_three: formData.get("description_three"),
     description_four: formData.get("description_four"),
   });
-  // console.log(validatedFields);
   if (validatedFields.success === false) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
@@ -1544,24 +1432,10 @@ export async function createWorkExperience(formData: FormData) {
     description_three,
     description_four,
   } = validatedFields.data;
-  // console.log(
-  //   user_id,
-  //   resume_id,
-  //   company_name,
-  //   job_title,
-  //   location,
-  //   start_date,
-  //   end_date,
-  //  description_one,
-  // description_two,
-  // description_three,
-  // description_four,
-  // );
   try {
     const query = `INSERT INTO user_work_experience (job_title, company_name, user_id, location, start_date, end_date, description_one, description_two, description_three, description_four) VALUES ('${job_title}', '${company_name}', '${user_id}', '${location}', '${start_date}', '${end_date}', '${description_one}', '${description_two}', '${description_three}', '${description_four}') `;
     const data = await conn.query(query);
 
-    // console.log(data);
   } catch (error) {
     return { message: `Database Error: Failed to Delete user skill. ${error}` };
   }
@@ -1570,15 +1444,12 @@ export async function createWorkExperience(formData: FormData) {
 }
 
 export async function createUserImage(formData: FormData) {
-  // console.log(formData);
 }
 
 export async function updateUserImage(formData: FormData) {
-  // console.log(formData);
 }
 
 export async function updateUserWorkExperience(formData: FormData) {
-  // console.log(formData);
 
   const validatedFields = UpdateWorkExperienceSchema.safeParse({
     experience_id: formData.get("experience_id"),
@@ -1593,7 +1464,6 @@ export async function updateUserWorkExperience(formData: FormData) {
     description_three: formData.get("description_three"),
     description_four: formData.get("description_four"),
   });
-  // console.log(validatedFields);
   if (validatedFields.success === false) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
@@ -1613,26 +1483,11 @@ export async function updateUserWorkExperience(formData: FormData) {
     description_three,
     description_four,
   } = validatedFields.data;
-  // console.log(
-  //   experience_id,
-  //   resume_id,
-  //   company_name,
-  //   job_title,
-  //   location,
-  //   start_date,
-  //   end_date,
-  //   description_one,
-  //   description_two,
-  //   description_three,
-  //   description_four
-  // );
 
   try {
     const query = `UPDATE user_work_experience SET company_name = '${company_name}', job_title = '${job_title}', location = '${location}', start_date = '${start_date}', end_date = '${end_date}', description_one = '${description_one}', description_two = '${description_two}', description_three = '${description_three}', description_four = '${description_four}' WHERE id = '${experience_id}'`;
-    //console.log(query);
 
     const data = await conn.query(query);
-    //console.log(data);
   } catch (error) {
     return { message: `Database Error: Failed to Update Invoice. ${error}` };
   }
@@ -1644,7 +1499,6 @@ export async function updateUserWorkExperience(formData: FormData) {
 }
 
 export async function updateUserEducation(formData: FormData) {
-  console.log(formData);
 
   const validatedFields = UpdateEducationSchema.safeParse({
     education_id: formData.get("education_id"),
@@ -1657,7 +1511,6 @@ export async function updateUserEducation(formData: FormData) {
     program: formData.get("program"),
     url: formData.get("url"),
   });
-  console.log(validatedFields);
   if (validatedFields.success === false) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
@@ -1675,25 +1528,11 @@ export async function updateUserEducation(formData: FormData) {
     program,
     url,
   } = validatedFields.data;
-  // console.log(
-  //   education_id,
-  //   resume_id,
-  //   institution_name,
-  //   location,
-  //   start_date,
-  //   end_date,
-  //   grade,
-  //   program,
-  //   url
-  // );
-
   try {
     const query = `UPDATE user_education SET institution_name = '${institution_name}', location = '${location}', start_date = '${start_date}', end_date = '${end_date}', grade = '${grade}', program = '${program}', url = '${url}' WHERE id = '${education_id}'`;
-    //console.log(query);
 
     const data = await conn.query(query);
 
-    //console.log(data);
   } catch (error) {
     return { message: `Database Error: Failed to Update Invoice. ${error}` };
   }
@@ -1708,7 +1547,6 @@ export async function updateUserEducation(formData: FormData) {
 }
 
 export async function updateSkillsSection(formData: FormData) {
-  // console.log(formData);
 
   const validatedFields = UpdateSkillsSectionSchema.safeParse({
     user_id: formData.get("user_id"),
@@ -1717,9 +1555,6 @@ export async function updateSkillsSection(formData: FormData) {
     show_skill_progress: formData.get("show_skill_progress"),
   });
 
-  // console.log(validatedFields);
-
-  // // console.log(validatedFields);
   if (validatedFields.success === false) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
@@ -1729,14 +1564,12 @@ export async function updateSkillsSection(formData: FormData) {
 
   const { user_id, resume_id, show_skills_section, show_skill_progress } =
     validatedFields.data;
-  // console.log(user_id, resume_id, show_skills_section, show_skill_progress);
 
   try {
     const query = `UPDATE resumes SET show_skill_progress = '${show_skill_progress}', show_skills_section = '${show_skills_section}' WHERE id = '${resume_id}'`;
 
     const data = await conn.query(query);
 
-    // console.log(query);
   } catch (error) {
     return { message: `Database Error: Failed to Update Invoice. ${error}` };
   }
@@ -1746,7 +1579,6 @@ export async function updateSkillsSection(formData: FormData) {
 }
 
 export async function updateEducationSection(formData: FormData) {
-  // console.log(formData);
 
   const validatedFields = UpdateEducationSectionSchema.safeParse({
     user_id: formData.get("user_id"),
@@ -1754,9 +1586,6 @@ export async function updateEducationSection(formData: FormData) {
     show_education_section: formData.get("show_education_section"),
   });
 
-  // console.log(validatedFields);
-
-  // console.log(validatedFields);
   if (validatedFields.success === false) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
@@ -1765,14 +1594,12 @@ export async function updateEducationSection(formData: FormData) {
   }
 
   const { user_id, resume_id, show_education_section } = validatedFields.data;
-  //   // console.log(user_id, resume_id, show_skills_section, show_skill_progress);
 
   try {
     const query = `UPDATE resumes SET show_education_section = '${show_education_section}' WHERE id = '${resume_id}'`;
 
     const data = await conn.query(query);
 
-    // console.log(query);
   } catch (error) {
     return { message: `Database Error: Failed to Update Invoice. ${error}` };
   }
@@ -1782,17 +1609,12 @@ export async function updateEducationSection(formData: FormData) {
 }
 
 export async function updateOrganizationSection(formData: FormData) {
-  // console.log(formData);
 
   const validatedFields = UpdateOrganizationsSectionSchema.safeParse({
-    user_id: formData.get("user_id"),
     resume_id: formData.get("resume_id"),
     show_custom_section_one: formData.get("show_custom_section_one"),
   });
 
-  // console.log(validatedFields);
-
-  // // console.log(validatedFields);
   if (validatedFields.success === false) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
@@ -1801,14 +1623,12 @@ export async function updateOrganizationSection(formData: FormData) {
   }
 
   const { user_id, resume_id, show_custom_section_one } = validatedFields.data;
-  // //   // console.log(user_id, resume_id, show_skills_section, show_skill_progress);
 
   try {
     const query = `UPDATE resumes SET show_custom_section_one = '${show_custom_section_one}' WHERE id = '${resume_id}'`;
 
     const data = await conn.query(query);
 
-    // console.log(query1);
   } catch (error) {
     return { message: `Database Error: Failed to Update Invoice. ${error}` };
   }
@@ -1818,14 +1638,10 @@ export async function updateOrganizationSection(formData: FormData) {
 }
 
 export async function updateCertificationsSection(formData: FormData) {
-  // console.log(formData);
   const validatedFields = UpdateCertificationsSectionSchema.safeParse({
     user_id: formData.get("user_id"),
-    resume_id: formData.get("resume_id"),
     show_custom_section_two: formData.get("show_custom_section_two"),
   });
-  // console.log(validatedFields);
-  // // console.log(validatedFields);
   if (validatedFields.success === false) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
@@ -1833,11 +1649,9 @@ export async function updateCertificationsSection(formData: FormData) {
     };
   }
   const { user_id, resume_id, show_custom_section_two } = validatedFields.data;
-  // // //   // console.log(user_id, resume_id, show_skills_section, show_skill_progress);
   try {
     const query = `UPDATE resumes SET show_custom_section_two = '${show_custom_section_two}' WHERE id = '${resume_id}'`;
     const data = await conn.query(query);
-    // console.log(query1);
   } catch (error) {
     return { message: `Database Error: Failed to Update Invoice. ${error}` };
   }
@@ -1846,7 +1660,6 @@ export async function updateCertificationsSection(formData: FormData) {
 }
 
 export async function updateUserOrganization(formData: FormData) {
-  // console.log(formData);
   const validatedFields = UpdateOrganizationSchema.safeParse({
     user_id: formData.get("user_id"),
     resume_id: formData.get("resume_id"),
@@ -1858,8 +1671,6 @@ export async function updateUserOrganization(formData: FormData) {
     organization_description: formData.get("organization_description"),
   });
 
-  // console.log(validatedFields);
-  // // console.log(validatedFields);
   if (validatedFields.success === false) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
@@ -1880,7 +1691,6 @@ export async function updateUserOrganization(formData: FormData) {
   try {
     const query = `UPDATE user_custom_section_one SET name = '${organization_name}', location = '${organization_location}', start_date = '${organization_start}', end_date = '${organization_end}', description = '${organization_description}' WHERE id = '${organization_id}'`;
     const data = await conn.query(query);
-    // console.log(query1);
   } catch (error) {
     return { message: `Database Error: Failed to Update Invoice. ${error}` };
   }
@@ -1895,15 +1705,12 @@ export async function updateUserOrganization(formData: FormData) {
 }
 
 export async function updateOrganizationSectionTitle(formData: FormData) {
-  // console.log(formData);
   const validatedFields = UpdateOrganizationsSectionTitleSchema.safeParse({
     user_id: formData.get("user_id"),
     resume_id: formData.get("resume_id"),
     section_title: formData.get("section_title"),
   });
 
-  // console.log(validatedFields);
-  // // // console.log(validatedFields);
   if (validatedFields.success === false) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
@@ -1915,7 +1722,6 @@ export async function updateOrganizationSectionTitle(formData: FormData) {
   try {
     const query = `UPDATE resumes SET custom_section_one_name = '${section_title}' WHERE id = '${resume_id}'`;
     const data = await conn.query(query);
-    // console.log(query1);
   } catch (error) {
     return { message: `Database Error: Failed to Update Invoice. ${error}` };
   }
@@ -1924,15 +1730,12 @@ export async function updateOrganizationSectionTitle(formData: FormData) {
 }
 
 export async function updateCertificationSectionTitle(formData: FormData) {
-  // console.log(formData);
   const validatedFields = UpdateOrganizationsSectionTitleSchema.safeParse({
     user_id: formData.get("user_id"),
     resume_id: formData.get("resume_id"),
     section_title: formData.get("section_title"),
   });
 
-  // console.log(validatedFields);
-  // // // // console.log(validatedFields);
   if (validatedFields.success === false) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
@@ -1944,7 +1747,6 @@ export async function updateCertificationSectionTitle(formData: FormData) {
   try {
     const query = `UPDATE resumes SET custom_section_two_name = '${section_title}' WHERE id = '${resume_id}'`;
     const data = await conn.query(query);
-    // console.log(query1);
   } catch (error) {
     return { message: `Database Error: Failed to Update Invoice. ${error}` };
   }
@@ -1953,7 +1755,6 @@ export async function updateCertificationSectionTitle(formData: FormData) {
 }
 
 export async function updateUserCertfication(formData: FormData) {
-  // console.log(formData);
   const validatedFields = UpdateCertificationSchema.safeParse({
     user_id: formData.get("user_id"),
     certification_id: formData.get("certification_id"),
@@ -1961,8 +1762,6 @@ export async function updateUserCertfication(formData: FormData) {
     certification_name: formData.get("certification_name"),
     certification_location: formData.get("location_name"),
   });
-  // console.log(validatedFields);
-  // // // console.log(validatedFields);
   if (validatedFields.success === false) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
@@ -1980,7 +1779,6 @@ export async function updateUserCertfication(formData: FormData) {
   try {
     const query = `UPDATE user_custom_section_two SET name = '${certification_name}', location = '${certification_location}' WHERE id = '${certification_id}'`;
     const data = await conn.query(query);
-    // console.log(query1);
   } catch (error) {
     return { message: `Database Error: Failed to Update Invoice. ${error}` };
   }
@@ -2035,15 +1833,13 @@ export async function updateResumeLine(formData: FormData) {
 }
 
 export async function deleteResumeLine(formData: FormData) {
-  // console.log(formData);
-
+  
   const validatedFields = DeleteResumeLineSchema.safeParse({
     user_id: formData.get("user_id"),
     id: formData.get("id"),
     resume_id: formData.get("resume_id"),
     line_type: formData.get("line_type"),
   });
-  console.log(validatedFields);
 
   if (validatedFields.success === false) {
     return {
@@ -2054,7 +1850,6 @@ export async function deleteResumeLine(formData: FormData) {
   const { user_id, id, resume_id, line_type } = validatedFields.data;
 
   try {
-    // const query = `DELETE FROM resume_lines WHERE resume_id = '${resume_id}' AND user_education_id = '${user_education_id}'`;
 
     let query;
 
@@ -2073,10 +1868,8 @@ export async function deleteResumeLine(formData: FormData) {
       query = "";
     }
 
-    // console.log(query);
 
     const data = await conn.query(query);
-    // console.log(query1);
   } catch (error) {
     return { message: `Database Error: Failed to Update Invoice. ${error}` };
   }
@@ -2111,7 +1904,6 @@ export async function deleteResumeLine(formData: FormData) {
 }
 
 export async function createResumeLine(formData: FormData) {
-  // console.log(formData);
 
   const validatedFields = CreateResumeLineSchema.safeParse({
     user_id: formData.get("user_id"),
@@ -2119,7 +1911,6 @@ export async function createResumeLine(formData: FormData) {
     line_type: formData.get("line_type"),
     id: formData.get("id"),
   });
-  // console.log(validatedFields);
 
   if (validatedFields.success === false) {
     return {
@@ -2149,10 +1940,8 @@ export async function createResumeLine(formData: FormData) {
       query = "";
     }
 
-    // console.log(query);
     data1 = await conn.query(query);
 
-    // console.log(data.rowCount);
   } catch (error) {
     return {
       message: `Database Error: ${error}`,
@@ -2180,11 +1969,9 @@ export async function createResumeLine(formData: FormData) {
       query = "";
     }
 
-    // console.log(query);
 
     try {
       const data = await conn.query(query);
-      // console.log(query1);
     } catch (error) {
       return {
         message: `Database Error: Failed to create resume ${line_type} line. ${error}`,

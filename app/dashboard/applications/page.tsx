@@ -20,12 +20,10 @@ import React from "react";
 
 export default async function Page() {
   const session = await auth();
-  // console.log(session);
   if (session?.user) {
     session.user = {
       name: session.user.name,
       email: session.user.email,
-      // image: session.user.image,
     };
   }
 
@@ -36,7 +34,6 @@ export default async function Page() {
   const resumes: Resumes = await fetchResumesByUserId(user?.id!);
   const coverLetters: CoverLetters = await fetchCoverLettersByUserId(user?.id!);
 
-  // console.log(bodyFonts);
   return (
     <div className="h-full w-full">
       <Link className="underline px-4" href={"/dashboard/"}>

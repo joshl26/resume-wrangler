@@ -8,9 +8,13 @@ import {
   deleteResume,
 } from "@/app/lib/actions";
 import {
+  Application,
   Applications,
   Companies,
+  Company,
+  CoverLetter,
   CoverLetters,
+  Resume,
   Resumes,
   User,
 } from "@/app/lib/definitions";
@@ -29,8 +33,6 @@ const ApplicationsTable = ({
   applications: Applications;
   companies: Companies;
 }) => {
-  // console.log(resumes);
-
   return (
     <div className="relative overflow-x-auto overflow-y-auto shadow-md sm:rounded-lg px-4 py-4">
       <table className="w-full text-sm text-left rtl:text-right ">
@@ -61,7 +63,7 @@ const ApplicationsTable = ({
         </thead>
         <tbody>
           {applications?.length > 0 ? (
-            applications?.map((application: any) => (
+            applications?.map((application: Application) => (
               <tr key={application.id} className="border-b  hover:bg-gray-50 ">
                 <Link href={`/dashboard/applications/edit/${application?.id}`}>
                   <th
@@ -76,23 +78,21 @@ const ApplicationsTable = ({
                 <td className="px-6 py-4">
                   {application?.company_id
                     ? companies.find(
-                        ({ id }: any) => id === application?.company_id
+                        ({ id }: Company) => id === application?.company_id
                       ).name
                     : "N/A"}
                 </td>
                 <td className="px-6 py-4">
                   {application?.company_id
                     ? companies.find(
-                        ({ id }: any) => id === application?.company_id
+                        ({ id }: Company) => id === application?.company_id
                       ).address_one
                     : "N/A"}
                 </td>
-                <td className="px-6 py-4">
-                  {application?.is_complete === false ? "False" : "true"}
-                </td>
+                <td className="px-6 py-4">{application?.is_complete}</td>
                 <td className="text-left px-6 py-4">
                   {coverLetters?.find(
-                    (coverLetter: any) =>
+                    (coverLetter: CoverLetter) =>
                       coverLetter?.application_id === application.id
                   )?.id !== undefined ? (
                     <div className="flex flex-row">
@@ -100,7 +100,7 @@ const ApplicationsTable = ({
                         id="edit"
                         href={`/dashboard/cover/edit/${
                           coverLetters.find(
-                            (coverLetter: any) =>
+                            (coverLetter: CoverLetter) =>
                               coverLetter?.application_id === application.id
                           )?.id
                         }`}
@@ -113,7 +113,7 @@ const ApplicationsTable = ({
                         onClick={() =>
                           deleteCoverLetter(
                             coverLetters.find(
-                              (coverLetter: any) =>
+                              (coverLetter: CoverLetter) =>
                                 coverLetter?.application_id === application.id
                             )?.id
                           )
@@ -161,14 +161,14 @@ const ApplicationsTable = ({
 
                 <td className="text-left px-6 py-4">
                   {resumes?.find(
-                    (resume: any) => resume.application_id === application.id
+                    (resume: Resume) => resume.application_id === application.id
                   )?.id !== undefined ? (
                     <div className="flex flex-row">
                       <a
                         id="edit"
                         href={`/dashboard/resume/edit/${
                           resumes.find(
-                            (resume: any) =>
+                            (resume: Resume) =>
                               resume.application_id === application.id
                           )?.id
                         }`}
@@ -181,7 +181,7 @@ const ApplicationsTable = ({
                         onClick={() =>
                           deleteResume(
                             resumes.find(
-                              (resume: any) =>
+                              (resume: Resume) =>
                                 resume?.application_id === application.id
                             )?.id
                           )
