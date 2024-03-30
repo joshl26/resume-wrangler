@@ -1,5 +1,4 @@
 import Page from "../page";
-import { User } from "@/app/data/user-details";
 import Image from "next/image";
 import clsx from "clsx";
 import {
@@ -15,6 +14,7 @@ import {
   faSquareTwitter,
   faSquareGithub,
 } from "@fortawesome/free-brands-svg-icons";
+import { User } from "@/app/lib/definitions";
 
 interface Props {
   user: User;

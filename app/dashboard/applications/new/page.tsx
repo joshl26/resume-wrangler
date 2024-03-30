@@ -1,9 +1,8 @@
 import {
-  fetchApplicationById,
   fetchLatestCompaniesByUserId,
   getUser,
 } from "@/app/lib/data";
-import EditApplication from "@/app/ui/forms/edit-application";
+import { User } from "@/app/lib/definitions";
 import NewApplication from "@/app/ui/forms/new-application";
 import { auth } from "@/auth";
 import { notFound } from "next/navigation";
@@ -15,15 +14,12 @@ export default async function Page() {
     session.user = {
       name: session.user.name,
       email: session.user.email,
-      // image: session.user.image,
     };
-    //   console.log(id);
 
-    const user = await getUser(session?.user?.email!);
+    const user: User = await getUser(session?.user?.email!);
 
     const companies = await fetchLatestCompaniesByUserId(user?.id);
 
-    //console.log(companies);
 
     return (
       <div>

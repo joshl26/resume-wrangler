@@ -1,22 +1,22 @@
-export type User = {
-  id: string;
-  name: string;
-  email: string;
-  first_name: string;
-  last_name: string;
-  address_one: string;
-  address_two: string;
-  address_three: string;
-  phone: string;
-  website: string;
-  thumbnail: string;
-  linked_in: string;
-  twitter: string;
-  facebook: string;
-  instagram: string;
-  github: string;
-  country: string;
-};
+// export type User = {
+//   id: string;
+//   name: string;
+//   email: string;
+//   first_name: string;
+//   last_name: string;
+//   address_one: string;
+//   address_two: string;
+//   address_three: string;
+//   phone: string;
+//   website: string;
+//   thumbnail: string;
+//   linked_in: string;
+//   twitter: string;
+//   facebook: string;
+//   instagram: string;
+//   github: string;
+//   country: string;
+// };
 
 export const user = {
   id: "1",
