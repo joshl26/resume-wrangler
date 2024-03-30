@@ -5,18 +5,12 @@ import {
   fetchResumesByUserId,
   getUser,
 } from "@/app/lib/data";
-import {
-  Applications,
-  Companies,
-  CoverLetters,
-  Resumes,
-  User,
-} from "@/app/lib/definitions";
 import { Button } from "@/app/ui/button";
 import ApplicationsTable from "@/app/ui/tables/applications/applications-table";
 import { auth } from "@/auth";
 import Link from "next/link";
 import React from "react";
+import { notFound } from "next/navigation";
 
 export default async function Page() {
   const session = await auth();
@@ -27,12 +21,18 @@ export default async function Page() {
     };
   }
 
-  const user: User = await getUser(session?.user?.email!);
+  const [user] = await Promise.all([getUser(session?.user?.email)]);
 
-  const applications: Applications = await fetchApplicationsByUserId(user?.id!);
-  const companies: Companies = await fetchLatestCompaniesByUserId(user?.id!);
-  const resumes: Resumes = await fetchResumesByUserId(user?.id!);
-  const coverLetters: CoverLetters = await fetchCoverLettersByUserId(user?.id!);
+  const [applications, companies, resumes, coverLetters] = await Promise.all([
+    fetchApplicationsByUserId(user?.id),
+    fetchLatestCompaniesByUserId(user?.id),
+    fetchResumesByUserId(user?.id),
+    fetchCoverLettersByUserId(user?.id),
+  ]);
+
+  if (!applications ?? !companies ?? !resumes ?? !coverLetters) {
+    notFound();
+  }
 
   return (
     <div className="h-full w-full">

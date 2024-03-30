@@ -9,7 +9,7 @@ const ApplicationsCard = ({ applications }: { applications: Applications }) => {
   const [applicationButton, setApplicationButton] = useState("all");
 
   return (
-    <div className="shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] w-1/2 h-[275px] bg-white rounded-xl">
+    <div className=" w-1/2 h-[275px] bg-white rounded-xl">
       <div className="flex flex-row justify-between">
         <h2 className="font-bold p-2">Applications</h2>
         <div className="relative h-auto w-[125px] m-4">

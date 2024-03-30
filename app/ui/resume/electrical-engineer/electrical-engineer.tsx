@@ -14,7 +14,15 @@ import {
   faSquareTwitter,
   faSquareGithub,
 } from "@fortawesome/free-brands-svg-icons";
-import { User } from "@/app/lib/definitions";
+import {
+  User,
+  UserCertification,
+  UserEducationExperience,
+  UserOrganization,
+  UserSkill,
+  UserWorkExperience,
+  userOrganizations,
+} from "@/app/lib/definitions";
 
 interface Props {
   user: User;
@@ -42,7 +50,6 @@ interface Props {
 }
 
 export default async function ElectricalEngineer(props: Props) {
-  // console.log(props.educationResumeLines);
   return (
     <Page>
       <div className="flex flex-row">
@@ -101,118 +108,120 @@ export default async function ElectricalEngineer(props: Props) {
           </div>
           <div className="flex flex-row"></div>{" "}
           <ul className="px-3 py-2">
-            {props?.workResumeLines?.map((userWorkExperience: any) => (
-              <li className="list-disc py-2" key={userWorkExperience?.id}>
-                <h2
-                  className={clsx(
-                    "font-bold",
-                    props?.heading_font || props?.resume?.heading_font
+            {props?.workResumeLines?.map(
+              (userWorkExperience: UserWorkExperience) => (
+                <li className="list-disc py-2" key={userWorkExperience?.id}>
+                  <h2
+                    className={clsx(
+                      "font-bold",
+                      props?.heading_font || props?.resume?.heading_font
+                    )}
+                  >
+                    {userWorkExperience?.job_title}
+                  </h2>
+                  <p
+                    className={clsx(
+                      "text-[1rem]",
+                      props?.heading_font || props?.resume?.heading_font
+                    )}
+                  >
+                    {userWorkExperience?.company_name} -{" "}
+                    {userWorkExperience?.location} (
+                    {userWorkExperience?.start_date} -{" "}
+                    {userWorkExperience?.end_date})
+                  </p>
+                  {userWorkExperience?.description_one && (
+                    <div className="flex flex-row justify-start">
+                      <div className="flex flex-col pr-3 pt-[10px]">
+                        <div
+                          className={clsx(
+                            "h-[7px] w-[7px] rounded-full ",
+                            props?.color || props?.resume?.color
+                          )}
+                        />
+                      </div>
+                      <div className="flex flex-col w-auto text-left">
+                        <p
+                          className={clsx(
+                            "text-sm",
+                            props?.body_font || props?.resume?.body_font
+                          )}
+                        >
+                          {userWorkExperience?.description_one}
+                        </p>
+                      </div>
+                    </div>
                   )}
-                >
-                  {userWorkExperience?.job_title}
-                </h2>
-                <p
-                  className={clsx(
-                    "text-[1rem]",
-                    props?.heading_font || props?.resume?.heading_font
+                  {userWorkExperience?.description_two && (
+                    <div className="flex flex-row justify-start">
+                      <div className="flex flex-col pr-3 pt-[10px]">
+                        <div
+                          className={clsx(
+                            "h-[7px] w-[7px] rounded-full",
+                            props?.color || props?.resume?.color
+                          )}
+                        />
+                      </div>
+                      <div className="flex flex-col">
+                        <p
+                          className={clsx(
+                            "text-sm ",
+                            props?.body_font || props?.resume?.body_font
+                          )}
+                        >
+                          {userWorkExperience?.description_two}
+                        </p>
+                      </div>
+                    </div>
                   )}
-                >
-                  {userWorkExperience?.company_name} -{" "}
-                  {userWorkExperience?.location} (
-                  {userWorkExperience?.start_date} -{" "}
-                  {userWorkExperience?.end_date})
-                </p>
-                {userWorkExperience?.description_one && (
-                  <div className="flex flex-row justify-start">
-                    <div className="flex flex-col pr-3 pt-[10px]">
-                      <div
-                        className={clsx(
-                          "h-[7px] w-[7px] rounded-full ",
-                          props?.color || props?.resume?.color
-                        )}
-                      />
+                  {userWorkExperience?.description_three && (
+                    <div className="flex flex-row justify-start">
+                      <div className="flex flex-col pr-3 pt-[10px]">
+                        <div
+                          className={clsx(
+                            "h-[7px] w-[7px] rounded-full",
+                            props?.color || props?.resume?.color
+                          )}
+                        />
+                      </div>
+                      <div className="flex flex-col">
+                        <p
+                          className={clsx(
+                            "text-sm",
+                            props?.body_font || props?.resume?.body_font
+                          )}
+                        >
+                          {userWorkExperience?.description_three}
+                        </p>
+                      </div>
                     </div>
-                    <div className="flex flex-col w-auto text-left">
-                      <p
-                        className={clsx(
-                          "text-sm",
-                          props?.body_font || props?.resume?.body_font
-                        )}
-                      >
-                        {userWorkExperience?.description_one}
-                      </p>
-                    </div>
-                  </div>
-                )}
-                {userWorkExperience?.description_two && (
-                  <div className="flex flex-row justify-start">
-                    <div className="flex flex-col pr-3 pt-[10px]">
-                      <div
-                        className={clsx(
-                          "h-[7px] w-[7px] rounded-full",
-                          props?.color || props?.resume?.color
-                        )}
-                      />
-                    </div>
-                    <div className="flex flex-col">
-                      <p
-                        className={clsx(
-                          "text-sm ",
-                          props?.body_font || props?.resume?.body_font
-                        )}
-                      >
-                        {userWorkExperience?.description_two}
-                      </p>
-                    </div>
-                  </div>
-                )}
-                {userWorkExperience?.description_three && (
-                  <div className="flex flex-row justify-start">
-                    <div className="flex flex-col pr-3 pt-[10px]">
-                      <div
-                        className={clsx(
-                          "h-[7px] w-[7px] rounded-full",
-                          props?.color || props?.resume?.color
-                        )}
-                      />
-                    </div>
-                    <div className="flex flex-col">
-                      <p
-                        className={clsx(
-                          "text-sm",
-                          props?.body_font || props?.resume?.body_font
-                        )}
-                      >
-                        {userWorkExperience?.description_three}
-                      </p>
-                    </div>
-                  </div>
-                )}
-                {userWorkExperience?.description_four && (
-                  <div className="flex flex-row justify-start">
-                    <div className="flex flex-col pr-3 pt-[10px]">
-                      <div
-                        className={clsx(
-                          "h-[7px] w-[7px] rounded-full",
+                  )}
+                  {userWorkExperience?.description_four && (
+                    <div className="flex flex-row justify-start">
+                      <div className="flex flex-col pr-3 pt-[10px]">
+                        <div
+                          className={clsx(
+                            "h-[7px] w-[7px] rounded-full",
 
-                          props?.color || props?.resume?.color
-                        )}
-                      />
+                            props?.color || props?.resume?.color
+                          )}
+                        />
+                      </div>
+                      <div className="flex flex-col">
+                        <p
+                          className={clsx(
+                            "text-sm",
+                            props?.body_font || props?.resume?.body_font
+                          )}
+                        >
+                          {userWorkExperience?.description_four}
+                        </p>
+                      </div>
                     </div>
-                    <div className="flex flex-col">
-                      <p
-                        className={clsx(
-                          "text-sm",
-                          props?.body_font || props?.resume?.body_font
-                        )}
-                      >
-                        {userWorkExperience?.description_four}
-                      </p>
-                    </div>
-                  </div>
-                )}
-              </li>
-            ))}
+                  )}
+                </li>
+              )
+            )}
           </ul>
         </div>
         <div className="flex flex-col w-1/4">
@@ -388,7 +397,7 @@ export default async function ElectricalEngineer(props: Props) {
               </h2>
               <ul className="pt-2">
                 {props?.skillResumeLines[0] &&
-                  props?.skillResumeLines?.map((userSkill: any) => (
+                  props?.skillResumeLines?.map((userSkill: UserSkill) => (
                     <li className="flex flex-col py-[3px]" key={userSkill?.id}>
                       <p
                         className={clsx(
@@ -442,42 +451,44 @@ export default async function ElectricalEngineer(props: Props) {
                 >
                   EDUCATION
                 </h1>
-                {props?.educationResumeLines?.map((userEducation: any) => (
-                  <li className="flex flex-col pt-2" key={userEducation?.id}>
-                    <h2
-                      className={clsx(
-                        "font-bold text-sm",
-                        props?.heading_font || props?.resume?.heading_font
-                      )}
-                    >
-                      {userEducation?.institution_name}
-                    </h2>
-                    <p
-                      className={clsx(
-                        "text-sm",
-                        props?.body_font || props?.resume?.body_font
-                      )}
-                    >
-                      {userEducation?.location}
-                    </p>
-                    <p
-                      className={clsx(
-                        "text-sm",
-                        props?.body_font || props?.resume?.body_font
-                      )}
-                    >
-                      {userEducation?.start_date} - {userEducation?.end_date}
-                    </p>
-                    <p
-                      className={clsx(
-                        "text-sm italic font-black",
-                        props?.body_font || props?.resume?.body_font
-                      )}
-                    >
-                      {userEducation?.program}
-                    </p>
-                  </li>
-                ))}
+                {props?.educationResumeLines?.map(
+                  (userEducation: UserEducationExperience) => (
+                    <li className="flex flex-col pt-2" key={userEducation?.id}>
+                      <h2
+                        className={clsx(
+                          "font-bold text-sm",
+                          props?.heading_font || props?.resume?.heading_font
+                        )}
+                      >
+                        {userEducation?.institution_name}
+                      </h2>
+                      <p
+                        className={clsx(
+                          "text-sm",
+                          props?.body_font || props?.resume?.body_font
+                        )}
+                      >
+                        {userEducation?.location}
+                      </p>
+                      <p
+                        className={clsx(
+                          "text-sm",
+                          props?.body_font || props?.resume?.body_font
+                        )}
+                      >
+                        {userEducation?.start_date} - {userEducation?.end_date}
+                      </p>
+                      <p
+                        className={clsx(
+                          "text-sm italic font-black",
+                          props?.body_font || props?.resume?.body_font
+                        )}
+                      >
+                        {userEducation?.program}
+                      </p>
+                    </li>
+                  )
+                )}
               </ul>
             </div>
           ) : (
@@ -497,15 +508,15 @@ export default async function ElectricalEngineer(props: Props) {
                   {props?.resume?.custom_section_one_name}
                 </h2>
                 {props?.organizationResumeLines?.map(
-                  (userOrganizations: any) => (
-                    <li className="flex flex-col" key={userOrganizations?.id}>
+                  (userOrganization: UserOrganization) => (
+                    <li className="flex flex-col" key={userOrganization?.id}>
                       <p
                         className={clsx(
                           "text-sm font-bold",
                           props?.heading_font || props?.resume?.heading_font
                         )}
                       >
-                        {userOrganizations?.name}
+                        {userOrganization?.name}
                       </p>
                       <p
                         className={clsx(
@@ -513,7 +524,7 @@ export default async function ElectricalEngineer(props: Props) {
                           props?.body_font || props?.resume?.body_font
                         )}
                       >
-                        {userOrganizations?.location}
+                        {userOrganization?.location}
                       </p>
                     </li>
                   )
@@ -537,7 +548,7 @@ export default async function ElectricalEngineer(props: Props) {
                 </h2>
                 <ul>
                   {props?.certificationResumeLines?.map(
-                    (userCertification: any) => (
+                    (userCertification: UserCertification) => (
                       <li className="flex flex-col" key={userCertification?.id}>
                         <p
                           className={clsx(

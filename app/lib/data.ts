@@ -21,6 +21,8 @@ import {
   UserWorkExperiences,
   UserEducationExperience,
   UserSkill,
+  Applications,
+  Application,
 } from "./definitions";
 import { unstable_noStore as noStore } from "next/cache";
 
@@ -114,13 +116,19 @@ export async function fetchApplicationsByUserId(userId: string) {
 
   try {
     const query = `SELECT * FROM applications WHERE user_id = '${userId}'`;
-    // console.log(query);
-    const resumeTemplate = await conn.query(query);
-    return resumeTemplate.rows;
+    const data = await conn.query(query);
+
+    const userApplications: Applications = data.rows.map(
+      (application: Application) => ({
+        ...application,
+      })
+    );
+
+    return userApplications;
   } catch (error: any) {
     console.error("Database Error:", error);
     // throw new Error("Failed to fetch resume template by id.");
-    return {};
+    return [];
   }
 }
 
@@ -341,7 +349,6 @@ export async function fetchEducationByUserId(userId: string) {
   try {
     const query = `SELECT * FROM user_education WHERE user_id = '${userId}'`;
     const data = await conn.query(query);
-    
 
     const userEducationExperiences: UserEducationExperiences = data?.rows?.map(
       (userEducationExperience: UserEducationExperience) => ({
