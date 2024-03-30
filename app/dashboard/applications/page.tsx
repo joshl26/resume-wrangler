@@ -5,7 +5,7 @@ import {
   fetchResumesByUserId,
   getUser,
 } from "@/app/lib/data";
-import { Applications, User } from "@/app/lib/definitions";
+import { Applications, Companies, User } from "@/app/lib/definitions";
 import { Button } from "@/app/ui/button";
 import ApplicationsTable from "@/app/ui/tables/applications/applications-table";
 import { auth } from "@/auth";
@@ -26,7 +26,7 @@ export default async function Page() {
   const user: User = await getUser(session?.user?.email!);
 
   const applications: Applications = await fetchApplicationsByUserId(user?.id!);
-  const companies = await fetchLatestCompaniesByUserId(user?.id!);
+  const companies: Companies = await fetchLatestCompaniesByUserId(user?.id!);
   const resumes = await fetchResumesByUserId(user?.id!);
   const coverLetters = await fetchCoverLettersByUserId(user?.id!);
 

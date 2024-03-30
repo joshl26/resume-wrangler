@@ -7,6 +7,7 @@ import {
   deleteCoverLetter,
   deleteResume,
 } from "@/app/lib/actions";
+import { Applications, Companies } from "@/app/lib/definitions";
 import Link from "next/link";
 
 const ApplicationsTable = ({
@@ -19,8 +20,8 @@ const ApplicationsTable = ({
   user: any;
   resumes: any;
   coverLetters: any;
-  applications: any;
-  companies: any;
+  applications: Applications;
+  companies: Companies;
 }) => {
   // console.log(resumes);
 

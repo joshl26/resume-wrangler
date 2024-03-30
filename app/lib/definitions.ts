@@ -81,21 +81,6 @@ export type InvoiceForm = {
   status: "pending" | "paid";
 };
 
-export interface Application {
-  id: string;
-  posting_text: string;
-  is_complete: string;
-  created_at: string;
-  date_submitted: string;
-  job_position: string;
-  posting_url: string;
-  analyzed_posting_text: string;
-  company_id: string;
-  key_skills: string;
-  updated_at: string;
-  user_id: string;
-}
-
 export interface User {
   id: string;
   name: string;
@@ -117,6 +102,185 @@ export interface User {
   country: string;
 }
 
+export interface Application {
+  id: string;
+  posting_text: string;
+  is_complete: string;
+  created_at: string;
+  date_submitted: string;
+  job_position: string;
+  posting_url: string;
+  analyzed_posting_text: string;
+  company_id: string;
+  key_skills: string;
+  updated_at: string;
+  user_id: string;
+}
+
 export type Applications = Application[];
+
+export interface Company {
+  id: string;
+  created_at: string;
+  name: string;
+  address_one: string;
+  address_two: string;
+  recipient_title: string;
+  email: string;
+  phone: string;
+  website_url: string;
+  updated_at: string;
+  user_id: string;
+}
+
+export type Companies = Company[];
+
+export interface BodyFont {
+  id: string;
+  name: string;
+  description: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export type BodyFonts = BodyFont[];
+
+export interface HeaderFont {
+  id: string;
+  name: string;
+  description: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export type HeaderFonts = HeaderFont[];
+
+export interface ResumeColor {
+  id: string;
+  name: string;
+  color: string;
+  updated_at: string;
+  created_at: string;
+  highlight_color: string;
+}
+
+export type ResumeColors = ResumeColor[];
+
+export interface ResumeLine {
+  id: string;
+  user_id: string;
+  updated_at: string;
+  created_at: string;
+  position: string;
+  resume_id: string;
+  line_type: string;
+  user_education_id: string;
+  work_experience_id: string;
+  user_skills_id: string;
+  user_custom_section_one_id: string;
+  user_custom_section_two_id: string;
+}
+
+export type ResumeLines = ResumeLine[];
+
+export interface Resume {
+  id: string;
+  created_at: string;
+  application_id: string;
+  updated_at: string;
+  user_id: string;
+  company_id: string;
+  title: string;
+  template: string;
+  color: string;
+  heading_font: string;
+  show_social_icons: string;
+  show_skill_progress: string;
+  show_education_section: string;
+  show_custom_section_one: string;
+  custom_section_one_name: string;
+  show_custom_section_two: string;
+  custom_section_two_name: string;
+  description: string;
+  highlight_color: string;
+}
+
+export type Resumes = Resume[];
+
+export interface UserCustomSectionOne {
+  id: string;
+  user_id: string;
+  created_at: string;
+  updated_at: string;
+  name: string;
+  location: string;
+  start_date: string;
+  end_date: string;
+  description: string;
+}
+
+export type UserCustomSectionsOne = UserCustomSectionOne[];
+
+export interface UserCustomSectionTwo {
+  id: string;
+  user_id: string;
+  created_at: string;
+  updated_at: string;
+  name: string;
+  location: string;
+  start_date: string;
+  end_date: string;
+  description: string;
+}
+
+export type UserCustomSectionsTwo = UserCustomSectionTwo[];
+
+export interface UserEducation {
+  id: string;
+  institution_name: string;
+  program: string;
+  url: string;
+  user_id: string;
+  created_at: string;
+  updated_at: string;
+  location: string;
+  start_date: string;
+  end_date: string;
+  description_one: string;
+  description_two: string;
+  description_three: string;
+  grade: string;
+}
+
+export type UserEducations = UserEducation[];
+
+export interface UserSkill {
+  id: string;
+  skill: string;
+  user_id: string;
+  created_at: string;
+  updated_at: string;
+  skill_level: string;
+}
+
+export type UserSkills = UserSkill[];
+
+export interface UserWorkExperience {
+  id: string;
+  job_title: string;
+  company_name: string;
+  user_id: string;
+  created_at: string;
+  updated_at: string;
+  location: string;
+  description_one: string;
+  description_two: string;
+  description_three: string;
+  description_four: string;
+  start_date: string;
+  end_date: string;
+}
+
+export type UserWorkExperiences = UserWorkExperience[];
 
 export type NullOrUndefined = null | undefined;
