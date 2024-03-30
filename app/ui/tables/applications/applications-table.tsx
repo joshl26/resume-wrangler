@@ -9,7 +9,7 @@ import {
 } from "@/app/lib/actions";
 import Link from "next/link";
 
-const Applications = ({
+const ApplicationsTable = ({
   user,
   resumes,
   coverLetters,
@@ -295,4 +295,4 @@ const Applications = ({
   );
 };
 
-export default Applications;
+export default ApplicationsTable;

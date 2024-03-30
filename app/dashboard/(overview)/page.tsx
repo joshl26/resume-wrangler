@@ -7,6 +7,7 @@ import TrendCard from "@/app/ui/dashboard/trend-card";
 import JobTypeCard from "@/app/ui/dashboard/job-type-card";
 import ResponsesCard from "@/app/ui/dashboard/responses-card";
 import DemographicsCard from "@/app/ui/dashboard/demographics-card";
+import { Application, Applications } from "@/app/lib/definitions";
 
 export default async function Page() {
   const session = await auth();
@@ -21,7 +22,7 @@ export default async function Page() {
 
   const user = await getUser(session?.user?.email!);
 
-  const applications = await fetchApplicationsByUserId(user?.id!);
+  const applications: Applications = await fetchApplicationsByUserId(user?.id!);
 
   return (
     <main className="w-full">

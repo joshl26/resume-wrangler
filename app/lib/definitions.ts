@@ -2,26 +2,6 @@
 // It describes the shape of the data, and what data type each property should accept.
 // For simplicity of teaching, we're manually defining these types.
 // However, these types are generated automatically if you're using an ORM such as Prisma.
-export type User = {
-  id: string;
-  name: string;
-  email: string;
-  password: string;
-  first_name: string;
-  last_name: string;
-  address_one: string;
-  address_two: string;
-  address_three: string;
-  phone: string;
-  website: string;
-  thummbnail: string;
-  linked_in: string;
-  twitter: string;
-  facebook: string;
-  instagram: string;
-  github: string;
-  country: string;
-};
 
 export type Customer = {
   id: string;
@@ -100,3 +80,43 @@ export type InvoiceForm = {
   amount: number;
   status: "pending" | "paid";
 };
+
+export interface Application {
+  id: string;
+  posting_text: string;
+  is_complete: string;
+  created_at: string;
+  date_submitted: string;
+  job_position: string;
+  posting_url: string;
+  analyzed_posting_text: string;
+  company_id: string;
+  key_skills: string;
+  updated_at: string;
+  user_id: string;
+}
+
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+  password: string;
+  first_name: string;
+  last_name: string;
+  address_one: string;
+  address_two: string;
+  address_three: string;
+  phone: string;
+  website: string;
+  thummbnail: string;
+  linked_in: string;
+  twitter: string;
+  facebook: string;
+  instagram: string;
+  github: string;
+  country: string;
+}
+
+export type Applications = Application[];
+
+export type NullOrUndefined = null | undefined;

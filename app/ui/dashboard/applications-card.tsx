@@ -3,8 +3,9 @@
 import React, { useState } from "react";
 import clsx from "clsx";
 import Link from "next/link";
+import { Application, Applications } from "@/app/lib/definitions";
 
-const ApplicationsCard = ({ applications }: { applications: any }) => {
+const ApplicationsCard = ({ applications }: { applications: Applications }) => {
   const [applicationButton, setApplicationButton] = useState("all");
 
   return (
@@ -68,7 +69,7 @@ const ApplicationsCard = ({ applications }: { applications: any }) => {
       </div>
       <div className="overflow-y-auto h-[500px]">
         <ul>
-          {applications.map((application: any) => (
+          {applications.map((application: Application) => (
             <li key={application?.id}>
               <Link href={"/dashboard/applications"}>
                 <div className="flex flex-row justify-between px-4 py-1 gap-2 border">

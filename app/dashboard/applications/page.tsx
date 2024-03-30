@@ -5,8 +5,9 @@ import {
   fetchResumesByUserId,
   getUser,
 } from "@/app/lib/data";
+import { Applications, User } from "@/app/lib/definitions";
 import { Button } from "@/app/ui/button";
-import Applications from "@/app/ui/tables/applications/applications-table";
+import ApplicationsTable from "@/app/ui/tables/applications/applications-table";
 import { auth } from "@/auth";
 import Link from "next/link";
 import React from "react";
@@ -22,9 +23,9 @@ export default async function Page() {
     };
   }
 
-  const user = await getUser(session?.user?.email!);
+  const user: User = await getUser(session?.user?.email!);
 
-  const applications = await fetchApplicationsByUserId(user?.id!);
+  const applications: Applications = await fetchApplicationsByUserId(user?.id!);
   const companies = await fetchLatestCompaniesByUserId(user?.id!);
   const resumes = await fetchResumesByUserId(user?.id!);
   const coverLetters = await fetchCoverLettersByUserId(user?.id!);
@@ -47,7 +48,7 @@ export default async function Page() {
           </Button>
         </div>
       </div>
-      <Applications
+      <ApplicationsTable
         user={user}
         resumes={resumes}
         coverLetters={coverLetters}
