@@ -12,78 +12,82 @@ import YourWorkExperiences from "@/app/ui/forms/your-work-experiences";
 import YourOrganizations from "@/app/ui/forms/your-organizations";
 import YourCertifications from "@/app/ui/forms/your-certifications";
 import YourSocialLinks from "@/app/ui/forms/your-social-links";
-import { BodyFonts } from "@/app/lib/definitions";
-
-export default function ResumeStyling({
-  resumeTemplates,
-  resumeColors,
-  bodyFonts,
-  headerFonts,
-  user,
-  resume,
-  userSkills,
-  userEducation,
+import {
+  BodyFonts,
+  HeaderFonts,
+  Resume,
+  ResumeColors,
+  ResumeTemplates,
+  User,
+  UserCertifications,
+  UserEducationExperience,
+  UserEducationExperiences,
+  UserSkills,
+  UserWorkExperiences,
   userOrganizations,
-  userCertifications,
-  userWorkExperiences,
-  educationResumeLines,
-  workResumeLines,
-  skillResumeLines,
-  certificationResumeLines,
-  organizationResumeLines,
-}: {
-  resumeTemplates: any;
-  resumeColors: any;
+} from "@/app/lib/definitions";
+
+interface Props {
+  resumeTemplates: ResumeTemplates;
+  resumeColors: ResumeColors;
   bodyFonts: BodyFonts;
-  headerFonts: any;
-  user: any;
-  resume: any;
-  userSkills: any;
-  userEducation: any;
-  userOrganizations: any;
-  userCertifications: any;
-  userWorkExperiences: any;
-  educationResumeLines: any;
-  workResumeLines: any;
-  skillResumeLines: any;
-  certificationResumeLines: any;
-  organizationResumeLines: any;
-}) {
+  headerFonts: HeaderFonts;
+  user: User;
+  resume: Resume;
+  userSkills: UserSkills;
+  userEducation: UserEducationExperiences;
+  userOrganizations: userOrganizations;
+  userCertifications: UserCertifications;
+  userWorkExperiences: UserWorkExperiences;
+  educationResumeLines: UserEducationExperiences;
+  workResumeLines: UserWorkExperiences;
+  skillResumeLines: UserSkills;
+  certificationResumeLines: UserCertifications;
+  organizationResumeLines: userOrganizations;
+}
+
+export default function ResumeStyling(props: Props) {
   const [selectedResumeTemplate, setSelectedResumeTemplate] = useState(
-    resume?.template
+    props.resume?.template
   );
 
   const [selectedResumeBodyFont, setSelectedResumeBodyFont] = useState(
-    resume?.body_font
+    props.resume?.body_font
   );
 
   const [selectedResumeHeadingFont, setSelectedResumeHeadingFont] = useState(
-    resume?.heading_font
+    props.resume?.heading_font
   );
 
-  const [selectedResumeColor, setSelectedResumeColor] = useState(resume?.color);
+  const [selectedResumeColor, setSelectedResumeColor] = useState(
+    props.resume?.color
+  );
 
   const [selectedResumeHighlightColor, setSelectedResumeHighlightColor] =
-    useState(resume?.highlight_color);
+    useState(props.resume?.highlight_color);
 
-  const [showSocials, setShowSocials] = useState(resume?.show_social_icons);
+  const [showSocials, setShowSocials] = useState(
+    props.resume?.show_social_icons
+  );
 
-  const [showSkills, setShowSkills] = useState(resume?.show_skills_section);
+  const [showSkills, setShowSkills] = useState(
+    props.resume?.show_skills_section
+  );
 
   const [showSkillProgress, setShowSkillProgress] = useState(
-    resume?.show_skill_progress
+    props.resume?.show_skill_progress
   );
 
   const [showEducation, setShowEducation] = useState(
-    resume?.show_education_section
+    props.resume?.show_education_section
   );
 
   const [showCustomSectionOne, setShowCustomSectionOne] = useState(
-    resume?.show_custom_section_one
+    props.resume?.show_custom_section_one
   );
 
   const [showCustomSectionTwo, setShowCustomSectionTwo] = useState(
-    resume?.show_custom_section_two
+    props.resume?.show_custom_section_two
   );
 
   return (
@@ -91,11 +95,11 @@ export default function ResumeStyling({
       <div className="flex flex-row h-full w-full">
         <div className="flex flex-col h-full w-[400px] overflow-scroll px-3">
           <YourResumeStyling
-            resume={resume}
-            resumeTemplates={resumeTemplates}
-            resumeColors={resumeColors}
-            headerFonts={headerFonts}
-            bodyFonts={bodyFonts}
+            resume={props.resume}
+            resumeTemplates={props.resumeTemplates}
+            resumeColors={props.resumeColors}
+            headerFonts={props.headerFonts}
+            bodyFonts={props.bodyFonts}
             setSelectedResumeTemplate={setSelectedResumeTemplate}
             setSelectedResumeHeadingFont={setSelectedResumeHeadingFont}
             setSelectedResumeBodyFont={setSelectedResumeBodyFont}
@@ -108,61 +112,61 @@ export default function ResumeStyling({
             selectedResumeHighlightColor={selectedResumeHighlightColor}
           />
           <div className="py-2"></div>
-          <YourProfile resume={resume} user={user} />
+          <YourProfile resume={props.resume} user={props.user} />
           <YourSocialLinks
-            resume={resume}
-            user={user}
+            resume={props.resume}
+            user={props.user}
             showSocials={showSocials}
             setShowSocials={setShowSocials}
           />
           <div className="py-2"></div>
           <YourSkills
-            user={user}
-            userSkills={userSkills}
-            resume={resume}
+            user={props.user}
+            userSkills={props.userSkills}
+            resume={props.resume}
             setShowSkills={setShowSkills}
             showSkills={showSkills}
             setShowSkillProgress={setShowSkillProgress}
             showSkillProgress={showSkillProgress}
-            skillResumeLines={skillResumeLines}
+            skillResumeLines={props.skillResumeLines}
           />
           <div className="py-2"></div>
           <YourEducation
-            resume={resume}
-            user={user}
-            userEducation={userEducation}
+            resume={props.resume}
+            user={props.user}
+            userEducation={props.userEducation}
             showEducation={showEducation}
             setShowEducation={setShowEducation}
-            educationResumeLines={educationResumeLines}
+            educationResumeLines={props.educationResumeLines}
           />
           <div className="py-2"></div>
           <YourWorkExperiences
-            userWorkExperiences={userWorkExperiences}
-            user={user}
-            resume={resume}
-            workResumeLines={workResumeLines}
+            userWorkExperiences={props.userWorkExperiences}
+            user={props.user}
+            resume={props.resume}
+            workResumeLines={props.workResumeLines}
           />
           <div className="py-2"></div>
           <YourOrganizations
-            user={user}
-            resume={resume}
-            userOrganizations={userOrganizations}
+            user={props.user}
+            resume={props.resume}
+            userOrganizations={props.userOrganizations}
             showCustomSectionOne={showCustomSectionOne}
             setShowCustomSectionOne={setShowCustomSectionOne}
-            organizationResumeLines={organizationResumeLines}
+            organizationResumeLines={props.organizationResumeLines}
           />
           <div className="py-2"></div>
           <YourCertifications
-            resume={resume}
-            user={user}
-            userCertifications={userCertifications}
+            resume={props.resume}
+            user={props.user}
+            userCertifications={props.userCertifications}
             showCustomSectionTwo={showCustomSectionTwo}
             setShowCustomSectionTwo={setShowCustomSectionTwo}
-            certificationResumeLines={certificationResumeLines}
+            certificationResumeLines={props.certificationResumeLines}
           />
           <div className="p-2 text-center">
             <a
-              href={`/api/pdf?resumeId=${resume?.id}&userEmail=${user?.email}`}
+              href={`/api/pdf?resumeId=${props.resume?.id}&userEmail=${props.user?.email}`}
               download="generated_pdf.pdf"
               className="downloadBtn"
             >
@@ -176,7 +180,7 @@ export default function ResumeStyling({
               <Classic
                 headingFont={selectedResumeHeadingFont}
                 bodyFont={selectedResumeBodyFont}
-                user={user}
+                user={props.user}
               />
             </Suspense>
           )}
@@ -188,29 +192,29 @@ export default function ResumeStyling({
                 color={selectedResumeColor}
                 selectedResumeHighlightColor={selectedResumeHighlightColor}
                 show_social_icons={showSocials}
-                user={user}
-                resume={resume}
-                userWorkExperiences={userWorkExperiences}
-                userSkills={userSkills}
-                userEducation={userEducation}
-                userCertifications={userCertifications}
-                userOrganizations={userOrganizations}
+                user={props.user}
+                resume={props.resume}
+                userWorkExperiences={props.userWorkExperiences}
+                userSkills={props.userSkills}
+                userEducation={props.userEducation}
+                userCertifications={props.userCertifications}
+                userOrganizations={props.userOrganizations}
                 show_skills_section={showSkills}
                 show_skill_progress={showSkillProgress}
                 show_education_section={showEducation}
                 show_custom_section_one={showCustomSectionOne}
                 show_custom_section_two={showCustomSectionTwo}
-                educationResumeLines={educationResumeLines}
-                workResumeLines={workResumeLines}
-                skillResumeLines={skillResumeLines}
-                organizationResumeLines={organizationResumeLines}
-                certificationResumeLines={certificationResumeLines}
+                educationResumeLines={props.educationResumeLines}
+                workResumeLines={props.workResumeLines}
+                skillResumeLines={props.skillResumeLines}
+                organizationResumeLines={props.organizationResumeLines}
+                certificationResumeLines={props.certificationResumeLines}
               />
             </Suspense>
           )}
         </div>
       </div>
-      <PreviewButton resume={resume} user={user} />
+      <PreviewButton resume={props.resume} user={props.user} />
     </main>
   );
 }

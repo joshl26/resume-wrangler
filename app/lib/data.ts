@@ -10,16 +10,17 @@ import {
   ResumeColors,
   ResumeTemplate,
   ResumeTemplates,
-  Resumes,
   User,
   userOrganizations,
-  UserEducations,
+  UserEducationExperiences,
   UserSkills,
   UserOrganization,
   UserCertifications,
   UserCertification,
   UserWorkExperience,
   UserWorkExperiences,
+  UserEducationExperience,
+  UserSkill,
 } from "./definitions";
 import { unstable_noStore as noStore } from "next/cache";
 
@@ -313,7 +314,7 @@ export async function fetchResumeById(id: string) {
   } catch (error: any) {
     console.error("Database Error:", error);
     // throw new Error("Failed to fetch resume template by id.");
-    return [null];
+    return;
   }
 }
 
@@ -340,16 +341,15 @@ export async function fetchEducationByUserId(userId: string) {
   try {
     const query = `SELECT * FROM user_education WHERE user_id = '${userId}'`;
     const data = await conn.query(query);
+    
 
-    // if (resume.rows[0]) {
-    //   return resume.rows;
-    // } else {
-    //   return [null];
-    // }
+    const userEducationExperiences: UserEducationExperiences = data?.rows?.map(
+      (userEducationExperience: UserEducationExperience) => ({
+        ...userEducationExperience,
+      })
+    );
 
-    const userEducations: UserEducations = data?.rows;
-
-    return userEducations;
+    return userEducationExperiences;
   } catch (error: any) {
     console.error("Database Error:", error);
     // throw new Error("Failed to fetch resume template by id.");
@@ -530,17 +530,15 @@ export async function fetchEducationExperiencesbyResumeID(id: string) {
 
   try {
     const query = `SELECT * FROM resume_lines r JOIN user_education u ON r.user_education_id = u.id WHERE r.resume_id = '${id}' ORDER BY position ASC`;
+    const data = await conn.query(query);
 
-    // console.log(query);
-    const resumeLines = await conn.query(query);
+    const userEducationExperiences: UserEducationExperiences = data.rows.map(
+      (userEducationExperience: UserEducationExperience) => ({
+        ...userEducationExperience,
+      })
+    );
 
-    // console.log(resumeLines.rowCount);
-
-    if (resumeLines.rows[0]) {
-      return resumeLines.rows;
-    } else {
-      return [null];
-    }
+    return userEducationExperiences;
   } catch (error: any) {
     console.error("Database Error:", error);
     // throw new Error("Failed to fetch resume template by id.");
@@ -587,17 +585,15 @@ export async function fetchWorkExperiencesbyResumeID(id: string) {
 
   try {
     const query = `SELECT * FROM resume_lines r JOIN user_work_experience u ON r.work_experience_id = u.id WHERE r.resume_id = '${id}' ORDER BY position ASC`;
+    const data = await conn.query(query);
 
-    // console.log(query);
-    const resumeLines = await conn.query(query);
+    const userWorkExperiences: UserWorkExperiences = data.rows.map(
+      (userWorkExperience: UserWorkExperience) => ({
+        ...userWorkExperience,
+      })
+    );
 
-    // console.log(resumeLines.rowCount);
-
-    if (resumeLines.rows[0]) {
-      return resumeLines.rows;
-    } else {
-      return [null];
-    }
+    return userWorkExperiences;
   } catch (error: any) {
     console.error("Database Error:", error);
     // throw new Error("Failed to fetch resume template by id.");
@@ -610,17 +606,13 @@ export async function fetchSkillsByResumeID(id: string) {
 
   try {
     const query = `SELECT * FROM resume_lines r JOIN user_skills u ON r.user_skills_id = u.id WHERE r.resume_id = '${id}' ORDER BY position ASC`;
+    const data = await conn.query(query);
 
-    // console.log(query);
-    const skillLines = await conn.query(query);
+    const userSkills: UserSkills = data.rows.map((userSkill: UserSkill) => ({
+      ...userSkill,
+    }));
 
-    // console.log(skillLines.rowCount);
-
-    if (skillLines.rows[0]) {
-      return skillLines.rows;
-    } else {
-      return [null];
-    }
+    return userSkills;
   } catch (error: any) {
     console.error("Database Error:", error);
     // throw new Error("Failed to fetch resume template by id.");
@@ -633,17 +625,15 @@ export async function fetchCertificationsByResumeID(id: string) {
 
   try {
     const query = `SELECT * FROM resume_lines r JOIN user_custom_section_two u ON r.user_custom_section_two_id = u.id WHERE r.resume_id = '${id}' ORDER BY position ASC`;
+    const data = await conn.query(query);
 
-    // console.log(query);
-    const certificationLines = await conn.query(query);
+    const userCertifications: UserCertifications = data.rows.map(
+      (userCertification: UserCertification) => ({
+        ...userCertification,
+      })
+    );
 
-    // console.log(certificationLines.rowCount);
-
-    if (certificationLines.rows[0]) {
-      return certificationLines.rows;
-    } else {
-      return [null];
-    }
+    return userCertifications;
   } catch (error: any) {
     console.error("Database Error:", error);
     // throw new Error("Failed to fetch resume template by id.");
@@ -656,17 +646,15 @@ export async function fetchOrganizationsByResumeID(id: string) {
 
   try {
     const query = `SELECT * FROM resume_lines r JOIN user_custom_section_one u ON r.user_custom_section_one_id = u.id WHERE r.resume_id = '${id}' ORDER BY position ASC`;
+    const data = await conn.query(query);
 
-    // console.log(query);
-    const certificationLines = await conn.query(query);
+    const userOrganizations: userOrganizations = data.rows.map(
+      (userOrganization: UserOrganization) => ({
+        ...userOrganization,
+      })
+    );
 
-    // console.log(certificationLines.rowCount);
-
-    if (certificationLines.rows[0]) {
-      return certificationLines.rows;
-    } else {
-      return [null];
-    }
+    return userOrganizations;
   } catch (error: any) {
     console.error("Database Error:", error);
     // throw new Error("Failed to fetch resume template by id.");

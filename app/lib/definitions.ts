@@ -93,7 +93,7 @@ export interface User {
   address_three: string;
   phone: string;
   website: string;
-  thummbnail: string;
+  thumbnail: string;
   linked_in: string;
   twitter: string;
   facebook: string;
@@ -204,7 +204,7 @@ export interface ResumeLine {
 
 export type ResumeLines = ResumeLine[];
 
-export interface Resume {
+export type Resume = {
   id: string;
   created_at: string;
   application_id: string;
@@ -215,8 +215,10 @@ export interface Resume {
   template: string;
   color: string;
   heading_font: string;
+  body_font: string;
   show_social_icons: string;
   show_skill_progress: string;
+  show_skills_section: string;
   show_education_section: string;
   show_custom_section_one: string;
   custom_section_one_name: string;
@@ -224,7 +226,7 @@ export interface Resume {
   custom_section_two_name: string;
   description: string;
   highlight_color: string;
-}
+};
 
 export type Resumes = Resume[];
 
@@ -268,7 +270,7 @@ export interface UserCertification {
 
 export type UserCertifications = UserCertification[];
 
-export interface UserEducation {
+export interface UserEducationExperience {
   id: string;
   institution_name: string;
   program: string;
@@ -285,7 +287,7 @@ export interface UserEducation {
   grade: string;
 }
 
-export type UserEducations = UserEducation[];
+export type UserEducationExperiences = UserEducationExperience[];
 
 export interface UserSkill {
   id: string;

@@ -35,14 +35,13 @@ export default async function EditResume({
     };
   }
 
-  const [resumeTemplates, resumeColors, bodyFonts, headerFonts, user, resume] =
+  const [user, resumeTemplates, resumeColors, bodyFonts, headerFonts] =
     await Promise.all([
+      getUser(session?.user?.email!),
       fetchResumeTemplates(),
       fetchResumeColors(),
       fetchBodyFonts(),
       fetchHeaderFonts(),
-      getUser(session?.user?.email!),
-      fetchResumeById(id),
     ]);
 
   const [
@@ -59,11 +58,21 @@ export default async function EditResume({
     fetchWorkExperiencesByUserId(user?.id),
   ]);
 
-  const educationResumeLines = await fetchEducationExperiencesbyResumeID(id);
-  const workResumeLines = await fetchWorkExperiencesbyResumeID(id);
-  const skillResumeLines = await fetchSkillsByResumeID(id);
-  const certificationResumeLines = await fetchCertificationsByResumeID(id);
-  const organizationResumeLines = await fetchOrganizationsByResumeID(id);
+  const [
+    resume,
+    educationResumeLines,
+    workResumeLines,
+    skillResumeLines,
+    certificationResumeLines,
+    organizationResumeLines,
+  ] = await Promise.all([
+    fetchResumeById(id),
+    fetchEducationExperiencesbyResumeID(id),
+    fetchWorkExperiencesbyResumeID(id),
+    fetchSkillsByResumeID(id),
+    fetchCertificationsByResumeID(id),
+    fetchOrganizationsByResumeID(id),
+  ]);
 
   if (
     !resumeTemplates ??

@@ -14,7 +14,6 @@ export type User = {
   twitter: string;
   facebook: string;
   instagram: string;
-  show_socials: string;
   github: string;
   country: string;
 };
