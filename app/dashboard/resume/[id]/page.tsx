@@ -1,11 +1,16 @@
 import { fetchResumeTemplateById } from "@/app/lib/data";
 import EditButton from "@/app/ui/edit-button";
 import Image from "next/image";
+import { notFound } from "next/navigation";
 import React from "react";
 
 export default async function Page({ params }: { params: { id: string } }) {
   const id = params.id;
   const resumeTemplate = await fetchResumeTemplateById(id);
+
+  if (!resumeTemplate) {
+    notFound();
+  }
 
   return (
     <div className="w-full h-full overflow-y-auto">

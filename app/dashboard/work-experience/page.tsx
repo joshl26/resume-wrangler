@@ -1,31 +1,27 @@
-import {
-  fetchLatestCompaniesByUserId,
-  fetchWorkExperiencesByUserId,
-  getUser,
-} from "@/app/lib/data";
+import { fetchWorkExperiencesByUserId, getUser } from "@/app/lib/data";
 import { Button } from "@/app/ui/button";
-import Companies from "@/app/ui/tables/companies/companies-table";
 import WorkExperience from "@/app/ui/tables/work-experience/work-experience-table";
 import { auth } from "@/auth";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import React from "react";
 
 export default async function Page() {
   const session = await auth();
-  // console.log(session);
   if (session?.user) {
     session.user = {
       name: session.user.name,
       email: session.user.email,
-      // image: session.user.image,
     };
   }
 
   const user = await getUser(session?.user?.email!);
+  const workExperiences = await fetchWorkExperiencesByUserId(user?.id);
 
-  // const applications = await fetchApplicationsByUserId(user?.id!);
-  const workExperiences = await fetchWorkExperiencesByUserId(user.id);
-  // console.log(applications);
+  if (!user ?? !workExperiences) {
+    notFound();
+  }
+
   return (
     <div className="h-full w-full">
       <Link className="px-3 underline" href={"/dashboard/"}>

@@ -1,19 +1,19 @@
 "use client";
 
 import { User } from "@/app/lib/definitions";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useFormState } from "react-dom";
 import { updateUser, updateSocials } from "@/app/lib/actions";
 import { SubmitButton } from "../submit-button";
 
-const UserDetailsEditForm = ({ user }: { user: User | null }) => {
+const UserDetailsEditForm = ({ user }: { user: User }) => {
   const initialState = { message: null, errors: {} };
   const updateUserWithId = updateUser.bind(null, user?.id!);
   const [state, dispatch] = useFormState(updateUserWithId, initialState);
 
   const [edited, setEdited] = useState(false);
 
-  const onChangeHandler = (e: any) => {
+  const onChangeHandler = () => {
     if (edited === false) {
       setEdited(true);
     }
@@ -69,7 +69,7 @@ const UserDetailsEditForm = ({ user }: { user: User | null }) => {
               First Name
             </label>
             <input
-              onChange={(e) => onChangeHandler(e)}
+              onChange={() => onChangeHandler()}
               id="first_name"
               name="first_name"
               type="text"
@@ -85,7 +85,7 @@ const UserDetailsEditForm = ({ user }: { user: User | null }) => {
               Last Name
             </label>
             <input
-              onChange={(e) => onChangeHandler(e)}
+              onChange={() => onChangeHandler()}
               id="last_name"
               name="last_name"
               type="text"
@@ -104,7 +104,7 @@ const UserDetailsEditForm = ({ user }: { user: User | null }) => {
               Address Line One
             </label>
             <input
-              onChange={(e) => onChangeHandler(e)}
+              onChange={() => onChangeHandler()}
               id="address_one"
               name="address_one"
               type="text"
@@ -120,7 +120,7 @@ const UserDetailsEditForm = ({ user }: { user: User | null }) => {
               Address Line Two
             </label>
             <input
-              onChange={(e) => onChangeHandler(e)}
+              onChange={() => onChangeHandler()}
               id="address_two"
               name="address_two"
               type="text"
@@ -140,7 +140,7 @@ const UserDetailsEditForm = ({ user }: { user: User | null }) => {
               Address Line Three
             </label>
             <input
-              onChange={(e) => onChangeHandler(e)}
+              onChange={() => onChangeHandler()}
               id="address_three"
               name="address_three"
               type="text"
@@ -153,7 +153,7 @@ const UserDetailsEditForm = ({ user }: { user: User | null }) => {
               Phone Number
             </label>
             <input
-              onChange={(e) => onChangeHandler(e)}
+              onChange={() => onChangeHandler()}
               id="phone"
               name="phone"
               type="tel"
@@ -168,7 +168,7 @@ const UserDetailsEditForm = ({ user }: { user: User | null }) => {
             Website
           </label>
           <input
-            onChange={(e) => onChangeHandler(e)}
+            onChange={() => onChangeHandler()}
             id="website"
             name="website"
             type="text"
@@ -189,14 +189,14 @@ const UserDetailsEditForm = ({ user }: { user: User | null }) => {
   );
 };
 
-const UserSocialsEditForm = ({ user }: { user: User | null }) => {
+const UserSocialsEditForm = ({ user }: { user: User }) => {
   const initialState = { message: "inital state", formData: null, errors: {} };
   const updateSocialsWithId = updateSocials.bind(null, user?.id!);
   const [state, dispatch] = useFormState(updateSocialsWithId, initialState);
 
   const [edited, setEdited] = useState(false);
 
-  const onChangeHandler = (e: any) => {
+  const onChangeHandler = () => {
     if (edited === false) {
       setEdited(true);
     }
@@ -221,7 +221,7 @@ const UserSocialsEditForm = ({ user }: { user: User | null }) => {
               LinkedIn
             </label>
             <input
-              onChange={(e) => onChangeHandler(e)}
+              onChange={() => onChangeHandler()}
               id="linkedin"
               name="linkedin"
               type="text"
@@ -234,7 +234,7 @@ const UserSocialsEditForm = ({ user }: { user: User | null }) => {
               Twitter
             </label>
             <input
-              onChange={(e) => onChangeHandler(e)}
+              onChange={() => onChangeHandler()}
               id="twitter"
               name="twitter"
               type="text"
@@ -252,7 +252,7 @@ const UserSocialsEditForm = ({ user }: { user: User | null }) => {
               Facebook
             </label>
             <input
-              onChange={(e) => onChangeHandler(e)}
+              onChange={() => onChangeHandler()}
               id="facebook"
               name="facebook"
               type="text"
@@ -268,7 +268,7 @@ const UserSocialsEditForm = ({ user }: { user: User | null }) => {
               Instagram
             </label>
             <input
-              onChange={(e) => onChangeHandler(e)}
+              onChange={() => onChangeHandler()}
               id="instagram"
               name="instagram"
               type="text"
@@ -288,7 +288,7 @@ const UserSocialsEditForm = ({ user }: { user: User | null }) => {
               Instagram
             </label>
             <input
-              onChange={(e) => onChangeHandler(e)}
+              onChange={() => onChangeHandler()}
               id="instagram"
               name="instagram"
               type="text"
@@ -301,7 +301,7 @@ const UserSocialsEditForm = ({ user }: { user: User | null }) => {
               Github
             </label>
             <input
-              onChange={(e) => onChangeHandler(e)}
+              onChange={() => onChangeHandler()}
               id="github"
               name="github"
               type="text"
@@ -323,7 +323,7 @@ const UserSocialsEditForm = ({ user }: { user: User | null }) => {
   );
 };
 
-const UserEditForm = ({ user }: { user: User | null }) => {
+const UserEditForm = ({ user }: { user: User }) => {
   return (
     <div className="overflow-y-auto w-1/2">
       <UserDetailsEditForm user={user} />

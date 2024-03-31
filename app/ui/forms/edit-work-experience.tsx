@@ -4,15 +4,16 @@ import React, { useState } from "react";
 import { SubmitButton } from "../submit-button";
 import { updateUserWorkExperience } from "@/app/lib/actions";
 import Link from "next/link";
+import { UserWorkExperience } from "@/app/lib/definitions";
 
 export default function EditWorkExperience({
   workExperience,
 }: {
-  workExperience: any;
+  workExperience: UserWorkExperience;
 }) {
   const [edited, setEdited] = useState(false);
 
-  const onChangeHandler = (e: any) => {
+  const onChangeHandler = () => {
     if (edited === false) {
       setEdited(true);
     }
@@ -59,7 +60,7 @@ export default function EditWorkExperience({
               required
               name="company_name"
               id="company_name"
-              onChange={(e) => onChangeHandler(e)}
+              onChange={() => onChangeHandler()}
               defaultValue={workExperience?.company_name}
               type="text"
             ></input>
@@ -72,7 +73,7 @@ export default function EditWorkExperience({
               required
               name="location"
               id="location"
-              onChange={(e) => onChangeHandler(e)}
+              onChange={() => onChangeHandler()}
               defaultValue={workExperience?.location}
               type="text"
             ></input>
@@ -85,7 +86,7 @@ export default function EditWorkExperience({
           <input
             name="job_title"
             id="job_title"
-            onChange={(e) => onChangeHandler(e)}
+            onChange={() => onChangeHandler()}
             defaultValue={workExperience?.job_title}
             type="text"
           ></input>
@@ -98,7 +99,7 @@ export default function EditWorkExperience({
             <input
               name="start_date"
               id="start_date"
-              onChange={(e) => onChangeHandler(e)}
+              onChange={() => onChangeHandler()}
               defaultValue={workExperience?.start_date}
               type="text"
             ></input>
@@ -110,7 +111,7 @@ export default function EditWorkExperience({
             <input
               name="end_date"
               id="end_date"
-              onChange={(e) => onChangeHandler(e)}
+              onChange={() => onChangeHandler()}
               defaultValue={workExperience?.end_date}
               type="text"
             ></input>
@@ -124,7 +125,7 @@ export default function EditWorkExperience({
             className="h-[150px]"
             name="description_one"
             id="description_one"
-            onChange={(e) => onChangeHandler(e)}
+            onChange={() => onChangeHandler()}
             defaultValue={workExperience?.description_one}
           ></textarea>
         </div>
@@ -136,7 +137,7 @@ export default function EditWorkExperience({
             className="h-[150px]"
             name="description_two"
             id="description_two"
-            onChange={(e) => onChangeHandler(e)}
+            onChange={() => onChangeHandler()}
             defaultValue={workExperience?.description_two}
           ></textarea>
         </div>
@@ -148,7 +149,7 @@ export default function EditWorkExperience({
             className="h-[150px]"
             name="description_three"
             id="description_three"
-            onChange={(e) => onChangeHandler(e)}
+            onChange={() => onChangeHandler()}
             defaultValue={workExperience?.description_three}
           ></textarea>
         </div>
@@ -160,7 +161,7 @@ export default function EditWorkExperience({
             className="h-[150px]"
             name="description_four"
             id="description_four"
-            onChange={(e) => onChangeHandler(e)}
+            onChange={() => onChangeHandler()}
             defaultValue={workExperience?.description_four}
           ></textarea>
         </div>

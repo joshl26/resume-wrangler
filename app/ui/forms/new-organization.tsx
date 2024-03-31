@@ -4,13 +4,12 @@ import React, { useState } from "react";
 import { SubmitButton } from "../submit-button";
 import { createOrganization } from "@/app/lib/actions";
 import Link from "next/link";
+import { User } from "@/app/lib/definitions";
 
-export default function NewOrganization({ user }: { user: any }) {
-  //   console.log(application);
-
+export default function NewOrganization({ user }: { user: User }) {
   const [edited, setEdited] = useState(false);
 
-  const onChangeHandler = (e: any) => {
+  const onChangeHandler = () => {
     if (edited === false) {
       setEdited(true);
     }
@@ -27,38 +26,30 @@ export default function NewOrganization({ user }: { user: any }) {
         action={createOrganization}
         className="flex flex-col w-full p-3 border border-black rounded m-3"
       >
-        <div hidden>
-          <label hidden htmlFor="user_id">
-            User Id
-          </label>
-          <input
-            hidden
-            readOnly
-            name="user_id"
-            id="user_id"
-            value={user?.id}
-          ></input>
-          <label hidden htmlFor="section_title">
-            Section Title
-          </label>
-          <input
-            readOnly
-            hidden
-            name="section_title"
-            id="section_title"
-            value="blank"
-          ></input>
-          <label hidden htmlFor="resume_id">
-            Resume Id
-          </label>
-          <input
-            readOnly
-            hidden
-            name="resume_id"
-            id="resume_id"
-            value="blank"
-          ></input>
-        </div>
+        <input
+          required
+          hidden
+          readOnly
+          name="user_id"
+          id="user_id"
+          value={user?.id}
+        />
+        <input
+          required
+          readOnly
+          hidden
+          name="section_title"
+          id="section_title"
+          value="blank"
+        />
+        <input
+          required
+          readOnly
+          hidden
+          name="resume_id"
+          id="resume_id"
+          value="blank"
+        />
         <div className="flex flex-col p-2">
           <label className="font-bold" htmlFor="organization_name">
             Organization Name
@@ -67,7 +58,7 @@ export default function NewOrganization({ user }: { user: any }) {
             required
             name="organization_name"
             id="organization_name"
-            onChange={(e) => onChangeHandler(e)}
+            onChange={() => onChangeHandler()}
             defaultValue={""}
             type="text"
           ></input>
@@ -80,7 +71,7 @@ export default function NewOrganization({ user }: { user: any }) {
             required
             name="organization_location"
             id="organization_location"
-            onChange={(e) => onChangeHandler(e)}
+            onChange={() => onChangeHandler()}
             defaultValue={""}
             type="text"
           ></input>
@@ -94,7 +85,7 @@ export default function NewOrganization({ user }: { user: any }) {
               required
               name="organization_start"
               id="organization_start"
-              onChange={(e) => onChangeHandler(e)}
+              onChange={() => onChangeHandler()}
               defaultValue={""}
               type="text"
             ></input>
@@ -107,7 +98,7 @@ export default function NewOrganization({ user }: { user: any }) {
               required
               name="organization_end"
               id="organization_end"
-              onChange={(e) => onChangeHandler(e)}
+              onChange={() => onChangeHandler()}
               defaultValue={""}
               type="text"
             ></input>
@@ -121,7 +112,7 @@ export default function NewOrganization({ user }: { user: any }) {
             required
             name="organization_description"
             id="organization_description"
-            onChange={(e) => onChangeHandler(e)}
+            onChange={() => onChangeHandler()}
             defaultValue={""}
           ></textarea>
         </div>

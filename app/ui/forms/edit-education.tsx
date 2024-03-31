@@ -4,11 +4,16 @@ import React, { useState } from "react";
 import { SubmitButton } from "../submit-button";
 import { updateUserEducation } from "@/app/lib/actions";
 import Link from "next/link";
+import { UserEducationExperience } from "@/app/lib/definitions";
 
-export default function EditEducation({ education }: { education: any }) {
+export default function EditEducation({
+  education,
+}: {
+  education: UserEducationExperience;
+}) {
   const [edited, setEdited] = useState(false);
 
-  const onChangeHandler = (e: any) => {
+  const onChangeHandler = () => {
     if (edited === false) {
       setEdited(true);
     }
@@ -25,6 +30,7 @@ export default function EditEducation({ education }: { education: any }) {
         className="flex flex-col w-[500px] p-3 m-3 border border-black rounded"
       >
         <input
+          required
           readOnly
           hidden
           name="education_id"
@@ -32,11 +38,11 @@ export default function EditEducation({ education }: { education: any }) {
           defaultValue={education?.id}
         />
         <input
+          required
           readOnly
           hidden
           name="resume_id"
           id="resume_id"
-          onChange={(e) => {}}
           value="blank"
           type="text"
         />
@@ -48,7 +54,7 @@ export default function EditEducation({ education }: { education: any }) {
             required
             name="institution_name"
             id="institution_name"
-            onChange={(e) => onChangeHandler(e)}
+            onChange={() => onChangeHandler()}
             defaultValue={education?.institution_name}
             type="text"
           />
@@ -60,7 +66,7 @@ export default function EditEducation({ education }: { education: any }) {
           <input
             name="location"
             id="location"
-            onChange={(e) => onChangeHandler(e)}
+            onChange={() => onChangeHandler()}
             defaultValue={education?.location}
             type="text"
           />
@@ -72,7 +78,7 @@ export default function EditEducation({ education }: { education: any }) {
           <input
             name="start_date"
             id="start_date"
-            onChange={(e) => onChangeHandler(e)}
+            onChange={() => onChangeHandler()}
             defaultValue={education?.start_date}
             type="text"
           />
@@ -84,7 +90,7 @@ export default function EditEducation({ education }: { education: any }) {
           <input
             name="end_date"
             id="end_date"
-            onChange={(e) => onChangeHandler(e)}
+            onChange={() => onChangeHandler()}
             defaultValue={education?.end_date}
             type="text"
           />
@@ -96,7 +102,7 @@ export default function EditEducation({ education }: { education: any }) {
           <input
             name="grade"
             id="grade"
-            onChange={(e) => onChangeHandler(e)}
+            onChange={() => onChangeHandler()}
             defaultValue={education?.grade}
           />
         </div>
@@ -107,7 +113,7 @@ export default function EditEducation({ education }: { education: any }) {
           <input
             name="program"
             id="program"
-            onChange={(e) => onChangeHandler(e)}
+            onChange={() => onChangeHandler()}
             defaultValue={education?.program}
           />
         </div>
@@ -118,7 +124,7 @@ export default function EditEducation({ education }: { education: any }) {
           <input
             name="url"
             id="url"
-            onChange={(e) => onChangeHandler(e)}
+            onChange={() => onChangeHandler()}
             defaultValue={education?.url}
           />
         </div>

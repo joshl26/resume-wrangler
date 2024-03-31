@@ -1,12 +1,15 @@
 "use client";
 
-import { deleteOrganization, deleteWorkExperience } from "@/app/lib/actions";
+import { deleteWorkExperience } from "@/app/lib/actions";
+import { UserWorkExperience, UserWorkExperiences } from "@/app/lib/definitions";
 import Link from "next/link";
 import React from "react";
 
-const WorkExperience = ({ workExperiences }: { workExperiences: any }) => {
-  // console.log(organization.find(({ id }: any) => id === "1").name);
-
+const WorkExperience = ({
+  workExperiences,
+}: {
+  workExperiences: UserWorkExperiences;
+}) => {
   return (
     <div className="relative overflow-x-auto overflow-y-auto shadow-md sm:rounded-lg px-4 py-4">
       <table className="w-full text-sm text-left rtl:text-right ">
@@ -31,7 +34,7 @@ const WorkExperience = ({ workExperiences }: { workExperiences: any }) => {
         </thead>
         <tbody>
           {workExperiences?.length > 0 ? (
-            workExperiences?.map((workExperience: any) => (
+            workExperiences?.map((workExperience: UserWorkExperience) => (
               <tr
                 key={workExperience?.id}
                 className="border-b  hover:bg-gray-50 "
@@ -58,31 +61,50 @@ const WorkExperience = ({ workExperiences }: { workExperiences: any }) => {
                   {workExperience?.end_date ? workExperience?.end_date : "N/A"}
                 </td>
 
-                <td className="text-left px-6 py-4">
-                  <a
-                    id="edit"
-                    href={`/dashboard/work-experience/edit/${workExperience.id}`}
-                    className="font-medium  hover:underline"
-                  >
-                    Edit
-                  </a>
-                  <button
-                    id="remove"
-                    onClick={() => deleteWorkExperience(workExperience.id)}
-                    className="font-medium hover:underline ms-3"
-                  >
-                    Remove
-                  </button>
+                <td className="text-left py-4">
+                  <div className="flex flex-row justify-around">
+                    <a
+                      id="edit"
+                      href={`/dashboard/work-experience/edit/${workExperience.id}`}
+                      className="font-medium  hover:underline"
+                    >
+                      Edit
+                    </a>
+                    <form action={deleteWorkExperience}>
+                      <input
+                        required
+                        hidden
+                        readOnly
+                        value={workExperience.id}
+                        name="id"
+                      />
+                      <input
+                        required
+                        hidden
+                        readOnly
+                        value="blank"
+                        id="resume_id"
+                        name="resume_id"
+                      />
+                      <button
+                        id="remove"
+                        type="submit"
+                        className="font-medium hover:underline "
+                      >
+                        Remove
+                      </button>
+                    </form>
+                  </div>
                 </td>
               </tr>
             ))
           ) : (
             <tr>
-              {/* <Link href="/dashboard/organization/new"> */}
-              <td className="flex items-center px-6 py-4">
-                Start by creating your first organization here
-              </td>{" "}
-              {/* </Link> */}
+              <Link href="/dashboard/work-experience/new">
+                <td className="flex items-center px-6 py-4">
+                  Start by creating your first work experience, click here
+                </td>
+              </Link>
             </tr>
           )}
         </tbody>

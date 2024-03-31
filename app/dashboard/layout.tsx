@@ -1,7 +1,6 @@
 import SideNav from "@/app/ui/dashboard/sidenav";
 import { auth } from "@/auth";
 import { SessionProvider } from "next-auth/react";
-import { useWindowSize } from "../hooks/useWindowSize";
 import WindowSize from "../hooks/WindowSize";
 
 export default async function Layout({
@@ -14,7 +13,6 @@ export default async function Layout({
     session.user = {
       name: session.user.name,
       email: session.user.email,
-      // image: session.user.image,
     };
   }
 

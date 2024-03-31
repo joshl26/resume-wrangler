@@ -31,44 +31,6 @@ import {
 } from "./definitions";
 import { unstable_noStore as noStore } from "next/cache";
 
-// const ITEMS_PER_PAGE = 6;
-// export async function fetchFilteredInvoices(
-//   query: string,
-//   currentPage: number
-// ) {
-//   noStore();
-
-//   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
-
-//   try {
-//     const invoices = await sql<InvoicesTable>`
-//       SELECT
-//         invoices.id,
-//         invoices.amount,
-//         invoices.date,
-//         invoices.status,
-//         customers.name,
-//         customers.email,
-//         customers.image_url
-//       FROM invoices
-//       JOIN customers ON invoices.customer_id = customers.id
-//       WHERE
-//         customers.name ILIKE ${`%${query}%`} OR
-//         customers.email ILIKE ${`%${query}%`} OR
-//         invoices.amount::text ILIKE ${`%${query}%`} OR
-//         invoices.date::text ILIKE ${`%${query}%`} OR
-//         invoices.status ILIKE ${`%${query}%`}
-//       ORDER BY invoices.date DESC
-//       LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
-//     `;
-
-//     return invoices.rows;
-//   } catch (error) {
-//     console.error("Database Error:", error);
-//     throw new Error("Failed to fetch invoices.");
-//   }
-// }
-
 export async function getUser(email: string) {
   noStore();
 
@@ -471,17 +433,15 @@ export async function fetchWorkExperienceById(id: string) {
   try {
     const query = `SELECT * FROM user_work_experience WHERE id = '${id}'`;
     // console.log(query);
-    const resume = await conn.query(query);
+    const data = await conn.query(query);
 
-    if (resume.rows[0]) {
-      return resume.rows[0];
-    } else {
-      return [null];
-    }
+    const workExperience: UserWorkExperience = data?.rows[0];
+
+    return workExperience;
   } catch (error: any) {
     console.error("Database Error:", error);
     // throw new Error("Failed to fetch resume template by id.");
-    return [null];
+    return;
   }
 }
 
@@ -510,17 +470,14 @@ export async function fetchOrganizationById(id: string) {
   try {
     const query = `SELECT * FROM user_custom_section_one WHERE id = '${id}'`;
     // console.log(query);
-    const resume = await conn.query(query);
+    const data = await conn.query(query);
+    const organization: UserOrganization = data?.rows[0];
 
-    if (resume.rows[0]) {
-      return resume.rows[0];
-    } else {
-      return [null];
-    }
+    return organization;
   } catch (error: any) {
     console.error("Database Error:", error);
     // throw new Error("Failed to fetch resume template by id.");
-    return [null];
+    return;
   }
 }
 
@@ -568,34 +525,34 @@ export async function fetchEducationExperiencesbyResumeID(id: string) {
 export async function fetchEducationById(id: string) {
   noStore();
 
-  // console.log(id);
-
   try {
     const query = `SELECT * FROM user_education WHERE id = '${id}'`;
-    // console.log(query);
-    const application = await conn.query(query);
-    return application.rows[0];
+    const data = await conn.query(query);
+
+    const userEducationExperience: UserEducationExperience = data.rows[0];
+
+    return userEducationExperience;
   } catch (error: any) {
     console.error("Database Error:", error);
     // throw new Error("Failed to fetch resume template by id.");
-    return {};
+    return;
   }
 }
 
 export async function fetchSkillById(id: string) {
   noStore();
 
-  // console.log(id);
-
   try {
     const query = `SELECT * FROM user_skills WHERE id = '${id}'`;
-    // console.log(query);
-    const skills = await conn.query(query);
-    return skills.rows[0];
+    const data = await conn.query(query);
+
+    const skill: UserSkill = data.rows[0];
+
+    return skill;
   } catch (error: any) {
     console.error("Database Error:", error);
     // throw new Error("Failed to fetch resume template by id.");
-    return {};
+    return;
   }
 }
 

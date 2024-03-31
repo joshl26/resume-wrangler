@@ -1,11 +1,11 @@
 "use client";
 
 import { deleteUserSkill } from "@/app/lib/actions";
+import { UserSkills } from "@/app/lib/definitions";
 import Link from "next/link";
 import React from "react";
 
-const Skills = ({ skills }: { skills: any }) => {
-  // console.log(organization.find(({ id }: any) => id === "1").name);
+const Skills = ({ skills }: { skills: UserSkills }) => {
 
   return (
     <div className="relative overflow-x-auto overflow-y-auto shadow-md sm:rounded-lg px-4 py-4">
@@ -26,7 +26,7 @@ const Skills = ({ skills }: { skills: any }) => {
         <tbody>
           {skills?.length > 0 ? (
             skills?.map((skill: any) => (
-              <tr key={skill?.id} className=" border-b  ">
+              <tr key={skill?.id} className=" border-b">
                 <th
                   scope="row"
                   className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "

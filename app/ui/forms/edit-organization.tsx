@@ -4,15 +4,16 @@ import React, { useState } from "react";
 import { SubmitButton } from "../submit-button";
 import { updateUserOrganization } from "@/app/lib/actions";
 import Link from "next/link";
+import { UserOrganization } from "@/app/lib/definitions";
 
 export default function EditOrganization({
   organization,
 }: {
-  organization: any;
+  organization: UserOrganization;
 }) {
   const [edited, setEdited] = useState(false);
 
-  const onChangeHandler = (e: any) => {
+  const onChangeHandler = () => {
     if (edited === false) {
       setEdited(true);
     }
@@ -29,52 +30,33 @@ export default function EditOrganization({
         action={updateUserOrganization}
         className="flex flex-col w-[500px] p-3 m-3 border border-black rounded"
       >
-        <div hidden>
-          <label hidden htmlFor="organization_id">
-            Organization Id
-          </label>
-          <input
-            name="organization_id"
-            id="organization_id"
-            defaultValue={organization?.id}
-          ></input>
-        </div>
-        {/* <div className="flex flex-row justify-between">
-          <div className="flex flex-col">
-            <h1 className="font-bold">Date Created</h1>
-            <p>{certification?.created_at.toString().slice(0, 24)}</p>
-          </div>
-          <div className="flex flex-col">
-            <h1 className="font-bold">Date Updated</h1>
-            <p>{certification?.updated_at.toString().slice(0, 24)}</p>
-          </div>
-        </div> */}
+        <input
+          required
+          hidden
+          readOnly
+          name="organization_id"
+          id="organization_id"
+          defaultValue={organization?.id}
+        />
         <div className="flex flex-col py-2">
-          <label hidden className="font-bold" htmlFor="resume_id">
-            Resume Id
-          </label>
           <input
             required
             hidden
+            readOnly
             name="resume_id"
             id="resume_id"
-            onChange={(e) => {}}
             value="blank"
             type="text"
-          ></input>
-
-          <label hidden className="font-bold" htmlFor="user_id">
-            User Id
-          </label>
+          />
           <input
+            readOnly
             required
             hidden
             name="user_id"
             id="user_id"
-            onChange={(e) => {}}
             value="blank"
             type="text"
-          ></input>
+          />
           <label className="font-bold" htmlFor="organization_name">
             Organization Name
           </label>
@@ -82,7 +64,7 @@ export default function EditOrganization({
             required
             name="organization_name"
             id="organization_name"
-            onChange={(e) => onChangeHandler(e)}
+            onChange={() => onChangeHandler()}
             defaultValue={organization?.name}
             type="text"
           ></input>
@@ -94,7 +76,7 @@ export default function EditOrganization({
           <input
             name="organization_location"
             id="organization_location"
-            onChange={(e) => onChangeHandler(e)}
+            onChange={() => onChangeHandler()}
             defaultValue={organization?.location}
             type="text"
           ></input>
@@ -106,7 +88,7 @@ export default function EditOrganization({
           <input
             name="organization_start"
             id="organization_start"
-            onChange={(e) => onChangeHandler(e)}
+            onChange={() => onChangeHandler()}
             defaultValue={organization?.start_date}
             type="text"
           ></input>
@@ -118,7 +100,7 @@ export default function EditOrganization({
           <input
             name="organization_end"
             id="organization_end"
-            onChange={(e) => onChangeHandler(e)}
+            onChange={() => onChangeHandler()}
             defaultValue={organization?.end_date}
             type="text"
           ></input>
@@ -130,7 +112,7 @@ export default function EditOrganization({
           <textarea
             name="organization_description"
             id="organization_description"
-            onChange={(e) => onChangeHandler(e)}
+            onChange={() => onChangeHandler()}
             defaultValue={organization?.description}
           ></textarea>
         </div>

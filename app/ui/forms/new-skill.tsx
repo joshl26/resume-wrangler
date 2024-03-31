@@ -4,20 +4,19 @@ import React, { useState } from "react";
 import { SubmitButton } from "../submit-button";
 import { createUserSkill } from "@/app/lib/actions";
 import Link from "next/link";
+import { User } from "@/app/lib/definitions";
 
-export default function NewSkill({ user }: { user: any }) {
-  //   console.log(application);
-
+export default function NewSkill({ user }: { user: User }) {
   const [edited, setEdited] = useState(false);
-  const [skillLevel, setSkillLevel] = useState(50);
+  const [skillLevel, setSkillLevel] = useState("50");
 
-  const onChangeHandler = (e: any) => {
+  const onChangeHandler = () => {
     if (edited === false) {
       setEdited(true);
     }
   };
 
-  const skillOnChangeHandler = (e: any) => {
+  const skillOnChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSkillLevel(e.target.value);
   };
 
@@ -49,7 +48,7 @@ export default function NewSkill({ user }: { user: any }) {
             required
             name="skill_title"
             id="skill_title"
-            onChange={(e) => onChangeHandler(e)}
+            onChange={() => onChangeHandler()}
             defaultValue={""}
             type="text"
           />

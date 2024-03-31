@@ -4,13 +4,12 @@ import React, { useState } from "react";
 import { SubmitButton } from "../submit-button";
 import { createUserEducation } from "@/app/lib/actions";
 import Link from "next/link";
+import { User } from "@/app/lib/definitions";
 
-export default function NewEducation({ user }: { user: any }) {
-  //   console.log(application);
-
+export default function NewEducation({ user }: { user: User }) {
   const [edited, setEdited] = useState(false);
 
-  const onChangeHandler = (e: any) => {
+  const onChangeHandler = () => {
     if (edited === false) {
       setEdited(true);
     }
@@ -51,7 +50,7 @@ export default function NewEducation({ user }: { user: any }) {
             required
             name="institution_name"
             id="institution_name"
-            onChange={(e) => onChangeHandler(e)}
+            onChange={() => onChangeHandler()}
             defaultValue={""}
             type="text"
           />
@@ -63,7 +62,7 @@ export default function NewEducation({ user }: { user: any }) {
           <input
             name="location"
             id="location"
-            onChange={(e) => onChangeHandler(e)}
+            onChange={() => onChangeHandler()}
             defaultValue={""}
             type="text"
           />
@@ -75,7 +74,7 @@ export default function NewEducation({ user }: { user: any }) {
           <input
             name="start_date"
             id="start_date"
-            onChange={(e) => onChangeHandler(e)}
+            onChange={() => onChangeHandler()}
             defaultValue={""}
             type="text"
           />
@@ -87,7 +86,7 @@ export default function NewEducation({ user }: { user: any }) {
           <input
             name="end_date"
             id="end_date"
-            onChange={(e) => onChangeHandler(e)}
+            onChange={() => onChangeHandler()}
             defaultValue={""}
             type="text"
           />
@@ -99,7 +98,7 @@ export default function NewEducation({ user }: { user: any }) {
           <input
             name="grade"
             id="grade"
-            onChange={(e) => onChangeHandler(e)}
+            onChange={() => onChangeHandler()}
             defaultValue={""}
           />
         </div>
@@ -110,7 +109,7 @@ export default function NewEducation({ user }: { user: any }) {
           <input
             name="program"
             id="program"
-            onChange={(e) => onChangeHandler(e)}
+            onChange={() => onChangeHandler()}
             defaultValue={""}
           />
         </div>
@@ -121,7 +120,7 @@ export default function NewEducation({ user }: { user: any }) {
           <input
             name="url"
             id="url"
-            onChange={(e) => onChangeHandler(e)}
+            onChange={() => onChangeHandler()}
             defaultValue={""}
           />
         </div>

@@ -4,12 +4,13 @@ import React, { useState } from "react";
 import { SubmitButton } from "../submit-button";
 import { updateUserSkill } from "@/app/lib/actions";
 import Link from "next/link";
+import { UserSkill } from "@/app/lib/definitions";
 
-export default function EditSkill({ skill }: { skill: any }) {
+export default function EditSkill({ skill }: { skill: UserSkill }) {
   const [edited, setEdited] = useState(false);
   const [skillLevel, setSkillLevel] = useState(skill?.skill_level);
 
-  const onChangeHandler = (e: any) => {
+  const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSkillLevel(e.target.value);
     if (edited === false) {
       setEdited(true);
@@ -39,7 +40,6 @@ export default function EditSkill({ skill }: { skill: any }) {
             hidden
             name="resume_id"
             id="resume_id"
-            onChange={(e) => {}}
             value="blank"
             type="text"
           />
@@ -48,7 +48,6 @@ export default function EditSkill({ skill }: { skill: any }) {
             hidden
             name="user_id"
             id="user_id"
-            onChange={(e) => {}}
             value="blank"
             type="text"
           />
