@@ -1,5 +1,4 @@
 import { fetchLatestCompaniesByUserId, getUser } from "@/app/lib/data";
-import { Companies, User } from "@/app/lib/definitions";
 import NewApplication from "@/app/ui/forms/new-application";
 import { auth } from "@/auth";
 import { notFound } from "next/navigation";
@@ -13,9 +12,12 @@ export default async function Page() {
       email: session.user.email,
     };
 
-    const user: User = await getUser(session?.user?.email!);
+    const user = await getUser(session?.user?.email);
+    const companies = await fetchLatestCompaniesByUserId(user?.id);
 
-    const companies: Companies = await fetchLatestCompaniesByUserId(user?.id);
+    if (!user ?? !companies) {
+      notFound();
+    }
 
     return (
       <div>

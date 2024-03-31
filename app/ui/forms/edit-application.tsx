@@ -1,15 +1,15 @@
 import React from "react";
 import { SubmitButton } from "../submit-button";
 import { updateApplication } from "@/app/lib/actions";
+import { Application, Applications, Companies } from "@/app/lib/definitions";
 
 export default async function EditApplication({
   application,
   companies,
 }: {
-  application: any;
-  companies: any;
+  application: Application;
+  companies: Companies;
 }) {
-  //   console.log(application);
   return (
     <div>
       <form action={updateApplication} className="flex flex-col w-[500px] px-1">
@@ -26,11 +26,11 @@ export default async function EditApplication({
         <div className="flex flex-row justify-between">
           <div className="flex flex-col">
             <h1 className="font-bold">Date Created</h1>
-            <p>{application?.created_at.toString().slice(0, 24)}</p>
+            <p>{application?.created_at?.toString().slice(0, 24)}</p>
           </div>
           <div className="flex flex-col">
             <h1 className="font-bold">Date Updated</h1>
-            <p>{application?.updated_at.toString().slice(0, 24)}</p>
+            <p>{application?.updated_at?.toString().slice(0, 24)}</p>
           </div>
         </div>
         <div className="flex flex-col py-2">
@@ -52,7 +52,9 @@ export default async function EditApplication({
             <input
               id="is_complete"
               name="is_complete"
-              defaultChecked={application?.is_complete}
+              defaultChecked={
+                application?.is_complete === "true" ? true : false
+              }
               type="checkbox"
             ></input>
           </div>
@@ -61,7 +63,7 @@ export default async function EditApplication({
               Date Submitted
             </label>
             {application?.date_submitted != null ? (
-              <p>application?.date_submitted.toString()</p>
+              <p>{application?.date_submitted?.toString()}</p>
             ) : (
               <p className="italic">Not submitted yet</p>
             )}

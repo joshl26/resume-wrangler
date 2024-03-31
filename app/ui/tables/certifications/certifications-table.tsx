@@ -1,12 +1,15 @@
 "use client";
 
 import { deleteCertification } from "@/app/lib/actions";
+import { UserCertification, UserCertifications } from "@/app/lib/definitions";
 import Link from "next/link";
 import React from "react";
 
-const Certifications = ({ certifications }: { certifications: any }) => {
-  // console.log(organization.find(({ id }: any) => id === "1").name);
-
+const Certifications = ({
+  certifications,
+}: {
+  certifications: UserCertifications;
+}) => {
   return (
     <div className="relative overflow-x-auto overflow-y-auto shadow-md sm:rounded-lg px-4 py-4">
       <table className="w-full text-sm text-left rtl:text-right ">
@@ -31,7 +34,7 @@ const Certifications = ({ certifications }: { certifications: any }) => {
         </thead>
         <tbody>
           {certifications[0] ? (
-            certifications?.map((certification: any) => (
+            certifications?.map((certification: UserCertification) => (
               <tr
                 key={certification?.id}
                 className=" border-b  hover:bg-gray-50 "

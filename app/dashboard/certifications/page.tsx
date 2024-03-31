@@ -1,26 +1,27 @@
-import { fetchCerftificationsByUserId, getUser } from "@/app/lib/data";
+import { fetchCertificationsByUserId, getUser } from "@/app/lib/data";
 import { Button } from "@/app/ui/button";
 import Certifications from "@/app/ui/tables/certifications/certifications-table";
 import { auth } from "@/auth";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import React from "react";
 
 export default async function Page() {
   const session = await auth();
-  // console.log(session);
   if (session?.user) {
     session.user = {
       name: session.user.name,
       email: session.user.email,
-      // image: session.user.image,
     };
   }
 
   const user = await getUser(session?.user?.email!);
+  const certifications = await fetchCertificationsByUserId(user?.id);
 
-  // const applications = await fetchApplicationsByUserId(user?.id!);
-  const certifications = await fetchCerftificationsByUserId(user.id);
-  // console.log(applications);
+  if (!user ?? !certifications) {
+    notFound();
+  }
+
   return (
     <div className="h-full w-full">
       <Link className="underline px-4" href={"/dashboard/"}>

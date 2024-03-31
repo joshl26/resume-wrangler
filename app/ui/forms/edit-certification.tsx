@@ -4,17 +4,16 @@ import React, { useState } from "react";
 import { SubmitButton } from "../submit-button";
 import { updateUserCertfication } from "@/app/lib/actions";
 import Link from "next/link";
+import { UserCertification } from "@/app/lib/definitions";
 
 export default function EditCertification({
   certification,
 }: {
-  certification: any;
+  certification: UserCertification;
 }) {
-  //   console.log(application);
-
   const [edited, setEdited] = useState(false);
 
-  const onChangeHandler = (e: any) => {
+  const onChangeHandler = () => {
     if (edited === false) {
       setEdited(true);
     }
@@ -25,58 +24,38 @@ export default function EditCertification({
         Back
       </Link>
       <h2 className="font-medium text-[2rem] px-3">Edit Certification</h2>
-
       <form
         onSubmit={() => setEdited(false)}
         action={updateUserCertfication}
         className="flex flex-col w-[500px] p-3 m-3 border border-black rounded"
       >
-        <div hidden>
-          <label hidden htmlFor="certification_id">
-            Certification Id
-          </label>
-          <input
-            name="certification_id"
-            id="certification_id"
-            defaultValue={certification?.id}
-          ></input>
-        </div>
-        {/* <div className="flex flex-row justify-between">
-          <div className="flex flex-col">
-            <h1 className="font-bold">Date Created</h1>
-            <p>{certification?.created_at.toString().slice(0, 24)}</p>
-          </div>
-          <div className="flex flex-col">
-            <h1 className="font-bold">Date Updated</h1>
-            <p>{certification?.updated_at.toString().slice(0, 24)}</p>
-          </div>
-        </div> */}
+        <input
+          required
+          hidden
+          readOnly
+          name="certification_id"
+          id="certification_id"
+          defaultValue={certification?.id}
+        />
         <div className="flex flex-col py-2">
-          <label hidden className="font-bold" htmlFor="resume_id">
-            Resume Id
-          </label>
           <input
             required
             hidden
+            readOnly
             name="resume_id"
             id="resume_id"
-            onChange={(e) => {}}
             value="blank"
             type="text"
-          ></input>
-
-          <label hidden className="font-bold" htmlFor="user_id">
-            User Id
-          </label>
+          />
           <input
             required
             hidden
+            readOnly
             name="user_id"
             id="user_id"
-            onChange={(e) => {}}
             value="blank"
             type="text"
-          ></input>
+          />
           <label className="font-bold" htmlFor="certification_name">
             Certification Name
           </label>
@@ -84,10 +63,10 @@ export default function EditCertification({
             required
             name="certification_name"
             id="certification_name"
-            onChange={(e) => onChangeHandler(e)}
+            onChange={() => onChangeHandler()}
             defaultValue={certification?.name}
             type="text"
-          ></input>
+          />
         </div>
         <div className="flex flex-col py-2">
           <label className="font-bold" htmlFor="location_name">
@@ -96,10 +75,10 @@ export default function EditCertification({
           <input
             name="location_name"
             id="location_name"
-            onChange={(e) => onChangeHandler(e)}
+            onChange={() => onChangeHandler()}
             defaultValue={certification?.location}
             type="text"
-          ></input>
+          />
         </div>
         {edited && (
           <>

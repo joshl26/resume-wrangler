@@ -1,6 +1,6 @@
 import {
   fetchBodyFonts,
-  fetchCerftificationsByUserId,
+  fetchCertificationsByUserId,
   fetchCertificationsByResumeID,
   fetchEducationByUserId,
   fetchEducationExperiencesbyResumeID,
@@ -54,7 +54,7 @@ export default async function EditResume({
     fetchSkillsByUserId(user?.id),
     fetchEducationByUserId(user?.id),
     fetchOrganizationsByUserId(user?.id),
-    fetchCerftificationsByUserId(user?.id),
+    fetchCertificationsByUserId(user?.id),
     fetchWorkExperiencesByUserId(user?.id),
   ]);
 

@@ -16,21 +16,16 @@ export default async function Page({ params }: { params: { id: string } }) {
     session.user = {
       name: session.user.name,
       email: session.user.email,
-      // image: session.user.image,
     };
-    //   console.log(id);
 
     const user = await getUser(session?.user?.email!);
-
-    const application = await fetchApplicationById(id);
     const companies = await fetchLatestCompaniesByUserId(user.id);
+    const application = await fetchApplicationById(id);
 
-    // console.log(companies);
-
-    if (application?.length === 0) {
-      // notFound();
-      throw new Error("Application not found");
+    if (!user ?? !companies ?? !application) {
+      notFound();
     }
+
     return (
       <div>
         <EditApplication application={application} companies={companies} />

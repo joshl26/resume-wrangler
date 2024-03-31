@@ -23,6 +23,11 @@ import {
   UserSkill,
   Applications,
   Application,
+  Companies,
+  Company,
+  Resumes,
+  CoverLetters,
+  CoverLetter,
 } from "./definitions";
 import { unstable_noStore as noStore } from "next/cache";
 
@@ -153,31 +158,34 @@ export async function fetchLatestCompaniesByUserId(userId: string) {
 
   try {
     const query = `SELECT * FROM companies WHERE user_id = '${userId}'`;
-    // console.log(query);
-    const companies = await conn.query(query);
-    // console.log(companies);
-    return companies.rows;
+    const data = await conn.query(query);
+
+    const userCompanies: Companies = data.rows.map((company: Company) => ({
+      ...company,
+    }));
+
+    return userCompanies;
   } catch (error: any) {
     console.error("Database Error:", error);
     // throw new Error("Failed to fetch resume template by id.");
-    return {};
+    return [];
   }
 }
 
 export async function fetchApplicationById(id: string) {
   noStore();
 
-  // console.log(id);
-
   try {
     const query = `SELECT * FROM applications WHERE id = '${id}'`;
-    // console.log(query);
-    const application = await conn.query(query);
-    return application.rows[0];
+    const data = await conn.query(query);
+
+    const application: Application = data?.rows[0];
+
+    return application;
   } catch (error: any) {
     console.error("Database Error:", error);
     // throw new Error("Failed to fetch resume template by id.");
-    return {};
+    return;
   }
 }
 
@@ -202,12 +210,17 @@ export async function fetchResumesByUserId(userId: string) {
   try {
     const query = `SELECT * FROM resumes WHERE user_id = '${userId}'`;
     // console.log(query);
-    const resumes = await conn.query(query);
-    return resumes.rows;
+    const data = await conn.query(query);
+
+    const resumes: Resumes = data.rows.map((resume: Resume) => ({
+      ...resume,
+    }));
+
+    return resumes;
   } catch (error: any) {
     console.error("Database Error:", error);
     // throw new Error("Failed to fetch resume template by id.");
-    return [null];
+    return;
   }
 }
 
@@ -216,9 +229,15 @@ export async function fetchCoverLettersByUserId(userId: string) {
 
   try {
     const query = `SELECT * FROM cover_letters WHERE user_id = '${userId}'`;
-    // console.log(query);
-    const coverLetters = await conn.query(query);
-    return coverLetters.rows;
+    const data = await conn.query(query);
+
+    const coverLetters: CoverLetters = data.rows.map(
+      (coverLetter: CoverLetter) => ({
+        ...coverLetter,
+      })
+    );
+
+    return coverLetters;
   } catch (error: any) {
     console.error("Database Error:", error);
     // throw new Error("Failed to fetch resume template by id.");
@@ -387,7 +406,7 @@ export async function fetchOrganizationsByUserId(userId: string) {
   }
 }
 
-export async function fetchCerftificationsByUserId(userId: string) {
+export async function fetchCertificationsByUserId(userId: string) {
   noStore();
 
   try {
@@ -471,22 +490,17 @@ export async function fetchWorkExperienceById(id: string) {
 export async function fetchCertificationById(id: string) {
   noStore();
 
-  // console.log(id);
-
   try {
     const query = `SELECT * FROM user_custom_section_two WHERE id = '${id}'`;
-    // console.log(query);
-    const resume = await conn.query(query);
+    const data = await conn.query(query);
 
-    if (resume.rows[0]) {
-      return resume.rows[0];
-    } else {
-      return [null];
-    }
+    const certification: UserCertification = data?.rows[0];
+
+    return certification;
   } catch (error: any) {
     console.error("Database Error:", error);
     // throw new Error("Failed to fetch resume template by id.");
-    return [null];
+    return;
   }
 }
 

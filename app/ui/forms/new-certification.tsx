@@ -3,13 +3,12 @@
 import React, { useState } from "react";
 import { SubmitButton } from "../submit-button";
 import { createCertification } from "@/app/lib/actions";
+import { User } from "@/app/lib/definitions";
 
-export default function NewCertification({ user }: { user: any }) {
-  //   console.log(application);
-
+export default function NewCertification({ user }: { user: User }) {
   const [edited, setEdited] = useState(false);
 
-  const onChangeHandler = (e: any) => {
+  const onChangeHandler = () => {
     if (edited === false) {
       setEdited(true);
     }
@@ -22,38 +21,30 @@ export default function NewCertification({ user }: { user: any }) {
         action={createCertification}
         className="flex flex-col w-[500px] px-1"
       >
-        <div hidden>
-          <label hidden htmlFor="user_id">
-            User Id
-          </label>
-          <input
-            hidden
-            readOnly
-            name="user_id"
-            id="user_id"
-            value={user?.id}
-          ></input>
-          <label hidden htmlFor="section_title">
-            Section Title
-          </label>
-          <input
-            readOnly
-            hidden
-            name="section_title"
-            id="section_title"
-            value="blank"
-          ></input>
-          <label hidden htmlFor="resume_id">
-            Resume Id
-          </label>
-          <input
-            readOnly
-            hidden
-            name="resume_id"
-            id="resume_id"
-            value="blank"
-          ></input>
-        </div>
+        <input
+          required
+          hidden
+          readOnly
+          name="user_id"
+          id="user_id"
+          value={user?.id}
+        />
+        <input
+          required
+          readOnly
+          hidden
+          name="section_title"
+          id="section_title"
+          value="blank"
+        />
+        <input
+          required
+          readOnly
+          hidden
+          name="resume_id"
+          id="resume_id"
+          value="blank"
+        />
         <div className="flex flex-col py-2">
           <label className="font-bold" htmlFor="certification_name">
             Certification Name
@@ -62,7 +53,7 @@ export default function NewCertification({ user }: { user: any }) {
             required
             name="certification_name"
             id="certification_name"
-            onChange={(e) => onChangeHandler(e)}
+            onChange={() => onChangeHandler()}
             defaultValue={""}
             type="text"
           ></input>
@@ -75,7 +66,7 @@ export default function NewCertification({ user }: { user: any }) {
             required
             name="certification_location"
             id="certification_location"
-            onChange={(e) => onChangeHandler(e)}
+            onChange={() => onChangeHandler()}
             defaultValue={""}
             type="text"
           ></input>
