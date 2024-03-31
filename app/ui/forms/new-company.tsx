@@ -1,18 +1,20 @@
 import React from "react";
 import { SubmitButton } from "../submit-button";
 import { createCompany } from "@/app/lib/actions";
+import { User } from "@/app/lib/definitions";
 
-export default async function NewCompany({ user }: { user: any }) {
-  //   console.log(application);
+export default async function NewCompany({ user }: { user: User }) {
   return (
     <div>
       <form action={createCompany} className="flex flex-col w-[500px] px-1">
-        <div hidden>
-          <label hidden htmlFor="user_id">
-            User Id
-          </label>
-          <input name="user_id" id="user_id" defaultValue={user?.id}></input>
-        </div>
+        <input
+          hidden
+          readOnly
+          required
+          name="user_id"
+          id="user_id"
+          defaultValue={user?.id}
+        />
         <div className="flex flex-col py-2">
           <label className="font-bold" htmlFor="company_name">
             Company Name
@@ -23,7 +25,7 @@ export default async function NewCompany({ user }: { user: any }) {
             id="company_name"
             defaultValue={""}
             type="text"
-          ></input>
+          />
         </div>
         <div className="flex flex-col py-2">
           <label className="font-bold" htmlFor="address_one">
@@ -34,7 +36,7 @@ export default async function NewCompany({ user }: { user: any }) {
             id="address_one"
             defaultValue={""}
             type="text"
-          ></input>
+          />
         </div>
         <div className="flex flex-col py-2">
           <label className="font-bold" htmlFor="address_two">
@@ -45,7 +47,7 @@ export default async function NewCompany({ user }: { user: any }) {
             id="address_two"
             defaultValue={""}
             type="text"
-          ></input>
+          />
         </div>
         <div className="flex flex-col py-2">
           <label className="font-bold" htmlFor="recipient_title">
@@ -56,19 +58,19 @@ export default async function NewCompany({ user }: { user: any }) {
             id="recipient_title"
             defaultValue={""}
             type="text"
-          ></input>
+          />
         </div>
         <div className="flex flex-col py-2">
           <label className="font-bold" htmlFor="email">
             Email
           </label>
-          <input name="email" id="email" defaultValue={""} type="email"></input>
+          <input name="email" id="email" defaultValue={""} type="email" />
         </div>
         <div className="flex flex-col py-2">
           <label className="font-bold" htmlFor="phone">
             Phone
           </label>
-          <input name="phone" id="phone" defaultValue={""} type="text"></input>
+          <input name="phone" id="phone" defaultValue={""} type="text" />
         </div>
         <div className="flex flex-col py-2">
           <label className="font-bold" htmlFor="website_url">
@@ -79,9 +81,9 @@ export default async function NewCompany({ user }: { user: any }) {
             id="website_url"
             defaultValue={""}
             type="text"
-          ></input>
+          />
         </div>
-        <SubmitButton className="hover:bg-blue-400 bg-blue-600 text-white w-[200px] m-auto py-1 my-2 rounded">
+        <SubmitButton className=" bg-amber-500 hover:bg-amber-400  w-[200px] m-auto py-1 my-2 rounded">
           Create New Company
         </SubmitButton>
       </form>

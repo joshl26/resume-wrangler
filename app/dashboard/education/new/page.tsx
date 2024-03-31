@@ -4,6 +4,7 @@ import NewCompany from "@/app/ui/forms/new-company";
 import NewEducation from "@/app/ui/forms/new-education";
 import NewOrganization from "@/app/ui/forms/new-organization";
 import { auth } from "@/auth";
+import { notFound } from "next/navigation";
 import React from "react";
 
 export default async function Page() {
@@ -12,11 +13,13 @@ export default async function Page() {
     session.user = {
       name: session.user.name,
       email: session.user.email,
-      // image: session.user.image,
     };
-    //   console.log(id);
 
     const user = await getUser(session?.user?.email!);
+
+    if (!user) {
+      notFound();
+    }
 
     return (
       <div>

@@ -1,13 +1,11 @@
 "use client";
 
 import { deleteCompany } from "@/app/lib/actions";
+import { Companies, Company } from "@/app/lib/definitions";
 import Link from "next/link";
-import { redirect } from "next/navigation";
 import React from "react";
 
-const Companies = ({ companies }: { companies: any }) => {
-  // console.log(companies.find(({ id }: any) => id === "1").name);
-
+const Companies = ({ companies }: { companies: Companies }) => {
   return (
     <div className="relative overflow-x-auto overflow-y-auto shadow-md sm:rounded-lg px-4 py-4">
       <table className="w-full text-sm text-left rtl:text-right ">
@@ -36,7 +34,7 @@ const Companies = ({ companies }: { companies: any }) => {
         </thead>
         <tbody>
           {companies?.length > 0 ? (
-            companies?.map((company: any) => (
+            companies?.map((company: Company) => (
               <tr key={company?.id} className=" border-b da hover:bg-gray-50 ">
                 <Link href={`/dashboard/companies/edit/${company?.id}`}>
                   <th
@@ -46,7 +44,6 @@ const Companies = ({ companies }: { companies: any }) => {
                     {company?.name ? company?.name : "N/A"}
                   </th>
                 </Link>
-
                 <td className="px-6 py-4">
                   {company?.address_one ? company?.address_one : "N/A"}
                 </td>
@@ -62,7 +59,6 @@ const Companies = ({ companies }: { companies: any }) => {
 
                 <td className="text-left px-6 py-4">
                   <div className="flex flex-row">
-                    {" "}
                     <a
                       id="edit"
                       href={`/dashboard/companies/edit/${company.id}`}
@@ -74,23 +70,22 @@ const Companies = ({ companies }: { companies: any }) => {
                       <button
                         id="remove"
                         type="submit"
-                        className="font-medium  hover:underline ms-3"
+                        className="font-medium hover:underline ms-3"
                       >
                         Remove
                       </button>
                     </form>
                   </div>
                 </td>
-                {/* </Link> */}
               </tr>
             ))
           ) : (
             <tr>
-              {/* <Link href="/dashboard/company/new"> */}
-              <td className="flex items-center px-6 py-4">
-                Start by creating your first company here
-              </td>{" "}
-              {/* </Link> */}
+              <Link href="/dashboard/company/new">
+                <td className="flex items-center px-6 py-4">
+                  Start by creating your first company here
+                </td>
+              </Link>
             </tr>
           )}
         </tbody>
@@ -113,7 +108,7 @@ const Companies = ({ companies }: { companies: any }) => {
           <li>
             <a
               href="#"
-              className="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+              className="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 "
             >
               Previous
             </a>
@@ -121,7 +116,7 @@ const Companies = ({ companies }: { companies: any }) => {
           <li>
             <a
               href="#"
-              className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+              className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 "
             >
               1
             </a>
@@ -129,40 +124,7 @@ const Companies = ({ companies }: { companies: any }) => {
           <li>
             <a
               href="#"
-              className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-            >
-              2
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              aria-current="page"
-              className="flex items-center justify-center px-3 h-8 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white"
-            >
-              3
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-            >
-              4
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-            >
-              5
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+              className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700  "
             >
               Next
             </a>

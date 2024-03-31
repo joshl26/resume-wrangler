@@ -1,10 +1,10 @@
+import React from "react";
 import { fetchCertificationsByUserId, getUser } from "@/app/lib/data";
 import { Button } from "@/app/ui/button";
 import Certifications from "@/app/ui/tables/certifications/certifications-table";
 import { auth } from "@/auth";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import React from "react";
 
 export default async function Page() {
   const session = await auth();

@@ -1,30 +1,30 @@
 import {
-  fetchEducationByUserId,
-  fetchOrganizationsByUserId,
+  fetchEducationByUserId,  
   getUser,
 } from "@/app/lib/data";
 import { Button } from "@/app/ui/button";
 import Education from "@/app/ui/tables/education/education-table";
 import { auth } from "@/auth";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import React from "react";
 
 export default async function Page() {
   const session = await auth();
-  // console.log(session);
   if (session?.user) {
     session.user = {
       name: session.user.name,
       email: session.user.email,
-      // image: session.user.image,
     };
   }
 
   const user = await getUser(session?.user?.email!);
-
-  // const applications = await fetchApplicationsByUserId(user?.id!);
   const education = await fetchEducationByUserId(user.id);
-  // console.log(applications);
+
+  if (!user ?? !education) {
+    notFound();
+  }
+
   return (
     <div className="h-full w-full overflow-y-auto">
       <Link className="underline px-4" href={"/dashboard/"}>

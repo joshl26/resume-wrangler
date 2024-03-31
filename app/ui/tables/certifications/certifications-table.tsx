@@ -143,7 +143,7 @@ const Certifications = ({
           <li>
             <a
               href="#"
-              className="flex items-center justify-center px-3 h-8 leading-tight bg-white  border border-gray-300 rounded-e-lg hover:bg-gray-100  "
+              className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white  border border-gray-300 rounded-e-lg hover:bg-gray-100  "
             >
               Next
             </a>

@@ -396,8 +396,6 @@ export async function fetchOrganizationsByUserId(userId: string) {
       })
     );
 
-    // const userOrganizations: userOrganizations = data?.rows;
-
     return userOrganizations;
   } catch (error: any) {
     console.error("Database Error:", error);

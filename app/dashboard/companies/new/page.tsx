@@ -1,5 +1,4 @@
-import { fetchCompanyById, getUser } from "@/app/lib/data";
-import EditCompany from "@/app/ui/forms/edit-company";
+import { getUser } from "@/app/lib/data";
 import NewCompany from "@/app/ui/forms/new-company";
 import { auth } from "@/auth";
 import { notFound } from "next/navigation";
@@ -11,11 +10,13 @@ export default async function Page() {
     session.user = {
       name: session.user.name,
       email: session.user.email,
-      // image: session.user.image,
     };
-    //   console.log(id);
 
     const user = await getUser(session?.user?.email!);
+
+    if (!user) {
+      notFound();
+    }
 
     return (
       <div>
