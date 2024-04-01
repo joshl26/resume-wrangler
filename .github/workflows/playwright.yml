@@ -18,4 +18,4 @@ jobs:
       - name: Run Playwright tests
         run: npx playwright test
         env:
-          PLAYWRIGHT_TEST_BASE_URL: https://resume-wrangler.vercel.app
+          DEPLOYMENT_URL: https://resume-wrangler.vercel.app
