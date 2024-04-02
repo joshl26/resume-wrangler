@@ -1,23 +1,33 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import { SubmitButton } from "../submit-button";
 import { updateCompany } from "@/app/lib/actions";
 import { Company } from "@/app/lib/definitions";
+import BackButton from "../back-button";
 
-export default async function EditCompany({ company }: { company: Company }) {
+export default function EditCompany({ company }: { company: Company }) {
   //   console.log(application);
+
+  const [edited, setEdited] = useState(false);
+
+  const onChangeHandler = () => {
+    if (edited === false) {
+      setEdited(true);
+    }
+  };
   return (
-    <div>
-      <form action={updateCompany} className="flex flex-col w-[500px] px-1">
-        <div hidden>
-          <label hidden htmlFor="company_id">
-            Company Id
-          </label>
-          <input
-            name="company_id"
-            id="company_id"
-            defaultValue={company?.id}
-          ></input>
-        </div>
+    <div className="px-4 overflow-y-auto w-full h-full pb-10">
+      <BackButton href={"/dashboard/companies/"}>Back</BackButton>
+      <h2 className="font-medium text-[2rem] py-1">Edit Company</h2>
+      <form action={updateCompany} className="flex flex-col form-amber p-3">
+        <input
+          hidden
+          readOnly
+          name="company_id"
+          id="company_id"
+          defaultValue={company?.id}
+        />
         <div className="flex flex-row justify-between">
           <div className="flex flex-col">
             <h1 className="font-bold">Date Created</h1>
@@ -37,8 +47,8 @@ export default async function EditCompany({ company }: { company: Company }) {
             name="company_name"
             id="company_name"
             defaultValue={company?.name}
-            type="text"
-          ></input>
+            onChange={onChangeHandler}
+          />
         </div>
         <div className="flex flex-col py-2">
           <label className="font-bold" htmlFor="address_one">
@@ -48,8 +58,8 @@ export default async function EditCompany({ company }: { company: Company }) {
             name="address_one"
             id="address_one"
             defaultValue={company?.address_one}
-            type="text"
-          ></input>
+            onChange={onChangeHandler}
+          />
         </div>
         <div className="flex flex-col py-2">
           <label className="font-bold" htmlFor="address_two">
@@ -59,8 +69,8 @@ export default async function EditCompany({ company }: { company: Company }) {
             name="address_two"
             id="address_two"
             defaultValue={company?.address_two}
-            type="text"
-          ></input>
+            onChange={onChangeHandler}
+          />
         </div>
         <div className="flex flex-col py-2">
           <label className="font-bold" htmlFor="recipient_title">
@@ -70,8 +80,8 @@ export default async function EditCompany({ company }: { company: Company }) {
             name="recipient_title"
             id="recipient_title"
             defaultValue={company?.recipient_title}
-            type="text"
-          ></input>
+            onChange={onChangeHandler}
+          />
         </div>
         <div className="flex flex-col py-2">
           <label className="font-bold" htmlFor="email">
@@ -81,8 +91,8 @@ export default async function EditCompany({ company }: { company: Company }) {
             name="email"
             id="email"
             defaultValue={company?.email}
-            type="email"
-          ></input>
+            onChange={onChangeHandler}
+          />
         </div>
         <div className="flex flex-col py-2">
           <label className="font-bold" htmlFor="phone">
@@ -92,8 +102,8 @@ export default async function EditCompany({ company }: { company: Company }) {
             name="phone"
             id="phone"
             defaultValue={company?.phone}
-            type="text"
-          ></input>
+            onChange={onChangeHandler}
+          />
         </div>
         <div className="flex flex-col py-2">
           <label className="font-bold" htmlFor="website_url">
@@ -103,12 +113,16 @@ export default async function EditCompany({ company }: { company: Company }) {
             name="website_url"
             id="website_url"
             defaultValue={company?.website_url}
-            type="text"
-          ></input>
+            onChange={onChangeHandler}
+          />
         </div>
-        <SubmitButton className="btn btn-amber w-[200px] m-auto py-1 my-2 rounded">
-          Update Company
-        </SubmitButton>
+        {edited && (
+          <>
+            <SubmitButton className="btn btn-amber my-2 rounded animate-pulse">
+              Save Updates
+            </SubmitButton>
+          </>
+        )}
       </form>
     </div>
   );

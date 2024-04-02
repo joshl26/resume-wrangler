@@ -23,7 +23,7 @@ export default function NewApplication({
 
   return (
     <div className="px-2">
-      <BackButton href={"/dashboard/skills/"}>Back</BackButton>
+      <BackButton href={"/dashboard/applications/"}>Back</BackButton>
       <h2 className="font-medium text-[2rem] pt-2">Create New Application</h2>
       <form
         action={createApplication}
@@ -39,7 +39,7 @@ export default function NewApplication({
         <div className="flex flex-row pb-2">
           <div className="flex flex-col w-full">
             <label htmlFor="countries_multiple" className="block font-bold">
-              Select a company from the list
+              Select a Company
             </label>
             <select
               defaultValue={""}

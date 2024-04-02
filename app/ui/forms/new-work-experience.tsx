@@ -6,7 +6,7 @@ import { createCompany } from "@/app/lib/actions";
 import { User } from "@/app/lib/definitions";
 import BackButton from "../back-button";
 
-export default function NewCompany({ user }: { user: User }) {
+export default function NewWorkExperience({ user }: { user: User }) {
   const [edited, setEdited] = useState(false);
 
   const onChangeHandler = () => {
@@ -16,10 +16,10 @@ export default function NewCompany({ user }: { user: User }) {
   };
   return (
     <div className="px-2">
-      <BackButton href={"/dashboard/companies"}>Back</BackButton>
+      <BackButton href={"/dashboard/work-experiences"}>Back</BackButton>
       <div className="flex flex-row justify-between">
         <div className="flex flex-col ">
-          <h1 className="text-[2rem] font-bold">Add New Company</h1>
+          <h1 className="text-[2rem] font-bold">Add New Work Experience</h1>
         </div>
       </div>
       <form

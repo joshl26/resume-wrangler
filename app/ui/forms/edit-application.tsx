@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { SubmitButton } from "../submit-button";
 import { updateApplication } from "@/app/lib/actions";
 import { Application, Companies } from "@/app/lib/definitions";
+import BackButton from "../back-button";
 
 export default function EditApplication({
   application,
@@ -20,8 +21,13 @@ export default function EditApplication({
     }
   };
   return (
-    <div>
-      <form action={updateApplication} className="flex flex-col w-[500px] px-1">
+    <div className="px-3">
+      <BackButton href={"/dashboard/applications/"}>Back</BackButton>
+      <h2 className="font-medium text-[2rem] py-1">Edit Application</h2>
+      <form
+        action={updateApplication}
+        className="flex flex-col form-amber p-3  "
+      >
         <div hidden>
           <label hidden htmlFor="application_id">
             Application Id
@@ -46,13 +52,12 @@ export default function EditApplication({
           <label className="font-bold" htmlFor="posting_text">
             Posting Text
           </label>
-          <input
+          <textarea
             onChange={onChangeHandler}
             name="posting_text"
             id="posting_text"
             defaultValue={application?.posting_text}
-            type="text"
-          ></input>
+          ></textarea>
         </div>
         <div className="flex flex-row justify-between py-2">
           <div className="flex flex-col  w-1/2">
@@ -89,7 +94,6 @@ export default function EditApplication({
             name="job_position"
             id="job_position"
             defaultValue={application?.job_position}
-            type="text"
           ></input>
         </div>
         <div className="flex flex-col py-2">
@@ -101,7 +105,6 @@ export default function EditApplication({
             name="posting_url"
             id="posting_url"
             defaultValue={application?.posting_url}
-            type="text"
           ></input>
         </div>
         <div className="flex flex-col py-2">
@@ -116,19 +119,16 @@ export default function EditApplication({
           ></textarea>
         </div>
         <div className="flex flex-row py-2">
-          <div className="flex flex-col w-3/4">
-            <label
-              htmlFor="countries_multiple"
-              className="block mb-2 font-bold text-gray-900 dark:text-black"
-            >
-              Select an option
+          <div className="flex flex-col">
+            <label htmlFor="company_id" className="block font-bold">
+              Select a Company
             </label>
             <select
               onChange={onChangeHandler}
               defaultValue={application?.company_id}
               id="company_id"
               name="company_id"
-              className=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-100 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block   "
             >
               {companies.map((company: any) => (
                 <option key={company.id} value={company.id}>
@@ -148,7 +148,7 @@ export default function EditApplication({
         </div>
         {edited && (
           <>
-            <SubmitButton className="btn btn-amber w-[200px] m-auto py-1 my-2 rounded animate-pulse">
+            <SubmitButton className="btn btn-amber my-2 rounded animate-pulse">
               Save Updates
             </SubmitButton>
           </>
