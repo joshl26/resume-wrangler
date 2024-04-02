@@ -1,15 +1,25 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import { SubmitButton } from "../submit-button";
 import { createApplication } from "@/app/lib/actions";
 import { Companies, Company, User } from "@/app/lib/definitions";
 
-export default async function NewApplication({
+export default function NewApplication({
   companies,
   user,
 }: {
   companies: Companies;
   user: User;
 }) {
+  const [edited, setEdited] = useState(false);
+
+  const onChangeHandler = () => {
+    if (edited === false) {
+      setEdited(true);
+    }
+  };
+
   return (
     <div>
       <form action={createApplication} className="flex flex-col w-[500px] px-1">
@@ -29,6 +39,7 @@ export default async function NewApplication({
             </label>
             <select
               defaultValue={""}
+              onChange={onChangeHandler}
               required
               id="company_id"
               name="company_id"
@@ -44,14 +55,14 @@ export default async function NewApplication({
                 : ""}
             </select>
           </div>
-          <div className="flex flex-col align-middle h-auto w-1/4 p-2 ">
+          {/* <div className="flex flex-col align-middle h-auto w-1/4 p-2 ">
             <a
               className="m-auto text-center p-2 bg-blue-600 hover:bg-blue-400 text-white rounded"
               href="/dashboard/companies/new"
             >
               Add New Company
             </a>
-          </div>
+          </div> */}
         </div>
         <div className="flex flex-col py-2">
           <label className="font-bold" htmlFor="job_position">
@@ -61,6 +72,7 @@ export default async function NewApplication({
             name="job_position"
             id="job_position"
             defaultValue={""}
+            onChange={onChangeHandler}
             type="text"
           ></input>
         </div>
@@ -72,6 +84,7 @@ export default async function NewApplication({
             name="posting_url"
             id="posting_url"
             defaultValue={""}
+            onChange={onChangeHandler}
             type="text"
           ></input>
         </div>
@@ -95,10 +108,14 @@ export default async function NewApplication({
             defaultValue={""}
           ></textarea>
         </div>
-
-        <SubmitButton className="hover:bg-blue-400 bg-blue-600 text-white w-[200px] m-auto py-1 my-2 rounded">
-          Create New Application
-        </SubmitButton>
+        {edited && (
+          <>
+            <div style={{ height: "0.5rem" }} />
+            <SubmitButton className="btn btn-amber w-[200px] m-auto py-1 my-2 rounded">
+              Create New Application
+            </SubmitButton>
+          </>
+        )}
       </form>
     </div>
   );

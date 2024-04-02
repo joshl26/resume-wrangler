@@ -24,7 +24,7 @@ export default function NewEducation({ user }: { user: User }) {
       <form
         onSubmit={() => setEdited(false)}
         action={createUserEducation}
-        className="flex flex-col w-full p-3 border border-black rounded m-3"
+        className="flex flex-col w-full p-3 border  bg-amber-50 rounded m-3"
       >
         <input
           readOnly
@@ -44,9 +44,10 @@ export default function NewEducation({ user }: { user: User }) {
         />
         <div className="flex flex-col py-2">
           <label className="font-bold" htmlFor="institution_name">
-            Education Name
+            Institution Name
           </label>
           <input
+            className="border border-gray-400"
             required
             name="institution_name"
             id="institution_name"
@@ -60,6 +61,7 @@ export default function NewEducation({ user }: { user: User }) {
             Location
           </label>
           <input
+          
             name="location"
             id="location"
             onChange={() => onChangeHandler()}

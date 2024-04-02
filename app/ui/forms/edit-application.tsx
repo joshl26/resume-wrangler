@@ -1,15 +1,24 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import { SubmitButton } from "../submit-button";
 import { updateApplication } from "@/app/lib/actions";
-import { Application, Applications, Companies } from "@/app/lib/definitions";
+import { Application, Companies } from "@/app/lib/definitions";
 
-export default async function EditApplication({
+export default function EditApplication({
   application,
   companies,
 }: {
   application: Application;
   companies: Companies;
 }) {
+  const [edited, setEdited] = useState(false);
+
+  const onChangeHandler = () => {
+    if (edited === false) {
+      setEdited(true);
+    }
+  };
   return (
     <div>
       <form action={updateApplication} className="flex flex-col w-[500px] px-1">
@@ -38,6 +47,7 @@ export default async function EditApplication({
             Posting Text
           </label>
           <input
+            onChange={onChangeHandler}
             name="posting_text"
             id="posting_text"
             defaultValue={application?.posting_text}
@@ -52,6 +62,7 @@ export default async function EditApplication({
             <input
               id="is_complete"
               name="is_complete"
+              onChange={onChangeHandler}
               defaultChecked={
                 application?.is_complete === "true" ? true : false
               }
@@ -74,6 +85,7 @@ export default async function EditApplication({
             Job Position
           </label>
           <input
+            onChange={onChangeHandler}
             name="job_position"
             id="job_position"
             defaultValue={application?.job_position}
@@ -85,6 +97,7 @@ export default async function EditApplication({
             Posting Url
           </label>
           <input
+            onChange={onChangeHandler}
             name="posting_url"
             id="posting_url"
             defaultValue={application?.posting_url}
@@ -96,6 +109,7 @@ export default async function EditApplication({
             Analyzed Posting Text
           </label>
           <textarea
+            onChange={onChangeHandler}
             name="analyzed_posting_text"
             id="analyzed_posting_text"
             defaultValue={application?.analyzed_posting_text}
@@ -110,6 +124,7 @@ export default async function EditApplication({
               Select an option
             </label>
             <select
+              onChange={onChangeHandler}
               defaultValue={application?.company_id}
               id="company_id"
               name="company_id"
@@ -122,18 +137,22 @@ export default async function EditApplication({
               ))}
             </select>
           </div>
-          <div className="flex flex-col align-middle h-auto w-1/4 p-2 ">
+          {/* <div className="flex flex-col align-middle h-auto w-1/4 p-2 ">
             <a
               className="m-auto text-center p-2 bg-blue-600 hover:bg-blue-400 text-white rounded"
               href="/dashboard/companies/new"
             >
               Add New Company
             </a>
-          </div>
+          </div> */}
         </div>
-        <SubmitButton className="hover:bg-blue-400 bg-blue-600 text-white w-[200px] m-auto py-1 my-2 rounded">
-          Update Application
-        </SubmitButton>
+        {edited && (
+          <>
+            <SubmitButton className="btn btn-amber w-[200px] m-auto py-1 my-2 rounded animate-pulse">
+              Save Updates
+            </SubmitButton>
+          </>
+        )}
       </form>
     </div>
   );

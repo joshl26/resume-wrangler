@@ -321,3 +321,8 @@ a#edit {
 button#remove {
   color: #ff006e;
 }
+
+input {
+  border: rgb(177, 177, 177) solid 1px;
+  border-radius: 0.25rem;
+}

@@ -23,7 +23,9 @@ export default function EditEducation({
       <Link className="px-3 underline" href={"/dashboard/education/"}>
         Back
       </Link>
-      <h2 className="font-medium text-[2rem] px-3">Edit Education</h2>
+      <h2 className="font-medium text-[2rem] px-3">
+        Edit Education Experience
+      </h2>
       <form
         onSubmit={() => setEdited(false)}
         action={updateUserEducation}
@@ -48,7 +50,7 @@ export default function EditEducation({
         />
         <div className="flex flex-col py-2">
           <label className="font-bold" htmlFor="institution_name">
-            Education Name
+            Institution Name
           </label>
           <input
             required
@@ -56,7 +58,6 @@ export default function EditEducation({
             id="institution_name"
             onChange={() => onChangeHandler()}
             defaultValue={education?.institution_name}
-            type="text"
           />
         </div>
         <div className="flex flex-col py-2">
@@ -68,7 +69,6 @@ export default function EditEducation({
             id="location"
             onChange={() => onChangeHandler()}
             defaultValue={education?.location}
-            type="text"
           />
         </div>
         <div className="flex flex-col py-2">
@@ -80,7 +80,6 @@ export default function EditEducation({
             id="start_date"
             onChange={() => onChangeHandler()}
             defaultValue={education?.start_date}
-            type="text"
           />
         </div>
         <div className="flex flex-col py-2">
@@ -92,7 +91,6 @@ export default function EditEducation({
             id="end_date"
             onChange={() => onChangeHandler()}
             defaultValue={education?.end_date}
-            type="text"
           />
         </div>
         <div className="flex flex-col py-2">
