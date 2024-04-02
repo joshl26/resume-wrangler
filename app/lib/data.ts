@@ -1,3 +1,5 @@
+"use server";
+
 import { conn } from "../lib/database";
 
 import {
@@ -30,6 +32,7 @@ import {
   CoverLetter,
 } from "./definitions";
 import { unstable_noStore as noStore } from "next/cache";
+require("dotenv").config();
 
 export async function getUser(email: string) {
   noStore();
@@ -413,15 +416,16 @@ export async function getData(resumeId: string, userEmail: string) {
   // The return value is *not* serialized
   // You can return Date, Map, Set, etc.
 
+  console.log(process.env.DEPLOYMENT_URL);
+
   const res = await fetch(
-    `http://${process.env.DEPLOYMENT_URL}/api/resume-data?resumeId=${resumeId}&userEmail=${userEmail}`
-    // `http://localhost:3000/api/resume-data?resumeId=${resumeId}&userEmail=${userEmail}`
+    // `http://${process.env.DEPLOYMENT_URL}/api/resume-data?resumeId=${resumeId}&userEmail=${userEmail}`
+    `http://localhost:3000/api/resume-data?resumeId=${resumeId}&userEmail=${userEmail}`
   );
   if (!res.ok) {
     // This will activate the closest `error.js` Error Boundary
     throw new Error("Failed to fetch data");
   }
-
   return res.json();
 }
 

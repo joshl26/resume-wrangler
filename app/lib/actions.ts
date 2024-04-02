@@ -7,6 +7,21 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { signIn } from "@/auth";
 
+import axios from "axios";
+import crypto from "crypto";
+const cloudinary = require("cloudinary").v2;
+
+const generateSHA1 = (data: any) => {
+  const hash = crypto.createHash("sha1");
+  hash.update(data);
+  return hash.digest("hex");
+};
+
+const generateSignature = (publicId: string, apiSecret: string) => {
+  const timestamp = new Date().getTime();
+  return `public_id=${publicId}&timestamp=${timestamp}${apiSecret}`;
+};
+
 const InvoiceSchema = z.object({
   id: z.string(),
   customerId: z.string({
@@ -645,7 +660,6 @@ export async function updateUser(
 
     const data = await conn.query(query);
 
-
     // await sql`
     //     UPDATE invoices
     //     SET name = '${name}', email = '${email}'
@@ -673,7 +687,6 @@ export async function updateSocials(
     github: formData.get("github"),
     resume_id: formData.get("resume_id"),
   });
-
 
   if (validatedFields.success === false) {
     return {
@@ -717,7 +730,6 @@ export async function updateApplication(formData: FormData) {
     analyzedPostingText: formData.get("analyzed_posting_text"),
     companyId: formData.get("company_id"),
   });
-
 
   if (validatedFields.success === false) {
     return {
@@ -887,7 +899,6 @@ export async function createCompany(formData: FormData) {
 }
 
 export async function deleteCompany(id: string) {
-
   try {
     const query = `DELETE FROM companies WHERE id = ${id}`;
 
@@ -902,7 +913,6 @@ export async function deleteCompany(id: string) {
 }
 
 export async function deleteCoverLetter(id: string) {
-
   try {
     const query = `DELETE FROM cover_letters WHERE id = ${id}`;
 
@@ -933,7 +943,6 @@ export async function createCoverLetter(formData: FormData) {
 
   const { user_id, application_id, company_id } = validatedFields.data;
 
-
   try {
     const query = `INSERT INTO cover_letters (user_id, company_id, application_id) VALUES ('${user_id}', '${company_id}', '${application_id}')`;
     const data = await conn.query(query);
@@ -947,7 +956,6 @@ export async function createCoverLetter(formData: FormData) {
 }
 
 export async function deleteResume(id: string) {
-
   try {
     const query = `DELETE FROM resumes WHERE id = ${id}`;
     const data = await conn.query(query);
@@ -990,7 +998,6 @@ export async function createResume(formData: FormData) {
 }
 
 export async function updateYourResumeStyle(formData: FormData) {
-
   const validatedFields = YourResumeStyleSchema.safeParse({
     resume_title: formData.get("resume_title"),
     resume_template: formData.get("resume_template"),
@@ -1000,7 +1007,6 @@ export async function updateYourResumeStyle(formData: FormData) {
     resume_id: formData.get("resume_id"),
     description: formData.get("description"),
   });
-
 
   if (validatedFields.success === false) {
     return {
@@ -1032,7 +1038,6 @@ export async function updateYourResumeStyle(formData: FormData) {
 }
 
 export async function updateUserSkill(formData: FormData) {
-
   const validatedFields = UpdateSkillSchema.safeParse({
     skill_name: formData.get("skill_name"),
     user_id: formData.get("user_id"),
@@ -1040,7 +1045,6 @@ export async function updateUserSkill(formData: FormData) {
     skill_level: formData.get("skill_level"),
     resume_id: formData.get("resume_id"),
   });
-
 
   if (validatedFields.success === false) {
     return {
@@ -1055,7 +1059,6 @@ export async function updateUserSkill(formData: FormData) {
     const query = `UPDATE user_skills SET skill = '${skill_name}', skill_level = '${skill_level}' WHERE id = '${skill_id}'`;
 
     const data = await conn.query(query);
-
   } catch (error) {
     return { message: `Database Error: Failed to Update Invoice. ${error}` };
   }
@@ -1070,14 +1073,12 @@ export async function updateUserSkill(formData: FormData) {
 }
 
 export async function createUserSkill(formData: FormData) {
-
   const validatedFields = CreateSkillsSchema.safeParse({
     skill_title: formData.get("skill_title"),
     user_id: formData.get("user_id"),
     skill_level: formData.get("skill_level"),
     resume_id: formData.get("resume_id"),
   });
-
 
   if (validatedFields.success === false) {
     return {
@@ -1086,7 +1087,6 @@ export async function createUserSkill(formData: FormData) {
     };
   }
   const { skill_title, skill_level, user_id, resume_id } = validatedFields.data;
-
 
   try {
     const query = `INSERT INTO user_skills (skill, skill_level, user_id) VALUES ('${skill_title}', '${skill_level}', '${user_id}')`;
@@ -1105,12 +1105,10 @@ export async function createUserSkill(formData: FormData) {
 }
 
 export async function deleteUserSkill(formData: FormData) {
-
   const validatedFields = DeleteSkillsSchema.safeParse({
     id: formData.get("id"),
     resume_id: formData.get("resume_id"),
   });
-
 
   if (validatedFields.success === false) {
     return {
@@ -1137,7 +1135,6 @@ export async function deleteUserSkill(formData: FormData) {
 }
 
 export async function createUserEducation(formData: FormData) {
-
   const validatedFields = CreateEducationSchema.safeParse({
     user_id: formData.get("user_id"),
     institution_name: formData.get("institution_name"),
@@ -1149,7 +1146,6 @@ export async function createUserEducation(formData: FormData) {
     url: formData.get("url"),
     resume_id: formData.get("resume_id"),
   });
-
 
   if (validatedFields.success === false) {
     return {
@@ -1169,7 +1165,6 @@ export async function createUserEducation(formData: FormData) {
     resume_id,
   } = validatedFields.data;
 
-
   try {
     const query = `INSERT INTO user_education (user_id, institution_name, location, start_date, end_date, grade, program, url) VALUES ('${user_id}', '${institution_name}', '${location}', '${start_date}' , '${end_date}' , '${grade}' , '${program}' , '${url}')`;
     const data = await conn.query(query);
@@ -1187,12 +1182,10 @@ export async function createUserEducation(formData: FormData) {
 }
 
 export async function deleteEducation(formData: FormData) {
-
   const validatedFields = DeleteEducationSchema.safeParse({
     id: formData.get("education_id"),
     resume_id: formData.get("resume_id"),
   });
-
 
   if (validatedFields.success === false) {
     return {
@@ -1201,7 +1194,6 @@ export async function deleteEducation(formData: FormData) {
     };
   }
   const { id, resume_id } = validatedFields.data;
-
 
   try {
     const query = `DELETE FROM user_education WHERE id = '${id}'`;
@@ -1220,7 +1212,6 @@ export async function deleteEducation(formData: FormData) {
 }
 
 export async function createOrganization(formData: FormData) {
-
   const validatedFields = CreateOrganizationSchema.safeParse({
     user_id: formData.get("user_id"),
     section_title: formData.get("section_title"),
@@ -1231,7 +1222,6 @@ export async function createOrganization(formData: FormData) {
     organization_description: formData.get("organization_description"),
     resume_id: formData.get("resume_id"),
   });
-
 
   if (validatedFields.success === false) {
     return {
@@ -1250,7 +1240,6 @@ export async function createOrganization(formData: FormData) {
     resume_id,
   } = validatedFields.data;
 
-
   try {
     const query = `INSERT INTO user_custom_section_one (user_id, name, location, start_date, end_date, description) VALUES ('${user_id}', '${organization_name}', '${organization_location}', '${organization_start}' , '${organization_end}' , '${organization_description}' )`;
     const data = await conn.query(query);
@@ -1259,7 +1248,6 @@ export async function createOrganization(formData: FormData) {
       const query2 = `UPDATE resumes SET custom_section_one_name = '${section_title}' WHERE id = '${resume_id}'`;
       const data2 = await conn.query(query2);
     }
-
   } catch (error) {
     return {
       message: `Database Error: Failed to Create new organization. ${error}`,
@@ -1276,7 +1264,6 @@ export async function createOrganization(formData: FormData) {
 }
 
 export async function deleteOrganization(formData: FormData) {
-
   const validatedFields = DeleteOrganizationSchema.safeParse({
     id: formData.get("organization_id"),
     resume_id: formData.get("resume_id"),
@@ -1363,7 +1350,6 @@ export async function createCertification(formData: FormData) {
       const query2 = `UPDATE resumes SET custom_section_two_name = '${section_title}' WHERE id = '${resume_id}'`;
       const data2 = await conn.query(query2);
     }
-
   } catch (error) {
     return { message: `Database Error: Failed to Delete user skill. ${error}` };
   }
@@ -1435,7 +1421,6 @@ export async function createWorkExperience(formData: FormData) {
   try {
     const query = `INSERT INTO user_work_experience (job_title, company_name, user_id, location, start_date, end_date, description_one, description_two, description_three, description_four) VALUES ('${job_title}', '${company_name}', '${user_id}', '${location}', '${start_date}', '${end_date}', '${description_one}', '${description_two}', '${description_three}', '${description_four}') `;
     const data = await conn.query(query);
-
   } catch (error) {
     return { message: `Database Error: Failed to Delete user skill. ${error}` };
   }
@@ -1444,13 +1429,77 @@ export async function createWorkExperience(formData: FormData) {
 }
 
 export async function createUserImage(formData: FormData) {
+  const file = formData.get("file") as File;
+
+  let arrayBuffer = await file.arrayBuffer();
+  let buffer = new Uint8Array(arrayBuffer);
+  //console.log(buffer);
+
+  try {
+    const cldRes = await new Promise((resolve, reject) => {
+      cloudinary.uploader
+        .upload_stream(
+          { folder: "/ResumeWrangler/userImages/" },
+          function (error: any, result: any) {
+            if (error) {
+              reject(error);
+              return;
+            }
+            resolve(result);
+          }
+        )
+        .end(buffer);
+    });
+
+    // console.log(cldRes);
+    return cldRes;
+  } catch (error: any) {
+    console.log(error);
+    return {
+      message: "Image not uploaded",
+    };
+  }
 }
 
-export async function updateUserImage(formData: FormData) {
+export async function deleteUserImage(formData: FormData) {
+  const publicId = formData.get("publicId") as string;
+
+  // console.log(publicId);
+
+  if (publicId) {
+    const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME as string;
+    const timestamp = new Date().getTime();
+    const apiKey = process.env.CLOUDINARY_API_KEY;
+    const apiSecret = process.env.CLOUDINARY_API_SECRET as string;
+    const signature = generateSHA1(generateSignature(publicId, apiSecret));
+    const url = `https://api.cloudinary.com/v1_1/${cloudName}/image/destroy`;
+
+    try {
+      // console.log({
+      //   url: url,
+      //   public_id: publicId,
+      //   signature: signature,
+      //   api_key: apiKey,
+      //   timestamp: timestamp,
+      // });
+
+      const response = await axios.post(url, {
+        public_id: publicId,
+        signature: signature,
+        api_key: apiKey,
+        timestamp: timestamp,
+      });
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  return {
+    message: "Image uploaded",
+  };
 }
 
 export async function updateUserWorkExperience(formData: FormData) {
-
   const validatedFields = UpdateWorkExperienceSchema.safeParse({
     experience_id: formData.get("experience_id"),
     resume_id: formData.get("resume_id"),
@@ -1499,7 +1548,6 @@ export async function updateUserWorkExperience(formData: FormData) {
 }
 
 export async function updateUserEducation(formData: FormData) {
-
   const validatedFields = UpdateEducationSchema.safeParse({
     education_id: formData.get("education_id"),
     resume_id: formData.get("resume_id"),
@@ -1532,7 +1580,6 @@ export async function updateUserEducation(formData: FormData) {
     const query = `UPDATE user_education SET institution_name = '${institution_name}', location = '${location}', start_date = '${start_date}', end_date = '${end_date}', grade = '${grade}', program = '${program}', url = '${url}' WHERE id = '${education_id}'`;
 
     const data = await conn.query(query);
-
   } catch (error) {
     return { message: `Database Error: Failed to Update Invoice. ${error}` };
   }
@@ -1547,7 +1594,6 @@ export async function updateUserEducation(formData: FormData) {
 }
 
 export async function updateSkillsSection(formData: FormData) {
-
   const validatedFields = UpdateSkillsSectionSchema.safeParse({
     user_id: formData.get("user_id"),
     resume_id: formData.get("resume_id"),
@@ -1569,7 +1615,6 @@ export async function updateSkillsSection(formData: FormData) {
     const query = `UPDATE resumes SET show_skill_progress = '${show_skill_progress}', show_skills_section = '${show_skills_section}' WHERE id = '${resume_id}'`;
 
     const data = await conn.query(query);
-
   } catch (error) {
     return { message: `Database Error: Failed to Update Invoice. ${error}` };
   }
@@ -1579,7 +1624,6 @@ export async function updateSkillsSection(formData: FormData) {
 }
 
 export async function updateEducationSection(formData: FormData) {
-
   const validatedFields = UpdateEducationSectionSchema.safeParse({
     user_id: formData.get("user_id"),
     resume_id: formData.get("resume_id"),
@@ -1599,7 +1643,6 @@ export async function updateEducationSection(formData: FormData) {
     const query = `UPDATE resumes SET show_education_section = '${show_education_section}' WHERE id = '${resume_id}'`;
 
     const data = await conn.query(query);
-
   } catch (error) {
     return { message: `Database Error: Failed to Update Invoice. ${error}` };
   }
@@ -1609,7 +1652,6 @@ export async function updateEducationSection(formData: FormData) {
 }
 
 export async function updateOrganizationSection(formData: FormData) {
-
   const validatedFields = UpdateOrganizationsSectionSchema.safeParse({
     resume_id: formData.get("resume_id"),
     show_custom_section_one: formData.get("show_custom_section_one"),
@@ -1628,7 +1670,6 @@ export async function updateOrganizationSection(formData: FormData) {
     const query = `UPDATE resumes SET show_custom_section_one = '${show_custom_section_one}' WHERE id = '${resume_id}'`;
 
     const data = await conn.query(query);
-
   } catch (error) {
     return { message: `Database Error: Failed to Update Invoice. ${error}` };
   }
@@ -1792,11 +1833,9 @@ export async function updateUserCertfication(formData: FormData) {
   }
 }
 
-export async function updateResumeLine(formData: FormData) {
-}
+export async function updateResumeLine(formData: FormData) {}
 
 export async function deleteResumeLine(formData: FormData) {
-  
   const validatedFields = DeleteResumeLineSchema.safeParse({
     user_id: formData.get("user_id"),
     id: formData.get("id"),
@@ -1813,7 +1852,6 @@ export async function deleteResumeLine(formData: FormData) {
   const { user_id, id, resume_id, line_type } = validatedFields.data;
 
   try {
-
     let query;
 
     //check the linetype and formulate a specific query
@@ -1830,7 +1868,6 @@ export async function deleteResumeLine(formData: FormData) {
     } else {
       query = "";
     }
-
 
     const data = await conn.query(query);
   } catch (error) {
@@ -1856,11 +1893,9 @@ export async function deleteResumeLine(formData: FormData) {
     revalidatePath(`/dashboard/resume/edit/${resume_id}`);
     redirect(`/dashboard/resume/edit/${resume_id}`);
   }
- 
 }
 
 export async function createResumeLine(formData: FormData) {
-
   const validatedFields = CreateResumeLineSchema.safeParse({
     user_id: formData.get("user_id"),
     resume_id: formData.get("resume_id"),
@@ -1897,7 +1932,6 @@ export async function createResumeLine(formData: FormData) {
     }
 
     data1 = await conn.query(query);
-
   } catch (error) {
     return {
       message: `Database Error: ${error}`,
@@ -1924,7 +1958,6 @@ export async function createResumeLine(formData: FormData) {
     } else {
       query = "";
     }
-
 
     try {
       const data = await conn.query(query);

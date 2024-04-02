@@ -1,4 +1,4 @@
-import { updateUser, updateUserImage } from "@/app/lib/actions";
+import { updateUser } from "@/app/lib/actions";
 import Image from "next/image";
 import { useState } from "react";
 import { useFormState } from "react-dom";
@@ -30,7 +30,7 @@ export default function YourProfile({
           <h2>Your Profile</h2>
         </div>
         <div className="drop-shadow-md border-[1px] border-slate-300 rounded px-5 py-2 ">
-          <form action={updateUserImage}>
+          <form action={""}>
             <div className="flex flex-row justify-between w-auto"></div>
             <div className="flex flex-col py-1">
               <label className="py-1" htmlFor="resume-template">
