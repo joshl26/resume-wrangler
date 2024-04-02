@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { SubmitButton } from "../submit-button";
-import { createCompany } from "@/app/lib/actions";
+import { createWorkExperience } from "@/app/lib/actions";
 import { User } from "@/app/lib/definitions";
 import BackButton from "../back-button";
 
@@ -15,107 +15,134 @@ export default function NewWorkExperience({ user }: { user: User }) {
     }
   };
   return (
-    <div className="px-2">
-      <BackButton href={"/dashboard/work-experiences"}>Back</BackButton>
+    <div className="px-2 h-full overflow-y-auto pb-3">
+      <BackButton href={"/dashboard/work-experience"}>Back</BackButton>
       <div className="flex flex-row justify-between">
         <div className="flex flex-col ">
           <h1 className="text-[2rem] font-bold">Add New Work Experience</h1>
         </div>
       </div>
       <form
-        action={createCompany}
-        className="flex flex-col w-[500px] form-amber px-3 pb-2"
+        onSubmit={(e) => setEdited(false)}
+        action={createWorkExperience}
+        className="flex flex-col tight-shadow form-amber rounded p-2 "
       >
-        <input
-          hidden
-          readOnly
-          required
-          name="user_id"
-          id="user_id"
-          defaultValue={user?.id}
-        />
-        <div className="flex flex-col py-2">
-          <label className="font-bold" htmlFor="company_name">
-            Company Name
+        <input readOnly hidden name="user_id" id="user_id" value={user?.id} />
+        <input readOnly hidden name="resume_id" id="resume_id" value="blank" />
+        <div className="flex flex-row">
+          <div className="flex flex-col p-2">
+            <label className="font-bold" htmlFor="company_name">
+              Company Name
+            </label>
+            <input
+              required
+              name="company_name"
+              id="company_name"
+              onChange={onChangeHandler}
+              defaultValue={""}
+            />
+          </div>
+          <div className="flex flex-col p-2">
+            <label className="font-bold" htmlFor="location">
+              Location
+            </label>
+            <input
+              required
+              name="location"
+              id="location"
+              onChange={onChangeHandler}
+              defaultValue={""}
+            />
+          </div>
+        </div>
+        <div className="flex flex-col p-2">
+          <label className="font-bold" htmlFor="job_title">
+            Job Title
           </label>
           <input
-            required
-            name="company_name"
-            id="company_name"
-            defaultValue={""}
+            name="job_title"
+            id="job_title"
             onChange={onChangeHandler}
+            defaultValue={""}
           />
         </div>
-        <div className="flex flex-col py-2">
-          <label className="font-bold" htmlFor="address_one">
-            Address One
+        <div className="flex flex-row">
+          <div className="flex flex-col p-2">
+            <label className="font-bold" htmlFor="start_date">
+              Start Date
+            </label>
+            <input
+              name="start_date"
+              id="start_date"
+              onChange={onChangeHandler}
+              defaultValue={""}
+            />
+          </div>
+          <div className="flex flex-col p-2">
+            <label className="font-bold" htmlFor="end_date">
+              End Date
+            </label>
+            <input
+              name="end_date"
+              id="end_date"
+              onChange={onChangeHandler}
+              defaultValue={""}
+            />
+          </div>
+        </div>
+        <div className="flex flex-col p-2">
+          <label className="font-bold" htmlFor="description_one">
+            Description One
           </label>
-          <input
-            name="address_one"
-            id="address_one"
-            defaultValue={""}
+          <textarea
+            className="h-[150px]"
+            name="description_one"
+            id="description_one"
             onChange={onChangeHandler}
+            defaultValue={""}
           />
         </div>
-        <div className="flex flex-col py-2">
-          <label className="font-bold" htmlFor="address_two">
-            Address Two
+        <div className="flex flex-col p-2">
+          <label className="font-bold" htmlFor="description_two">
+            Description Two
           </label>
-          <input
-            name="address_two"
-            id="address_two"
-            defaultValue={""}
+          <textarea
+            className="h-[150px]"
+            name="description_two"
+            id="description_two"
             onChange={onChangeHandler}
+            defaultValue={""}
           />
         </div>
-        <div className="flex flex-col py-2">
-          <label className="font-bold" htmlFor="recipient_title">
-            Recipient Title
+        <div className="flex flex-col p-2">
+          <label className="font-bold" htmlFor="description_three">
+            Description Three
           </label>
-          <input
-            name="recipient_title"
-            id="recipient_title"
-            defaultValue={""}
+          <textarea
+            className="h-[150px]"
+            name="description_three"
+            id="description_three"
             onChange={onChangeHandler}
+            defaultValue={""}
           />
         </div>
-        <div className="flex flex-col py-2">
-          <label className="font-bold" htmlFor="email">
-            Email
+        <div className="flex flex-col p-2">
+          <label className="font-bold" htmlFor="description_four">
+            Description Four
           </label>
-          <input
-            name="email"
-            id="email"
-            defaultValue={""}
+          <textarea
+            className="h-[150px]"
+            name="description_four"
+            id="description_four"
             onChange={onChangeHandler}
-          />
-        </div>
-        <div className="flex flex-col py-2">
-          <label className="font-bold" htmlFor="phone">
-            Phone
-          </label>
-          <input
-            name="phone"
-            id="phone"
             defaultValue={""}
-            onChange={onChangeHandler}
-          />
-        </div>
-        <div className="flex flex-col py-2">
-          <label className="font-bold" htmlFor="website_url">
-            Website Url
-          </label>
-          <input
-            name="website_url"
-            id="website_url"
-            defaultValue={""}
-            onChange={onChangeHandler}
           />
         </div>
         {edited && (
           <>
-            <SubmitButton className="btn btn-amber rounded animate-pulse my-3">
-              Save New Company
+            <div style={{ height: "0.5rem" }} />
+            <SubmitButton className="btn btn-amber my-4 animate-pulse">
+              Save New Work Experience
             </SubmitButton>
           </>
         )}

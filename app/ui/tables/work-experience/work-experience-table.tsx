@@ -76,7 +76,7 @@ const WorkExperience = ({
                         hidden
                         readOnly
                         value={workExperience.id}
-                        name="id"
+                        name="work_experience_id"
                       />
                       <input
                         required

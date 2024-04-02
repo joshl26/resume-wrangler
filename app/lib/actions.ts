@@ -1365,6 +1365,8 @@ export async function createCertification(formData: FormData) {
 }
 
 export async function deleteWorkExperience(formData: FormData) {
+  console.log(formData);
+
   const validatedFields = DeleteWorkExperienceSchema.safeParse({
     id: formData.get("work_experience_id"),
     resume_id: formData.get("resume_id"),
@@ -1382,8 +1384,13 @@ export async function deleteWorkExperience(formData: FormData) {
   } catch (error) {
     return { message: `Database Error: Failed to Delete user skill. ${error}` };
   }
-  revalidatePath(`/dashboard/resume/edit/${resume_id}`);
-  redirect(`/dashboard/resume/edit/${resume_id}`);
+  if (resume_id !== "blank") {
+    revalidatePath(`/dashboard/resume/edit/${resume_id}`);
+    redirect(`/dashboard/resume/edit/${resume_id}`);
+  } else {
+    revalidatePath(`/dashboard/work-experience`);
+    redirect(`/dashboard/work-experience`);
+  }
 }
 
 export async function createWorkExperience(formData: FormData) {
@@ -1425,8 +1432,14 @@ export async function createWorkExperience(formData: FormData) {
   } catch (error) {
     return { message: `Database Error: Failed to Delete user skill. ${error}` };
   }
-  revalidatePath(`/dashboard/resume/edit/${resume_id}`);
-  redirect(`/dashboard/resume/edit/${resume_id}`);
+
+  if (resume_id !== "blank") {
+    revalidatePath(`/dashboard/resume/edit/${resume_id}`);
+    redirect(`/dashboard/resume/edit/${resume_id}`);
+  } else {
+    revalidatePath(`/dashboard/work-experience`);
+    redirect(`/dashboard/work-experience`);
+  }
 }
 
 export async function createUserImage(formData: FormData) {

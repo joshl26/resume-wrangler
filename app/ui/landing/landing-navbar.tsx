@@ -53,7 +53,7 @@ const LandingNavBar = () => {
               </Link>
               <Link
                 href="/register"
-                className="rounded-full border hover:bg-white hover:text-black  hover:border-amber-400 bg-amber-400 px-6 py-3 font-medium text-white"
+                className="rounded-full px-6 py-3 btn btn-amber "
               >
                 Create Account
               </Link>
@@ -106,7 +106,7 @@ const LandingNavBar = () => {
             </Link>
             <Link
               href="/register"
-              className="block w-fit rounded-full mt-4 border hover:bg-white hover:text-black  hover:border-amber-400 bg-amber-400 px-6 py-3 font-medium text-white"
+              className="btn btn-amber block w-fit rounded-full mt-4 border  px-6 py-3 font-medium "
             >
               Create Account
             </Link>

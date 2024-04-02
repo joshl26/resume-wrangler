@@ -3,8 +3,8 @@
 import React, { useState } from "react";
 import { SubmitButton } from "../submit-button";
 import { updateUserWorkExperience } from "@/app/lib/actions";
-import Link from "next/link";
 import { UserWorkExperience } from "@/app/lib/definitions";
+import BackButton from "../back-button";
 
 export default function EditWorkExperience({
   workExperience,
@@ -20,15 +20,13 @@ export default function EditWorkExperience({
   };
 
   return (
-    <div className="overflow-y-auto h-full">
-      <Link className="px-3 underline" href={"/dashboard/work-experience"}>
-        Back
-      </Link>
-      <h2 className="font-medium text-[2rem] px-3">Edit Work Experience</h2>
+    <div className="overflow-y-auto h-full px-3 pb-3">
+      <BackButton href={"/dashboard/work-experience"}>Back</BackButton>
+      <h2 className="font-medium text-[2rem] py-1">Edit Work Experience</h2>
       <form
         onSubmit={(e) => setEdited(false)}
         action={updateUserWorkExperience}
-        className="flex flex-col border border-black rounded p-2 m-3"
+        className="flex flex-col tight-shadow form-amber rounded p-2 "
       >
         <label hidden htmlFor="experience_id">
           Work Experience Id
@@ -169,7 +167,7 @@ export default function EditWorkExperience({
         {edited && (
           <>
             <div style={{ height: "0.5rem" }} />
-            <SubmitButton className="bg-yellow-400 my-4 p-2 text-center w-auto animate-pulse">
+            <SubmitButton className="btn btn-amber my-4 animate-pulse">
               Update Work Experience
             </SubmitButton>
           </>
