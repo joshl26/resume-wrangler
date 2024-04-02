@@ -32,7 +32,7 @@ export default async function Page() {
           <h1 className="text-[2rem] font-bold px-3">Skills</h1>
         </div>
         <div className="flex flex-col px-4">
-          <Button className="w-[200px] text-center">
+          <Button className="w-[200px] text-center btn btn-amber">
             <a href="/dashboard/skills/new" className="m-auto">
               Add new Skill
             </a>

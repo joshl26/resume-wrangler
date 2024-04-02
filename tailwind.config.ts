@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+const plugin = require("tailwindcss/plugin");
 
 const config: Config = {
   content: [
@@ -141,6 +142,45 @@ const config: Config = {
     },
   },
 
-  plugins: [require("@tailwindcss/forms")],
+  plugins: [
+    require("@tailwindcss/typography"),
+    require("@tailwindcss/forms"),
+    require("@tailwindcss/aspect-ratio"),
+    require("@tailwindcss/container-queries"),
+    plugin(function ({ addComponents }) {
+      addComponents({
+        ".btn": {
+          padding: ".5rem 1rem",
+          borderRadius: ".25rem",
+          fontWeight: "600",
+        },
+        ".btn-blue": {
+          backgroundColor: "#3490dc",
+          color: "#fff",
+          "&:hover": {
+            backgroundColor: "#2779bd",
+          },
+        },
+        ".btn-red": {
+          backgroundColor: "#e3342f",
+          color: "#fff",
+          "&:hover": {
+            backgroundColor: "#cc1f1a",
+          },
+        },
+        ".btn-amber": {
+          backgroundColor: "#FFBE0B",
+          color: "black",
+          transition:
+            "background-color 1s ease-out 100ms, color 0.25s ease-in 100ms",
+
+          "&:hover": {
+            backgroundColor: "#FF006E",
+            color: "white",
+          },
+        },
+      });
+    }),
+  ],
 };
 export default config;

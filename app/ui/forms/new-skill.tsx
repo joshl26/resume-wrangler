@@ -70,7 +70,7 @@ export default function NewSkill({ user }: { user: User }) {
           <>
             <div style={{ height: "0.5rem" }} />
             <SubmitButton className="bg-yellow-400 my-4 p-2 text-center w-auto animate-pulse">
-              Create Organization
+              Create New Skill
             </SubmitButton>
           </>
         )}

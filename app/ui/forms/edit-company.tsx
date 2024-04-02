@@ -1,8 +1,9 @@
 import React from "react";
 import { SubmitButton } from "../submit-button";
 import { updateCompany } from "@/app/lib/actions";
+import { Company } from "@/app/lib/definitions";
 
-export default async function EditCompany({ company }: { company: any }) {
+export default async function EditCompany({ company }: { company: Company }) {
   //   console.log(application);
   return (
     <div>
@@ -105,7 +106,7 @@ export default async function EditCompany({ company }: { company: any }) {
             type="text"
           ></input>
         </div>
-        <SubmitButton className="hover:bg-blue-400 bg-blue-600 text-white w-[200px] m-auto py-1 my-2 rounded">
+        <SubmitButton className="btn btn-amber w-[200px] m-auto py-1 my-2 rounded">
           Update Company
         </SubmitButton>
       </form>

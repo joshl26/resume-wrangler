@@ -1,7 +1,4 @@
-import {
-  fetchEducationByUserId,  
-  getUser,
-} from "@/app/lib/data";
+import { fetchEducationByUserId, getUser } from "@/app/lib/data";
 import { Button } from "@/app/ui/button";
 import Education from "@/app/ui/tables/education/education-table";
 import { auth } from "@/auth";
@@ -35,9 +32,9 @@ export default async function Page() {
           <h1 className="text-[2rem] font-bold px-3">Education</h1>
         </div>
         <div className="flex flex-col px-4">
-          <Button className="w-[200px] text-center">
+          <Button className="w-[200px] text-center btn btn-amber">
             <a href="/dashboard/education/new" className="m-auto">
-              Add new program
+              Create education experience
             </a>
           </Button>
         </div>

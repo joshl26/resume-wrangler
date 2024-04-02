@@ -10,12 +10,19 @@ export default function EditSkill({ skill }: { skill: UserSkill }) {
   const [edited, setEdited] = useState(false);
   const [skillLevel, setSkillLevel] = useState(skill?.skill_level);
 
-  const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const skillOnChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSkillLevel(e.target.value);
     if (edited === false) {
       setEdited(true);
     }
   };
+
+  const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (edited === false) {
+      setEdited(true);
+    }
+  };
+
   return (
     <div>
       <Link className="px-3 underline" href={"/dashboard/skills/"}>
@@ -70,7 +77,7 @@ export default function EditSkill({ skill }: { skill: UserSkill }) {
           <input
             name="skill_level"
             id="skill_level"
-            onChange={(e) => onChangeHandler(e)}
+            onChange={(e) => skillOnChangeHandler(e)}
             defaultValue={skill?.skill_level}
             type="range"
           />
@@ -78,8 +85,8 @@ export default function EditSkill({ skill }: { skill: UserSkill }) {
         {edited && (
           <>
             <div style={{ height: "0.5rem" }} />
-            <SubmitButton className="bg-yellow-400 my-4 p-2 text-center w-auto animate-pulse">
-              Update Certification
+            <SubmitButton className="btn btn-amber my-4 p-2 text-center w-auto animate-pulse">
+              Update Skill
             </SubmitButton>
           </>
         )}

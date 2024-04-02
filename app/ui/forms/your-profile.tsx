@@ -208,10 +208,8 @@ export default function YourProfile({
             </div>
             <div style={{ height: "0.5rem" }}></div>
             {edited && (
-              <SubmitButton className={""}>
-                <div className="bg-yellow-400 my-4 p-2 text-center w-auto animate-pulse">
-                  Save Change
-                </div>
+              <SubmitButton className="btn btn-amber my-4 p-2 text-center w-auto animate-pulse">
+                Save Change
               </SubmitButton>
             )}
           </form>

@@ -16,11 +16,11 @@ export default function NewEducation({ user }: { user: User }) {
   };
 
   return (
-    <div>
-      <Link className="px-3 underline" href={"/dashboard/organizations/"}>
+    <div className="w-full">
+      <Link className="px-3 underline" href={"/dashboard/education/"}>
         Back
       </Link>
-      <h2 className="font-medium text-[2rem] px-3">Create New Education</h2>
+      <h2 className="font-medium text-[2rem] px-3">Education Experience</h2>
       <form
         onSubmit={() => setEdited(false)}
         action={createUserEducation}
