@@ -4,7 +4,7 @@ import Image from "next/image";
 
 const ResponsesCard = () => {
   return (
-    <div className=" w-1/4 h-[250px] bg-white rounded-xl">
+    <div className=" w-1/4 h-[250px] bg-white rounded-xl tight-shadow">
       <h2 className="font-bold p-2">Responses</h2>
       <div className="flex flex-row">
         <div className="w-full h-[200px]">

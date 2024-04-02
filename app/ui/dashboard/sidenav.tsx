@@ -8,7 +8,7 @@ export default function SideNav({ session }: { session: any }) {
   return (
     <div className="flex h-full flex-col px-3 py-4 md:px-2">
       <Link
-        className="mb-2 flex items-end justify-start rounded-md bg-amber-500 p-4 "
+        className="mb-2 flex items-end justify-start rounded-md bg-amber-400 tight-shadow p-4 "
         href="/"
       >
         <div className="w-32 md:w-40">
@@ -18,9 +18,12 @@ export default function SideNav({ session }: { session: any }) {
       {session && (
         <span className="font-bold pb-2 px-1">
           Logged in as User:{" "}
-          <p className="font-light">
+          <Link
+            href={"/dashboard/user-profile"}
+            className="font-light flex hover:text-azure-radiance-600"
+          >
             {session?.user.name} ({session?.user.email})
-          </p>
+          </Link>
         </span>
       )}
       <div className="flex grow flex-row justify-between space-x-2 space-y-1 md:flex-col md:space-x-0 ">

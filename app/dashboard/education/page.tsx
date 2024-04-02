@@ -31,7 +31,7 @@ export default async function Page() {
           <h1 className="text-[2rem] font-bold">Education</h1>
         </div>
         <div className="flex flex-col px-4">
-          <Button className="w-[200px] text-center btn btn-amber">
+          <Button className="w-[200px] text-center btn btn-amber tight-shadow">
             <a href="/dashboard/education/new" className="m-auto">
               Create education experience
             </a>
