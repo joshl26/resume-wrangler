@@ -3,8 +3,10 @@
 import { User } from "@/app/lib/definitions";
 import React, { useState } from "react";
 import { useFormState } from "react-dom";
-import { updateUser, updateSocials } from "@/app/lib/actions";
+import { updateUser, updateSocials, deleteUserImage } from "@/app/lib/actions";
 import { SubmitButton } from "../submit-button";
+import Image from "next/image";
+import ImagePicker from "../image-picker/image-picker";
 
 const UserDetailsEditForm = ({ user }: { user: User }) => {
   const initialState = { message: null, errors: {} };
@@ -323,9 +325,82 @@ const UserSocialsEditForm = ({ user }: { user: User }) => {
   );
 };
 
+const UserImageEditForm = ({ user }: { user: User }) => {
+  const [edited, setEdited] = useState(false);
+
+  const onChangeHandler = () => {
+    if (edited === false) {
+      setEdited(true);
+    }
+  };
+
+  return (
+    <div className="p-3 ">
+      <h2 className="font-bold text-[2rem] ">Edit User Image</h2>
+      <div className="flex flex-col p-3 border border-black rounded m-3">
+        {user?.thumbnail !== "" ? (
+          <div className="flex flex-row">
+            <div className="flex flex-col">
+              <Image
+                src={user?.thumbnail}
+                width={250}
+                height={250}
+                alt="user image thumbnail"
+                className="h-[250px] w-[250px] flex flex-row items-center justify-center"
+              />
+            </div>
+            <div className="flex flex-col items-center justify-center m-auto">
+              <form action={deleteUserImage}>
+                <input
+                  name="image-url"
+                  value={user?.thumbnail}
+                  hidden
+                  readOnly
+                />
+                <input name="user-id" value={user?.id} hidden readOnly />
+                <SubmitButton className="bg-yellow-400 hover:bg-rose-500 hover:animate-pulse hover:text-white hover:border hover:border-black p-2 rounded text-center w-auto">
+                  Delete Image
+                </SubmitButton>
+              </form>
+            </div>
+          </div>
+        ) : (
+          <div className="flex flex-row">
+            <div className="flex flex-col">
+              <div className="h-[250px] w-[250px] bg-amber-300 relative flex flex-row items-center justify-center">
+                <div className="flex flex-col text-center">
+                  <p>Ideal image size</p>
+                  <p>250 x 250</p>
+                  <p>(minimum)</p>
+                </div>
+              </div>
+            </div>
+            <div className="flex flex-col">
+              <ImagePicker user={user} />
+            </div>
+          </div>
+        )}
+
+        <input type="hidden" name="id" value={user?.id} />
+        <form className="" onSubmit={() => setEdited(false)} action={""}>
+          {edited && (
+            <div className="w-1/2 m-auto">
+              <div style={{ height: "0.5rem" }} />
+              <SubmitButton className="bg-yellow-400 my-4 p-2 text-center w-auto animate-pulse">
+                Save Change
+              </SubmitButton>
+            </div>
+          )}
+        </form>
+      </div>
+    </div>
+  );
+};
+
 const UserEditForm = ({ user }: { user: User }) => {
   return (
     <div className="overflow-y-auto w-1/2">
+      <UserImageEditForm user={user} />
       <UserDetailsEditForm user={user} />
       <UserSocialsEditForm user={user} />
     </div>

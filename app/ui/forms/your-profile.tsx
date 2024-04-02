@@ -1,15 +1,16 @@
-import { updateUser, updateUserImage } from "@/app/lib/actions";
+import { updateUser } from "@/app/lib/actions";
 import Image from "next/image";
 import { useState } from "react";
 import { useFormState } from "react-dom";
 import { SubmitButton } from "../submit-button";
+import { Resume, User } from "@/app/lib/definitions";
 
 export default function YourProfile({
   user,
   resume,
 }: {
-  user: any;
-  resume: any;
+  user: User;
+  resume: Resume;
 }) {
   const initialState = { message: null, errors: {} };
   const updateUserWithId = updateUser.bind(null, user?.id!);
@@ -30,7 +31,7 @@ export default function YourProfile({
           <h2>Your Profile</h2>
         </div>
         <div className="drop-shadow-md border-[1px] border-slate-300 rounded px-5 py-2 ">
-          <form action={updateUserImage}>
+          <form action={""}>
             <div className="flex flex-row justify-between w-auto"></div>
             <div className="flex flex-col py-1">
               <label className="py-1" htmlFor="resume-template">
@@ -43,17 +44,12 @@ export default function YourProfile({
                 width={250}
                 src={user.thumbnail}
               />
-              <button
-                // type="submit"
-                className="rounded bg-amber-300 h-10 border border-black"
-                // value={resumeStyling.resumeTemplate}
-                // onChange={(e) => resumeTemplateAction(e)}
-                name="resume-template"
-                id="resume-template"
+              <a
+                className="m-auto rounded bg-amber-400 hover:bg-amber-200 h-auto p-2 border border-black"
+                href="/dashboard/user-profile/"
               >
-                {/* //TODO add image picker!! */}
                 Update Image
-              </button>
+              </a>
             </div>
             <div style={{ height: "0.5rem" }}></div>
           </form>

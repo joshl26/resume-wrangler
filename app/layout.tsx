@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   },
   description: "Resume Wrangler",
   openGraph: {
-    title: "Resume Warngler",
+    title: "Resume Wrangler",
     description: "Online resume customization tool",
     url: `${process.env.DEPLOYMENT_URL}`,
     siteName: "Resume Wrangler",
