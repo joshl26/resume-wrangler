@@ -3,8 +3,8 @@
 import React, { useState } from "react";
 import { SubmitButton } from "../submit-button";
 import { createOrganization } from "@/app/lib/actions";
-import Link from "next/link";
 import { User } from "@/app/lib/definitions";
+import BackButton from "../back-button";
 
 export default function NewOrganization({ user }: { user: User }) {
   const [edited, setEdited] = useState(false);
@@ -16,15 +16,13 @@ export default function NewOrganization({ user }: { user: User }) {
   };
 
   return (
-    <div>
-      <Link className="px-3 underline" href={"/dashboard/organizations/"}>
-        Back
-      </Link>
-      <h2 className="font-medium text-[2rem] px-3">Create New Organization</h2>
+    <div className="px-3">
+      <BackButton href={"/dashboard/organizations/"}>Back</BackButton>
+      <h2 className="font-medium text-[2rem] py-1">Create New Organization</h2>
       <form
         onSubmit={() => setEdited(false)}
         action={createOrganization}
-        className="flex flex-col w-full p-3 border border-black rounded m-3"
+        className="flex flex-col w-full p-3 tight-shadow form-amber rounded "
       >
         <input
           required
@@ -58,10 +56,10 @@ export default function NewOrganization({ user }: { user: User }) {
             required
             name="organization_name"
             id="organization_name"
-            onChange={() => onChangeHandler()}
+            onChange={onChangeHandler}
             defaultValue={""}
             type="text"
-          ></input>
+          />
         </div>
         <div className="flex flex-col p-2">
           <label className="font-bold" htmlFor="organization_location">
@@ -71,10 +69,9 @@ export default function NewOrganization({ user }: { user: User }) {
             required
             name="organization_location"
             id="organization_location"
-            onChange={() => onChangeHandler()}
+            onChange={onChangeHandler}
             defaultValue={""}
-            type="text"
-          ></input>
+          />
         </div>
         <div className="flex flex-row ">
           <div className="flex flex-col p-2 w-full">
@@ -85,10 +82,9 @@ export default function NewOrganization({ user }: { user: User }) {
               required
               name="organization_start"
               id="organization_start"
-              onChange={() => onChangeHandler()}
+              onChange={onChangeHandler}
               defaultValue={""}
-              type="text"
-            ></input>
+            />
           </div>
           <div className="flex flex-col p-2 w-full">
             <label className="font-bold" htmlFor="organization_end">
@@ -98,10 +94,9 @@ export default function NewOrganization({ user }: { user: User }) {
               required
               name="organization_end"
               id="organization_end"
-              onChange={() => onChangeHandler()}
+              onChange={onChangeHandler}
               defaultValue={""}
-              type="text"
-            ></input>
+            />
           </div>
         </div>
         <div className="flex flex-col p-2">
@@ -112,15 +107,14 @@ export default function NewOrganization({ user }: { user: User }) {
             required
             name="organization_description"
             id="organization_description"
-            onChange={() => onChangeHandler()}
+            onChange={onChangeHandler}
             defaultValue={""}
-          ></textarea>
+          />
         </div>
-
         {edited && (
           <>
             <div style={{ height: "0.5rem" }} />
-            <SubmitButton className="bg-yellow-400 my-4 p-2 text-center w-auto animate-pulse">
+            <SubmitButton className="btn btn-amber p-2 animate-pulse">
               Create Organization
             </SubmitButton>
           </>

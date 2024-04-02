@@ -3,8 +3,8 @@
 import React, { useState } from "react";
 import { SubmitButton } from "../submit-button";
 import { updateUserOrganization } from "@/app/lib/actions";
-import Link from "next/link";
 import { UserOrganization } from "@/app/lib/definitions";
+import BackButton from "../back-button";
 
 export default function EditOrganization({
   organization,
@@ -19,16 +19,13 @@ export default function EditOrganization({
     }
   };
   return (
-    <div>
-      <Link className="px-3 underline" href={"/dashboard/organizations/"}>
-        Back
-      </Link>
-      <h2 className="font-medium text-[2rem] px-3">Edit Organization</h2>
-
+    <div className="px-3">
+      <BackButton href={"/dashboard/organizations/"}>Back</BackButton>
+      <h2 className="font-medium text-[2rem] py-1">Edit Organization</h2>
       <form
         onSubmit={() => setEdited(false)}
         action={updateUserOrganization}
-        className="flex flex-col w-[500px] p-3 m-3 border border-black rounded"
+        className="flex flex-col w-[500px] p-3 tight-shadow form-amber rounded"
       >
         <input
           required
@@ -46,7 +43,6 @@ export default function EditOrganization({
             name="resume_id"
             id="resume_id"
             value="blank"
-            type="text"
           />
           <input
             readOnly
@@ -55,7 +51,6 @@ export default function EditOrganization({
             name="user_id"
             id="user_id"
             value="blank"
-            type="text"
           />
           <label className="font-bold" htmlFor="organization_name">
             Organization Name
@@ -64,10 +59,9 @@ export default function EditOrganization({
             required
             name="organization_name"
             id="organization_name"
-            onChange={() => onChangeHandler()}
+            onChange={onChangeHandler}
             defaultValue={organization?.name}
-            type="text"
-          ></input>
+          />
         </div>
         <div className="flex flex-col py-2">
           <label className="font-bold" htmlFor="organization_location">
@@ -76,10 +70,9 @@ export default function EditOrganization({
           <input
             name="organization_location"
             id="organization_location"
-            onChange={() => onChangeHandler()}
+            onChange={onChangeHandler}
             defaultValue={organization?.location}
-            type="text"
-          ></input>
+          />
         </div>
         <div className="flex flex-col py-2">
           <label className="font-bold" htmlFor="organization_start">
@@ -88,10 +81,9 @@ export default function EditOrganization({
           <input
             name="organization_start"
             id="organization_start"
-            onChange={() => onChangeHandler()}
+            onChange={onChangeHandler}
             defaultValue={organization?.start_date}
-            type="text"
-          ></input>
+          />
         </div>
         <div className="flex flex-col py-2">
           <label className="font-bold" htmlFor="organization_end">
@@ -100,10 +92,9 @@ export default function EditOrganization({
           <input
             name="organization_end"
             id="organization_end"
-            onChange={() => onChangeHandler()}
+            onChange={onChangeHandler}
             defaultValue={organization?.end_date}
-            type="text"
-          ></input>
+          />
         </div>
         <div className="flex flex-col py-2">
           <label className="font-bold" htmlFor="organization_description">
@@ -112,15 +103,15 @@ export default function EditOrganization({
           <textarea
             name="organization_description"
             id="organization_description"
-            onChange={() => onChangeHandler()}
+            onChange={onChangeHandler}
             defaultValue={organization?.description}
-          ></textarea>
+          />
         </div>
         {edited && (
           <>
             <div style={{ height: "0.5rem" }} />
-            <SubmitButton className="bg-yellow-400 my-4 p-2 text-center w-auto animate-pulse">
-              Update Certification
+            <SubmitButton className="btn btn-amber p-2 text-center w-auto animate-pulse">
+              Save Updates
             </SubmitButton>
           </>
         )}
