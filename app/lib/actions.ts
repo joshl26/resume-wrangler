@@ -1,5 +1,6 @@
 "use server";
 
+import { extractPublicId } from "cloudinary-build-url";
 import { z } from "zod";
 import { conn } from "@/app/lib/database";
 
@@ -1462,7 +1463,13 @@ export async function createUserImage(formData: FormData) {
 }
 
 export async function deleteUserImage(formData: FormData) {
-  const publicId = formData.get("publicId") as string;
+  const imageUrl = formData.get("image-url") as string;
+  const userId = formData.get("user-id") as string;
+
+  console.log(formData);
+  // console.log(imageUrl);
+
+  const publicId = extractPublicId(imageUrl);
 
   // console.log(publicId);
 
@@ -1489,14 +1496,28 @@ export async function deleteUserImage(formData: FormData) {
         api_key: apiKey,
         timestamp: timestamp,
       });
-      console.log(response);
+
+      // response.data.result === "not found" when no image exists
+      console.log(response.data.result);
     } catch (error) {
       console.error(error);
+      return {
+        message: "Image not deleted",
+      };
+    }
+
+    try {
+      const query = `UPDATE users SET thumbnail = '' WHERE id = '${userId}' AND thumbnail = '${imageUrl}'`;
+      const data = await conn.query(query);
+    } catch (error) {
+      return {
+        message: `Database Error: Failed to Delete user skill. ${error}`,
+      };
     }
   }
-  return {
-    message: "Image uploaded",
-  };
+
+  revalidatePath(`/dashboard/user-profile/`);
+  redirect(`/dashboard/user-profile/`);
 }
 
 export async function updateUserWorkExperience(formData: FormData) {

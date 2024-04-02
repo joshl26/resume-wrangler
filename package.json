@@ -26,6 +26,7 @@
     "bcrypt": "^5.1.1",
     "chart.js": "^4.4.2",
     "cloudinary": "^2.0.1",
+    "cloudinary-build-url": "^0.2.4",
     "clsx": "^2.0.0",
     "jotai": "^2.7.0",
     "lottie-react": "^2.4.0",
@@ -45,6 +46,7 @@
     "zod": "^3.22.2"
   },
   "devDependencies": {
+    "@cld-apis/types": "^0.1.6",
     "@playwright/test": "1.42.1",
     "@testing-library/jest-dom": "^6.4.2",
     "@testing-library/react": "^14.2.2",
