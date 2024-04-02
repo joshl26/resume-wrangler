@@ -1431,13 +1431,18 @@ export async function createWorkExperience(formData: FormData) {
 
 export async function createUserImage(formData: FormData) {
   const file = formData.get("file") as File;
+  const userId = formData.get("user-id") as string;
+
+  // console.log(userId);
 
   let arrayBuffer = await file.arrayBuffer();
   let buffer = new Uint8Array(arrayBuffer);
   //console.log(buffer);
 
+  let cldRes: any;
+
   try {
-    const cldRes = await new Promise((resolve, reject) => {
+    cldRes = await new Promise((resolve, reject) => {
       cloudinary.uploader
         .upload_stream(
           { folder: "/ResumeWrangler/userImages/" },
@@ -1453,20 +1458,33 @@ export async function createUserImage(formData: FormData) {
     });
 
     // console.log(cldRes);
-    return cldRes;
+    //
   } catch (error: any) {
     console.log(error);
     return {
       message: "Image not uploaded",
     };
   }
+
+  try {
+    const query = `UPDATE users SET thumbnail = '${cldRes.secure_url}' WHERE id = '${userId}' AND thumbnail = ''`;
+    const data = await conn.query(query);
+  } catch (error) {
+    console.log(error);
+    return {
+      message: "Image not added to user table",
+    };
+  }
+
+  revalidatePath(`/dashboard/user-profile/`);
+  redirect(`/dashboard/user-profile/`);
 }
 
 export async function deleteUserImage(formData: FormData) {
   const imageUrl = formData.get("image-url") as string;
   const userId = formData.get("user-id") as string;
 
-  console.log(formData);
+  // console.log(formData);
   // console.log(imageUrl);
 
   const publicId = extractPublicId(imageUrl);
@@ -1498,7 +1516,7 @@ export async function deleteUserImage(formData: FormData) {
       });
 
       // response.data.result === "not found" when no image exists
-      console.log(response.data.result);
+      // console.log(response.data.result);
     } catch (error) {
       console.error(error);
       return {

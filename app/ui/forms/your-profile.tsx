@@ -43,17 +43,16 @@ export default function YourProfile({
                 width={250}
                 src={user.thumbnail}
               />
-              <button
+              <a
                 // type="submit"
-                className="rounded bg-amber-300 h-10 border border-black"
+                className="m-auto rounded bg-amber-400 hover:bg-amber-200 h-auto p-2 border border-black"
                 // value={resumeStyling.resumeTemplate}
                 // onChange={(e) => resumeTemplateAction(e)}
-                name="resume-template"
-                id="resume-template"
+
+                href="/dashboard/user-profile/"
               >
-                {/* //TODO add image picker!! */}
                 Update Image
-              </button>
+              </a>
             </div>
             <div style={{ height: "0.5rem" }}></div>
           </form>

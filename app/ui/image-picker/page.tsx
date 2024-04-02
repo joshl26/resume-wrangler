@@ -3,10 +3,11 @@
 import React, { useState } from "react";
 import { createUserImage } from "@/app/lib/actions";
 import Image from "next/image";
+import { User } from "@/app/lib/definitions";
 
-const ImagePicker = () => {
+const ImagePicker = ({ user }: { user: User }) => {
   const [file, setFile] = useState(null);
-  const [fileUrl, setFileUrl] = useState(null);
+  const [fileUrl, setFileUrl] = useState(user.thumbnail);
   const [loading, setLoading] = useState(false);
 
   const handleFileChange = (e: any) => {
@@ -20,13 +21,14 @@ const ImagePicker = () => {
       const formData = new FormData();
       if (file) {
         formData.append("file", file);
+        formData.append("user-id", user?.id);
       }
 
-      const response: any = await createUserImage(formData);
+      await createUserImage(formData);
 
       // console.log(response);
 
-      setFileUrl(response.secure_url);
+      // setFileUrl(response.secure_url);
       // console.log(fileUrl);
     } catch (error) {
       console.error(error);
@@ -37,22 +39,32 @@ const ImagePicker = () => {
   };
 
   return (
-    <div>
-      <h1>Image Picker</h1>
-      <h2>{fileUrl}</h2>
-      {fileUrl === null ? (
-        ""
-      ) : (
-        <Image src={fileUrl} width={250} height={250} alt="" />
-      )}
-      <form onSubmit={handleSubmit}>
+    <div className="flex flex-col p-2">
+      <h1 className="font-bold">Image Picker</h1>
+
+      <form className="py-2" onSubmit={handleSubmit}>
         <label htmlFor="file"></label>
-        <input required name="file" type="file" onChange={handleFileChange} />
-        {loading ? (
-          <button type="submit">Uploading...</button>
-        ) : (
-          <button type="submit">Upload Image</button>
-        )}
+        <input
+          className="w-[300px]"
+          required
+          name="file"
+          type="file"
+          onChange={handleFileChange}
+        />
+        <div className="flex flex-row py-2">
+          {loading ? (
+            <button className="bg-amber-200" type="submit">
+              Uploading...
+            </button>
+          ) : (
+            <button
+              className="bg-amber-400 hover:bg-amber-200 p-2 rounded"
+              type="submit"
+            >
+              Upload Image
+            </button>
+          )}
+        </div>
       </form>
     </div>
   );

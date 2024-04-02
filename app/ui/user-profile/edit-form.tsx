@@ -6,6 +6,7 @@ import { useFormState } from "react-dom";
 import { updateUser, updateSocials, deleteUserImage } from "@/app/lib/actions";
 import { SubmitButton } from "../submit-button";
 import Image from "next/image";
+import ImagePicker from "../image-picker/page";
 
 const UserDetailsEditForm = ({ user }: { user: User }) => {
   const initialState = { message: null, errors: {} };
@@ -337,14 +338,14 @@ const UserImageEditForm = ({ user }: { user: User }) => {
     <div className="p-3 ">
       <h2 className="font-bold text-[2rem] ">Edit User Image</h2>
       <div className="flex flex-col p-3 border border-black rounded m-3">
-        {user.thumbnail !== "" ? (
+        {user?.thumbnail !== "" ? (
           <div className="flex flex-row">
             <div className="flex flex-col">
               <Image
                 src={user?.thumbnail}
                 width={250}
                 height={250}
-                alt=""
+                alt="user image thumbnail"
                 className="h-[250px] w-[250px] flex flex-row items-center justify-center"
               />
             </div>
@@ -364,11 +365,18 @@ const UserImageEditForm = ({ user }: { user: User }) => {
             </div>
           </div>
         ) : (
-          <div className="h-[250px] w-[250px] bg-amber-300 relative flex flex-row items-center justify-center">
-            <div className="flex flex-col text-center">
-              <p>Ideal image size</p>
-              <p>250 x 250</p>
-              <p>(minimum)</p>
+          <div className="flex flex-row">
+            <div className="flex flex-col">
+              <div className="h-[250px] w-[250px] bg-amber-300 relative flex flex-row items-center justify-center">
+                <div className="flex flex-col text-center">
+                  <p>Ideal image size</p>
+                  <p>250 x 250</p>
+                  <p>(minimum)</p>
+                </div>
+              </div>
+            </div>
+            <div className="flex flex-col">
+              <ImagePicker user={user} />
             </div>
           </div>
         )}
