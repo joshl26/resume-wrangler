@@ -6,31 +6,31 @@ import { z } from "zod";
 import type { User } from "@/app/lib/definitions";
 import bcrypt from "bcrypt";
 
-// async function getUser(email: string): Promise<User | undefined> {
-//   try {
-//     const query = `SELECT * FROM users WHERE email='${email}'`;
-//     const user = await conn.query(query);
-//     return user.rows[0];
-//   } catch (error) {
-//     console.error("Failed to fetch user:", error);
-//     throw new Error("Failed to fetch user.");
-//   }
-// }
-
-async function getUser(email: string) {
+async function getUser(email: string): Promise<User | undefined> {
   try {
     const query = `SELECT * FROM users WHERE email='${email}'`;
-    const data = await conn.query(query);
-
-    const user: User = data?.rows[0];
-
-    return user;
+    const user = await conn.query(query);
+    return user.rows[0];
   } catch (error) {
-    console.error("Database Error:", error);
-    // throw new Error("Failed to fetch resume template by id.");
-    return;
+    console.error("Failed to fetch user:", error);
+    throw new Error("Failed to fetch user.");
   }
 }
+
+// async function getUser(email: string) {
+//   try {
+//     const query = `SELECT * FROM users WHERE email='${email}'`;
+//     const data = await conn.query(query);
+
+//     const user: User = data?.rows[0];
+
+//     return user;
+//   } catch (error) {
+//     console.error("Database Error:", error);
+//     // throw new Error("Failed to fetch resume template by id.");
+//     return;
+//   }
+// }
 
 export const {
   handlers: { GET, POST },

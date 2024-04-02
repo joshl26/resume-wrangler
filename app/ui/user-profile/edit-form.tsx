@@ -6,7 +6,7 @@ import { useFormState } from "react-dom";
 import { updateUser, updateSocials, deleteUserImage } from "@/app/lib/actions";
 import { SubmitButton } from "../submit-button";
 import Image from "next/image";
-import ImagePicker from "../image-picker/page";
+import ImagePicker from "../image-picker/image-picker";
 
 const UserDetailsEditForm = ({ user }: { user: User }) => {
   const initialState = { message: null, errors: {} };
@@ -358,7 +358,7 @@ const UserImageEditForm = ({ user }: { user: User }) => {
                   readOnly
                 />
                 <input name="user-id" value={user?.id} hidden readOnly />
-                <SubmitButton className="bg-yellow-400 my-4 p-2 text-center w-auto">
+                <SubmitButton className="bg-yellow-400 hover:bg-rose-500 hover:animate-pulse hover:text-white hover:border hover:border-black p-2 rounded text-center w-auto">
                   Delete Image
                 </SubmitButton>
               </form>

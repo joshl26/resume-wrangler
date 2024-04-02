@@ -2,12 +2,11 @@
 
 import React, { useState } from "react";
 import { createUserImage } from "@/app/lib/actions";
-import Image from "next/image";
 import { User } from "@/app/lib/definitions";
 
 const ImagePicker = ({ user }: { user: User }) => {
   const [file, setFile] = useState(null);
-  const [fileUrl, setFileUrl] = useState(user.thumbnail);
+  // const [fileUrl, setFileUrl] = useState(user.thumbnail);
   const [loading, setLoading] = useState(false);
 
   const handleFileChange = (e: any) => {
@@ -21,7 +20,7 @@ const ImagePicker = ({ user }: { user: User }) => {
       const formData = new FormData();
       if (file) {
         formData.append("file", file);
-        formData.append("user-id", user?.id);
+        formData.append("user-id", user.id);
       }
 
       await createUserImage(formData);
@@ -41,7 +40,6 @@ const ImagePicker = ({ user }: { user: User }) => {
   return (
     <div className="flex flex-col p-2">
       <h1 className="font-bold">Image Picker</h1>
-
       <form className="py-2" onSubmit={handleSubmit}>
         <label htmlFor="file"></label>
         <input
@@ -53,7 +51,7 @@ const ImagePicker = ({ user }: { user: User }) => {
         />
         <div className="flex flex-row py-2">
           {loading ? (
-            <button className="bg-amber-200" type="submit">
+            <button className="bg-amber-200 p-2 rounded" type="submit">
               Uploading...
             </button>
           ) : (

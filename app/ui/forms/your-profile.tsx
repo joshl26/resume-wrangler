@@ -3,13 +3,14 @@ import Image from "next/image";
 import { useState } from "react";
 import { useFormState } from "react-dom";
 import { SubmitButton } from "../submit-button";
+import { Resume, User } from "@/app/lib/definitions";
 
 export default function YourProfile({
   user,
   resume,
 }: {
-  user: any;
-  resume: any;
+  user: User;
+  resume: Resume;
 }) {
   const initialState = { message: null, errors: {} };
   const updateUserWithId = updateUser.bind(null, user?.id!);
@@ -44,11 +45,7 @@ export default function YourProfile({
                 src={user.thumbnail}
               />
               <a
-                // type="submit"
                 className="m-auto rounded bg-amber-400 hover:bg-amber-200 h-auto p-2 border border-black"
-                // value={resumeStyling.resumeTemplate}
-                // onChange={(e) => resumeTemplateAction(e)}
-
                 href="/dashboard/user-profile/"
               >
                 Update Image
