@@ -28,10 +28,10 @@ export default async function Page() {
       <BackButton href={"/dashboard/"}>Back</BackButton>
       <div className="flex flex-row justify-between">
         <div className="flex flex-col ">
-          <h1 className="text-[2rem] font-bold ">Companies</h1>
+          <h1 className="text-[2rem] font-bold py-1">Companies</h1>
         </div>
         <div className="flex flex-col px-4">
-          <Button className="w-[200px] text-center btn btn-amber ">
+          <Button className="btn btn-amber tight-shadow">
             <a href="/dashboard/companies/new" className="m-auto">
               Add new company
             </a>

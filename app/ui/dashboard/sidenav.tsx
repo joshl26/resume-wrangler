@@ -16,7 +16,7 @@ export default function SideNav({ session }: { session: any }) {
         </div>
       </Link>
       {session && (
-        <span className="font-bold pb-2 px-1">
+        <span className="font-bold pb-1 px-1">
           Logged in as User:{" "}
           <Link
             href={"/dashboard/user-profile"}

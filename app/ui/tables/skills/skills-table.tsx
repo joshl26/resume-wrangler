@@ -6,9 +6,8 @@ import Link from "next/link";
 import React from "react";
 
 const Skills = ({ skills }: { skills: UserSkills }) => {
-
   return (
-    <div className="relative overflow-x-auto overflow-y-auto shadow-md sm:rounded-lg px-4 py-4">
+    <div className="relative overflow-x-auto overflow-y-auto tight-shadow sm:rounded-lg px-4 py-4 mr-3">
       <table className="w-full text-sm text-left rtl:text-right text-gray-200 dark:text-gray-200">
         <thead className="text-xs  uppercase  ">
           <tr>
