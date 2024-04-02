@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { SubmitButton } from "../submit-button";
 import { createApplication } from "@/app/lib/actions";
 import { Companies, Company, User } from "@/app/lib/definitions";
+import BackButton from "../back-button";
 
 export default function NewApplication({
   companies,
@@ -21,20 +22,23 @@ export default function NewApplication({
   };
 
   return (
-    <div>
-      <form action={createApplication} className="flex flex-col w-[500px] px-1">
-        <div hidden>
-          <label hidden htmlFor="user_id">
-            User Id
-          </label>
-          <input name="user_id" id="user_id" defaultValue={user.id}></input>
-        </div>
-        <div className="flex flex-row py-2">
-          <div className="flex flex-col w-3/4">
-            <label
-              htmlFor="countries_multiple"
-              className="block mb-2 font-bold text-gray-900 dark:text-black"
-            >
+    <div className="px-2">
+      <BackButton href={"/dashboard/skills/"}>Back</BackButton>
+      <h2 className="font-medium text-[2rem] pt-2">Create New Application</h2>
+      <form
+        action={createApplication}
+        className="flex flex-col form-amber w-[500px] p-3"
+      >
+        <input
+          hidden
+          readOnly
+          name="user_id"
+          id="user_id"
+          defaultValue={user.id}
+        />
+        <div className="flex flex-row pb-2">
+          <div className="flex flex-col w-full">
+            <label htmlFor="countries_multiple" className="block font-bold">
               Select a company from the list
             </label>
             <select
@@ -43,7 +47,7 @@ export default function NewApplication({
               required
               id="company_id"
               name="company_id"
-              className=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-100 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="rounded "
             >
               <option selected></option>
               {companies
@@ -73,7 +77,6 @@ export default function NewApplication({
             id="job_position"
             defaultValue={""}
             onChange={onChangeHandler}
-            type="text"
           ></input>
         </div>
         <div className="flex flex-col py-2">
@@ -85,7 +88,6 @@ export default function NewApplication({
             id="posting_url"
             defaultValue={""}
             onChange={onChangeHandler}
-            type="text"
           ></input>
         </div>
         <div className="flex flex-col py-2">
@@ -96,6 +98,7 @@ export default function NewApplication({
             name="posting_text"
             id="posting_text"
             defaultValue={""}
+            onChange={onChangeHandler}
           ></textarea>
         </div>
         <div className="flex flex-col py-2">
@@ -106,13 +109,14 @@ export default function NewApplication({
             name="analyzed_posting_text"
             id="analyzed_posting_text"
             defaultValue={""}
+            onChange={onChangeHandler}
           ></textarea>
         </div>
         {edited && (
           <>
             <div style={{ height: "0.5rem" }} />
-            <SubmitButton className="btn btn-amber w-[200px] m-auto py-1 my-2 rounded">
-              Create New Application
+            <SubmitButton className="btn btn-amber w-auto my-1 rounded animate-pulse">
+              Create New Skill
             </SubmitButton>
           </>
         )}

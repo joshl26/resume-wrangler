@@ -17,13 +17,13 @@ export default function NewEducation({ user }: { user: User }) {
   };
 
   return (
-    <div className="w-auto h-screen overflow-y-auto pr-6">
+    <div className="overflow-y-auto w-[500px] h-full px-3 pb-3">
       <BackButton href={"/dashboard/education/"}>Back</BackButton>
-      <h2 className="font-medium text-[2rem] px-3">Education Experience</h2>
+      <h2 className="font-medium text-[2rem] py-1">Education Experience</h2>
       <form
         onSubmit={() => setEdited(false)}
         action={createUserEducation}
-        className="flex flex-col w-full p-3 border form-orange   rounded m-3"
+        className="flex flex-col w-full px-3 pb-3 border form-amber rounded "
       >
         <input
           readOnly
@@ -52,7 +52,6 @@ export default function NewEducation({ user }: { user: User }) {
             id="institution_name"
             onChange={() => onChangeHandler()}
             defaultValue={""}
-            type="text"
           />
         </div>
         <div className="flex flex-col py-2">
@@ -64,7 +63,6 @@ export default function NewEducation({ user }: { user: User }) {
             id="location"
             onChange={() => onChangeHandler()}
             defaultValue={""}
-            type="text"
           />
         </div>
         <div className="flex flex-col py-2">
@@ -76,7 +74,6 @@ export default function NewEducation({ user }: { user: User }) {
             id="start_date"
             onChange={() => onChangeHandler()}
             defaultValue={""}
-            type="text"
           />
         </div>
         <div className="flex flex-col py-2">
@@ -88,7 +85,6 @@ export default function NewEducation({ user }: { user: User }) {
             id="end_date"
             onChange={() => onChangeHandler()}
             defaultValue={""}
-            type="text"
           />
         </div>
         <div className="flex flex-col py-2">
@@ -115,7 +111,7 @@ export default function NewEducation({ user }: { user: User }) {
         </div>
         <div className="flex flex-col py-2">
           <label className="font-bold" htmlFor="url">
-            Url
+            Link (Web Url)
           </label>
           <input
             name="url"

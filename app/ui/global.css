@@ -322,7 +322,9 @@ button#remove {
   color: #ff006e;
 }
 
-input {
+input,
+textarea,
+select {
   border: rgb(177, 177, 177) solid 1px;
   border-radius: 0.25rem;
 }

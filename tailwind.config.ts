@@ -169,7 +169,7 @@ const config: Config = {
           },
         },
         ".btn-amber": {
-          backgroundColor: "#FFBE0B",
+          backgroundColor: "#FFD754",
           color: "black",
           transition:
             "background-color 1s ease-out 100ms, color 0.25s ease-in 100ms",
@@ -178,6 +178,11 @@ const config: Config = {
             backgroundColor: "#FF006E",
             color: "white",
           },
+        },
+        ".form-amber": {
+          backgroundColor: "#FFED9E",
+          boxShadow:
+            "rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px",
         },
         ".form-orange": {
           backgroundColor: "#FFE4C2",

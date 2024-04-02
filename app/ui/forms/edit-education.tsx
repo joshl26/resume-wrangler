@@ -20,18 +20,18 @@ export default function EditEducation({
     }
   };
   return (
-    <div className="overflow-y-auto h-full">
+    <div className="overflow-y-auto h-full px-3">
       <BackButton href={"/dashboard/education/"}>Back</BackButton>
       {/* <Link className="px-3 underline" href={"/dashboard/education/"}>
         Back
       </Link> */}
-      <h2 className="font-medium text-[2rem] px-3">
+      <h2 className="font-medium text-[2rem] py-1">
         Edit Education Experience
       </h2>
       <form
         onSubmit={() => setEdited(false)}
         action={updateUserEducation}
-        className="flex flex-col w-[500px] form-orange p-3 m-3  rounded"
+        className="flex flex-col w-[500px] form-amber p-3   rounded"
       >
         <input
           required
@@ -119,7 +119,7 @@ export default function EditEducation({
         </div>
         <div className="flex flex-col py-2">
           <label className="font-bold" htmlFor="url">
-            Url
+            Link (Web URL)
           </label>
           <input
             name="url"
