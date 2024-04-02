@@ -5,6 +5,7 @@ import { SubmitButton } from "../submit-button";
 import { createUserEducation } from "@/app/lib/actions";
 import Link from "next/link";
 import { User } from "@/app/lib/definitions";
+import BackButton from "../back-button";
 
 export default function NewEducation({ user }: { user: User }) {
   const [edited, setEdited] = useState(false);
@@ -16,15 +17,13 @@ export default function NewEducation({ user }: { user: User }) {
   };
 
   return (
-    <div className="w-full">
-      <Link className="px-3 underline" href={"/dashboard/education/"}>
-        Back
-      </Link>
+    <div className="w-auto h-screen overflow-y-auto pr-6">
+      <BackButton href={"/dashboard/education/"}>Back</BackButton>
       <h2 className="font-medium text-[2rem] px-3">Education Experience</h2>
       <form
         onSubmit={() => setEdited(false)}
         action={createUserEducation}
-        className="flex flex-col w-full p-3 border  bg-amber-50 rounded m-3"
+        className="flex flex-col w-full p-3 border form-orange   rounded m-3"
       >
         <input
           readOnly
@@ -61,7 +60,6 @@ export default function NewEducation({ user }: { user: User }) {
             Location
           </label>
           <input
-          
             name="location"
             id="location"
             onChange={() => onChangeHandler()}
@@ -129,8 +127,8 @@ export default function NewEducation({ user }: { user: User }) {
         {edited && (
           <>
             <div style={{ height: "0.5rem" }} />
-            <SubmitButton className="bg-yellow-400 my-4 p-2 text-center w-auto animate-pulse">
-              Update Education
+            <SubmitButton className="btn btn-amber my-4 p-2 text-center w-auto animate-pulse">
+              Save new Education Experience
             </SubmitButton>
           </>
         )}

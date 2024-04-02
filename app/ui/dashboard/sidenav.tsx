@@ -25,14 +25,13 @@ export default function SideNav({ session }: { session: any }) {
       )}
       <div className="flex grow flex-row justify-between space-x-2 space-y-1 md:flex-col md:space-x-0 ">
         <NavLinks />
-        <div className="hidden h-auto w-full grow rounded-md bg-gray-50 md:block"></div>
         <form
           action={async () => {
             "use server";
             await signOut({ redirect: true, redirectTo: "/" });
           }}
         >
-          <button className="flex h-[48px] w-full grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-sky-100 hover:text-blue-600 md:flex-none md:justify-start md:p-2 md:px-3">
+          <button className="tight-shadow btn btn-amber flex w-full grow items-center justify-center gap-2 rounded-md p-3 md:flex-none md:justify-start md:p-2 md:px-3">
             <PowerIcon className="w-6" />
             <div className="hidden md:block">
               <p>Sign Out</p>

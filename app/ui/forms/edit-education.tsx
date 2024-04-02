@@ -5,6 +5,7 @@ import { SubmitButton } from "../submit-button";
 import { updateUserEducation } from "@/app/lib/actions";
 import Link from "next/link";
 import { UserEducationExperience } from "@/app/lib/definitions";
+import BackButton from "../back-button";
 
 export default function EditEducation({
   education,
@@ -20,16 +21,17 @@ export default function EditEducation({
   };
   return (
     <div className="overflow-y-auto h-full">
-      <Link className="px-3 underline" href={"/dashboard/education/"}>
+      <BackButton href={"/dashboard/education/"}>Back</BackButton>
+      {/* <Link className="px-3 underline" href={"/dashboard/education/"}>
         Back
-      </Link>
+      </Link> */}
       <h2 className="font-medium text-[2rem] px-3">
         Edit Education Experience
       </h2>
       <form
         onSubmit={() => setEdited(false)}
         action={updateUserEducation}
-        className="flex flex-col w-[500px] p-3 m-3 border border-black rounded"
+        className="flex flex-col w-[500px] form-orange p-3 m-3  rounded"
       >
         <input
           required
