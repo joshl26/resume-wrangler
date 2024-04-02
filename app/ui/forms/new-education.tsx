@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import { SubmitButton } from "../submit-button";
 import { createUserEducation } from "@/app/lib/actions";
-import Link from "next/link";
 import { User } from "@/app/lib/definitions";
 import BackButton from "../back-button";
 
@@ -37,7 +36,6 @@ export default function NewEducation({ user }: { user: User }) {
           hidden
           name="resume_id"
           id="resume_id"
-          onChange={(e) => {}}
           value="blank"
           type="text"
         />
@@ -50,73 +48,73 @@ export default function NewEducation({ user }: { user: User }) {
             required
             name="institution_name"
             id="institution_name"
-            onChange={() => onChangeHandler()}
+            onChange={onChangeHandler}
             defaultValue={""}
           />
         </div>
         <div className="flex flex-col py-2">
           <label className="font-bold" htmlFor="location">
-            Location
+            Institution Location
           </label>
           <input
             name="location"
             id="location"
-            onChange={() => onChangeHandler()}
+            onChange={onChangeHandler}
             defaultValue={""}
           />
         </div>
         <div className="flex flex-col py-2">
           <label className="font-bold" htmlFor="start_date">
-            Start Date
+            Program Start Date
           </label>
           <input
             name="start_date"
             id="start_date"
-            onChange={() => onChangeHandler()}
+            onChange={onChangeHandler}
             defaultValue={""}
           />
         </div>
         <div className="flex flex-col py-2">
           <label className="font-bold" htmlFor="end_date">
-            End Date
+            Program End Date
           </label>
           <input
             name="end_date"
             id="end_date"
-            onChange={() => onChangeHandler()}
+            onChange={onChangeHandler}
             defaultValue={""}
           />
         </div>
         <div className="flex flex-col py-2">
           <label className="font-bold" htmlFor="grade">
-            Grade
+            Program Grade
           </label>
           <input
             name="grade"
             id="grade"
-            onChange={() => onChangeHandler()}
+            onChange={onChangeHandler}
             defaultValue={""}
           />
         </div>
         <div className="flex flex-col py-2">
           <label className="font-bold" htmlFor="program">
-            Program
+            Program Name
           </label>
           <input
             name="program"
             id="program"
-            onChange={() => onChangeHandler()}
+            onChange={onChangeHandler}
             defaultValue={""}
           />
         </div>
         <div className="flex flex-col py-2">
           <label className="font-bold" htmlFor="url">
-            Link (Web Url)
+            Link (Web URL)
           </label>
           <input
             name="url"
             id="url"
-            onChange={() => onChangeHandler()}
+            onChange={onChangeHandler}
             defaultValue={""}
           />
         </div>

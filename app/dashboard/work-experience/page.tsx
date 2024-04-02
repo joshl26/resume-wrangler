@@ -31,8 +31,8 @@ export default async function Page() {
           <h1 className="text-[2rem] font-bold py-1">Work Experience</h1>
         </div>
         <div className="flex flex-col px-2">
-          <Button className="btn btn-amber tight-shadow">
-            <a href="/dashboard/work-experience/new">Add work experience</a>
+          <Button className="btn btn-amber tight-shadow hover:animate-pulse">
+            <a href="/dashboard/work-experience/new">Add Work Experience</a>
           </Button>
         </div>
       </div>

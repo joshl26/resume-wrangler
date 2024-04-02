@@ -84,11 +84,11 @@ const links = [
     href: "/dashboard/user-profile",
     icon: AdjustmentsVerticalIcon,
   },
-  {
-    name: "Upgrade to PRO",
-    href: "/",
-    icon: UserGroupIcon,
-  },
+  // {
+  //   name: "Upgrade to PRO",
+  //   href: "/",
+  //   icon: UserGroupIcon,
+  // },
 ];
 
 export default function NavLinks() {

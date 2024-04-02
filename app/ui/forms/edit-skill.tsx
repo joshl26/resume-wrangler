@@ -5,6 +5,7 @@ import { SubmitButton } from "../submit-button";
 import { updateUserSkill } from "@/app/lib/actions";
 import Link from "next/link";
 import { UserSkill } from "@/app/lib/definitions";
+import BackButton from "../back-button";
 
 export default function EditSkill({ skill }: { skill: UserSkill }) {
   const [edited, setEdited] = useState(false);
@@ -24,15 +25,13 @@ export default function EditSkill({ skill }: { skill: UserSkill }) {
   };
 
   return (
-    <div>
-      <Link className="px-3 underline" href={"/dashboard/skills/"}>
-        Back
-      </Link>
-      <h2 className="font-medium text-[2rem] px-3">Edit Skill</h2>
+    <div className="px-3">
+      <BackButton href={"/dashboard/skills/"}>Back</BackButton>
+      <h2 className="font-medium text-[2rem] py-1">Edit Skill</h2>
       <form
         onSubmit={() => setEdited(false)}
         action={updateUserSkill}
-        className="flex flex-col w-[500px] p-3 m-3 border border-black rounded"
+        className="flex flex-col w-[500px] p-3 form-amber rounded"
       >
         <input
           readOnly
@@ -41,7 +40,7 @@ export default function EditSkill({ skill }: { skill: UserSkill }) {
           id="skill_id"
           defaultValue={skill?.id}
         />
-        <div className="flex flex-col py-2">
+        <div className="flex flex-col pb-1">
           <input
             readOnly
             hidden
@@ -86,7 +85,7 @@ export default function EditSkill({ skill }: { skill: UserSkill }) {
           <>
             <div style={{ height: "0.5rem" }} />
             <SubmitButton className="btn btn-amber my-4 p-2 text-center w-auto animate-pulse">
-              Update Skill
+              Save Update
             </SubmitButton>
           </>
         )}

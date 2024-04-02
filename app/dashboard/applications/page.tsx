@@ -42,9 +42,9 @@ export default async function Page() {
           <h1 className="text-[2rem] font-bold py-1">Applications</h1>
         </div>
         <div className="flex flex-col px-4">
-          <Button className="w-[200px] text-center btn btn-amber tight-shadow">
+          <Button className="btn btn-amber tight-shadow hover:animate-pulse">
             <a href="/dashboard/applications/new" className="m-auto">
-              Add new application
+              Add New Application
             </a>
           </Button>
         </div>

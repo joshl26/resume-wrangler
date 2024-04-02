@@ -34,7 +34,7 @@ export default function SideNav({ session }: { session: any }) {
             await signOut({ redirect: true, redirectTo: "/" });
           }}
         >
-          <button className="tight-shadow btn btn-amber flex w-full grow items-center justify-center gap-2 rounded-md p-3 md:flex-none md:justify-start md:p-2 md:px-3">
+          <button className="tight-shadow btn btn-amber flex w-full grow items-center justify-center gap-2 rounded-md p-3 md:flex-none md:justify-start md:p-2 md:px-3 hover:animate-pulse">
             <PowerIcon className="w-6" />
             <div className="hidden md:block">
               <p>Sign Out</p>

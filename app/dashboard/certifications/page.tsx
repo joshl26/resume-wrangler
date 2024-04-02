@@ -31,9 +31,9 @@ export default async function Page() {
           <h1 className="text-[2rem] font-bold py-1">Certifications</h1>
         </div>
         <div className="flex flex-col px-3">
-          <Button className="btn btn-amber tight-shadow">
+          <Button className="btn btn-amber tight-shadow hover:animate-pulse">
             <a href="/dashboard/certifications/new" className="m-auto">
-              Add new certification
+              Add New Certification
             </a>
           </Button>
         </div>

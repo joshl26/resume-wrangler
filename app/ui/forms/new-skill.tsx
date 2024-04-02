@@ -23,11 +23,11 @@ export default function NewSkill({ user }: { user: User }) {
   return (
     <div className="px-2">
       <BackButton href={"/dashboard/skills/"}>Back</BackButton>
-      <h2 className="font-medium text-[2rem] ">Create New Skill</h2>
+      <h2 className="font-medium text-[2rem] py-1">Create New Skill</h2>
       <form
         onSubmit={() => setEdited(false)}
         action={createUserSkill}
-        className="flex flex-col w-full p-3 border form-amber rounded "
+        className="flex flex-col w-full p-2 form-amber rounded "
       >
         <input hidden readOnly name="user_id" id="user_id" value={user?.id} />
         <input
