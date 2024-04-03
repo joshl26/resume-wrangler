@@ -32,10 +32,10 @@ export default function YourResumeStyling({
   resumeColors: ResumeColors;
   headerFonts: HeaderFonts;
   bodyFonts: BodyFonts;
-  setSelectedResumeTemplate: (e: any) => void;
-  setSelectedResumeHeadingFont: (e: any) => void;
-  setSelectedResumeBodyFont: (e: any) => void;
-  setSelectedResumeColor: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  setSelectedResumeTemplate: (e: string) => void;
+  setSelectedResumeHeadingFont: (e: string) => void;
+  setSelectedResumeBodyFont: (e: string) => void;
+  setSelectedResumeColor: (e: string) => void;
   setSelectedResumeHighlightColor: (e: any) => void;
   selectedResumeTemplate: any;
   selectedResumeBodyFont: any;
@@ -43,7 +43,6 @@ export default function YourResumeStyling({
   selectedResumeColor: any;
 }) {
   const [edited, setEdited] = useState(false);
-  // const [color, setColor] = useState(resume.color);
 
   const onChangeHandler = () => {
     if (edited === false) {
