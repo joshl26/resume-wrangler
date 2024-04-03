@@ -84,11 +84,11 @@ const links = [
     href: "/dashboard/user-profile",
     icon: AdjustmentsVerticalIcon,
   },
-  {
-    name: "Upgrade to PRO",
-    href: "/",
-    icon: UserGroupIcon,
-  },
+  // {
+  //   name: "Upgrade to PRO",
+  //   href: "/",
+  //   icon: UserGroupIcon,
+  // },
 ];
 
 export default function NavLinks() {
@@ -103,11 +103,10 @@ export default function NavLinks() {
             key={link.name}
             href={link.href}
             className={clsx(
-              "flex h-[40px] grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-sky-100 hover:text-blue-600 md:flex-none md:justify-start md:p-2 md:px-3",
-              {
-                "bg-azure-radiance-100 text-azure-radiance-500":
-                  pathname === link.href,
-              }
+              "flex h-[40px] tight-shadow grow items-center justify-center gap-2 rounded-md hover:text-azure-radiance-400  p-3 text-sm font-medium hover:bg-amber-100  md:flex-none md:justify-start md:p-2 md:px-3",
+              pathname === link.href
+                ? "bg-amber-200 text-azure-radiance-500"
+                : "bg-gray-50"
             )}
           >
             <LinkIcon className="w-6" />

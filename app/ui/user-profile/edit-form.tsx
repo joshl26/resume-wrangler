@@ -7,6 +7,7 @@ import { updateUser, updateSocials, deleteUserImage } from "@/app/lib/actions";
 import { SubmitButton } from "../submit-button";
 import Image from "next/image";
 import ImagePicker from "../image-picker/image-picker";
+import BackButton from "../back-button";
 
 const UserDetailsEditForm = ({ user }: { user: User }) => {
   const initialState = { message: null, errors: {} };
@@ -22,10 +23,10 @@ const UserDetailsEditForm = ({ user }: { user: User }) => {
   };
 
   return (
-    <div className="p-3">
+    <div className="py-3 mr-3">
       <h2 className="font-bold text-[2rem]">Edit User Details</h2>
       <form
-        className="flex flex-col p-3 border border-black rounded m-3"
+        className="flex flex-col p-3 tight-shadow rounded form-amber"
         onSubmit={() => setEdited(false)}
         action={dispatch}
       >
@@ -39,7 +40,6 @@ const UserDetailsEditForm = ({ user }: { user: User }) => {
               onChange={(e) => {}}
               id="name"
               name="name"
-              type="text"
               placeholder="Type a Username"
               defaultValue={user?.name}
               required
@@ -54,7 +54,6 @@ const UserDetailsEditForm = ({ user }: { user: User }) => {
               onChange={(e) => {}}
               id="email"
               name="email"
-              type="email"
               value={user?.email}
               placeholder="something@something.com"
               required
@@ -74,7 +73,6 @@ const UserDetailsEditForm = ({ user }: { user: User }) => {
               onChange={() => onChangeHandler()}
               id="first_name"
               name="first_name"
-              type="text"
               placeholder="Type your first name"
               defaultValue={user?.first_name}
             />
@@ -90,7 +88,6 @@ const UserDetailsEditForm = ({ user }: { user: User }) => {
               onChange={() => onChangeHandler()}
               id="last_name"
               name="last_name"
-              type="text"
               defaultValue={user?.last_name}
               placeholder="Type your last name"
             />
@@ -109,7 +106,6 @@ const UserDetailsEditForm = ({ user }: { user: User }) => {
               onChange={() => onChangeHandler()}
               id="address_one"
               name="address_one"
-              type="text"
               defaultValue={user?.address_one}
               placeholder="City, Province OR State"
             />
@@ -125,7 +121,6 @@ const UserDetailsEditForm = ({ user }: { user: User }) => {
               onChange={() => onChangeHandler()}
               id="address_two"
               name="address_two"
-              type="text"
               defaultValue={user?.address_two}
               placeholder="Optional, not currently used"
             />
@@ -145,7 +140,6 @@ const UserDetailsEditForm = ({ user }: { user: User }) => {
               onChange={() => onChangeHandler()}
               id="address_three"
               name="address_three"
-              type="text"
               defaultValue={user?.address_three}
               placeholder="Optional, not currently used"
             />
@@ -158,7 +152,6 @@ const UserDetailsEditForm = ({ user }: { user: User }) => {
               onChange={() => onChangeHandler()}
               id="phone"
               name="phone"
-              type="tel"
               placeholder="123-456-7891"
               pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
               defaultValue={user?.phone}
@@ -173,7 +166,6 @@ const UserDetailsEditForm = ({ user }: { user: User }) => {
             onChange={() => onChangeHandler()}
             id="website"
             name="website"
-            type="text"
             placeholder="https://www.yoursite.com"
             defaultValue={user?.website}
           />
@@ -181,7 +173,7 @@ const UserDetailsEditForm = ({ user }: { user: User }) => {
         {edited && (
           <div className="w-1/2 m-auto">
             <div style={{ height: "0.5rem" }} />
-            <SubmitButton className="bg-yellow-400 my-4 p-2 text-center w-auto animate-pulse">
+            <SubmitButton className="btn btn-amber my-4  animate-pulse">
               Save Change
             </SubmitButton>
           </div>
@@ -205,10 +197,10 @@ const UserSocialsEditForm = ({ user }: { user: User }) => {
   };
 
   return (
-    <div className="p-3">
+    <div className="h-full overflow-y-auto">
       <h2 className="font-bold text-[2rem]">Edit Social Links</h2>
       <form
-        className="flex flex-col p-3 border border-black rounded m-3"
+        className="flex flex-col p-3 tight-shadow rounded mr-3 form-amber"
         onSubmit={() => setEdited(false)}
         action={dispatch}
       >
@@ -315,7 +307,7 @@ const UserSocialsEditForm = ({ user }: { user: User }) => {
         {edited && (
           <div className="w-1/2 m-auto">
             <div style={{ height: "0.5rem" }} />
-            <SubmitButton className="bg-yellow-400 my-4 p-2 text-center w-auto animate-pulse">
+            <SubmitButton className="btn btn-amber my-4 animate-pulse">
               Save Change
             </SubmitButton>
           </div>
@@ -326,18 +318,10 @@ const UserSocialsEditForm = ({ user }: { user: User }) => {
 };
 
 const UserImageEditForm = ({ user }: { user: User }) => {
-  const [edited, setEdited] = useState(false);
-
-  const onChangeHandler = () => {
-    if (edited === false) {
-      setEdited(true);
-    }
-  };
-
   return (
-    <div className="p-3 ">
-      <h2 className="font-bold text-[2rem] ">Edit User Image</h2>
-      <div className="flex flex-col p-3 border border-black rounded m-3">
+    <div className=" ">
+      <h2 className="font-bold text-[2rem] py-1">Edit User Image</h2>
+      <div className="flex flex-col p-3 tight-shadow mr-3 rounded bg-amber-200">
         {user?.thumbnail !== "" ? (
           <div className="flex flex-row">
             <div className="flex flex-col">
@@ -346,7 +330,7 @@ const UserImageEditForm = ({ user }: { user: User }) => {
                 width={250}
                 height={250}
                 alt="user image thumbnail"
-                className="h-[250px] w-[250px] flex flex-row items-center justify-center"
+                className="h-[250px] w-[250px] p-2 flex flex-row items-center justify-center rounded-full"
               />
             </div>
             <div className="flex flex-col items-center justify-center m-auto">
@@ -358,7 +342,7 @@ const UserImageEditForm = ({ user }: { user: User }) => {
                   readOnly
                 />
                 <input name="user-id" value={user?.id} hidden readOnly />
-                <SubmitButton className="bg-yellow-400 hover:bg-rose-500 hover:animate-pulse hover:text-white hover:border hover:border-black p-2 rounded text-center w-auto">
+                <SubmitButton className="btn btn-amber hover:animate-pulse rounded ">
                   Delete Image
                 </SubmitButton>
               </form>
@@ -380,18 +364,7 @@ const UserImageEditForm = ({ user }: { user: User }) => {
             </div>
           </div>
         )}
-
         <input type="hidden" name="id" value={user?.id} />
-        <form className="" onSubmit={() => setEdited(false)} action={""}>
-          {edited && (
-            <div className="w-1/2 m-auto">
-              <div style={{ height: "0.5rem" }} />
-              <SubmitButton className="bg-yellow-400 my-4 p-2 text-center w-auto animate-pulse">
-                Save Change
-              </SubmitButton>
-            </div>
-          )}
-        </form>
       </div>
     </div>
   );
@@ -399,7 +372,8 @@ const UserImageEditForm = ({ user }: { user: User }) => {
 
 const UserEditForm = ({ user }: { user: User }) => {
   return (
-    <div className="overflow-y-auto w-1/2">
+    <div className="overflow-y-auto px-2">
+      <BackButton href="/dashboard/">Back</BackButton>
       <UserImageEditForm user={user} />
       <UserDetailsEditForm user={user} />
       <UserSocialsEditForm user={user} />

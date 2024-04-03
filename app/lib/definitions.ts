@@ -319,3 +319,5 @@ export interface UserWorkExperience {
 export type UserWorkExperiences = UserWorkExperience[];
 
 export type NullOrUndefined = null | undefined;
+
+export type StringOrUndefined = string | undefined;

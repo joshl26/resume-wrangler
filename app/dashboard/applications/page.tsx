@@ -8,9 +8,9 @@ import {
 import { Button } from "@/app/ui/button";
 import ApplicationsTable from "@/app/ui/tables/applications/applications-table";
 import { auth } from "@/auth";
-import Link from "next/link";
 import React from "react";
 import { notFound } from "next/navigation";
+import BackButton from "@/app/ui/back-button";
 
 export default async function Page() {
   const session = await auth();
@@ -35,18 +35,16 @@ export default async function Page() {
   }
 
   return (
-    <div className="h-full w-full">
-      <Link className="underline px-4" href={"/dashboard/"}>
-        Back
-      </Link>
+    <div className="h-full w-full overflow-y-auto px-2">
+      <BackButton href={"/dashboard/"}>Back</BackButton>
       <div className="flex flex-row justify-between">
         <div className="flex flex-col ">
-          <h1 className="text-[2rem] font-bold px-4">Applications</h1>
+          <h1 className="text-[2rem] font-bold py-1">Applications</h1>
         </div>
         <div className="flex flex-col px-4">
-          <Button className="w-[200px] text-center">
+          <Button className="btn btn-amber tight-shadow hover:animate-pulse">
             <a href="/dashboard/applications/new" className="m-auto">
-              Add new application
+              Add New Application
             </a>
           </Button>
         </div>

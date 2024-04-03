@@ -3,8 +3,8 @@
 import React, { useState } from "react";
 import { SubmitButton } from "../submit-button";
 import { createUserSkill } from "@/app/lib/actions";
-import Link from "next/link";
 import { User } from "@/app/lib/definitions";
+import BackButton from "../back-button";
 
 export default function NewSkill({ user }: { user: User }) {
   const [edited, setEdited] = useState(false);
@@ -21,15 +21,13 @@ export default function NewSkill({ user }: { user: User }) {
   };
 
   return (
-    <div>
-      <Link className="px-3 underline" href={"/dashboard/skills/"}>
-        Back
-      </Link>
-      <h2 className="font-medium text-[2rem] px-3">Create New Skill</h2>
+    <div className="px-2">
+      <BackButton href={"/dashboard/skills/"}>Back</BackButton>
+      <h2 className="font-medium text-[2rem] py-1">Create New Skill</h2>
       <form
         onSubmit={() => setEdited(false)}
         action={createUserSkill}
-        className="flex flex-col w-full p-3 border border-black rounded m-3"
+        className="flex flex-col w-full p-2 form-amber rounded "
       >
         <input hidden readOnly name="user_id" id="user_id" value={user?.id} />
         <input
@@ -48,7 +46,7 @@ export default function NewSkill({ user }: { user: User }) {
             required
             name="skill_title"
             id="skill_title"
-            onChange={() => onChangeHandler()}
+            onChange={onChangeHandler}
             defaultValue={""}
             type="text"
           />
@@ -69,8 +67,8 @@ export default function NewSkill({ user }: { user: User }) {
         {edited && (
           <>
             <div style={{ height: "0.5rem" }} />
-            <SubmitButton className="bg-yellow-400 my-4 p-2 text-center w-auto animate-pulse">
-              Create Organization
+            <SubmitButton className="btn btn-amber my-4 p-2 text-center w-auto animate-pulse">
+              Create New Skill
             </SubmitButton>
           </>
         )}

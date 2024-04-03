@@ -5,7 +5,7 @@ import DonutChart from "../charts/donut-chart";
 
 const JobTypeCard = () => {
   return (
-    <div className=" w-1/4 h-[250px] bg-white rounded-xl">
+    <div className=" w-1/4 h-[250px] bg-white rounded-xl tight-shadow">
       <h2 className="font-bold p-2">Job Type</h2>
       <DonutChart />
       {/* <Image

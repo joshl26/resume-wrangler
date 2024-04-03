@@ -61,7 +61,7 @@ export default function YourResumeStyling({
             hidden
             id="resume_id"
             name="resume_id"
-            defaultValue={resume.id}
+            defaultValue={resume?.id}
           />
           <label className="py-1" htmlFor="resume_title">
             Resume Title
@@ -70,7 +70,7 @@ export default function YourResumeStyling({
             name="resume_title"
             id="resume_title"
             className="rounded bg-slate-200"
-            defaultValue={resume.title}
+            defaultValue={resume?.title}
             onChange={(e) => onChangeHandler()}
             placeholder="Resume Title"
           />
@@ -80,7 +80,7 @@ export default function YourResumeStyling({
             hidden
             id="resume_id"
             name="resume_id"
-            defaultValue={resume.id}
+            defaultValue={resume?.id}
           />
           <label className="py-1" htmlFor="description">
             Description
@@ -89,7 +89,7 @@ export default function YourResumeStyling({
             name="description"
             id="description"
             className="rounded bg-slate-200 h-[200px]"
-            defaultValue={resume.description}
+            defaultValue={resume?.description}
             onChange={(e) => onChangeHandler()}
             placeholder="Resume Description"
           />

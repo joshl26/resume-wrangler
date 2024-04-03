@@ -5,6 +5,7 @@ import { SubmitButton } from "../submit-button";
 import { updateUserEducation } from "@/app/lib/actions";
 import Link from "next/link";
 import { UserEducationExperience } from "@/app/lib/definitions";
+import BackButton from "../back-button";
 
 export default function EditEducation({
   education,
@@ -19,15 +20,18 @@ export default function EditEducation({
     }
   };
   return (
-    <div className="overflow-y-auto h-full">
-      <Link className="px-3 underline" href={"/dashboard/education/"}>
+    <div className="overflow-y-auto h-full px-3">
+      <BackButton href={"/dashboard/education/"}>Back</BackButton>
+      {/* <Link className="px-3 underline" href={"/dashboard/education/"}>
         Back
-      </Link>
-      <h2 className="font-medium text-[2rem] px-3">Edit Education</h2>
+      </Link> */}
+      <h2 className="font-medium text-[2rem] py-1">
+        Edit Education Experience
+      </h2>
       <form
         onSubmit={() => setEdited(false)}
         action={updateUserEducation}
-        className="flex flex-col w-[500px] p-3 m-3 border border-black rounded"
+        className="flex flex-col w-[500px] form-amber p-3   rounded"
       >
         <input
           required
@@ -48,7 +52,7 @@ export default function EditEducation({
         />
         <div className="flex flex-col py-2">
           <label className="font-bold" htmlFor="institution_name">
-            Education Name
+            Institution Name
           </label>
           <input
             required
@@ -56,7 +60,6 @@ export default function EditEducation({
             id="institution_name"
             onChange={() => onChangeHandler()}
             defaultValue={education?.institution_name}
-            type="text"
           />
         </div>
         <div className="flex flex-col py-2">
@@ -68,7 +71,6 @@ export default function EditEducation({
             id="location"
             onChange={() => onChangeHandler()}
             defaultValue={education?.location}
-            type="text"
           />
         </div>
         <div className="flex flex-col py-2">
@@ -80,7 +82,6 @@ export default function EditEducation({
             id="start_date"
             onChange={() => onChangeHandler()}
             defaultValue={education?.start_date}
-            type="text"
           />
         </div>
         <div className="flex flex-col py-2">
@@ -92,7 +93,6 @@ export default function EditEducation({
             id="end_date"
             onChange={() => onChangeHandler()}
             defaultValue={education?.end_date}
-            type="text"
           />
         </div>
         <div className="flex flex-col py-2">
@@ -119,7 +119,7 @@ export default function EditEducation({
         </div>
         <div className="flex flex-col py-2">
           <label className="font-bold" htmlFor="url">
-            Url
+            Link (Web URL)
           </label>
           <input
             name="url"
@@ -131,8 +131,8 @@ export default function EditEducation({
         {edited && (
           <>
             <div style={{ height: "0.5rem" }} />
-            <SubmitButton className="bg-yellow-400 my-4 p-2 text-center w-auto animate-pulse">
-              Update Education
+            <SubmitButton className="btn btn-amber my-4 p-2 text-center w-auto animate-pulse">
+              Save Updates
             </SubmitButton>
           </>
         )}

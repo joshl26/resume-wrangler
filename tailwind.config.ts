@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+const plugin = require("tailwindcss/plugin");
 
 const config: Config = {
   content: [
@@ -141,6 +142,59 @@ const config: Config = {
     },
   },
 
-  plugins: [require("@tailwindcss/forms")],
+  plugins: [
+    require("@tailwindcss/typography"),
+    require("@tailwindcss/forms"),
+    require("@tailwindcss/aspect-ratio"),
+    require("@tailwindcss/container-queries"),
+    plugin(function ({ addComponents }) {
+      addComponents({
+        ".btn": {
+          padding: ".5rem 1rem",
+          borderRadius: ".25rem",
+          fontWeight: "600",
+        },
+        ".btn-blue": {
+          backgroundColor: "#3490dc",
+          color: "#fff",
+          "&:hover": {
+            backgroundColor: "#2779bd",
+          },
+        },
+        ".btn-red": {
+          backgroundColor: "#e3342f",
+          color: "#fff",
+          "&:hover": {
+            backgroundColor: "#cc1f1a",
+          },
+        },
+        ".btn-amber": {
+          backgroundColor: "#FFD754",
+          color: "black",
+          transition:
+            "background-color 1s ease-out 100ms, color 0.25s ease-in 100ms",
+
+          "&:hover": {
+            backgroundColor: "#FF006E",
+            color: "white",
+          },
+        },
+        ".form-amber": {
+          backgroundColor: "#FFF5C2",
+          boxShadow:
+            "rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px",
+        },
+        ".form-orange": {
+          backgroundColor: "#FFE4C2",
+          boxShadow:
+            "rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px",
+        },
+        ".tight-shadow": {
+          boxShadow:
+            "rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px",
+        },
+      });
+    }),
+  ],
 };
 export default config;

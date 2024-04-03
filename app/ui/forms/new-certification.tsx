@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { SubmitButton } from "../submit-button";
 import { createCertification } from "@/app/lib/actions";
 import { User } from "@/app/lib/definitions";
+import BackButton from "../back-button";
 
 export default function NewCertification({ user }: { user: User }) {
   const [edited, setEdited] = useState(false);
@@ -15,11 +16,17 @@ export default function NewCertification({ user }: { user: User }) {
   };
 
   return (
-    <div>
+    <div className="px-2">
+      <BackButton href={"/dashboard/certifications"}>Back</BackButton>
+      <div className="flex flex-row justify-between">
+        <div className="flex flex-col ">
+          <h1 className="text-[2rem] font-bold">Add New Certification</h1>
+        </div>
+      </div>
       <form
         onSubmit={() => setEdited(false)}
         action={createCertification}
-        className="flex flex-col w-[500px] px-1"
+        className="flex flex-col w-[500px] p-3 form-amber"
       >
         <input
           required

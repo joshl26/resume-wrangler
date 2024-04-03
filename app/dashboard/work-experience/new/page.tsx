@@ -1,5 +1,6 @@
 import { getUser } from "@/app/lib/data";
 import NewCompany from "@/app/ui/forms/new-company";
+import NewWorkExperience from "@/app/ui/forms/new-work-experience";
 import { auth } from "@/auth";
 import { notFound } from "next/navigation";
 import React from "react";
@@ -20,7 +21,7 @@ export default async function Page() {
 
     return (
       <div>
-        <NewCompany user={user} />
+        <NewWorkExperience user={user} />
       </div>
     );
   }

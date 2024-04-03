@@ -5,6 +5,7 @@ import { SubmitButton } from "../submit-button";
 import { updateUserCertfication } from "@/app/lib/actions";
 import Link from "next/link";
 import { UserCertification } from "@/app/lib/definitions";
+import BackButton from "../back-button";
 
 export default function EditCertification({
   certification,
@@ -19,15 +20,13 @@ export default function EditCertification({
     }
   };
   return (
-    <div>
-      <Link className="px-3 underline" href={"/dashboard/certifications/"}>
-        Back
-      </Link>
-      <h2 className="font-medium text-[2rem] px-3">Edit Certification</h2>
+    <div className="px-3">
+      <BackButton href={"/dashboard/certifications/"}>Back</BackButton>
+      <h2 className="font-medium text-[2rem] py-1">Edit Certification</h2>
       <form
         onSubmit={() => setEdited(false)}
         action={updateUserCertfication}
-        className="flex flex-col w-[500px] p-3 m-3 border border-black rounded"
+        className="flex flex-col w-[500px] p-3 form-amber  tight-shadow rounded"
       >
         <input
           required
@@ -84,7 +83,7 @@ export default function EditCertification({
           <>
             <div style={{ height: "0.5rem" }} />
             <SubmitButton className="bg-yellow-400 my-4 p-2 text-center w-auto animate-pulse">
-              Update Certification
+              Save Updates
             </SubmitButton>
           </>
         )}

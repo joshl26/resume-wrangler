@@ -3,8 +3,8 @@
 import React, { useState } from "react";
 import { SubmitButton } from "../submit-button";
 import { createUserEducation } from "@/app/lib/actions";
-import Link from "next/link";
 import { User } from "@/app/lib/definitions";
+import BackButton from "../back-button";
 
 export default function NewEducation({ user }: { user: User }) {
   const [edited, setEdited] = useState(false);
@@ -16,15 +16,13 @@ export default function NewEducation({ user }: { user: User }) {
   };
 
   return (
-    <div>
-      <Link className="px-3 underline" href={"/dashboard/organizations/"}>
-        Back
-      </Link>
-      <h2 className="font-medium text-[2rem] px-3">Create New Education</h2>
+    <div className="overflow-y-auto w-[500px] h-full px-3 pb-3">
+      <BackButton href={"/dashboard/education/"}>Back</BackButton>
+      <h2 className="font-medium text-[2rem] py-1">Education Experience</h2>
       <form
         onSubmit={() => setEdited(false)}
         action={createUserEducation}
-        className="flex flex-col w-full p-3 border border-black rounded m-3"
+        className="flex flex-col w-full px-3 pb-3 border form-amber rounded "
       >
         <input
           readOnly
@@ -38,97 +36,93 @@ export default function NewEducation({ user }: { user: User }) {
           hidden
           name="resume_id"
           id="resume_id"
-          onChange={(e) => {}}
           value="blank"
           type="text"
         />
         <div className="flex flex-col py-2">
           <label className="font-bold" htmlFor="institution_name">
-            Education Name
+            Institution Name
           </label>
           <input
+            className="border border-gray-400"
             required
             name="institution_name"
             id="institution_name"
-            onChange={() => onChangeHandler()}
+            onChange={onChangeHandler}
             defaultValue={""}
-            type="text"
           />
         </div>
         <div className="flex flex-col py-2">
           <label className="font-bold" htmlFor="location">
-            Location
+            Institution Location
           </label>
           <input
             name="location"
             id="location"
-            onChange={() => onChangeHandler()}
+            onChange={onChangeHandler}
             defaultValue={""}
-            type="text"
           />
         </div>
         <div className="flex flex-col py-2">
           <label className="font-bold" htmlFor="start_date">
-            Start Date
+            Program Start Date
           </label>
           <input
             name="start_date"
             id="start_date"
-            onChange={() => onChangeHandler()}
+            onChange={onChangeHandler}
             defaultValue={""}
-            type="text"
           />
         </div>
         <div className="flex flex-col py-2">
           <label className="font-bold" htmlFor="end_date">
-            End Date
+            Program End Date
           </label>
           <input
             name="end_date"
             id="end_date"
-            onChange={() => onChangeHandler()}
+            onChange={onChangeHandler}
             defaultValue={""}
-            type="text"
           />
         </div>
         <div className="flex flex-col py-2">
           <label className="font-bold" htmlFor="grade">
-            Grade
+            Program Grade
           </label>
           <input
             name="grade"
             id="grade"
-            onChange={() => onChangeHandler()}
+            onChange={onChangeHandler}
             defaultValue={""}
           />
         </div>
         <div className="flex flex-col py-2">
           <label className="font-bold" htmlFor="program">
-            Program
+            Program Name
           </label>
           <input
             name="program"
             id="program"
-            onChange={() => onChangeHandler()}
+            onChange={onChangeHandler}
             defaultValue={""}
           />
         </div>
         <div className="flex flex-col py-2">
           <label className="font-bold" htmlFor="url">
-            Url
+            Link (Web URL)
           </label>
           <input
             name="url"
             id="url"
-            onChange={() => onChangeHandler()}
+            onChange={onChangeHandler}
             defaultValue={""}
           />
         </div>
         {edited && (
           <>
             <div style={{ height: "0.5rem" }} />
-            <SubmitButton className="bg-yellow-400 my-4 p-2 text-center w-auto animate-pulse">
-              Update Education
+            <SubmitButton className="btn btn-amber my-4 p-2 text-center w-auto animate-pulse">
+              Save new Education Experience
             </SubmitButton>
           </>
         )}

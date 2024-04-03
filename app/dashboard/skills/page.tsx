@@ -1,4 +1,5 @@
 import { fetchSkillsByUserId, getUser } from "@/app/lib/data";
+import BackButton from "@/app/ui/back-button";
 import { Button } from "@/app/ui/button";
 import Skills from "@/app/ui/tables/skills/skills-table";
 import { auth } from "@/auth";
@@ -23,18 +24,16 @@ export default async function Page() {
   }
 
   return (
-    <div className="h-full w-full">
-      <Link className="underline px-4" href={"/dashboard/"}>
-        Back
-      </Link>
+    <div className="h-full w-full px-2">
+      <BackButton href={"/dashboard/"}>Back</BackButton>
       <div className="flex flex-row justify-between">
         <div className="flex flex-col ">
-          <h1 className="text-[2rem] font-bold px-3">Skills</h1>
+          <h1 className="text-[2rem] font-bold py-1">Skills</h1>
         </div>
         <div className="flex flex-col px-4">
-          <Button className="w-[200px] text-center">
+          <Button className="hover:animate-pulse btn btn-amber tight-shadow">
             <a href="/dashboard/skills/new" className="m-auto">
-              Add new Skill
+              Add New Skill
             </a>
           </Button>
         </div>

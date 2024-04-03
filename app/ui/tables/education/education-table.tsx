@@ -10,7 +10,7 @@ import React from "react";
 
 const Education = ({ education }: { education: UserEducationExperiences }) => {
   return (
-    <div className="relative overflow-x-auto overflow-y-auto shadow-md sm:rounded-lg px-4 mr-4 py-4">
+    <div className="relative overflow-x-auto overflow-y-auto tight-shadow sm:rounded-lg px-4 mr-4 py-4">
       <table className="w-full text-sm text-left rtl:text-right rounded">
         <thead
           className="text-xs text-black uppercase  border-spacing-2

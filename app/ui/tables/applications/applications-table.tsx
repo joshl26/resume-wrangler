@@ -34,9 +34,9 @@ const ApplicationsTable = ({
   companies: Companies;
 }) => {
   return (
-    <div className="relative overflow-x-auto overflow-y-auto shadow-md sm:rounded-lg px-4 py-4">
-      <table className="w-full text-sm text-left rtl:text-right ">
-        <thead className="text-xs  uppercase ">
+    <div className="relative overflow-y-auto tight-shadow sm:rounded-lg px-4 py-4 mr-3">
+      <table className="w-full text-sm text-left rtl:text-right">
+        <thead className="text-xs uppercase">
           <tr>
             <th scope="col" className="px-6 py-3">
               Job Position
@@ -50,14 +50,14 @@ const ApplicationsTable = ({
             <th scope="col" className="px-6 py-3">
               Submitted
             </th>
-            <th scope="col" className="px-6 py-3">
+            {/* <th scope="col" className="px-6 py-3">
               Cover
-            </th>
+            </th> */}
             <th scope="col" className="px-6 py-3">
               Resume
             </th>
-            <th scope="col" className="px-6 py-3">
-              Action
+            <th scope="col" className="">
+              Application
             </th>
           </tr>
         </thead>
@@ -90,7 +90,7 @@ const ApplicationsTable = ({
                     : "N/A"}
                 </td>
                 <td className="px-6 py-4">{application?.is_complete}</td>
-                <td className="text-left px-6 py-4">
+                {/* <td className="text-left px-6 py-4">
                   {coverLetters?.find(
                     (coverLetter: CoverLetter) =>
                       coverLetter?.application_id === application.id
@@ -151,13 +151,13 @@ const ApplicationsTable = ({
                       />
                       <button
                         type="submit"
-                        className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                        className="font-medium text-azure-radiance-600 dark:text-azure-radiance-500 hover:underline"
                       >
                         Create
                       </button>
                     </form>
                   )}
-                </td>
+                </td> */}
 
                 <td className="text-left px-6 py-4">
                   {resumes?.find(
@@ -226,32 +226,37 @@ const ApplicationsTable = ({
                     </form>
                   )}
                 </td>
-                <td className="text-left px-2 py-4">
-                  <a
-                    id="edit"
-                    href={`/dashboard/applications/edit/${application.id}`}
-                    className="font-medium  hover:underline"
-                  >
-                    Edit
-                  </a>
-                  <button
-                    id="remove"
-                    onClick={async () => deleteApplication(application.id)}
-                    className="font-medium hover:underline ms-3"
-                  >
-                    Remove
-                  </button>
+                <td className="px-2 py-4">
+                  <div className="flex flex-row justify-start">
+                    <div className="flex flex-col ">
+                      <a
+                        id="edit"
+                        href={`/dashboard/applications/edit/${application.id}`}
+                        className="font-medium hover:underline"
+                      >
+                        Edit
+                      </a>
+                    </div>
+                    <div className="flex flex-col  ">
+                      <button
+                        id="remove"
+                        onClick={async () => deleteApplication(application.id)}
+                        className="font-medium hover:underline ms-3"
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  </div>
                 </td>
-                {/* </Link> */}
               </tr>
             ))
           ) : (
             <tr>
-              {/* <Link href="/dashboard/application/new"> */}
-              <td className="flex items-center px-6 py-4">
-                Start by creating your first application here
-              </td>{" "}
-              {/* </Link> */}
+              <Link href="/dashboard/application/new">
+                <td className="flex items-center px-6 py-4">
+                  Start by creating your first application here
+                </td>{" "}
+              </Link>
             </tr>
           )}
         </tbody>

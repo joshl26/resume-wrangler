@@ -8,7 +8,7 @@ export default function SideNav({ session }: { session: any }) {
   return (
     <div className="flex h-full flex-col px-3 py-4 md:px-2">
       <Link
-        className="mb-2 flex items-end justify-start rounded-md bg-amber-500 p-4 "
+        className="mb-2 flex items-end justify-start rounded-md bg-amber-400 tight-shadow p-4 "
         href="/"
       >
         <div className="w-32 md:w-40">
@@ -16,23 +16,25 @@ export default function SideNav({ session }: { session: any }) {
         </div>
       </Link>
       {session && (
-        <span className="font-bold pb-2 px-1">
+        <span className="font-bold pb-1 px-1">
           Logged in as User:{" "}
-          <p className="font-light">
+          <Link
+            href={"/dashboard/user-profile"}
+            className="font-light flex hover:text-azure-radiance-600"
+          >
             {session?.user.name} ({session?.user.email})
-          </p>
+          </Link>
         </span>
       )}
       <div className="flex grow flex-row justify-between space-x-2 space-y-1 md:flex-col md:space-x-0 ">
         <NavLinks />
-        <div className="hidden h-auto w-full grow rounded-md bg-gray-50 md:block"></div>
         <form
           action={async () => {
             "use server";
             await signOut({ redirect: true, redirectTo: "/" });
           }}
         >
-          <button className="flex h-[48px] w-full grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-sky-100 hover:text-blue-600 md:flex-none md:justify-start md:p-2 md:px-3">
+          <button className="tight-shadow btn btn-amber flex w-full grow items-center justify-center gap-2 rounded-md p-3 md:flex-none md:justify-start md:p-2 md:px-3 hover:animate-pulse">
             <PowerIcon className="w-6" />
             <div className="hidden md:block">
               <p>Sign Out</p>

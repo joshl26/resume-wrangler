@@ -1,7 +1,8 @@
+import { StringOrUndefined } from "@/app/lib/definitions";
 import clsx from "clsx";
 import React from "react";
 
-const AzureBlob = ({ className }: { className: any }) => {
+const AzureBlob = ({ className }: { className: StringOrUndefined }) => {
   return (
     <div
       className={clsx(

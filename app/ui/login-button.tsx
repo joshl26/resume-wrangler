@@ -4,7 +4,7 @@ import clsx from "clsx";
 import { useFormStatus } from "react-dom";
 import { StringOrUndefined } from "../lib/definitions";
 
-export function SubmitButton({
+export function LoginButton({
   children,
   className,
 }: {
@@ -15,7 +15,7 @@ export function SubmitButton({
 
   return (
     <button className={clsx(className, "w-full")} type="submit">
-      {pending === false ? children : "Saving"}
+      {pending === false ? children : "Signing In"}
     </button>
   );
 }

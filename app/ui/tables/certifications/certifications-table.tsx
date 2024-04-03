@@ -11,7 +11,7 @@ const Certifications = ({
   certifications: UserCertifications;
 }) => {
   return (
-    <div className="relative overflow-x-auto overflow-y-auto shadow-md sm:rounded-lg px-4 py-4">
+    <div className="relative overflow-x-auto overflow-y-auto tight-shadow sm:rounded-lg px-4 py-4 mr-3">
       <table className="w-full text-sm text-left rtl:text-right ">
         <thead className="text-xs uppercase ">
           <tr>

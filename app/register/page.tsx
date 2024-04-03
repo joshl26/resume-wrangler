@@ -1,11 +1,11 @@
-import Form from "./form";
+import RegisterUser from "../ui/forms/register-user";
 import { redirect } from "next/navigation";
 import { auth } from "@/auth";
 
 export default async function RegisterPage() {
   const session = await auth();
   if (session) {
-    redirect("/");
+    redirect("/dashboard");
   }
-  return <Form />;
+  return <RegisterUser />;
 }

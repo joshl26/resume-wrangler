@@ -5,27 +5,33 @@ import { SubmitButton } from "../submit-button";
 import { updateUserSkill } from "@/app/lib/actions";
 import Link from "next/link";
 import { UserSkill } from "@/app/lib/definitions";
+import BackButton from "../back-button";
 
 export default function EditSkill({ skill }: { skill: UserSkill }) {
   const [edited, setEdited] = useState(false);
   const [skillLevel, setSkillLevel] = useState(skill?.skill_level);
 
-  const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const skillOnChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSkillLevel(e.target.value);
     if (edited === false) {
       setEdited(true);
     }
   };
+
+  const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (edited === false) {
+      setEdited(true);
+    }
+  };
+
   return (
-    <div>
-      <Link className="px-3 underline" href={"/dashboard/skills/"}>
-        Back
-      </Link>
-      <h2 className="font-medium text-[2rem] px-3">Edit Skill</h2>
+    <div className="px-3">
+      <BackButton href={"/dashboard/skills/"}>Back</BackButton>
+      <h2 className="font-medium text-[2rem] py-1">Edit Skill</h2>
       <form
         onSubmit={() => setEdited(false)}
         action={updateUserSkill}
-        className="flex flex-col w-[500px] p-3 m-3 border border-black rounded"
+        className="flex flex-col w-[500px] p-3 form-amber rounded"
       >
         <input
           readOnly
@@ -34,7 +40,7 @@ export default function EditSkill({ skill }: { skill: UserSkill }) {
           id="skill_id"
           defaultValue={skill?.id}
         />
-        <div className="flex flex-col py-2">
+        <div className="flex flex-col pb-1">
           <input
             readOnly
             hidden
@@ -70,7 +76,7 @@ export default function EditSkill({ skill }: { skill: UserSkill }) {
           <input
             name="skill_level"
             id="skill_level"
-            onChange={(e) => onChangeHandler(e)}
+            onChange={(e) => skillOnChangeHandler(e)}
             defaultValue={skill?.skill_level}
             type="range"
           />
@@ -78,8 +84,8 @@ export default function EditSkill({ skill }: { skill: UserSkill }) {
         {edited && (
           <>
             <div style={{ height: "0.5rem" }} />
-            <SubmitButton className="bg-yellow-400 my-4 p-2 text-center w-auto animate-pulse">
-              Update Certification
+            <SubmitButton className="btn btn-amber my-4 p-2 text-center w-auto animate-pulse">
+              Save Update
             </SubmitButton>
           </>
         )}
