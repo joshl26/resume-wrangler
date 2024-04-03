@@ -4,8 +4,8 @@
 import { NextRequest } from "next/server";
 // import { PuppeteerNode } from "puppeteer";
 
-const chrome = require("@sparticuz/chromium-min");
-const puppeteer = require("puppeteer-core");
+import chrome from "@sparticuz/chromium-min";
+import puppeteer from "puppeteer-core";
 
 // export const dynamic = "force-dynamic";
 // export const runtime = "edge";
@@ -117,7 +117,9 @@ export async function GET(req: NextRequest) {
     //   // await page.waitForNavigation(); // <------------------------- Wait for Navigation
 
     await page.goto(
-      `http://${process.env.DEPLOYMENT_URL}/resume/${resumeId}/${userEmail}`,
+      // `http://${process.env.DEPLOYMENT_URL}/resume/${resumeId}/${userEmail}`,
+      `http://localhost:3000/resume/${resumeId}/${userEmail}`,
+
       {
         waitUntil: "networkidle0",
       }

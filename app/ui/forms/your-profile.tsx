@@ -18,7 +18,7 @@ export default function YourProfile({
 
   const [edited, setEdited] = useState(false);
 
-  const onChangeHandler = (e: any) => {
+  const onChangeHandler = () => {
     if (edited === false) {
       setEdited(true);
     }
@@ -42,7 +42,7 @@ export default function YourProfile({
                 alt=""
                 height={250}
                 width={250}
-                src={user.thumbnail}
+                src={user?.thumbnail}
               />
               <a
                 className="m-auto rounded bg-amber-400 hover:bg-amber-200 h-auto p-2 border border-black"
@@ -63,7 +63,7 @@ export default function YourProfile({
                 <input
                   hidden
                   readOnly
-                  value={resume.id}
+                  value={resume?.id}
                   id="resume_id"
                   name="resume_id"
                 />
@@ -71,7 +71,7 @@ export default function YourProfile({
                 <input
                   hidden
                   readOnly
-                  value={user.name}
+                  value={user?.name}
                   id="name"
                   name="name"
                 />
@@ -82,10 +82,10 @@ export default function YourProfile({
                   id="first_name"
                   name="first_name"
                   className="rounded bg-slate-200"
-                  defaultValue={user.first_name}
-                  onChange={(e) => onChangeHandler(e)}
+                  defaultValue={user?.first_name}
+                  onChange={onChangeHandler}
                   placeholder="First Name"
-                ></input>
+                />
               </div>
               <div className="flex flex-col w-1/2 py-1">
                 <label className="py-1" htmlFor="last_name">
@@ -95,10 +95,10 @@ export default function YourProfile({
                   id="last_name"
                   name="last_name"
                   className="rounded bg-slate-200"
-                  defaultValue={user.last_name}
-                  onChange={(e) => onChangeHandler(e)}
+                  defaultValue={user?.last_name}
+                  onChange={onChangeHandler}
                   placeholder="Last Name"
-                ></input>
+                />
               </div>
             </div>
             <div className="flex flex-col">
@@ -110,10 +110,10 @@ export default function YourProfile({
                   id="address_one"
                   name="address_one"
                   className="rounded bg-slate-200"
-                  defaultValue={user.address_one}
-                  onChange={(e) => onChangeHandler(e)}
+                  defaultValue={user?.address_one}
+                  onChange={onChangeHandler}
                   placeholder="City, Prov/State"
-                ></input>
+                />
               </div>
             </div>
             <div className="flex flex-col">
@@ -125,10 +125,10 @@ export default function YourProfile({
                   id="address_two"
                   name="address_two"
                   className="rounded bg-slate-200"
-                  defaultValue={user.address_two}
-                  onChange={(e) => onChangeHandler(e)}
+                  defaultValue={user?.address_two}
+                  onChange={onChangeHandler}
                   placeholder="Street Address"
-                ></input>
+                />
               </div>
             </div>
             <div className="flex flex-col">
@@ -140,10 +140,10 @@ export default function YourProfile({
                   id="address_three"
                   name="address_three"
                   className="rounded bg-slate-200"
-                  defaultValue={user.address_three}
-                  onChange={(e) => onChangeHandler(e)}
+                  defaultValue={user?.address_three}
+                  onChange={onChangeHandler}
                   placeholder="Apartment/Buzzer"
-                ></input>
+                />
               </div>
             </div>
             <div className="flex flex-col">
@@ -154,10 +154,10 @@ export default function YourProfile({
                 <input
                   id="country"
                   className="rounded bg-slate-200"
-                  defaultValue={user.country}
-                  onChange={(e) => onChangeHandler(e)}
+                  defaultValue={user?.country}
+                  onChange={onChangeHandler}
                   placeholder="Country"
-                ></input>
+                />
               </div>
             </div>
             <div className="flex flex-col">
@@ -169,10 +169,10 @@ export default function YourProfile({
                   id="phone"
                   name="phone"
                   className="rounded bg-slate-200"
-                  defaultValue={user.phone}
-                  onChange={(e) => onChangeHandler(e)}
+                  defaultValue={user?.phone}
+                  onChange={onChangeHandler}
                   placeholder="City, Prov/State"
-                ></input>
+                />
               </div>
             </div>
             <div className="flex flex-col">
@@ -186,9 +186,9 @@ export default function YourProfile({
                   id="email"
                   name="email"
                   className="rounded bg-slate-200"
-                  defaultValue={user.email}
+                  defaultValue={user?.email}
                   placeholder="Email Address"
-                ></input>
+                />
               </div>
             </div>
             <div className="flex flex-col">
@@ -200,13 +200,13 @@ export default function YourProfile({
                   id="website"
                   name="website"
                   className="rounded bg-slate-200"
-                  defaultValue={user.website}
-                  onChange={(e) => onChangeHandler(e)}
-                  placeholder="http://www.website.com"
-                ></input>
+                  defaultValue={user?.website}
+                  onChange={onChangeHandler}
+                  placeholder="http://www.your-site.com"
+                />
               </div>
             </div>
-            <div style={{ height: "0.5rem" }}></div>
+            <div style={{ height: "0.5rem" }} />
             {edited && (
               <SubmitButton className="btn btn-amber my-4 p-2 text-center w-auto animate-pulse">
                 Save Change

@@ -5,6 +5,12 @@ import {
 } from "@/app/lib/actions";
 import { useState } from "react";
 import { SubmitButton } from "../submit-button";
+import {
+  Resume,
+  User,
+  UserWorkExperience,
+  UserWorkExperiences,
+} from "@/app/lib/definitions";
 
 export default function YourWorkExperiences({
   userWorkExperiences,
@@ -12,16 +18,14 @@ export default function YourWorkExperiences({
   resume,
   workResumeLines,
 }: {
-  userWorkExperiences: any;
-  user: any;
-  resume: any;
+  userWorkExperiences: UserWorkExperiences;
+  user: User;
+  resume: Resume;
   workResumeLines: any;
 }) {
-  // console.log(userWorkExperiences);
-
   const [edited, setEdited] = useState(false);
 
-  const onChangeHandler = (e: any) => {
+  const onChangeHandler = () => {
     if (edited === false) {
       setEdited(true);
     }
@@ -36,12 +40,12 @@ export default function YourWorkExperiences({
         <h3 className="font-medium px-1 pb-1">Previous Experience</h3>
         <div className="h-[100px] rounded  overflow-y-auto border border-black mx-1 px-2">
           <ul className="">
-            {userWorkExperiences.map((experience: any) => (
-              <li key={experience.id}>
+            {userWorkExperiences?.map((experience: UserWorkExperience) => (
+              <li key={experience?.id}>
                 <div className="flex flex-row pt-2 ">
                   <div className="flex flex-col w-3/4">
-                    <h2 className="font-bold">{experience.company_name}</h2>
-                    <p>{experience.location}</p>
+                    <h2 className="font-bold">{experience?.company_name}</h2>
+                    <p>{experience?.location}</p>
                   </div>
                   <div className="flex flex-col pt-3 pr-6">
                     <form action={createResumeLine}>
@@ -49,11 +53,11 @@ export default function YourWorkExperiences({
                         hidden
                         readOnly
                         name="resume_id"
-                        value={resume.id}
+                        value={resume?.id}
                       />
-                      <input hidden readOnly name="user_id" value={user.id} />
+                      <input hidden readOnly name="user_id" value={user?.id} />
                       <input hidden readOnly name="line_type" value={"work"} />
-                      <input hidden readOnly name="id" value={experience.id} />
+                      <input hidden readOnly name="id" value={experience?.id} />
                       <SubmitButton className={""}>Add</SubmitButton>
                     </form>
                     {/* <form action={deleteResumeLine}>
@@ -80,7 +84,6 @@ export default function YourWorkExperiences({
             workResumeLines?.map((workExperience: any) => (
               <li className="pt-3" key={workExperience?.id}>
                 <div className="flex flex-row w-auto">
-                  <label hidden htmlFor="resume_id" />
                   <input
                     readOnly
                     hidden
@@ -88,7 +91,6 @@ export default function YourWorkExperiences({
                     id="resume_id"
                     value={workExperience?.id}
                   />
-                  <label hidden htmlFor="user_id" />
                   <input
                     readOnly
                     hidden
@@ -138,8 +140,7 @@ export default function YourWorkExperiences({
                           </form>
                         </div>
                       </div>
-                      <div className="flex flex-col"> </div>
-
+                      <div className="flex flex-col"/>
                       <form action={deleteResumeLine}>
                         <input
                           readOnly
@@ -155,7 +156,6 @@ export default function YourWorkExperiences({
                           id="id"
                           value={workExperience?.id}
                         />
-                        <label hidden htmlFor="resume_id" />
                         <input
                           readOnly
                           hidden
@@ -180,7 +180,6 @@ export default function YourWorkExperiences({
                     >
                       <div className="flex flex-row w-auto">
                         <div className="flex flex-col w-full py-1 px-1">
-                          <label hidden htmlFor="experience_id" />
                           <input
                             hidden
                             readOnly
@@ -188,7 +187,6 @@ export default function YourWorkExperiences({
                             name="experience_id"
                             value={workExperience?.id}
                           />
-                          <label hidden htmlFor="resume_id" />
                           <input
                             hidden
                             readOnly
@@ -205,9 +203,9 @@ export default function YourWorkExperiences({
                             name="company_name"
                             className="rounded bg-slate-200"
                             defaultValue={workExperience?.company_name}
-                            onChange={(e) => onChangeHandler(e)}
+                            onChange={onChangeHandler}
                             placeholder="Company Name"
-                          ></input>
+                          />
                         </div>
                       </div>
                       <div className="flex flex-row w-auto">
@@ -221,9 +219,9 @@ export default function YourWorkExperiences({
                             name="job_title"
                             className="rounded bg-slate-200"
                             defaultValue={workExperience?.job_title}
-                            onChange={(e) => onChangeHandler(e)}
+                            onChange={onChangeHandler}
                             placeholder="Job Title"
-                          ></input>
+                          />
                         </div>
                       </div>
                       <div className="flex flex-row w-auto">
@@ -236,9 +234,9 @@ export default function YourWorkExperiences({
                             name="location"
                             className="rounded bg-slate-200"
                             defaultValue={workExperience?.location}
-                            onChange={(e) => onChangeHandler(e)}
+                            onChange={onChangeHandler}
                             placeholder="Company Location"
-                          ></input>
+                          />
                         </div>
                       </div>
                       <div className="flex flex-row w-auto">
@@ -251,9 +249,9 @@ export default function YourWorkExperiences({
                             name="start_date"
                             className="rounded bg-slate-200"
                             defaultValue={workExperience?.start_date}
-                            onChange={(e) => onChangeHandler(e)}
+                            onChange={onChangeHandler}
                             placeholder="Start Date"
-                          ></input>
+                          />
                         </div>
                         <div className="flex flex-col w-1/2 py-1 px-1">
                           <label className="py-1" htmlFor="end_date">
@@ -264,9 +262,9 @@ export default function YourWorkExperiences({
                             name="end_date"
                             className="rounded bg-slate-200"
                             defaultValue={workExperience?.end_date}
-                            onChange={(e) => onChangeHandler(e)}
+                            onChange={onChangeHandler}
                             placeholder="End Date"
-                          ></input>
+                          />
                         </div>
                       </div>
                       <div className="flex flex-row w-auto">
@@ -279,9 +277,9 @@ export default function YourWorkExperiences({
                             name="description_one"
                             className="rounded bg-slate-200 h-[150px]"
                             defaultValue={workExperience?.description_one}
-                            onChange={(e) => onChangeHandler(e)}
+                            onChange={onChangeHandler}
                             placeholder="Description One"
-                          ></textarea>
+                          />
                         </div>
                       </div>
                       <div className="flex flex-row w-auto">
@@ -294,9 +292,9 @@ export default function YourWorkExperiences({
                             name="description_two"
                             className="rounded bg-slate-200 h-[150px]"
                             defaultValue={workExperience?.description_two}
-                            onChange={(e) => onChangeHandler(e)}
+                            onChange={onChangeHandler}
                             placeholder="Description Two"
-                          ></textarea>
+                          />
                         </div>
                       </div>
                       <div className="flex flex-row w-auto">
@@ -309,9 +307,9 @@ export default function YourWorkExperiences({
                             name="description_three"
                             className="rounded bg-slate-200 h-[150px]"
                             defaultValue={workExperience?.description_three}
-                            onChange={(e) => onChangeHandler(e)}
+                            onChange={onChangeHandler}
                             placeholder="Description One"
-                          ></textarea>
+                          />
                         </div>
                       </div>
                       <div className="flex flex-row w-auto">
@@ -324,9 +322,9 @@ export default function YourWorkExperiences({
                             name="description_four"
                             className="rounded bg-slate-200 h-[150px]"
                             defaultValue={workExperience?.description_four}
-                            onChange={(e) => onChangeHandler(e)}
+                            onChange={onChangeHandler}
                             placeholder="Description Four"
-                          ></textarea>
+                          />
                         </div>
                       </div>
                       {edited && (

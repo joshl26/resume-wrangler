@@ -1,7 +1,6 @@
 import {
   createCertification,
   createResumeLine,
-  deleteCertification,
   deleteResumeLine,
   updateCertificationSectionTitle,
   updateCertificationsSection,
@@ -9,6 +8,7 @@ import {
 } from "@/app/lib/actions";
 import { useState } from "react";
 import { SubmitButton } from "../submit-button";
+import { Resume, User, UserCertifications } from "@/app/lib/definitions";
 
 export default function YourCertifications({
   userCertifications,
@@ -18,15 +18,13 @@ export default function YourCertifications({
   setShowCustomSectionTwo,
   certificationResumeLines,
 }: {
-  userCertifications: any;
-  resume: any;
-  user: any;
-  showCustomSectionTwo: any;
-  setShowCustomSectionTwo: (e: any) => void;
+  userCertifications: UserCertifications;
+  resume: Resume;
+  user: User;
+  showCustomSectionTwo: string;
+  setShowCustomSectionTwo: (e: string) => void;
   certificationResumeLines: any;
 }) {
-  // console.log(userCertifications);
-
   const [sectionTitle, setSectionTitle] = useState(
     resume?.custom_section_two_name
   );
@@ -35,24 +33,26 @@ export default function YourCertifications({
   const [editSection, setEditSection] = useState(false);
   const [editSectionTitle, setEditSectionTitle] = useState(false);
 
-  const onChangeHandler = (e: any) => {
+  const onChangeHandler = () => {
     if (edited === false) {
       setEdited(true);
     }
   };
 
-  const setSectionTitleOnChangeHandler = (e: any) => {
-    console.log(e);
-
-    setSectionTitle(e);
+  const setSectionTitleOnChangeHandler = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setSectionTitle(e.target.value);
 
     if (edited === false) {
       setEditSectionTitle(true);
     }
   };
 
-  const showCertificationsOnChangeHandler = (e: any) => {
-    console.log(e.target.checked);
+  const showCertificationsOnChangeHandler = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    // console.log(e.target.checked);
     if (e.target.checked === true) {
       setShowCustomSectionTwo("true");
     } else {
@@ -64,19 +64,6 @@ export default function YourCertifications({
     }
   };
 
-  // const showCertificationsOnChangeHandler = (e: any) => {
-  //   console.log(e.target.checked);
-  //   if (e.target.checked === true) {
-  //     setShowCustomSectionTwo("true");
-  //   } else {
-  //     setShowCustomSectionTwo("false");
-  //   }
-
-  //   if (edited === false) {
-  //     setEdited(true);
-  //   }
-  // };
-
   return (
     <div className=" w-full px-2">
       <div className=" font-bold text-xl">
@@ -85,12 +72,7 @@ export default function YourCertifications({
       <div className="your-certifications rounded border p-2">
         <div className="flex flex-row justify-between">
           <div className="flex flex-col"></div>
-          <div className="flex flex-col ">
-            {/* <div className="flex flex-row m-auto">
-              <div className="flex flex-col px-4">Move Up</div>
-              <div className="flex flex-col">Move Down</div>
-            </div> */}
-          </div>
+          <div className="flex flex-col "></div>
         </div>
         {showCustomSectionTwo === "true" ? (
           <>
@@ -127,16 +109,14 @@ export default function YourCertifications({
                   name="section_title"
                   className="rounded bg-slate-200"
                   defaultValue={sectionTitle}
-                  onChange={(e) =>
-                    setSectionTitleOnChangeHandler(e.target.value)
-                  }
+                  onChange={setSectionTitleOnChangeHandler}
                   placeholder="Section Title"
                 ></input>
               </div>
               {editSectionTitle && (
                 <>
                   <div style={{ height: "0.5rem" }} />
-                  <SubmitButton className="bg-yellow-400 my-4 p-2 text-center w-auto animate-pulse">
+                  <SubmitButton className="btn btn-amber my-4 animate-pulse">
                     Save Change
                   </SubmitButton>
                 </>
@@ -330,7 +310,7 @@ export default function YourCertifications({
                           name="certification_name"
                           className="rounded bg-slate-200"
                           defaultValue={certification?.name}
-                          onChange={(e) => onChangeHandler(e)}
+                          onChange={onChangeHandler}
                           placeholder="Title, Activity, name, etc.."
                         ></input>
                         <label className="py-1" htmlFor="location_name">
@@ -342,14 +322,14 @@ export default function YourCertifications({
                           name="location_name"
                           className="rounded bg-slate-200"
                           defaultValue={certification?.location}
-                          onChange={(e) => onChangeHandler(e)}
+                          onChange={onChangeHandler}
                           placeholder="Title, Activity, name, etc.."
                         ></input>
                       </div>
                       {edited && (
                         <div>
                           <div style={{ height: "0.5rem" }} />
-                          <SubmitButton className="bg-yellow-400 my-4 p-2 text-center w-auto animate-pulse">
+                          <SubmitButton className="btn btn-amber my-4 animate-pulse">
                             Save Change
                           </SubmitButton>
                         </div>

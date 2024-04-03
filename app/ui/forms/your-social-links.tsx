@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { SubmitButton } from "../submit-button";
 import { updateSocials } from "@/app/lib/actions";
 import { useFormState } from "react-dom";
+import { Resume, User } from "@/app/lib/definitions";
 
 const YourSocialLinks = ({
   user,
@@ -11,9 +12,9 @@ const YourSocialLinks = ({
   showSocials,
   setShowSocials,
 }: {
-  user: any;
-  resume: any;
-  showSocials: any;
+  user: User;
+  resume: Resume;
+  showSocials: string;
   setShowSocials: (e: string) => void;
 }) => {
   const [edited, setEdited] = useState(false);
@@ -22,7 +23,7 @@ const YourSocialLinks = ({
   const updateSocialsWithId = updateSocials.bind(null, user?.id!);
   const [state, dispatch] = useFormState(updateSocialsWithId, initialState);
 
-  const onChangeHandler = (e: any) => {
+  const onChangeHandler = () => {
     if (edited === false) {
       setEdited(true);
     }
@@ -55,11 +56,10 @@ const YourSocialLinks = ({
           <>
             <div className="flex flex-row justify-between w-auto">
               <div className="flex flex-col w-1/2 py-1 px-1">
-                <label hidden htmlFor="resume_id" />
                 <input
                   hidden
                   readOnly
-                  value={resume.id}
+                  value={resume?.id}
                   id="resume_id"
                   name="resume_id"
                 />
@@ -70,10 +70,10 @@ const YourSocialLinks = ({
                   id="linked_in"
                   name="linked_in"
                   className="rounded bg-slate-200"
-                  defaultValue={user.linked_in}
-                  onChange={(e) => onChangeHandler(e)}
+                  defaultValue={user?.linked_in}
+                  onChange={onChangeHandler}
                   placeholder="LinkedIn"
-                ></input>
+                />
               </div>
               <div className="flex flex-col w-1/2 py-1">
                 <label className="py-1" htmlFor="facebook">
@@ -83,10 +83,10 @@ const YourSocialLinks = ({
                   id="facebook"
                   name="facebook"
                   className="rounded bg-slate-200"
-                  defaultValue={user.facebook}
-                  onChange={(e) => onChangeHandler(e)}
+                  defaultValue={user?.facebook}
+                  onChange={onChangeHandler}
                   placeholder="Facebook"
-                ></input>
+                />
               </div>
             </div>
             <div className="flex flex-row justify-between w-auto">
@@ -98,10 +98,10 @@ const YourSocialLinks = ({
                   id="instagram"
                   name="instagram"
                   className="rounded bg-slate-200"
-                  defaultValue={user.instagram}
-                  onChange={(e) => onChangeHandler(e)}
+                  defaultValue={user?.instagram}
+                  onChange={onChangeHandler}
                   placeholder="Instagram"
-                ></input>
+                />
               </div>
               <div className="flex flex-col w-1/2 py-1">
                 <label className="py-1" htmlFor="twitter">
@@ -111,10 +111,10 @@ const YourSocialLinks = ({
                   id="twitter"
                   name="twitter"
                   className="rounded bg-slate-200"
-                  defaultValue={user.twitter}
-                  onChange={(e) => onChangeHandler(e)}
+                  defaultValue={user?.twitter}
+                  onChange={onChangeHandler}
                   placeholder="Twitter"
-                ></input>
+                />
               </div>
             </div>
             <div className="flex flex-row justify-between w-auto">
@@ -126,107 +126,59 @@ const YourSocialLinks = ({
                   id="github"
                   name="github"
                   className="rounded bg-slate-200"
-                  defaultValue={user.github}
-                  onChange={(e) => onChangeHandler(e)}
+                  defaultValue={user?.github}
+                  onChange={onChangeHandler}
                   placeholder="Github"
-                ></input>
+                />
               </div>
             </div>
           </>
         ) : (
           <>
-            <div>
-              <div>
-                <label hidden htmlFor="resume_id" />
-                <input
-                  hidden
-                  readOnly
-                  value={resume.id}
-                  id="resume_id"
-                  name="resume_id"
-                />
-                <label hidden htmlFor="linked_in">
-                  LinkedIn
-                </label>
-                <input
-                  id="linked_in"
-                  name="linked_in"
-                  hidden
-                  readOnly
-                  className="rounded bg-slate-200"
-                  value={user.linked_in}
-                  onChange={(e) => onChangeHandler(e)}
-                  placeholder="LinkedIn"
-                ></input>
-              </div>
-              <div>
-                <label hidden htmlFor="facebook">
-                  Facebook
-                </label>
-                <input
-                  id="facebook"
-                  name="facebook"
-                  hidden
-                  readOnly
-                  className="rounded bg-slate-200"
-                  value={user.facebook}
-                  onChange={(e) => onChangeHandler(e)}
-                  placeholder="Facebook"
-                ></input>
-              </div>
-            </div>
-            <div>
-              <div>
-                <label hidden htmlFor="instagram">
-                  Instagram
-                </label>
-                <input
-                  id="instagram"
-                  name="instagram"
-                  hidden
-                  readOnly
-                  className="rounded bg-slate-200"
-                  value={user.instagram}
-                  onChange={(e) => onChangeHandler(e)}
-                  placeholder="Instagram"
-                ></input>
-              </div>
-              <div>
-                <label hidden htmlFor="twitter">
-                  Twitter
-                </label>
-                <input
-                  id="twitter"
-                  name="twitter"
-                  hidden
-                  readOnly
-                  className="rounded bg-slate-200"
-                  defaultValue={user.twitter}
-                  onChange={(e) => onChangeHandler(e)}
-                  placeholder="Twitter"
-                ></input>
-              </div>
-            </div>
-            <div>
-              <div>
-                <label hidden htmlFor="github">
-                  Github
-                </label>
-                <input
-                  id="github"
-                  name="github"
-                  hidden
-                  readOnly
-                  className="rounded bg-slate-200"
-                  value={user.github}
-                  onChange={(e) => onChangeHandler(e)}
-                  placeholder="Github"
-                ></input>
-              </div>
-            </div>
+            <input
+              hidden
+              readOnly
+              value={resume?.id}
+              id="resume_id"
+              name="resume_id"
+            />
+            <input
+              id="linked_in"
+              name="linked_in"
+              hidden
+              readOnly
+              value={user?.linked_in}
+            />
+            <input
+              id="facebook"
+              name="facebook"
+              hidden
+              readOnly
+              value={user?.facebook}
+            />
+            <input
+              id="instagram"
+              name="instagram"
+              hidden
+              readOnly
+              value={user?.instagram}
+            />
+            <input
+              id="twitter"
+              name="twitter"
+              hidden
+              readOnly
+              defaultValue={user?.twitter}
+            />
+            <input
+              id="github"
+              name="github"
+              hidden
+              readOnly
+              value={user?.github}
+            />
           </>
         )}
-
         <div className="flex flex-row py-1">
           <div className="flex flex-col px-1 py-2">
             <label hidden htmlFor="show_socials" />
