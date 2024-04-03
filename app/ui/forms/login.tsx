@@ -1,6 +1,5 @@
 "use client";
 
-import { lusitana } from "@/app/ui/fonts";
 import {
   AtSymbolIcon,
   KeyIcon,
@@ -26,7 +25,7 @@ export default function LoginForm() {
       <h1 className="text-[1.5rem] font-bold text-center">
         Returning Users Log In
       </h1>
-      <div className="flex-1 rounded-lg bg-amber-100 p-8">
+      <div className="flex-1 rounded-lg form-amber p-8">
         <div className="w-full">
           <div>
             <label className="block font-bold" htmlFor="email">
