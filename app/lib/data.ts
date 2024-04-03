@@ -310,6 +310,30 @@ export async function fetchResumeById(id: string) {
   }
 }
 
+export async function fetchResumeByIdAndUserId(id: string, user: User) {
+  noStore();
+
+  try {
+    let query: string;
+
+    if (user.access_level === "admin") {
+      query = `SELECT * FROM resumes WHERE id = '${id}'`;
+    } else {
+      query = `SELECT * FROM resumes WHERE id = '${id}' AND user_id = '${user.id}'`;
+    }
+
+    const data = await conn.query(query);
+
+    const resume: Resume = data?.rows[0];
+
+    return resume;
+  } catch (error: any) {
+    console.error("Database Error:", error);
+    // throw new Error("Failed to fetch resume template by id.");
+    return;
+  }
+}
+
 export async function fetchSkillsByUserId(userId: string) {
   noStore();
 

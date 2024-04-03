@@ -8,7 +8,12 @@ import {
 } from "@/app/lib/actions";
 import { useState } from "react";
 import { SubmitButton } from "../submit-button";
-import { Resume, User, UserCertifications } from "@/app/lib/definitions";
+import {
+  Resume,
+  User,
+  UserCertification,
+  UserCertifications,
+} from "@/app/lib/definitions";
 
 export default function YourCertifications({
   userCertifications,
@@ -52,7 +57,6 @@ export default function YourCertifications({
   const showCertificationsOnChangeHandler = (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
-    // console.log(e.target.checked);
     if (e.target.checked === true) {
       setShowCustomSectionTwo("true");
     } else {
@@ -82,21 +86,19 @@ export default function YourCertifications({
               className="pb-2"
             >
               <div className="flex flex-col">
-                <label hidden htmlFor="resume_id" />
                 <input
                   readOnly
                   hidden
                   name="resume_id"
                   id="resume_id"
-                  value={resume.id}
+                  value={resume?.id}
                 />
-                <label hidden htmlFor="user_id" />
                 <input
                   readOnly
                   hidden
                   name="user_id"
                   id="user_id"
-                  value={user.id}
+                  value={user?.id}
                 />
                 <label className="py-1" htmlFor="section_title">
                   Section Title
@@ -111,7 +113,7 @@ export default function YourCertifications({
                   defaultValue={sectionTitle}
                   onChange={setSectionTitleOnChangeHandler}
                   placeholder="Section Title"
-                ></input>
+                />
               </div>
               {editSectionTitle && (
                 <>
@@ -124,16 +126,13 @@ export default function YourCertifications({
             </form>
             <form action={createCertification} className="flex flex-row w-auto">
               <div className="flex flex-col w-full py-1 px-1">
-                <label hidden htmlFor="resume_id" />
                 <input
                   readOnly
                   hidden
                   name="resume_id"
                   id="resume_id"
-                  defaultValue={resume.id}
+                  defaultValue={resume?.id}
                 />
-
-                <label hidden htmlFor="user_id" />
                 <input
                   hidden
                   name="user_id"
@@ -170,7 +169,7 @@ export default function YourCertifications({
                         defaultValue={""}
                         onChange={(e) => {}}
                         placeholder="Title, Activity, name, etc.."
-                      ></input>
+                      />
                     </div>
                   </div>
                   <div className="flex flex-row w-auto">
@@ -190,27 +189,24 @@ export default function YourCertifications({
                   </div>
                 </div>
                 <div className="flex flex-col w-full pt-4 pb-2 px-1">
-                  <button
-                    type="submit"
-                    className="rounded bg-amber-300 h-10 border border-black"
-                  >
+                  <SubmitButton className="btn btn-amber animate-pulse">
                     Add New Entry
-                  </button>
+                  </SubmitButton>
                 </div>
               </div>
             </form>
             <ul>
               {userCertifications[0] &&
-                userCertifications.map((certification: any) => (
-                  <li className="p-1 border my-3" key={certification.id}>
+                userCertifications?.map((certification: UserCertification) => (
+                  <li className="p-1 border my-3" key={certification?.id}>
                     <form action={createResumeLine}>
                       <input
                         hidden
                         readOnly
                         name="resume_id"
-                        value={resume.id}
+                        value={resume?.id}
                       />
-                      <input hidden readOnly name="user_id" value={user.id} />
+                      <input hidden readOnly name="user_id" value={user?.id} />
                       <input
                         hidden
                         readOnly
@@ -221,12 +217,12 @@ export default function YourCertifications({
                         hidden
                         readOnly
                         name="id"
-                        value={certification.id}
+                        value={certification?.id}
                       />
                       <div className="flex flex-row justify-between">
                         <div className="flex flex-col">
-                          <h2 className="font-bold">{certification.name}</h2>
-                          <h2>{certification.location}</h2>
+                          <h2 className="font-bold">{certification?.name}</h2>
+                          <h2>{certification?.location}</h2>
                         </div>
                         <div className="flex flex-col">
                           <SubmitButton className={""}>Add</SubmitButton>
@@ -243,7 +239,12 @@ export default function YourCertifications({
                     <div className="flex flex-row justify-between">
                       <h2 className="font-bold">{certification?.name}</h2>
                       <form action={deleteResumeLine}>
-                        <input hidden readOnly name="user_id" value={user.id} />
+                        <input
+                          hidden
+                          readOnly
+                          name="user_id"
+                          value={user?.id}
+                        />
                         <input
                           hidden
                           readOnly
@@ -262,10 +263,10 @@ export default function YourCertifications({
                           hidden
                           name="resume_id"
                           id="resume_id"
-                          value={resume.id}
+                          value={resume?.id}
                         />
                         <div className="flex flex-col">
-                          <SubmitButton className="font-bold">
+                          <SubmitButton className="btn btn-amber animate-pulse">
                             Remove
                           </SubmitButton>
                         </div>
@@ -277,7 +278,6 @@ export default function YourCertifications({
                       action={updateUserCertfication}
                     >
                       <div className="flex flex-col">
-                        <label hidden htmlFor="user_id" />
                         <input
                           readOnly
                           hidden
@@ -285,7 +285,6 @@ export default function YourCertifications({
                           id="user_id"
                           value={user?.id}
                         />
-                        <label hidden htmlFor="certification_id" />
                         <input
                           readOnly
                           hidden
@@ -293,13 +292,12 @@ export default function YourCertifications({
                           id="certification_id"
                           value={certification?.id}
                         />
-                        <label hidden htmlFor="resume_id" />
                         <input
                           readOnly
                           hidden
                           name="resume_id"
                           id="resume_id"
-                          value={resume.id}
+                          value={resume?.id}
                         />
                         <label className="py-1" htmlFor="certification_name">
                           Name
@@ -312,7 +310,7 @@ export default function YourCertifications({
                           defaultValue={certification?.name}
                           onChange={onChangeHandler}
                           placeholder="Title, Activity, name, etc.."
-                        ></input>
+                        />
                         <label className="py-1" htmlFor="location_name">
                           Location
                         </label>
@@ -324,7 +322,7 @@ export default function YourCertifications({
                           defaultValue={certification?.location}
                           onChange={onChangeHandler}
                           placeholder="Title, Activity, name, etc.."
-                        ></input>
+                        />
                       </div>
                       {edited && (
                         <div>
@@ -347,25 +345,14 @@ export default function YourCertifications({
           onSubmit={() => setEditSection(false)}
           action={updateCertificationsSection}
         >
-          <label hidden htmlFor="user_id" />
-          <input
-            hidden
-            readOnly
-            id="user_id"
-            name="user_id"
-            value={user.id}
-            onChange={() => {}}
-          />
-          <label hidden htmlFor="resume_id" />
+          <input hidden readOnly id="user_id" name="user_id" value={user?.id} />
           <input
             hidden
             readOnly
             id="resume_id"
             name="resume_id"
-            value={resume.id}
-            onChange={() => {}}
+            value={resume?.id}
           />
-          <label htmlFor="show_custom_section_two" hidden />
           <input
             hidden
             readOnly
@@ -373,7 +360,6 @@ export default function YourCertifications({
             id="show_custom_section_two"
             type="text"
             value={showCustomSectionTwo}
-            onChange={() => {}}
           />
           <div className="flex flex-row ">
             <div className="px-2 flex align-middle">
@@ -392,14 +378,14 @@ export default function YourCertifications({
           {editSection && (
             <>
               <div style={{ height: "0.5rem" }} />
-              <SubmitButton className="bg-yellow-400 my-4 p-2 text-center w-auto animate-pulse">
+              <SubmitButton className="btn btn-amber my-4 animate-pulse">
                 Save Change
               </SubmitButton>
             </>
           )}
         </form>
       </div>
-      <div className="py-2"></div>
+      <div className="py-2" />
     </div>
   );
 }

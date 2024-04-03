@@ -100,6 +100,10 @@ export interface User {
   instagram: string;
   github: string;
   country: string;
+  created_at: string;
+  updated_at: string;
+  new_user: string;
+  access_level: string;
 }
 
 export interface Application {

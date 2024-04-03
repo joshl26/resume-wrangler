@@ -7,7 +7,6 @@ import {
   fetchHeaderFonts,
   fetchOrganizationsByResumeID,
   fetchOrganizationsByUserId,
-  fetchResumeById,
   fetchResumeColors,
   fetchResumeTemplates,
   fetchSkillsByResumeID,
@@ -15,6 +14,7 @@ import {
   fetchWorkExperiencesByUserId,
   fetchWorkExperiencesbyResumeID,
   getUser,
+  fetchResumeByIdAndUserId,
 } from "@/app/lib/data";
 import ResumeStyling from "@/app/ui/resume-styling/resume-styling";
 import { auth } from "@/auth";
@@ -66,7 +66,7 @@ export default async function EditResume({
     certificationResumeLines,
     organizationResumeLines,
   ] = await Promise.all([
-    fetchResumeById(id),
+    fetchResumeByIdAndUserId(id, user),
     fetchEducationExperiencesbyResumeID(id),
     fetchWorkExperiencesbyResumeID(id),
     fetchSkillsByResumeID(id),
