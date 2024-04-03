@@ -1,11 +1,9 @@
 import React from "react";
 import ResumeTemplates from "@/app/ui/resume-templates/resume-templates";
 import { fetchResumeTemplates } from "@/app/lib/data";
-import { Button } from "@/app/ui/button";
 import { notFound } from "next/navigation";
 
 export default async function Page() {
-  const selectedResume = "";
   const resumeTemplates = await fetchResumeTemplates();
 
   if (!resumeTemplates) {

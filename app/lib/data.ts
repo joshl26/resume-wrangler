@@ -214,7 +214,7 @@ export async function fetchResumeTemplates() {
   noStore();
 
   try {
-    const query = `SELECT * FROM resume_templates ORDER BY name ASC`;
+    const query = `SELECT * FROM resume_templates WHERE active = 'true' ORDER BY name ASC`;
     const data = await conn.query(query);
 
     const resumeTemplates: ResumeTemplates = data.rows.map(
