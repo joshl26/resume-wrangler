@@ -30,13 +30,11 @@ export default function YourProfile({
         <div className="py-2 font-bold text-xl">
           <h2>Your Profile</h2>
         </div>
-        <div className="drop-shadow-md border-[1px] border-slate-300 rounded px-5 py-2 ">
-          <form action={""}>
+        <div className="tight-shadow form-amber rounded px-5 py-2 ">
+          <div>
             <div className="flex flex-row justify-between w-auto"></div>
             <div className="flex flex-col py-1">
-              <label className="py-1" htmlFor="resume-template">
-                Profile Image
-              </label>
+              <h2 className="py-1">Profile Image</h2>
               <Image
                 className="m-auto py-4"
                 alt=""
@@ -45,21 +43,24 @@ export default function YourProfile({
                 src={user?.thumbnail}
               />
               <a
-                className="m-auto rounded bg-amber-400 hover:bg-amber-200 h-auto p-2 border border-black"
+                className="m-auto rounded btn btn-amber hover:animate-pulse"
                 href="/dashboard/user-profile/"
               >
                 Update Image
               </a>
             </div>
             <div style={{ height: "0.5rem" }}></div>
-          </form>
+          </div>
         </div>
         <div className="py-2"></div>
-        <div className="drop-shadow-md border-[1px] border-slate-300 rounded px-5 py-2 ">
-          <form onSubmit={() => setEdited(false)} action={dispatch}>
+        <div className="form-amber tight-shadow rounded px-5 py-2 ">
+          <form
+            className=""
+            onSubmit={() => setEdited(false)}
+            action={dispatch}
+          >
             <div className="flex flex-row justify-between w-auto">
               <div className="flex flex-col w-1/2 py-1 px-1">
-                <label hidden htmlFor="resume_id" />
                 <input
                   hidden
                   readOnly
@@ -67,7 +68,6 @@ export default function YourProfile({
                   id="resume_id"
                   name="resume_id"
                 />
-                <label hidden htmlFor="name" />
                 <input
                   hidden
                   readOnly
@@ -81,7 +81,6 @@ export default function YourProfile({
                 <input
                   id="first_name"
                   name="first_name"
-                  className="rounded bg-slate-200"
                   defaultValue={user?.first_name}
                   onChange={onChangeHandler}
                   placeholder="First Name"
@@ -94,7 +93,6 @@ export default function YourProfile({
                 <input
                   id="last_name"
                   name="last_name"
-                  className="rounded bg-slate-200"
                   defaultValue={user?.last_name}
                   onChange={onChangeHandler}
                   placeholder="Last Name"
@@ -109,7 +107,6 @@ export default function YourProfile({
                 <input
                   id="address_one"
                   name="address_one"
-                  className="rounded bg-slate-200"
                   defaultValue={user?.address_one}
                   onChange={onChangeHandler}
                   placeholder="City, Prov/State"
@@ -124,7 +121,6 @@ export default function YourProfile({
                 <input
                   id="address_two"
                   name="address_two"
-                  className="rounded bg-slate-200"
                   defaultValue={user?.address_two}
                   onChange={onChangeHandler}
                   placeholder="Street Address"
@@ -139,7 +135,6 @@ export default function YourProfile({
                 <input
                   id="address_three"
                   name="address_three"
-                  className="rounded bg-slate-200"
                   defaultValue={user?.address_three}
                   onChange={onChangeHandler}
                   placeholder="Apartment/Buzzer"
@@ -153,7 +148,6 @@ export default function YourProfile({
                 </label>
                 <input
                   id="country"
-                  className="rounded bg-slate-200"
                   defaultValue={user?.country}
                   onChange={onChangeHandler}
                   placeholder="Country"
@@ -168,7 +162,6 @@ export default function YourProfile({
                 <input
                   id="phone"
                   name="phone"
-                  className="rounded bg-slate-200"
                   defaultValue={user?.phone}
                   onChange={onChangeHandler}
                   placeholder="City, Prov/State"
@@ -185,7 +178,6 @@ export default function YourProfile({
                   readOnly
                   id="email"
                   name="email"
-                  className="rounded bg-slate-200"
                   defaultValue={user?.email}
                   placeholder="Email Address"
                 />
@@ -199,7 +191,6 @@ export default function YourProfile({
                 <input
                   id="website"
                   name="website"
-                  className="rounded bg-slate-200"
                   defaultValue={user?.website}
                   onChange={onChangeHandler}
                   placeholder="http://www.your-site.com"

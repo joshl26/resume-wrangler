@@ -66,7 +66,7 @@ export default function YourSkills({
         </div>
         <div className="flex flex-col "></div>
       </div>
-      <div className="drop-shadow-md border-[1px] border-slate-300 rounded px-5 py-2 ">
+      <div className="form-amber rounded px-5 py-2 ">
         {showSkills === "true" ? (
           <>
             <div className="flex flex-row">
@@ -270,9 +270,7 @@ export default function YourSkills({
               />
             </div>
             <div className="flex flex-col">
-              <label className="py-1 px-1" htmlFor="social_icons">
-                Show Skills section?
-              </label>
+              <h2 className="py-1 px-1">Show Skills section?</h2>
             </div>
           </div>
           {edited && (

@@ -25,6 +25,7 @@ import {
   UserWorkExperiences,
   userOrganizations,
 } from "@/app/lib/definitions";
+import BackButton from "../back-button";
 
 interface Props {
   resumeTemplates: ResumeTemplates;
@@ -93,6 +94,9 @@ export default function ResumeStyling(props: Props) {
     <main className="flex w-full">
       <div className="flex flex-row h-full w-full">
         <div className="flex flex-col h-full w-[400px] overflow-scroll px-3">
+          <div className="pb-2">
+            <BackButton href="/dashboard/applications">Back</BackButton>{" "}
+          </div>
           <YourResumeStyling
             resume={props?.resume}
             resumeTemplates={props?.resumeTemplates}
@@ -109,15 +113,15 @@ export default function ResumeStyling(props: Props) {
             selectedResumeHeadingFont={selectedResumeHeadingFont}
             selectedResumeColor={selectedResumeColor}
           />
-          <div className="py-2"></div>
-          <YourProfile resume={props.resume} user={props.user} />
+          <div className="py-2" />
+          <YourProfile resume={props?.resume} user={props?.user} />
           <YourSocialLinks
             resume={props?.resume}
             user={props?.user}
             showSocials={showSocials}
             setShowSocials={setShowSocials}
           />
-          <div className="py-2"></div>
+          <div className="py-2" />
           <YourSkills
             user={props?.user}
             userSkills={props?.userSkills}
@@ -128,7 +132,7 @@ export default function ResumeStyling(props: Props) {
             showSkillProgress={showSkillProgress}
             skillResumeLines={props?.skillResumeLines}
           />
-          <div className="py-2"></div>
+          <div className="py-2" />
           <YourEducation
             resume={props?.resume}
             user={props?.user}
@@ -137,14 +141,14 @@ export default function ResumeStyling(props: Props) {
             setShowEducation={setShowEducation}
             educationResumeLines={props?.educationResumeLines}
           />
-          <div className="py-2"></div>
+          <div className="py-2" />
           <YourWorkExperiences
             userWorkExperiences={props?.userWorkExperiences}
             user={props?.user}
             resume={props?.resume}
             workResumeLines={props?.workResumeLines}
           />
-          <div className="py-2"></div>
+          <div className="py-2" />
           <YourOrganizations
             user={props?.user}
             resume={props?.resume}
@@ -153,7 +157,7 @@ export default function ResumeStyling(props: Props) {
             setShowCustomSectionOne={setShowCustomSectionOne}
             organizationResumeLines={props?.organizationResumeLines}
           />
-          <div className="py-2"></div>
+          <div className="py-2" />
           <YourCertifications
             resume={props?.resume}
             user={props?.user}

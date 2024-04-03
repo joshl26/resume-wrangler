@@ -50,7 +50,7 @@ const YourSocialLinks = ({
       <form
         onSubmit={() => setEdited(false)}
         action={dispatch}
-        className="drop-shadow-md border-[1px] border-slate-300 rounded px-5 py-2 "
+        className="form-amber rounded px-5 py-2 "
       >
         {showSocials === "true" ? (
           <>
@@ -195,16 +195,14 @@ const YourSocialLinks = ({
               checked={showSocials === "true" ? true : false}
               value={showSocials}
               onChange={showSocialsOnChangeHandler}
-            ></input>
+            />
           </div>
           <div className="flex flex-col">
-            <label className="py-1 px-1" htmlFor="social_icons">
-              Show Social Icons?
-            </label>
+            <h2 className="py-1 px-1">Show Social Icons?</h2>
           </div>
         </div>
         {edited && (
-          <SubmitButton className="bg-yellow-400 my-4 p-2 text-center w-auto animate-pulse">
+          <SubmitButton className="btn btn-amber my-4 animate-pulse">
             Save Change
           </SubmitButton>
         )}

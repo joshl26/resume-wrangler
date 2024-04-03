@@ -1,7 +1,7 @@
 "use client";
 
 import { updateYourResumeStyle } from "@/app/lib/actions";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SubmitButton } from "../submit-button";
 import {
   BodyFonts,
@@ -44,6 +44,8 @@ export default function YourResumeStyling({
 }) {
   const [edited, setEdited] = useState(false);
 
+  // useEffect(() => {}, [selectedResumeHeadingFont]);
+
   const onChangeHandler = () => {
     if (edited === false) {
       setEdited(true);
@@ -58,7 +60,7 @@ export default function YourResumeStyling({
       <form
         action={updateYourResumeStyle}
         onSubmit={() => setEdited(false)}
-        className="drop-shadow-md border-[1px] border-slate-300 rounded px-5 py-2 "
+        className="tight-shadow rounded form-amber px-5 py-2 "
       >
         <div className="flex flex-col py-1">
           <input
@@ -73,7 +75,7 @@ export default function YourResumeStyling({
           <input
             name="resume_title"
             id="resume_title"
-            className="rounded bg-slate-200"
+            className="rounded"
             defaultValue={resume?.title}
             onChange={onChangeHandler}
             placeholder="Resume Title"
@@ -92,7 +94,7 @@ export default function YourResumeStyling({
           <textarea
             name="description"
             id="description"
-            className="rounded bg-slate-200 h-[200px]"
+            className="rounded h-[200px]"
             defaultValue={resume?.description}
             onChange={onChangeHandler}
             placeholder="Resume Description"
@@ -150,8 +152,8 @@ export default function YourResumeStyling({
               Heading Font
             </label>
             <select
-              className={`${resume?.heading_font} rounded`}
-              defaultValue={selectedResumeHeadingFont}
+              className={`${selectedResumeHeadingFont} rounded`}
+              value={selectedResumeHeadingFont}
               onChange={(e) => {
                 onChangeHandler();
                 setSelectedResumeHeadingFont(e.target.value);
@@ -174,7 +176,7 @@ export default function YourResumeStyling({
             Body Font
           </label>
           <select
-            className={`${resume?.body_font} rounded`}
+            className={`${selectedResumeBodyFont} rounded`}
             defaultValue={selectedResumeBodyFont}
             onChange={(e) => {
               onChangeHandler();
