@@ -30,11 +30,11 @@ export default function YourProfile({
         <div className="py-2 font-bold text-xl">
           <h2>Your Profile</h2>
         </div>
-        <div className="tight-shadow form-amber rounded px-5 py-2 ">
+        <div className="tight-shadow form-amber rounded px-5 py-2">
           <div>
             <div className="flex flex-row justify-between w-auto"></div>
             <div className="flex flex-col py-1">
-              <h2 className="py-1">Profile Image</h2>
+              <h2 className="py-1 font-medium">Profile Image</h2>
               <Image
                 className="m-auto py-4"
                 alt=""
@@ -75,7 +75,7 @@ export default function YourProfile({
                   id="name"
                   name="name"
                 />
-                <label className="py-1" htmlFor="first_name">
+                <label className="py-1 font-medium" htmlFor="first_name">
                   First Name
                 </label>
                 <input
@@ -87,7 +87,7 @@ export default function YourProfile({
                 />
               </div>
               <div className="flex flex-col w-1/2 py-1">
-                <label className="py-1" htmlFor="last_name">
+                <label className="py-1 font-medium" htmlFor="last_name">
                   Last Name
                 </label>
                 <input
@@ -101,7 +101,7 @@ export default function YourProfile({
             </div>
             <div className="flex flex-col">
               <div className="flex flex-col py-1 px-1">
-                <label className="py-1" htmlFor="address_one">
+                <label className="py-1 font-medium" htmlFor="address_one">
                   Address One
                 </label>
                 <input
@@ -115,7 +115,7 @@ export default function YourProfile({
             </div>
             <div className="flex flex-col">
               <div className="flex flex-col py-1 px-1">
-                <label className="py-1" htmlFor="address_two">
+                <label className="py-1 font-medium" htmlFor="address_two">
                   Address Two
                 </label>
                 <input
@@ -129,7 +129,7 @@ export default function YourProfile({
             </div>
             <div className="flex flex-col">
               <div className="flex flex-col py-1 px-1">
-                <label className="py-1" htmlFor="address_three">
+                <label className="py-1 font-medium" htmlFor="address_three">
                   Address Three
                 </label>
                 <input
@@ -143,7 +143,7 @@ export default function YourProfile({
             </div>
             <div className="flex flex-col">
               <div className="flex flex-col py-1 px-1">
-                <label className="py-1" htmlFor="country">
+                <label className="py-1 font-medium" htmlFor="country">
                   Country
                 </label>
                 <input
@@ -156,7 +156,7 @@ export default function YourProfile({
             </div>
             <div className="flex flex-col">
               <div className="flex flex-col py-1 px-1">
-                <label className="py-1" htmlFor="phone">
+                <label className="py-1 font-medium" htmlFor="phone">
                   Phone
                 </label>
                 <input
@@ -170,7 +170,7 @@ export default function YourProfile({
             </div>
             <div className="flex flex-col">
               <div className="flex flex-col py-1 px-1">
-                <label hidden className="py-1" htmlFor="email">
+                <label hidden className="py-1 font-medium" htmlFor="email">
                   Email
                 </label>
                 <input
@@ -185,7 +185,7 @@ export default function YourProfile({
             </div>
             <div className="flex flex-col">
               <div className="flex flex-col py-1 px-1">
-                <label className="py-1" htmlFor="website">
+                <label className="py-1 font-medium" htmlFor="website">
                   Website
                 </label>
                 <input

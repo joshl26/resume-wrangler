@@ -63,26 +63,26 @@ const YourSocialLinks = ({
                   id="resume_id"
                   name="resume_id"
                 />
-                <label className="py-1" htmlFor="linked_in">
+                <label className="py-1 font-medium" htmlFor="linked_in">
                   LinkedIn
                 </label>
                 <input
                   id="linked_in"
                   name="linked_in"
-                  className="rounded bg-slate-200"
+                  className="rounded"
                   defaultValue={user?.linked_in}
                   onChange={onChangeHandler}
                   placeholder="LinkedIn"
                 />
               </div>
               <div className="flex flex-col w-1/2 py-1">
-                <label className="py-1" htmlFor="facebook">
+                <label className="py-1 font-medium" htmlFor="facebook">
                   Facebook
                 </label>
                 <input
                   id="facebook"
                   name="facebook"
-                  className="rounded bg-slate-200"
+                  className="rounded"
                   defaultValue={user?.facebook}
                   onChange={onChangeHandler}
                   placeholder="Facebook"
@@ -91,26 +91,26 @@ const YourSocialLinks = ({
             </div>
             <div className="flex flex-row justify-between w-auto">
               <div className="flex flex-col w-1/2 py-1 px-1">
-                <label className="py-1" htmlFor="instagram">
+                <label className="py-1 font-medium" htmlFor="instagram">
                   Instagram
                 </label>
                 <input
                   id="instagram"
                   name="instagram"
-                  className="rounded bg-slate-200"
+                  className="rounded"
                   defaultValue={user?.instagram}
                   onChange={onChangeHandler}
                   placeholder="Instagram"
                 />
               </div>
               <div className="flex flex-col w-1/2 py-1">
-                <label className="py-1" htmlFor="twitter">
+                <label className="py-1 font-medium" htmlFor="twitter">
                   Twitter
                 </label>
                 <input
                   id="twitter"
                   name="twitter"
-                  className="rounded bg-slate-200"
+                  className="rounded"
                   defaultValue={user?.twitter}
                   onChange={onChangeHandler}
                   placeholder="Twitter"
@@ -119,13 +119,13 @@ const YourSocialLinks = ({
             </div>
             <div className="flex flex-row justify-between w-auto">
               <div className="flex flex-col w-full py-1 px-1">
-                <label className="py-1" htmlFor="github">
+                <label className="py-1 font-medium" htmlFor="github">
                   Github
                 </label>
                 <input
                   id="github"
                   name="github"
-                  className="rounded bg-slate-200"
+                  className="rounded"
                   defaultValue={user?.github}
                   onChange={onChangeHandler}
                   placeholder="Github"
@@ -191,14 +191,14 @@ const YourSocialLinks = ({
             />
             <input
               type="checkbox"
-              className="rounded bg-slate-200"
+              className="rounded"
               checked={showSocials === "true" ? true : false}
               value={showSocials}
               onChange={showSocialsOnChangeHandler}
             />
           </div>
           <div className="flex flex-col">
-            <h2 className="py-1 px-1">Show Social Icons?</h2>
+            <h2 className="py-1 px-1 font-medium">Show Social Icons?</h2>
           </div>
         </div>
         {edited && (

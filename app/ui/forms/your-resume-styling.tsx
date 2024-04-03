@@ -1,12 +1,15 @@
 "use client";
 
 import { updateYourResumeStyle } from "@/app/lib/actions";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { SubmitButton } from "../submit-button";
 import {
+  BodyFont,
   BodyFonts,
+  HeaderFont,
   HeaderFonts,
   Resume,
+  ResumeColor,
   ResumeColors,
   ResumeTemplates,
 } from "@/app/lib/definitions";
@@ -44,8 +47,6 @@ export default function YourResumeStyling({
 }) {
   const [edited, setEdited] = useState(false);
 
-  // useEffect(() => {}, [selectedResumeHeadingFont]);
-
   const onChangeHandler = () => {
     if (edited === false) {
       setEdited(true);
@@ -55,7 +56,7 @@ export default function YourResumeStyling({
   return (
     <div className="resume-styling">
       <div className="pb-2 font-bold text-xl">
-        <h2>Resume Styling</h2>
+        <h2 className="">Resume Styling</h2>
       </div>
       <form
         action={updateYourResumeStyle}
@@ -69,7 +70,7 @@ export default function YourResumeStyling({
             name="resume_id"
             defaultValue={resume?.id}
           />
-          <label className="py-1" htmlFor="resume_title">
+          <label className="py-1 font-medium" htmlFor="resume_title">
             Resume Title
           </label>
           <input
@@ -88,7 +89,7 @@ export default function YourResumeStyling({
             name="resume_id"
             defaultValue={resume?.id}
           />
-          <label className="py-1" htmlFor="description">
+          <label className="py-1 font-medium" htmlFor="description">
             Description
           </label>
           <textarea
@@ -101,11 +102,11 @@ export default function YourResumeStyling({
           />
         </div>
         <div className="flex flex-col py-1">
-          <label className="py-1" htmlFor="resume_template">
+          <label className="py-1 font-medium" htmlFor="resume_template">
             Resume Template
           </label>
           <select
-            className="rounded bg-amber-300"
+            className="rounded"
             defaultValue={selectedResumeTemplate}
             onChange={(e) => {
               setEdited(true);
@@ -125,12 +126,12 @@ export default function YourResumeStyling({
         </div>
         <div className="flex flex-col">
           <div className="py-1 flex flex-col">
-            <label className="py-1" htmlFor="color">
+            <label className="py-1 font-medium" htmlFor="color">
               Colors
             </label>
             <input hidden id="color" name="color" value={selectedResumeColor} />
             <div className="flex flex-row justify-around">
-              {resumeColors?.map((color: any) => (
+              {resumeColors?.map((color: ResumeColor) => (
                 <div
                   style={{ cursor: "pointer" }}
                   key={color.id}
@@ -141,14 +142,14 @@ export default function YourResumeStyling({
                     onChangeHandler();
                   }}
                   className={`rounded-[16px] border-2 border-black h-8 w-8 ${color.color} hover:-translate-y-1 duration-500`}
-                ></div>
+                />
               ))}
             </div>
           </div>
         </div>
         <div className="flex flex-col">
           <div className="py-1 flex flex-col">
-            <label className="py-1" htmlFor="header_font">
+            <label className="py-1 font-medium" htmlFor="header_font">
               Heading Font
             </label>
             <select
@@ -161,7 +162,7 @@ export default function YourResumeStyling({
               name="header_font"
               id="header_font"
             >
-              {headerFonts.map((font: any) => {
+              {headerFonts.map((font: HeaderFont) => {
                 return (
                   <option className={font.name} key={font.id} value={font.name}>
                     {font.description}
@@ -172,7 +173,7 @@ export default function YourResumeStyling({
           </div>
         </div>
         <div className="flex flex-col py-1">
-          <label className="py-1" htmlFor="body_font">
+          <label className="py-1 font-medium" htmlFor="body_font">
             Body Font
           </label>
           <select
@@ -185,7 +186,7 @@ export default function YourResumeStyling({
             name="body_font"
             id="body_font"
           >
-            {bodyFonts.map((font: any) => {
+            {bodyFonts.map((font: BodyFont) => {
               return (
                 <option className={font.name} key={font.id} value={font.name}>
                   {font.description}
@@ -196,11 +197,7 @@ export default function YourResumeStyling({
         </div>
         <div style={{ height: "0.5rem" }}></div>
         {edited && (
-          <SubmitButton
-            className={
-              "bg-yellow-400 my-4 p-2 text-center w-auto animate-pulse"
-            }
-          >
+          <SubmitButton className={"btn btn-amber my-4 animate-pulse"}>
             Save Change
           </SubmitButton>
         )}
