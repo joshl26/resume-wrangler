@@ -74,7 +74,7 @@ export default function YourOrganizations({
       <div className="py-2 font-bold text-xl">
         <h2>Your {sectionTitle}</h2>
       </div>
-      <div className="your-organizations rounded form-amber p-2">
+      <div className="your-organizations rounded form-amber px-4 py-2">
         <div className="flex flex-row justify-between">
           <div className="flex flex-col"></div>
           <div className="flex flex-col "></div>
@@ -234,9 +234,9 @@ export default function YourOrganizations({
                 </div>
               </div>
             </form>
-            <ul>
+            <ul className="bg-white overflow-y-auto tight-shadow rounded h-[100px]">
               {userOrganizations?.map((organization: UserOrganization) => (
-                <li className="border my-2 p-1 rounded" key={organization?.id}>
+                <li className="border p-2" key={organization?.id}>
                   <form action={createResumeLine}>
                     <input
                       hidden
@@ -258,18 +258,23 @@ export default function YourOrganizations({
                         <h2>{organization?.location}</h2>
                       </div>
                       <div className="flex flex-col w-1/4 m-auto">
-                        <SubmitButton className={""}>Add</SubmitButton>
+                        <SubmitButton
+                          className={"hover:text-azure-radiance-500"}
+                        >
+                          Add
+                        </SubmitButton>
                       </div>
                     </div>
                   </form>
                 </li>
               ))}
             </ul>
-            <ul>
+            <h2>Selected Organizations</h2>
+            <ul className="overflow-y-auto h-[300px] my-2 tight-shadow rounded bg-white px-3">
               {organizationResumeLines[0] &&
                 organizationResumeLines?.map(
                   (organization: UserOrganization) => (
-                    <li className="mt-6" key={organization?.id}>
+                    <li className="mt-2 mb-4" key={organization?.id}>
                       <form action={deleteResumeLine}>
                         <input
                           hidden
@@ -297,11 +302,13 @@ export default function YourOrganizations({
                         />
                         <div className="flex flex-row justify-between ">
                           <div className="flex flex-col w-3/4">
-                            <h2 className="font-bold">{organization?.name}</h2>
-                            <h2>{organization?.location}</h2>
+                            {/* <h2 className="font-bold">{organization?.name}</h2>
+                            <h2>{organization?.location}</h2> */}
                           </div>
                           <div className="flex flex-col w-1/4 m-auto">
-                            <SubmitButton className={""}>Remove</SubmitButton>
+                            <SubmitButton className={"hover:text-rose-500"}>
+                              Remove
+                            </SubmitButton>
                           </div>
                         </div>
                       </form>
@@ -330,11 +337,11 @@ export default function YourOrganizations({
                           id="resume_id"
                           value={resume?.id}
                         />
-                        <div className="rounded border border-black w-full px-2 ">
+                        <div className="rounded tight-shadow bg-gray-50 w-full px-2 ">
                           <div className="flex flex-row w-auto">
                             <div className="flex flex-col w-full py-1 px-1">
                               <label
-                                className="py-1"
+                                className="py-1 font-medium"
                                 htmlFor="organization_name"
                               >
                                 Name
@@ -343,7 +350,7 @@ export default function YourOrganizations({
                                 required
                                 id="organization_name"
                                 name="organization_name"
-                                className="rounded bg-slate-200"
+                                className="rounded"
                                 defaultValue={organization?.name}
                                 onChange={onChangeHandler}
                                 placeholder={"Title, Activity, name, etc.."}
@@ -361,7 +368,7 @@ export default function YourOrganizations({
                               <input
                                 id="organization_location"
                                 name="organization_location"
-                                className="rounded bg-slate-200"
+                                className="rounded"
                                 defaultValue={organization?.location}
                                 onChange={onChangeHandler}
                                 placeholder="Location"
@@ -381,7 +388,7 @@ export default function YourOrganizations({
                                 name="organization_start"
                                 defaultValue={organization?.start_date}
                                 onChange={onChangeHandler}
-                                className="rounded bg-slate-200"
+                                className="rounded"
                                 placeholder="Start Date"
                               />
                             </div>
@@ -399,7 +406,7 @@ export default function YourOrganizations({
                                 name="organization_end"
                                 defaultValue={organization?.end_date}
                                 onChange={onChangeHandler}
-                                className="rounded bg-slate-200"
+                                className="rounded"
                                 placeholder="End Date"
                               />
                             </div>
@@ -417,7 +424,7 @@ export default function YourOrganizations({
                                 name="organization_description"
                                 defaultValue={organization?.description}
                                 onChange={onChangeHandler}
-                                className="rounded bg-slate-200"
+                                className="rounded"
                                 placeholder="Description"
                               />
                             </div>

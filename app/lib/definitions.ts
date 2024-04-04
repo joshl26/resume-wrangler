@@ -325,3 +325,13 @@ export type UserWorkExperiences = UserWorkExperience[];
 export type NullOrUndefined = null | undefined;
 
 export type StringOrUndefined = string | undefined;
+
+export interface ResumeTemplate {
+  styles: {
+    id: string;
+    name: string;
+    thumbnail_url: string;
+    cloudinary_public_url: string;
+    description: string;
+  }[];
+}
