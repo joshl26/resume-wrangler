@@ -70,11 +70,11 @@ export default function YourOrganizations({
   };
 
   return (
-    <div className=" w-full px-2">
+    <div className="w-full">
       <div className="py-2 font-bold text-xl">
         <h2>Your {sectionTitle}</h2>
       </div>
-      <div className="your-organizations rounded border p-2">
+      <div className="your-organizations rounded form-amber p-2">
         <div className="flex flex-row justify-between">
           <div className="flex flex-col"></div>
           <div className="flex flex-col "></div>
@@ -102,16 +102,15 @@ export default function YourOrganizations({
                   id="user_id"
                   value={user?.id}
                 />
-                <label className="py-1" htmlFor="section_title">
+                <label className="py-1 font-medium" htmlFor="section_title">
                   Section Title
                 </label>
                 <input
                   required
-                  type="text"
                   maxLength={14}
                   id="section_title"
                   name="section_title"
-                  className="rounded bg-slate-200"
+                  className="rounded"
                   defaultValue={sectionTitle}
                   onChange={setSectionTitleOnChangeHandler}
                   placeholder="Section Title"
@@ -126,7 +125,7 @@ export default function YourOrganizations({
                 </>
               )}
             </form>
-            <h2 className="py-1">{sectionTitle}</h2>
+            <h2 className="py-1 font-medium">Add New {sectionTitle}</h2>
             <form action={createOrganization} className="flex flex-row w-auto">
               <div className="flex flex-col w-full py-1 px-1">
                 <input
@@ -143,7 +142,7 @@ export default function YourOrganizations({
                   id="user_id"
                   value={user?.id}
                 />
-                <div className="rounded border border-black w-full px-2">
+                <div className="rounded tight-shadow bg-gray-50 w-full px-2">
                   <div className="flex flex-row w-auto">
                     <div className="flex flex-col w-full py-1 px-1">
                       <label className="py-1" htmlFor="organization_name">
@@ -153,9 +152,9 @@ export default function YourOrganizations({
                         required
                         id="organization_name"
                         name="organization_name"
-                        className="rounded bg-slate-200"
+                        className="rounded "
                         defaultValue={""}
-                        onChange={(e) => {}}
+                        onChange={onChangeHandler}
                         placeholder="Title, Activity, name, etc.."
                       />
                     </div>
@@ -168,9 +167,9 @@ export default function YourOrganizations({
                       <input
                         id="organization_location"
                         name="organization_location"
-                        className="rounded bg-slate-200"
+                        className="rounded "
                         defaultValue={""}
-                        onChange={(e) => {}}
+                        onChange={onChangeHandler}
                         placeholder="Location"
                       />
                     </div>
@@ -184,8 +183,8 @@ export default function YourOrganizations({
                         id="organization_start"
                         name="organization_start"
                         defaultValue={""}
-                        onChange={(e) => {}}
-                        className="rounded bg-slate-200"
+                        onChange={onChangeHandler}
+                        className="rounded "
                         placeholder="Start Date"
                       />
                     </div>
@@ -199,8 +198,8 @@ export default function YourOrganizations({
                         id="organization_end"
                         name="organization_end"
                         defaultValue={""}
-                        onChange={(e) => {}}
-                        className="rounded bg-slate-200"
+                        onChange={onChangeHandler}
+                        className="rounded"
                         placeholder="End Date"
                       />
                     </div>
@@ -217,17 +216,21 @@ export default function YourOrganizations({
                         id="organization_description"
                         name="organization_description"
                         defaultValue={""}
-                        onChange={(e) => {}}
-                        className="rounded bg-slate-200"
+                        onChange={onChangeHandler}
+                        className="rounded"
                         placeholder="Description"
                       />
                     </div>
                   </div>
                 </div>
                 <div className="flex flex-col w-full pt-4 pb-2 px-1">
-                  <SubmitButton className="btn btn-amber animate-pulse">
-                    Add New Entry
-                  </SubmitButton>
+                  {edited && (
+                    <>
+                      <SubmitButton className="btn btn-amber animate-pulse">
+                        Add New Entry
+                      </SubmitButton>
+                    </>
+                  )}
                 </div>
               </div>
             </form>
@@ -466,7 +469,7 @@ export default function YourOrganizations({
                 value={showCustomSectionOne}
               />
               <input
-                className="m-auto bg-slate-200 rounded"
+                className="m-auto rounded"
                 type="checkbox"
                 checked={showCustomSectionOne === "true" ? true : false}
                 value={showCustomSectionOne}
@@ -474,7 +477,7 @@ export default function YourOrganizations({
               />
             </div>
             <div className="flex flex-col">
-              <p>Show {sectionTitle} section?</p>
+              <p className="pl-1 font-medium">Show {sectionTitle} section?</p>
             </div>
           </div>
           {editSection && (

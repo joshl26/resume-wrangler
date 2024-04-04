@@ -170,7 +170,7 @@ export default function ResumeStyling(props: Props) {
             <a
               href={`/api/pdf?resumeId=${props?.resume?.id}&userEmail=${props?.user?.email}`}
               download="generated_pdf.pdf"
-              className="downloadBtn"
+              className="downloadBtn hover:text-rose-500"
             >
               Download PDF
             </a>

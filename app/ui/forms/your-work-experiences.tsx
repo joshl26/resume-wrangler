@@ -36,13 +36,13 @@ export default function YourWorkExperiences({
       <div className="py-2 font-bold text-xl">
         <h2>Your Work Experience</h2>
       </div>
-      <div className="your-work-experiences border rounded p-1">
-        <h3 className="font-medium px-1 pb-1">Previous Experience</h3>
-        <div className="h-[100px] rounded  overflow-y-auto border border-black mx-1 px-2">
+      <div className="your-work-experiences  form-amber rounded px-4 py-2">
+        <h3 className="font-medium py-1">Previous Experience</h3>
+        <div className="h-[100px] rounded overflow-y-auto tight-shadow bg-white">
           <ul className="">
             {userWorkExperiences?.map((experience: UserWorkExperience) => (
-              <li key={experience?.id}>
-                <div className="flex flex-row pt-2 ">
+              <li key={experience?.id} className="border p-2">
+                <div className="flex flex-row">
                   <div className="flex flex-col w-3/4">
                     <h2 className="font-bold">{experience?.company_name}</h2>
                     <p>{experience?.location}</p>
@@ -58,7 +58,9 @@ export default function YourWorkExperiences({
                       <input hidden readOnly name="user_id" value={user?.id} />
                       <input hidden readOnly name="line_type" value={"work"} />
                       <input hidden readOnly name="id" value={experience?.id} />
-                      <SubmitButton className={""}>Add</SubmitButton>
+                      <SubmitButton className={"hover:text-azure-radiance-500"}>
+                        Add
+                      </SubmitButton>
                     </form>
                     {/* <form action={deleteResumeLine}>
                       <input hidden readOnly name="user_id" value={user.id} />
@@ -102,7 +104,7 @@ export default function YourWorkExperiences({
                     <div className="flex flex-row justify-between">
                       <div className="flex flex-col w-1/4">
                         <div className="flex flex-row justify-between">
-                          <form action={""}>
+                          {/* <form action={""}>
                             <input
                               hidden
                               readOnly
@@ -137,10 +139,10 @@ export default function YourWorkExperiences({
                               value={resume?.id}
                             />
                             <SubmitButton className={""}>Down</SubmitButton>
-                          </form>
+                          </form> */}
                         </div>
                       </div>
-                      <div className="flex flex-col"/>
+                      <div className="flex flex-col" />
                       <form action={deleteResumeLine}>
                         <input
                           readOnly
@@ -170,13 +172,15 @@ export default function YourWorkExperiences({
                           id="user_id"
                           value={user?.id}
                         />
-                        <button type="submit">Remove</button>
+                        <button className="hover:text-rose-500" type="submit">
+                          Remove
+                        </button>
                       </form>
                     </div>
                     <form
                       onSubmit={() => setEdited(false)}
                       action={updateUserWorkExperience}
-                      className="rounded border border-black w-full pb-2 px-2"
+                      className="rounded tight-shadow bg-gray-50 px-2"
                     >
                       <div className="flex flex-row w-auto">
                         <div className="flex flex-col w-full py-1 px-1">
@@ -194,14 +198,17 @@ export default function YourWorkExperiences({
                             id="resume_id"
                             name="resume_id"
                           />
-                          <label className="py-1" htmlFor="company_name">
+                          <label
+                            className="py-1 font-medium"
+                            htmlFor="company_name"
+                          >
                             Company Name
                           </label>
                           <input
                             required
                             id="company_name"
                             name="company_name"
-                            className="rounded bg-slate-200"
+                            className="rounded"
                             defaultValue={workExperience?.company_name}
                             onChange={onChangeHandler}
                             placeholder="Company Name"
@@ -210,14 +217,17 @@ export default function YourWorkExperiences({
                       </div>
                       <div className="flex flex-row w-auto">
                         <div className="flex flex-col w-full py-1 px-1">
-                          <label className="py-1" htmlFor="job_title">
+                          <label
+                            className="py-1 font-medium"
+                            htmlFor="job_title"
+                          >
                             Job Title
                           </label>
                           <input
                             required
                             id="job_title"
                             name="job_title"
-                            className="rounded bg-slate-200"
+                            className="rounded"
                             defaultValue={workExperience?.job_title}
                             onChange={onChangeHandler}
                             placeholder="Job Title"
@@ -226,13 +236,16 @@ export default function YourWorkExperiences({
                       </div>
                       <div className="flex flex-row w-auto">
                         <div className="flex flex-col w-full py-1 px-1">
-                          <label className="py-1" htmlFor="location">
-                            Loation
+                          <label
+                            className="py-1 font-medium"
+                            htmlFor="location"
+                          >
+                            Company Location
                           </label>
                           <input
                             id="location"
                             name="location"
-                            className="rounded bg-slate-200"
+                            className="rounded"
                             defaultValue={workExperience?.location}
                             onChange={onChangeHandler}
                             placeholder="Company Location"
@@ -241,26 +254,32 @@ export default function YourWorkExperiences({
                       </div>
                       <div className="flex flex-row w-auto">
                         <div className="flex flex-col w-1/2 py-1 px-1">
-                          <label className="py-1" htmlFor="start_date">
+                          <label
+                            className="py-1 font-medium"
+                            htmlFor="start_date"
+                          >
                             Start Date
                           </label>
                           <input
                             id="start_date"
                             name="start_date"
-                            className="rounded bg-slate-200"
+                            className="rounded"
                             defaultValue={workExperience?.start_date}
                             onChange={onChangeHandler}
                             placeholder="Start Date"
                           />
                         </div>
                         <div className="flex flex-col w-1/2 py-1 px-1">
-                          <label className="py-1" htmlFor="end_date">
+                          <label
+                            className="py-1 font-medium"
+                            htmlFor="end_date"
+                          >
                             End Date
                           </label>
                           <input
                             id="end_date"
                             name="end_date"
-                            className="rounded bg-slate-200"
+                            className="rounded"
                             defaultValue={workExperience?.end_date}
                             onChange={onChangeHandler}
                             placeholder="End Date"
@@ -269,13 +288,16 @@ export default function YourWorkExperiences({
                       </div>
                       <div className="flex flex-row w-auto">
                         <div className="flex flex-col w-full py-1 px-1">
-                          <label className="py-1" htmlFor="description">
+                          <label
+                            className="py-1 font-medium"
+                            htmlFor="description"
+                          >
                             Description One
                           </label>
                           <textarea
                             id="description_one"
                             name="description_one"
-                            className="rounded bg-slate-200 h-[150px]"
+                            className="rounded h-[150px]"
                             defaultValue={workExperience?.description_one}
                             onChange={onChangeHandler}
                             placeholder="Description One"
@@ -284,13 +306,16 @@ export default function YourWorkExperiences({
                       </div>
                       <div className="flex flex-row w-auto">
                         <div className="flex flex-col w-full py-1 px-1">
-                          <label className="py-1" htmlFor="description_two">
+                          <label
+                            className="py-1 font-medium"
+                            htmlFor="description_two"
+                          >
                             Description Two
                           </label>
                           <textarea
                             id="description_two"
                             name="description_two"
-                            className="rounded bg-slate-200 h-[150px]"
+                            className="rounded h-[150px]"
                             defaultValue={workExperience?.description_two}
                             onChange={onChangeHandler}
                             placeholder="Description Two"
@@ -299,28 +324,34 @@ export default function YourWorkExperiences({
                       </div>
                       <div className="flex flex-row w-auto">
                         <div className="flex flex-col w-full py-1 px-1">
-                          <label className="py-1" htmlFor="description_three">
+                          <label
+                            className="py-1 font-medium"
+                            htmlFor="description_three"
+                          >
                             Description Three
                           </label>
                           <textarea
                             id="description_three"
                             name="description_three"
-                            className="rounded bg-slate-200 h-[150px]"
+                            className="rounded h-[150px]"
                             defaultValue={workExperience?.description_three}
                             onChange={onChangeHandler}
-                            placeholder="Description One"
+                            placeholder="Description Three"
                           />
                         </div>
                       </div>
                       <div className="flex flex-row w-auto">
                         <div className="flex flex-col w-full py-1 px-1">
-                          <label className="py-1" htmlFor="description_four">
+                          <label
+                            className="py-1 font-medium"
+                            htmlFor="description_four"
+                          >
                             Description Four
                           </label>
                           <textarea
                             id="description_four"
                             name="description_four"
-                            className="rounded bg-slate-200 h-[150px]"
+                            className="rounded h-[150px]"
                             defaultValue={workExperience?.description_four}
                             onChange={onChangeHandler}
                             placeholder="Description Four"
