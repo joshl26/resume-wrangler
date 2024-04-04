@@ -6,6 +6,12 @@ import {
 } from "@/app/lib/actions";
 import { useState } from "react";
 import { SubmitButton } from "../submit-button";
+import {
+  Resume,
+  User,
+  UserEducationExperience,
+  UserEducationExperiences,
+} from "@/app/lib/definitions";
 
 export default function YourEducation({
   userEducation,
@@ -15,20 +21,19 @@ export default function YourEducation({
   setShowEducation,
   educationResumeLines,
 }: {
-  userEducation: any;
-  user: any;
-  resume: any;
+  userEducation: UserEducationExperiences;
+  user: User;
+  resume: Resume;
   showEducation: any;
-  setShowEducation: (e: any) => void;
+  setShowEducation: (e: string) => void;
   educationResumeLines: any;
 }) {
-  // console.log(educationResumeLines);
-
   const [edited, setEdited] = useState(false);
   const [sectionEdited, setSectionEdited] = useState(false);
 
-  const showEducationOnChangeHandler = (e: any) => {
-    console.log(e.target.checked);
+  const showEducationOnChangeHandler = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     if (e.target.checked === true) {
       setShowEducation("true");
     } else {
@@ -40,14 +45,10 @@ export default function YourEducation({
     }
   };
 
-  const onChangeHandler = (e: any) => {
+  const onChangeHandler = () => {
     if (edited === false) {
       setEdited(true);
     }
-  };
-
-  const buttonClickHandler = (e: any) => {
-    console.log(e);
   };
 
   return (
@@ -56,29 +57,25 @@ export default function YourEducation({
         <div className="flex flex-row justify-between">
           <div className="flex flex-col">
             <div className="py-2 font-bold text-xl">
-              <h2>Your Education</h2>
+              <h2 className="">Your Education</h2>
             </div>
           </div>
-          <div className="flex flex-col ">
-            {/* <div className="flex flex-row m-auto">
-              <div className="flex flex-col px-4">Move Up</div>
-              <div className="flex flex-col">Move Down</div>
-            </div> */}
-          </div>
+          <div className="flex flex-col "></div>
         </div>
-        <div className="drop-shadow-md border-[1px] border-slate-300 rounded px-5 py-2 ">
+        <div className="form-amber rounded p-4">
           {showEducation === "true" ? (
             <>
-              <div className="h-[100px] overflow-y-auto">
-                <ul>
-                  {userEducation.map((education: any) => (
-                    <li key={education.id}>
-                      <div className="flex flex-row pt-2 justify-between">
+              <h2 className="font-medium">Choose Education Experiences</h2>
+              <div className="h-[150px] overflow-y-auto tight-shadow mt-2 rounded bg-white">
+                <ul className="">
+                  {userEducation?.map((education: UserEducationExperience) => (
+                    <li className="border" key={education?.id}>
+                      <div className="flex flex-row p-2 justify-between">
                         <div className="flex flex-col w-3/4">
                           <h2 className="font-bold">
-                            {education.institution_name}
+                            {education?.institution_name}
                           </h2>
-                          <p>{education.program}</p>
+                          <p>{education?.program}</p>
                         </div>
                         <div className="flex flex-col pt-3 pr-6 ">
                           <div className="flex flex-row m-auto">
@@ -87,13 +84,13 @@ export default function YourEducation({
                                 hidden
                                 readOnly
                                 name="resume_id"
-                                value={resume.id}
+                                value={resume?.id}
                               />
                               <input
                                 hidden
                                 readOnly
                                 name="user_id"
-                                value={user.id}
+                                value={user?.id}
                               />
                               <input
                                 hidden
@@ -105,9 +102,13 @@ export default function YourEducation({
                                 hidden
                                 readOnly
                                 name="id"
-                                value={education.id}
+                                value={education?.id}
                               />
-                              <SubmitButton className={""}>Add</SubmitButton>
+                              <SubmitButton
+                                className={"hover:text-azure-radiance-500"}
+                              >
+                                Add
+                              </SubmitButton>
                             </form>
                           </div>
                           {/* <form action={deleteResumeLine}>
@@ -137,24 +138,14 @@ export default function YourEducation({
                   ))}
                 </ul>
               </div>
-              <div className="flex flex-col w-full py-2 px-1">
+              <div className="flex flex-col w-full py-2">
                 <ul className="">
                   {educationResumeLines[0] ? (
                     educationResumeLines?.map((education: any) => (
-                      <li
-                        className="mt-3 p-2 py-3 rounded border "
-                        key={education?.id}
-                      >
+                      <li className="mt-3 py-3" key={education?.id}>
                         <div className="flex flex-row justify-between">
                           <div className="flex flex-col w-1/3">
-                            <div className="flex flex-row justify-between">
-                              {/* <form action={updateResumeLine}>
-                                <SubmitButton className={""}>Up</SubmitButton>
-                              </form>
-                              <form action={updateResumeLine}>
-                                <SubmitButton className={""}>Down</SubmitButton>
-                              </form> */}
-                            </div>
+                            <div className="flex flex-row justify-between"></div>
                           </div>
                           <div className="flex flex-col"></div>
                           <div className="flex flex-col">
@@ -175,12 +166,13 @@ export default function YourEducation({
                               />
                               <input
                                 hidden
+                                readOnly
                                 name="user_education_id"
                                 id="user_education_id"
                                 value={education?.user_education_id}
                               />
                               <div className="flex flex-row justify-end">
-                                <SubmitButton className={""}>
+                                <SubmitButton className={"hover:text-rose-500"}>
                                   Remove
                                 </SubmitButton>
                               </div>
@@ -190,7 +182,7 @@ export default function YourEducation({
                         <form
                           onSubmit={() => setEdited(false)}
                           action={updateUserEducation}
-                          className="rounded border border-black w-full pb-2 px-2"
+                          className="tight-shadow bg-slate-50 rounded w-full pb-2 px-2"
                         >
                           <div className="flex flex-row w-auto">
                             <div className="flex flex-col w-full py-1 px-1">
@@ -209,7 +201,7 @@ export default function YourEducation({
                                 id="education_id"
                               />
                               <label
-                                className="py-1"
+                                className="py-1 font-medium"
                                 htmlFor="institution_name"
                               >
                                 Institution Name
@@ -217,101 +209,116 @@ export default function YourEducation({
                               <input
                                 id="institution_name"
                                 name="institution_name"
-                                className="rounded bg-slate-200"
+                                className="rounded"
                                 defaultValue={education?.institution_name}
-                                onChange={(e) => onChangeHandler(e)}
+                                onChange={onChangeHandler}
                                 placeholder="Institution Name"
-                              ></input>
+                              />
                             </div>
                           </div>
                           <div className="flex flex-row w-auto">
                             <div className="flex flex-col w-full py-1 px-1">
-                              <label className="py-1" htmlFor="location">
+                              <label
+                                className="py-1 font-medium"
+                                htmlFor="location"
+                              >
                                 Location
                               </label>
                               <input
                                 id="location"
                                 name="location"
-                                className="rounded bg-slate-200"
+                                className="rounded"
                                 defaultValue={education?.location}
-                                onChange={(e) => onChangeHandler(e)}
+                                onChange={onChangeHandler}
                                 placeholder="Location"
-                              ></input>
+                              />
                             </div>
                           </div>
                           <div className="flex flex-row w-auto">
                             <div className="flex flex-col w-1/3 py-1 px-1">
-                              <label className="py-1" htmlFor="start_date">
+                              <label
+                                className="py-1 font-medium"
+                                htmlFor="start_date"
+                              >
                                 Start Date
                               </label>
                               <input
                                 id="start_date"
                                 name="start_date"
-                                className="rounded bg-slate-200"
+                                className="rounded"
                                 defaultValue={education?.start_date}
-                                onChange={(e) => onChangeHandler(e)}
+                                onChange={onChangeHandler}
                                 placeholder="Start Date"
-                              ></input>
+                              />
                             </div>
                             <div className="flex flex-col w-1/3 py-1 px-1">
-                              <label className="py-1" htmlFor="end_date">
+                              <label
+                                className="py-1 font-medium"
+                                htmlFor="end_date"
+                              >
                                 End Date
                               </label>
                               <input
                                 id="end_date"
                                 name="end_date"
-                                className="rounded bg-slate-200"
+                                className="rounded"
                                 defaultValue={education?.end_date}
-                                onChange={(e) => onChangeHandler(e)}
+                                onChange={onChangeHandler}
                                 placeholder="End Date"
-                              ></input>
+                              />
                             </div>
                             <div className="flex flex-col w-1/3 py-1 px-1">
-                              <label className="py-1" htmlFor="grade">
+                              <label
+                                className="py-1 font-medium"
+                                htmlFor="grade"
+                              >
                                 GPA/AVG
                               </label>
                               <input
                                 id="grade"
                                 name="grade"
-                                className="rounded bg-slate-200"
+                                className="rounded"
                                 defaultValue={education?.grade}
-                                onChange={(e) => onChangeHandler(e)}
+                                onChange={onChangeHandler}
                                 placeholder="GPA/AVG"
-                              ></input>
+                              />
                             </div>
                           </div>
                           <div className="flex flex-row w-auto">
                             <div className="flex flex-col w-full py-1 px-1">
-                              <label className="py-1" htmlFor="program">
+                              <label
+                                className="py-1 font-medium"
+                                htmlFor="program"
+                              >
                                 Program
                               </label>
                               <input
                                 id="program"
                                 name="program"
-                                className="rounded bg-slate-200"
+                                className="rounded"
                                 defaultValue={education?.program}
-                                onChange={(e) => onChangeHandler(e)}
+                                onChange={onChangeHandler}
                                 placeholder="Degree"
-                              ></input>
+                              />
                             </div>
                           </div>
                           <div className="flex flex-row w-auto">
                             <div className="flex flex-col w-full py-1 px-1">
-                              <label className="py-1" htmlFor="url">
-                                Web Link
+                              <label className="py-1 font-medium" htmlFor="url">
+                                Link (Web URL)
                               </label>
                               <input
                                 id="url"
                                 name="url"
-                                className="rounded bg-slate-200"
+                                className="rounded"
                                 defaultValue={education?.url}
-                                onChange={(e) => onChangeHandler(e)}
+                                onChange={onChangeHandler}
                                 placeholder="Web link"
-                              ></input>
+                              />
                             </div>
                           </div>
                           {edited && (
-                            <SubmitButton className="bg-yellow-400 my-4 p-2 text-center w-auto animate-pulse">
+                            <SubmitButton className="btn btn-amber my-4 animate-pulse">
                               Save Change
                             </SubmitButton>
                           )}
@@ -366,9 +373,9 @@ export default function YourEducation({
                 ></input>
               </div>
               <div className="flex flex-col">
-                <label className="py-1 px-1" htmlFor="social_icons">
+                <h2 className="py-1 px-1 font-medium">
                   Show Education Section?
-                </label>
+                </h2>
               </div>
             </div>
             {sectionEdited && (

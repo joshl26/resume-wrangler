@@ -50,7 +50,7 @@ const YourSocialLinks = ({
       <form
         onSubmit={() => setEdited(false)}
         action={dispatch}
-        className="drop-shadow-md border-[1px] border-slate-300 rounded px-5 py-2 "
+        className="form-amber rounded px-5 py-2 "
       >
         {showSocials === "true" ? (
           <>
@@ -63,26 +63,26 @@ const YourSocialLinks = ({
                   id="resume_id"
                   name="resume_id"
                 />
-                <label className="py-1" htmlFor="linked_in">
+                <label className="py-1 font-medium" htmlFor="linked_in">
                   LinkedIn
                 </label>
                 <input
                   id="linked_in"
                   name="linked_in"
-                  className="rounded bg-slate-200"
+                  className="rounded"
                   defaultValue={user?.linked_in}
                   onChange={onChangeHandler}
                   placeholder="LinkedIn"
                 />
               </div>
               <div className="flex flex-col w-1/2 py-1">
-                <label className="py-1" htmlFor="facebook">
+                <label className="py-1 font-medium" htmlFor="facebook">
                   Facebook
                 </label>
                 <input
                   id="facebook"
                   name="facebook"
-                  className="rounded bg-slate-200"
+                  className="rounded"
                   defaultValue={user?.facebook}
                   onChange={onChangeHandler}
                   placeholder="Facebook"
@@ -91,26 +91,26 @@ const YourSocialLinks = ({
             </div>
             <div className="flex flex-row justify-between w-auto">
               <div className="flex flex-col w-1/2 py-1 px-1">
-                <label className="py-1" htmlFor="instagram">
+                <label className="py-1 font-medium" htmlFor="instagram">
                   Instagram
                 </label>
                 <input
                   id="instagram"
                   name="instagram"
-                  className="rounded bg-slate-200"
+                  className="rounded"
                   defaultValue={user?.instagram}
                   onChange={onChangeHandler}
                   placeholder="Instagram"
                 />
               </div>
               <div className="flex flex-col w-1/2 py-1">
-                <label className="py-1" htmlFor="twitter">
+                <label className="py-1 font-medium" htmlFor="twitter">
                   Twitter
                 </label>
                 <input
                   id="twitter"
                   name="twitter"
-                  className="rounded bg-slate-200"
+                  className="rounded"
                   defaultValue={user?.twitter}
                   onChange={onChangeHandler}
                   placeholder="Twitter"
@@ -119,13 +119,13 @@ const YourSocialLinks = ({
             </div>
             <div className="flex flex-row justify-between w-auto">
               <div className="flex flex-col w-full py-1 px-1">
-                <label className="py-1" htmlFor="github">
+                <label className="py-1 font-medium" htmlFor="github">
                   Github
                 </label>
                 <input
                   id="github"
                   name="github"
-                  className="rounded bg-slate-200"
+                  className="rounded"
                   defaultValue={user?.github}
                   onChange={onChangeHandler}
                   placeholder="Github"
@@ -191,20 +191,18 @@ const YourSocialLinks = ({
             />
             <input
               type="checkbox"
-              className="rounded bg-slate-200"
+              className="rounded"
               checked={showSocials === "true" ? true : false}
               value={showSocials}
               onChange={showSocialsOnChangeHandler}
-            ></input>
+            />
           </div>
           <div className="flex flex-col">
-            <label className="py-1 px-1" htmlFor="social_icons">
-              Show Social Icons?
-            </label>
+            <h2 className="py-1 px-1 font-medium">Show Social Icons?</h2>
           </div>
         </div>
         {edited && (
-          <SubmitButton className="bg-yellow-400 my-4 p-2 text-center w-auto animate-pulse">
+          <SubmitButton className="btn btn-amber my-4 animate-pulse">
             Save Change
           </SubmitButton>
         )}

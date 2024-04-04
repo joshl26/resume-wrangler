@@ -37,10 +37,17 @@ export default function YourCertifications({
   const [edited, setEdited] = useState(false);
   const [editSection, setEditSection] = useState(false);
   const [editSectionTitle, setEditSectionTitle] = useState(false);
+  const [addCertification, setAddCertification] = useState(false);
 
   const onChangeHandler = () => {
     if (edited === false) {
       setEdited(true);
+    }
+  };
+
+  const newCertificationOnChangeHandler = () => {
+    if (addCertification === false) {
+      setAddCertification(true);
     }
   };
 
@@ -69,11 +76,11 @@ export default function YourCertifications({
   };
 
   return (
-    <div className=" w-full px-2">
-      <div className=" font-bold text-xl">
-        <h2>Your {sectionTitle}</h2>
+    <div className="w-full">
+      <div className=" font-bold text-xl py-1">
+        <h2 className="">Your {sectionTitle}</h2>
       </div>
-      <div className="your-certifications rounded border p-2">
+      <div className="your-certifications rounded tight-shadow form-amber px-4 py-2">
         <div className="flex flex-row justify-between">
           <div className="flex flex-col"></div>
           <div className="flex flex-col "></div>
@@ -100,7 +107,7 @@ export default function YourCertifications({
                   id="user_id"
                   value={user?.id}
                 />
-                <label className="py-1" htmlFor="section_title">
+                <label className="py-1 font-medium" htmlFor="section_title">
                   Section Title
                 </label>
                 <input
@@ -109,7 +116,7 @@ export default function YourCertifications({
                   maxLength={14}
                   id="section_title"
                   name="section_title"
-                  className="rounded bg-slate-200"
+                  className="rounded"
                   defaultValue={sectionTitle}
                   onChange={setSectionTitleOnChangeHandler}
                   placeholder="Section Title"
@@ -124,7 +131,11 @@ export default function YourCertifications({
                 </>
               )}
             </form>
-            <form action={createCertification} className="flex flex-row w-auto">
+            <form
+              onSubmit={() => setAddCertification(false)}
+              action={createCertification}
+              className="flex flex-row w-auto"
+            >
               <div className="flex flex-col w-full py-1 px-1">
                 <input
                   readOnly
@@ -149,23 +160,26 @@ export default function YourCertifications({
                   maxLength={14}
                   id="section_title"
                   name="section_title"
-                  className="rounded bg-slate-200"
+                  className="rounded"
                   defaultValue={sectionTitle}
                   onChange={(e) => setSectionTitle(e.target.value)}
                   placeholder="Section Title"
                 ></input>
-                <h2 className="py-1">{sectionTitle}</h2>
-                <div className="rounded border border-black w-full px-2">
+                <h2 className="py-1 font-medium">Add New {sectionTitle}</h2>
+                <div className="rounded tight-shadow bg-gray-50 w-full px-2">
                   <div className="flex flex-row w-auto">
                     <div className="flex flex-col w-full py-1 px-1">
-                      <label className="py-1" htmlFor="certification_name">
+                      <label
+                        className="py-1 font-medium"
+                        htmlFor="certification_name"
+                      >
                         Name
                       </label>
                       <input
                         required
                         id="certification_name"
                         name="certification_name"
-                        className="rounded bg-slate-200"
+                        className="rounded"
                         defaultValue={""}
                         onChange={(e) => {}}
                         placeholder="Title, Activity, name, etc.."
@@ -174,31 +188,39 @@ export default function YourCertifications({
                   </div>
                   <div className="flex flex-row w-auto">
                     <div className="flex flex-col w-full py-1 pb-3 px-1">
-                      <label className="py-1" htmlFor="certification_location">
+                      <label
+                        className="py-1 font-medium"
+                        htmlFor="certification_location"
+                      >
                         Location
                       </label>
                       <input
                         id="certification_location"
                         name="certification_location"
-                        className="rounded bg-slate-200"
+                        className="rounded"
                         defaultValue={""}
-                        onChange={(e) => {}}
+                        onChange={newCertificationOnChangeHandler}
                         placeholder="Location"
                       ></input>
                     </div>
                   </div>
                 </div>
                 <div className="flex flex-col w-full pt-4 pb-2 px-1">
-                  <SubmitButton className="btn btn-amber animate-pulse">
-                    Add New Entry
-                  </SubmitButton>
+                  {addCertification && (
+                    <>
+                      <SubmitButton className="btn btn-amber animate-pulse">
+                        Add New Entry
+                      </SubmitButton>
+                    </>
+                  )}
                 </div>
               </div>
             </form>
-            <ul>
+            <h2 className="font-medium py-1">Your Certifications</h2>
+            <ul className="overflow-y-auto h-[150px] tight-shadow rounded bg-white">
               {userCertifications[0] &&
                 userCertifications?.map((certification: UserCertification) => (
-                  <li className="p-1 border my-3" key={certification?.id}>
+                  <li className="p-2 border" key={certification?.id}>
                     <form action={createResumeLine}>
                       <input
                         hidden
@@ -220,22 +242,27 @@ export default function YourCertifications({
                         value={certification?.id}
                       />
                       <div className="flex flex-row justify-between">
-                        <div className="flex flex-col">
+                        <div className="flex flex-col w-3/4">
                           <h2 className="font-bold">{certification?.name}</h2>
                           <h2>{certification?.location}</h2>
                         </div>
-                        <div className="flex flex-col">
-                          <SubmitButton className={""}>Add</SubmitButton>
+                        <div className="flex flex-col m-auto">
+                          <SubmitButton
+                            className={"hover:text-azure-radiance-500"}
+                          >
+                            Add
+                          </SubmitButton>
                         </div>
                       </div>
                     </form>
                   </li>
                 ))}
             </ul>
-            <ul>
+            <h2 className="font-medium pt-4">Selected Certifications</h2>
+            <ul className="overflow-y-auto h-[200px] tight-shadow bg-white">
               {certificationResumeLines[0] &&
                 certificationResumeLines?.map((certification: any) => (
-                  <li className="pt-2" key={certification?.id}>
+                  <li className="border bg-white p-2" key={certification?.id}>
                     <div className="flex flex-row justify-between">
                       <h2 className="font-bold">{certification?.name}</h2>
                       <form action={deleteResumeLine}>
@@ -266,7 +293,7 @@ export default function YourCertifications({
                           value={resume?.id}
                         />
                         <div className="flex flex-col">
-                          <SubmitButton className="btn btn-amber animate-pulse">
+                          <SubmitButton className="hover:text-rose-500">
                             Remove
                           </SubmitButton>
                         </div>
@@ -306,7 +333,7 @@ export default function YourCertifications({
                           required
                           id="certification_name"
                           name="certification_name"
-                          className="rounded bg-slate-200"
+                          className="rounded"
                           defaultValue={certification?.name}
                           onChange={onChangeHandler}
                           placeholder="Title, Activity, name, etc.."
@@ -318,7 +345,7 @@ export default function YourCertifications({
                           required
                           id="location_name"
                           name="location_name"
-                          className="rounded bg-slate-200"
+                          className="rounded"
                           defaultValue={certification?.location}
                           onChange={onChangeHandler}
                           placeholder="Title, Activity, name, etc.."
@@ -364,7 +391,7 @@ export default function YourCertifications({
           <div className="flex flex-row ">
             <div className="px-2 flex align-middle">
               <input
-                className="m-auto bg-slate-200 rounded"
+                className="m-auto rounded"
                 type="checkbox"
                 checked={showCustomSectionTwo === "true" ? true : false}
                 value={showCustomSectionTwo}
@@ -372,7 +399,7 @@ export default function YourCertifications({
               ></input>
             </div>
             <div className="flex flex-col py-2">
-              <p>Show {sectionTitle} section?</p>
+              <p className="font-medium">Show {sectionTitle} section?</p>
             </div>
           </div>
           {editSection && (

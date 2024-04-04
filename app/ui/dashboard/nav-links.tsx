@@ -3,12 +3,9 @@
 import {
   ListBulletIcon,
   AdjustmentsVerticalIcon,
-  UserGroupIcon,
   HomeIcon,
   DocumentDuplicateIcon,
-  BookOpenIcon,
   CheckIcon,
-  Cog8ToothIcon,
   AcademicCapIcon,
   BriefcaseIcon,
   BuildingOffice2Icon,
@@ -19,8 +16,6 @@ import Link from "next/link";
 import clsx from "clsx";
 import { usePathname } from "next/navigation";
 
-// Map of links to display in the side navigation.
-// Depending on the size of the application, this would be stored in a database.
 const links = [
   { name: "Dashboard", href: "/dashboard", icon: HomeIcon },
   {
@@ -71,7 +66,7 @@ const links = [
 
   {
     name: "Resume Templates",
-    href: "/dashboard/resume",
+    href: "/dashboard/resume-templates",
     icon: DocumentDuplicateIcon,
   },
   // {
@@ -96,17 +91,15 @@ export default function NavLinks() {
 
   return (
     <>
-      {links.map((link) => {
+      {links?.map((link) => {
         const LinkIcon = link.icon;
         return (
           <Link
-            key={link.name}
-            href={link.href}
+            key={link?.name}
+            href={link?.href}
             className={clsx(
               "flex h-[40px] tight-shadow grow items-center justify-center gap-2 rounded-md hover:text-azure-radiance-400  p-3 text-sm font-medium hover:bg-amber-100  md:flex-none md:justify-start md:p-2 md:px-3",
-              pathname === link.href
-                ? "bg-amber-200 text-azure-radiance-500"
-                : "bg-gray-50"
+              pathname === link?.href ? "bg-amber-300 " : "bg-gray-100"
             )}
           >
             <LinkIcon className="w-6" />
