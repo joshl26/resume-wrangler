@@ -1,0 +1,7 @@
+node_modules
+npm-debug.log
+db_bak
+scripts
+coverage
+playwright-report
+test-results
