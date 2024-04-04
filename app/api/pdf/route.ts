@@ -36,7 +36,7 @@ import puppeteer from "puppeteer-core";
 export async function GET(req: NextRequest) {
   const executablePath = await chrome.executablePath;
 
-  console.log(executablePath);
+  // console.log(executablePath);
 
   let params: any = {};
   for (const [key, val] of req.nextUrl.searchParams.entries()) {
@@ -117,8 +117,8 @@ export async function GET(req: NextRequest) {
     //   // await page.waitForNavigation(); // <------------------------- Wait for Navigation
 
     await page.goto(
-      // `http://${process.env.DEPLOYMENT_URL}/resume/${resumeId}/${userEmail}`,
-      `http://localhost:3000/resume/${resumeId}/${userEmail}`,
+      `${process.env.DEPLOYMENT_URL}/resume/${resumeId}/${userEmail}`,
+      // `http://localhost:3000/resume/${resumeId}/${userEmail}`,
 
       {
         waitUntil: "networkidle0",
