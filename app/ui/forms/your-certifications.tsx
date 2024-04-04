@@ -80,7 +80,7 @@ export default function YourCertifications({
       <div className=" font-bold text-xl py-1">
         <h2 className="">Your {sectionTitle}</h2>
       </div>
-      <div className="your-certifications rounded tight-shadow form-amber px-4 pt-2">
+      <div className="your-certifications rounded tight-shadow form-amber px-4 py-2">
         <div className="flex flex-row justify-between">
           <div className="flex flex-col"></div>
           <div className="flex flex-col "></div>
@@ -399,7 +399,7 @@ export default function YourCertifications({
               ></input>
             </div>
             <div className="flex flex-col py-2">
-              <p>Show {sectionTitle} section?</p>
+              <p className="font-medium">Show {sectionTitle} section?</p>
             </div>
           </div>
           {editSection && (

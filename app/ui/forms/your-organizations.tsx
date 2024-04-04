@@ -1,7 +1,6 @@
 import {
   createOrganization,
   createResumeLine,
-  deleteOrganization,
   deleteResumeLine,
   updateOrganizationSection,
   updateOrganizationSectionTitle,

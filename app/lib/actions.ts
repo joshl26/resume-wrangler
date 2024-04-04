@@ -1705,6 +1705,7 @@ export async function updateEducationSection(formData: FormData) {
 
 export async function updateOrganizationSection(formData: FormData) {
   const validatedFields = UpdateOrganizationsSectionSchema.safeParse({
+    user_id: formData.get("user_id"),
     resume_id: formData.get("resume_id"),
     show_custom_section_one: formData.get("show_custom_section_one"),
   });
@@ -1731,9 +1732,12 @@ export async function updateOrganizationSection(formData: FormData) {
 }
 
 export async function updateCertificationsSection(formData: FormData) {
+  // console.log(formData);
+
   const validatedFields = UpdateCertificationsSectionSchema.safeParse({
     user_id: formData.get("user_id"),
     show_custom_section_two: formData.get("show_custom_section_two"),
+    resume_id: formData.get("resume_id"),
   });
   if (validatedFields.success === false) {
     return {
@@ -1742,6 +1746,7 @@ export async function updateCertificationsSection(formData: FormData) {
     };
   }
   const { user_id, resume_id, show_custom_section_two } = validatedFields.data;
+
   try {
     const query = `UPDATE resumes SET show_custom_section_two = '${show_custom_section_two}' WHERE id = '${resume_id}'`;
     const data = await conn.query(query);
