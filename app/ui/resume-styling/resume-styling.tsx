@@ -26,6 +26,7 @@ import {
   userOrganizations,
 } from "@/app/lib/definitions";
 import BackButton from "../back-button";
+import ThreeDAnimator from "../resume/3d-animator/3d-animator";
 
 interface Props {
   resumeTemplates: ResumeTemplates;
@@ -189,6 +190,34 @@ export default function ResumeStyling(props: Props) {
           {selectedResumeTemplate === "electrical-engineer" && (
             <Suspense>
               <ElectricalEngineer
+                heading_font={selectedResumeHeadingFont}
+                body_font={selectedResumeBodyFont}
+                color={selectedResumeColor}
+                selectedResumeHighlightColor={selectedResumeHighlightColor}
+                show_social_icons={showSocials}
+                user={props?.user}
+                resume={props?.resume}
+                userWorkExperiences={props?.userWorkExperiences}
+                userSkills={props?.userSkills}
+                userEducation={props?.userEducation}
+                userCertifications={props?.userCertifications}
+                userOrganizations={props?.userOrganizations}
+                show_skills_section={showSkills}
+                show_skill_progress={showSkillProgress}
+                show_education_section={showEducation}
+                show_custom_section_one={showCustomSectionOne}
+                show_custom_section_two={showCustomSectionTwo}
+                educationResumeLines={props?.educationResumeLines}
+                workResumeLines={props?.workResumeLines}
+                skillResumeLines={props?.skillResumeLines}
+                organizationResumeLines={props?.organizationResumeLines}
+                certificationResumeLines={props?.certificationResumeLines}
+              />
+            </Suspense>
+          )}
+          {selectedResumeTemplate === "3d-animator" && (
+            <Suspense>
+              <ThreeDAnimator
                 heading_font={selectedResumeHeadingFont}
                 body_font={selectedResumeBodyFont}
                 color={selectedResumeColor}
