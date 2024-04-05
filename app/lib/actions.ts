@@ -1493,7 +1493,7 @@ export async function createUserImage(formData: FormData) {
   }
 
   try {
-    const query = `UPDATE users SET thumbnail = '${cldRes.secure_url}' WHERE id = '${userId}' AND thumbnail = ''`;
+    const query = `UPDATE users SET thumbnail = '${cldRes.secure_url}' WHERE id = '${userId}'`;
     const data = await conn.query(query);
   } catch (error) {
     console.log(error);

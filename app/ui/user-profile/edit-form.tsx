@@ -322,7 +322,7 @@ const UserImageEditForm = ({ user }: { user: User }) => {
     <div className=" ">
       <h2 className="font-bold text-[2rem] py-1">Edit User Image</h2>
       <div className="flex flex-col p-3 tight-shadow mr-3 rounded bg-amber-200">
-        {user?.thumbnail !== "" ? (
+        {user?.thumbnail ? (
           <div className="flex flex-row">
             <div className="flex flex-col">
               <Image
