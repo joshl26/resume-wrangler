@@ -33,7 +33,7 @@ const Skills = ({ skills }: { skills: UserSkills }) => {
                   {skill?.skill ? skill?.skill : "N/A"}
                 </th>
                 <td className="px-6 py-4">
-                  <input type="range" value={skill?.skill_level} />
+                  <input readOnly type="range" value={skill?.skill_level} />
                   {skill?.skill_level ? <p>{skill?.skill_level}%</p> : "N/A"}
                 </td>
                 <td className="text-left px-6 py-4">

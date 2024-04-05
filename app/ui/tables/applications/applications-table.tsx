@@ -65,16 +65,19 @@ const ApplicationsTable = ({
           {applications?.length > 0 ? (
             applications?.map((application: Application) => (
               <tr key={application.id} className="border-b  hover:bg-gray-50 ">
-                <Link href={`/dashboard/applications/edit/${application?.id}`}>
-                  <th
-                    scope="row"
-                    className="px-6 py-4 font-medium  whitespace-nowrap "
+                <th
+                  scope="row"
+                  className="px-6 py-4 font-medium  whitespace-nowrap "
+                >
+                  <Link
+                    href={`/dashboard/applications/edit/${application?.id}`}
                   >
                     {application?.job_position
                       ? application?.job_position
                       : "N/A"}
-                  </th>
-                </Link>
+                  </Link>
+                </th>
+
                 <td className="px-6 py-4">
                   {application?.company_id
                     ? companies.find(
@@ -252,7 +255,7 @@ const ApplicationsTable = ({
             ))
           ) : (
             <tr>
-              <Link href="/dashboard/application/new">
+              <Link href="/dashboard/applications/new">
                 <td className="flex items-center px-6 py-4">
                   Start by creating your first application here
                 </td>{" "}

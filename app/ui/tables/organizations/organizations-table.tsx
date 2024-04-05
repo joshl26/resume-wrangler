@@ -36,16 +36,17 @@ const Organizations = ({
           {organizations?.length > 0 ? (
             organizations?.map((organization: UserOrganization) => (
               <tr key={organization?.id} className=" border-b  ">
-                <Link
-                  href={`/dashboard/organizations/edit/${organization?.id}`}
+                <th
+                  scope="row"
+                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "
                 >
-                  <th
-                    scope="row"
-                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "
+                  <Link
+                    href={`/dashboard/organizations/edit/${organization?.id}`}
                   >
                     {organization?.name ? organization?.name : "N/A"}
-                  </th>
-                </Link>
+                  </Link>
+                </th>
+
                 <td className="px-6 py-4">
                   {organization?.location ? organization?.location : "N/A"}
                 </td>
@@ -95,7 +96,7 @@ const Organizations = ({
             ))
           ) : (
             <tr>
-              <Link href="/dashboard/organization/new">
+              <Link href="/dashboard/organizations/new">
                 <td className="flex items-center px-6 py-4">
                   Start by creating your first organization here
                 </td>

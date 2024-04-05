@@ -1,11 +1,11 @@
 "use client";
 
 import { deleteCompany } from "@/app/lib/actions";
-import { Companies, Company } from "@/app/lib/definitions";
+import { Company } from "@/app/lib/definitions";
 import Link from "next/link";
 import React from "react";
 
-const Companies = ({ companies }: { companies: Companies }) => {
+const Companies = ({ companies }: { companies: Company[] }) => {
   return (
     <div className="relative overflow-x-auto overflow-y-auto tight-shadow sm:rounded-lg px-4 py-4 mr-3">
       <table className="w-full text-sm text-left rtl:text-right ">
@@ -36,14 +36,15 @@ const Companies = ({ companies }: { companies: Companies }) => {
           {companies?.length > 0 ? (
             companies?.map((company: Company) => (
               <tr key={company?.id} className=" border-b da hover:bg-gray-50 ">
-                <Link href={`/dashboard/companies/edit/${company?.id}`}>
-                  <th
-                    scope="row"
-                    className="px-6 py-4 font-medium  whitespace-nowrap "
-                  >
+                <th
+                  scope="row"
+                  className="px-6 py-4 font-medium  whitespace-nowrap "
+                >
+                  <Link href={`/dashboard/companies/edit/${company?.id}`}>
                     {company?.name ? company?.name : "N/A"}
-                  </th>
-                </Link>
+                  </Link>
+                </th>
+
                 <td className="px-6 py-4">
                   {company?.address_one ? company?.address_one : "N/A"}
                 </td>
@@ -81,7 +82,7 @@ const Companies = ({ companies }: { companies: Companies }) => {
             ))
           ) : (
             <tr>
-              <Link href="/dashboard/company/new">
+              <Link href="/dashboard/companies/new">
                 <td className="flex items-center px-6 py-4">
                   Start by creating your first company here
                 </td>

@@ -39,16 +39,17 @@ const Certifications = ({
                 key={certification?.id}
                 className=" border-b  hover:bg-gray-50 "
               >
-                <Link
-                  href={`/dashboard/certifications/edit/${certification?.id}`}
+                <th
+                  scope="row"
+                  className="px-6 py-4 font-medium  whitespace-nowrap "
                 >
-                  <th
-                    scope="row"
-                    className="px-6 py-4 font-medium  whitespace-nowrap "
+                  <Link
+                    href={`/dashboard/certifications/edit/${certification?.id}`}
                   >
                     {certification?.name ? certification?.name : "N/A"}
-                  </th>
-                </Link>
+                  </Link>
+                </th>
+
                 <td className="px-6 py-4">
                   {certification?.location ? certification?.location : "N/A"}
                 </td>
@@ -100,9 +101,9 @@ const Certifications = ({
             ))
           ) : (
             <tr>
-              <Link href="/dashboard/organization/new">
+              <Link href="/dashboard/certifications/new">
                 <td className="flex items-center px-6 py-4">
-                  Start by creating your first organization here
+                  Start by creating your first certification here
                 </td>{" "}
               </Link>
             </tr>

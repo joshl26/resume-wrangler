@@ -80,7 +80,11 @@ export default function YourSkills({
                         <h2 className="font-bold">{skill.skill}</h2>
                       </div>
                       <div className="flex flex-col w-1/3 m-auto">
-                        <input type="range" value={skill.skill_level} />
+                        <input
+                          readOnly
+                          type="range"
+                          value={skill.skill_level}
+                        />
                       </div>
                       <div className="flex flex-col w-1/3 m-auto">
                         <div className="flex flex-row justify-end">

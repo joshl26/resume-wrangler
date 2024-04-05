@@ -39,15 +39,15 @@ const WorkExperience = ({
                 key={workExperience?.id}
                 className="border-b  hover:bg-gray-50 "
               >
-                <Link
-                  href={`/dashboard/work-experience/edit/${workExperience?.id}`}
-                >
-                  <td className="px-6 py-4 font-medium whitespace-nowrap">
+                <td className="px-6 py-4 font-medium whitespace-nowrap">
+                  <Link
+                    href={`/dashboard/work-experience/edit/${workExperience?.id}`}
+                  >
                     {workExperience?.company_name
                       ? workExperience?.company_name
                       : "N/A"}
-                  </td>
-                </Link>
+                  </Link>
+                </td>
 
                 <td className="px-6 py-4">
                   {workExperience?.location ? workExperience?.location : "N/A"}

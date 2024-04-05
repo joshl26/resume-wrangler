@@ -69,6 +69,7 @@ export default function YourResumeStyling({
             id="resume_id"
             name="resume_id"
             defaultValue={resume?.id}
+            readOnly
           />
           <label className="py-1 font-medium" htmlFor="resume_title">
             Resume Title
@@ -117,7 +118,11 @@ export default function YourResumeStyling({
           >
             {resumeTemplates.map((resume: any) => {
               return (
-                <option key={resume.id} value={resume.description}>
+                <option
+                  key={resume.id}
+                  value={resume.description}
+                  onChange={() => {}}
+                >
                   {resume.name}
                 </option>
               );
@@ -129,7 +134,13 @@ export default function YourResumeStyling({
             <label className="py-1 font-medium" htmlFor="color">
               Colors
             </label>
-            <input hidden id="color" name="color" value={selectedResumeColor} />
+            <input
+              hidden
+              id="color"
+              name="color"
+              value={selectedResumeColor}
+              onChange={() => {}}
+            />
             <div className="flex flex-row justify-around">
               {resumeColors?.map((color: ResumeColor) => (
                 <div
@@ -164,7 +175,12 @@ export default function YourResumeStyling({
             >
               {headerFonts.map((font: HeaderFont) => {
                 return (
-                  <option className={font.name} key={font.id} value={font.name}>
+                  <option
+                    className={font.name}
+                    key={font.id}
+                    value={font.name}
+                    onChange={() => {}}
+                  >
                     {font.description}
                   </option>
                 );
@@ -188,7 +204,12 @@ export default function YourResumeStyling({
           >
             {bodyFonts.map((font: BodyFont) => {
               return (
-                <option className={font.name} key={font.id} value={font.name}>
+                <option
+                  className={font.name}
+                  key={font.id}
+                  value={font.name}
+                  onChange={() => {}}
+                >
                   {font.description}
                 </option>
               );

@@ -38,16 +38,17 @@ const Education = ({ education }: { education: UserEducationExperiences }) => {
           {education?.length > 0 ? (
             education?.map((program: UserEducationExperience) => (
               <tr key={program?.id} className="border-b">
-                <Link href={`/dashboard/education/edit/${program?.id}`}>
-                  <th
-                    scope="row"
-                    className="px-6 py-4 font-medium whitespace-nowrap "
-                  >
+                <th
+                  scope="row"
+                  className="px-6 py-4 font-medium whitespace-nowrap "
+                >
+                  <Link href={`/dashboard/education/edit/${program?.id}`}>
                     {program?.institution_name
                       ? program?.institution_name
                       : "N/A"}
-                  </th>
-                </Link>
+                  </Link>{" "}
+                </th>
+
                 <td className="px-6 py-4">
                   {program?.location ? program?.location : "N/A"}
                 </td>
@@ -97,9 +98,9 @@ const Education = ({ education }: { education: UserEducationExperiences }) => {
             ))
           ) : (
             <tr>
-              <Link href="/dashboard/organization/new">
+              <Link href="/dashboard/education/new">
                 <td className="flex items-center px-6 py-4">
-                  Start by creating your first organization here
+                  Start by creating your first education experience here
                 </td>
               </Link>
             </tr>
