@@ -128,6 +128,31 @@ const UpdateUserSocialsSchema = z.object({
   }),
 });
 
+const UpdateUserDetailsSchema = z.object({
+  id: z.string(),
+  first_name: z.string({
+    invalid_type_error: "Please enter a valid first name",
+  }),
+  last_name: z.string({
+    invalid_type_error: "Please enter a valid first name",
+  }),
+  address_one: z.string({
+    invalid_type_error: "Please enter a valid address line one",
+  }),
+  address_two: z.string({
+    invalid_type_error: "Please enter a valid address line two",
+  }),
+  address_three: z.string({
+    invalid_type_error: "Please enter a valid address line three",
+  }),
+  phone: z.string({
+    invalid_type_error: "Please enter a valid address line one",
+  }),
+  website: z.string({
+    invalid_type_error: "Please enter a valid address line one",
+  }),
+});
+
 const ApplicationSchema = z.object({
   id: z.string(),
   postingText: z.string({
@@ -778,6 +803,50 @@ export async function updateUserSocials(formData: FormData) {
 
   try {
     const query = `UPDATE users SET linked_in = '${linked_in}', twitter = '${twitter}', facebook = '${facebook}', instagram = '${instagram}', github = '${github}' WHERE id = '${id}'`;
+
+    const data = await conn.query(query);
+  } catch (error) {
+    return { message: `Database Error: Failed to Update Invoice. ${error}` };
+  }
+
+  revalidatePath("/dashboard/user-profile");
+  redirect("/dashboard/user-profile");
+}
+
+export async function updateUserDetails(formData: FormData) {
+  console.log(formData);
+
+  const validatedFields = UpdateUserDetailsSchema.safeParse({
+    id: formData.get("id"),
+    first_name: formData.get("first_name"),
+    last_name: formData.get("last_name"),
+    address_one: formData.get("address_one"),
+    address_two: formData.get("address_two"),
+    address_three: formData.get("address_three"),
+    phone: formData.get("phone"),
+    website: formData.get("website"),
+  });
+
+  if (validatedFields.success === false) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: "Missing Fields. Failed to Update Invoice.",
+    };
+  }
+
+  const {
+    id,
+    first_name,
+    last_name,
+    address_one,
+    address_two,
+    address_three,
+    phone,
+    website,
+  } = validatedFields.data;
+
+  try {
+    const query = `UPDATE users SET first_name = '${first_name}', last_name = '${last_name}', address_one = '${address_one}', address_two = '${address_two}', address_three = '${address_three}', phone = '${phone}', website = '${website}' WHERE id = '${id}'`;
 
     const data = await conn.query(query);
   } catch (error) {

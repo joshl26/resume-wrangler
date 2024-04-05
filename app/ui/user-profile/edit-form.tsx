@@ -8,6 +8,7 @@ import {
   updateSocials,
   deleteUserImage,
   updateUserSocials,
+  updateUserDetails,
 } from "@/app/lib/actions";
 import { SubmitButton } from "../submit-button";
 import Image from "next/image";
@@ -33,7 +34,7 @@ const UserDetailsEditForm = ({ user }: { user: User }) => {
       <form
         className="flex flex-col p-3 tight-shadow rounded form-amber"
         onSubmit={() => setEdited(false)}
-        action={dispatch}
+        action={updateUserDetails}
       >
         <input type="hidden" name="id" value={user?.id} />
         <div className="flex flex-row">
