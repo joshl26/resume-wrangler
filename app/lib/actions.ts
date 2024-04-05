@@ -109,6 +109,25 @@ const UserSocialsSchema = z.object({
   }),
 });
 
+const UpdateUserSocialsSchema = z.object({
+  id: z.string(),
+  linked_in: z.string({
+    invalid_type_error: "Please enter a valid linkedin in address",
+  }),
+  twitter: z.string({
+    invalid_type_error: "Please enter a valid twitter in address",
+  }),
+  facebook: z.string({
+    invalid_type_error: "Please enter a valid facebook in address",
+  }),
+  instagram: z.string({
+    invalid_type_error: "Please enter a valid instagram in address",
+  }),
+  github: z.string({
+    invalid_type_error: "Please enter a valid github in address",
+  }),
+});
+
 const ApplicationSchema = z.object({
   id: z.string(),
   postingText: z.string({
@@ -692,6 +711,8 @@ export async function updateSocials(
   prevState: State,
   formData: FormData
 ) {
+  console.log(formData);
+
   const validatedFields = UpdateSocials.safeParse({
     linked_in: formData.get("linked_in"),
     twitter: formData.get("twitter"),
@@ -733,6 +754,38 @@ export async function updateSocials(
 
   revalidatePath(`/dashboard/resume/edit/${resume_id}`);
   redirect(`/dashboard/resume/edit/${resume_id}`);
+}
+
+export async function updateUserSocials(formData: FormData) {
+  const validatedFields = UpdateUserSocialsSchema.safeParse({
+    id: formData.get("id"),
+    linked_in: formData.get("linked_in"),
+    twitter: formData.get("twitter"),
+    facebook: formData.get("facebook"),
+    instagram: formData.get("instagram"),
+    github: formData.get("github"),
+  });
+
+  if (validatedFields.success === false) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: "Missing Fields. Failed to Update Invoice.",
+    };
+  }
+
+  const { id, linked_in, twitter, facebook, instagram, github } =
+    validatedFields.data;
+
+  try {
+    const query = `UPDATE users SET linked_in = '${linked_in}', twitter = '${twitter}', facebook = '${facebook}', instagram = '${instagram}', github = '${github}' WHERE id = '${id}'`;
+
+    const data = await conn.query(query);
+  } catch (error) {
+    return { message: `Database Error: Failed to Update Invoice. ${error}` };
+  }
+
+  revalidatePath("/dashboard/user-profile");
+  redirect("/dashboard/user-profile");
 }
 
 export async function updateApplication(formData: FormData) {

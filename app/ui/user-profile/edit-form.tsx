@@ -3,7 +3,12 @@
 import { User } from "@/app/lib/definitions";
 import React, { useState } from "react";
 import { useFormState } from "react-dom";
-import { updateUser, updateSocials, deleteUserImage } from "@/app/lib/actions";
+import {
+  updateUser,
+  updateSocials,
+  deleteUserImage,
+  updateUserSocials,
+} from "@/app/lib/actions";
 import { SubmitButton } from "../submit-button";
 import Image from "next/image";
 import ImagePicker from "../image-picker/image-picker";
@@ -202,22 +207,22 @@ const UserSocialsEditForm = ({ user }: { user: User }) => {
       <form
         className="flex flex-col p-3 tight-shadow rounded mr-3 form-amber"
         onSubmit={() => setEdited(false)}
-        action={dispatch}
+        action={updateUserSocials}
       >
         <input type="hidden" name="id" value={user?.id} />
 
         <div className="flex flex-row ">
           <div className="flex flex-col p-1">
             <label
-              htmlFor="linkedin"
+              htmlFor="linked_in"
               className="mb-2 block text-sm font-medium"
             >
               LinkedIn
             </label>
             <input
               onChange={() => onChangeHandler()}
-              id="linkedin"
-              name="linkedin"
+              id="linked_in"
+              name="linked_in"
               type="text"
               placeholder="Type your linkedin address"
               defaultValue={user?.linked_in}
