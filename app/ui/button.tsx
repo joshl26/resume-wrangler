@@ -4,9 +4,10 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
 }
 
-export function Button({ children, className, ...rest }: ButtonProps) {
+export function Button({ children, className, type, ...rest }: ButtonProps) {
   return (
     <button
+      type={type}
       {...rest}
       className={clsx(
         "flex w-full mx-auto h-10 items-center rounded-lg px-4 text-sm font-medium focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 aria-disabled:cursor-not-allowed aria-disabled:opacity-50",

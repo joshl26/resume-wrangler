@@ -5,6 +5,7 @@ import { useFormStatus } from "react-dom";
 import { redirect } from "next/navigation";
 import { SubmitButton } from "../submit-button";
 import BackButton from "../back-button";
+// import { createNewUser } from "@/app/lib/actions";
 
 export default function RegisterUser() {
   const [error, setError] = useState("");
@@ -24,6 +25,7 @@ export default function RegisterUser() {
       body: JSON.stringify({
         username: formData.get("username"),
         email: formData.get("email"),
+        password: formData.get("password"),
       }),
     });
 

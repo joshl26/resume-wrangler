@@ -10,6 +10,7 @@ import { signIn } from "@/auth";
 
 import axios from "axios";
 import crypto from "crypto";
+import bcrypt from "bcrypt";
 const cloudinary = require("cloudinary").v2;
 
 const generateSHA1 = (data: any) => {
@@ -22,6 +23,18 @@ const generateSignature = (publicId: string, apiSecret: string) => {
   const timestamp = new Date().getTime();
   return `public_id=${publicId}&timestamp=${timestamp}${apiSecret}`;
 };
+
+const CreateNewUserSchema = z.object({
+  username: z.string({
+    invalid_type_error: "Please select a customer.",
+  }),
+  email: z.string({
+    invalid_type_error: "Please select a customer.",
+  }),
+  password: z.string({
+    invalid_type_error: "Please select a customer.",
+  }),
+});
 
 const InvoiceSchema = z.object({
   id: z.string(),
@@ -2045,3 +2058,37 @@ export async function createResumeLine(formData: FormData) {
     }
   }
 }
+
+// export async function createNewUser(formData: FormData) {
+//   console.log(formData);
+
+//   const validatedFields = CreateNewUserSchema.safeParse({
+//     username: formData.get("username"),
+//     email: formData.get("email"),
+//     password: formData.get("password"),
+//   });
+
+//   if (validatedFields.success === false) {
+//     return {
+//       errors: validatedFields.error.flatten().fieldErrors,
+//       message: "Missing Fields. Failed to Create user skill.",
+//     };
+//   }
+//   const { username, email, password } = validatedFields.data;
+
+//   // console.log(username, email, password);
+
+//   const hashedPassword = await bcrypt.hash(password, 10);
+
+//   try {
+//     const query = `INSERT INTO users (name, email, password) VALUES ('${username}', '${email}', '${hashedPassword}')`;
+//     console.log(query);
+//     const data = await conn.query(query);
+//     console.log(data);
+//   } catch (error) {
+//     return { message: `Database Error: Failed to Update Invoice. ${error}` };
+//   }
+
+//   revalidatePath(`/register`);
+//   redirect(`/login`);
+// }

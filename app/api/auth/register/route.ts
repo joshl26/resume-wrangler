@@ -1,8 +1,10 @@
+"use server";
+
 import { NextResponse } from "next/server";
 import { conn } from "@/app/lib/database";
-const bcrypt = require("bcrypt");
+import bcrypt from "bcrypt";
 
-export const runtime = "nodejs";
+// export const runtime = "nodejs";
 
 export async function POST(request: Request) {
   try {
@@ -14,7 +16,11 @@ export async function POST(request: Request) {
 
     const query = `INSERT INTO users (name, email, password) VALUES ('${username}', '${email}', '${hashedPassword}')`;
 
+    console.log(query);
+
     const data = await conn.query(query);
+
+    console.log(data);
 
     return NextResponse.json(
       {
@@ -26,7 +32,6 @@ export async function POST(request: Request) {
       }
     );
   } catch (e: any) {
-
     if (e.code === "23505") {
       return NextResponse.json(
         {
