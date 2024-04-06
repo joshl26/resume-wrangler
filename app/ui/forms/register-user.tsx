@@ -46,7 +46,7 @@ export default function RegisterUser() {
         </h2>
         <form
           action={handleSubmit}
-          className="flex flex-col form-amber gap-2 mx-auto w-[400px] tight-shadow px-4 pb-4 pt-3 mb-3"
+          className="flex flex-col form-amber gap-2 mx-auto max-w-[400px] tight-shadow px-4 pb-4 pt-3 mb-3"
         >
           <label htmlFor="username">Username</label>
           <input
