@@ -39,8 +39,8 @@ export default function RegisterUser() {
   };
 
   return (
-    <div className="flex flex-col h-screen w-screen">
-      <div className="flex flex-col justify-center m-auto">
+    <div className="flex flex-col ">
+      <div className="flex flex-col justify-center m-auto my-10">
         <h2 className="text-center font-medium text-[2rem] py-2">
           New User Sign Up
         </h2>
@@ -77,6 +77,7 @@ export default function RegisterUser() {
             required
             placeholder="Type your password"
             onChange={onChangeHandler}
+            minLength={6}
           />
           {edited && (
             <>

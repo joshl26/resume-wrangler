@@ -3,9 +3,9 @@ import Logo from "/public/ResumeWranglerLogo.svg";
 import Image from "next/image";
 import Link from "next/link";
 
-const LandingFooter = () => {
+const SigninFooter = () => {
   return (
-    <footer className="shadow bg-azure-radiance-900 ">
+    <footer className="bottom-0 left-0 right-0 shadow bg-azure-radiance-900 ">
       <div className="w-full max-w-screen-xl mx-auto p-4 md:py-8">
         <div className="sm:flex sm:items-center sm:justify-between">
           <a
@@ -99,4 +99,4 @@ const LandingFooter = () => {
   );
 };
 
-export default LandingFooter;
+export default SigninFooter;
