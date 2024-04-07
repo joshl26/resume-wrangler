@@ -19,7 +19,7 @@ export default async function RegisterPage() {
     redirect("/dashboard");
   }
   return (
-    <div className="min-h-screen overflow-x-hidden">
+    <div className="h-screen w-screen">
       <SigninNavBar />
       <RegisterUser />
       <SigninFooter />

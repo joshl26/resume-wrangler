@@ -5,7 +5,7 @@ import Link from "next/link";
 
 const SigninFooter = () => {
   return (
-    <footer className="bottom-0 left-0 right-0 shadow bg-azure-radiance-900 ">
+    <footer className="shadow bg-azure-radiance-900 ">
       <div className="w-full max-w-screen-xl mx-auto p-4 md:py-8">
         <div className="sm:flex sm:items-center sm:justify-between">
           <a
@@ -13,7 +13,7 @@ const SigninFooter = () => {
             className="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse"
           >
             <Image alt="" width={100} height={100} src={Logo} />
-            <span className="self-center text-5xl font-semibold whitespace-nowrap dark:text-white">
+            <span className="self-center text-3xl md:text-5xl font-semibold whitespace-nowrap dark:text-white">
               Resume <br></br>Wrangler
             </span>
           </a>

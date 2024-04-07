@@ -11,6 +11,7 @@ import { signIn } from "@/auth";
 import axios from "axios";
 import crypto from "crypto";
 import bcrypt from "bcrypt";
+import { emailRegex, passwordRegex, usernameRegex } from "./regex";
 const cloudinary = require("cloudinary").v2;
 
 const generateSHA1 = (data: any) => {
@@ -25,15 +26,20 @@ const generateSignature = (publicId: string, apiSecret: string) => {
 };
 
 const CreateNewUserSchema = z.object({
-  username: z.string({
-    invalid_type_error: "Please select a customer.",
-  }),
-  email: z.string({
-    invalid_type_error: "Please select a customer.",
-  }),
-  password: z.string({
-    invalid_type_error: "Please select a customer.",
-  }),
+  username: z
+    .string()
+    .trim()
+    .min(3, "Username must be 3 characters")
+    .regex(new RegExp(usernameRegex)),
+  email: z
+    .string()
+    .email("Please enter a valid email.")
+    .regex(new RegExp(emailRegex)),
+  password: z
+    .string()
+    .min(6, "Password must be 6 characters minimum")
+    .max(20, "Password must be 20 characters maximum")
+    .regex(new RegExp(passwordRegex)),
 });
 
 const InvoiceSchema = z.object({
@@ -2085,6 +2091,84 @@ export async function deleteResumeLine(formData: FormData) {
     revalidatePath(`/dashboard/resume/edit/${resume_id}`);
     redirect(`/dashboard/resume/edit/${resume_id}`);
   }
+}
+
+export async function CreateNewUser(formData: FormData) {
+  // console.log(formData);
+
+  const validatedFields = CreateNewUserSchema.safeParse({
+    username: formData.get("username"),
+    email: formData.get("email"),
+    password: formData.get("password"),
+  });
+
+  // console.log(validatedFields);
+
+  if (validatedFields.success === false) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: "Missing Fields. Failed to Create user skill.",
+    };
+  }
+  const { username, email, password } = validatedFields.data;
+
+  // console.log(`Username: ${username}, Email: ${email}, Password: ${password}`);
+
+  let data: any;
+  let error: Error;
+
+  try {
+    // console.log({ username, email, password });
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const query = `INSERT INTO users (name, email, password) VALUES ('${username}', '${email}', '${hashedPassword}')`;
+    // console.log(query);
+    data = await conn.query(query);
+    // console.log(data);
+
+    // return [
+    //   {
+    //     success: true,
+    //     message: "Signup succeeded",
+    //   },
+    //   {
+    //     status: 200,
+    //   },
+    // ];
+  } catch (e: any) {
+    // console.log(`Error: ${e}`);
+
+    error = e;
+
+    revalidatePath(`/register`);
+    redirect(`/register`);
+
+    // if (e.code === "23505") {
+    //redirect(`/register`);
+    // return [
+    //   {
+    //     success: false,
+    //   },
+    //   {
+    //     statusText: e.detail,
+    //     status: 500,
+    //   },
+    // ];
+    // }
+
+    // else {
+    // return [
+    //   {
+    //     success: false,
+    //   },
+    //   {
+    //     statusText: "Unknown Error",
+    //     status: 400,
+    //   },
+    // ];
+    // }
+  }
+  revalidatePath(`/login`);
+  redirect(`/login`);
 }
 
 export async function createResumeLine(formData: FormData) {
