@@ -37,6 +37,7 @@ export default function LoginForm() {
                 id="email"
                 type="email"
                 name="email"
+                autoComplete="email"
                 placeholder="Enter your email address"
                 required
                 onChange={onChangeHandler}
@@ -55,6 +56,7 @@ export default function LoginForm() {
                 type="password"
                 name="password"
                 placeholder="Enter password"
+                autoComplete="current-password"
                 required
                 minLength={6}
                 onChange={onChangeHandler}

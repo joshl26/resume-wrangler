@@ -87,6 +87,7 @@ export default function RegisterUser() {
               type="text"
               required
               placeholder="Type your Username"
+              autoComplete="username"
               onChange={usernameOnChangeHandler}
               minLength={3}
               maxLength={20}
@@ -110,6 +111,7 @@ export default function RegisterUser() {
                   name="email"
                   className="border border-slate-300 rounded"
                   type="email"
+                  autoComplete="email"
                   required
                   placeholder="Type your email address"
                   onChange={emailOnChangeHandler}
@@ -139,6 +141,7 @@ export default function RegisterUser() {
                   className="border border-slate-300 rounded"
                   type="password"
                   required
+                  autoComplete="new-password"
                   placeholder="Type your password"
                   onChange={passwordOnChangeHandler}
                   minLength={6}
