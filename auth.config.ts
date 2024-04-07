@@ -24,6 +24,7 @@ export const authConfig = {
     //   return randomUUID?.() ?? randomBytes(32).toString("hex")
     // }
   },
+  basePath: "",
   providers: [],
   pages: {
     signIn: "/login",
