@@ -14,11 +14,11 @@ const LandingThree = () => {
   return (
     <div className="w-full pb-24 relative">
       <PurpleBlob
-        className={"h-[750px] w-[750px] absolute -left-[300px] -top-[300px] "}
+        className={"h-[1000px] w-[1000px] absolute -left-[750px] -top-[500px] "}
       />
       <OrangeBlob
         className={
-          "h-[750px] w-[750px] absolute -right-[300px] -bottom-[300px] "
+          "h-[1000px] w-[1000px] absolute -right-[750px] -bottom-[500px] "
         }
       />
 

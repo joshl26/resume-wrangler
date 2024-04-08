@@ -7,6 +7,9 @@ import { SubmitButton } from "../submit-button";
 import BackButton from "../back-button";
 import { CreateNewUser } from "@/app/lib/actions";
 import { emailRegex, passwordRegex, usernameRegex } from "@/app/lib/regex";
+import Link from "next/link";
+import AzureBlob from "../landing/azure-blob";
+import OrangeBlob from "../landing/orange-blob";
 
 export default function RegisterUser() {
   const [error, setError] = useState("");
@@ -69,17 +72,22 @@ export default function RegisterUser() {
   };
 
   return (
-    <div className="flex flex-col h-[92vh] justify-center">
-      <div className="flex flex-col">
-        <h2 className="text-center font-medium text-[2rem] py-4">
+    <div className="relative flex flex-col h-[92vh] justify-center overflow-x-hidden overflow-clip">
+      <AzureBlob className="h-[750px] w-[750px] -z-1 -left-[500px]" />
+      <OrangeBlob className="h-[750px] w-[750px] -z-1 -right-[600px]" />
+
+      <div className="relative flex flex-col">
+        <h2 className="text-center font-bold text-[2rem] py-4">
           New User Sign Up
         </h2>
-        <div className="flex flex-row justify-around">
+        <div className="flex flex-row justify-around z-10">
           <form
             action={CreateNewUser}
-            className="flex flex-col form-amber w-auto md:w-[450px] gap-2 tight-shadow px-4 pb-4 pt-3 mb-3"
+            className="flex flex-col form-amber rounded w-auto md:w-[450px] gap-2 tight-shadow px-4 pb-4 pt-3 mb-3"
           >
-            <label htmlFor="username">Username</label>
+            <label className="font-bold" htmlFor="username">
+              Username
+            </label>
             <input
               disabled={pending}
               name="username"
@@ -95,17 +103,25 @@ export default function RegisterUser() {
             />
             {usernameValidated === false && (
               <div className="py-1">
-                <p>A valid username will:</p>
-                <ul className="text-rose-500">
-                  <li>- Have six to twenty characters</li>
-                  <li>- Contain only A-Z, a-z and 0-9 characters</li>
-                  <li>- Not contain spaces or special characters</li>
+                <p className="font-medium">A valid username will:</p>
+                <ul>
+                  <li className="font-lite italic">
+                    - Have six to twenty characters
+                  </li>
+                  <li className="font-lite italic">
+                    - Contain only A-Z, a-z and 0-9 characters
+                  </li>
+                  <li className="font-lite italic">
+                    - Not contain spaces or special characters
+                  </li>
                 </ul>
               </div>
             )}
             {usernameValidated && (
               <>
-                <label htmlFor="email">Email</label>
+                <label className="font-bold" htmlFor="email">
+                  Email
+                </label>
                 <input
                   disabled={pending}
                   name="email"
@@ -121,8 +137,8 @@ export default function RegisterUser() {
             )}
             {usernameValidated && !emailValidated ? (
               <div className="py-1">
-                <p>A valid email will:</p>
-                <ul className="text-rose-500">
+                <p className="font-medium">A valid email will:</p>
+                <ul className="font-lite italic">
                   <li>- Contain only A-Z, a-z and 0-9 characters</li>
                   <li>- Not contain spaces or special characters</li>
                   <li>- Name and domain seperated by @ symbol</li>
@@ -134,7 +150,9 @@ export default function RegisterUser() {
 
             {emailValidated && (
               <>
-                <label htmlFor="email">Password</label>
+                <label className="font-bold" htmlFor="email">
+                  Password
+                </label>
                 <input
                   disabled={pending}
                   name="password"
@@ -152,8 +170,8 @@ export default function RegisterUser() {
             )}
             {usernameValidated && emailValidated && !passwordValidated ? (
               <div className="py-1">
-                <p>A valid password will:</p>
-                <ul className="text-rose-500">
+                <p className="font-medium">A valid password will:</p>
+                <ul className="font-lite italic">
                   <li>- Contain at least one upper case A-Z</li>
                   <li>- Contain at least one lower case a-z</li>
                   <li>- At least one digit from 0-9</li>
@@ -175,6 +193,19 @@ export default function RegisterUser() {
             {error && <p>{error}</p>}
           </form>
         </div>
+
+        <div className="flex flex-row m-auto">
+          <p className="py-2 font-bold">
+            Returning user?{" "}
+            <Link
+              className="font-medium text-rose-500 hover:text-azure-radiance-500"
+              href="/login"
+            >
+              Sign In
+            </Link>{" "}
+          </p>
+        </div>
+
         <BackButton href={"/"}>Back</BackButton>
       </div>
     </div>

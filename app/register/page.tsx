@@ -12,6 +12,7 @@ import { auth } from "@/auth";
 
 import SigninNavBar from "../ui/signin/signin-navbar";
 import SigninFooter from "../ui/signin/signin-footer";
+import AzureBlob from "../ui/landing/azure-blob";
 
 export default async function RegisterPage() {
   const session = await auth();
@@ -19,7 +20,7 @@ export default async function RegisterPage() {
     redirect("/dashboard");
   }
   return (
-    <div className="h-screen w-screen">
+    <div className="h-screen">
       <SigninNavBar />
       <RegisterUser />
       <SigninFooter />

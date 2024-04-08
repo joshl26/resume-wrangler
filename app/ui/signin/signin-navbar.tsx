@@ -9,7 +9,7 @@ const SigninNavBar = () => {
   const [showMenu, setShowMenu] = useState(false);
 
   return (
-    <nav className=" bg-amber-50 flex opacity-100 t-0 items-center justify-between flex-wrap p-2 z-40">
+    <nav className=" bg-amber-50 relative flex opacity-100 t-0 items-center justify-between flex-wrap p-2 z-40">
       <div className="max-w-screen-xl w-full h-auto flex flex-row items-center justify-between m-auto">
         <div className="flex items-center flex-shrink-0 mr-6 ">
           <div className="w-[50px] h-[50px]">

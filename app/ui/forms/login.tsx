@@ -9,10 +9,38 @@ import { useFormState } from "react-dom";
 import { authenticate } from "@/app/lib/actions";
 import { useState } from "react";
 import { LoginButton } from "../login-button";
+import { emailRegex } from "@/app/lib/regex";
 
 export default function LoginForm() {
   const [code, action] = useFormState(authenticate, undefined);
   const [edited, setEdited] = useState(false);
+  const [emailValidated, setEmailValidated] = useState(false);
+  const [passwordValidated, setPasswordValidated] = useState(false);
+
+  const emailOnChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    var emailInput = e.target.value;
+
+    var re = new RegExp(emailRegex);
+
+    if (re.test(emailInput)) {
+      setEmailValidated(true);
+    } else {
+      setEmailValidated(false);
+    }
+  };
+
+  const passwordOnChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    var passwordInput = e.target.value;
+
+    // only check for 6 characters, some previous passwords were 4 char
+    var re = new RegExp("^.{6,}$");
+
+    if (re.test(passwordInput)) {
+      setPasswordValidated(true);
+    } else {
+      setPasswordValidated(false);
+    }
+  };
 
   const onChangeHandler = () => {
     if (edited === false) {
@@ -40,7 +68,7 @@ export default function LoginForm() {
                 autoComplete="email"
                 placeholder="Enter your email address"
                 required
-                onChange={onChangeHandler}
+                onChange={emailOnChangeHandler}
               />
               <AtSymbolIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
             </div>
@@ -59,16 +87,20 @@ export default function LoginForm() {
                 autoComplete="current-password"
                 required
                 minLength={6}
-                onChange={onChangeHandler}
+                onChange={passwordOnChangeHandler}
               />
               <KeyIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
             </div>
           </div>
         </div>
-        {edited && (
+        {emailValidated && passwordValidated ? (
           <>
-            <LoginButton className="btn btn-amber mt-6">Log In</LoginButton>
+            <LoginButton className="btn btn-amber mt-6 animate-pulse">
+              Log In
+            </LoginButton>
           </>
+        ) : (
+          ""
         )}
         <div className="flex items-end ">
           {code === "CredentialSignin" && (
