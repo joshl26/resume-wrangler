@@ -53,7 +53,7 @@ const LandingNavBar = () => {
               </Link>
               <Link
                 href="/register"
-                className="rounded-full px-6 py-3 btn btn-amber "
+                className="rounded-full px-6 py-3 btn btn-amber border-none bg-amber-400 "
               >
                 Create Account
               </Link>

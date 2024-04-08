@@ -12,13 +12,12 @@ export default function LoginPage() {
     <div className="relative overflow-x-hidden h-screen">
       <PurpleBlob className={"w-[750px] h-[750px] -left-[500px]"} />
       <AzureBlob className={"w-[750px] h-[750px] -right-[450px]"} />
-
       <SigninNavBar />
       <main className="flex items-center justify-center h-screen ">
         <div className="relative mx-auto flex w-full max-w-[500px] flex-col space-y-2.5 p-4 ">
           <LoginForm />
           <div className="flex flex-row m-auto">
-            <p className="py-2 font-medium">
+            <p className="py-2 font-bold">
               New user?{" "}
               <Link
                 className="font-medium text-rose-500 hover:text-azure-radiance-500"

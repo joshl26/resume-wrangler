@@ -71,7 +71,7 @@ const LandingThree = () => {
       <div className="flex flex-row gap-6 flex-wrap max-w-screen-xl m-auto justify-center pt-32 relative">
         <Link
           href="/register"
-          className="rounded-full border border-black hover:bg-white hover:text-black  hover:border-amber-400 bg-amber-400 px-6 py-3 font-medium "
+          className="rounded-full btn btn-amber bg-amber-500 border-none px-6 py-3 font-medium "
         >
           Create Account
         </Link>

@@ -83,7 +83,7 @@ export default function RegisterUser() {
         <div className="flex flex-row justify-around z-10">
           <form
             action={CreateNewUser}
-            className="flex flex-col form-amber rounded w-auto md:w-[450px] gap-2 tight-shadow px-4 pb-4 pt-3 mb-3"
+            className="flex flex-col form-amber rounded-lg w-auto md:w-[450px] gap-2 tight-shadow p-10 mb-3"
           >
             <label className="font-bold" htmlFor="username">
               Username
