@@ -644,27 +644,8 @@ const UpdateApplication = ApplicationSchema;
 
 // This is temporary until @types/react-dom is updated
 export type State = {
-  errors?: {
-    customerId?: string[];
-    amount?: string[];
-    status?: string[];
-    name?: string[];
-    email?: string[];
-    first_name?: string[];
-    last_name?: string[];
-    address_line_one?: string[];
-    address_line_two?: string[];
-    address_line_three?: string[];
-    phone?: string[];
-    website?: string[];
-    linked_in?: string[];
-    twitter?: string[];
-    facebook?: string[];
-    instagram?: string[];
-    show_socials?: string[];
-    github?: string[];
-  };
-  message?: string | null;
+  // errors?: {};
+  // message?: string | null;
 };
 
 export async function authenticate(
@@ -2265,36 +2246,3 @@ export async function createResumeLine(formData: FormData) {
   }
 }
 
-// export async function createNewUser(formData: FormData) {
-//   console.log(formData);
-
-//   const validatedFields = CreateNewUserSchema.safeParse({
-//     username: formData.get("username"),
-//     email: formData.get("email"),
-//     password: formData.get("password"),
-//   });
-
-//   if (validatedFields.success === false) {
-//     return {
-//       errors: validatedFields.error.flatten().fieldErrors,
-//       message: "Missing Fields. Failed to Create user skill.",
-//     };
-//   }
-//   const { username, email, password } = validatedFields.data;
-
-//   // console.log(username, email, password);
-
-//   const hashedPassword = await bcrypt.hash(password, 10);
-
-//   try {
-//     const query = `INSERT INTO users (name, email, password) VALUES ('${username}', '${email}', '${hashedPassword}')`;
-//     console.log(query);
-//     const data = await conn.query(query);
-//     console.log(data);
-//   } catch (error) {
-//     return { message: `Database Error: Failed to Update Invoice. ${error}` };
-//   }
-
-//   revalidatePath(`/register`);
-//   redirect(`/login`);
-// }
