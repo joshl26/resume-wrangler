@@ -104,6 +104,16 @@ export interface User {
   updated_at: string;
   new_user: string;
   access_level: string;
+  tour_dashboard: string;
+  tour_education: string;
+  tour_skills: string;
+  tour_applications: string;
+  tour_companies: string;
+  tour_work_experience: string;
+  tour_certifications: string;
+  tour_organizations: string;
+  tour_resume_templates: string;
+  tour_user_profile: string;
 }
 
 export interface Application {

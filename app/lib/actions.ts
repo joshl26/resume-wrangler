@@ -635,6 +635,15 @@ const DeleteResumeLineSchema = z.object({
   }),
 });
 
+const FinishTourSchema = z.object({
+  user_id: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  tour_page: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+});
+
 const CreateInvoice = InvoiceSchema.omit({ id: true, date: true });
 const UpdateInvoice = InvoiceSchema.omit({ id: true, date: true });
 // const DeleteInvoice = InvoiceSchema.omit({ id: true, date: true });
@@ -2246,3 +2255,31 @@ export async function createResumeLine(formData: FormData) {
   }
 }
 
+export async function finishUserTour(userId: string, tourPage: string) {
+  // console.log(userId, tourPage);
+
+  const validatedFields = FinishTourSchema.safeParse({
+    user_id: userId,
+    tour_page: tourPage,
+  });
+
+  if (validatedFields.success === false) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: "Missing Fields. Failed to Create user skill.",
+    };
+  }
+  const { user_id, tour_page } = validatedFields.data;
+
+  // console.log(user_id, tour_page);
+
+  try {
+    const query = `UPDATE users SET tour_dashboard = 'false' WHERE id = '${userId}'`;
+    const data = await conn.query(query);
+  } catch (error) {
+    return { message: `Database Error: Failed to Update User. ${error}` };
+  }
+
+  revalidatePath(`${tourPage}`);
+  redirect(`${tourPage}`);
+}
