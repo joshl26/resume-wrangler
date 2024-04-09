@@ -12,7 +12,7 @@ function DonutChart() {
       var myChart = new Chart(ctx, {
         type: "doughnut",
         data: {
-          labels: ["Accepted", "Pending", "Rejected"],
+          labels: ["Submitted", "Pending Response", "Rejected"],
           datasets: [
             {
               data: [70, 10, 6],

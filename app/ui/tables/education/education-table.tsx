@@ -39,9 +39,9 @@ const Education = ({
 }) => {
   return (
     <div className="relative overflow-x-auto overflow-y-auto tight-shadow sm:rounded-lg px-4 mr-4 py-4">
-      {user.new_user === "true" && (
+      {/* {user.new_user === "true" && (
         <JoyRide steps={TOUR_STEPS} continuous={true} showSkipButton={true} />
-      )}
+      )} */}
 
       <table className="w-full text-sm text-left rtl:text-right rounded">
         <thead
