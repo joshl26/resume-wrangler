@@ -2,15 +2,46 @@
 
 import { deleteEducation } from "@/app/lib/actions";
 import {
+  User,
   UserEducationExperience,
   UserEducationExperiences,
 } from "@/app/lib/definitions";
 import Link from "next/link";
 import React from "react";
+import JoyRide from "react-joyride";
+const TOUR_STEPS: any = [
+  {
+    content: <h2>Lets begin our journey!</h2>,
+    placement: "center",
+    target: "body",
+  },
 
-const Education = ({ education }: { education: UserEducationExperiences }) => {
+  {
+    content: "These are our super awesome projects!",
+    placement: "bottom",
+    styles: {
+      options: {
+        width: 300,
+      },
+    },
+    target: ".remove",
+    title: "Our projects",
+  },
+];
+
+const Education = ({
+  education,
+  user,
+}: {
+  education: UserEducationExperiences;
+  user: User;
+}) => {
   return (
     <div className="relative overflow-x-auto overflow-y-auto tight-shadow sm:rounded-lg px-4 mr-4 py-4">
+      {user.new_user === "true" && (
+        <JoyRide steps={TOUR_STEPS} continuous={true} showSkipButton={true} />
+      )}
+
       <table className="w-full text-sm text-left rtl:text-right rounded">
         <thead
           className="text-xs text-black uppercase  border-spacing-2
@@ -86,8 +117,9 @@ const Education = ({ education }: { education: UserEducationExperiences }) => {
                       />
                       <button
                         id="remove"
+                        name="remove"
                         type="submit"
-                        className="font-medium hover:underline ms-3"
+                        className="remove font-medium hover:underline ms-3"
                       >
                         Remove
                       </button>

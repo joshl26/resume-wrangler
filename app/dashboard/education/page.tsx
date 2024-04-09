@@ -38,7 +38,7 @@ export default async function Page() {
           </Button>
         </div>
       </div>
-      <Education education={education} />
+      <Education user={user} education={education} />
     </div>
   );
 }
