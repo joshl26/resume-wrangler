@@ -18,13 +18,14 @@ const TOUR_STEPS: any = [
 
   {
     content: "These are our super awesome projects!",
-    placement: "bottom",
+    placement: "auto",
     styles: {
       options: {
         width: 300,
+        left: 300,
       },
     },
-    target: ".remove",
+    target: ".tour_nav",
     title: "Our projects",
   },
 ];
@@ -116,8 +117,6 @@ const Education = ({
                         value={program.id}
                       />
                       <button
-                        id="remove"
-                        name="remove"
                         type="submit"
                         className="remove font-medium hover:underline ms-3"
                       >
