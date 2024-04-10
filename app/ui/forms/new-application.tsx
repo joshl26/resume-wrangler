@@ -116,7 +116,7 @@ export default function NewApplication({
           <>
             <div style={{ height: "0.5rem" }} />
             <SubmitButton className="btn btn-amber w-auto my-1 rounded animate-pulse">
-              Create New Skill
+              Create New Application
             </SubmitButton>
           </>
         )}

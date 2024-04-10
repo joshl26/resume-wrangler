@@ -115,7 +115,7 @@ export default function NewCompany({ user }: { user: User }) {
         {edited && (
           <>
             <SubmitButton className="btn btn-amber rounded animate-pulse my-3">
-              Save New Company
+              Create New Company
             </SubmitButton>
           </>
         )}

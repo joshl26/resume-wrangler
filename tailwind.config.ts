@@ -169,7 +169,7 @@ const config: Config = {
           },
         },
         ".btn-amber": {
-          backgroundColor: "#FFF5C2",
+          backgroundColor: "#FFED9E",
           border: "black 1px solid",
           color: "black",
           transition:

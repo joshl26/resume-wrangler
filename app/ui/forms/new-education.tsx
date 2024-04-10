@@ -122,7 +122,7 @@ export default function NewEducation({ user }: { user: User }) {
           <>
             <div style={{ height: "0.5rem" }} />
             <SubmitButton className="btn btn-amber my-4 p-2 text-center w-auto animate-pulse">
-              Save new Education Experience
+              Create New Education Experience
             </SubmitButton>
           </>
         )}

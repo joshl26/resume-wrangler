@@ -327,7 +327,7 @@ const UserImageEditForm = ({ user }: { user: User }) => {
   return (
     <div className=" ">
       <h2 className="font-bold text-[2rem] py-1">Edit User Image</h2>
-      <div className="flex flex-col p-3 tight-shadow mr-3 rounded bg-amber-200">
+      <div className="flex flex-col p-3 tight-shadow mr-3 rounded form-amber w-auto">
         {user?.thumbnail ? (
           <div className="flex flex-row">
             <div className="flex flex-col">
@@ -348,9 +348,16 @@ const UserImageEditForm = ({ user }: { user: User }) => {
                   readOnly
                 />
                 <input name="user-id" value={user?.id} hidden readOnly />
-                <SubmitButton className="btn btn-amber hover:animate-pulse rounded ">
-                  Delete Image
-                </SubmitButton>
+                {user.access_level !== "template" ? (
+                  <SubmitButton className="btn btn-amber hover:animate-pulse rounded px-2">
+                    Delete Image
+                  </SubmitButton>
+                ) : (
+                  <div>
+                    <h2 className="px-2">Template User.</h2>
+                    <h2 className="px-2">Image edit not allowed.</h2>
+                  </div>
+                )}
               </form>
             </div>
           </div>

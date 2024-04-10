@@ -115,7 +115,7 @@ export default function NewOrganization({ user }: { user: User }) {
           <>
             <div style={{ height: "0.5rem" }} />
             <SubmitButton className="btn btn-amber p-2 animate-pulse">
-              Create Organization
+              Create New Organization
             </SubmitButton>
           </>
         )}

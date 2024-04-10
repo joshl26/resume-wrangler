@@ -142,7 +142,7 @@ export default function NewWorkExperience({ user }: { user: User }) {
           <>
             <div style={{ height: "0.5rem" }} />
             <SubmitButton className="btn btn-amber my-4 animate-pulse">
-              Save New Work Experience
+              Create New Work Experience
             </SubmitButton>
           </>
         )}
