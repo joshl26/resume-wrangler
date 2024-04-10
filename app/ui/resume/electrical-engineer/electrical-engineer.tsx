@@ -94,7 +94,7 @@ export default async function ElectricalEngineer(props: Props) {
           " w-full h-[3px]"
         )}
       ></div>
-      <div className="flex flex-row pt-6">
+      <div className="flex flex-row pt-4">
         <div className="flex flex-col w-3/4">
           <div className="flex flex-row">
             <h2
@@ -288,7 +288,7 @@ export default async function ElectricalEngineer(props: Props) {
                 " w-full h-[2px]"
               )}
             /> */}
-            <div className="flex flex-row pt-4">
+            <div className="flex flex-row pt-2">
               <div className="flex flex-col w-[30px]">
                 <MapPinIcon className="w-[20px] m-auto" />
               </div>
@@ -380,7 +380,7 @@ export default async function ElectricalEngineer(props: Props) {
                           "text-sm py-1"
                         )}
                       >
-                        {props?.user?.facebook}
+                        {`facebook${props?.user?.facebook}`}
                       </a>
                     </div>
                   </div>
@@ -403,7 +403,7 @@ export default async function ElectricalEngineer(props: Props) {
                           "text-sm py-1"
                         )}
                       >
-                        {props?.user?.instagram}
+                        {`insta${props?.user?.instagram}`}
                       </a>
                     </div>
                   </div>
@@ -426,7 +426,7 @@ export default async function ElectricalEngineer(props: Props) {
                           "text-sm py-1"
                         )}
                       >
-                        {props?.user?.twitter}
+                        {`tweet${props?.user?.twitter}`}
                       </a>
                     </div>
                   </div>
