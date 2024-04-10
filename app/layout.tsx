@@ -6,15 +6,15 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   metadataBase: new URL(`${process.env.DEPLOYMENT_URL}`),
   title: {
-    default: "Resume Wrangler",
-    template: "%s | Resume Wrangler",
+    default: "Résumé Wrangler",
+    template: "%s | Résumé Wrangler",
   },
-  description: "Resume Wrangler",
+  description: "Résumé Wrangler",
   openGraph: {
-    title: "Resume Wrangler",
-    description: "Online resume customization tool",
+    title: "Résumé Wrangler",
+    description: "Online résumé customization tool",
     url: `${process.env.DEPLOYMENT_URL}`,
-    siteName: "Resume Wrangler",
+    siteName: "Résumé Wrangler",
     locale: "en_CA",
     type: "website",
   },
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     },
   },
   twitter: {
-    title: "Resume Wrangler",
+    title: "Résumé Wrangler",
     card: "summary_large_image",
   },
   verification: {

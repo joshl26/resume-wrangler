@@ -10,9 +10,9 @@ import LandingThree from "./ui/landing/landing-section-three";
 import LandingFour from "./ui/landing/landing-section-four";
 
 export const metadata: Metadata = {
-  title: "Resume Wrangler",
+  title: "Résumé Wrangler",
   description:
-    "Tame your Job Search in seconds. Try Resume Wrangler FREE today!",
+    "Tame your Job Search in seconds. Try Résumé Wrangler FREE today!",
   metadataBase: new URL("https://resume-wrangler.vercel.app/"),
 };
 

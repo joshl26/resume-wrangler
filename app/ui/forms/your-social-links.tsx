@@ -72,7 +72,7 @@ const YourSocialLinks = ({
                   className="rounded"
                   defaultValue={user?.linked_in}
                   onChange={onChangeHandler}
-                  placeholder="in/username"
+                  placeholder="LinkedIn Username"
                 />
               </div>
               <div className="flex flex-col w-1/2 py-1">
@@ -100,7 +100,7 @@ const YourSocialLinks = ({
                   className="rounded"
                   defaultValue={user?.instagram}
                   onChange={onChangeHandler}
-                  placeholder="Instagram"
+                  placeholder="Instagram Username"
                 />
               </div>
               <div className="flex flex-col w-1/2 py-1">
@@ -113,7 +113,7 @@ const YourSocialLinks = ({
                   className="rounded"
                   defaultValue={user?.twitter}
                   onChange={onChangeHandler}
-                  placeholder="Twitter"
+                  placeholder="Twitter Username"
                 />
               </div>
             </div>
@@ -128,7 +128,7 @@ const YourSocialLinks = ({
                   className="rounded"
                   defaultValue={user?.github}
                   onChange={onChangeHandler}
-                  placeholder="Github"
+                  placeholder="Github Username"
                 />
               </div>
             </div>
