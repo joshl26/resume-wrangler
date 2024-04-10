@@ -204,7 +204,7 @@ export default async function ThreeDAnimator(props: Props) {
                           "text-sm py-1"
                         )}
                       >
-                        {props?.user?.facebook}
+                        {`facebook/${props?.user?.facebook}`}
                       </a>
                     </div>
                   </div>
@@ -227,7 +227,7 @@ export default async function ThreeDAnimator(props: Props) {
                           "text-sm py-1"
                         )}
                       >
-                        {props?.user?.instagram}
+                        {`insta/${props?.user?.instagram}`}
                       </a>
                     </div>
                   </div>
@@ -250,7 +250,7 @@ export default async function ThreeDAnimator(props: Props) {
                           "text-sm py-1"
                         )}
                       >
-                        {props?.user?.twitter}
+                        {`tweet/${props?.user?.twitter}`}
                       </a>
                     </div>
                   </div>
@@ -297,7 +297,7 @@ export default async function ThreeDAnimator(props: Props) {
                 <div
                   className={clsx(
                     props?.color || props?.resume?.color,
-                    "w-full h-[px]"
+                    "w-full h-[3px]"
                   )}
                 />
                 <div className="pt-2">
@@ -362,7 +362,7 @@ export default async function ThreeDAnimator(props: Props) {
                 <div
                   className={clsx(
                     props?.color || props?.resume?.color,
-                    " w-full h-[px]"
+                    " w-full h-[2px]"
                   )}
                 />
                 <ul className="pt-4 flex flex-row flex-wrap gap-2">
@@ -407,7 +407,7 @@ export default async function ThreeDAnimator(props: Props) {
                 <div
                   className={clsx(
                     props?.color || props?.resume?.color,
-                    "w-full h-[px]"
+                    "w-full h-[2px]"
                   )}
                 />
                 {props?.educationResumeLines?.map(
@@ -510,7 +510,7 @@ export default async function ThreeDAnimator(props: Props) {
           <div
             className={clsx(
               props?.color || props?.resume?.color,
-              " w-full h-[px]"
+              " w-full h-[2px]"
             )}
           />
           <div className="flex flex-row"></div>{" "}
