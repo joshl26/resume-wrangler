@@ -29,13 +29,13 @@ interface Props {
   body_font: string;
   heading_font: string;
   color: string;
+  highlightColor: string;
   resume: any;
   userWorkExperiences: any;
   userSkills: any;
   userEducation: any;
   userCertifications: any;
   userOrganizations: any;
-  selectedResumeHighlightColor: any;
   show_social_icons: any;
   show_skills_section: any;
   show_skill_progress: any;
@@ -53,7 +53,7 @@ export default async function ElectricalEngineer(props: Props) {
   return (
     <Page>
       <div className="flex flex-row">
-        <div className="flex flex-col w-[525px] rounded pb-6">
+        <div className="flex flex-col w-[350px] rounded pb-6">
           <Image
             className="rounded-lg"
             alt={props?.user?.thumbnail}
@@ -62,7 +62,7 @@ export default async function ElectricalEngineer(props: Props) {
             src={props?.user?.thumbnail}
           />
         </div>
-        <div className="flex flex-col w-auto px-6">
+        <div className="flex flex-col ">
           <h1
             style={{
               textAlign: "left",
@@ -288,7 +288,10 @@ export default async function ElectricalEngineer(props: Props) {
               </div>
               <div className="flex flex-col w-3/4">
                 <p
-                  className={clsx(props?.body_font || props?.resume?.body_font)}
+                  className={clsx(
+                    props?.body_font || props?.resume?.body_font,
+                    "text-sm py-1"
+                  )}
                 >
                   {props?.user?.address_one}
                 </p>
@@ -300,7 +303,10 @@ export default async function ElectricalEngineer(props: Props) {
               </div>
               <div className="flex flex-col w-3/4">
                 <p
-                  className={clsx(props?.body_font || props?.resume?.body_font)}
+                  className={clsx(
+                    props?.body_font || props?.resume?.body_font,
+                    "text-sm py-1"
+                  )}
                 >
                   {props?.user?.phone}
                 </p>
@@ -312,7 +318,10 @@ export default async function ElectricalEngineer(props: Props) {
               </div>
               <div className="flex flex-col w-3/4">
                 <p
-                  className={clsx(props?.body_font || props?.resume?.body_font)}
+                  className={clsx(
+                    props?.body_font || props?.resume?.body_font,
+                    "text-sm py-1"
+                  )}
                 >
                   {props?.user?.email}
                 </p>
@@ -332,14 +341,16 @@ export default async function ElectricalEngineer(props: Props) {
                         className="w-[18px] m-auto"
                       />
                     </div>
-                    <div className="flex flex-col w-3/4">
-                      <p
+                    <div className="flex flex-col w-3/4 mr-2">
+                      <a
+                        href={`https://linkedin.com/${props?.user?.linked_in}`}
                         className={clsx(
-                          props?.body_font || props?.resume?.body_font
+                          props?.body_font || props?.resume?.body_font,
+                          "text-sm py-1"
                         )}
                       >
                         {props?.user?.linked_in}
-                      </p>
+                      </a>
                     </div>
                   </div>
                 )}
@@ -356,7 +367,8 @@ export default async function ElectricalEngineer(props: Props) {
                     <div className="flex flex-col w-3/4">
                       <p
                         className={clsx(
-                          props?.body_font || props?.resume?.body_font
+                          props?.body_font || props?.resume?.body_font,
+                          "text-sm py-1"
                         )}
                       >
                         {props?.user?.facebook}
@@ -377,7 +389,8 @@ export default async function ElectricalEngineer(props: Props) {
                     <div className="flex flex-col w-3/4">
                       <p
                         className={clsx(
-                          props?.body_font || props?.resume?.body_font
+                          props?.body_font || props?.resume?.body_font,
+                          "text-sm py-1"
                         )}
                       >
                         {props?.user?.instagram}
@@ -398,7 +411,8 @@ export default async function ElectricalEngineer(props: Props) {
                     <div className="flex flex-col w-3/4">
                       <p
                         className={clsx(
-                          props?.body_font || props?.resume?.body_font
+                          props?.body_font || props?.resume?.body_font,
+                          "text-sm py-1"
                         )}
                       >
                         {props?.user?.twitter}
@@ -419,7 +433,8 @@ export default async function ElectricalEngineer(props: Props) {
                     <div className="flex flex-col w-3/4">
                       <p
                         className={clsx(
-                          props?.body_font || props?.resume?.body_font
+                          props?.body_font || props?.resume?.body_font,
+                          "text-sm py-1"
                         )}
                       >
                         {props?.user?.github}
@@ -432,37 +447,41 @@ export default async function ElectricalEngineer(props: Props) {
               ""
             )}
           </div>
-          {props.show_skills_section === "true" ||
-          props?.resume?.show_skills_section === "true" ? (
-            <div className="flex flex-col pb-3 pt-2">
-              <h2
-                className={clsx(
-                  "font-bold",
-                  props?.heading_font || props?.resume?.heading_font
-                )}
-              >
-                SKILLS
-              </h2>
-              <ul className="pt-2">
-                {props?.skillResumeLines[0] &&
-                  props?.skillResumeLines?.map((userSkill: UserSkill) => (
-                    <li className="flex flex-col py-[3px]" key={userSkill?.id}>
-                      <p
-                        className={clsx(
-                          "text-sm font-bold",
-                          props?.heading_font || props?.resume?.heading_font
-                        )}
+          {props?.show_skill_progress === "true" ||
+          props?.resume?.show_skill_progress === "true" ? (
+            props.show_skills_section === "true" ||
+            props?.resume?.show_skills_section === "true" ? (
+              <div className="flex flex-col pb-3 pt-2">
+                <h2
+                  className={clsx(
+                    "font-bold",
+                    props?.heading_font || props?.resume?.heading_font
+                  )}
+                >
+                  SKILLS
+                </h2>
+                <div className="pt-2">
+                  {props?.skillResumeLines[0] &&
+                    props?.skillResumeLines?.map((userSkill: UserSkill) => (
+                      <div
+                        className="flex flex-col py-[2px]"
+                        key={userSkill?.id}
                       >
-                        {userSkill?.skill}
-                      </p>
-                      {props?.show_skill_progress === "true" ||
-                      props?.resume?.show_skill_progress === "true" ? (
-                        <div className="progress-container py-1">
+                        <p
+                          className={clsx(
+                            "text-[0.75rem] font-bold",
+                            props?.body_font || props?.resume?.body_font
+                          )}
+                        >
+                          {userSkill?.skill}
+                        </p>
+
+                        <div className="progress-container">
                           <div
                             className={clsx(
                               props?.resume?.highlight_color ||
                                 props?.resume?.highlight_color,
-                              "rounded-[1rem] h-[1rem] border border-black"
+                              "rounded-[1rem] h-[5px] border border-black"
                             )}
                           >
                             <div
@@ -477,13 +496,53 @@ export default async function ElectricalEngineer(props: Props) {
                             ></div>
                           </div>
                         </div>
-                      ) : (
-                        ""
-                      )}
-                    </li>
-                  ))}
-              </ul>
-            </div>
+                      </div>
+                    ))}
+                </div>
+              </div>
+            ) : (
+              ""
+            )
+          ) : (
+            ""
+          )}
+          {props?.show_skill_progress === "false" ||
+          props?.resume?.show_skill_progress === "false" ? (
+            props.show_skills_section === "true" ||
+            props?.resume?.show_skills_section === "true" ? (
+              <div className="flex flex-col pb-3 pt-2">
+                <h2
+                  className={clsx(
+                    "font-bold",
+                    props?.heading_font || props?.resume?.heading_font
+                  )}
+                >
+                  SKILLS
+                </h2>
+                <ul className="pt-2 flex flex-row flex-wrap gap-3">
+                  {props?.skillResumeLines[0] &&
+                    props?.skillResumeLines?.map((userSkill: UserSkill) => (
+                      <li
+                        className={clsx(
+                          `flex flex-col px-2 rounded py-[2px] border-[2px] border-[${props?.resume?.highlight_color}] text-[black]`
+                        )}
+                        key={userSkill?.id}
+                      >
+                        <p
+                          className={clsx(
+                            "text-[0.75rem] font-bold",
+                            props?.body_font || props?.resume?.body_font
+                          )}
+                        >
+                          {userSkill?.skill}
+                        </p>
+                      </li>
+                    ))}
+                </ul>
+              </div>
+            ) : (
+              ""
+            )
           ) : (
             ""
           )}
@@ -542,46 +601,6 @@ export default async function ElectricalEngineer(props: Props) {
           ) : (
             ""
           )}
-
-          {/* {props.show_custom_section_one === "true" ||
-          props.resume.show_custom_section_one === "true" ? (
-            <div className="flex flex-row pb-3">
-              <ul>
-                <h2
-                  className={clsx(
-                    "font-bold",
-                    props?.heading_font || props?.resume?.heading_font
-                  )}
-                >
-                  {props?.resume?.custom_section_one_name}
-                </h2>
-                {props?.organizationResumeLines?.map(
-                  (userOrganization: UserOrganization) => (
-                    <li className="flex flex-col" key={userOrganization?.id}>
-                      <p
-                        className={clsx(
-                          "text-sm font-bold",
-                          props?.heading_font || props?.resume?.heading_font
-                        )}
-                      >
-                        {userOrganization?.name}
-                      </p>
-                      <p
-                        className={clsx(
-                          "text-sm",
-                          props?.body_font || props?.resume?.body_font
-                        )}
-                      >
-                        {userOrganization?.location}
-                      </p>
-                    </li>
-                  )
-                )}
-              </ul>
-            </div>
-          ) : (
-            ""
-          )} */}
           {props.show_custom_section_two === "true" ||
           props.resume.show_custom_section_two === "true" ? (
             <div className="flex flex-row pb-3">

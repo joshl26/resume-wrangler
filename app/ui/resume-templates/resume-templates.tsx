@@ -1,4 +1,4 @@
-import { ResumeTemplate, ResumeTemplates } from "@/app/lib/definitions";
+import type { ResumeTemplate, ResumeTemplates } from "@/app/lib/definitions";
 import Image from "next/image";
 import React from "react";
 

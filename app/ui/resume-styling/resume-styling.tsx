@@ -113,6 +113,7 @@ export default function ResumeStyling(props: Props) {
             selectedResumeBodyFont={selectedResumeBodyFont}
             selectedResumeHeadingFont={selectedResumeHeadingFont}
             selectedResumeColor={selectedResumeColor}
+            selectedResumeHighlightColor={selectedResumeHighlightColor}
           />
           <div className="py-2" />
           <YourProfile resume={props?.resume} user={props?.user} />
@@ -193,7 +194,7 @@ export default function ResumeStyling(props: Props) {
                 heading_font={selectedResumeHeadingFont}
                 body_font={selectedResumeBodyFont}
                 color={selectedResumeColor}
-                selectedResumeHighlightColor={selectedResumeHighlightColor}
+                highlightColor={selectedResumeHighlightColor}
                 show_social_icons={showSocials}
                 user={props?.user}
                 resume={props?.resume}
