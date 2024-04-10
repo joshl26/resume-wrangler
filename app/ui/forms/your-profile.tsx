@@ -42,12 +42,14 @@ export default function YourProfile({
                 width={250}
                 src={user?.thumbnail}
               />
-              <a
-                className="m-auto rounded btn btn-amber hover:animate-pulse"
-                href="/dashboard/user-profile/"
-              >
-                Update Image
-              </a>
+              {user.access_level !== "template" && (
+                <a
+                  className="m-auto rounded btn btn-amber hover:animate-pulse"
+                  href="/dashboard/user-profile/"
+                >
+                  Update Image
+                </a>
+              )}
             </div>
             <div style={{ height: "0.5rem" }}></div>
           </div>
