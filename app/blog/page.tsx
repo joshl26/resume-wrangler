@@ -19,17 +19,22 @@ export default function BlogPage() {
   return (
     <Landing>
       {" "}
-      <main className="h-full min-h-[97vh] bg-azure-radiance-600">
-        <section className="flex flex-col max-w-screen-md mx-auto pt-20">
-          <div className="flex justify-start">
-            <BackButton href="/">Back</BackButton>{" "}
+      <main className="h-full min-h-[97vh] bg-orange-100">
+        <section className="flex flex-col max-w-screen-md mx-auto pt-[10vh] px-4">
+          <div className="flex flex-row w-full justify-start pb-8">
+            <BackButton
+              classname="text-azure-radiance-700 font-medium hover:text-rose-500"
+              href="/"
+            >
+              Back
+            </BackButton>
           </div>
-          <h1 className="font-medium text-2xl mb-8 tracking-tighter">
+          <h1 className="text-azure-radiance-700 font-bold text-3xl mb-8 tracking-tighter">
             Resume Wrangler Blog
           </h1>
-          <h2 className="font-medium mb-8 tracking-tighter">
-            A place to stay up to date with new feature releases and news
-            regarding the Resume Wrangler
+          <h2 className="text-azure-radiance-700 font-lite mb-8 text-[1.25rem] tracking-tighter">
+            A great place to stay up to date with the latest feature releases,
+            tutorials and news regarding the Resume Wrangler.
           </h2>
 
           {allBlogs
@@ -49,7 +54,7 @@ export default function BlogPage() {
                 href={`/blog/${post.slug}`}
               >
                 <div className="w-full flex flex-col">
-                  <p className="text-neutral-900 dark:text-neutral-100 tracking-tight">
+                  <p className="text-purple-heart-4d00 font-medium tracking-tight">
                     {post.metadata.title}
                   </p>
                   <Suspense fallback={<p className="h-6" />}>
@@ -67,5 +72,5 @@ export default function BlogPage() {
 async function Views({ slug }: { slug: string }) {
   let views = await getViewsCount();
 
-  return <ViewCounter allViews={views} slug={slug} />;
+  return <ViewCounter classname="text-rose-500" allViews={views} slug={slug} />;
 }

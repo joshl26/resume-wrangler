@@ -1,6 +1,9 @@
+import clsx from "clsx";
+
 export default function ViewCounter({
   slug,
   allViews,
+  classname,
 }: {
   slug: string;
   allViews: {
@@ -8,12 +11,11 @@ export default function ViewCounter({
     count: number;
   }[];
   trackView?: boolean;
+  classname: string;
 }) {
   const viewsForSlug = allViews && allViews.find((view) => view.slug === slug);
   const number = new Number(viewsForSlug?.count || 0);
   return (
-    <p className="text-neutral-600 dark:text-neutral-400">
-      {`${number.toLocaleString()} views`}
-    </p>
+    <p className={clsx("", classname)}>{`${number.toLocaleString()} views`}</p>
   );
 }
