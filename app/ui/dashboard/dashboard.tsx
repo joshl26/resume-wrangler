@@ -325,7 +325,11 @@ const Dashboard = ({
       </div>
       <div className="flex flex-row gap-4 px-4">
         <TrendCard />
-        <JobTypeCard />
+        <JobTypeCard
+          openApplicationsCount={openApplicationsCount}
+          closedApplicationsCount={closedApplicationsCount}
+          pendingApplicationsCount={pendingApplicationsCount}
+        />
         <ResponsesCard />
       </div>
       <div className="flex flex-row gap-4 px-4 pt-4">
