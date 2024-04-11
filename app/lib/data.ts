@@ -667,3 +667,60 @@ export async function fetchOrganizationsByResumeID(id: string) {
     return [null];
   }
 }
+
+export async function fetchOpenApplicationsCountByUserId(userId: string) {
+  noStore();
+
+  // console.log(id);
+
+  try {
+    const query = `SELECT COUNT(*) FROM applications WHERE user_id = '${userId}' AND is_complete = 'false'`;
+    const data = await conn.query(query);
+
+    const openApplications: number = data?.rows[0]?.count;
+
+    return openApplications;
+  } catch (error: any) {
+    console.error("Database Error:", error);
+    // throw new Error("Failed to fetch resume template by id.");
+    return null;
+  }
+}
+
+export async function fetchClosedApplicationsCountByUserId(userId: string) {
+  noStore();
+
+  // console.log(id);
+
+  try {
+    const query = `SELECT COUNT(*) FROM applications WHERE user_id = '${userId}' AND is_complete = 'true'`;
+    const data = await conn.query(query);
+
+    const openApplications: number = data?.rows[0]?.count;
+
+    return openApplications;
+  } catch (error: any) {
+    console.error("Database Error:", error);
+    // throw new Error("Failed to fetch resume template by id.");
+    return null;
+  }
+}
+
+export async function fetchPendingApplicationsCountByUserId(userId: string) {
+  noStore();
+
+  // console.log(id);
+
+  try {
+    const query = `SELECT COUNT(*) FROM applications WHERE user_id = '${userId}' AND is_complete = 'pending'`;
+    const data = await conn.query(query);
+
+    const openApplications: number = data?.rows[0]?.count;
+
+    return openApplications;
+  } catch (error: any) {
+    console.error("Database Error:", error);
+    // throw new Error("Failed to fetch resume template by id.");
+    return null;
+  }
+}

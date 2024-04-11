@@ -23,11 +23,6 @@ const LandingFooter = () => {
                 Blog
               </a>
             </li>
-            {/* <li>
-              <a href="#" className="hover:underline me-4 md:me-6">
-                Privacy Policy
-              </a>
-            </li> */}
             <li>
               <a
                 href="mailto:joshlehman.dev@gmail.com"
