@@ -8,6 +8,7 @@ import ViewCounter from "../view-counter";
 import { increment } from "@/app/lib/blog/actions";
 import { unstable_noStore as noStore } from "next/cache";
 import Landing from "@/app/landing/page";
+import BackButton from "@/app/ui/back-button";
 
 export async function generateMetadata({
   params,
@@ -95,8 +96,14 @@ export default function Blog({ params }: { params: any }) {
 
   return (
     <Landing>
-      <main className="main-container">
-        <section className="mx-auto">
+      <main className=" flex flex-col w-full min-h-[97vh] bg-purple-heart-200 px-3">
+        <section className="max-w-screen-md tight-shadow w-full mx-auto text-azure-radiance-400 min-h-[97vh] pt-[10vh] bg-purple-heart-300 px-4">
+          <BackButton
+            classname="text-azure-radiance-900 hover:text-rose-500"
+            href="/blog"
+          >
+            Back
+          </BackButton>
           <script
             type="application/ld+json"
             suppressHydrationWarning
@@ -119,20 +126,20 @@ export default function Blog({ params }: { params: any }) {
               }),
             }}
           />
-          <h1 className="title font-medium text-2xl tracking-tighter max-w-[650px]">
+          <h1 className="title font-medium text-2xl tracking-tighter text-white mt-6">
             {post.metadata.title}
           </h1>
-          <div className="flex justify-between items-center mt-2 mb-8 text-sm max-w-[650px]">
+          <div className="flex justify-between items-center mt-2 mb-8 text-sm ">
             <Suspense fallback={<p className="h-5" />}>
-              <p className="text-sm text-neutral-600 dark:text-neutral-400">
+              <p className="text-sm text-azure-radiance-900">
                 {formatDate(post.metadata.publishedAt)}
               </p>
             </Suspense>
             <Suspense fallback={<p className="h-5" />}>
-              <Views slug={post.slug} />
+              <Views classname="text-azure-radiance-900" slug={post.slug} />
             </Suspense>
           </div>
-          <article className="prose prose-quoteless prose-neutral dark:prose-invert">
+          <article className="prose prose-quoteless prose-neutral dark:prose-invert ">
             <CustomMDX source={post.content} />
           </article>
         </section>
@@ -143,8 +150,8 @@ export default function Blog({ params }: { params: any }) {
 
 let incrementViews = cache(increment);
 
-async function Views({ slug }: { slug: string }) {
+async function Views({ slug, classname }: { slug: string; classname: string }) {
   let views = await getViewsCount();
   incrementViews(slug);
-  return <ViewCounter classname="" allViews={views} slug={slug} />;
+  return <ViewCounter classname={classname} allViews={views} slug={slug} />;
 }
