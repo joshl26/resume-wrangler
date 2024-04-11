@@ -12,7 +12,7 @@ const LandingNavBar = () => {
     <nav className=" bg-amber-50 flex fixed opacity-100 t-0 w-screen items-center justify-between flex-wrap p-2 z-40">
       <div className="max-w-screen-xl w-full flex flex-row items-center justify-between m-auto">
         <div className="flex items-center flex-shrink-0 mr-6 ">
-          <div className="w-[50px] h-[50px]">
+          <Link href="/" className="w-[50px] h-[50px]">
             <Image
               className="rounded"
               width={100}
@@ -20,28 +20,28 @@ const LandingNavBar = () => {
               alt=""
               src={ResumeWranglerIcon}
             />
-          </div>
+          </Link>
         </div>
         <div className="w-full hidden flex-grow lg:flex lg:items-center lg:w-auto md:visible">
           <div className="text-sm lg:flex-grow">
-            {/* <Link
+            <Link
               href="/resume-templates"
               className="block mt-4 lg:inline-block lg:mt-0  hover:text-rose-400 mr-4"
             >
               Resume Templates
             </Link>
-            <Link
+            {/* <Link
               href="/features"
               className="block mt-4 lg:inline-block lg:mt-0  hover:text-rose-400 mr-4"
             >
               Features
-            </Link>
+            </Link> */}
             <Link
               href="/blog"
               className="block mt-4 lg:inline-block lg:mt-0  hover:text-rose-400"
             >
               Blog
-            </Link> */}
+            </Link>
           </div>
           <div className="invisible lg:visible">
             <div className="flex flex-row justify-end gap-2">

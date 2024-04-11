@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import { Suspense, cache } from "react";
 import { notFound } from "next/navigation";
-import { CustomMDX } from "@/app/components/mdx";
-import { getViewsCount } from "@/app/db/queries";
-import { getBlogPosts } from "@/app/db/blog";
+import { CustomMDX } from "@/app/ui/blog/mdx";
+import { getViewsCount } from "@/app/lib/blog/queries";
+import { getBlogPosts } from "@/app/lib/blog/blog";
 import ViewCounter from "../view-counter";
-import { increment } from "@/app/db/actions";
+import { increment } from "@/app/lib/blog/actions";
 import { unstable_noStore as noStore } from "next/cache";
+import Landing from "@/app/landing/page";
 
 export async function generateMetadata({
   params,
@@ -25,8 +26,8 @@ export async function generateMetadata({
     image,
   } = post.metadata;
   let ogImage = image
-    ? `https://joshlehman.ca${image}`
-    : `https://joshlehman.ca/og?title=${title}`;
+    ? `${process.env.APP_DEPLOYMENT_URL}${image}`
+    : `${process.env.APP_DEPLOYMENT_URL}/og?title=${title}`;
 
   return {
     title,
@@ -36,7 +37,7 @@ export async function generateMetadata({
       description,
       type: "article",
       publishedTime,
-      url: `https://joshlehman.ca/blog/${post.slug}`,
+      url: `${process.env.APP_DEPLOYMENT_URL}/blog/${post.slug}`,
       images: [
         {
           url: ogImage,
@@ -93,48 +94,50 @@ export default function Blog({ params }: { params: any }) {
   }
 
   return (
-    <main className="main-container">
-      <section className="mx-auto">
-        <script
-          type="application/ld+json"
-          suppressHydrationWarning
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "BlogPosting",
-              headline: post.metadata.title,
-              datePublished: post.metadata.publishedAt,
-              dateModified: post.metadata.publishedAt,
-              description: post.metadata.summary,
-              image: post.metadata.image
-                ? `https://joshlehman.ca${post.metadata.image}`
-                : `https://joshlehman.ca/og?title=${post.metadata.title}`,
-              url: `https://joshlehman.ca/blog/${post.slug}`,
-              author: {
-                "@type": "Person",
-                name: "Joshua Lehman",
-              },
-            }),
-          }}
-        />
-        <h1 className="title font-medium text-2xl tracking-tighter max-w-[650px]">
-          {post.metadata.title}
-        </h1>
-        <div className="flex justify-between items-center mt-2 mb-8 text-sm max-w-[650px]">
-          <Suspense fallback={<p className="h-5" />}>
-            <p className="text-sm text-neutral-600 dark:text-neutral-400">
-              {formatDate(post.metadata.publishedAt)}
-            </p>
-          </Suspense>
-          <Suspense fallback={<p className="h-5" />}>
-            <Views slug={post.slug} />
-          </Suspense>
-        </div>
-        <article className="prose prose-quoteless prose-neutral dark:prose-invert">
-          <CustomMDX source={post.content} />
-        </article>
-      </section>
-    </main>
+    <Landing>
+      <main className="main-container">
+        <section className="mx-auto">
+          <script
+            type="application/ld+json"
+            suppressHydrationWarning
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "BlogPosting",
+                headline: post.metadata.title,
+                datePublished: post.metadata.publishedAt,
+                dateModified: post.metadata.publishedAt,
+                description: post.metadata.summary,
+                image: post.metadata.image
+                  ? `${process.env.APP_DEPLOYMENT_URL}${post.metadata.image}`
+                  : `${process.env.APP_DEPLOYMENT_URL}/og?title=${post.metadata.title}`,
+                url: `${process.env.APP_DEPLOYMENT_URL}/blog/${post.slug}`,
+                author: {
+                  "@type": "Person",
+                  name: "Joshua Lehman",
+                },
+              }),
+            }}
+          />
+          <h1 className="title font-medium text-2xl tracking-tighter max-w-[650px]">
+            {post.metadata.title}
+          </h1>
+          <div className="flex justify-between items-center mt-2 mb-8 text-sm max-w-[650px]">
+            <Suspense fallback={<p className="h-5" />}>
+              <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                {formatDate(post.metadata.publishedAt)}
+              </p>
+            </Suspense>
+            <Suspense fallback={<p className="h-5" />}>
+              <Views slug={post.slug} />
+            </Suspense>
+          </div>
+          <article className="prose prose-quoteless prose-neutral dark:prose-invert">
+            <CustomMDX source={post.content} />
+          </article>
+        </section>
+      </main>
+    </Landing>
   );
 }
 

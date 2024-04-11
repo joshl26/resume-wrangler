@@ -12,8 +12,8 @@ import LandingFour from "./ui/landing/landing-section-four";
 export const metadata: Metadata = {
   title: "Resume Wrangler",
   description:
-    "Tame your Job Search in seconds. Try Resume Wrangler FREE today!",
-  metadataBase: new URL("https://resume-wrangler.vercel.app/"),
+    "Tame your Job Search in seconds. Sign up and try the Resume Wrangler for FREE",
+  metadataBase: new URL(`${process.env.APP_DEPLOYMENT_URL}`),
 };
 
 export default async function Page() {
