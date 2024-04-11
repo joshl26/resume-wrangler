@@ -206,7 +206,9 @@ export default function RegisterUser() {
           </p>
         </div>
 
-        <BackButton href={"/"}>Back</BackButton>
+        <BackButton classname="" href={"/"}>
+          Back
+        </BackButton>
       </div>
     </div>
   );

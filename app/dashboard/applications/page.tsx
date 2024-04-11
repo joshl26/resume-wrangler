@@ -36,7 +36,9 @@ export default async function Page() {
 
   return (
     <div className="h-full w-full overflow-y-auto px-2">
-      <BackButton href={"/dashboard/"}>Back</BackButton>
+      <BackButton classname="" href={"/dashboard/"}>
+        Back
+      </BackButton>
       <div className="flex flex-row justify-between">
         <div className="flex flex-col ">
           <h1 className="text-[2rem] font-bold py-1">Applications</h1>

@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import { SubmitButton } from "../submit-button";
 import { updateUserEducation } from "@/app/lib/actions";
-import Link from "next/link";
 import { UserEducationExperience } from "@/app/lib/definitions";
 import BackButton from "../back-button";
 
@@ -21,10 +20,9 @@ export default function EditEducation({
   };
   return (
     <div className="overflow-y-auto h-full px-3">
-      <BackButton href={"/dashboard/education/"}>Back</BackButton>
-      {/* <Link className="px-3 underline" href={"/dashboard/education/"}>
+      <BackButton classname="" href={"/dashboard/education/"}>
         Back
-      </Link> */}
+      </BackButton>
       <h2 className="font-medium text-[2rem] py-1">
         Edit Education Experience
       </h2>

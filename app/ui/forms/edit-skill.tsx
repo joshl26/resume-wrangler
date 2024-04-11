@@ -26,7 +26,9 @@ export default function EditSkill({ skill }: { skill: UserSkill }) {
 
   return (
     <div className="px-3">
-      <BackButton href={"/dashboard/skills/"}>Back</BackButton>
+      <BackButton classname="" href={"/dashboard/skills/"}>
+        Back
+      </BackButton>
       <h2 className="font-medium text-[2rem] py-1">Edit Skill</h2>
       <form
         onSubmit={() => setEdited(false)}

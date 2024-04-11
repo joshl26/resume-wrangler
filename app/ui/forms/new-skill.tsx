@@ -22,7 +22,9 @@ export default function NewSkill({ user }: { user: User }) {
 
   return (
     <div className="px-2">
-      <BackButton href={"/dashboard/skills/"}>Back</BackButton>
+      <BackButton classname="" href={"/dashboard/skills/"}>
+        Back
+      </BackButton>
       <h2 className="font-medium text-[2rem] py-1">Create New Skill</h2>
       <form
         onSubmit={() => setEdited(false)}

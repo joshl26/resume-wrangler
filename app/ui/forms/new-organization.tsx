@@ -17,7 +17,9 @@ export default function NewOrganization({ user }: { user: User }) {
 
   return (
     <div className="px-3">
-      <BackButton href={"/dashboard/organizations/"}>Back</BackButton>
+      <BackButton classname="" href={"/dashboard/organizations/"}>
+        Back
+      </BackButton>
       <h2 className="font-medium text-[2rem] py-1">Create New Organization</h2>
       <form
         onSubmit={() => setEdited(false)}
