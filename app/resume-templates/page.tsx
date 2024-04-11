@@ -1,11 +1,18 @@
 import React from "react";
+import Landing from "../landing/page";
+import ResumeTemplates from "../ui/resume-templates/resume-templates";
+import { fetchResumeTemplates } from "../lib/data";
 
-const Page = () => {
+async function Page() {
+  let resumeTemplates = await fetchResumeTemplates();
+
   return (
-    <div className="flex flex-col w-screen h-screen m-auto justify-center text-center">
-      <h2 className="font-bold text-[2rem]">Coming soon</h2>
-    </div>
+    <Landing>
+      <div className=" bg-rose-100 min-h-[97vh]">
+        <ResumeTemplates resumeTemplates={resumeTemplates} />
+      </div>
+    </Landing>
   );
-};
+}
 
 export default Page;
