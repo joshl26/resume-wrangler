@@ -87,12 +87,6 @@ const searchProviders = [
   },
 ];
 
-// export const metadata: Metadata = {
-//   title: "Resume Wrangler",
-//   description: "The official website of Resume Wrangler.",
-//   metadataBase: new URL("https://resume-wrangler.ca"),
-// };
-
 export default function Page() {
   const [jobTitle, setJobTitle] = useState("Software Engineer");
 
