@@ -21,7 +21,9 @@ export default function EditCertification({
   };
   return (
     <div className="px-3">
-      <BackButton href={"/dashboard/certifications/"}>Back</BackButton>
+      <BackButton classname="" href={"/dashboard/certifications/"}>
+        Back
+      </BackButton>
       <h2 className="font-medium text-[2rem] py-1">Edit Certification</h2>
       <form
         onSubmit={() => setEdited(false)}

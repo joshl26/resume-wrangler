@@ -23,7 +23,9 @@ export default function NewApplication({
 
   return (
     <div className="px-2">
-      <BackButton href={"/dashboard/applications/"}>Back</BackButton>
+      <BackButton classname="" href={"/dashboard/applications/"}>
+        Back
+      </BackButton>
       <h2 className="font-medium text-[2rem] pt-2">Create New Application</h2>
       <form
         action={createApplication}

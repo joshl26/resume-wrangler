@@ -1,7 +1,7 @@
 "use client";
 
 import { Suspense, useState } from "react";
-import Classic from "@/app/ui/resume/classic/classic-resume";
+// import Classic from "@/app/ui/resume/classic/classic-resume";
 import PreviewButton from "@/app/ui/preview-button";
 import ElectricalEngineer from "@/app/ui/resume/electrical-engineer/electrical-engineer";
 import YourResumeStyling from "@/app/ui/forms/your-resume-styling";
@@ -96,7 +96,9 @@ export default function ResumeStyling(props: Props) {
       <div className="flex flex-row h-full w-full">
         <div className="flex flex-col h-full w-[400px] overflow-scroll px-3">
           <div className="pb-2">
-            <BackButton href="/dashboard/applications">Back</BackButton>{" "}
+            <BackButton classname="" href="/dashboard/applications">
+              Back
+            </BackButton>{" "}
           </div>
           <YourResumeStyling
             resume={props?.resume}
@@ -179,7 +181,7 @@ export default function ResumeStyling(props: Props) {
           </div>
         </div>
         <div className="flex flex-col m-auto h-full overflow-scroll right-0">
-          {selectedResumeTemplate === "classic" && (
+          {/* {selectedResumeTemplate === "classic" && (
             <Suspense>
               <Classic
                 headingFont={selectedResumeHeadingFont}
@@ -187,7 +189,7 @@ export default function ResumeStyling(props: Props) {
                 user={props?.user}
               />
             </Suspense>
-          )}
+          )} */}
           {selectedResumeTemplate === "electrical-engineer" && (
             <Suspense>
               <ElectricalEngineer

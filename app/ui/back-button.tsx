@@ -1,12 +1,18 @@
+import clsx from "clsx";
 import Link from "next/link";
 import React from "react";
 
-const BackButton = ({ href, children }: { href: string; children: string }) => {
+const BackButton = ({
+  href,
+  children,
+  classname,
+}: {
+  href: string;
+  children: string;
+  classname: string;
+}) => {
   return (
-    <Link
-      className="hover:underline hover:text-azure-radiance-500 font-light m-auto"
-      href={href}
-    >
+    <Link className={clsx("hover:underline", classname)} href={href}>
       {children}
     </Link>
   );

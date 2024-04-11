@@ -18,7 +18,9 @@ export default function EditCompany({ company }: { company: Company }) {
   };
   return (
     <div className="px-4 overflow-y-auto w-full h-full pb-10">
-      <BackButton href={"/dashboard/companies/"}>Back</BackButton>
+      <BackButton classname="" href={"/dashboard/companies/"}>
+        Back
+      </BackButton>
       <h2 className="font-medium text-[2rem] py-1">Edit Company</h2>
       <form action={updateCompany} className="flex flex-col form-amber p-3">
         <input

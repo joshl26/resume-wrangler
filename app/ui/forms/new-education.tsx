@@ -17,7 +17,9 @@ export default function NewEducation({ user }: { user: User }) {
 
   return (
     <div className="overflow-y-auto w-[500px] h-full px-3 pb-3">
-      <BackButton href={"/dashboard/education/"}>Back</BackButton>
+      <BackButton classname="" href={"/dashboard/education/"}>
+        Back
+      </BackButton>
       <h2 className="font-medium text-[2rem] py-1">Education Experience</h2>
       <form
         onSubmit={() => setEdited(false)}
