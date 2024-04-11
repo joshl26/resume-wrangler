@@ -166,7 +166,7 @@ export default function YourProfile({
                   name="phone"
                   defaultValue={user?.phone}
                   onChange={onChangeHandler}
-                  placeholder="City, Prov/State"
+                  placeholder="xxx-xxx-xxxx"
                 />
               </div>
             </div>

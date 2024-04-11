@@ -5,7 +5,7 @@ export default function AcmeLogo() {
     <div
       className={`${lusitana.className} flex flex-row items-center leading-10`}
     >
-      <p className="text-[35px] font-bold text-black ">Resume Wrangler</p>
+      <p className="text-[35px] font-bold text-black ">Résumé Wrangler</p>
     </div>
   );
 }
