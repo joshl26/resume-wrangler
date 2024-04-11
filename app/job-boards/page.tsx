@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useState } from "react";
 
 import Landing from "../landing/page";
+import { Target } from "puppeteer-core";
 
 const searchProviders = [
   {
@@ -93,27 +94,22 @@ const searchProviders = [
 // };
 
 export default function Page() {
-  const [jobTitle, setJobTitle] = useState<string>("");
+  const [jobTitle, setJobTitle] = useState("Software Engineer");
+
+  function OnChangeHandler(e) {
+    setJobTitle(e.target.value);
+  }
 
   return (
     <Landing>
-      <div className="py-10 flex flex-row w-full">
-        <div className="flex flex-col w-3/12">
-          <Link href="/">
-            <h2 className="py-3  font">Resume Templates</h2>
-          </Link>
-          <Link href="/job-boards">
-            <h2 className="py-3 font-bold">Job Boards</h2>
-          </Link>
-          <Link href="/how-to-use">
-            <h2 className="py-3 ">How to Use</h2>
-          </Link>
-        </div>
-        <div className="flex flex-col w-9/12 bg-stone-300 py-4 px-4">
+      <div className="py-10 flex flex-row bg-orange-100 w-full">
+        <div className="flex flex-col w-9/12 bg-orange-200 tight-shadow py-4 px-4 mt-20 mb-6 mx-auto">
           <h2 className="text-2xl font-semibold">What is your job title?</h2>
           <p className="py-2">Type in the job position you are looking for.</p>
           <input
-            onChange={(e) => setJobTitle(e.target.value)}
+            type="text"
+            onChange={OnChangeHandler}
+            value={jobTitle}
             placeholder="e.g. Software Engineer"
           ></input>
           <div className="border-b-2 border-black h-4 w-full"></div>

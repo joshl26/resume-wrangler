@@ -8,7 +8,7 @@ export default async function Landing({
   children?: React.ReactNode;
 }) {
   return (
-    <div className="bg-amber-50 overflow-x-hidden">
+    <div className="overflow-x-hidden">
       <LandingNavBar />
       <main>{children}</main>
       <LandingFooter />
