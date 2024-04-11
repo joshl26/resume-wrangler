@@ -4,9 +4,9 @@ import BarChart from "@/app/ui/charts/barchart";
 
 const TrendCard = () => {
   return (
-    <div className="tour-trend w-1/2 h-[250px] bg-white rounded-xl tight-shadow">
+    <div className="tour-trend w-1/2 h-[250px] m-auto bg-white rounded-xl tight-shadow">
       <BarChart />
-      <div className="flex flex-row justify-between">
+      {/* <div className="flex flex-row justify-between">
         <h2 className="font-bold p-2">Trend</h2>
         <div className="relative h-auto w-[125px] m-4">
           <select className="h-full w-full rounded-[7px] border border-blue-gray-200  bg-transparent font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200  empty:!bg-gray-900 focus:border-2 focus:border-gray-900  ">
@@ -16,7 +16,7 @@ const TrendCard = () => {
             <option value="today">Today</option>
           </select>
         </div>
-      </div>
+      </div> */}
 
       <div className="flex flex-row">
         {/* <div className="w-full h-[175px]">

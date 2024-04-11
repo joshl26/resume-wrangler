@@ -60,8 +60,8 @@ function BarChart() {
     };
   }, []);
   return (
-    <div className="px-2 mt-7 absolute t-0  w-[700px] h-[225px] mx-auto flex flex-row">
-      <canvas className="absolute" id="myChart3"></canvas>
+    <div className="px-2 mt-7 w-auto h-[225px]  flex flex-row">
+      <canvas style={{ width: "50vw" }} className="" id="myChart3"></canvas>
     </div>
   );
 }
