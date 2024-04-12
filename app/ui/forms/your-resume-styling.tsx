@@ -163,8 +163,9 @@ export default function YourResumeStyling({
                     onChangeHandler();
                   }}
                   className={clsx(
-                    "rounded-[16px] border-2 border-black h-8 w-8  hover:-translate-y-1 duration-500",
-                    color?.color
+                    "rounded-full border-2 border-black tight-shadow h-8 w-8 hover:-translate-y-1 duration-500",
+                    color?.color,
+                    color?.color === selectedResumeColor && "-translate-y-1"
                   )}
                 />
               ))}
