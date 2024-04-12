@@ -178,6 +178,28 @@ const ApplicationSchema = z.object({
   }),
 });
 
+const UpdateApplicationSchema = z.object({
+  id: z.string(),
+  postingText: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  jobPosition: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  postingUrl: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  analyzedPostingText: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  companyId: z.string({
+    invalid_type_error: "Please enter a number.",
+  }),
+  isComplete: z.string({
+    invalid_type_error: "Please enter a number.",
+  }),
+});
+
 const CompanySchema = z.object({
   id: z.string(),
   name: z.string({
@@ -652,7 +674,6 @@ const UpdateInvoice = InvoiceSchema.omit({ id: true, date: true });
 // const DeleteInvoice = InvoiceSchema.omit({ id: true, date: true });
 const UpdateUser = UserSchema.omit({ id: true, date: true });
 const UpdateSocials = UserSocialsSchema.omit({ id: true, date: true });
-const UpdateApplication = ApplicationSchema;
 
 // This is temporary until @types/react-dom is updated
 export type State = {
@@ -857,13 +878,16 @@ export async function updateUserDetails(formData: FormData) {
 }
 
 export async function updateApplication(formData: FormData) {
-  const validatedFields = UpdateApplication.safeParse({
+  console.log(formData);
+
+  const validatedFields = UpdateApplicationSchema.safeParse({
     id: formData.get("application_id"),
     postingText: formData.get("posting_text"),
     jobPosition: formData.get("job_position"),
     postingUrl: formData.get("posting_url"),
     analyzedPostingText: formData.get("analyzed_posting_text"),
     companyId: formData.get("company_id"),
+    isComplete: formData.get("is_complete"),
   });
 
   if (validatedFields.success === false) {
@@ -880,10 +904,11 @@ export async function updateApplication(formData: FormData) {
     postingUrl,
     analyzedPostingText,
     companyId,
+    isComplete,
   } = validatedFields.data;
 
   try {
-    const query = `UPDATE applications SET posting_text = '${postingText}', job_position = '${jobPosition}', posting_url = '${postingUrl}', analyzed_posting_text = '${analyzedPostingText}', company_id = '${companyId}' WHERE id = '${id}'`;
+    const query = `UPDATE applications SET posting_text = '${postingText}', job_position = '${jobPosition}', posting_url = '${postingUrl}', analyzed_posting_text = '${analyzedPostingText}', company_id = '${companyId}', is_complete = '${isComplete}' WHERE id = '${id}'`;
 
     const data = await conn.query(query);
   } catch (error) {
@@ -895,7 +920,7 @@ export async function updateApplication(formData: FormData) {
 }
 
 export async function createApplication(formData: FormData) {
-  const validatedFields = UpdateApplication.safeParse({
+  const validatedFields = ApplicationSchema.safeParse({
     id: formData.get("user_id"),
     postingText: formData.get("posting_text"),
     jobPosition: formData.get("job_position"),
