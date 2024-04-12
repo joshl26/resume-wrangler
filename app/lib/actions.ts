@@ -878,8 +878,6 @@ export async function updateUserDetails(formData: FormData) {
 }
 
 export async function updateApplication(formData: FormData) {
-  console.log(formData);
-
   const validatedFields = UpdateApplicationSchema.safeParse({
     id: formData.get("application_id"),
     postingText: formData.get("posting_text"),
@@ -908,7 +906,13 @@ export async function updateApplication(formData: FormData) {
   } = validatedFields.data;
 
   try {
-    const query = `UPDATE applications SET posting_text = '${postingText}', job_position = '${jobPosition}', posting_url = '${postingUrl}', analyzed_posting_text = '${analyzedPostingText}', company_id = '${companyId}', is_complete = '${isComplete}' WHERE id = '${id}'`;
+    let query: string;
+
+    if (isComplete === "true") {
+      query = `UPDATE applications SET posting_text = '${postingText}', job_position = '${jobPosition}', posting_url = '${postingUrl}', analyzed_posting_text = '${analyzedPostingText}', company_id = '${companyId}', is_complete = '${isComplete}', date_submitted = 'now()' WHERE id = '${id}'`;
+    } else if (isComplete === "false") {
+      query = `UPDATE applications SET posting_text = '${postingText}', job_position = '${jobPosition}', posting_url = '${postingUrl}', analyzed_posting_text = '${analyzedPostingText}', company_id = '${companyId}', is_complete = '${isComplete}', date_submitted = NULL WHERE id = '${id}'`;
+    }
 
     const data = await conn.query(query);
   } catch (error) {
