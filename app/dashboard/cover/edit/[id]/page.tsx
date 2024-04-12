@@ -16,7 +16,7 @@ import {
   getUser,
   fetchResumeByIdAndUserId,
 } from "@/app/lib/data";
-import ResumeStyling from "@/app/ui/resume-styling/resume-styling";
+import CoverStyling from "@/app/ui/cover-styling/cover-styling";
 import { auth } from "@/auth";
 import { notFound } from "next/navigation";
 
@@ -62,7 +62,6 @@ export default async function EditResume({
     resume,
     educationResumeLines,
     workResumeLines,
-    skillResumeLines,
     certificationResumeLines,
     organizationResumeLines,
   ] = await Promise.all([
@@ -94,24 +93,5 @@ export default async function EditResume({
     notFound();
   }
 
-  return (
-    <ResumeStyling
-      resumeTemplates={resumeTemplates}
-      resumeColors={resumeColors}
-      bodyFonts={bodyFonts}
-      headerFonts={headerFonts}
-      user={user}
-      resume={resume}
-      userSkills={userSkills}
-      userEducation={userEducation}
-      userOrganizations={userOrganizations}
-      userCertifications={userCertifications}
-      userWorkExperiences={userWorkExperiences}
-      educationResumeLines={educationResumeLines}
-      workResumeLines={workResumeLines}
-      skillResumeLines={skillResumeLines}
-      certificationResumeLines={certificationResumeLines}
-      organizationResumeLines={organizationResumeLines}
-    />
-  );
+  return <CoverStyling />;
 }
