@@ -1,12 +1,10 @@
 "use client";
 
-import { deleteCoverExperience, deleteWorkExperience } from "@/app/lib/actions";
+import { deleteCoverExperience } from "@/app/lib/actions";
 import {
   User,
   UserCoverExperience,
   UserCoverExperiences,
-  UserWorkExperience,
-  UserWorkExperiences,
 } from "@/app/lib/definitions";
 import Link from "next/link";
 import React from "react";
@@ -41,45 +39,25 @@ const CoverExperience = ({
                 key={coverExperience?.id}
                 className="border-b  hover:bg-gray-50 "
               >
-                {/* <td className="px-6 py-4 font-medium whitespace-nowrap">
-                  <Link
-                    href={`/dashboard/work-experience/edit/${coverExperience?.id}`}
+                <td className="px-6 py-4">
+                  <a
+                    id="edit"
+                    href={`/dashboard/cover-experience/edit/${coverExperience?.id}/${user?.id}`}
+                    className="font-medium  hover:underline"
                   >
-                    {coverExperience?.company_name
-                      ? coverExperience?.company_name
-                      : "N/A"}
-                  </Link>
-                </td>
-
-                <td className="px-6 py-4">
-                  {coverExperience?.location
-                    ? coverExperience?.location
-                    : "N/A"}
-                </td>
-                <td className="px-6 py-4">
-                  {coverExperience?.start_date
-                    ? coverExperience?.start_date
-                    : "N/A"}
-                </td>
-                <td className="px-6 py-4">
-                  {coverExperience?.end_date
-                    ? coverExperience?.end_date
-                    : "N/A"}
-                </td> */}
-                <td className="px-6 py-4">
-                  {coverExperience?.title ? coverExperience?.title : "N/A"}
+                    {coverExperience?.title ? coverExperience?.title : "N/A"}
+                  </a>
                 </td>
                 <td className="px-6 py-4">
                   {coverExperience?.description
                     ? coverExperience?.description
                     : "N/A"}
                 </td>
-
                 <td className="text-left py-4">
                   <div className="flex flex-row justify-around">
                     <a
                       id="edit"
-                      href={`/dashboard/cover-experience/edit/${coverExperience.id}/${user.id}`}
+                      href={`/dashboard/cover-experience/edit/${coverExperience?.id}/${user?.id}`}
                       className="font-medium  hover:underline"
                     >
                       Edit
@@ -96,9 +74,9 @@ const CoverExperience = ({
                         required
                         hidden
                         readOnly
-                        value="blank"
-                        id="resume_id"
-                        name="resume_id"
+                        value={user?.id}
+                        id="user_id"
+                        name="user_id"
                       />
                       <button
                         id="remove"

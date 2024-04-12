@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { SubmitButton } from "../submit-button";
-import { updateUserCoverExperience } from "@/app/lib/actions";
+import { updateCoverExperience } from "@/app/lib/actions";
 import { UserCoverExperience } from "@/app/lib/definitions";
 import BackButton from "../back-button";
 
@@ -22,14 +22,14 @@ export default function EditCoverExperience({
   };
 
   return (
-    <div className="overflow-y-auto h-full w-full px-3 pb-3">
-      <BackButton classname="" href={"/dashboard/work-experience"}>
+    <div className="overflow-y-auto h-full w-[600px] px-3 pb-3">
+      <BackButton classname="" href={"/dashboard/cover-experience"}>
         Back
       </BackButton>
       <h2 className="font-medium text-[2rem] py-1">Edit Cover Experience</h2>
       <form
         onSubmit={(e) => setEdited(false)}
-        action={updateUserCoverExperience}
+        action={updateCoverExperience}
         className="flex flex-col tight-shadow form-amber rounded p-2 "
       >
         <input

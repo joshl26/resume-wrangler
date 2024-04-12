@@ -1,6 +1,5 @@
 import { getUser } from "@/app/lib/data";
-import NewCompany from "@/app/ui/forms/new-company";
-import NewWorkExperience from "@/app/ui/forms/new-work-experience";
+import NewCoverExperience from "@/app/ui/forms/new-cover-experience";
 import { auth } from "@/auth";
 import { notFound } from "next/navigation";
 import React from "react";
@@ -21,7 +20,7 @@ export default async function Page() {
 
     return (
       <div>
-        <NewWorkExperience user={user} />
+        <NewCoverExperience user={user} />
       </div>
     );
   }

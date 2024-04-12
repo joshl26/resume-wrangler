@@ -1,14 +1,11 @@
 import {
   fetchCoverExperiencesByUserId,
-  fetchWorkExperiencesByUserId,
   getUser,
 } from "@/app/lib/data";
 import BackButton from "@/app/ui/back-button";
 import { Button } from "@/app/ui/button";
 import CoverExperience from "@/app/ui/cover-experience/cover-experience-table";
-import WorkExperience from "@/app/ui/tables/work-experience/work-experience-table";
 import { auth } from "@/auth";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import React from "react";
 
@@ -22,11 +19,7 @@ export default async function Page() {
   }
 
   const user = await getUser(session?.user?.email!);
-  // const workExperiences = await fetchWorkExperiencesByUserId(user?.id);
-
   const coverExperiences = await fetchCoverExperiencesByUserId(user?.id);
-
-  console.log(coverExperiences);
 
   if (!user ?? !coverExperiences) {
     notFound();

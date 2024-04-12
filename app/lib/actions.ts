@@ -666,34 +666,10 @@ const CreateCoverExperienceSchema = z.object({
   user_id: z.string({
     invalid_type_error: "Please enter a string.",
   }),
-  resume_id: z.string({
+  title: z.string({
     invalid_type_error: "Please enter a string.",
   }),
-  company_name: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  job_title: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  location: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  start_date: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  end_date: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  description_one: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  description_two: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  description_three: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  description_four: z.string({
+  description: z.string({
     invalid_type_error: "Please enter a string.",
   }),
 });
@@ -703,34 +679,13 @@ const UpdateCoverExperienceSchema = z.object({
   experience_id: z.string({
     invalid_type_error: "Please enter a string.",
   }),
-  resume_id: z.string({
+  user_id: z.string({
     invalid_type_error: "Please enter a string.",
   }),
-  company_name: z.string({
+  title: z.string({
     invalid_type_error: "Please enter a string.",
   }),
-  job_title: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  location: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  start_date: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  end_date: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  description_one: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  description_two: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  description_three: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  description_four: z.string({
+  description: z.string({
     invalid_type_error: "Please enter a string.",
   }),
 });
@@ -740,7 +695,7 @@ const DeleteCoverExperienceSchema = z.object({
   id: z.string({
     invalid_type_error: "Please enter a string.",
   }),
-  resume_id: z.string({
+  user_id: z.string({
     invalid_type_error: "Please enter a string.",
   }),
 });
@@ -873,7 +828,6 @@ export async function updateSocials(
   prevState: State,
   formData: FormData
 ) {
-  console.log(formData);
 
   const validatedFields = UpdateSocials.safeParse({
     linked_in: formData.get("linked_in"),
@@ -951,7 +905,6 @@ export async function updateUserSocials(formData: FormData) {
 }
 
 export async function updateUserDetails(formData: FormData) {
-  console.log(formData);
 
   const validatedFields = UpdateUserDetailsSchema.safeParse({
     id: formData.get("id"),
@@ -1647,7 +1600,7 @@ export async function createCertification(formData: FormData) {
 }
 
 export async function deleteWorkExperience(formData: FormData) {
-  console.log(formData);
+  // console.log(formData);
 
   const validatedFields = DeleteWorkExperienceSchema.safeParse({
     id: formData.get("work_experience_id"),
@@ -2568,171 +2521,81 @@ export async function deleteCoverLine(formData: FormData) {
   // }
 }
 
-//TODO ---------------------------------------------------------
-export async function updateUserCoverExperience(formData: FormData) {
-  console.log(formData);
-
+export async function updateCoverExperience(formData: FormData) {
   const validatedFields = UpdateCoverExperienceSchema.safeParse({
     experience_id: formData.get("experience_id"),
     user_id: formData.get("user_id"),
     title: formData.get("title"),
     description: formData.get("description"),
   });
-  // if (validatedFields.success === false) {
-  //   return {
-  //     errors: validatedFields.error.flatten().fieldErrors,
-  //     message: "Missing Fields. Failed to Create user skill.",
-  //   };
-  // }
-  // const {
-  //   experience_id,
-  //   resume_id,
-  //   company_name,
-  //   job_title,
-  //   location,
-  //   start_date,
-  //   end_date,
-  //   description_one,
-  //   description_two,
-  //   description_three,
-  //   description_four,
-  // } = validatedFields.data;
+  if (validatedFields.success === false) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: "Missing Fields. Failed to Create user skill.",
+    };
+  }
+  const { experience_id, user_id, title, description } = validatedFields.data;
 
-  // try {
-  //   const query = `UPDATE user_work_experience SET company_name = '${company_name}', job_title = '${job_title}', location = '${location}', start_date = '${start_date}', end_date = '${end_date}', description_one = '${description_one}', description_two = '${description_two}', description_three = '${description_three}', description_four = '${description_four}' WHERE id = '${experience_id}'`;
+  try {
+    const query = `UPDATE cover_experiences SET title = '${title}', description = '${description}' WHERE id = '${experience_id}' AND user_id = '${user_id}'`;
 
-  //   const data = await conn.query(query);
-  // } catch (error) {
-  //   return { message: `Database Error: Failed to Update Invoice. ${error}` };
-  // }
+    const data = await conn.query(query);
+  } catch (error) {
+    return {
+      message: `Database Error: Failed to Update Cover Experience. ${error}`,
+    };
+  }
 
-  // if (resume_id !== "blank") {
-  //   revalidatePath(`/dashboard/resume/edit/${resume_id}`);
-  //   redirect(`/dashboard/resume/edit/${resume_id}`);
-  // }
+  revalidatePath(
+    `/dashboard/cover-experience/edit/${experience_id}/${user_id}`
+  );
+  redirect(`/dashboard/cover-experience/edit/${experience_id}/${user_id}`);
 }
 
-//TODO ---------------------------------------------------------
 export async function deleteCoverExperience(formData: FormData) {
-  console.log(formData);
+  const validatedFields = DeleteCoverExperienceSchema.safeParse({
+    id: formData.get("cover_experience_id"),
+    user_id: formData.get("user_id"),
+  });
+  if (validatedFields.success === false) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: "Missing Fields. Failed to Create user skill.",
+    };
+  }
+  const { id, user_id } = validatedFields.data;
 
-  // const validatedFields = DeleteWorkExperienceSchema.safeParse({
-  //   id: formData.get("work_experience_id"),
-  //   resume_id: formData.get("resume_id"),
-  // });
-  // if (validatedFields.success === false) {
-  //   return {
-  //     errors: validatedFields.error.flatten().fieldErrors,
-  //     message: "Missing Fields. Failed to Create user skill.",
-  //   };
-  // }
-  // const { id, resume_id } = validatedFields.data;
-  // try {
-  //   const query = `DELETE FROM user_work_experience WHERE id = '${id}'`;
-  //   const data = await conn.query(query);
-  // } catch (error) {
-  //   return { message: `Database Error: Failed to Delete user skill. ${error}` };
-  // }
-  // if (resume_id !== "blank") {
-  //   revalidatePath(`/dashboard/resume/edit/${resume_id}`);
-  //   redirect(`/dashboard/resume/edit/${resume_id}`);
-  // } else {
-  //   revalidatePath(`/dashboard/work-experience`);
-  //   redirect(`/dashboard/work-experience`);
-  // }
+  try {
+    const query = `DELETE FROM cover_experiences WHERE id = '${id}' AND user_id = '${user_id}'`;
+    const data = await conn.query(query);
+  } catch (error) {
+    return { message: `Database Error: Failed to Delete user skill. ${error}` };
+  }
+  revalidatePath(`/dashboard/cover-experience`);
+  redirect(`/dashboard/cover-experience`);
 }
 
-//TODO ---------------------------------------------------------
 export async function createCoverExperience(formData: FormData) {
-  // const validatedFields = CreateWorkExperienceSchema.safeParse({
-  //   user_id: formData.get("user_id"),
-  //   resume_id: formData.get("resume_id"),
-  //   company_name: formData.get("company_name"),
-  //   job_title: formData.get("job_title"),
-  //   location: formData.get("location"),
-  //   start_date: formData.get("start_date"),
-  //   end_date: formData.get("end_date"),
-  //   description_one: formData.get("description_one"),
-  //   description_two: formData.get("description_two"),
-  //   description_three: formData.get("description_three"),
-  //   description_four: formData.get("description_four"),
-  // });
-  // if (validatedFields.success === false) {
-  //   return {
-  //     errors: validatedFields.error.flatten().fieldErrors,
-  //     message: "Missing Fields. Failed to Create user skill.",
-  //   };
-  // }
-  // const {
-  //   user_id,
-  //   resume_id,
-  //   company_name,
-  //   job_title,
-  //   location,
-  //   start_date,
-  //   end_date,
-  //   description_one,
-  //   description_two,
-  //   description_three,
-  //   description_four,
-  // } = validatedFields.data;
-  // try {
-  //   const query = `INSERT INTO user_work_experience (job_title, company_name, user_id, location, start_date, end_date, description_one, description_two, description_three, description_four) VALUES ('${job_title}', '${company_name}', '${user_id}', '${location}', '${start_date}', '${end_date}', '${description_one}', '${description_two}', '${description_three}', '${description_four}') `;
-  //   const data = await conn.query(query);
-  // } catch (error) {
-  //   return { message: `Database Error: Failed to Delete user skill. ${error}` };
-  // }
-  // if (resume_id !== "blank") {
-  //   revalidatePath(`/dashboard/resume/edit/${resume_id}`);
-  //   redirect(`/dashboard/resume/edit/${resume_id}`);
-  // } else {
-  //   revalidatePath(`/dashboard/work-experience`);
-  //   redirect(`/dashboard/work-experience`);
-  // }
-}
+  const validatedFields = CreateCoverExperienceSchema.safeParse({
+    user_id: formData.get("user_id"),
+    title: formData.get("title"),
+    description: formData.get("description"),
+  });
+  if (validatedFields.success === false) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: "Missing Fields. Failed to Create user skill.",
+    };
+  }
+  const { user_id, title, description } = validatedFields.data;
 
-//TODO ---------------------------------------------------------
-export async function updateCoverExperience(formData: FormData) {
-  // const validatedFields = UpdateWorkExperienceSchema.safeParse({
-  //   experience_id: formData.get("experience_id"),
-  //   resume_id: formData.get("resume_id"),
-  //   company_name: formData.get("company_name"),
-  //   job_title: formData.get("job_title"),
-  //   location: formData.get("location"),
-  //   start_date: formData.get("start_date"),
-  //   end_date: formData.get("end_date"),
-  //   description_one: formData.get("description_one"),
-  //   description_two: formData.get("description_two"),
-  //   description_three: formData.get("description_three"),
-  //   description_four: formData.get("description_four"),
-  // });
-  // if (validatedFields.success === false) {
-  //   return {
-  //     errors: validatedFields.error.flatten().fieldErrors,
-  //     message: "Missing Fields. Failed to Create user skill.",
-  //   };
-  // }
-  // const {
-  //   experience_id,
-  //   resume_id,
-  //   company_name,
-  //   job_title,
-  //   location,
-  //   start_date,
-  //   end_date,
-  //   description_one,
-  //   description_two,
-  //   description_three,
-  //   description_four,
-  // } = validatedFields.data;
-  // try {
-  //   const query = `UPDATE user_work_experience SET company_name = '${company_name}', job_title = '${job_title}', location = '${location}', start_date = '${start_date}', end_date = '${end_date}', description_one = '${description_one}', description_two = '${description_two}', description_three = '${description_three}', description_four = '${description_four}' WHERE id = '${experience_id}'`;
-  //   const data = await conn.query(query);
-  // } catch (error) {
-  //   return { message: `Database Error: Failed to Update Invoice. ${error}` };
-  // }
-  // if (resume_id !== "blank") {
-  //   revalidatePath(`/dashboard/resume/edit/${resume_id}`);
-  //   redirect(`/dashboard/resume/edit/${resume_id}`);
-  // }
+  try {
+    const query = `INSERT INTO cover_experiences (user_id, title, description) VALUES ('${user_id}', '${title}', '${description}') `;
+    const data = await conn.query(query);
+  } catch (error) {
+    return { message: `Database Error: Failed to Delete user skill. ${error}` };
+  }
+
+  revalidatePath(`/dashboard/cover-experience`);
+  redirect(`/dashboard/cover-experience`);
 }

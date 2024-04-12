@@ -442,7 +442,7 @@ export async function fetchWorkExperiencesByUserId(userId: string) {
 export async function fetchCoverExperiencesByUserId(userId: string) {
   noStore();
 
-  console.log(userId);
+  // console.log(userId);
 
   try {
     const query = `SELECT * FROM cover_experiences WHERE user_id = '${userId}'`;
