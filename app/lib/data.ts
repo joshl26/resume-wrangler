@@ -439,7 +439,7 @@ export async function fetchWorkExperiencesByUserId(userId: string) {
   }
 }
 
-export async function fetchCoverkExperiencesByUserId(userId: string) {
+export async function fetchCoverExperiencesByUserId(userId: string) {
   noStore();
 
   console.log(userId);
@@ -493,6 +493,24 @@ export async function fetchWorkExperienceById(id: string) {
     const workExperience: UserWorkExperience = data?.rows[0];
 
     return workExperience;
+  } catch (error: any) {
+    console.error("Database Error:", error);
+    // throw new Error("Failed to fetch resume template by id.");
+    return;
+  }
+}
+
+export async function fetchCoverExperienceById(id: string, userId: string) {
+  noStore();
+
+  try {
+    const query = `SELECT * FROM cover_experiences WHERE id = '${id}' AND user_id = '${userId}'`;
+    // console.log(query);
+    const data = await conn.query(query);
+
+    const coverExperience: UserCoverExperience = data?.rows[0];
+
+    return coverExperience;
   } catch (error: any) {
     console.error("Database Error:", error);
     // throw new Error("Failed to fetch resume template by id.");

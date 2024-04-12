@@ -2,14 +2,22 @@
 
 import { deleteCoverExperience, deleteWorkExperience } from "@/app/lib/actions";
 import {
+  User,
   UserCoverExperience,
+  UserCoverExperiences,
   UserWorkExperience,
   UserWorkExperiences,
 } from "@/app/lib/definitions";
 import Link from "next/link";
 import React from "react";
 
-const CoverExperience = ({ coverExperiences }: { coverExperiences: any }) => {
+const CoverExperience = ({
+  coverExperiences,
+  user,
+}: {
+  coverExperiences: UserCoverExperiences;
+  user: User;
+}) => {
   return (
     <div className="relative overflow-y-auto tight-shadow sm:rounded-lg px-4 mr-2 py-4">
       <table className="w-full text-sm text-left rtl:text-right ">
@@ -71,7 +79,7 @@ const CoverExperience = ({ coverExperiences }: { coverExperiences: any }) => {
                   <div className="flex flex-row justify-around">
                     <a
                       id="edit"
-                      href={`/dashboard/work-experience/edit/${coverExperience.id}`}
+                      href={`/dashboard/cover-experience/edit/${coverExperience.id}/${user.id}`}
                       className="font-medium  hover:underline"
                     >
                       Edit

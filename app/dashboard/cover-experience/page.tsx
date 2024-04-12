@@ -1,5 +1,5 @@
 import {
-  fetchCoverkExperiencesByUserId,
+  fetchCoverExperiencesByUserId,
   fetchWorkExperiencesByUserId,
   getUser,
 } from "@/app/lib/data";
@@ -24,7 +24,7 @@ export default async function Page() {
   const user = await getUser(session?.user?.email!);
   // const workExperiences = await fetchWorkExperiencesByUserId(user?.id);
 
-  const coverExperiences = await fetchCoverkExperiencesByUserId(user?.id);
+  const coverExperiences = await fetchCoverExperiencesByUserId(user?.id);
 
   console.log(coverExperiences);
 
@@ -48,7 +48,7 @@ export default async function Page() {
         </div>
       </div>
       <div className="overflow-y-auto h-full">
-        <CoverExperience coverExperiences={coverExperiences} />
+        <CoverExperience user={user} coverExperiences={coverExperiences} />
       </div>
     </div>
   );

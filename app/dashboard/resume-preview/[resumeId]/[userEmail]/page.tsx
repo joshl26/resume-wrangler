@@ -1,6 +1,5 @@
 import React from "react";
 import ElectricalEngineer from "@/app/ui/resume/electrical-engineer/electrical-engineer";
-// import Classic from "@/app/ui/resume/classic/classic-resume";
 import { getData } from "@/app/lib/data";
 import EditButton from "@/app/ui/edit-button";
 import ThreeDAnimator from "@/app/ui/resume/3d-animator/3d-animator";
