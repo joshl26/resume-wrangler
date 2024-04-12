@@ -59,7 +59,11 @@ function DonutChart({
     return () => {
       myChart.destroy();
     };
-  }, []);
+  }, [
+    openApplicationsCount,
+    pendingApplicationsCount,
+    closedApplicationsCount,
+  ]);
   return (
     <div className="absolute px-14 t-0 w-auto h-[200px]">
       <canvas id="myChart4"></canvas>

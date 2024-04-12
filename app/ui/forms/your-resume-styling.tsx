@@ -13,6 +13,7 @@ import {
   ResumeColors,
   ResumeTemplates,
 } from "@/app/lib/definitions";
+import clsx from "clsx";
 
 export default function YourResumeStyling({
   resume,
@@ -152,19 +153,20 @@ export default function YourResumeStyling({
             />{" "}
             <div className="flex flex-row justify-around">
               {resumeColors?.map((color: ResumeColor) => (
-                <>
-                  <div
-                    style={{ cursor: "pointer" }}
-                    key={color.id}
-                    id={color.color}
-                    onClick={(e: any) => {
-                      setSelectedResumeHighlightColor(color.name);
-                      setSelectedResumeColor(e.target.id);
-                      onChangeHandler();
-                    }}
-                    className={`rounded-[16px] border-2 border-black h-8 w-8 ${color.color} hover:-translate-y-1 duration-500`}
-                  />
-                </>
+                <div
+                  style={{ cursor: "pointer" }}
+                  key={color?.id}
+                  id={color?.color}
+                  onClick={(e: any) => {
+                    setSelectedResumeHighlightColor(color?.name);
+                    setSelectedResumeColor(e?.target?.id);
+                    onChangeHandler();
+                  }}
+                  className={clsx(
+                    "rounded-[16px] border-2 border-black h-8 w-8  hover:-translate-y-1 duration-500",
+                    color?.color
+                  )}
+                />
               ))}
             </div>
           </div>
