@@ -47,12 +47,12 @@ const ApplicationsTable = ({
             <th scope="col" className="px-6 py-3">
               Location
             </th>
-            <th scope="col" className="px-6 py-3">
-              Submitted
-            </th>
             {/* <th scope="col" className="px-6 py-3">
-              Cover
+              Submitted
             </th> */}
+            <th scope="col" className="px-6 py-3">
+              Cover
+            </th>
             <th scope="col" className="px-6 py-3">
               Resume
             </th>
@@ -92,8 +92,8 @@ const ApplicationsTable = ({
                       ).address_one
                     : "N/A"}
                 </td>
-                <td className="px-6 py-4">{application?.is_complete}</td>
-                {/* <td className="text-left px-6 py-4">
+                {/* <td className="px-6 py-4">{application?.is_complete}</td> */}
+                <td className="text-left px-6 py-4">
                   {coverLetters?.find(
                     (coverLetter: CoverLetter) =>
                       coverLetter?.application_id === application.id
@@ -160,8 +160,7 @@ const ApplicationsTable = ({
                       </button>
                     </form>
                   )}
-                </td> */}
-
+                </td>
                 <td className="text-left px-6 py-4">
                   {resumes?.find(
                     (resume: Resume) => resume.application_id === application.id
