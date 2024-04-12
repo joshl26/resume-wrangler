@@ -332,6 +332,17 @@ export interface UserWorkExperience {
 
 export type UserWorkExperiences = UserWorkExperience[];
 
+export interface UserCoverExperience {
+  id: string;
+  user_id: string;
+  created_at: string;
+  updated_at: string;
+  title: string;
+  description: string;
+}
+
+export type UserCoverExperiences = UserCoverExperience[];
+
 export type NullOrUndefined = null | undefined;
 
 export type StringOrUndefined = string | undefined;

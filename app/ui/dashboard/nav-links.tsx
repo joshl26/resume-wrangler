@@ -11,12 +11,24 @@ import {
   BuildingOffice2Icon,
   AdjustmentsHorizontalIcon,
   NewspaperIcon,
+  UserGroupIcon,
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import clsx from "clsx";
 import { usePathname } from "next/navigation";
 
 const links = [
+  {
+    name: "Upgrade to PRO",
+    href: "/dashboard/upgrade",
+    icon: UserGroupIcon,
+  },
+  {
+    name: "User Profile",
+    href: "/dashboard/user-profile",
+    icon: AdjustmentsVerticalIcon,
+  },
+
   { name: "Dashboard", href: "/dashboard", icon: HomeIcon },
   {
     name: "Your Education",
@@ -53,37 +65,32 @@ const links = [
     href: "/dashboard/organizations",
     icon: ListBulletIcon,
   },
-  // {
-  //   name: "Cover Letter Templates",
-  //   href: "/dashboard/cover-templates",
-  //   icon: DocumentDuplicateIcon,
-  // },
-  // {
-  //   name: "Cover Letter Styling",
-  //   href: "/dashboard/cover-styling",
-  //   icon: DocumentDuplicateIcon,
-  // },
+  {
+    name: "Cover Letter Templates",
+    href: "/dashboard/cover-templates",
+    icon: DocumentDuplicateIcon,
+  },
+  {
+    name: "Cover Letters",
+    href: "/dashboard/cover",
+    icon: DocumentDuplicateIcon,
+  },
+  {
+    name: "Cover Experience",
+    href: "/dashboard/cover-experience",
+    icon: DocumentDuplicateIcon,
+  },
 
   {
     name: "Resume Templates",
     href: "/dashboard/resume-templates",
     icon: DocumentDuplicateIcon,
   },
-  // {
-  //   name: "Resume Styling",
-  //   href: "/dashboard/resume/edit/1453bf56-d92f-4893-a6a8-34decd76bbd7",
-  //   icon: DocumentDuplicateIcon,
-  // },
   {
-    name: "User Profile",
-    href: "/dashboard/user-profile",
-    icon: AdjustmentsVerticalIcon,
+    name: "Resumes",
+    href: "/dashboard/resume",
+    icon: DocumentDuplicateIcon,
   },
-  // {
-  //   name: "Upgrade to PRO",
-  //   href: "/",
-  //   icon: UserGroupIcon,
-  // },
 ];
 
 export default function NavLinks() {

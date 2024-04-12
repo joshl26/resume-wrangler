@@ -26,8 +26,7 @@ export default function SideNav({ session }: { session: any }) {
           </Link>
         </span>
       )}
-      <div className="flex grow flex-row justify-between space-x-2 space-y-1 md:flex-col md:space-x-0 ">
-        <NavLinks />
+      <div className="flex grow flex-row justify-between space-x-2 space-y-1 md:flex-col md:space-x-0 overflow-y-auto">
         <form
           action={async () => {
             "use server";
@@ -41,6 +40,7 @@ export default function SideNav({ session }: { session: any }) {
             </div>
           </button>
         </form>
+        <NavLinks />
       </div>
     </div>
   );

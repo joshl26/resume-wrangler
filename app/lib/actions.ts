@@ -1558,6 +1558,35 @@ export async function deleteWorkExperience(formData: FormData) {
   }
 }
 
+export async function deleteCoverExperience(formData: FormData) {
+  console.log(formData);
+
+  // const validatedFields = DeleteWorkExperienceSchema.safeParse({
+  //   id: formData.get("work_experience_id"),
+  //   resume_id: formData.get("resume_id"),
+  // });
+  // if (validatedFields.success === false) {
+  //   return {
+  //     errors: validatedFields.error.flatten().fieldErrors,
+  //     message: "Missing Fields. Failed to Create user skill.",
+  //   };
+  // }
+  // const { id, resume_id } = validatedFields.data;
+  // try {
+  //   const query = `DELETE FROM user_work_experience WHERE id = '${id}'`;
+  //   const data = await conn.query(query);
+  // } catch (error) {
+  //   return { message: `Database Error: Failed to Delete user skill. ${error}` };
+  // }
+  // if (resume_id !== "blank") {
+  //   revalidatePath(`/dashboard/resume/edit/${resume_id}`);
+  //   redirect(`/dashboard/resume/edit/${resume_id}`);
+  // } else {
+  //   revalidatePath(`/dashboard/work-experience`);
+  //   redirect(`/dashboard/work-experience`);
+  // }
+}
+
 export async function createWorkExperience(formData: FormData) {
   const validatedFields = CreateWorkExperienceSchema.safeParse({
     user_id: formData.get("user_id"),

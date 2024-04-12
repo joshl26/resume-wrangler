@@ -30,6 +30,8 @@ import {
   Resumes,
   CoverLetters,
   CoverLetter,
+  UserCoverExperiences,
+  UserCoverExperience,
 } from "./definitions";
 import { unstable_noStore as noStore } from "next/cache";
 require("dotenv").config();
@@ -430,6 +432,29 @@ export async function fetchWorkExperiencesByUserId(userId: string) {
     );
 
     return userWorkExperiences;
+  } catch (error: any) {
+    console.error("Database Error:", error);
+    // throw new Error("Failed to fetch resume template by id.");
+    return [null];
+  }
+}
+
+export async function fetchCoverkExperiencesByUserId(userId: string) {
+  noStore();
+
+  console.log(userId);
+
+  try {
+    const query = `SELECT * FROM cover_experiences WHERE user_id = '${userId}'`;
+    const data = await conn.query(query);
+
+    const userCoverExperiences: UserCoverExperiences = data?.rows?.map(
+      (userCoverExperience: UserCoverExperience) => ({
+        ...userCoverExperience,
+      })
+    );
+
+    return userCoverExperiences;
   } catch (error: any) {
     console.error("Database Error:", error);
     // throw new Error("Failed to fetch resume template by id.");
