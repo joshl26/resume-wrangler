@@ -197,6 +197,7 @@ export interface CoverLetter {
   conclusion_text: string;
   thanks_text: string;
   user_id: string;
+  template: string;
 }
 
 export type CoverLetters = CoverLetter[];

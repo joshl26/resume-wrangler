@@ -65,11 +65,11 @@ const links = [
     href: "/dashboard/organizations",
     icon: ListBulletIcon,
   },
-  // {
-  //   name: "Cover Letter Templates",
-  //   href: "/dashboard/cover-templates",
-  //   icon: DocumentDuplicateIcon,
-  // },
+  {
+    name: "Cover Letter Templates",
+    href: "/dashboard/cover-templates",
+    icon: DocumentDuplicateIcon,
+  },
   // {
   //   name: "Cover Letters",
   //   href: "/dashboard/cover",

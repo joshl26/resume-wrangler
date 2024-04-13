@@ -1,13 +1,14 @@
 import React from "react";
 import ResumeTemplates from "@/app/ui/resume-templates/resume-templates";
-import { fetchResumeTemplates } from "@/app/lib/data";
+import { fetchCoverTemplates, fetchResumeTemplates } from "@/app/lib/data";
 import { Button } from "@/app/ui/button";
 import { notFound } from "next/navigation";
+import CoverTemplates from "@/app/ui/cover-templates/cover-templates";
 
 export default async function Page() {
-  const resumeTemplates = await fetchResumeTemplates();
+  const coverTemplates = await fetchCoverTemplates();
 
-  if (!resumeTemplates) {
+  if (!coverTemplates) {
     notFound();
   }
 
@@ -18,7 +19,7 @@ export default async function Page() {
           Start with one of our Cover Letter Templates
         </h1>
       </div>
-      {/* <ResumeTemplates resumeTemplates={resumeTemplates} /> */}
+      <CoverTemplates coverTemplates={coverTemplates} />
     </div>
   );
 }
