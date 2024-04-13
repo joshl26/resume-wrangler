@@ -3,6 +3,7 @@ import {
   fetchApplicationsByUserId,
   fetchCoverLettersByUserIDJoinApplications,
   fetchLatestCompaniesByUserId,
+  fetchResumesByUserIDJoinApplications,
   getUser,
 } from "@/app/lib/data";
 import { Button } from "@/app/ui/button";
@@ -22,13 +23,11 @@ export default async function Page() {
   }
 
   const user = await getUser(session?.user?.email!);
-  const coverLetters = await fetchCoverLettersByUserIDJoinApplications(
-    user?.id
-  );
+  const resumes = await fetchResumesByUserIDJoinApplications(user?.id);
   const applications = await fetchApplicationsByUserId(user?.id);
   const companies = await fetchLatestCompaniesByUserId(user?.id);
 
-  if (!coverLetters ?? !user ?? !applications ?? !companies) {
+  if (!resumes ?? !user ?? !applications ?? !companies) {
     notFound();
   }
 
@@ -42,16 +41,10 @@ export default async function Page() {
       </div>
       <Resumes
         user={user}
-        coverLetters={coverLetters}
+        resumes={resumes}
         applications={applications}
         companies={companies}
       />
-      {/* <CoverLetters
-        user={user}
-        coverLetters={coverLetters}
-        applications={applications}
-        companies={companies}
-      /> */}
     </div>
   );
 }

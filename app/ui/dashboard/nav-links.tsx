@@ -65,16 +65,16 @@ const links = [
     href: "/dashboard/organizations",
     icon: ListBulletIcon,
   },
-  {
-    name: "Cover Letter Templates",
-    href: "/dashboard/cover-templates",
-    icon: DocumentDuplicateIcon,
-  },
-  {
-    name: "Cover Letters",
-    href: "/dashboard/cover",
-    icon: DocumentDuplicateIcon,
-  },
+  // {
+  //   name: "Cover Letter Templates",
+  //   href: "/dashboard/cover-templates",
+  //   icon: DocumentDuplicateIcon,
+  // },
+  // {
+  //   name: "Cover Letters",
+  //   href: "/dashboard/cover",
+  //   icon: DocumentDuplicateIcon,
+  // },
   {
     name: "Cover Experience",
     href: "/dashboard/cover-experience",
@@ -86,11 +86,11 @@ const links = [
     href: "/dashboard/resume-templates",
     icon: DocumentDuplicateIcon,
   },
-  {
-    name: "Resumes",
-    href: "/dashboard/resume",
-    icon: DocumentDuplicateIcon,
-  },
+  // {
+  //   name: "Resumes",
+  //   href: "/dashboard/resume",
+  //   icon: DocumentDuplicateIcon,
+  // },
 ];
 
 export default function NavLinks() {
@@ -105,7 +105,7 @@ export default function NavLinks() {
             key={link?.name}
             href={link?.href}
             className={clsx(
-              "flex h-auto tight-shadow grow items-center justify-center gap-2 rounded-md hover:text-rose-50 hover:font-bold  p-2 text-sm font-lite hover:bg-amber-600 md:flex-none md:justify-start md:p-1 md:px-1",
+              "flex row h-auto tight-shadow gap-2 rounded-md hover:text-rose-50 hover:font-bold p-2 text-sm font-lite hover:bg-amber-600",
               pathname === link?.href ? "bg-amber-300 " : "bg-amber-50"
             )}
           >

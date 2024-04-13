@@ -1,8 +1,11 @@
 import { createCoverLetter, deleteCoverLetter } from "@/app/lib/actions";
 import type {
+  Application,
   Applications,
   Companies,
   CoverLetters,
+  Resume,
+  Resumes,
   User,
 } from "@/app/lib/definitions";
 import Link from "next/link";
@@ -10,16 +13,14 @@ import React from "react";
 
 const Resumes = ({
   user,
-  coverLetters,
-  applications,
+  resumes,
   companies,
 }: {
   user: User;
-  coverLetters: any;
+  resumes: Resumes & Applications;
   applications: Applications;
   companies: Companies;
 }) => {
-  //TODO TEMPLATE TABLE FOR STYLING
   return (
     <div className="relative overflow-y-auto tight-shadow rounded px-4 py-4 mr-3 bg-white">
       <table
@@ -46,30 +47,28 @@ const Resumes = ({
           </tr>
         </thead>
         <tbody>
-          {coverLetters?.length > 0 ? (
-            coverLetters?.map((coverLetter: any) => (
-              <tr key={coverLetter?.id} className="border-b  hover:bg-gray-50 ">
+          {resumes?.length > 0 ? (
+            resumes?.map((resume: Resume & Application) => (
+              <tr key={resume?.id} className="border-b  hover:bg-gray-50 ">
                 <th
                   scope="row"
                   className="px-6 py-4 font-medium  whitespace-nowrap "
                 >
-                  <Link href={`/dashboard/cover/edit/${coverLetter?.id}`}>
-                    {coverLetter?.job_position
-                      ? coverLetter?.job_position
-                      : "N/A"}
+                  <Link href={`/dashboard/resume/edit/${resume?.id}`}>
+                    {resume?.job_position ? resume?.job_position : "N/A"}
                   </Link>
                 </th>
                 <td className="px-6 py-4">
-                  {coverLetter?.company_id
+                  {resume?.company_id
                     ? companies?.find(
-                        (company) => company?.id === coverLetter?.company_id
+                        (company) => company?.id === resume?.company_id
                       )?.name
                     : "N/A"}
                 </td>
                 <td className="px-6 py-4">
-                  {coverLetter?.company_id
+                  {resume?.company_id
                     ? companies?.find(
-                        (company) => company?.id === coverLetter?.company_id
+                        (company) => company?.id === resume?.company_id
                       )?.address_one
                     : "N/A"}
                 </td>
@@ -77,7 +76,7 @@ const Resumes = ({
                   <Link
                     id="edit"
                     className="font-medium hover:underline"
-                    href={`/dashboard/applications/edit/${coverLetter?.application_id}`}
+                    href={`/dashboard/applications/edit/${resume?.application_id}`}
                   >
                     Edit
                   </Link>
@@ -87,7 +86,7 @@ const Resumes = ({
                     <div className="flex flex-col ">
                       <Link
                         id="edit"
-                        href={`/dashboard/cover/edit/${coverLetter.id}`}
+                        href={`/dashboard/resume/edit/${resume.id}`}
                         className="font-medium hover:underline"
                       >
                         Edit
