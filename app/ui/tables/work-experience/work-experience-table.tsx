@@ -19,6 +19,9 @@ const WorkExperience = ({
               Organization Name
             </th>
             <th scope="col" className="px-6 py-3">
+              Position
+            </th>
+            <th scope="col" className="px-6 py-3">
               Location
             </th>
             <th scope="col" className="px-6 py-3">
@@ -48,7 +51,11 @@ const WorkExperience = ({
                       : "N/A"}
                   </Link>
                 </td>
-
+                <td className="px-6 py-4">
+                  {workExperience?.job_title
+                    ? workExperience?.job_title
+                    : "N/A"}
+                </td>
                 <td className="px-6 py-4">
                   {workExperience?.location ? workExperience?.location : "N/A"}
                 </td>

@@ -5,7 +5,6 @@ import { Button } from "@/app/ui/button";
 import { notFound } from "next/navigation";
 
 export default async function Page() {
-  const selectedResume = "";
   const resumeTemplates = await fetchResumeTemplates();
 
   if (!resumeTemplates) {
@@ -16,10 +15,10 @@ export default async function Page() {
     <div className="w-full h-full">
       <div className="flex flex-row px-3 pb-3">
         <h1 className="text-lg text-[2rem] font-bold">
-          Start with one of our Résumé Templates
+          Start with one of our Cover Letter Templates
         </h1>
       </div>
-      <ResumeTemplates resumeTemplates={resumeTemplates} />
+      {/* <ResumeTemplates resumeTemplates={resumeTemplates} /> */}
     </div>
   );
 }

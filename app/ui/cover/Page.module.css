@@ -1,0 +1,30 @@
+.page {
+  margin: auto;
+  background: white;
+  position: relative;
+
+  /* border: 1px solid red; */
+
+  /* A4 page size */
+  /* width: 210mm;
+  height: 297mm; */
+
+  /* letter page size */
+  width: 216mm;
+  height: 279mm;
+
+  padding: 32px;
+  color: black;
+  /* filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04))
+    drop-shadow(0 4px 3px rgb(0 0 0 / 0.1)); */
+}
+
+/* @page {
+  size: A4;
+  margin: 0;
+} */
+
+@page {
+  size: letter;
+  margin: 0;
+}

@@ -212,6 +212,7 @@ export async function fetchCoverLettersByUserId(userId: string) {
   }
 }
 
+
 export async function fetchResumeTemplates() {
   noStore();
 
@@ -337,6 +338,31 @@ export async function fetchResumeByIdAndUserId(id: string, user: User) {
     return;
   }
 }
+
+
+export async function fetchCoverTemplates() {
+  noStore();
+
+  try {
+    // const query = `SELECT * FROM resume_templates ORDER BY name ASC`;
+    const query = `SELECT * FROM resume_templates WHERE active = 'true' ORDER BY name ASC`;
+
+    const data = await conn.query(query);
+
+    const resumeTemplates: ResumeTemplates = data.rows.map(
+      (resumeTemplate: ResumeTemplate) => ({
+        ...resumeTemplate,
+      })
+    );
+
+    return resumeTemplates;
+  } catch (error: any) {
+    console.error("Database Error:", error);
+    // throw new Error("Failed to fetch resume template by id.");
+    return [null];
+  }
+}
+
 
 export async function fetchSkillsByUserId(userId: string) {
   noStore();

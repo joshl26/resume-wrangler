@@ -252,9 +252,23 @@ export interface ResumeTemplate {
   description: string;
   created_at: string;
   updated_at: string;
+  active: string;
 }
 
 export type ResumeTemplates = ResumeTemplate[];
+
+export interface CoverTemplate {
+  id: string;
+  name: string;
+  thumbnail_url: string;
+  cloudinary_public_url: string;
+  description: string;
+  created_at: string;
+  updated_at: string;
+  active: string;
+}
+
+export type CoverTemplates = CoverTemplate[];
 
 export interface UserOrganization {
   id: string;
