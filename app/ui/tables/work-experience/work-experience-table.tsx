@@ -11,8 +11,8 @@ const WorkExperience = ({
   workExperiences: UserWorkExperiences;
 }) => {
   return (
-    <div className="relative overflow-y-auto tight-shadow sm:rounded-lg px-4 mr-2 py-4">
-      <table className="w-full text-sm text-left rtl:text-right ">
+    <div className="relative overflow-y-auto tight-shadow rounded px-4 mr-2 py-4 bg-white">
+      <table className="w-full text-sm text-left rtl:text-right tight-shadow">
         <thead className="text-xs  uppercase ">
           <tr>
             <th scope="col" className="px-6 py-3">
@@ -123,7 +123,7 @@ const WorkExperience = ({
             1000
           </span>
         </span>
-        <ul className="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
+        <ul className="inline-flex tight-shadow rounded-lg -space-x-px rtl:space-x-reverse text-sm h-8">
           <li>
             <a
               href="#"

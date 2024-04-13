@@ -7,8 +7,11 @@ import React from "react";
 
 const Skills = ({ skills }: { skills: UserSkills }) => {
   return (
-    <div className="relative overflow-x-auto overflow-y-auto tight-shadow sm:rounded-lg px-4 py-4 mr-3">
-      <table className="w-full text-sm text-left rtl:text-right text-gray-200 dark:text-gray-200">
+    <div className="relative overflow-x-auto overflow-y-auto tight-shadow rounded px-4 py-4 mr-3 bg-amber-50">
+      <table
+        className="w-full text-sm text-left rtl:text-right tight-shadow
+      "
+      >
         <thead className="text-xs  uppercase  ">
           <tr>
             <th scope="col" className="px-6 py-3">
@@ -25,18 +28,27 @@ const Skills = ({ skills }: { skills: UserSkills }) => {
         <tbody>
           {skills?.length > 0 ? (
             skills?.map((skill: any) => (
-              <tr key={skill?.id} className=" border-b">
-                <th
+              <tr key={skill?.id} className="border-b">
+                <td
                   scope="row"
-                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "
+                  className="px-6 py-2 font-medium text-gray-900 whitespace-nowrap "
                 >
-                  {skill?.skill ? skill?.skill : "N/A"}
-                </th>
-                <td className="px-6 py-4">
-                  <input readOnly type="range" value={skill?.skill_level} />
-                  {skill?.skill_level ? <p>{skill?.skill_level}%</p> : "N/A"}
+                  <Link href={`/dashboard/skills/edit/${skill?.id}`}>
+                    {skill?.skill ? skill?.skill : "N/A"}
+                  </Link>
                 </td>
-                <td className="text-left px-6 py-4">
+                <td className="px-6 py-2">
+                  <div className="flex flex-row gap-2 justify-start">
+                    <input
+                      className="shadow-none"
+                      readOnly
+                      type="range"
+                      value={skill?.skill_level}
+                    />
+                    {skill?.skill_level ? <p>{skill?.skill_level}%</p> : "N/A"}
+                  </div>
+                </td>
+                <td className="text-left px-6 py-2">
                   <div className="flex flex-row">
                     <a
                       id="edit"

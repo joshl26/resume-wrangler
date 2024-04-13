@@ -78,6 +78,7 @@ export default function EditSkill({ skill }: { skill: UserSkill }) {
           <input
             name="skill_level"
             id="skill_level"
+            className="shadow-none"
             onChange={(e) => skillOnChangeHandler(e)}
             defaultValue={skill?.skill_level}
             type="range"
