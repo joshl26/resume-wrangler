@@ -6,6 +6,7 @@ import PreviewButton from "@/app/ui/preview-button";
 import YourCoverStyling from "@/app/ui/forms/your-cover-styling";
 import { User, UserCoverExperiences } from "@/app/lib/definitions";
 import BackButton from "../back-button";
+import Link from "next/link";
 
 interface Props {
   userCoverExperiences: UserCoverExperiences;
@@ -47,66 +48,20 @@ export default function CoverStyling(props: Props) {
           </div>
           <YourCoverStyling />
           <div className="py-2" />
-          {/* <YourProfile resume={props?.resume} user={props?.user} />
-          <YourSocialLinks
-            resume={props?.resume}
-            user={props?.user}
-            showSocials={showSocials}
-            setShowSocials={setShowSocials}
-          />
-          <div className="py-2" />
-          <YourSkills
-            user={props?.user}
-            userSkills={props?.userSkills}
-            resume={props?.resume}
-            setShowSkills={setShowSkills}
-            showSkills={showSkills}
-            setShowSkillProgress={setShowSkillProgress}
-            showSkillProgress={showSkillProgress}
-            skillResumeLines={props?.skillResumeLines}
-          />
-          <div className="py-2" />
-          <YourEducation
-            resume={props?.resume}
-            user={props?.user}
-            userEducation={props?.userEducation}
-            showEducation={showEducation}
-            setShowEducation={setShowEducation}
-            educationResumeLines={props?.educationResumeLines}
-          />
-          <div className="py-2" />
-          <YourWorkExperiences
-            userWorkExperiences={props?.userWorkExperiences}
-            user={props?.user}
-            resume={props?.resume}
-            workResumeLines={props?.workResumeLines}
-          />
-          <div className="py-2" />
-          <YourOrganizations
-            user={props?.user}
-            resume={props?.resume}
-            userOrganizations={props?.userOrganizations}
-            showCustomSectionOne={showCustomSectionOne}
-            setShowCustomSectionOne={setShowCustomSectionOne}
-            organizationResumeLines={props?.organizationResumeLines}
-          />
-          <div className="py-2" />
-          <YourCertifications
-            resume={props?.resume}
-            user={props?.user}
-            userCertifications={props?.userCertifications}
-            showCustomSectionTwo={showCustomSectionTwo}
-            setShowCustomSectionTwo={setShowCustomSectionTwo}
-            certificationResumeLines={props?.certificationResumeLines}
-          /> */}
           <div className="p-2 text-center">
-            <a
-              // href={`/api/pdf?resumeId=${props?.resume?.id}&userEmail=${props?.user?.email}`}
-              download="generated_pdf.pdf"
-              className="downloadBtn hover:text-rose-500"
-            >
-              Download PDF
-            </a>
+            {props?.user?.access_level !== "basic" ? (
+              <a
+                // href={`/api/pdf?resumeId=${props?.resume?.id}&userEmail=${props?.user?.email}`}
+                download={`${props.user.first_name}_${props.user.last_name}.pdf`}
+                className="downloadBtn hover:text-rose-500"
+              >
+                Download PDF
+              </a>
+            ) : (
+              <Link className="btn btn-amber" href={"/dashboard/upgrade"}>
+                Upgrade Account to Download PDF
+              </Link>
+            )}
           </div>
         </div>
         <div className="flex flex-col m-auto w-full h-full overflow-scroll right-0">

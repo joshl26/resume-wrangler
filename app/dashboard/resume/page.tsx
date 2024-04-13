@@ -1,14 +1,11 @@
 import React from "react";
 import {
   fetchApplicationsByUserId,
-  fetchCoverLettersByUserIDJoinApplications,
   fetchLatestCompaniesByUserId,
   fetchResumesByUserIDJoinApplications,
   getUser,
 } from "@/app/lib/data";
-import { Button } from "@/app/ui/button";
 import { notFound } from "next/navigation";
-import CoverLetters from "@/app/ui/tables/cover-letters/covers-table";
 import { auth } from "@/auth";
 import BackButton from "@/app/ui/back-button";
 import Resumes from "@/app/ui/tables/resumes/resumes-table";
