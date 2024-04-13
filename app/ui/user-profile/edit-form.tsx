@@ -224,7 +224,6 @@ const UserSocialsEditForm = ({ user }: { user: User }) => {
               onChange={() => onChangeHandler()}
               id="linked_in"
               name="linked_in"
-              type="text"
               placeholder="Type your linkedin address"
               defaultValue={user?.linked_in}
             />
@@ -237,7 +236,6 @@ const UserSocialsEditForm = ({ user }: { user: User }) => {
               onChange={() => onChangeHandler()}
               id="twitter"
               name="twitter"
-              type="text"
               placeholder="Type your twitter address"
               defaultValue={user?.twitter}
             />
@@ -255,7 +253,6 @@ const UserSocialsEditForm = ({ user }: { user: User }) => {
               onChange={() => onChangeHandler()}
               id="facebook"
               name="facebook"
-              type="text"
               placeholder="Type your facebook address"
               defaultValue={user?.facebook}
             />
@@ -271,7 +268,6 @@ const UserSocialsEditForm = ({ user }: { user: User }) => {
               onChange={() => onChangeHandler()}
               id="instagram"
               name="instagram"
-              type="text"
               placeholder="Type your instagram address"
               defaultValue={user?.instagram}
             />
@@ -291,7 +287,6 @@ const UserSocialsEditForm = ({ user }: { user: User }) => {
               onChange={() => onChangeHandler()}
               id="instagram"
               name="instagram"
-              type="text"
               placeholder="Type your instagram address"
               defaultValue={user?.instagram}
             />
@@ -304,7 +299,6 @@ const UserSocialsEditForm = ({ user }: { user: User }) => {
               onChange={() => onChangeHandler()}
               id="github"
               name="github"
-              type="text"
               placeholder="Type your Github address"
               defaultValue={user?.github}
             />

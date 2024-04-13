@@ -4,7 +4,8 @@ import BarChart from "@/app/ui/charts/barchart";
 
 const TrendCard = () => {
   return (
-    <div className="tour-trend w-1/2 h-[250px] m-auto bg-white rounded-xl tight-shadow">
+    <div className="tour-trend w-full h-[250px] m-auto bg-white rounded-lg tight-shadow">
+      <h2 className="font-bold p-2">Demographics</h2>
       <BarChart />
       {/* <div className="flex flex-row justify-between">
         <h2 className="font-bold p-2">Trend</h2>

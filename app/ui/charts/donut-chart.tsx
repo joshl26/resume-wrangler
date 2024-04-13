@@ -65,7 +65,7 @@ function DonutChart({
     closedApplicationsCount,
   ]);
   return (
-    <div className="absolute px-14 t-0 w-auto h-[200px]">
+    <div className="absolute px-14 t-0 w-[300px]">
       <canvas id="myChart4"></canvas>
     </div>
   );

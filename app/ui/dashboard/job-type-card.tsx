@@ -6,12 +6,12 @@ const JobTypeCard = ({
   closedApplicationsCount,
   pendingApplicationsCount,
 }: {
-  openApplicationsCount: any;
-  closedApplicationsCount: any;
-  pendingApplicationsCount: any;
+  openApplicationsCount: number;
+  closedApplicationsCount: number;
+  pendingApplicationsCount: number;
 }) => {
   return (
-    <div className="tour-status w-1/4 h-[250px] bg-white rounded-xl tight-shadow">
+    <div className="tour-status w-full h-[250px] bg-white rounded-lg tight-shadow">
       <h2 className="font-bold p-2">Status</h2>
       <DonutChart
         openApplicationsCount={openApplicationsCount}

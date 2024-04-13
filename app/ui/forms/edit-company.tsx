@@ -38,7 +38,7 @@ export default function EditCompany({ company }: { company: Company }) {
             <h1 className="font-bold">Date Created</h1>
             <p>{company?.created_at?.toString().slice(0, 24)}</p>
           </div>
-          <div className="flex flex-col">
+          <div className="flex flex-col bg-amber-100 tight-shadow px-1 border rounded">
             <h1 className="font-bold">Date Updated</h1>
             <p>{company?.updated_at?.toString().slice(0, 24)}</p>
           </div>
