@@ -1,94 +1,39 @@
 "use client";
 
 import { Suspense, useState } from "react";
-// import Classic from "@/app/ui/resume/classic/classic-resume";
 import PreviewButton from "@/app/ui/preview-button";
 // import ElectricalEngineer from "@/app/ui/resume/electrical-engineer/electrical-engineer";
 import YourCoverStyling from "@/app/ui/forms/your-cover-styling";
-// import YourProfile from "@/app/ui/forms/your-profile";
-// import YourSkills from "@/app/ui/forms/your-skills";
-// import YourEducation from "@/app/ui/forms/your-education";
-// import YourWorkExperiences from "@/app/ui/forms/your-work-experiences";
-// import YourOrganizations from "@/app/ui/forms/your-organizations";
-// import YourCertifications from "@/app/ui/forms/your-certifications";
-// import YourSocialLinks from "@/app/ui/forms/your-social-links";
-import {
-  BodyFonts,
-  HeaderFonts,
-  Resume,
-  ResumeColors,
-  ResumeTemplates,
-  User,
-  UserCertifications,
-  UserEducationExperiences,
-  UserSkills,
-  UserWorkExperiences,
-  userOrganizations,
-} from "@/app/lib/definitions";
+import { User, UserCoverExperiences } from "@/app/lib/definitions";
 import BackButton from "../back-button";
-// import ThreeDAnimator from "../resume/3d-animator/3d-animator";
 
 interface Props {
-  // resumeTemplates: ResumeTemplates;
-  // resumeColors: ResumeColors;
-  // bodyFonts: BodyFonts;
-  // headerFonts: HeaderFonts;
-  // user: User;
-  // resume: Resume;
-  // userSkills: UserSkills;
-  // userEducation: UserEducationExperiences;
-  // userOrganizations: userOrganizations;
-  // userCertifications: UserCertifications;
-  // userWorkExperiences: UserWorkExperiences;
-  // educationResumeLines: UserEducationExperiences;
-  // workResumeLines: UserWorkExperiences;
-  // skillResumeLines: UserSkills;
-  // certificationResumeLines: UserCertifications;
-  // organizationResumeLines: userOrganizations;
+  userCoverExperiences: UserCoverExperiences;
+  user: User;
 }
 
 export default function CoverStyling(props: Props) {
-  // const [selectedResumeTemplate, setSelectedResumeTemplate] = useState(
-  //   props.resume?.template
+  // const [selectedCoverTemplate, setSelectedCoverTemplate] = useState(
+  //   props.cover?.template
   // );
 
-  // const [selectedResumeBodyFont, setSelectedResumeBodyFont] = useState(
-  //   props.resume?.body_font
+  // const [selectedCoverBodyFont, setSelectedCoverBodyFont] = useState(
+  //   props.cover?.body_font
   // );
 
-  // const [selectedResumeHeadingFont, setSelectedResumeHeadingFont] = useState(
-  //   props.resume?.heading_font
+  // const [selectedCoverHeadingFont, setSelectedCoverHeadingFont] = useState(
+  //   props.cover?.heading_font
   // );
 
-  // const [selectedResumeColor, setSelectedResumeColor] = useState(
-  //   props.resume?.color
+  // const [selectedCoverColor, setSelectedCoverColor] = useState(
+  //   props.cover?.color
   // );
 
-  // const [selectedResumeHighlightColor, setSelectedResumeHighlightColor] =
-  //   useState(props.resume?.highlight_color);
+  // const [selectedCoverHighlightColor, setSelectedCoverHighlightColor] =
+  //   useState(props.cover?.highlight_color);
 
   // const [showSocials, setShowSocials] = useState(
-  //   props.resume?.show_social_icons
-  // );
-
-  // const [showSkills, setShowSkills] = useState(
-  //   props.resume?.show_skills_section
-  // );
-
-  // const [showSkillProgress, setShowSkillProgress] = useState(
-  //   props.resume?.show_skill_progress
-  // );
-
-  // const [showEducation, setShowEducation] = useState(
-  //   props.resume?.show_education_section
-  // );
-
-  // const [showCustomSectionOne, setShowCustomSectionOne] = useState(
-  //   props.resume?.show_custom_section_one
-  // );
-
-  // const [showCustomSectionTwo, setShowCustomSectionTwo] = useState(
-  //   props.resume?.show_custom_section_two
+  //   props.cover?.show_social_icons
   // );
 
   return (
@@ -96,7 +41,7 @@ export default function CoverStyling(props: Props) {
       <div className="flex flex-row h-full w-full">
         <div className="flex flex-col h-full w-[600px] overflow-scroll px-3">
           <div className="pb-2">
-            <BackButton classname="" href="/dashboard/applications">
+            <BackButton classname="" href="/dashboard/cover">
               Back
             </BackButton>{" "}
           </div>

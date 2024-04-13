@@ -194,8 +194,8 @@ export interface CoverLetter {
   application_id: string;
   intro_text_end: string;
   salutation_end: string;
-  conclusion_end: string;
-  thanks_end: string;
+  conclusion_text: string;
+  thanks_text: string;
   user_id: string;
 }
 

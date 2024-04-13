@@ -15,6 +15,7 @@ import {
   fetchWorkExperiencesbyResumeID,
   getUser,
   fetchResumeByIdAndUserId,
+  fetchCoverExperiencesByUserId,
 } from "@/app/lib/data";
 import CoverStyling from "@/app/ui/cover-styling/cover-styling";
 import { auth } from "@/auth";
@@ -35,63 +36,17 @@ export default async function EditResume({
     };
   }
 
-  const [user, resumeTemplates, resumeColors, bodyFonts, headerFonts] =
-    await Promise.all([
-      getUser(session?.user?.email!),
-      fetchResumeTemplates(),
-      fetchResumeColors(),
-      fetchBodyFonts(),
-      fetchHeaderFonts(),
-    ]);
+  const [user] = await Promise.all([getUser(session?.user?.email!)]);
 
-  const [
-    userSkills,
-    userEducation,
-    userOrganizations,
-    userCertifications,
-    userWorkExperiences,
-  ] = await Promise.all([
-    fetchSkillsByUserId(user?.id),
-    fetchEducationByUserId(user?.id),
-    fetchOrganizationsByUserId(user?.id),
-    fetchCertificationsByUserId(user?.id),
-    fetchWorkExperiencesByUserId(user?.id),
+  const [userCoverExperiences] = await Promise.all([
+    fetchCoverExperiencesByUserId(user?.id),
   ]);
 
-  const [
-    resume,
-    educationResumeLines,
-    workResumeLines,
-    certificationResumeLines,
-    organizationResumeLines,
-  ] = await Promise.all([
-    fetchResumeByIdAndUserId(id, user),
-    fetchEducationExperiencesbyResumeID(id),
-    fetchWorkExperiencesbyResumeID(id),
-    fetchSkillsByResumeID(id),
-    fetchCertificationsByResumeID(id),
-    fetchOrganizationsByResumeID(id),
-  ]);
-
-  if (
-    !resumeTemplates ??
-    !resumeColors ??
-    !bodyFonts ??
-    !headerFonts ??
-    !user ??
-    !resume ??
-    !userSkills ??
-    !userEducation ??
-    !userOrganizations ??
-    !userCertifications ??
-    !userWorkExperiences ??
-    !educationResumeLines ??
-    !workResumeLines ??
-    !certificationResumeLines ??
-    !organizationResumeLines
-  ) {
+  if (!userCoverExperiences ?? !user) {
     notFound();
   }
 
-  return <CoverStyling />;
+  return (
+    <CoverStyling user={user} userCoverExperiences={userCoverExperiences} />
+  );
 }

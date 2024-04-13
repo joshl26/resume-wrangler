@@ -767,3 +767,26 @@ export async function fetchPendingApplicationsCountByUserId(userId: string) {
     return null;
   }
 }
+
+export async function fetchCoverLettersByUserIDJoinApplications(
+  userId: string
+) {
+  noStore();
+
+  try {
+    const query = `SELECT * FROM cover_letters r JOIN applications u ON r.application_id = u.id WHERE r.user_id = '${userId}' ORDER BY r.id ASC`;
+    const data = await conn.query(query);
+
+    const coverLetters: any = data.rows.map((coverLetter: any) => ({
+      ...coverLetter,
+    }));
+
+    // console.log(coverLetters);
+
+    return coverLetters;
+  } catch (error: any) {
+    console.error("Database Error:", error);
+    // throw new Error("Failed to fetch resume template by id.");
+    return [null];
+  }
+}

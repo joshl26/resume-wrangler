@@ -298,7 +298,7 @@ h1 {
 
 thead {
   background-color: lightgrey;
-  border: #000000 2px solid;
+  /* border: #000000 2px solid; */
   color: black;
 }
 
