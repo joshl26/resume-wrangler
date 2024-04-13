@@ -17,12 +17,15 @@ export default function EditCompany({ company }: { company: Company }) {
     }
   };
   return (
-    <div className="px-4 overflow-y-auto w-full h-full pb-10">
+    <div className="px-4 overflow-y-auto w-[600px] h-full pb-10">
       <BackButton classname="" href={"/dashboard/companies/"}>
         Back
       </BackButton>
       <h2 className="font-medium text-[2rem] py-1">Edit Company</h2>
-      <form action={updateCompany} className="flex flex-col form-amber p-3">
+      <form
+        action={updateCompany}
+        className="flex flex-col form-amber px-3 pt-3 pb-1"
+      >
         <input
           hidden
           readOnly
@@ -31,7 +34,7 @@ export default function EditCompany({ company }: { company: Company }) {
           defaultValue={company?.id}
         />
         <div className="flex flex-row justify-between">
-          <div className="flex flex-col">
+          <div className="flex flex-col bg-amber-100 tight-shadow px-1 border rounded">
             <h1 className="font-bold">Date Created</h1>
             <p>{company?.created_at?.toString().slice(0, 24)}</p>
           </div>
@@ -48,6 +51,7 @@ export default function EditCompany({ company }: { company: Company }) {
             required
             name="company_name"
             id="company_name"
+            className="tight-shadow"
             defaultValue={company?.name}
             onChange={onChangeHandler}
           />
@@ -85,27 +89,30 @@ export default function EditCompany({ company }: { company: Company }) {
             onChange={onChangeHandler}
           />
         </div>
-        <div className="flex flex-col py-2">
-          <label className="font-bold" htmlFor="email">
-            Email
-          </label>
-          <input
-            name="email"
-            id="email"
-            defaultValue={company?.email}
-            onChange={onChangeHandler}
-          />
-        </div>
-        <div className="flex flex-col py-2">
-          <label className="font-bold" htmlFor="phone">
-            Phone
-          </label>
-          <input
-            name="phone"
-            id="phone"
-            defaultValue={company?.phone}
-            onChange={onChangeHandler}
-          />
+        <div className="flex flex-row justify-start gap-3">
+          {" "}
+          <div className="flex flex-col w-full py-2">
+            <label className="font-bold" htmlFor="email">
+              Email
+            </label>
+            <input
+              name="email"
+              id="email"
+              defaultValue={company?.email}
+              onChange={onChangeHandler}
+            />
+          </div>
+          <div className="flex flex-col w-full py-2">
+            <label className="font-bold" htmlFor="phone">
+              Phone
+            </label>
+            <input
+              name="phone"
+              id="phone"
+              defaultValue={company?.phone}
+              onChange={onChangeHandler}
+            />
+          </div>
         </div>
         <div className="flex flex-col py-2">
           <label className="font-bold" htmlFor="website_url">
