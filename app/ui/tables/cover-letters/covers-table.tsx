@@ -73,8 +73,10 @@ const CoverLetters = ({
                       )?.address_one
                     : "N/A"}
                 </td>
-                <td className="px-6 py-4">
+                <td className="px-6 py-4 ">
                   <Link
+                    id="edit"
+                    className="font-medium hover:underline"
                     href={`/dashboard/applications/edit/${coverLetter?.application_id}`}
                   >
                     Edit
@@ -83,13 +85,13 @@ const CoverLetters = ({
                 <td className="px-2 py-4">
                   <div className="flex flex-row justify-start">
                     <div className="flex flex-col ">
-                      <a
+                      <Link
                         id="edit"
-                        href={`/dashboard/cover/edit/${coverLetter.id}/${user.id}`}
+                        href={`/dashboard/cover/edit/${coverLetter.id}`}
                         className="font-medium hover:underline"
                       >
                         Edit
-                      </a>
+                      </Link>
                     </div>
                     <div className="flex flex-col  ">
                       <button
