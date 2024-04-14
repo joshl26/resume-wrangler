@@ -1,11 +1,19 @@
 "use client";
 
-import { updateYourResumeStyle } from "@/app/lib/actions";
+import {
+  updateYourCoverLetterStyle,
+  updateYourResumeStyle,
+} from "@/app/lib/actions";
 import { useState } from "react";
 import { SubmitButton } from "../submit-button";
+import { CoverLetter } from "@/app/lib/definitions";
 // import clsx from "clsx";
 
-export default function YourCoverStyling({}: {}) {
+export default function YourCoverStyling({
+  coverLetter,
+}: {
+  coverLetter: CoverLetter;
+}) {
   const [edited, setEdited] = useState(false);
 
   const onChangeHandler = () => {
@@ -20,7 +28,7 @@ export default function YourCoverStyling({}: {}) {
         <h2 className="">Cover Styling</h2>
       </div>
       <form
-        action={updateYourResumeStyle}
+        action={updateYourCoverLetterStyle}
         onSubmit={() => setEdited(false)}
         className="tight-shadow rounded form-amber px-5 py-2 "
       >
@@ -32,35 +40,47 @@ export default function YourCoverStyling({}: {}) {
             defaultValue={""}
             readOnly
           />
-          <label className="py-1 font-medium" htmlFor="resume_title">
-            Cover Title
+          <label className="py-1 font-medium" htmlFor="recipient_title">
+            Recipient Title
           </label>
           <input
-            name="resume_title"
-            id="resume_title"
+            name="recipient_title"
+            id="recipient_title"
             className="rounded"
-            defaultValue={""}
+            defaultValue={coverLetter?.recipient_title}
             onChange={onChangeHandler}
-            placeholder="Resume Title"
+            placeholder="Recipient Title"
           />
         </div>
         <div className="flex flex-col py-1">
-          <input hidden id="resume_id" name="resume_id" defaultValue={""} />
-          <label className="py-1 font-medium" htmlFor="description">
-            Description
+          <label className="py-1 font-medium" htmlFor="intro_text_start">
+            Intro Text Start
           </label>
           <textarea
-            name="description"
-            id="description"
-            className="rounded h-[200px]"
-            defaultValue={""}
+            name="intro_text_start"
+            id="intro_text_start"
+            className="rounded h-[75px]"
+            defaultValue={coverLetter?.intro_text_start}
             onChange={onChangeHandler}
-            placeholder="Resume Description"
+            placeholder="Intro Text Start"
           />
         </div>
         <div className="flex flex-col py-1">
+          <label className="py-1 font-medium" htmlFor="intro_text_start">
+            Intro Text End
+          </label>
+          <textarea
+            name="intro_text_end"
+            id="intro_text_end"
+            className="rounded h-[125px]"
+            defaultValue={coverLetter?.intro_text_end}
+            onChange={onChangeHandler}
+            placeholder="Intro Text End"
+          />
+        </div>
+        {/* <div className="flex flex-col py-1">
           <label className="py-1 font-medium" htmlFor="resume_template">
-            Resume Template
+            Cover Template
           </label>
           <select
             className="rounded"
@@ -82,10 +102,10 @@ export default function YourCoverStyling({}: {}) {
                   {resume.name}
                 </option>
               );
-            })} */}
+            })} 
           </select>
-        </div>
-        <div className="flex flex-col">
+        </div> */}
+        {/* <div className="flex flex-col">
           <div className="py-1 flex flex-col">
             <label className="py-1 font-medium" htmlFor="color">
               Colors
@@ -121,7 +141,7 @@ export default function YourCoverStyling({}: {}) {
                     color?.color === selectedResumeColor && "-translate-y-1"
                   )}
                 />
-              ))} */}
+              ))}
             </div>
           </div>
         </div>
@@ -151,7 +171,7 @@ export default function YourCoverStyling({}: {}) {
                     {font.description}
                   </option>
                 );
-              })} */}
+              })} 
             </select>
           </div>
         </div>
@@ -180,9 +200,9 @@ export default function YourCoverStyling({}: {}) {
                   {font.description}
                 </option>
               );
-            })} */}
+            })} 
           </select>
-        </div>
+        </div> */}
         <div style={{ height: "0.5rem" }}></div>
         {edited && (
           <SubmitButton className={"btn btn-amber my-4 animate-pulse"}>

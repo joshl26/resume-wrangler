@@ -513,6 +513,29 @@ export async function fetchCoverExperiencesByUserId(userId: string) {
   }
 }
 
+export async function fetchCoverExperiencesByCoverLetterId(id: string) {
+  noStore();
+
+  // console.log(userId);
+
+  try {
+    const query = `SELECT * FROM cover_experience_lines WHERE cover_letter_id = '${id}'`;
+    const data = await conn.query(query);
+
+    const userCoverExperiences: UserCoverExperiences = data?.rows?.map(
+      (userCoverExperience: UserCoverExperience) => ({
+        ...userCoverExperience,
+      })
+    );
+
+    return userCoverExperiences;
+  } catch (error: any) {
+    console.error("Database Error:", error);
+    // throw new Error("Failed to fetch resume template by id.");
+    return [null];
+  }
+}
+
 export async function getData(resumeId: string, userEmail: string) {
   noStore();
   // The return value is *not* serialized

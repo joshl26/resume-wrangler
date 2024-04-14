@@ -277,6 +277,33 @@ const YourResumeStyleSchema = z.object({
   }),
 });
 
+const YourCoverLetterStyleSchema = z.object({
+  resume_title: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  resume_template: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  color: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  highlight_color: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  header_font: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  body_font: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  resume_id: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  description: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+});
+
 const CreateSkillsSchema = z.object({
   skill_title: z.string({
     invalid_type_error: "Please enter a string.",
@@ -828,7 +855,6 @@ export async function updateSocials(
   prevState: State,
   formData: FormData
 ) {
-
   const validatedFields = UpdateSocials.safeParse({
     linked_in: formData.get("linked_in"),
     twitter: formData.get("twitter"),
@@ -905,7 +931,6 @@ export async function updateUserSocials(formData: FormData) {
 }
 
 export async function updateUserDetails(formData: FormData) {
-
   const validatedFields = UpdateUserDetailsSchema.safeParse({
     id: formData.get("id"),
     first_name: formData.get("first_name"),
@@ -1271,6 +1296,50 @@ export async function updateYourResumeStyle(formData: FormData) {
 
   revalidatePath(`/dashboard/resume/edit/${resume_id}`);
   redirect(`/dashboard/resume/edit/${resume_id}`);
+}
+
+export async function updateYourCoverLetterStyle(formData: FormData) {
+  console.log(formData);
+
+  const validatedFields = YourCoverLetterStyleSchema.safeParse({
+    resume_title: formData.get("resume_title"),
+    resume_template: formData.get("resume_template"),
+    color: formData.get("color"),
+    highlight_color: formData.get("highlight_color"),
+    header_font: formData.get("header_font"),
+    body_font: formData.get("body_font"),
+    resume_id: formData.get("resume_id"),
+    description: formData.get("description"),
+  });
+
+  // if (validatedFields.success === false) {
+  //   return {
+  //     errors: validatedFields.error.flatten().fieldErrors,
+  //     message: "Missing Fields. Failed to Update Invoice.",
+  //   };
+  // }
+
+  // const {
+  //   resume_title,
+  //   resume_template,
+  //   color,
+  //   highlight_color,
+  //   header_font,
+  //   body_font,
+  //   resume_id,
+  //   description,
+  // } = validatedFields.data;
+
+  // try {
+  //   const query = `UPDATE resumes SET title = '${resume_title}', template = '${resume_template}', color = '${color}', highlight_color = '${highlight_color}', heading_font = '${header_font}', body_font = '${body_font}', description = '${description}' WHERE id = '${resume_id}'`;
+
+  //   const data = await conn.query(query);
+  // } catch (error) {
+  //   return { message: `Database Error: Failed to Update Invoice. ${error}` };
+  // }
+
+  // revalidatePath(`/dashboard/cover/edit/${cover_id}`);
+  // redirect(`/dashboard/cover/edit/${cover_id}`);
 }
 
 export async function updateUserSkill(formData: FormData) {

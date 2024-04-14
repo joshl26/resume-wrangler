@@ -9,6 +9,7 @@ import {
   Company,
   CoverLetter,
   User,
+  UserCoverExperienceLines,
   UserCoverExperiences,
 } from "@/app/lib/definitions";
 import BackButton from "../back-button";
@@ -21,12 +22,14 @@ export default function CoverStyling({
   coverLetter,
   company,
   application,
+  selectedCoverExperiences,
 }: {
   userCoverExperiences: UserCoverExperiences;
   user: User;
   coverLetter: CoverLetter;
   company: Company;
   application: Application;
+  selectedCoverExperiences: any;
 }) {
   // const [selectedCoverTemplate, setSelectedCoverTemplate] = useState(
   //   props.cover?.template
@@ -60,7 +63,7 @@ export default function CoverStyling({
               Back
             </BackButton>{" "}
           </div>
-          <YourCoverStyling />
+          <YourCoverStyling coverLetter={coverLetter} />
           <div className="py-2" />
           <div className="p-2 text-center">
             {user?.access_level !== "basic" ? (
@@ -79,12 +82,16 @@ export default function CoverStyling({
           </div>
         </div>
         <div className="h-full overflow-x-hidden overflow-y-auto mx-auto pr-4">
-          <StandardCover
-            user={user}
-            coverLetter={coverLetter}
-            company={company}
-            application={application}
-          />
+          <Suspense>
+            <StandardCover
+              user={user}
+              coverLetter={coverLetter}
+              company={company}
+              application={application}
+              selectedCoverExperiences={selectedCoverExperiences}
+              userCoverExperiences={userCoverExperiences}
+            />
+          </Suspense>
         </div>
       </div>
       {/* <PreviewButton resume={resume} user={user} /> */}
