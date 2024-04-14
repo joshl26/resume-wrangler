@@ -7,6 +7,7 @@ import YourCoverStyling from "@/app/ui/forms/your-cover-styling";
 import { User, UserCoverExperiences } from "@/app/lib/definitions";
 import BackButton from "../back-button";
 import Link from "next/link";
+import StandardCover from "../cover/standard/standard-cover";
 
 interface Props {
   userCoverExperiences: UserCoverExperiences;
@@ -40,7 +41,7 @@ export default function CoverStyling(props: Props) {
   return (
     <main className="flex w-full">
       <div className="flex flex-row h-full w-full">
-        <div className="flex flex-col h-full w-[600px] overflow-scroll px-3">
+        <div className="flex flex-col h-full w-[400px] overflow-x-none overflow-y-auto px-3">
           <div className="pb-2">
             <BackButton classname="" href="/dashboard/cover">
               Back
@@ -64,7 +65,9 @@ export default function CoverStyling(props: Props) {
             )}
           </div>
         </div>
-        <div className="flex flex-col m-auto w-full h-full overflow-scroll right-0">
+        <div className="h-full overflow-x-hidden overflow-y-auto mx-auto pr-4">
+          <StandardCover />
+
           {/* {selectedResumeTemplate === "classic" && (
             <Suspense>
               <Classic

@@ -49,51 +49,10 @@ interface Props {
   certificationResumeLines: any;
 }
 
-export default async function StandardCover(props: Props) {
+export default async function StandardCover() {
   return (
     <Page>
-      {/* <div className="flex flex-row w-full">
-        <div className="flex w-1/4 mx-auto rounded justify-around pb-6 pr-6">
-          <Image
-            className="flex rounded-lg mx-auto w-full"
-            alt={props?.user?.thumbnail}
-            width={350}
-            height={350}
-            src={props?.user?.thumbnail}
-          />
-        </div>
-        <div className="flex flex-col w-3/4">
-          <h1
-            style={{
-              textAlign: "left",
-              textTransform: "uppercase",
-              fontSize: "50px",
-              lineHeight: "1",
-              fontWeight: "bold",
-            }}
-            className={clsx(
-              "pb-3",
-              props?.heading_font || props?.resume?.heading_font
-            )}
-          >
-            {props?.user?.first_name} {props?.user?.last_name}
-          </h1>
-          <p
-            className={clsx(
-              "text-[1rem]",
-              props?.body_font || props?.resume?.body_font
-            )}
-          >
-            {props?.resume?.description}
-          </p>
-        </div>
-      </div>
-      <div
-        className={clsx(
-          props?.color || props?.resume?.color,
-          " w-full h-[3px]"
-        )}
-      ></div> */}
+      <h1>TEST</h1>
     </Page>
   );
 }
