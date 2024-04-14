@@ -1,8 +1,7 @@
 "use client";
 
 import { Suspense, useState } from "react";
-// import Classic from "@/app/ui/resume/classic/classic-resume";
-import PreviewButton from "@/app/ui/preview-button";
+import PreviewButton from "@/app/ui/resume-preview-button";
 import ElectricalEngineer from "@/app/ui/resume/electrical-engineer/electrical-engineer";
 import YourResumeStyling from "@/app/ui/forms/your-resume-styling";
 import YourProfile from "@/app/ui/forms/your-profile";
@@ -27,6 +26,7 @@ import {
 } from "@/app/lib/definitions";
 import BackButton from "../back-button";
 import ThreeDAnimator from "../resume/3d-animator/3d-animator";
+import ResumePreviewButton from "@/app/ui/resume-preview-button";
 
 interface Props {
   resumeTemplates: ResumeTemplates;
@@ -181,15 +181,6 @@ export default function ResumeStyling(props: Props) {
           </div>
         </div>
         <div className="flex flex-col m-auto h-full overflow-x-none overflow-y-auto pr-4">
-          {/* {selectedResumeTemplate === "classic" && (
-            <Suspense>
-              <Classic
-                headingFont={selectedResumeHeadingFont}
-                bodyFont={selectedResumeBodyFont}
-                user={props?.user}
-              />
-            </Suspense>
-          )} */}
           {selectedResumeTemplate === "electrical-engineer" && (
             <Suspense>
               <ElectricalEngineer
@@ -248,7 +239,7 @@ export default function ResumeStyling(props: Props) {
           )}
         </div>
       </div>
-      <PreviewButton resume={props?.resume} user={props?.user} />
+      <ResumePreviewButton resume={props?.resume} user={props?.user} />
     </main>
   );
 }

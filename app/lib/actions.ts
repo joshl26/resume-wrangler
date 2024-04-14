@@ -12,7 +12,6 @@ import axios from "axios";
 import crypto from "crypto";
 import bcrypt from "bcrypt";
 import { emailRegex, passwordRegex, usernameRegex } from "./regex";
-import { title } from "process";
 const cloudinary = require("cloudinary").v2;
 
 const generateSHA1 = (data: any) => {
@@ -273,6 +272,42 @@ const YourResumeStyleSchema = z.object({
     invalid_type_error: "Please enter a string.",
   }),
   description: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+});
+
+const YourCoverLetterStyleSchema = z.object({
+  cover_id: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  recipient_title: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  intro_text_start: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  intro_text_end: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  conclusion_text: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  salutation_text: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  cover_template: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  color: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  highlight_color: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  header_font: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  body_font: z.string({
     invalid_type_error: "Please enter a string.",
   }),
 });
@@ -705,13 +740,13 @@ const CreateCoverLineSchema = z.object({
   user_id: z.string({
     invalid_type_error: "Please enter a string.",
   }),
-  resume_id: z.string({
+  cover_letter_id: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  experience_id: z.string({
     invalid_type_error: "Please enter a string.",
   }),
   line_type: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  id: z.string({
     invalid_type_error: "Please enter a string.",
   }),
 });
@@ -721,10 +756,10 @@ const DeleteCoverLineSchema = z.object({
   user_id: z.string({
     invalid_type_error: "Please enter a string.",
   }),
-  id: z.string({
+  cover_letter_id: z.string({
     invalid_type_error: "Please enter a string.",
   }),
-  resume_id: z.string({
+  experience_id: z.string({
     invalid_type_error: "Please enter a string.",
   }),
   line_type: z.string({
@@ -828,7 +863,6 @@ export async function updateSocials(
   prevState: State,
   formData: FormData
 ) {
-
   const validatedFields = UpdateSocials.safeParse({
     linked_in: formData.get("linked_in"),
     twitter: formData.get("twitter"),
@@ -905,7 +939,6 @@ export async function updateUserSocials(formData: FormData) {
 }
 
 export async function updateUserDetails(formData: FormData) {
-
   const validatedFields = UpdateUserDetailsSchema.safeParse({
     id: formData.get("id"),
     first_name: formData.get("first_name"),
@@ -1271,6 +1304,58 @@ export async function updateYourResumeStyle(formData: FormData) {
 
   revalidatePath(`/dashboard/resume/edit/${resume_id}`);
   redirect(`/dashboard/resume/edit/${resume_id}`);
+}
+
+export async function updateYourCoverLetterStyle(formData: FormData) {
+  // console.log(formData);
+
+  const validatedFields = YourCoverLetterStyleSchema.safeParse({
+    cover_id: formData.get("cover_id"),
+    recipient_title: formData.get("recipient_title"),
+    intro_text_start: formData.get("intro_text_start"),
+    intro_text_end: formData.get("intro_text_end"),
+    conclusion_text: formData.get("conclusion_text"),
+    salutation_text: formData.get("salutation_text"),
+    cover_template: formData.get("cover_template"),
+    color: formData.get("color"),
+    highlight_color: formData.get("highlight_color"),
+    header_font: formData.get("header_font"),
+    body_font: formData.get("body_font"),
+  });
+
+  if (validatedFields.success === false) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: "Missing Fields. Failed to Update Invoice.",
+    };
+  }
+
+  // console.log(validatedFields.success);
+
+  const {
+    cover_id,
+    recipient_title,
+    intro_text_start,
+    intro_text_end,
+    conclusion_text,
+    salutation_text,
+    cover_template,
+    color,
+    highlight_color,
+    header_font,
+    body_font,
+  } = validatedFields.data;
+
+  try {
+    const query = `UPDATE cover_letters SET recipient_title = '${recipient_title}', intro_text_start = '${intro_text_start}', intro_text_end = '${intro_text_end}', conclusion_text = '${conclusion_text}', salutation_text = '${salutation_text}', template = '${cover_template}', color = '${color}', highlight_color = '${highlight_color}', heading_font = '${header_font}', body_font = '${body_font}'  WHERE id = '${cover_id}'`;
+
+    const data = await conn.query(query);
+  } catch (error) {
+    return { message: `Database Error: Failed to Update Invoice. ${error}` };
+  }
+
+  revalidatePath(`/dashboard/cover/edit/${cover_id}`);
+  redirect(`/dashboard/cover/edit/${cover_id}`);
 }
 
 export async function updateUserSkill(formData: FormData) {
@@ -2381,144 +2466,92 @@ export async function finishUserTour(userId: string, tourPage: string) {
 
 //TODO ---------------------------------------------------------
 export async function createCoverLine(formData: FormData) {
-  // const validatedFields = CreateResumeLineSchema.safeParse({
-  //   user_id: formData.get("user_id"),
-  //   resume_id: formData.get("resume_id"),
-  //   line_type: formData.get("line_type"),
-  //   id: formData.get("id"),
-  // });
-  // if (validatedFields.success === false) {
-  //   return {
-  //     errors: validatedFields.error.flatten().fieldErrors,
-  //     message: "Missing Fields. Failed to Create user skill.",
-  //   };
-  // }
-  // const { user_id, resume_id, line_type, id } = validatedFields.data;
-  // let data1;
-  // try {
-  //   let query;
-  //   //check the linetype and formulate a specific query
-  //   if (line_type === "education") {
-  //     query = `SELECT * FROM resume_lines WHERE resume_id = '${resume_id}' AND user_education_id = '${id}'`;
-  //   } else if (line_type === "custom-section-one") {
-  //     query = `SELECT * FROM resume_lines WHERE resume_id = '${resume_id}' AND user_custom_section_one_id = '${id}'`;
-  //   } else if (line_type === "custom-section-two") {
-  //     query = `SELECT * FROM resume_lines WHERE resume_id = '${resume_id}' AND user_custom_section_two_id = '${id}'`;
-  //   } else if (line_type === "skill") {
-  //     query = `SELECT * FROM resume_lines WHERE resume_id = '${resume_id}' AND user_skills_id = '${id}'`;
-  //   } else if (line_type === "work") {
-  //     query = `SELECT * FROM resume_lines WHERE resume_id = '${resume_id}' AND work_experience_id = '${id}'`;
-  //   } else {
-  //     query = "";
-  //   }
-  //   data1 = await conn.query(query);
-  // } catch (error) {
-  //   return {
-  //     message: `Database Error: ${error}`,
-  //   };
-  // }
-  // if (data1.rowCount > 0) {
-  //   return {
-  //     message: `Database Error: Resume already has ${line_type} ${id} included.`,
-  //   };
-  // } else {
-  //   let query;
-  //   if (line_type === "education") {
-  //     query = `INSERT INTO resume_lines (user_id, resume_id, user_education_id, line_type, position) VALUES ('${user_id}', '${resume_id}', '${id}', '${line_type}', '0' )`;
-  //   } else if (line_type === "custom-section-one") {
-  //     query = `INSERT INTO resume_lines (user_id, resume_id, user_custom_section_one_id, line_type, position) VALUES ('${user_id}', '${resume_id}', '${id}', '${line_type}', '0' )`;
-  //   } else if (line_type === "custom-section-two") {
-  //     query = `INSERT INTO resume_lines (user_id, resume_id, user_custom_section_two_id, line_type, position) VALUES ('${user_id}', '${resume_id}', '${id}', '${line_type}', '0' )`;
-  //   } else if (line_type === "skill") {
-  //     query = `INSERT INTO resume_lines (user_id, resume_id, user_skills_id, line_type, position) VALUES ('${user_id}', '${resume_id}', '${id}', '${line_type}', '0' )`;
-  //   } else if (line_type === "work") {
-  //     query = `INSERT INTO resume_lines (user_id, resume_id, work_experience_id, line_type, position) VALUES ('${user_id}', '${resume_id}', '${id}', '${line_type}', '0' )`;
-  //   } else {
-  //     query = "";
-  //   }
-  //   try {
-  //     const data = await conn.query(query);
-  //   } catch (error) {
-  //     return {
-  //       message: `Database Error: Failed to create resume ${line_type} line. ${error}`,
-  //     };
-  //   }
-  //   if (resume_id === "blank" ?? line_type === "education") {
-  //     revalidatePath(`/dashboard/education/`);
-  //     redirect(`/dashboard/education/`);
-  //   } else if (resume_id === "blank" ?? line_type === "skill") {
-  //     revalidatePath(`/dashboard/skills/`);
-  //     redirect(`/dashboard/skills/`);
-  //   } else if (resume_id === "blank" ?? line_type === "work") {
-  //     revalidatePath(`/dashboard/work-experience/`);
-  //     redirect(`/dashboard/work-experience/`);
-  //   } else if (resume_id === "blank" ?? line_type === "custom-section-one") {
-  //     revalidatePath(`/dashboard/organizations/`);
-  //     redirect(`/dashboard/organizations/`);
-  //   } else if (resume_id === "blank" ?? line_type === "custom-section-two") {
-  //     revalidatePath(`/dashboard/certifications/`);
-  //     redirect(`/dashboard/certifications/`);
-  //   } else if (resume_id !== "blank") {
-  //     revalidatePath(`/dashboard/resume/edit/${resume_id}`);
-  //     redirect(`/dashboard/resume/edit/${resume_id}`);
-  //   }
-  // }
+  // console.log(formData);
+
+  const validatedFields = CreateCoverLineSchema.safeParse({
+    user_id: formData.get("user_id"),
+    cover_letter_id: formData.get("cover_letter_id"),
+    line_type: formData.get("line_type"),
+    experience_id: formData.get("experience_id"),
+  });
+  if (validatedFields.success === false) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: "Missing Fields. Failed to Create user skill.",
+    };
+  }
+
+  // console.log(validatedFields.success);
+
+  const { user_id, cover_letter_id, experience_id, line_type } =
+    validatedFields.data;
+
+  let data1: any;
+  try {
+    let query: string;
+    //check the linetype and formulate a specific query
+    if (line_type === "experience") {
+      query = `SELECT * FROM cover_experience_lines WHERE cover_letter_id = '${cover_letter_id}' AND cover_experience_id = '${experience_id}'`;
+    }
+
+    data1 = await conn.query(query);
+  } catch (error) {
+    return {
+      message: `Database Error: ${error}`,
+    };
+  }
+  if (data1.rowCount > 0) {
+    return {
+      message: `Database Error: Cover Experience Lines already has ${line_type} ${experience_id} included.`,
+    };
+  } else {
+    let query: string;
+    if (line_type === "experience") {
+      query = `INSERT INTO cover_experience_lines (user_id, cover_letter_id, cover_experience_id, line_type, position) VALUES ('${user_id}', '${cover_letter_id}', '${experience_id}', '${line_type}', '0' )`;
+    }
+    try {
+      const data = await conn.query(query);
+    } catch (error) {
+      return {
+        message: `Database Error: Failed to create resume ${line_type} line. ${error}`,
+      };
+    }
+
+    revalidatePath(`/dashboard/cover/edit/${cover_letter_id}`);
+    redirect(`/dashboard/cover/edit/${cover_letter_id}`);
+  }
 }
 
 //TODO ---------------------------------------------------------
 export async function deleteCoverLine(formData: FormData) {
-  // const validatedFields = DeleteResumeLineSchema.safeParse({
-  //   user_id: formData.get("user_id"),
-  //   id: formData.get("id"),
-  //   resume_id: formData.get("resume_id"),
-  //   line_type: formData.get("line_type"),
-  // });
-  // if (validatedFields.success === false) {
-  //   return {
-  //     errors: validatedFields.error.flatten().fieldErrors,
-  //     message: "Missing Fields. Failed to Create user skill.",
-  //   };
-  // }
-  // const { user_id, id, resume_id, line_type } = validatedFields.data;
-  // try {
-  //   let query;
-  //   //check the linetype and formulate a specific query
-  //   if (line_type === "education") {
-  //     query = `DELETE FROM resume_lines WHERE resume_id = '${resume_id}' AND user_education_id = '${id}'`;
-  //   } else if (line_type === "custom-section-one") {
-  //     query = `DELETE FROM resume_lines WHERE resume_id = '${resume_id}' AND user_custom_section_one_id = '${id}'`;
-  //   } else if (line_type === "custom-section-two") {
-  //     query = `DELETE FROM resume_lines WHERE resume_id = '${resume_id}' AND user_custom_section_two_id = '${id}'`;
-  //   } else if (line_type === "skill") {
-  //     query = `DELETE FROM resume_lines WHERE resume_id = '${resume_id}' AND user_skills_id = '${id}'`;
-  //   } else if (line_type === "work") {
-  //     query = `DELETE FROM resume_lines WHERE resume_id = '${resume_id}' AND work_experience_id = '${id}'`;
-  //   } else {
-  //     query = "";
-  //   }
-  //   const data = await conn.query(query);
-  // } catch (error) {
-  //   return { message: `Database Error: Failed to Update Invoice. ${error}` };
-  // }
-  // if (resume_id === "blank" ?? line_type === "education") {
-  //   revalidatePath(`/dashboard/education/`);
-  //   redirect(`/dashboard/education/`);
-  // } else if (resume_id === "blank" ?? line_type === "skill") {
-  //   revalidatePath(`/dashboard/skills/`);
-  //   redirect(`/dashboard/skills/`);
-  // } else if (resume_id === "blank" ?? line_type === "work") {
-  //   revalidatePath(`/dashboard/work-experience/`);
-  //   redirect(`/dashboard/work-experience/`);
-  // } else if (resume_id === "blank" ?? line_type === "custom-section-one") {
-  //   revalidatePath(`/dashboard/organizations/`);
-  //   redirect(`/dashboard/organizations/`);
-  // } else if (resume_id === "blank" ?? line_type === "custom-section-two") {
-  //   revalidatePath(`/dashboard/certifications/`);
-  //   redirect(`/dashboard/certifications/`);
-  // } else if (resume_id !== "blank") {
-  //   revalidatePath(`/dashboard/resume/edit/${resume_id}`);
-  //   redirect(`/dashboard/resume/edit/${resume_id}`);
-  // }
+  const validatedFields = CreateCoverLineSchema.safeParse({
+    user_id: formData.get("user_id"),
+    cover_letter_id: formData.get("cover_letter_id"),
+    line_type: formData.get("line_type"),
+    experience_id: formData.get("experience_id"),
+  });
+  if (validatedFields.success === false) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: "Missing Fields. Failed to Create user skill.",
+    };
+  }
+
+  const { user_id, cover_letter_id, experience_id, line_type } =
+    validatedFields.data;
+  try {
+    let query: string;
+    //check the linetype and formulate a specific query
+    if (line_type === "experience") {
+      query = `DELETE FROM cover_experience_lines WHERE cover_letter_id = '${cover_letter_id}' AND cover_experience_id = '${experience_id}' AND user_id = '${user_id}'`;
+    }
+
+    const data = await conn.query(query);
+  } catch (error) {
+    return { message: `Database Error: Failed to Update Invoice. ${error}` };
+  }
+  revalidatePath(`/dashboard/cover/edit/${cover_letter_id}`);
+  redirect(`/dashboard/cover/edit/${cover_letter_id}`);
 }
 
 export async function updateCoverExperience(formData: FormData) {

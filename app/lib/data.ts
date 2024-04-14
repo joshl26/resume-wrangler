@@ -34,6 +34,8 @@ import {
   UserCoverExperience,
   CoverTemplates,
   CoverTemplate,
+  UserCoverExperienceLines,
+  UserCoverExperienceLine,
 } from "./definitions";
 import { unstable_noStore as noStore } from "next/cache";
 require("dotenv").config();
@@ -513,6 +515,29 @@ export async function fetchCoverExperiencesByUserId(userId: string) {
   }
 }
 
+export async function fetchCoverExperiencesByCoverLetterId(id: string) {
+  noStore();
+
+  // console.log(userId);
+
+  try {
+    const query = `SELECT * FROM cover_experience_lines WHERE cover_letter_id = '${id}'`;
+    const data = await conn.query(query);
+
+    const userCoverExperiences: UserCoverExperienceLines = data?.rows?.map(
+      (userCoverExperience: UserCoverExperienceLine) => ({
+        ...userCoverExperience,
+      })
+    );
+
+    return userCoverExperiences;
+  } catch (error: any) {
+    console.error("Database Error:", error);
+    // throw new Error("Failed to fetch resume template by id.");
+    return [null];
+  }
+}
+
 export async function getData(resumeId: string, userEmail: string) {
   noStore();
   // The return value is *not* serialized
@@ -522,6 +547,24 @@ export async function getData(resumeId: string, userEmail: string) {
 
   const res = await fetch(
     `${process.env.DEPLOYMENT_URL}/api/resume-data?resumeId=${resumeId}&userEmail=${userEmail}`
+    // `http://localhost:3000/api/resume-data?resumeId=${resumeId}&userEmail=${userEmail}`
+  );
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch data");
+  }
+  return res.json();
+}
+
+export async function getCoverData(coverId: string, userEmail: string) {
+  noStore();
+  // The return value is *not* serialized
+  // You can return Date, Map, Set, etc.
+
+  // console.log(process.env.DEPLOYMENT_URL);
+
+  const res = await fetch(
+    `${process.env.DEPLOYMENT_URL}/api/cover-data?coverId=${coverId}&userEmail=${userEmail}`
     // `http://localhost:3000/api/resume-data?resumeId=${resumeId}&userEmail=${userEmail}`
   );
   if (!res.ok) {

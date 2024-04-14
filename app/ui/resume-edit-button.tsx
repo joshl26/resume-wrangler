@@ -1,6 +1,6 @@
 import React from "react";
 
-const EditButton = ({ resumeId }: { resumeId: any }) => {
+const ResumeEditButton = ({ resumeId }: { resumeId: any }) => {
   return (
     <a
       href={`/dashboard/resume/edit/${resumeId}`}
@@ -13,4 +13,4 @@ const EditButton = ({ resumeId }: { resumeId: any }) => {
   );
 };
 
-export default EditButton;
+export default ResumeEditButton;

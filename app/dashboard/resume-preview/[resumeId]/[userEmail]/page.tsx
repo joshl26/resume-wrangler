@@ -1,7 +1,7 @@
 import React from "react";
 import ElectricalEngineer from "@/app/ui/resume/electrical-engineer/electrical-engineer";
 import { getData } from "@/app/lib/data";
-import EditButton from "@/app/ui/edit-button";
+import EditButton from "@/app/ui/resume-edit-button";
 import ThreeDAnimator from "@/app/ui/resume/3d-animator/3d-animator";
 
 async function Page({
