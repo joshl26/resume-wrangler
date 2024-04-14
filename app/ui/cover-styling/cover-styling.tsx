@@ -115,14 +115,19 @@ export default function CoverStyling({
         </div>
         <div className="h-full overflow-x-hidden overflow-y-auto mx-auto pr-4">
           <Suspense>
-            <StandardCover
+            {selectedCoverTemplate === "standard" && <StandardCover
               user={user}
               coverLetter={coverLetter}
               company={company}
               application={application}
               selectedCoverExperiences={selectedCoverExperiences}
               userCoverExperiences={userCoverExperiences}
-            />
+              selectedCoverBodyFont={selectedCoverBodyFont}
+              selectedCoverHeadingFont={selectedCoverHeadingFont}
+              selectedCoverColor={selectedCoverColor}
+              selectedCoverHighlightColor={selectedCoverHighlightColor}
+            />}
+            
           </Suspense>
         </div>
       </div>
