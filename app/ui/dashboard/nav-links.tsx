@@ -70,11 +70,11 @@ const links = [
     href: "/dashboard/cover-templates",
     icon: DocumentDuplicateIcon,
   },
-  // {
-  //   name: "Cover Letters",
-  //   href: "/dashboard/cover",
-  //   icon: DocumentDuplicateIcon,
-  // },
+  {
+    name: "Cover Letters",
+    href: "/dashboard/cover",
+    icon: DocumentDuplicateIcon,
+  },
   {
     name: "Cover Experience",
     href: "/dashboard/cover-experience",
@@ -86,11 +86,11 @@ const links = [
     href: "/dashboard/resume-templates",
     icon: DocumentDuplicateIcon,
   },
-  // {
-  //   name: "Resumes",
-  //   href: "/dashboard/resume",
-  //   icon: DocumentDuplicateIcon,
-  // },
+  {
+    name: "Resumes",
+    href: "/dashboard/resume",
+    icon: DocumentDuplicateIcon,
+  },
 ];
 
 export default function NavLinks() {

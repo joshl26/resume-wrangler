@@ -50,9 +50,7 @@ export default function LoginForm() {
 
   return (
     <form action={action} className="space-y-3">
-      <h2 className="text-[2rem] font-bold text-center">
-        Returning User Log In
-      </h2>
+      <h2 className="text-[2rem] font-bold text-center">Log In</h2>
       <div className="flex-1 rounded-lg form-amber p-8">
         <div className="w-full">
           <div>
