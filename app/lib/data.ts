@@ -340,6 +340,32 @@ export async function fetchResumeByIdAndUserId(id: string, user: User) {
   }
 }
 
+export async function fetchCoverLetterByIdAndUserId(id: string, user: User) {
+  noStore();
+
+  try {
+    let query: string;
+
+    // if (user.access_level === "admin") {
+    //   query = `SELECT * FROM resumes WHERE id = '${id}'`;
+    // } else {
+    //   query = `SELECT * FROM resumes WHERE id = '${id}' AND user_id = '${user.id}'`;
+    // }
+
+    query = `SELECT * FROM cover_letters WHERE id = '${id}' AND user_id = '${user.id}'`;
+
+    const data = await conn.query(query);
+
+    const coverLetter: CoverLetter = data?.rows[0];
+
+    return coverLetter;
+  } catch (error: any) {
+    console.error("Database Error:", error);
+    // throw new Error("Failed to fetch coverLetter template by id.");
+    return;
+  }
+}
+
 export async function fetchCoverTemplates() {
   noStore();
 

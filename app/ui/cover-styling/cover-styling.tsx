@@ -4,17 +4,30 @@ import { Suspense, useState } from "react";
 import PreviewButton from "@/app/ui/preview-button";
 // import ElectricalEngineer from "@/app/ui/resume/electrical-engineer/electrical-engineer";
 import YourCoverStyling from "@/app/ui/forms/your-cover-styling";
-import { User, UserCoverExperiences } from "@/app/lib/definitions";
+import {
+  Application,
+  Company,
+  CoverLetter,
+  User,
+  UserCoverExperiences,
+} from "@/app/lib/definitions";
 import BackButton from "../back-button";
 import Link from "next/link";
 import StandardCover from "../cover/standard/standard-cover";
 
-interface Props {
+export default function CoverStyling({
+  userCoverExperiences,
+  user,
+  coverLetter,
+  company,
+  application,
+}: {
   userCoverExperiences: UserCoverExperiences;
   user: User;
-}
-
-export default function CoverStyling(props: Props) {
+  coverLetter: CoverLetter;
+  company: Company;
+  application: Application;
+}) {
   // const [selectedCoverTemplate, setSelectedCoverTemplate] = useState(
   //   props.cover?.template
   // );
@@ -50,10 +63,10 @@ export default function CoverStyling(props: Props) {
           <YourCoverStyling />
           <div className="py-2" />
           <div className="p-2 text-center">
-            {props?.user?.access_level !== "basic" ? (
+            {user?.access_level !== "basic" ? (
               <a
-                // href={`/api/pdf?resumeId=${props?.resume?.id}&userEmail=${props?.user?.email}`}
-                download={`${props.user.first_name}_${props.user.last_name}.pdf`}
+                // href={`/api/pdf?resumeId=${resume?.id}&userEmail=${user?.email}`}
+                download={`${user.first_name}_${user.last_name}.pdf`}
                 className="downloadBtn hover:text-rose-500"
               >
                 Download PDF
@@ -66,10 +79,15 @@ export default function CoverStyling(props: Props) {
           </div>
         </div>
         <div className="h-full overflow-x-hidden overflow-y-auto mx-auto pr-4">
-          <StandardCover />
+          <StandardCover
+            user={user}
+            coverLetter={coverLetter}
+            company={company}
+            application={application}
+          />
         </div>
       </div>
-      {/* <PreviewButton resume={props?.resume} user={props?.user} /> */}
+      {/* <PreviewButton resume={resume} user={user} /> */}
     </main>
   );
 }

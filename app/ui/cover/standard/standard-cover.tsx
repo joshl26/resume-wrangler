@@ -15,6 +15,9 @@ import {
   faSquareGithub,
 } from "@fortawesome/free-brands-svg-icons";
 import {
+  Application,
+  Company,
+  CoverLetter,
   User,
   UserCertification,
   UserEducationExperience,
@@ -24,84 +27,73 @@ import {
   userOrganizations,
 } from "@/app/lib/definitions";
 
-interface Props {
+export default async function StandardCover({
+  coverLetter,
+  user,
+  company,
+  application,
+}: {
   user: User;
-  body_font: string;
-  heading_font: string;
-  color: string;
-  highlightColor: string;
-  resume: any;
-  userWorkExperiences: any;
-  userSkills: any;
-  userEducation: any;
-  userCertifications: any;
-  userOrganizations: any;
-  show_social_icons: any;
-  show_skills_section: any;
-  show_skill_progress: any;
-  show_education_section: any;
-  show_custom_section_one: any;
-  show_custom_section_two: any;
-  educationResumeLines: any;
-  workResumeLines: any;
-  skillResumeLines: any;
-  organizationResumeLines: any;
-  certificationResumeLines: any;
-}
+  coverLetter: CoverLetter;
+  company: Company;
+  application: Application;
+}) {
+  console.log(coverLetter);
 
-export default async function StandardCover() {
   return (
     <Page>
       <div className="flex flex-row w-full ">
-        <h1 className="m-auto text-6xl font-bold">Josh Lehman</h1>
+        <h1 className="m-auto text-6xl font-bold">
+          {user?.first_name} {user?.last_name}
+        </h1>
       </div>
       <div className="flex flex-row justify-center text-[0.85rem] ">
         <div className="flex">
-          <a href="https://www.google.com/search?q=Toronto">Toronto, ON</a>
-        </div>
-        <div className="flex px-2"> | </div>
-        <div className="flex">
-          <a href="tel:905-990-1035">905-990-1035</a>
-        </div>
-        <div className="flex px-2"> | </div>
-        <div className="flex">
-          <a href="mailto:joshlehman.dev@gmail.com">joshlehman.dev@gmail.com</a>
-        </div>
-        <div className="flex px-2"> | </div>
-        <div className="flex">
-          <a href="https://linkedin.com/in/joshrlehman">
-            linkedin.com/in/joshrlehman
+          <a href={`https://www.google.com/search?q=${user?.address_one}`}>
+            {user?.address_one}
           </a>
         </div>
         <div className="flex px-2"> | </div>
         <div className="flex">
-          <a href="https://joshlehman.ca">joshlehman.ca</a>
+          <a href="tel:905-990-1035">{user?.phone}</a>
+        </div>
+        <div className="flex px-2"> | </div>
+        <div className="flex">
+          <a href={`mailto:${user?.email}`}>{user?.email}</a>
+        </div>
+        <div className="flex px-2"> | </div>
+        <div className="flex">
+          <a href={`https://linkedin.com/${user?.linked_in}`}>
+            {`linkedin.com/${user?.linked_in}`}
+          </a>
+        </div>
+        <div className="flex px-2"> | </div>
+        <div className="flex">
+          <a href={user?.website}>{user?.website}</a>
         </div>
       </div>
       <div className="flex flex-row text-4xl pt-4 font-lite justify-center">
         <h2>Cover Letter</h2>
       </div>
       <div className="text-sm">
-        <div className="flex flex-row pt-4">
-          <div className="flex flex-col">
-            <p>Mindful Sports Group</p>
-            <p>156 Portland street, Suite 418</p>
-            <p>Toronto, ON M5V 0G1</p>
-          </div>
-        </div>
         <div className="flex flex-row pt-6">
           <div className="flex flex-col">
-            <p className="font-bold">Dear Software Team Hiring Manager,</p>
+            <p>{company?.name}</p>
+            <p>{company?.address_one}</p>
+            <p>{company?.address_two}</p>
           </div>
         </div>
-        <div className="flex flex-row pt-2 ">
-          <p className="leading-2">
-            Attached is a copy of my resume in response to the job posting for:
-            JavaScript Full Stack Developer. This role appears to be an exciting
-            opportunity where my skill set would prove to be a valuable addition
-            to your company. My hands-on experience provides the following
-            skills relevant to this position:
+        <div className="flex flex-row pt-6 mb-1">
+          <div className="flex flex-col">
+            <p className="font-bold">{coverLetter?.recipient_title},</p>
+          </div>
+        </div>
+        <div className="mt-4 inline">
+          <p className="leading-2 inline">{coverLetter?.intro_text_start} </p>
+          <p className="leading-2 inline font-bold">
+            {application?.job_position}.{" "}
           </p>
+          <p className="leading-2 inline">{coverLetter?.intro_text_end}</p>
         </div>
         <ul className="pt-2">
           <li className="py-[0.125rem]">

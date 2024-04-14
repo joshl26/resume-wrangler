@@ -16,6 +16,9 @@ import {
   getUser,
   fetchResumeByIdAndUserId,
   fetchCoverExperiencesByUserId,
+  fetchCoverLetterByIdAndUserId,
+  fetchCompanyById,
+  fetchApplicationById,
 } from "@/app/lib/data";
 import CoverStyling from "@/app/ui/cover-styling/cover-styling";
 import { auth } from "@/auth";
@@ -38,15 +41,27 @@ export default async function EditResume({
 
   const [user] = await Promise.all([getUser(session?.user?.email!)]);
 
-  const [userCoverExperiences] = await Promise.all([
+  const [userCoverExperiences, coverLetter] = await Promise.all([
     fetchCoverExperiencesByUserId(user?.id),
+    fetchCoverLetterByIdAndUserId(id, user),
   ]);
 
-  if (!userCoverExperiences ?? !user) {
+  const [company, application] = await Promise.all([
+    fetchCompanyById(coverLetter?.company_id),
+    fetchApplicationById(coverLetter?.application_id),
+  ]);
+
+  if (!userCoverExperiences ?? !user ?? !coverLetter ?? !application) {
     notFound();
   }
 
   return (
-    <CoverStyling user={user} userCoverExperiences={userCoverExperiences} />
+    <CoverStyling
+      user={user}
+      userCoverExperiences={userCoverExperiences}
+      coverLetter={coverLetter}
+      company={company}
+      application={application}
+    />
   );
 }
