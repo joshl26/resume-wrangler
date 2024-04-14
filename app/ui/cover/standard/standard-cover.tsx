@@ -78,6 +78,7 @@ export default async function StandardCover({
             {application?.job_position}.{" "}
           </p>
           <p className="leading-2 inline">{coverLetter?.intro_text_end}</p>
+          <p className="leading-2 inline"> {coverLetter?.intro_experience}</p>
         </div>
         <ul className="pt-2">
           {selectedCoverExperiences?.map(

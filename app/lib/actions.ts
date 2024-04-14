@@ -278,28 +278,22 @@ const YourResumeStyleSchema = z.object({
 });
 
 const YourCoverLetterStyleSchema = z.object({
-  resume_title: z.string({
+  cover_id: z.string({
     invalid_type_error: "Please enter a string.",
   }),
-  resume_template: z.string({
+  recipient_title: z.string({
     invalid_type_error: "Please enter a string.",
   }),
-  color: z.string({
+  intro_text_start: z.string({
     invalid_type_error: "Please enter a string.",
   }),
-  highlight_color: z.string({
+  intro_text_end: z.string({
     invalid_type_error: "Please enter a string.",
   }),
-  header_font: z.string({
+  conclusion_text: z.string({
     invalid_type_error: "Please enter a string.",
   }),
-  body_font: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  resume_id: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  description: z.string({
+  salutation_text: z.string({
     invalid_type_error: "Please enter a string.",
   }),
 });
@@ -1299,25 +1293,25 @@ export async function updateYourResumeStyle(formData: FormData) {
 }
 
 export async function updateYourCoverLetterStyle(formData: FormData) {
-  console.log(formData);
+  // console.log(formData);
 
   const validatedFields = YourCoverLetterStyleSchema.safeParse({
-    resume_title: formData.get("resume_title"),
-    resume_template: formData.get("resume_template"),
-    color: formData.get("color"),
-    highlight_color: formData.get("highlight_color"),
-    header_font: formData.get("header_font"),
-    body_font: formData.get("body_font"),
-    resume_id: formData.get("resume_id"),
-    description: formData.get("description"),
+    cover_id: formData.get("cover_id"),
+    recipient_title: formData.get("recipient_title"),
+    intro_text_start: formData.get("intro_text_start"),
+    intro_text_end: formData.get("intro_text_end"),
+    conclusion_text: formData.get("conclusion_text"),
+    salutation_text: formData.get("salutation_text"),
   });
 
-  // if (validatedFields.success === false) {
-  //   return {
-  //     errors: validatedFields.error.flatten().fieldErrors,
-  //     message: "Missing Fields. Failed to Update Invoice.",
-  //   };
-  // }
+  if (validatedFields.success === false) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: "Missing Fields. Failed to Update Invoice.",
+    };
+  }
+
+  // console.log(validatedFields.success);
 
   // const {
   //   resume_title,

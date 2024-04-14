@@ -54,28 +54,54 @@ export default function YourCoverStyling({
         </div>
         <div className="flex flex-col py-1">
           <label className="py-1 font-medium" htmlFor="intro_text_start">
-            Intro Text Start
+            Intro Start
           </label>
           <textarea
             name="intro_text_start"
             id="intro_text_start"
-            className="rounded h-[75px]"
+            className="rounded h-[100px]"
             defaultValue={coverLetter?.intro_text_start}
             onChange={onChangeHandler}
-            placeholder="Intro Text Start"
+            placeholder="Intro Start"
           />
         </div>
         <div className="flex flex-col py-1">
           <label className="py-1 font-medium" htmlFor="intro_text_start">
-            Intro Text End
+            Intro End
           </label>
           <textarea
             name="intro_text_end"
             id="intro_text_end"
-            className="rounded h-[125px]"
+            className="rounded h-[175px]"
             defaultValue={coverLetter?.intro_text_end}
             onChange={onChangeHandler}
-            placeholder="Intro Text End"
+            placeholder="Intro End"
+          />
+        </div>
+        <div className="flex flex-col py-1">
+          <label className="py-1 font-medium" htmlFor="conclusion_text">
+            Conclusion
+          </label>
+          <textarea
+            name="conclusion_text"
+            id="conclusion_text"
+            className="rounded h-[175px]"
+            defaultValue={coverLetter?.conclusion_text}
+            onChange={onChangeHandler}
+            placeholder="Conclusion"
+          />
+        </div>
+        <div className="flex flex-col py-1">
+          <label className="py-1 font-medium" htmlFor="salutation_text">
+            Salutation
+          </label>
+          <textarea
+            name="salutation_text"
+            id="salutation_text"
+            className="rounded h-[75px]"
+            defaultValue={coverLetter?.salutation_text}
+            onChange={onChangeHandler}
+            placeholder="Salutation"
           />
         </div>
         {/* <div className="flex flex-col py-1">
