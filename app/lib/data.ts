@@ -216,8 +216,6 @@ export async function fetchCoverLettersByUserId(userId: string) {
   }
 }
 
-
-
 export async function fetchResumeTemplates() {
   noStore();
 
@@ -549,6 +547,24 @@ export async function getData(resumeId: string, userEmail: string) {
 
   const res = await fetch(
     `${process.env.DEPLOYMENT_URL}/api/resume-data?resumeId=${resumeId}&userEmail=${userEmail}`
+    // `http://localhost:3000/api/resume-data?resumeId=${resumeId}&userEmail=${userEmail}`
+  );
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch data");
+  }
+  return res.json();
+}
+
+export async function getCoverData(coverId: string, userEmail: string) {
+  noStore();
+  // The return value is *not* serialized
+  // You can return Date, Map, Set, etc.
+
+  // console.log(process.env.DEPLOYMENT_URL);
+
+  const res = await fetch(
+    `${process.env.DEPLOYMENT_URL}/api/cover-data?coverId=${coverId}&userEmail=${userEmail}`
     // `http://localhost:3000/api/resume-data?resumeId=${resumeId}&userEmail=${userEmail}`
   );
   if (!res.ok) {

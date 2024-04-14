@@ -1,7 +1,7 @@
 "use client";
 
 import { Suspense, useState } from "react";
-import PreviewButton from "@/app/ui/preview-button";
+import PreviewButton from "@/app/ui/resume-preview-button";
 // import ElectricalEngineer from "@/app/ui/resume/electrical-engineer/electrical-engineer";
 import YourCoverStyling from "@/app/ui/forms/your-cover-styling";
 import {
@@ -21,6 +21,7 @@ import BackButton from "../back-button";
 import Link from "next/link";
 import StandardCover from "../cover/standard/standard-cover";
 import YourCoverLetterExperiences from "../forms/your-cover-letter-experiences";
+import CoverLetterPreviewButton from "../cover-letter-preview-button";
 
 export default function CoverStyling({
   userCoverExperiences,
@@ -115,23 +116,24 @@ export default function CoverStyling({
         </div>
         <div className="h-full overflow-x-hidden overflow-y-auto mx-auto pr-4">
           <Suspense>
-            {selectedCoverTemplate === "standard" && <StandardCover
-              user={user}
-              coverLetter={coverLetter}
-              company={company}
-              application={application}
-              selectedCoverExperiences={selectedCoverExperiences}
-              userCoverExperiences={userCoverExperiences}
-              selectedCoverBodyFont={selectedCoverBodyFont}
-              selectedCoverHeadingFont={selectedCoverHeadingFont}
-              selectedCoverColor={selectedCoverColor}
-              selectedCoverHighlightColor={selectedCoverHighlightColor}
-            />}
-            
+            {selectedCoverTemplate === "standard" && (
+              <StandardCover
+                user={user}
+                coverLetter={coverLetter}
+                company={company}
+                application={application}
+                selectedCoverExperiences={selectedCoverExperiences}
+                userCoverExperiences={userCoverExperiences}
+                selectedCoverBodyFont={selectedCoverBodyFont}
+                selectedCoverHeadingFont={selectedCoverHeadingFont}
+                selectedCoverColor={selectedCoverColor}
+                selectedCoverHighlightColor={selectedCoverHighlightColor}
+              />
+            )}
           </Suspense>
         </div>
       </div>
-      {/* <PreviewButton resume={resume} user={user} /> */}
+      <CoverLetterPreviewButton coverLetter={coverLetter} user={user} />
     </main>
   );
 }
