@@ -101,7 +101,7 @@ export default function CoverStyling({
           <div className="p-2 text-center">
             {user?.access_level !== "basic" ? (
               <a
-                // href={`/api/pdf?resumeId=${resume?.id}&userEmail=${user?.email}`}
+                href={`/api/cover-pdf?coverLetterId=${coverLetter?.id}&userEmail=${user?.email}`}
                 download={`${user.first_name}_${user.last_name}.pdf`}
                 className="downloadBtn hover:text-rose-500"
               >
