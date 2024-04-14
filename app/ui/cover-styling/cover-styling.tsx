@@ -6,8 +6,13 @@ import PreviewButton from "@/app/ui/preview-button";
 import YourCoverStyling from "@/app/ui/forms/your-cover-styling";
 import {
   Application,
+  BodyFonts,
   Company,
   CoverLetter,
+  CoverTemplates,
+  HeaderFonts,
+  ResumeColors,
+  ResumeTemplates,
   User,
   UserCoverExperienceLines,
   UserCoverExperiences,
@@ -24,6 +29,10 @@ export default function CoverStyling({
   company,
   application,
   selectedCoverExperiences,
+  coverTemplates,
+  resumeColors,
+  bodyFonts,
+  headerFonts,
 }: {
   userCoverExperiences: UserCoverExperiences;
   user: User;
@@ -31,29 +40,29 @@ export default function CoverStyling({
   company: Company;
   application: Application;
   selectedCoverExperiences: UserCoverExperienceLines;
+  coverTemplates: CoverTemplates;
+  resumeColors: ResumeColors;
+  bodyFonts: BodyFonts;
+  headerFonts: HeaderFonts;
 }) {
-  // const [selectedCoverTemplate, setSelectedCoverTemplate] = useState(
-  //   props.cover?.template
-  // );
+  const [selectedCoverTemplate, setSelectedCoverTemplate] = useState(
+    coverLetter?.template
+  );
 
-  // const [selectedCoverBodyFont, setSelectedCoverBodyFont] = useState(
-  //   props.cover?.body_font
-  // );
+  const [selectedCoverBodyFont, setSelectedCoverBodyFont] = useState(
+    coverLetter?.body_font
+  );
 
-  // const [selectedCoverHeadingFont, setSelectedCoverHeadingFont] = useState(
-  //   props.cover?.heading_font
-  // );
+  const [selectedCoverHeadingFont, setSelectedCoverHeadingFont] = useState(
+    coverLetter?.heading_font
+  );
 
-  // const [selectedCoverColor, setSelectedCoverColor] = useState(
-  //   props.cover?.color
-  // );
+  const [selectedCoverColor, setSelectedCoverColor] = useState(
+    coverLetter?.color
+  );
 
-  // const [selectedCoverHighlightColor, setSelectedCoverHighlightColor] =
-  //   useState(props.cover?.highlight_color);
-
-  // const [showSocials, setShowSocials] = useState(
-  //   props.cover?.show_social_icons
-  // );
+  const [selectedCoverHighlightColor, setSelectedCoverHighlightColor] =
+    useState(coverLetter?.highlight_color);
 
   return (
     <main className="flex w-full">
@@ -64,7 +73,23 @@ export default function CoverStyling({
               Back
             </BackButton>{" "}
           </div>
-          <YourCoverStyling coverLetter={coverLetter} />
+          <YourCoverStyling
+            coverLetter={coverLetter}
+            coverTemplates={coverTemplates}
+            resumeColors={resumeColors}
+            bodyFonts={bodyFonts}
+            headerFonts={headerFonts}
+            selectedCoverTemplate={selectedCoverTemplate}
+            setSelectedCoverTemplate={setSelectedCoverTemplate}
+            selectedCoverBodyFont={selectedCoverBodyFont}
+            setSelectedCoverBodyFont={setSelectedCoverBodyFont}
+            selectedCoverHeadingFont={selectedCoverHeadingFont}
+            setSelectedCoverHeadingFont={setSelectedCoverHeadingFont}
+            selectedCoverColor={selectedCoverColor}
+            setSelectedCoverColor={setSelectedCoverColor}
+            selectedCoverHighlightColor={selectedCoverHighlightColor}
+            setSelectedCoverHighlightColor={setSelectedCoverHighlightColor}
+          />
           <YourCoverLetterExperiences
             user={user}
             coverLetter={coverLetter}

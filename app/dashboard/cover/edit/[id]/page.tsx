@@ -20,6 +20,7 @@ import {
   fetchCompanyById,
   fetchApplicationById,
   fetchCoverExperiencesByCoverLetterId,
+  fetchCoverTemplates,
 } from "@/app/lib/data";
 import CoverStyling from "@/app/ui/cover-styling/cover-styling";
 import { auth } from "@/auth";
@@ -40,7 +41,14 @@ export default async function EditResume({
     };
   }
 
-  const [user] = await Promise.all([getUser(session?.user?.email!)]);
+  const [user, coverTemplates, resumeColors, bodyFonts, headerFonts] =
+    await Promise.all([
+      getUser(session?.user?.email!),
+      fetchCoverTemplates(),
+      fetchResumeColors(),
+      fetchBodyFonts(),
+      fetchHeaderFonts(),
+    ]);
 
   const [userCoverExperiences, coverLetter] = await Promise.all([
     fetchCoverExperiencesByUserId(user?.id),
@@ -58,7 +66,11 @@ export default async function EditResume({
     !user ??
     !coverLetter ??
     !application ??
-    !selectedCoverExperiences
+    !selectedCoverExperiences ??
+    !coverTemplates ??
+    !resumeColors ??
+    !bodyFonts ??
+    !headerFonts
   ) {
     notFound();
   }
@@ -71,6 +83,10 @@ export default async function EditResume({
       company={company}
       application={application}
       selectedCoverExperiences={selectedCoverExperiences}
+      coverTemplates={coverTemplates}
+      resumeColors={resumeColors}
+      bodyFonts={bodyFonts}
+      headerFonts={headerFonts}
     />
   );
 }

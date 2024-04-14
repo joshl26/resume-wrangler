@@ -216,6 +216,8 @@ export async function fetchCoverLettersByUserId(userId: string) {
   }
 }
 
+
+
 export async function fetchResumeTemplates() {
   noStore();
 

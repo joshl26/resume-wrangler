@@ -12,7 +12,6 @@ import axios from "axios";
 import crypto from "crypto";
 import bcrypt from "bcrypt";
 import { emailRegex, passwordRegex, usernameRegex } from "./regex";
-import { title } from "process";
 const cloudinary = require("cloudinary").v2;
 
 const generateSHA1 = (data: any) => {
@@ -2500,7 +2499,6 @@ export async function createCoverLine(formData: FormData) {
 
 //TODO ---------------------------------------------------------
 export async function deleteCoverLine(formData: FormData) {
-
   const validatedFields = CreateCoverLineSchema.safeParse({
     user_id: formData.get("user_id"),
     cover_letter_id: formData.get("cover_letter_id"),

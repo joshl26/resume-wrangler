@@ -198,6 +198,10 @@ export interface CoverLetter {
   thanks_text: string;
   user_id: string;
   template: string;
+  heading_font: string;
+  body_font: string;
+  color: string;
+  highlight_color: string;
 }
 
 export type CoverLetters = CoverLetter[];
