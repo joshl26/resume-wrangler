@@ -1313,27 +1313,27 @@ export async function updateYourCoverLetterStyle(formData: FormData) {
 
   // console.log(validatedFields.success);
 
-  // const {
-  //   resume_title,
-  //   resume_template,
-  //   color,
-  //   highlight_color,
-  //   header_font,
-  //   body_font,
-  //   resume_id,
-  //   description,
-  // } = validatedFields.data;
+  const {
+    cover_id,
+    recipient_title,
+    intro_text_start,
+    intro_text_end,
+    conclusion_text,
+    salutation_text,
+  } = validatedFields.data;
 
-  // try {
-  //   const query = `UPDATE resumes SET title = '${resume_title}', template = '${resume_template}', color = '${color}', highlight_color = '${highlight_color}', heading_font = '${header_font}', body_font = '${body_font}', description = '${description}' WHERE id = '${resume_id}'`;
+  try {
+    const query = `UPDATE cover_letters SET recipient_title = '${recipient_title}', intro_text_start = '${intro_text_start}', intro_text_end = '${intro_text_end}', conclusion_text = '${conclusion_text}', salutation_text = '${salutation_text}' WHERE id = '${cover_id}'`;
 
-  //   const data = await conn.query(query);
-  // } catch (error) {
-  //   return { message: `Database Error: Failed to Update Invoice. ${error}` };
-  // }
+    console.log(query);
 
-  // revalidatePath(`/dashboard/cover/edit/${cover_id}`);
-  // redirect(`/dashboard/cover/edit/${cover_id}`);
+    const data = await conn.query(query);
+  } catch (error) {
+    return { message: `Database Error: Failed to Update Invoice. ${error}` };
+  }
+
+  revalidatePath(`/dashboard/cover/edit/${cover_id}`);
+  redirect(`/dashboard/cover/edit/${cover_id}`);
 }
 
 export async function updateUserSkill(formData: FormData) {

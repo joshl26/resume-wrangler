@@ -37,7 +37,7 @@ export default function YourCoverStyling({
             hidden
             id="cover_id"
             name="cover_id"
-            defaultValue={""}
+            defaultValue={coverLetter?.id}
             readOnly
           />
           <label className="py-1 font-medium" htmlFor="recipient_title">
