@@ -193,11 +193,15 @@ export interface CoverLetter {
   intro_experience: string;
   application_id: string;
   intro_text_end: string;
-  salutation_end: string;
+  salutation_text: string;
   conclusion_text: string;
   thanks_text: string;
   user_id: string;
   template: string;
+  heading_font: string;
+  body_font: string;
+  color: string;
+  highlight_color: string;
 }
 
 export type CoverLetters = CoverLetter[];
@@ -357,6 +361,16 @@ export interface UserCoverExperience {
 }
 
 export type UserCoverExperiences = UserCoverExperience[];
+
+export interface UserCoverExperienceLine {
+  id: string;
+  cover_letter_id: string;
+  cover_experience_id: string;
+  updated_at: string;
+  created_at: string;
+}
+
+export type UserCoverExperienceLines = UserCoverExperienceLine[];
 
 export type NullOrUndefined = null | undefined;
 

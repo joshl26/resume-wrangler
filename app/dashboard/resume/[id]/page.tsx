@@ -1,5 +1,5 @@
 import { fetchResumeTemplateById } from "@/app/lib/data";
-import EditButton from "@/app/ui/edit-button";
+import EditButton from "@/app/ui/resume-edit-button";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import React from "react";
