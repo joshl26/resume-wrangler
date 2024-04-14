@@ -27,7 +27,7 @@ export default function LoginPage() {
               </Link>{" "}
             </p>
           </div>
-          <BackButton classname="" href={"/"}>
+          <BackButton classname="text-center" href={"/"}>
             Back
           </BackButton>
         </div>
