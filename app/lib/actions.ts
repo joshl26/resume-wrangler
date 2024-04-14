@@ -295,6 +295,21 @@ const YourCoverLetterStyleSchema = z.object({
   salutation_text: z.string({
     invalid_type_error: "Please enter a string.",
   }),
+  cover_template: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  color: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  highlight_color: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  header_font: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  body_font: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
 });
 
 const CreateSkillsSchema = z.object({
@@ -1301,6 +1316,11 @@ export async function updateYourCoverLetterStyle(formData: FormData) {
     intro_text_end: formData.get("intro_text_end"),
     conclusion_text: formData.get("conclusion_text"),
     salutation_text: formData.get("salutation_text"),
+    cover_template: formData.get("cover_template"),
+    color: formData.get("color"),
+    highlight_color: formData.get("highlight_color"),
+    header_font: formData.get("header_font"),
+    body_font: formData.get("body_font"),
   });
 
   if (validatedFields.success === false) {
@@ -1319,10 +1339,15 @@ export async function updateYourCoverLetterStyle(formData: FormData) {
     intro_text_end,
     conclusion_text,
     salutation_text,
+    cover_template,
+    color,
+    highlight_color,
+    header_font,
+    body_font,
   } = validatedFields.data;
 
   try {
-    const query = `UPDATE cover_letters SET recipient_title = '${recipient_title}', intro_text_start = '${intro_text_start}', intro_text_end = '${intro_text_end}', conclusion_text = '${conclusion_text}', salutation_text = '${salutation_text}' WHERE id = '${cover_id}'`;
+    const query = `UPDATE cover_letters SET recipient_title = '${recipient_title}', intro_text_start = '${intro_text_start}', intro_text_end = '${intro_text_end}', conclusion_text = '${conclusion_text}', salutation_text = '${salutation_text}', template = '${cover_template}', color = '${color}', highlight_color = '${highlight_color}', heading_font = '${header_font}', body_font = '${body_font}'  WHERE id = '${cover_id}'`;
 
     const data = await conn.query(query);
   } catch (error) {

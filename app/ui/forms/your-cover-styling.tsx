@@ -2,7 +2,6 @@
 
 import {
   updateYourCoverLetterStyle,
-  updateYourResumeStyle,
 } from "@/app/lib/actions";
 import { useState } from "react";
 import { SubmitButton } from "../submit-button";
