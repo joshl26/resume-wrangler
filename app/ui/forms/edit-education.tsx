@@ -29,7 +29,7 @@ export default function EditEducation({
       <form
         onSubmit={() => setEdited(false)}
         action={updateUserEducation}
-        className="flex flex-col w-[500px] form-amber p-3   rounded"
+        className="flex flex-col w-[500px] form-amber px-3 pb-2  rounded"
       >
         <input
           required
@@ -71,38 +71,40 @@ export default function EditEducation({
             defaultValue={education?.location}
           />
         </div>
-        <div className="flex flex-col py-2">
-          <label className="font-bold" htmlFor="start_date">
-            Start Date
-          </label>
-          <input
-            name="start_date"
-            id="start_date"
-            onChange={() => onChangeHandler()}
-            defaultValue={education?.start_date}
-          />
-        </div>
-        <div className="flex flex-col py-2">
-          <label className="font-bold" htmlFor="end_date">
-            End Date
-          </label>
-          <input
-            name="end_date"
-            id="end_date"
-            onChange={() => onChangeHandler()}
-            defaultValue={education?.end_date}
-          />
-        </div>
-        <div className="flex flex-col py-2">
-          <label className="font-bold" htmlFor="grade">
-            Grade
-          </label>
-          <input
-            name="grade"
-            id="grade"
-            onChange={() => onChangeHandler()}
-            defaultValue={education?.grade}
-          />
+        <div className="flex flex-row justify-start">
+          <div className="flex flex-col w-1/3 py-2 ">
+            <label className="font-bold" htmlFor="start_date">
+              Start Date
+            </label>
+            <input
+              name="start_date"
+              id="start_date"
+              onChange={() => onChangeHandler()}
+              defaultValue={education?.start_date}
+            />
+          </div>
+          <div className="flex flex-col w-1/3 py-2 space-x-2">
+            <label className="font-bold pl-2" htmlFor="end_date">
+              End Date
+            </label>
+            <input
+              name="end_date"
+              id="end_date"
+              onChange={() => onChangeHandler()}
+              defaultValue={education?.end_date}
+            />
+          </div>
+          <div className="flex flex-col w-1/3 py-2 space-x-2">
+            <label className="font-bold pl-2" htmlFor="grade">
+              Grade
+            </label>
+            <input
+              name="grade"
+              id="grade"
+              onChange={() => onChangeHandler()}
+              defaultValue={education?.grade}
+            />
+          </div>
         </div>
         <div className="flex flex-col py-2">
           <label className="font-bold" htmlFor="program">

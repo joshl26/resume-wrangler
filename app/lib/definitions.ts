@@ -194,9 +194,10 @@ export interface CoverLetter {
   application_id: string;
   intro_text_end: string;
   salutation_end: string;
-  conclusion_end: string;
-  thanks_end: string;
+  conclusion_text: string;
+  thanks_text: string;
   user_id: string;
+  template: string;
 }
 
 export type CoverLetters = CoverLetter[];
@@ -252,9 +253,23 @@ export interface ResumeTemplate {
   description: string;
   created_at: string;
   updated_at: string;
+  active: string;
 }
 
 export type ResumeTemplates = ResumeTemplate[];
+
+export interface CoverTemplate {
+  id: string;
+  name: string;
+  thumbnail_url: string;
+  cloudinary_public_url: string;
+  description: string;
+  created_at: string;
+  updated_at: string;
+  active: string;
+}
+
+export type CoverTemplates = CoverTemplate[];
 
 export interface UserOrganization {
   id: string;
@@ -331,6 +346,17 @@ export interface UserWorkExperience {
 }
 
 export type UserWorkExperiences = UserWorkExperience[];
+
+export interface UserCoverExperience {
+  id: string;
+  user_id: string;
+  created_at: string;
+  updated_at: string;
+  title: string;
+  description: string;
+}
+
+export type UserCoverExperiences = UserCoverExperience[];
 
 export type NullOrUndefined = null | undefined;
 

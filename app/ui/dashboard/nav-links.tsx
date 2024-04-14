@@ -11,12 +11,24 @@ import {
   BuildingOffice2Icon,
   AdjustmentsHorizontalIcon,
   NewspaperIcon,
+  UserGroupIcon,
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import clsx from "clsx";
 import { usePathname } from "next/navigation";
 
 const links = [
+  {
+    name: "Upgrade to PRO",
+    href: "/dashboard/upgrade",
+    icon: UserGroupIcon,
+  },
+  {
+    name: "User Profile",
+    href: "/dashboard/user-profile",
+    icon: AdjustmentsVerticalIcon,
+  },
+
   { name: "Dashboard", href: "/dashboard", icon: HomeIcon },
   {
     name: "Your Education",
@@ -53,16 +65,21 @@ const links = [
     href: "/dashboard/organizations",
     icon: ListBulletIcon,
   },
+  {
+    name: "Cover Letter Templates",
+    href: "/dashboard/cover-templates",
+    icon: DocumentDuplicateIcon,
+  },
   // {
-  //   name: "Cover Letter Templates",
-  //   href: "/dashboard/cover-templates",
+  //   name: "Cover Letters",
+  //   href: "/dashboard/cover",
   //   icon: DocumentDuplicateIcon,
   // },
-  // {
-  //   name: "Cover Letter Styling",
-  //   href: "/dashboard/cover-styling",
-  //   icon: DocumentDuplicateIcon,
-  // },
+  {
+    name: "Cover Experience",
+    href: "/dashboard/cover-experience",
+    icon: DocumentDuplicateIcon,
+  },
 
   {
     name: "Resume Templates",
@@ -70,19 +87,9 @@ const links = [
     icon: DocumentDuplicateIcon,
   },
   // {
-  //   name: "Resume Styling",
-  //   href: "/dashboard/resume/edit/1453bf56-d92f-4893-a6a8-34decd76bbd7",
+  //   name: "Resumes",
+  //   href: "/dashboard/resume",
   //   icon: DocumentDuplicateIcon,
-  // },
-  {
-    name: "User Profile",
-    href: "/dashboard/user-profile",
-    icon: AdjustmentsVerticalIcon,
-  },
-  // {
-  //   name: "Upgrade to PRO",
-  //   href: "/",
-  //   icon: UserGroupIcon,
   // },
 ];
 
@@ -98,11 +105,11 @@ export default function NavLinks() {
             key={link?.name}
             href={link?.href}
             className={clsx(
-              "flex h-[40px] tight-shadow grow items-center justify-center gap-2 rounded-md hover:text-azure-radiance-400  p-3 text-sm font-medium hover:bg-amber-100  md:flex-none md:justify-start md:p-2 md:px-3",
-              pathname === link?.href ? "bg-amber-300 " : "bg-gray-100"
+              "flex row h-auto tight-shadow gap-2 rounded-md hover:text-rose-50 hover:font-bold p-2 text-sm font-lite hover:bg-amber-600",
+              pathname === link?.href ? "bg-amber-300 " : "bg-amber-50"
             )}
           >
-            <LinkIcon className="w-6" />
+            <LinkIcon className="w-5" />
             <p className="hidden md:block">{link.name}</p>
           </Link>
         );

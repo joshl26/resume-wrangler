@@ -3,7 +3,15 @@
 import { useEffect } from "react";
 import Chart from "chart.js/auto";
 
-function DonutChart() {
+function DonutChart({
+  openApplicationsCount,
+  closedApplicationsCount,
+  pendingApplicationsCount,
+}: {
+  openApplicationsCount: any;
+  closedApplicationsCount: any;
+  pendingApplicationsCount: any;
+}) {
   useEffect(() => {
     const canvas3 = document?.getElementById("myChart4");
     const ctx = (canvas3 as HTMLCanvasElement)?.getContext("2d");
@@ -12,10 +20,14 @@ function DonutChart() {
       var myChart = new Chart(ctx, {
         type: "doughnut",
         data: {
-          labels: ["Submitted", "Pending Response", "Rejected"],
+          labels: ["Open", "Pending", "Closed"],
           datasets: [
             {
-              data: [70, 10, 6],
+              data: [
+                openApplicationsCount,
+                pendingApplicationsCount,
+                closedApplicationsCount,
+              ],
               borderColor: [
                 "rgb(75, 192, 192)",
                 "rgb(255, 205, 86)",
@@ -47,9 +59,13 @@ function DonutChart() {
     return () => {
       myChart.destroy();
     };
-  }, []);
+  }, [
+    openApplicationsCount,
+    pendingApplicationsCount,
+    closedApplicationsCount,
+  ]);
   return (
-    <div className="absolute px-14 t-0 w-auto h-[200px]">
+    <div className="absolute px-14 t-0 w-[300px]">
       <canvas id="myChart4"></canvas>
     </div>
   );

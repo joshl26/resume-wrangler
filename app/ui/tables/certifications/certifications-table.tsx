@@ -11,8 +11,8 @@ const Certifications = ({
   certifications: UserCertifications;
 }) => {
   return (
-    <div className="relative overflow-x-auto overflow-y-auto tight-shadow sm:rounded-lg px-4 py-4 mr-3">
-      <table className="w-full text-sm text-left rtl:text-right ">
+    <div className="relative overflow-x-auto overflow-y-auto tight-shadow rounded px-4 py-4 mr-3 bg-white">
+      <table className="w-full text-sm text-left rtl:text-right tight-shadow">
         <thead className="text-xs uppercase ">
           <tr>
             <th scope="col" className="px-6 py-3">
@@ -124,7 +124,7 @@ const Certifications = ({
             1000
           </span>
         </span>
-        <ul className="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
+        <ul className="inline-flex tight-shadow rounded-lg -space-x-px rtl:space-x-reverse text-sm h-8">
           <li>
             <a
               href="#"

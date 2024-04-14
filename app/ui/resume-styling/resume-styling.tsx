@@ -94,7 +94,7 @@ export default function ResumeStyling(props: Props) {
   return (
     <main className="flex w-full">
       <div className="flex flex-row h-full w-full">
-        <div className="flex flex-col h-full w-[400px] overflow-scroll px-3">
+        <div className="flex flex-col h-full w-[400px] overflow-x-none overflow-y-auto px-3">
           <div className="pb-2">
             <BackButton classname="" href="/dashboard/applications">
               Back
@@ -180,7 +180,7 @@ export default function ResumeStyling(props: Props) {
             </a>
           </div>
         </div>
-        <div className="flex flex-col m-auto h-full overflow-scroll right-0">
+        <div className="flex flex-col m-auto h-full overflow-x-none overflow-y-auto pr-4">
           {/* {selectedResumeTemplate === "classic" && (
             <Suspense>
               <Classic

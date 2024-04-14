@@ -30,6 +30,10 @@ import {
   Resumes,
   CoverLetters,
   CoverLetter,
+  UserCoverExperiences,
+  UserCoverExperience,
+  CoverTemplates,
+  CoverTemplate,
 } from "./definitions";
 import { unstable_noStore as noStore } from "next/cache";
 require("dotenv").config();
@@ -336,6 +340,55 @@ export async function fetchResumeByIdAndUserId(id: string, user: User) {
   }
 }
 
+export async function fetchCoverLetterByIdAndUserId(id: string, user: User) {
+  noStore();
+
+  try {
+    let query: string;
+
+    // if (user.access_level === "admin") {
+    //   query = `SELECT * FROM resumes WHERE id = '${id}'`;
+    // } else {
+    //   query = `SELECT * FROM resumes WHERE id = '${id}' AND user_id = '${user.id}'`;
+    // }
+
+    query = `SELECT * FROM cover_letters WHERE id = '${id}' AND user_id = '${user.id}'`;
+
+    const data = await conn.query(query);
+
+    const coverLetter: CoverLetter = data?.rows[0];
+
+    return coverLetter;
+  } catch (error: any) {
+    console.error("Database Error:", error);
+    // throw new Error("Failed to fetch coverLetter template by id.");
+    return;
+  }
+}
+
+export async function fetchCoverTemplates() {
+  noStore();
+
+  try {
+    // const query = `SELECT * FROM resume_templates ORDER BY name ASC`;
+    const query = `SELECT * FROM cover_letter_templates WHERE active = 'true' ORDER BY name ASC`;
+
+    const data = await conn.query(query);
+
+    const coverTemplates: CoverTemplates = data.rows.map(
+      (coverTemplate: CoverTemplate) => ({
+        ...coverTemplate,
+      })
+    );
+
+    return coverTemplates;
+  } catch (error: any) {
+    console.error("Database Error:", error);
+    // throw new Error("Failed to fetch resume template by id.");
+    return [null];
+  }
+}
+
 export async function fetchSkillsByUserId(userId: string) {
   noStore();
 
@@ -437,6 +490,29 @@ export async function fetchWorkExperiencesByUserId(userId: string) {
   }
 }
 
+export async function fetchCoverExperiencesByUserId(userId: string) {
+  noStore();
+
+  // console.log(userId);
+
+  try {
+    const query = `SELECT * FROM cover_experiences WHERE user_id = '${userId}'`;
+    const data = await conn.query(query);
+
+    const userCoverExperiences: UserCoverExperiences = data?.rows?.map(
+      (userCoverExperience: UserCoverExperience) => ({
+        ...userCoverExperience,
+      })
+    );
+
+    return userCoverExperiences;
+  } catch (error: any) {
+    console.error("Database Error:", error);
+    // throw new Error("Failed to fetch resume template by id.");
+    return [null];
+  }
+}
+
 export async function getData(resumeId: string, userEmail: string) {
   noStore();
   // The return value is *not* serialized
@@ -468,6 +544,24 @@ export async function fetchWorkExperienceById(id: string) {
     const workExperience: UserWorkExperience = data?.rows[0];
 
     return workExperience;
+  } catch (error: any) {
+    console.error("Database Error:", error);
+    // throw new Error("Failed to fetch resume template by id.");
+    return;
+  }
+}
+
+export async function fetchCoverExperienceById(id: string, userId: string) {
+  noStore();
+
+  try {
+    const query = `SELECT * FROM cover_experiences WHERE id = '${id}' AND user_id = '${userId}'`;
+    // console.log(query);
+    const data = await conn.query(query);
+
+    const coverExperience: UserCoverExperience = data?.rows[0];
+
+    return coverExperience;
   } catch (error: any) {
     console.error("Database Error:", error);
     // throw new Error("Failed to fetch resume template by id.");
@@ -661,6 +755,111 @@ export async function fetchOrganizationsByResumeID(id: string) {
     );
 
     return userOrganizations;
+  } catch (error: any) {
+    console.error("Database Error:", error);
+    // throw new Error("Failed to fetch resume template by id.");
+    return [null];
+  }
+}
+
+export async function fetchOpenApplicationsCountByUserId(userId: string) {
+  noStore();
+
+  // console.log(id);
+
+  try {
+    const query = `SELECT COUNT(*) FROM applications WHERE user_id = '${userId}' AND is_complete = 'false'`;
+    const data = await conn.query(query);
+
+    const openApplications: number = data?.rows[0]?.count;
+
+    return openApplications;
+  } catch (error: any) {
+    console.error("Database Error:", error);
+    // throw new Error("Failed to fetch resume template by id.");
+    return null;
+  }
+}
+
+export async function fetchClosedApplicationsCountByUserId(userId: string) {
+  noStore();
+
+  // console.log(id);
+
+  try {
+    const query = `SELECT COUNT(*) FROM applications WHERE user_id = '${userId}' AND is_complete = 'true'`;
+    const data = await conn.query(query);
+
+    const openApplications: number = data?.rows[0]?.count;
+
+    return openApplications;
+  } catch (error: any) {
+    console.error("Database Error:", error);
+    // throw new Error("Failed to fetch resume template by id.");
+    return null;
+  }
+}
+
+export async function fetchPendingApplicationsCountByUserId(userId: string) {
+  noStore();
+
+  // console.log(id);
+
+  try {
+    const query = `SELECT COUNT(*) FROM applications WHERE user_id = '${userId}' AND is_complete = 'pending'`;
+    const data = await conn.query(query);
+
+    const openApplications: number = data?.rows[0]?.count;
+
+    return openApplications;
+  } catch (error: any) {
+    console.error("Database Error:", error);
+    // throw new Error("Failed to fetch resume template by id.");
+    return null;
+  }
+}
+
+export async function fetchCoverLettersByUserIDJoinApplications(
+  userId: string
+) {
+  noStore();
+
+  try {
+    const query = `SELECT * FROM cover_letters r JOIN applications u ON r.application_id = u.id WHERE r.user_id = '${userId}' ORDER BY r.id ASC`;
+    const data = await conn.query(query);
+
+    const coverLetters: CoverLetters & Applications = data.rows.map(
+      (coverLetter: CoverLetter & Application) => ({
+        ...coverLetter,
+      })
+    );
+
+    // console.log(coverLetters);
+
+    return coverLetters;
+  } catch (error: any) {
+    console.error("Database Error:", error);
+    // throw new Error("Failed to fetch resume template by id.");
+    return [null];
+  }
+}
+
+export async function fetchResumesByUserIDJoinApplications(userId: string) {
+  noStore();
+
+  try {
+    const query = `SELECT * FROM resumes r JOIN applications u ON r.application_id = u.id WHERE r.user_id = '${userId}' ORDER BY r.id ASC`;
+    const data = await conn.query(query);
+
+    const resumes: Resumes & Applications = data.rows.map(
+      (resume: Resume & Application) => ({
+        ...resume,
+      })
+    );
+
+    // console.log(coverLetters);
+
+    return resumes;
   } catch (error: any) {
     console.error("Database Error:", error);
     // throw new Error("Failed to fetch resume template by id.");

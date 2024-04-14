@@ -38,19 +38,22 @@ const Education = ({
   user: User;
 }) => {
   return (
-    <div className="relative overflow-x-auto overflow-y-auto tight-shadow sm:rounded-lg px-4 mr-4 py-4">
+    <div className="relative overflow-x-auto overflow-y-auto tight-shadow rounded bg-white px-4 mr-4 py-4">
       {/* {user.new_user === "true" && (
         <JoyRide steps={TOUR_STEPS} continuous={true} showSkipButton={true} />
       )} */}
 
-      <table className="w-full text-sm text-left rtl:text-right rounded">
+      <table className="w-full text-sm text-left rtl:text-right rounded tight-shadow">
         <thead
           className="text-xs text-black uppercase  border-spacing-2
         "
         >
           <tr>
             <th scope="col" className="px-6 py-3">
-              program Name
+              Institution Name
+            </th>
+            <th scope="col" className="px-6 py-3">
+              Program Name
             </th>
             <th scope="col" className="px-6 py-3">
               Location
@@ -80,7 +83,9 @@ const Education = ({
                       : "N/A"}
                   </Link>{" "}
                 </th>
-
+                <td className="px-6 py-4">
+                  {program?.program ? program?.program : "N/A"}
+                </td>
                 <td className="px-6 py-4">
                   {program?.location ? program?.location : "N/A"}
                 </td>
@@ -152,7 +157,7 @@ const Education = ({
             1000
           </span>
         </span>
-        <ul className="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
+        <ul className="inline-flex tight-shadow rounded-lg -space-x-px rtl:space-x-reverse text-sm h-8">
           <li>
             <a
               href="#"

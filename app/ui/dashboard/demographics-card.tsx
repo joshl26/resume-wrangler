@@ -4,7 +4,7 @@ import Demographics from "/public/graphs/MapChart.png";
 
 const DemographicsCard = () => {
   return (
-    <div className="tour-demographics w-1/2 h-[275px] bg-white rounded-xl tight-shadow">
+    <div className="tour-demographics w-1/2 h-[275px] bg-white rounded-lg tight-shadow">
       <h2 className="font-bold p-2">Demographics</h2>
       <div className="flex flex-row">
         <div className="w-full h-[225px]">

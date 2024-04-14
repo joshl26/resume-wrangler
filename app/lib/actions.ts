@@ -12,6 +12,7 @@ import axios from "axios";
 import crypto from "crypto";
 import bcrypt from "bcrypt";
 import { emailRegex, passwordRegex, usernameRegex } from "./regex";
+import { title } from "process";
 const cloudinary = require("cloudinary").v2;
 
 const generateSHA1 = (data: any) => {
@@ -174,6 +175,28 @@ const ApplicationSchema = z.object({
     invalid_type_error: "Please enter a string.",
   }),
   companyId: z.string({
+    invalid_type_error: "Please enter a number.",
+  }),
+});
+
+const UpdateApplicationSchema = z.object({
+  id: z.string(),
+  postingText: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  jobPosition: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  postingUrl: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  analyzedPostingText: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  companyId: z.string({
+    invalid_type_error: "Please enter a number.",
+  }),
+  isComplete: z.string({
     invalid_type_error: "Please enter a number.",
   }),
 });
@@ -638,6 +661,77 @@ const DeleteResumeLineSchema = z.object({
   }),
 });
 
+//TODO ----------------------------------------------------
+const CreateCoverExperienceSchema = z.object({
+  user_id: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  title: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  description: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+});
+
+//TODO ----------------------------------------------------
+const UpdateCoverExperienceSchema = z.object({
+  experience_id: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  user_id: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  title: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  description: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+});
+
+//TODO ----------------------------------------------------
+const DeleteCoverExperienceSchema = z.object({
+  id: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  user_id: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+});
+
+//TODO ----------------------------------------------------
+const CreateCoverLineSchema = z.object({
+  user_id: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  resume_id: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  line_type: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  id: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+});
+
+//TODO ----------------------------------------------------
+const DeleteCoverLineSchema = z.object({
+  user_id: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  id: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  resume_id: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  line_type: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+});
+
 const FinishTourSchema = z.object({
   user_id: z.string({
     invalid_type_error: "Please enter a string.",
@@ -647,12 +741,11 @@ const FinishTourSchema = z.object({
   }),
 });
 
-const CreateInvoice = InvoiceSchema.omit({ id: true, date: true });
-const UpdateInvoice = InvoiceSchema.omit({ id: true, date: true });
+// const CreateInvoice = InvoiceSchema.omit({ id: true, date: true });
+// const UpdateInvoice = InvoiceSchema.omit({ id: true, date: true });
 // const DeleteInvoice = InvoiceSchema.omit({ id: true, date: true });
 const UpdateUser = UserSchema.omit({ id: true, date: true });
 const UpdateSocials = UserSocialsSchema.omit({ id: true, date: true });
-const UpdateApplication = ApplicationSchema;
 
 // This is temporary until @types/react-dom is updated
 export type State = {
@@ -735,7 +828,6 @@ export async function updateSocials(
   prevState: State,
   formData: FormData
 ) {
-  console.log(formData);
 
   const validatedFields = UpdateSocials.safeParse({
     linked_in: formData.get("linked_in"),
@@ -813,7 +905,6 @@ export async function updateUserSocials(formData: FormData) {
 }
 
 export async function updateUserDetails(formData: FormData) {
-  console.log(formData);
 
   const validatedFields = UpdateUserDetailsSchema.safeParse({
     id: formData.get("id"),
@@ -857,13 +948,14 @@ export async function updateUserDetails(formData: FormData) {
 }
 
 export async function updateApplication(formData: FormData) {
-  const validatedFields = UpdateApplication.safeParse({
+  const validatedFields = UpdateApplicationSchema.safeParse({
     id: formData.get("application_id"),
     postingText: formData.get("posting_text"),
     jobPosition: formData.get("job_position"),
     postingUrl: formData.get("posting_url"),
     analyzedPostingText: formData.get("analyzed_posting_text"),
     companyId: formData.get("company_id"),
+    isComplete: formData.get("is_complete"),
   });
 
   if (validatedFields.success === false) {
@@ -880,10 +972,17 @@ export async function updateApplication(formData: FormData) {
     postingUrl,
     analyzedPostingText,
     companyId,
+    isComplete,
   } = validatedFields.data;
 
   try {
-    const query = `UPDATE applications SET posting_text = '${postingText}', job_position = '${jobPosition}', posting_url = '${postingUrl}', analyzed_posting_text = '${analyzedPostingText}', company_id = '${companyId}' WHERE id = '${id}'`;
+    let query: string;
+
+    if (isComplete === "true") {
+      query = `UPDATE applications SET posting_text = '${postingText}', job_position = '${jobPosition}', posting_url = '${postingUrl}', analyzed_posting_text = '${analyzedPostingText}', company_id = '${companyId}', is_complete = '${isComplete}', date_submitted = 'now()' WHERE id = '${id}'`;
+    } else if (isComplete === "false") {
+      query = `UPDATE applications SET posting_text = '${postingText}', job_position = '${jobPosition}', posting_url = '${postingUrl}', analyzed_posting_text = '${analyzedPostingText}', company_id = '${companyId}', is_complete = '${isComplete}', date_submitted = NULL WHERE id = '${id}'`;
+    }
 
     const data = await conn.query(query);
   } catch (error) {
@@ -895,7 +994,7 @@ export async function updateApplication(formData: FormData) {
 }
 
 export async function createApplication(formData: FormData) {
-  const validatedFields = UpdateApplication.safeParse({
+  const validatedFields = ApplicationSchema.safeParse({
     id: formData.get("user_id"),
     postingText: formData.get("posting_text"),
     jobPosition: formData.get("job_position"),
@@ -1501,7 +1600,7 @@ export async function createCertification(formData: FormData) {
 }
 
 export async function deleteWorkExperience(formData: FormData) {
-  console.log(formData);
+  // console.log(formData);
 
   const validatedFields = DeleteWorkExperienceSchema.safeParse({
     id: formData.get("work_experience_id"),
@@ -2089,15 +2188,11 @@ export async function deleteResumeLine(formData: FormData) {
 }
 
 export async function CreateNewUser(formData: FormData) {
-  // console.log(formData);
-
   const validatedFields = CreateNewUserSchema.safeParse({
     username: formData.get("username"),
     email: formData.get("email"),
     password: formData.get("password"),
   });
-
-  // console.log(validatedFields);
 
   if (validatedFields.success === false) {
     return {
@@ -2107,18 +2202,13 @@ export async function CreateNewUser(formData: FormData) {
   }
   const { username, email, password } = validatedFields.data;
 
-  // console.log(`Username: ${username}, Email: ${email}, Password: ${password}`);
-
   let data: any;
   let error: Error;
 
   try {
-    // console.log({ username, email, password });
     const hashedPassword = await bcrypt.hash(password, 10);
     const query = `INSERT INTO users (name, email, password) VALUES ('${username}', '${email}', '${hashedPassword}')`;
-    // console.log(query);
     data = await conn.query(query);
-    // console.log(data);
 
     // return [
     //   {
@@ -2287,4 +2377,225 @@ export async function finishUserTour(userId: string, tourPage: string) {
 
   revalidatePath(`${tourPage}`);
   redirect(`${tourPage}`);
+}
+
+//TODO ---------------------------------------------------------
+export async function createCoverLine(formData: FormData) {
+  // const validatedFields = CreateResumeLineSchema.safeParse({
+  //   user_id: formData.get("user_id"),
+  //   resume_id: formData.get("resume_id"),
+  //   line_type: formData.get("line_type"),
+  //   id: formData.get("id"),
+  // });
+  // if (validatedFields.success === false) {
+  //   return {
+  //     errors: validatedFields.error.flatten().fieldErrors,
+  //     message: "Missing Fields. Failed to Create user skill.",
+  //   };
+  // }
+  // const { user_id, resume_id, line_type, id } = validatedFields.data;
+  // let data1;
+  // try {
+  //   let query;
+  //   //check the linetype and formulate a specific query
+  //   if (line_type === "education") {
+  //     query = `SELECT * FROM resume_lines WHERE resume_id = '${resume_id}' AND user_education_id = '${id}'`;
+  //   } else if (line_type === "custom-section-one") {
+  //     query = `SELECT * FROM resume_lines WHERE resume_id = '${resume_id}' AND user_custom_section_one_id = '${id}'`;
+  //   } else if (line_type === "custom-section-two") {
+  //     query = `SELECT * FROM resume_lines WHERE resume_id = '${resume_id}' AND user_custom_section_two_id = '${id}'`;
+  //   } else if (line_type === "skill") {
+  //     query = `SELECT * FROM resume_lines WHERE resume_id = '${resume_id}' AND user_skills_id = '${id}'`;
+  //   } else if (line_type === "work") {
+  //     query = `SELECT * FROM resume_lines WHERE resume_id = '${resume_id}' AND work_experience_id = '${id}'`;
+  //   } else {
+  //     query = "";
+  //   }
+  //   data1 = await conn.query(query);
+  // } catch (error) {
+  //   return {
+  //     message: `Database Error: ${error}`,
+  //   };
+  // }
+  // if (data1.rowCount > 0) {
+  //   return {
+  //     message: `Database Error: Resume already has ${line_type} ${id} included.`,
+  //   };
+  // } else {
+  //   let query;
+  //   if (line_type === "education") {
+  //     query = `INSERT INTO resume_lines (user_id, resume_id, user_education_id, line_type, position) VALUES ('${user_id}', '${resume_id}', '${id}', '${line_type}', '0' )`;
+  //   } else if (line_type === "custom-section-one") {
+  //     query = `INSERT INTO resume_lines (user_id, resume_id, user_custom_section_one_id, line_type, position) VALUES ('${user_id}', '${resume_id}', '${id}', '${line_type}', '0' )`;
+  //   } else if (line_type === "custom-section-two") {
+  //     query = `INSERT INTO resume_lines (user_id, resume_id, user_custom_section_two_id, line_type, position) VALUES ('${user_id}', '${resume_id}', '${id}', '${line_type}', '0' )`;
+  //   } else if (line_type === "skill") {
+  //     query = `INSERT INTO resume_lines (user_id, resume_id, user_skills_id, line_type, position) VALUES ('${user_id}', '${resume_id}', '${id}', '${line_type}', '0' )`;
+  //   } else if (line_type === "work") {
+  //     query = `INSERT INTO resume_lines (user_id, resume_id, work_experience_id, line_type, position) VALUES ('${user_id}', '${resume_id}', '${id}', '${line_type}', '0' )`;
+  //   } else {
+  //     query = "";
+  //   }
+  //   try {
+  //     const data = await conn.query(query);
+  //   } catch (error) {
+  //     return {
+  //       message: `Database Error: Failed to create resume ${line_type} line. ${error}`,
+  //     };
+  //   }
+  //   if (resume_id === "blank" ?? line_type === "education") {
+  //     revalidatePath(`/dashboard/education/`);
+  //     redirect(`/dashboard/education/`);
+  //   } else if (resume_id === "blank" ?? line_type === "skill") {
+  //     revalidatePath(`/dashboard/skills/`);
+  //     redirect(`/dashboard/skills/`);
+  //   } else if (resume_id === "blank" ?? line_type === "work") {
+  //     revalidatePath(`/dashboard/work-experience/`);
+  //     redirect(`/dashboard/work-experience/`);
+  //   } else if (resume_id === "blank" ?? line_type === "custom-section-one") {
+  //     revalidatePath(`/dashboard/organizations/`);
+  //     redirect(`/dashboard/organizations/`);
+  //   } else if (resume_id === "blank" ?? line_type === "custom-section-two") {
+  //     revalidatePath(`/dashboard/certifications/`);
+  //     redirect(`/dashboard/certifications/`);
+  //   } else if (resume_id !== "blank") {
+  //     revalidatePath(`/dashboard/resume/edit/${resume_id}`);
+  //     redirect(`/dashboard/resume/edit/${resume_id}`);
+  //   }
+  // }
+}
+
+//TODO ---------------------------------------------------------
+export async function deleteCoverLine(formData: FormData) {
+  // const validatedFields = DeleteResumeLineSchema.safeParse({
+  //   user_id: formData.get("user_id"),
+  //   id: formData.get("id"),
+  //   resume_id: formData.get("resume_id"),
+  //   line_type: formData.get("line_type"),
+  // });
+  // if (validatedFields.success === false) {
+  //   return {
+  //     errors: validatedFields.error.flatten().fieldErrors,
+  //     message: "Missing Fields. Failed to Create user skill.",
+  //   };
+  // }
+  // const { user_id, id, resume_id, line_type } = validatedFields.data;
+  // try {
+  //   let query;
+  //   //check the linetype and formulate a specific query
+  //   if (line_type === "education") {
+  //     query = `DELETE FROM resume_lines WHERE resume_id = '${resume_id}' AND user_education_id = '${id}'`;
+  //   } else if (line_type === "custom-section-one") {
+  //     query = `DELETE FROM resume_lines WHERE resume_id = '${resume_id}' AND user_custom_section_one_id = '${id}'`;
+  //   } else if (line_type === "custom-section-two") {
+  //     query = `DELETE FROM resume_lines WHERE resume_id = '${resume_id}' AND user_custom_section_two_id = '${id}'`;
+  //   } else if (line_type === "skill") {
+  //     query = `DELETE FROM resume_lines WHERE resume_id = '${resume_id}' AND user_skills_id = '${id}'`;
+  //   } else if (line_type === "work") {
+  //     query = `DELETE FROM resume_lines WHERE resume_id = '${resume_id}' AND work_experience_id = '${id}'`;
+  //   } else {
+  //     query = "";
+  //   }
+  //   const data = await conn.query(query);
+  // } catch (error) {
+  //   return { message: `Database Error: Failed to Update Invoice. ${error}` };
+  // }
+  // if (resume_id === "blank" ?? line_type === "education") {
+  //   revalidatePath(`/dashboard/education/`);
+  //   redirect(`/dashboard/education/`);
+  // } else if (resume_id === "blank" ?? line_type === "skill") {
+  //   revalidatePath(`/dashboard/skills/`);
+  //   redirect(`/dashboard/skills/`);
+  // } else if (resume_id === "blank" ?? line_type === "work") {
+  //   revalidatePath(`/dashboard/work-experience/`);
+  //   redirect(`/dashboard/work-experience/`);
+  // } else if (resume_id === "blank" ?? line_type === "custom-section-one") {
+  //   revalidatePath(`/dashboard/organizations/`);
+  //   redirect(`/dashboard/organizations/`);
+  // } else if (resume_id === "blank" ?? line_type === "custom-section-two") {
+  //   revalidatePath(`/dashboard/certifications/`);
+  //   redirect(`/dashboard/certifications/`);
+  // } else if (resume_id !== "blank") {
+  //   revalidatePath(`/dashboard/resume/edit/${resume_id}`);
+  //   redirect(`/dashboard/resume/edit/${resume_id}`);
+  // }
+}
+
+export async function updateCoverExperience(formData: FormData) {
+  const validatedFields = UpdateCoverExperienceSchema.safeParse({
+    experience_id: formData.get("experience_id"),
+    user_id: formData.get("user_id"),
+    title: formData.get("title"),
+    description: formData.get("description"),
+  });
+  if (validatedFields.success === false) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: "Missing Fields. Failed to Create user skill.",
+    };
+  }
+  const { experience_id, user_id, title, description } = validatedFields.data;
+
+  try {
+    const query = `UPDATE cover_experiences SET title = '${title}', description = '${description}' WHERE id = '${experience_id}' AND user_id = '${user_id}'`;
+
+    const data = await conn.query(query);
+  } catch (error) {
+    return {
+      message: `Database Error: Failed to Update Cover Experience. ${error}`,
+    };
+  }
+
+  revalidatePath(
+    `/dashboard/cover-experience/edit/${experience_id}/${user_id}`
+  );
+  redirect(`/dashboard/cover-experience/edit/${experience_id}/${user_id}`);
+}
+
+export async function deleteCoverExperience(formData: FormData) {
+  const validatedFields = DeleteCoverExperienceSchema.safeParse({
+    id: formData.get("cover_experience_id"),
+    user_id: formData.get("user_id"),
+  });
+  if (validatedFields.success === false) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: "Missing Fields. Failed to Create user skill.",
+    };
+  }
+  const { id, user_id } = validatedFields.data;
+
+  try {
+    const query = `DELETE FROM cover_experiences WHERE id = '${id}' AND user_id = '${user_id}'`;
+    const data = await conn.query(query);
+  } catch (error) {
+    return { message: `Database Error: Failed to Delete user skill. ${error}` };
+  }
+  revalidatePath(`/dashboard/cover-experience`);
+  redirect(`/dashboard/cover-experience`);
+}
+
+export async function createCoverExperience(formData: FormData) {
+  const validatedFields = CreateCoverExperienceSchema.safeParse({
+    user_id: formData.get("user_id"),
+    title: formData.get("title"),
+    description: formData.get("description"),
+  });
+  if (validatedFields.success === false) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: "Missing Fields. Failed to Create user skill.",
+    };
+  }
+  const { user_id, title, description } = validatedFields.data;
+
+  try {
+    const query = `INSERT INTO cover_experiences (user_id, title, description) VALUES ('${user_id}', '${title}', '${description}') `;
+    const data = await conn.query(query);
+  } catch (error) {
+    return { message: `Database Error: Failed to Delete user skill. ${error}` };
+  }
+
+  revalidatePath(`/dashboard/cover-experience`);
+  redirect(`/dashboard/cover-experience`);
 }

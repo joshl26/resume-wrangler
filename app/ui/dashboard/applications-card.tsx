@@ -7,22 +7,50 @@ import { Application, Applications } from "@/app/lib/definitions";
 
 const ApplicationsCard = ({ applications }: { applications: Applications }) => {
   const [applicationButton, setApplicationButton] = useState("all");
+  const [filteredApplications, setFilteredApplications] =
+    useState(applications);
+
+  function onApplicationButtonChangeHandler(e: string) {
+    if (e === "all") {
+      setApplicationButton("all");
+      setFilteredApplications(applications);
+    } else if (e === "open") {
+      setApplicationButton("open");
+      setFilteredApplications(
+        applications.filter(
+          (application) => application.is_complete === "false"
+        )
+      );
+    } else if (e === "pending") {
+      setApplicationButton("pending");
+      setFilteredApplications(
+        applications.filter(
+          (application) => application.is_complete === "pending"
+        )
+      );
+    } else if (e === "closed") {
+      setApplicationButton("closed");
+      setFilteredApplications(
+        applications.filter((application) => application.is_complete === "true")
+      );
+    }
+  }
 
   return (
-    <div className="tour-applications w-1/2 h-[275px] bg-white rounded-xl tight-shadow">
+    <div className="tour-applications w-1/2 h-[275px] bg-white rounded-lg tight-shadow">
       <div className="flex flex-row justify-between">
         <h2 className="font-bold p-2">Applications</h2>
         <div className="relative h-auto w-[125px] m-4">
-          <select className="h-full w-full rounded-[7px] border border-blue-gray-200  bg-transparent font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200  empty:!bg-gray-900 focus:border-2 focus:border-gray-900  ">
+          {/* <select className="h-full w-full rounded-[7px] border border-blue-gray-200  bg-transparent font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200  empty:!bg-gray-900 focus:border-2 focus:border-gray-900  ">
             <option value="this-week">This Week</option>
             <option value="this-week">This Week</option>
             <option value="this-month">This Month</option>
             <option value="today">Today</option>
-          </select>
+          </select> */}
         </div>
       </div>
       <div className="flex flex-row px-4 gap-2 pb-2">
-        <button onClick={(e) => setApplicationButton("all")}>
+        <button onClick={() => onApplicationButtonChangeHandler("all")}>
           <div
             className={clsx(
               applicationButton === "all"
@@ -33,7 +61,7 @@ const ApplicationsCard = ({ applications }: { applications: Applications }) => {
             All
           </div>
         </button>
-        <button onClick={(e) => setApplicationButton("open")}>
+        <button onClick={() => onApplicationButtonChangeHandler("open")}>
           <div
             className={clsx(
               applicationButton === "open"
@@ -44,7 +72,7 @@ const ApplicationsCard = ({ applications }: { applications: Applications }) => {
             Open
           </div>
         </button>
-        <button onClick={(e) => setApplicationButton("pending")}>
+        <button onClick={() => onApplicationButtonChangeHandler("pending")}>
           <div
             className={clsx(
               applicationButton === "pending"
@@ -55,7 +83,7 @@ const ApplicationsCard = ({ applications }: { applications: Applications }) => {
             Pending
           </div>
         </button>
-        <button onClick={(e) => setApplicationButton("closed")}>
+        <button onClick={() => onApplicationButtonChangeHandler("closed")}>
           <div
             className={clsx(
               applicationButton === "closed"
@@ -69,7 +97,7 @@ const ApplicationsCard = ({ applications }: { applications: Applications }) => {
       </div>
       <div className="overflow-y-auto h-[500px]">
         <ul>
-          {applications.map((application: Application) => (
+          {filteredApplications.map((application: Application) => (
             <li key={application?.id}>
               <Link href={"/dashboard/applications"}>
                 <div className="flex flex-row justify-between px-4 py-1 gap-2 border">

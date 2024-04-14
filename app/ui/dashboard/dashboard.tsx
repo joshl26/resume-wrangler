@@ -23,6 +23,9 @@ import {
   floaterStyles,
   joyrideOptions,
 } from "@/app/lib/joyride_settings";
+import OpenApplicationsCount from "./open-applications-count";
+import ClosedApplicationsCount from "./closed-applications-count";
+import PendingApplicationsCount from "./pending-applications-count";
 
 const TOUR_STEPS: any = [
   {
@@ -287,9 +290,15 @@ async function handleJoyrideCallback(data: CallBackProps, userId: string) {
 const Dashboard = ({
   applications,
   user,
+  openApplicationsCount,
+  closedApplicationsCount,
+  pendingApplicationsCount,
 }: {
   applications: Applications;
   user: User;
+  openApplicationsCount: any;
+  closedApplicationsCount: any;
+  pendingApplicationsCount: any;
 }) => {
   return (
     <div className="w-full h-full">
@@ -302,26 +311,25 @@ const Dashboard = ({
         />
       )}
       <div className="flex flex-row gap-4 px-4 pb-4 ">
-        <div className="tour-open-applications tight-shadow flex flex-col bg-gradient-orange h-[125px] w-full rounded-xl">
-          <h2 className="test p-2 font-bold">Open Applications</h2>
-          <h2 className="font-bold text-[3rem] m-auto">3</h2>
-        </div>
-        <div className="tour-closed-applications tight-shadow flex flex-col bg-gradient-rose h-[125px] w-full rounded-xl">
-          <h2 className="p-2 font-bold">Closed Applications</h2>
-          <h2 className="font-bold text-[3rem] m-auto">5</h2>
-        </div>
-        <div className="tour-responses-this-week tight-shadow flex flex-col bg-gradient-purple h-[125px] w-full rounded-xl">
-          <h2 className="p-2 font-bold">Responses this week</h2>
-          <h2 className="font-bold text-[3rem] m-auto">2</h2>
-        </div>
-        <div className="tour-goal tight-shadow flex flex-col bg-gradient-azure h-[125px] w-full rounded-xl">
+        <OpenApplicationsCount openApplicationsCount={openApplicationsCount} />
+        <ClosedApplicationsCount
+          closedApplicationsCount={closedApplicationsCount}
+        />
+        <PendingApplicationsCount
+          pendingApplicationsCount={pendingApplicationsCount}
+        />
+        {/* <div className="tour-goal tight-shadow flex flex-col bg-gradient-azure h-[125px] w-full rounded-xl">
           <h2 className="p-2 font-bold">Weekly Goal</h2>
           <h2 className="font-bold text-[3rem] m-auto">3/15</h2>
-        </div>
+        </div> */}
       </div>
       <div className="flex flex-row gap-4 px-4">
         <TrendCard />
-        <JobTypeCard />
+        <JobTypeCard
+          openApplicationsCount={openApplicationsCount}
+          closedApplicationsCount={closedApplicationsCount}
+          pendingApplicationsCount={pendingApplicationsCount}
+        />
         <ResponsesCard />
       </div>
       <div className="flex flex-row gap-4 px-4 pt-4">

@@ -14,6 +14,19 @@ export default function EditApplication({
   companies: Companies;
 }) {
   const [edited, setEdited] = useState(false);
+  const [isComplete, setIsComplete] = useState(application?.is_complete);
+
+  const isCompleteChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.checked === true) {
+      setIsComplete("true");
+    } else {
+      setIsComplete("false");
+    }
+
+    if (edited === false) {
+      setEdited(true);
+    }
+  };
 
   const onChangeHandler = () => {
     if (edited === false) {
@@ -26,10 +39,7 @@ export default function EditApplication({
         Back
       </BackButton>
       <h2 className="font-medium text-[2rem] py-1">Edit Application</h2>
-      <form
-        action={updateApplication}
-        className="flex flex-col form-amber p-3  "
-      >
+      <form action={updateApplication} className="flex flex-col form-amber p-3">
         <div hidden>
           <label hidden htmlFor="application_id">
             Application Id
@@ -67,14 +77,18 @@ export default function EditApplication({
               Is Complete?
             </label>
             <input
+              hidden
+              readOnly
               id="is_complete"
               name="is_complete"
-              onChange={onChangeHandler}
-              defaultChecked={
-                application?.is_complete === "true" ? true : false
-              }
+              value={isComplete}
+            />
+            <input
+              onChange={isCompleteChangeHandler}
+              checked={isComplete === "true" ? true : false}
+              value={isComplete}
               type="checkbox"
-            ></input>
+            />
           </div>
           <div className="flex flex-col w-1/2">
             <label className="font-bold" htmlFor="date_submitted">

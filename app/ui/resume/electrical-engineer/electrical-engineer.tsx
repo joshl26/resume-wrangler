@@ -53,9 +53,9 @@ export default async function ElectricalEngineer(props: Props) {
   return (
     <Page>
       <div className="flex flex-row w-full">
-        <div className="flex flex-col w-1/4 rounded pb-6 pr-6">
+        <div className="flex w-1/4 mx-auto rounded justify-around pb-6 pr-6">
           <Image
-            className="rounded-lg"
+            className="flex rounded-lg mx-auto w-full"
             alt={props?.user?.thumbnail}
             width={350}
             height={350}

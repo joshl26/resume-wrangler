@@ -59,13 +59,13 @@ interface Props {
 export default async function ThreeDAnimator(props: Props) {
   return (
     <Page>
-      <div className="flex flex-row">
-        <div className="flex flex-col w-1/4 rounded pb-6">
+      <div className="flex flex-row m-auto">
+        <div className="flex flex-col w-1/4 rounded ">
           <Image
             className="rounded-full"
             alt={props?.user?.thumbnail}
-            width={150}
-            height={150}
+            width={350}
+            height={350}
             src={props?.user?.thumbnail}
           />
         </div>

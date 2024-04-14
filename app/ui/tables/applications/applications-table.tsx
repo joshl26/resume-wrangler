@@ -34,8 +34,8 @@ const ApplicationsTable = ({
   companies: Companies;
 }) => {
   return (
-    <div className="relative overflow-y-auto tight-shadow sm:rounded-lg px-4 py-4 mr-3">
-      <table className="w-full text-sm text-left rtl:text-right">
+    <div className="relative overflow-y-auto tight-shadow rounded px-4 py-4 mr-3 bg-white">
+      <table className="w-full text-sm text-left rtl:text-right tight-shadow">
         <thead className="text-xs uppercase">
           <tr>
             <th scope="col" className="px-6 py-3">
@@ -47,12 +47,12 @@ const ApplicationsTable = ({
             <th scope="col" className="px-6 py-3">
               Location
             </th>
-            <th scope="col" className="px-6 py-3">
-              Submitted
-            </th>
             {/* <th scope="col" className="px-6 py-3">
-              Cover
+              Submitted
             </th> */}
+            <th scope="col" className="px-6 py-3">
+              Cover
+            </th>
             <th scope="col" className="px-6 py-3">
               Resume
             </th>
@@ -92,8 +92,8 @@ const ApplicationsTable = ({
                       ).address_one
                     : "N/A"}
                 </td>
-                <td className="px-6 py-4">{application?.is_complete}</td>
-                {/* <td className="text-left px-6 py-4">
+                {/* <td className="px-6 py-4">{application?.is_complete}</td> */}
+                <td className="text-left px-6 py-4">
                   {coverLetters?.find(
                     (coverLetter: CoverLetter) =>
                       coverLetter?.application_id === application.id
@@ -160,8 +160,7 @@ const ApplicationsTable = ({
                       </button>
                     </form>
                   )}
-                </td> */}
-
+                </td>
                 <td className="text-left px-6 py-4">
                   {resumes?.find(
                     (resume: Resume) => resume.application_id === application.id
@@ -278,7 +277,7 @@ const ApplicationsTable = ({
             1000
           </span>
         </span>
-        <ul className="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
+        <ul className="inline-flex tight-shadow rounded-lg -space-x-px rtl:space-x-reverse text-sm h-8">
           <li>
             <a
               href="#"
