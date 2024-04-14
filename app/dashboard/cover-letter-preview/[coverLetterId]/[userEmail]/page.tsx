@@ -11,14 +11,15 @@ async function Page({
   const props = await getCoverData(coverLetterId, userEmail);
 
   const user = props?.user;
-  const coverLetter = props?.cover;
+  const coverLetter = props?.coverLetter;
   const company = props?.company;
   const application = props?.application;
   const selectedCoverExperiences = props?.selectedCoverExperiences;
   const userCoverExperiences = props?.userCoverExperiences;
-
-
-  
+  const selectedCoverBodyFont = props?.selectedCoverBodyFont;
+  const selectedCoverHeadingFont = props?.selectedCoverHeadingFont;
+  const selectedCoverColor = props?.selectedCoverColor;
+  const selectedCoverHighlightColor = props?.selectedCoverHighlightColor;
 
   return (
     <div className="h-auto overflow-y-auto w-full">
@@ -31,10 +32,10 @@ async function Page({
           application={application}
           selectedCoverExperiences={selectedCoverExperiences}
           userCoverExperiences={userCoverExperiences}
-          selectedCoverBodyFont={""}
-          selectedCoverHeadingFont={""}
-          selectedCoverColor={""}
-          selectedCoverHighlightColor={""}
+          selectedCoverBodyFont={selectedCoverBodyFont}
+          selectedCoverHeadingFont={selectedCoverHeadingFont}
+          selectedCoverColor={selectedCoverColor}
+          selectedCoverHighlightColor={selectedCoverHighlightColor}
         />
       )}
     </div>

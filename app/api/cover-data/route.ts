@@ -47,5 +47,9 @@ export async function GET(request: Request) {
     userCoverExperiences: userCoverExperiences,
     company: company,
     application: application,
+    selectedCoverBodyFont: coverLetter?.body_font,
+    selectedCoverHeadingFont: coverLetter?.heading_font,
+    selectedCoverColor: coverLetter?.color,
+    selectedCoverHighlightColor: coverLetter?.highlight_color,
   });
 }
