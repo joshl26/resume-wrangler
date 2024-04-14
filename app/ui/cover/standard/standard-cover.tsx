@@ -35,7 +35,6 @@ export default async function StandardCover({
   selectedCoverColor: any;
   selectedCoverHighlightColor: any;
 }) {
-  console.log(selectedCoverExperiences);
   return (
     <Page>
       <div className="flex flex-row w-full ">

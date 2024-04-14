@@ -43,12 +43,3 @@ async function Page({
 }
 
 export default Page;
-
-// coverLetter,
-//   user,
-//   company,
-//   application,
-//   selectedCoverExperiences,
-//   userCoverExperiences,
-//   selectedCoverBodyFont,
-//   selectedCoverHeadingFont,
