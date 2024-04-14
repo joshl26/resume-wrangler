@@ -34,6 +34,8 @@ import {
   UserCoverExperience,
   CoverTemplates,
   CoverTemplate,
+  UserCoverExperienceLines,
+  UserCoverExperienceLine,
 } from "./definitions";
 import { unstable_noStore as noStore } from "next/cache";
 require("dotenv").config();
@@ -522,8 +524,8 @@ export async function fetchCoverExperiencesByCoverLetterId(id: string) {
     const query = `SELECT * FROM cover_experience_lines WHERE cover_letter_id = '${id}'`;
     const data = await conn.query(query);
 
-    const userCoverExperiences: UserCoverExperiences = data?.rows?.map(
-      (userCoverExperience: UserCoverExperience) => ({
+    const userCoverExperiences: UserCoverExperienceLines = data?.rows?.map(
+      (userCoverExperience: UserCoverExperienceLine) => ({
         ...userCoverExperience,
       })
     );

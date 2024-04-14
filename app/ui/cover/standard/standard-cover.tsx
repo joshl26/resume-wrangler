@@ -22,8 +22,9 @@ export default async function StandardCover({
   company: Company;
   application: Application;
   selectedCoverExperiences: UserCoverExperienceLines;
-  userCoverExperiences: UserCoverExperiences;
+  userCoverExperiences: any;
 }) {
+  console.log(selectedCoverExperiences);
   return (
     <Page>
       <div className="flex flex-row w-full ">

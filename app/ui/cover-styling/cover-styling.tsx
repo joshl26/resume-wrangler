@@ -15,6 +15,7 @@ import {
 import BackButton from "../back-button";
 import Link from "next/link";
 import StandardCover from "../cover/standard/standard-cover";
+import YourCoverLetterExperiences from "../forms/your-cover-letter-experiences";
 
 export default function CoverStyling({
   userCoverExperiences,
@@ -29,7 +30,7 @@ export default function CoverStyling({
   coverLetter: CoverLetter;
   company: Company;
   application: Application;
-  selectedCoverExperiences: any;
+  selectedCoverExperiences: UserCoverExperienceLines;
 }) {
   // const [selectedCoverTemplate, setSelectedCoverTemplate] = useState(
   //   props.cover?.template
@@ -64,6 +65,12 @@ export default function CoverStyling({
             </BackButton>{" "}
           </div>
           <YourCoverStyling coverLetter={coverLetter} />
+          <YourCoverLetterExperiences
+            user={user}
+            coverLetter={coverLetter}
+            userCoverExperiences={userCoverExperiences}
+            selectedCoverExperiences={selectedCoverExperiences}
+          />
           <div className="py-2" />
           <div className="p-2 text-center">
             {user?.access_level !== "basic" ? (

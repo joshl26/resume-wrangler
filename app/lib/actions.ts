@@ -726,13 +726,13 @@ const CreateCoverLineSchema = z.object({
   user_id: z.string({
     invalid_type_error: "Please enter a string.",
   }),
-  resume_id: z.string({
+  cover_letter_id: z.string({
+    invalid_type_error: "Please enter a string.",
+  }),
+  experience_id: z.string({
     invalid_type_error: "Please enter a string.",
   }),
   line_type: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  id: z.string({
     invalid_type_error: "Please enter a string.",
   }),
 });
@@ -742,10 +742,10 @@ const DeleteCoverLineSchema = z.object({
   user_id: z.string({
     invalid_type_error: "Please enter a string.",
   }),
-  id: z.string({
+  cover_letter_id: z.string({
     invalid_type_error: "Please enter a string.",
   }),
-  resume_id: z.string({
+  experience_id: z.string({
     invalid_type_error: "Please enter a string.",
   }),
   line_type: z.string({
@@ -1324,8 +1324,6 @@ export async function updateYourCoverLetterStyle(formData: FormData) {
 
   try {
     const query = `UPDATE cover_letters SET recipient_title = '${recipient_title}', intro_text_start = '${intro_text_start}', intro_text_end = '${intro_text_end}', conclusion_text = '${conclusion_text}', salutation_text = '${salutation_text}' WHERE id = '${cover_id}'`;
-
-    console.log(query);
 
     const data = await conn.query(query);
   } catch (error) {
@@ -2444,18 +2442,23 @@ export async function finishUserTour(userId: string, tourPage: string) {
 
 //TODO ---------------------------------------------------------
 export async function createCoverLine(formData: FormData) {
-  // const validatedFields = CreateResumeLineSchema.safeParse({
-  //   user_id: formData.get("user_id"),
-  //   resume_id: formData.get("resume_id"),
-  //   line_type: formData.get("line_type"),
-  //   id: formData.get("id"),
-  // });
-  // if (validatedFields.success === false) {
-  //   return {
-  //     errors: validatedFields.error.flatten().fieldErrors,
-  //     message: "Missing Fields. Failed to Create user skill.",
-  //   };
-  // }
+  console.log(formData);
+
+  const validatedFields = CreateCoverLineSchema.safeParse({
+    user_id: formData.get("user_id"),
+    cover_letter_id: formData.get("cover_letter_id"),
+    line_type: formData.get("line_type"),
+    experience_id: formData.get("experience_id"),
+  });
+  if (validatedFields.success === false) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: "Missing Fields. Failed to Create user skill.",
+    };
+  }
+
+  console.log(validatedFields.success);
+
   // const { user_id, resume_id, line_type, id } = validatedFields.data;
   // let data1;
   // try {
@@ -2530,18 +2533,23 @@ export async function createCoverLine(formData: FormData) {
 
 //TODO ---------------------------------------------------------
 export async function deleteCoverLine(formData: FormData) {
-  // const validatedFields = DeleteResumeLineSchema.safeParse({
-  //   user_id: formData.get("user_id"),
-  //   id: formData.get("id"),
-  //   resume_id: formData.get("resume_id"),
-  //   line_type: formData.get("line_type"),
-  // });
-  // if (validatedFields.success === false) {
-  //   return {
-  //     errors: validatedFields.error.flatten().fieldErrors,
-  //     message: "Missing Fields. Failed to Create user skill.",
-  //   };
-  // }
+  console.log(formData);
+
+  const validatedFields = CreateCoverLineSchema.safeParse({
+    user_id: formData.get("user_id"),
+    cover_letter_id: formData.get("cover_letter_id"),
+    line_type: formData.get("line_type"),
+    experience_id: formData.get("experience_id"),
+  });
+  if (validatedFields.success === false) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: "Missing Fields. Failed to Create user skill.",
+    };
+  }
+
+  console.log(validatedFields.success);
+
   // const { user_id, id, resume_id, line_type } = validatedFields.data;
   // try {
   //   let query;
