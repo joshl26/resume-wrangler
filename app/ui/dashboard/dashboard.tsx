@@ -51,7 +51,7 @@ const TOUR_STEPS: any = [
   {
     content: (
       <div className="pt-4 text-left">
-        <h2>The side nav is the fastest way to navigate the program.</h2>
+        <h2>The side nav is the quickest way to navigate the program.</h2>
         <br />
         <h2>Links to each section in the app can be found here.</h2>
       </div>
@@ -118,7 +118,7 @@ const TOUR_STEPS: any = [
       floaterStyles: floaterStyles,
     },
     placement: "auto",
-    target: ".tour-responses-this-week",
+    target: ".tour-pending-applications",
   },
   {
     content: (
@@ -302,7 +302,7 @@ const Dashboard = ({
 }) => {
   return (
     <div className="w-full h-full">
-      {user.tour_dashboard === "true" && (
+      {user?.tour_dashboard === "true" && (
         <ReactJoyride
           steps={TOUR_STEPS}
           callback={(e) => handleJoyrideCallback(e, user.id)}
@@ -310,6 +310,7 @@ const Dashboard = ({
           showSkipButton={true}
         />
       )}
+
       <div className="flex flex-row gap-4 px-4 pb-4 ">
         <OpenApplicationsCount openApplicationsCount={openApplicationsCount} />
         <ClosedApplicationsCount
@@ -318,10 +319,10 @@ const Dashboard = ({
         <PendingApplicationsCount
           pendingApplicationsCount={pendingApplicationsCount}
         />
-        {/* <div className="tour-goal tight-shadow flex flex-col bg-gradient-azure h-[125px] w-full rounded-xl">
+        <div className="tour-goal tight-shadow flex flex-col bg-gradient-azure h-[125px] w-full rounded-xl">
           <h2 className="p-2 font-bold">Weekly Goal</h2>
           <h2 className="font-bold text-[3rem] m-auto">3/15</h2>
-        </div> */}
+        </div>
       </div>
       <div className="flex flex-row gap-4 px-4">
         <TrendCard />
