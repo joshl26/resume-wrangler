@@ -124,7 +124,7 @@ const TOUR_STEPS: any = [
   {
     content: (
       <div className="pt-4 text-left">
-        <h2>This is you weekly goal for job applications.</h2>
+        <h2>This is your weekly goal for job applications.</h2>
       </div>
     ),
     styles: {
