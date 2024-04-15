@@ -50,6 +50,7 @@ const UserDetailsEditForm = ({ user }: { user: User }) => {
               defaultValue={user?.name}
               required
               disabled
+              autoComplete="username"
             />
           </div>
           <div className="flex flex-col p-1">
@@ -64,6 +65,7 @@ const UserDetailsEditForm = ({ user }: { user: User }) => {
               placeholder="something@something.com"
               required
               disabled
+              autoComplete="email"
             />
           </div>
         </div>
@@ -81,6 +83,7 @@ const UserDetailsEditForm = ({ user }: { user: User }) => {
               name="first_name"
               placeholder="Type your first name"
               defaultValue={user?.first_name}
+              autoComplete="given-name"
             />
           </div>
           <div className="flex flex-col p-1">
@@ -96,6 +99,7 @@ const UserDetailsEditForm = ({ user }: { user: User }) => {
               name="last_name"
               defaultValue={user?.last_name}
               placeholder="Type your last name"
+              autoComplete="family-name"
             />
           </div>
         </div>
@@ -114,6 +118,7 @@ const UserDetailsEditForm = ({ user }: { user: User }) => {
               name="address_one"
               defaultValue={user?.address_one}
               placeholder="City, Province OR State"
+              autoComplete="address-line1"
             />
           </div>
           <div className="flex flex-col p-1">
@@ -129,6 +134,7 @@ const UserDetailsEditForm = ({ user }: { user: User }) => {
               name="address_two"
               defaultValue={user?.address_two}
               placeholder="Optional, not currently used"
+              autoComplete="address-line2"
             />
           </div>
         </div>
@@ -148,6 +154,7 @@ const UserDetailsEditForm = ({ user }: { user: User }) => {
               name="address_three"
               defaultValue={user?.address_three}
               placeholder="Optional, not currently used"
+              autoComplete="address-line3"
             />
           </div>
           <div className="flex flex-col p-1">
@@ -161,6 +168,7 @@ const UserDetailsEditForm = ({ user }: { user: User }) => {
               placeholder="123-456-7891"
               pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
               defaultValue={user?.phone}
+              autoComplete="tel"
             />
           </div>
         </div>
@@ -174,6 +182,7 @@ const UserDetailsEditForm = ({ user }: { user: User }) => {
             name="website"
             placeholder="https://www.yoursite.com"
             defaultValue={user?.website}
+            autoComplete="url"
           />
         </div>
         {edited && (
@@ -273,24 +282,7 @@ const UserSocialsEditForm = ({ user }: { user: User }) => {
             />
           </div>
         </div>
-
         <div className="flex flex-row ">
-          {" "}
-          <div className="flex flex-col p-1">
-            <label
-              htmlFor="instagram"
-              className="mb-2 block text-sm font-medium"
-            >
-              Instagram
-            </label>
-            <input
-              onChange={() => onChangeHandler()}
-              id="instagram"
-              name="instagram"
-              placeholder="Type your instagram address"
-              defaultValue={user?.instagram}
-            />
-          </div>
           <div className="flex flex-col p-1">
             <label htmlFor="github" className="mb-2 block text-sm font-medium">
               Github

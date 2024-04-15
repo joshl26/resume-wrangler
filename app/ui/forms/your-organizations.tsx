@@ -480,6 +480,7 @@ export default function YourOrganizations({
                 checked={showCustomSectionOne === "true" ? true : false}
                 value={showCustomSectionOne}
                 onChange={showOrganizationsOnChangeHandler}
+                name="show_organizations_section_input"
               />
             </div>
             <div className="flex flex-col">

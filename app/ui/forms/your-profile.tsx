@@ -56,11 +56,7 @@ export default function YourProfile({
         </div>
         <div className="py-2"></div>
         <div className="form-amber tight-shadow rounded px-5 py-2 ">
-          <form
-            className=""
-            onSubmit={() => setEdited(false)}
-            action={dispatch}
-          >
+          <form onSubmit={() => setEdited(false)} action={dispatch}>
             <div className="flex flex-row justify-between w-auto">
               <div className="flex flex-col w-1/2 py-1 px-1">
                 <input
@@ -69,6 +65,7 @@ export default function YourProfile({
                   value={resume?.id}
                   id="resume_id"
                   name="resume_id"
+                  autoComplete="off"
                 />
                 <input
                   hidden
@@ -76,6 +73,7 @@ export default function YourProfile({
                   value={user?.name}
                   id="name"
                   name="name"
+                  autoComplete="off"
                 />
                 <label className="py-1 font-medium" htmlFor="first_name">
                   First Name
@@ -86,6 +84,7 @@ export default function YourProfile({
                   defaultValue={user?.first_name}
                   onChange={onChangeHandler}
                   placeholder="First Name"
+                  autoComplete="given-name"
                 />
               </div>
               <div className="flex flex-col w-1/2 py-1">
@@ -98,6 +97,7 @@ export default function YourProfile({
                   defaultValue={user?.last_name}
                   onChange={onChangeHandler}
                   placeholder="Last Name"
+                  autoComplete="family-name"
                 />
               </div>
             </div>
@@ -112,6 +112,7 @@ export default function YourProfile({
                   defaultValue={user?.address_one}
                   onChange={onChangeHandler}
                   placeholder="City, Prov/State"
+                  autoComplete="address-line1"
                 />
               </div>
             </div>
@@ -126,6 +127,7 @@ export default function YourProfile({
                   defaultValue={user?.address_two}
                   onChange={onChangeHandler}
                   placeholder="Street Address"
+                  autoComplete="address-line2"
                 />
               </div>
             </div>
@@ -140,6 +142,7 @@ export default function YourProfile({
                   defaultValue={user?.address_three}
                   onChange={onChangeHandler}
                   placeholder="Apartment/Buzzer"
+                  autoComplete="address-line3"
                 />
               </div>
             </div>
@@ -153,6 +156,7 @@ export default function YourProfile({
                   defaultValue={user?.country}
                   onChange={onChangeHandler}
                   placeholder="Country"
+                  autoComplete="country"
                 />
               </div>
             </div>
@@ -167,6 +171,7 @@ export default function YourProfile({
                   defaultValue={user?.phone}
                   onChange={onChangeHandler}
                   placeholder="xxx-xxx-xxxx"
+                  autoComplete="tel"
                 />
               </div>
             </div>
@@ -182,6 +187,7 @@ export default function YourProfile({
                   name="email"
                   defaultValue={user?.email}
                   placeholder="Email Address"
+                  autoComplete="email"
                 />
               </div>
             </div>
@@ -196,6 +202,7 @@ export default function YourProfile({
                   defaultValue={user?.website}
                   onChange={onChangeHandler}
                   placeholder="http://www.your-site.com"
+                  autoComplete="url"
                 />
               </div>
             </div>

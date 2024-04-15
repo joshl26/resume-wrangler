@@ -60,7 +60,6 @@ export default function NewOrganization({ user }: { user: User }) {
             id="organization_name"
             onChange={onChangeHandler}
             defaultValue={""}
-            type="text"
           />
         </div>
         <div className="flex flex-col p-2">

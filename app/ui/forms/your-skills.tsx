@@ -224,6 +224,7 @@ export default function YourSkills({
                   onChange={showSkillProgressBarsOnChangeHandler}
                   className="m-auto rounded"
                   type="checkbox"
+                  name="show_skill_progress_input"
                 />
               </div>
               <div className="flex flex-col">
@@ -275,10 +276,11 @@ export default function YourSkills({
                 checked={showSkills === "true" ? true : false}
                 value={showSkills}
                 onChange={showSkillsOnChangeHandler}
+                name="show_skills_section_input"
               />
             </div>
             <div className="flex flex-col">
-              <h2 className="py-1 px-1 font-medium">Show Skills section?</h2>
+              <h2 className="py-1 px-1 font-medium">Show skills section?</h2>
             </div>
           </div>
           {edited && (

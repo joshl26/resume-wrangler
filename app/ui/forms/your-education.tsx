@@ -340,7 +340,6 @@ export default function YourEducation({
           >
             <div className="flex flex-row py-1">
               <div className="flex flex-col px-1 py-2">
-                <label hidden htmlFor="user_id" />
                 <input
                   hidden
                   readOnly
@@ -348,7 +347,6 @@ export default function YourEducation({
                   name="user_id"
                   value={user?.id}
                 />
-                <label hidden htmlFor="resume_id" />
                 <input
                   hidden
                   readOnly
@@ -356,7 +354,6 @@ export default function YourEducation({
                   name="resume_id"
                   value={resume?.id}
                 />
-                <label hidden htmlFor="show_education_section" />
                 <input
                   hidden
                   readOnly
@@ -370,7 +367,8 @@ export default function YourEducation({
                   checked={showEducation === "true" ? true : false}
                   value={showEducation}
                   onChange={showEducationOnChangeHandler}
-                ></input>
+                  name="show_education_section_input"
+                />
               </div>
               <div className="flex flex-col">
                 <h2 className="py-1 px-1 font-medium">

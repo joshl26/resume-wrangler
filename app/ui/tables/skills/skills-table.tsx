@@ -7,7 +7,7 @@ import React from "react";
 
 const Skills = ({ skills }: { skills: UserSkills }) => {
   return (
-    <div className="relative overflow-x-auto overflow-y-auto tight-shadow rounded px-4 py-4 mr-3 bg-amber-50">
+    <div className="relative overflow-x-auto overflow-y-auto tight-shadow rounded px-4 py-4 mr-3 bg-white">
       <table
         className="w-full text-sm text-left rtl:text-right tight-shadow
       "

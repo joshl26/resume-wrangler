@@ -6,8 +6,8 @@ async function PendingApplicationsCount({
   pendingApplicationsCount: any;
 }) {
   return (
-    <div className="tour-pending-applications tight-shadow flex flex-col bg-gradient-purple h-[125px] w-full rounded-lg">
-      <h2 className="test p-2 font-bold">Pending Applications</h2>
+    <div className="tour-pending-applications tight-shadow flex flex-col bg-gradient-purple stats-card-container w-full rounded-lg">
+      <h2 className="text-xl pt-2 pl-2 font-bold">Pending Applications</h2>
       <h2 className="font-bold text-[3rem] m-auto">
         {pendingApplicationsCount !== null ? pendingApplicationsCount : "0"}
       </h2>

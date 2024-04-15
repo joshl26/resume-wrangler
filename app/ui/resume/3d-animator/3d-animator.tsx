@@ -392,8 +392,8 @@ export default async function ThreeDAnimator(props: Props) {
           ) : (
             ""
           )}
-          {props.show_education_section === "true" ||
-          props.resume.show_education_section === "true" ? (
+          {props?.show_education_section === "true" ||
+          props?.resume?.show_education_section === "true" ? (
             <div className="flex flex-row pb-3 pt-2">
               <ul className="w-full">
                 <h1
@@ -454,8 +454,8 @@ export default async function ThreeDAnimator(props: Props) {
             ""
           )}
 
-          {props.show_custom_section_two === "true" ||
-          props.resume.show_custom_section_two === "true" ? (
+          {props?.show_custom_section_two === "true" ||
+          props?.resume?.show_custom_section_two === "true" ? (
             <div className="flex flex-row pb-3">
               <div className="flex flex-col">
                 <h2
@@ -630,8 +630,8 @@ export default async function ThreeDAnimator(props: Props) {
               )
             )}
           </ul>
-          {props.show_custom_section_one === "true" ||
-          props.resume.show_custom_section_one === "true" ? (
+          {props?.show_custom_section_one === "true" ||
+          props?.resume?.show_custom_section_one === "true" ? (
             <>
               <div className="flex flex-row">
                 <h2

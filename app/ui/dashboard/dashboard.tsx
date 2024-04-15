@@ -26,6 +26,7 @@ import {
 import OpenApplicationsCount from "./open-applications-count";
 import ClosedApplicationsCount from "./closed-applications-count";
 import PendingApplicationsCount from "./pending-applications-count";
+import PendingWeeklyGoalCount from "./weekly-goal";
 
 const TOUR_STEPS: any = [
   {
@@ -319,10 +320,7 @@ const Dashboard = ({
         <PendingApplicationsCount
           pendingApplicationsCount={pendingApplicationsCount}
         />
-        <div className="tour-goal tight-shadow flex flex-col bg-gradient-azure h-[125px] w-full rounded-xl">
-          <h2 className="p-2 font-bold">Weekly Goal</h2>
-          <h2 className="font-bold text-[3rem] m-auto">3/15</h2>
-        </div>
+        <PendingWeeklyGoalCount weeklyGoalCount={3} />
       </div>
       <div className="flex flex-row gap-4 px-4">
         <TrendCard />

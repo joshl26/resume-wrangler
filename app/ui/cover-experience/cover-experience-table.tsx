@@ -17,9 +17,9 @@ const CoverExperience = ({
   user: User;
 }) => {
   return (
-    <div className="relative overflow-y-auto tight-shadow sm:rounded-lg px-4 mr-2 py-4">
-      <table className="w-full text-sm text-left rtl:text-right ">
-        <thead className="text-xs  uppercase ">
+    <div className="relative overflow-y-auto tight-shadow rounded-lg bg-white px-4 mr-2 py-4">
+      <table className="w-full text-sm text-left rtl:text-right tight-shadow">
+        <thead className="text-xs uppercase ">
           <tr>
             <th scope="col" className="px-6 py-3">
               Experience Name

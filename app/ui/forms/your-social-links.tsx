@@ -191,6 +191,7 @@ const YourSocialLinks = ({
             />
             <input
               type="checkbox"
+              id="show_socials_input"
               className="rounded"
               checked={showSocials === "true" ? true : false}
               value={showSocials}

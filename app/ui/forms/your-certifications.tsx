@@ -396,7 +396,8 @@ export default function YourCertifications({
                 checked={showCustomSectionTwo === "true" ? true : false}
                 value={showCustomSectionTwo}
                 onChange={showCertificationsOnChangeHandler}
-              ></input>
+                name="show_custom_section_two_input"
+              />
             </div>
             <div className="flex flex-col py-2">
               <p className="font-medium">Show {sectionTitle} section?</p>
