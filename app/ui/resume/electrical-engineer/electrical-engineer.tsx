@@ -351,7 +351,7 @@ export default async function ElectricalEngineer(props: Props) {
                     </div>
                     <div className="flex flex-col w-3/4">
                       <a
-                        href={`https://linkedin.com/${props?.user?.linked_in}`}
+                        href={`https://linkedin.com/in/${props?.user?.linked_in}`}
                         className={clsx(
                           props?.body_font || props?.resume?.body_font,
                           "text-sm py-1"
@@ -374,13 +374,13 @@ export default async function ElectricalEngineer(props: Props) {
                     </div>
                     <div className="flex flex-col w-3/4">
                       <a
-                        href={`https://facebook.com${props?.user?.facebook}`}
+                        href={`https://facebook.com/${props?.user?.facebook}`}
                         className={clsx(
                           props?.body_font || props?.resume?.body_font,
                           "text-sm py-1"
                         )}
                       >
-                        {`facebook${props?.user?.facebook}`}
+                        {props?.user?.facebook}
                       </a>
                     </div>
                   </div>
@@ -397,13 +397,13 @@ export default async function ElectricalEngineer(props: Props) {
                     </div>
                     <div className="flex flex-col w-3/4">
                       <a
-                        href={`https://instagram.com${props?.user?.instagram}`}
+                        href={`https://instagram.com/${props?.user?.instagram}`}
                         className={clsx(
                           props?.body_font || props?.resume?.body_font,
                           "text-sm py-1"
                         )}
                       >
-                        {`insta${props?.user?.instagram}`}
+                        {props?.user?.instagram}
                       </a>
                     </div>
                   </div>
@@ -420,13 +420,13 @@ export default async function ElectricalEngineer(props: Props) {
                     </div>
                     <div className="flex flex-col w-3/4">
                       <a
-                        href={`https://twitter.com${props?.user?.twitter}`}
+                        href={`https://twitter.com/${props?.user?.twitter}`}
                         className={clsx(
                           props?.body_font || props?.resume?.body_font,
                           "text-sm py-1"
                         )}
                       >
-                        {`tweet${props?.user?.twitter}`}
+                        {props?.user?.twitter}
                       </a>
                     </div>
                   </div>
@@ -442,13 +442,15 @@ export default async function ElectricalEngineer(props: Props) {
                       />
                     </div>
                     <div className="flex flex-col w-3/4">
-                      <p
+                      <a
+                        href={`https://github.com/${props?.user?.github}`}
                         className={clsx(
-                          props?.body_font || props?.resume?.body_font
+                          props?.body_font || props?.resume?.body_font,
+                          "text-sm py-1"
                         )}
                       >
                         {props?.user?.github}
-                      </p>
+                      </a>
                     </div>
                   </div>
                 )}
