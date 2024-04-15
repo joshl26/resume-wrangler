@@ -99,10 +99,14 @@ export default function CoverStyling({
           />
           <div className="py-2" />
           <div className="p-2 text-center">
+
+         
+
+
             {user?.access_level !== "basic" ? (
               <a
                 href={`/api/cover-pdf?coverLetterId=${coverLetter?.id}&userEmail=${user?.email}`}
-                download={`${user.first_name}_${user.last_name}.pdf`}
+                download={`${user.first_name}_${user.last_name}_${application?.job_position}_cover_letter.pdf`}
                 className="downloadBtn hover:text-rose-500"
               >
                 Download PDF

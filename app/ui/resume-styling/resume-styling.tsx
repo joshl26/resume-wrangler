@@ -12,7 +12,9 @@ import YourOrganizations from "@/app/ui/forms/your-organizations";
 import YourCertifications from "@/app/ui/forms/your-certifications";
 import YourSocialLinks from "@/app/ui/forms/your-social-links";
 import {
+  Application,
   BodyFonts,
+  Company,
   HeaderFonts,
   Resume,
   ResumeColors,
@@ -27,6 +29,7 @@ import {
 import BackButton from "../back-button";
 import ThreeDAnimator from "../resume/3d-animator/3d-animator";
 import ResumePreviewButton from "@/app/ui/resume-preview-button";
+import Link from "next/link";
 
 interface Props {
   resumeTemplates: ResumeTemplates;
@@ -45,6 +48,8 @@ interface Props {
   skillResumeLines: UserSkills;
   certificationResumeLines: UserCertifications;
   organizationResumeLines: userOrganizations;
+  company: Company;
+  application: Application;
 }
 
 export default function ResumeStyling(props: Props) {
@@ -171,17 +176,23 @@ export default function ResumeStyling(props: Props) {
             certificationResumeLines={props?.certificationResumeLines}
           />
           <div className="p-2 text-center">
-            <a
-              href={`/api/pdf?resumeId=${props?.resume?.id}&userEmail=${props?.user?.email}`}
-              download="generated_pdf.pdf"
-              className="downloadBtn hover:text-rose-500"
-            >
-              Download PDF
-            </a>
+            {props?.user?.access_level !== "basic" ? (
+              <a
+                href={`/api/pdf?resumeId=${props?.resume?.id}&userEmail=${props?.user?.email}`}
+                download={`${props?.user?.first_name}_${props?.user?.last_name}_${props?.application?.job_position}_resume.pdf`}
+                className="downloadBtn hover:text-rose-500"
+              >
+                Download PDF
+              </a>
+            ) : (
+              <Link className="btn btn-amber" href={"/dashboard/upgrade"}>
+                Upgrade Account to Download PDF
+              </Link>
+            )}
           </div>
         </div>
         <div className="flex flex-col m-auto h-full overflow-x-none overflow-y-auto pr-4">
-          {selectedResumeTemplate === "electrical-engineer" && (
+          {props?.resume?.template === "electrical-engineer" && (
             <Suspense>
               <ElectricalEngineer
                 heading_font={selectedResumeHeadingFont}
@@ -209,7 +220,7 @@ export default function ResumeStyling(props: Props) {
               />
             </Suspense>
           )}
-          {selectedResumeTemplate === "3d-animator" && (
+          {props?.resume?.template === "3d-animator" && (
             <Suspense>
               <ThreeDAnimator
                 heading_font={selectedResumeHeadingFont}

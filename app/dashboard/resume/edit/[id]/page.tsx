@@ -15,6 +15,8 @@ import {
   fetchWorkExperiencesbyResumeID,
   getUser,
   fetchResumeByIdAndUserId,
+  fetchApplicationById,
+  fetchCompanyById,
 } from "@/app/lib/data";
 import ResumeStyling from "@/app/ui/resume-styling/resume-styling";
 import { auth } from "@/auth";
@@ -74,6 +76,14 @@ export default async function EditResume({
     fetchOrganizationsByResumeID(id),
   ]);
 
+  const [application] = await Promise.all([
+    fetchApplicationById(resume?.application_id),
+  ]);
+
+  const [company] = await Promise.all([
+    fetchCompanyById(application?.company_id),
+  ]);
+
   if (
     !resumeTemplates ??
     !resumeColors ??
@@ -89,7 +99,9 @@ export default async function EditResume({
     !educationResumeLines ??
     !workResumeLines ??
     !certificationResumeLines ??
-    !organizationResumeLines
+    !organizationResumeLines ??
+    !application ??
+    !company
   ) {
     notFound();
   }
@@ -112,6 +124,8 @@ export default async function EditResume({
       skillResumeLines={skillResumeLines}
       certificationResumeLines={certificationResumeLines}
       organizationResumeLines={organizationResumeLines}
+      application={application}
+      company={company}
     />
   );
 }
