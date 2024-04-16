@@ -2,24 +2,24 @@
 
 ![example workflow](https://github.com/joshl26/resume-wrangler/actions/workflows/playwright.yml/badge.svg)
 
-**WORK IN PROGRESS**
+**THIS IS A WORK IN PROGRESS**
 
 <p>
-  <img alt="Version" src="https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000" />
-  <img src="https://img.shields.io/badge/npm-%3E%3D8.0.0-blue.svg" />
-  <img src="https://img.shields.io/badge/node-%3E%3D17.0.0-blue.svg" />
-  <a href="https://github.com/joshl26/electronics-inventory-frontend#readme" target="_blank">
+  <img alt="Version" src="https://img.shields.io/badge/version-0.0.9-blue.svg?cacheSeconds=2592000" />
+  <img alt="NextJS" src="https://img.shields.io/badge/next-%3E%3D14.0.0-blue.svg" />
+  <img alt="ReactJS" src="https://img.shields.io/badge/react-%3E%3D18.0.0-blue.svg" />
+  <a href="https://github.com/joshl26/resume-wrangler#readme" target="_blank">
     <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
   </a>
-  <a href="https://github.com/joshl26/electronics-inventory-frontend/graphs/commit-activity" target="_blank">
+  <a href="https://github.com/joshl26/resume-wrangler/graphs/commit-activity" target="_blank">
     <img alt="Maintenance" src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" />
   </a>
-  <a href="https://github.com/joshl26/electronics-inventory-frontend/blob/master/LICENSE" target="_blank">
-    <img alt="License: MIT" src="https://img.shields.io/github/license/joshl26/electronics-inventory-frontend" />
+  <a href="https://github.com/joshl26/resume-wrangler/blob/master/LICENSE" target="_blank">
+    <img alt="License: MIT" src="https://img.shields.io/github/license/joshl26/resume-wrangler" />
   </a>
 </p>
 
-![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
+![NextJS](https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
 ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=white)
 ![NodeJS](https://img.shields.io/badge/node.js-%6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
