@@ -1,0 +1,12 @@
+{
+  "languageToolLinter.languageTool.ignoredWordsInWorkspace": [
+    "colours",
+    "createnewnote",
+    "createnewpart",
+    "createnewuser",
+    "ejs",
+    "joi",
+    "passportjs",
+    "representational"
+  ]
+}
