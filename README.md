@@ -1,6 +1,6 @@
 # Resume Wrangler Documentation
 
-<img alt="" src="https://github.com/joshl26/resume-wrangler/actions/workflows/playwright.yml/badge.svg" />
+<div><img alt="" src="https://github.com/joshl26/resume-wrangler/actions/workflows/playwright.yml/badge.svg" />
   <img alt="Version" src="https://img.shields.io/badge/version-0.0.9-blue.svg?cacheSeconds=2592000" />
   <img alt="NextJS" src="https://img.shields.io/badge/next-%3E%3D14.0.0-blue.svg" />
   <img alt="ReactJS" src="https://img.shields.io/badge/react-%3E%3D18.0.0-blue.svg" />
@@ -11,6 +11,7 @@
   <a href="https://github.com/joshl26/resume-wrangler/blob/master/LICENSE" target="_blank">
     <img alt="License: MIT" src="https://img.shields.io/github/license/joshl26/resume-wrangler" />
   </a>
+</div>
   
 <br/>
 
