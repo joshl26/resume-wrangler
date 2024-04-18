@@ -54,46 +54,46 @@ interface Props {
 
 export default function ResumeStyling(props: Props) {
   const [selectedResumeTemplate, setSelectedResumeTemplate] = useState(
-    props.resume?.template
+    props?.resume?.template
   );
 
   const [selectedResumeBodyFont, setSelectedResumeBodyFont] = useState(
-    props.resume?.body_font
+    props?.resume?.body_font
   );
 
   const [selectedResumeHeadingFont, setSelectedResumeHeadingFont] = useState(
-    props.resume?.heading_font
+    props?.resume?.heading_font
   );
 
   const [selectedResumeColor, setSelectedResumeColor] = useState(
-    props.resume?.color
+    props?.resume?.color
   );
 
   const [selectedResumeHighlightColor, setSelectedResumeHighlightColor] =
-    useState(props.resume?.highlight_color);
+    useState(props?.resume?.highlight_color);
 
   const [showSocials, setShowSocials] = useState(
-    props.resume?.show_social_icons
+    props?.resume?.show_social_icons
   );
 
   const [showSkills, setShowSkills] = useState(
-    props.resume?.show_skills_section
+    props?.resume?.show_skills_section
   );
 
   const [showSkillProgress, setShowSkillProgress] = useState(
-    props.resume?.show_skill_progress
+    props?.resume?.show_skill_progress
   );
 
   const [showEducation, setShowEducation] = useState(
-    props.resume?.show_education_section
+    props?.resume?.show_education_section
   );
 
   const [showCustomSectionOne, setShowCustomSectionOne] = useState(
-    props.resume?.show_custom_section_one
+    props?.resume?.show_custom_section_one
   );
 
   const [showCustomSectionTwo, setShowCustomSectionTwo] = useState(
-    props.resume?.show_custom_section_two
+    props?.resume?.show_custom_section_two
   );
 
   return (
@@ -192,7 +192,7 @@ export default function ResumeStyling(props: Props) {
           </div>
         </div>
         <div className="flex flex-col m-auto h-full overflow-x-none overflow-y-auto pr-4">
-          {props?.resume?.template === "electrical-engineer" && (
+          {selectedResumeTemplate === "electrical-engineer" && (
             <Suspense>
               <ElectricalEngineer
                 heading_font={selectedResumeHeadingFont}
@@ -220,7 +220,7 @@ export default function ResumeStyling(props: Props) {
               />
             </Suspense>
           )}
-          {props?.resume?.template === "3d-animator" && (
+          {selectedResumeTemplate === "3d-animator" && (
             <Suspense>
               <ThreeDAnimator
                 heading_font={selectedResumeHeadingFont}
