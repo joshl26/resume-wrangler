@@ -7,9 +7,9 @@ import React from "react";
 
 const Skills = ({ skills }: { skills: UserSkills }) => {
   return (
-    <div className="relative overflow-x-auto overflow-y-auto tight-shadow rounded px-4 py-4 mr-3 bg-white">
+    <div className="relative overflow-x-auto tight-shadow rounded px-4 pt-4 pb-4 mb-10 mr-3 bg-white">
       <table
-        className="w-full text-sm text-left rtl:text-right tight-shadow
+        className="w-full text-sm text-left rtl:text-right tight-shadow 
       "
       >
         <thead className="text-xs  uppercase  ">
@@ -25,7 +25,7 @@ const Skills = ({ skills }: { skills: UserSkills }) => {
             </th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className="">
           {skills?.length > 0 ? (
             skills?.map((skill: any) => (
               <tr key={skill?.id} className="border-b">

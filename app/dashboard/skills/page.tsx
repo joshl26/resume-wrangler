@@ -24,7 +24,7 @@ export default async function Page() {
   }
 
   return (
-    <div className="h-full w-full px-2">
+    <div className="h-full w-full px-2 overflow-y-auto ">
       <BackButton classname="" href={"/dashboard/"}>
         Back
       </BackButton>

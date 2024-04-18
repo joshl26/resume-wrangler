@@ -9,7 +9,8 @@ const config: Config = {
   ],
   safelist: [
     {
-      pattern: /bg-+/, // 👈  This includes bg of all colors and shades
+      pattern: /(bg|text|border)-./, // 👈  This includes bg of all colors and shades
+      
     },
   ],
   theme: {

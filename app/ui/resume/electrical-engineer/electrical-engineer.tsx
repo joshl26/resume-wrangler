@@ -106,11 +106,10 @@ export default async function ElectricalEngineer(props: Props) {
               WORK EXPERIENCE
             </h2>
           </div>
-          <div className="flex flex-row"></div>{" "}
-          <ul className="px-3 py-2">
+          <ul className="pr-3 pb-2 ">
             {props?.workResumeLines?.map(
               (userWorkExperience: UserWorkExperience) => (
-                <li className="list-disc py-2" key={userWorkExperience?.id}>
+                <li className=" py-2" key={userWorkExperience?.id}>
                   <h2
                     className={clsx(
                       "font-bold",
@@ -121,7 +120,7 @@ export default async function ElectricalEngineer(props: Props) {
                   </h2>
                   <p
                     className={clsx(
-                      "text-[1rem]",
+                      "text-[0.85rem] font-lite",
                       props?.heading_font || props?.resume?.heading_font
                     )}
                   >
@@ -273,7 +272,7 @@ export default async function ElectricalEngineer(props: Props) {
           )}
         </div>
         <div className="flex flex-col w-1/4">
-          <div className="flex flex-col pb-3">
+          <div className="flex flex-col pb-1">
             <h2
               className={clsx(
                 "font-bold",
@@ -290,9 +289,9 @@ export default async function ElectricalEngineer(props: Props) {
             /> */}
             <div className="flex flex-row pt-2">
               <div className="flex flex-col w-[30px]">
-                <MapPinIcon className="w-[20px] m-auto" />
+                <MapPinIcon className="w-[25px] m-auto" />
               </div>
-              <div className="flex flex-col w-3/4">
+              <div className="flex flex-col w-auto">
                 <a
                   href={`https://www.google.com/search?q=${props?.user?.address_one}`}
                   className={clsx(
@@ -308,28 +307,28 @@ export default async function ElectricalEngineer(props: Props) {
               <div className="flex flex-col w-[30px] ">
                 <PhoneIcon className="w-[18px] m-auto" />
               </div>
-              <div className="flex flex-col w-3/4">
+              <div className="flex flex-col w-full">
                 <a
                   href={`tel:${props?.user?.phone}`}
                   className={clsx(
                     props?.body_font || props?.resume?.body_font,
-                    "text-sm py-1"
+                    "text-sm py-1 pl-1"
                   )}
                 >
                   {props?.user?.phone}
                 </a>
               </div>
             </div>
-            <div className="flex flex-row">
+            <div className="flex flex-row justify-start">
               <div className="flex flex-col w-[30px] ">
                 <EnvelopeIcon className="w-[18px] m-auto" />
               </div>
-              <div className="flex flex-col w-3/4">
+              <div className="flex flex-col w-[85%]">
                 <a
                   href={`mailto:${props?.user?.email}`}
                   className={clsx(
                     props?.body_font || props?.resume?.body_font,
-                    "text-sm py-1"
+                    "text-sm truncate py-1 pl-1"
                   )}
                 >
                   {props?.user?.email}
@@ -357,7 +356,7 @@ export default async function ElectricalEngineer(props: Props) {
                           "text-sm py-1"
                         )}
                       >
-                        {props?.user?.linked_in}
+                        LinkedIn
                       </a>
                     </div>
                   </div>
@@ -380,7 +379,7 @@ export default async function ElectricalEngineer(props: Props) {
                           "text-sm py-1"
                         )}
                       >
-                        {props?.user?.facebook}
+                        Facebook
                       </a>
                     </div>
                   </div>
@@ -403,7 +402,7 @@ export default async function ElectricalEngineer(props: Props) {
                           "text-sm py-1"
                         )}
                       >
-                        {props?.user?.instagram}
+                        Instagram
                       </a>
                     </div>
                   </div>
@@ -426,7 +425,7 @@ export default async function ElectricalEngineer(props: Props) {
                           "text-sm py-1"
                         )}
                       >
-                        {props?.user?.twitter}
+                        Twitter
                       </a>
                     </div>
                   </div>
@@ -449,7 +448,7 @@ export default async function ElectricalEngineer(props: Props) {
                           "text-sm py-1"
                         )}
                       >
-                        {props?.user?.github}
+                        Github
                       </a>
                     </div>
                   </div>
@@ -467,7 +466,7 @@ export default async function ElectricalEngineer(props: Props) {
               <div className="flex flex-col pb-3 pt-2">
                 <h2
                   className={clsx(
-                    "font-bold",
+                    "font-bold pb-1",
                     props?.heading_font || props?.resume?.heading_font
                   )}
                 >
@@ -526,18 +525,19 @@ export default async function ElectricalEngineer(props: Props) {
               <div className="flex flex-col pb-3 pt-2">
                 <h2
                   className={clsx(
-                    "font-bold",
+                    "font-bold ",
                     props?.heading_font || props?.resume?.heading_font
                   )}
                 >
                   SKILLS
                 </h2>
-                <ul className="pt-2 flex flex-row flex-wrap gap-3">
+                <ul className="pt-2 flex flex-row flex-wrap gap-1">
                   {props?.skillResumeLines[0] &&
                     props?.skillResumeLines?.map((userSkill: UserSkill) => (
                       <li
                         className={clsx(
-                          `flex flex-col px-2 rounded py-[2px] border-[2px] border-[${props?.resume?.highlight_color}] text-[black]`
+                          "flex flex-col px-2 rounded py-[2px] border-[3px] text-[black]",
+                          `border-${props?.highlightColor || props?.resume?.highlight_color}`
                         )}
                         key={userSkill?.id}
                       >
@@ -565,7 +565,7 @@ export default async function ElectricalEngineer(props: Props) {
               <ul>
                 <h1
                   className={clsx(
-                    "font-bold",
+                    "font-bold ",
                     props?.heading_font || props?.resume?.heading_font
                   )}
                 >

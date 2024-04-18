@@ -79,7 +79,7 @@ export default async function ThreeDAnimator(props: Props) {
               fontWeight: "bold",
             }}
             className={clsx(
-              "pb-3",
+              "pb-3 pl-2",
               props?.heading_font || props?.resume?.heading_font
             )}
           >
@@ -87,7 +87,7 @@ export default async function ThreeDAnimator(props: Props) {
           </h1>
           <p
             className={clsx(
-              "text-[1rem]",
+              "text-[1rem] pl-2",
               props?.body_font || props?.resume?.body_font
             )}
           >
@@ -97,7 +97,7 @@ export default async function ThreeDAnimator(props: Props) {
       </div>
       <div className="flex flex-row pt-3">
         <div className="flex flex-col w-1/4 mr-8">
-          <div className="flex flex-col pb-3">
+          <div className="flex flex-col pb-1">
             <h2
               className={clsx(
                 "font-bold",
@@ -112,11 +112,11 @@ export default async function ThreeDAnimator(props: Props) {
                 " w-full h-[2px]"
               )}
             />
-            <div className="flex flex-row pt-4">
+            <div className="flex flex-row pt-2">
               <div className="flex flex-col w-[30px]">
-                <MapPinIcon className="w-[20px] m-auto" />
+                <MapPinIcon className="w-[25px] m-auto" />
               </div>
-              <div className="flex flex-col w-3/4">
+              <div className="flex flex-col w-auto">
                 <a
                   href={`https://www.google.com/search?q=${props?.user?.address_one}`}
                   className={clsx(
@@ -132,28 +132,28 @@ export default async function ThreeDAnimator(props: Props) {
               <div className="flex flex-col w-[30px] ">
                 <PhoneIcon className="w-[18px] m-auto" />
               </div>
-              <div className="flex flex-col w-3/4">
+              <div className="flex flex-col w-full">
                 <a
                   href={`tel:${props?.user?.phone}`}
                   className={clsx(
                     props?.body_font || props?.resume?.body_font,
-                    "text-sm py-1"
+                    "text-sm py-1 pl-1"
                   )}
                 >
                   {props?.user?.phone}
                 </a>
               </div>
             </div>
-            <div className="flex flex-row">
+            <div className="flex flex-row justify-start">
               <div className="flex flex-col w-[30px] ">
                 <EnvelopeIcon className="w-[18px] m-auto" />
               </div>
-              <div className="flex flex-col w-3/4">
+              <div className="flex flex-col w-[85%]">
                 <a
                   href={`mailto:${props?.user?.email}`}
                   className={clsx(
                     props?.body_font || props?.resume?.body_font,
-                    "text-sm py-1"
+                    "text-sm truncate py-1 pl-1"
                   )}
                 >
                   {props?.user?.email}
@@ -181,7 +181,7 @@ export default async function ThreeDAnimator(props: Props) {
                           "text-sm py-1"
                         )}
                       >
-                        {`${props?.user?.linked_in}`}
+                        LinkedIn
                       </a>
                     </div>
                   </div>
@@ -204,7 +204,7 @@ export default async function ThreeDAnimator(props: Props) {
                           "text-sm py-1"
                         )}
                       >
-                        {`${props?.user?.facebook}`}
+                        Facebook
                       </a>
                     </div>
                   </div>
@@ -227,7 +227,7 @@ export default async function ThreeDAnimator(props: Props) {
                           "text-sm py-1"
                         )}
                       >
-                        {`${props?.user?.instagram}`}
+                        Instagram
                       </a>
                     </div>
                   </div>
@@ -250,7 +250,7 @@ export default async function ThreeDAnimator(props: Props) {
                           "text-sm py-1"
                         )}
                       >
-                        {props?.user?.twitter}
+                        Twitter
                       </a>
                     </div>
                   </div>
@@ -273,7 +273,7 @@ export default async function ThreeDAnimator(props: Props) {
                           "text-sm py-1"
                         )}
                       >
-                        {props?.user?.github}
+                        Github
                       </a>
                     </div>
                   </div>
@@ -283,6 +283,7 @@ export default async function ThreeDAnimator(props: Props) {
               ""
             )}
           </div>
+
           {props?.show_skill_progress === "true" ||
           props?.resume?.show_skill_progress === "true" ? (
             props.show_skills_section === "true" ||
@@ -364,15 +365,16 @@ export default async function ThreeDAnimator(props: Props) {
                 <div
                   className={clsx(
                     props?.color || props?.resume?.color,
-                    " w-full h-[2px]"
+                    " w-full h-[3px]"
                   )}
                 />
-                <ul className="pt-4 flex flex-row flex-wrap gap-2">
+                <ul className="pt-3 flex flex-row flex-wrap gap-1">
                   {props?.skillResumeLines[0] &&
                     props?.skillResumeLines?.map((userSkill: UserSkill) => (
                       <li
                         className={clsx(
-                          `flex flex-col px-2 rounded py-[2px] border-[2px] border-[${props?.resume?.highlight_color}] text-[black]`
+                          "flex flex-col px-2 rounded py-[2px] border-[1px] text-[black]",
+                          `border-${props?.selectedResumeHighlightColor || props?.resume?.highlight_color}`
                         )}
                         key={userSkill?.id}
                       >
@@ -516,10 +518,10 @@ export default async function ThreeDAnimator(props: Props) {
             )}
           />
           <div className="flex flex-row"></div>{" "}
-          <ul className="px-3 py-2">
+          <ul className="pb-2">
             {props?.workResumeLines?.map(
               (userWorkExperience: UserWorkExperience) => (
-                <li className="list-disc py-2" key={userWorkExperience?.id}>
+                <li className="py-2" key={userWorkExperience?.id}>
                   <h2
                     className={clsx(
                       "font-bold",
@@ -530,7 +532,7 @@ export default async function ThreeDAnimator(props: Props) {
                   </h2>
                   <p
                     className={clsx(
-                      "text-[1rem]",
+                      "text-[0.85rem] font-lite",
                       props?.heading_font || props?.resume?.heading_font
                     )}
                   >
@@ -541,10 +543,10 @@ export default async function ThreeDAnimator(props: Props) {
                   </p>
                   {userWorkExperience?.description_one && (
                     <div className="flex flex-row justify-start">
-                      <div className="flex flex-col pr-3 pt-[10px]">
+                      <div className="flex flex-col pr-3 pt-[8px]">
                         <div
                           className={clsx(
-                            "h-[7px] w-[7px] rounded-full ",
+                            "h-[5px] w-[5px] rounded-full ",
                             props?.color || props?.resume?.color
                           )}
                         />
@@ -566,7 +568,7 @@ export default async function ThreeDAnimator(props: Props) {
                       <div className="flex flex-col pr-3 pt-[10px]">
                         <div
                           className={clsx(
-                            "h-[7px] w-[7px] rounded-full",
+                            "h-[5px] w-[5px] rounded-full",
                             props?.color || props?.resume?.color
                           )}
                         />
@@ -588,7 +590,7 @@ export default async function ThreeDAnimator(props: Props) {
                       <div className="flex flex-col pr-3 pt-[10px]">
                         <div
                           className={clsx(
-                            "h-[7px] w-[7px] rounded-full",
+                            "h-[5px] w-[5px] rounded-full",
                             props?.color || props?.resume?.color
                           )}
                         />
@@ -610,7 +612,7 @@ export default async function ThreeDAnimator(props: Props) {
                       <div className="flex flex-col pr-3 pt-[10px]">
                         <div
                           className={clsx(
-                            "h-[7px] w-[7px] rounded-full",
+                            "h-[5px] w-[5px] rounded-full",
 
                             props?.color || props?.resume?.color
                           )}

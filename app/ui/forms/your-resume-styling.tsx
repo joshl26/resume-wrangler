@@ -158,7 +158,7 @@ export default function YourResumeStyling({
                   key={color?.id}
                   id={color?.color}
                   onClick={(e: any) => {
-                    setSelectedResumeHighlightColor(color?.name);
+                    setSelectedResumeHighlightColor(color?.highlight_color);
                     setSelectedResumeColor(e?.target?.id);
                     onChangeHandler();
                   }}
