@@ -841,7 +841,7 @@ export async function updateUser(
   } = validatedFields.data;
 
   try {
-    const query = `UPDATE users SET name = '${name}', email = '${email}', first_name = '${first_name}', last_name = '${last_name}', address_one = '${address_line_one}', address_two = '${address_line_two}', address_three = '${address_line_three}', phone = '${phone}', website = '${website}' WHERE id = '${id}'`;
+    const query = `UPDATE users SET name = '${name}', email = '${email}', first_name = '${first_name}', last_name = '${last_name}', address_one = $$${address_line_one}$$, address_two = $$${address_line_two}$$, address_three = $$${address_line_three}$$, phone = '${phone}', website = '${website}' WHERE id = '${id}'`;
 
     const data = await conn.query(query);
 
@@ -891,7 +891,7 @@ export async function updateSocials(
   } = validatedFields.data;
 
   try {
-    const query = `UPDATE users SET linked_in = '${linked_in}', twitter = '${twitter}', facebook = '${facebook}', instagram = '${instagram}', github = '${github}' WHERE id = '${id}'`;
+    const query = `UPDATE users SET linked_in = $$${linked_in}$$, twitter = $$${twitter}$$, facebook = $$${facebook}$$, instagram = $$${instagram}$$, github = $$${github}$$ WHERE id = '${id}'`;
 
     const data = await conn.query(query);
 
@@ -969,7 +969,7 @@ export async function updateUserDetails(formData: FormData) {
   } = validatedFields.data;
 
   try {
-    const query = `UPDATE users SET first_name = '${first_name}', last_name = '${last_name}', address_one = '${address_one}', address_two = '${address_two}', address_three = '${address_three}', phone = '${phone}', website = '${website}' WHERE id = '${id}'`;
+    const query = `UPDATE users SET first_name = '${first_name}', last_name = '${last_name}', address_one = $$${address_one}$$, address_two = $$${address_two}$$, address_three = $$${address_three}$$, phone = '${phone}', website = '${website}' WHERE id = '${id}'`;
 
     const data = await conn.query(query);
   } catch (error) {
@@ -1012,9 +1012,9 @@ export async function updateApplication(formData: FormData) {
     let query: string;
 
     if (isComplete === "true") {
-      query = `UPDATE applications SET posting_text = '${postingText}', job_position = '${jobPosition}', posting_url = '${postingUrl}', analyzed_posting_text = '${analyzedPostingText}', company_id = '${companyId}', is_complete = '${isComplete}', date_submitted = 'now()' WHERE id = '${id}'`;
+      query = `UPDATE applications SET posting_text = $$${postingText}$$, job_position = $$${jobPosition}$$, posting_url = '${postingUrl}', analyzed_posting_text = $$${analyzedPostingText}$$, company_id = '${companyId}', is_complete = '${isComplete}', date_submitted = 'now()' WHERE id = '${id}'`;
     } else if (isComplete === "false") {
-      query = `UPDATE applications SET posting_text = '${postingText}', job_position = '${jobPosition}', posting_url = '${postingUrl}', analyzed_posting_text = '${analyzedPostingText}', company_id = '${companyId}', is_complete = '${isComplete}', date_submitted = NULL WHERE id = '${id}'`;
+      query = `UPDATE applications SET posting_text = $$${postingText}$$, job_position = $$${jobPosition}$$, posting_url = '${postingUrl}', analyzed_posting_text = $$${analyzedPostingText}$$, company_id = '${companyId}', is_complete = '${isComplete}', date_submitted = NULL WHERE id = '${id}'`;
     }
 
     const data = await conn.query(query);
@@ -1053,7 +1053,7 @@ export async function createApplication(formData: FormData) {
   } = validatedFields.data;
 
   try {
-    const query = `INSERT INTO applications (posting_text, job_position, posting_url, analyzed_posting_text, company_id, user_id) VALUES ('${postingText}', '${jobPosition}', '${postingUrl}', '${analyzedPostingText}', '${companyId}', '${id}')`;
+    const query = `INSERT INTO applications (posting_text, job_position, posting_url, analyzed_posting_text, company_id, user_id) VALUES ($$${postingText}$$, $$${jobPosition}$$, '${postingUrl}', $$${analyzedPostingText}$$, '${companyId}', '${id}')`;
 
     const data = await conn.query(query);
   } catch (error) {
@@ -1110,7 +1110,7 @@ export async function updateCompany(formData: FormData) {
   } = validatedFields.data;
 
   try {
-    const query = `UPDATE companies SET name = '${name}', address_one = '${addressOne}', address_two = '${addressTwo}', recipient_title = '${recipientTitle}', email = '${email}', phone = '${phone}', website_url = '${website}' WHERE id = '${id}'`;
+    const query = `UPDATE companies SET name = $$${name}$$, address_one = $$${addressOne}$$, address_two = $$${addressTwo}$$, recipient_title = $$${recipientTitle}$$, email = '${email}', phone = '${phone}', website_url = '${website}' WHERE id = '${id}'`;
 
     const data = await conn.query(query);
   } catch (error) {
@@ -1152,7 +1152,7 @@ export async function createCompany(formData: FormData) {
   } = validatedFields.data;
 
   try {
-    const query = `INSERT INTO companies (name, address_one, address_two, recipient_title, email, phone, website_url , user_id) VALUES ('${name}', '${addressOne}', '${addressTwo}', '${recipientTitle}', '${email}', '${phone}', '${website}', '${id}')`;
+    const query = `INSERT INTO companies (name, address_one, address_two, recipient_title, email, phone, website_url , user_id) VALUES ($$${name}$$, $$${addressOne}$$, $$${addressTwo}$$, $$${recipientTitle}$$, '${email}', '${phone}', '${website}', '${id}')`;
 
     const data = await conn.query(query);
   } catch (error) {
@@ -1295,7 +1295,7 @@ export async function updateYourResumeStyle(formData: FormData) {
   } = validatedFields.data;
 
   try {
-    const query = `UPDATE resumes SET title = '${resume_title}', template = '${resume_template}', color = '${color}', highlight_color = '${highlight_color}', heading_font = '${header_font}', body_font = '${body_font}', description = '${description}' WHERE id = '${resume_id}'`;
+    const query = `UPDATE resumes SET title = $$${resume_title}$$, template = '${resume_template}', color = '${color}', highlight_color = '${highlight_color}', heading_font = '${header_font}', body_font = '${body_font}', description = $$${description}$$ WHERE id = '${resume_id}'`;
 
     const data = await conn.query(query);
   } catch (error) {
@@ -1347,7 +1347,7 @@ export async function updateYourCoverLetterStyle(formData: FormData) {
   } = validatedFields.data;
 
   try {
-    const query = `UPDATE cover_letters SET recipient_title = '${recipient_title}', intro_text_start = '${intro_text_start}', intro_text_end = '${intro_text_end}', conclusion_text = '${conclusion_text}', salutation_text = '${salutation_text}', template = '${cover_template}', color = '${color}', highlight_color = '${highlight_color}', heading_font = '${header_font}', body_font = '${body_font}'  WHERE id = '${cover_id}'`;
+    const query = `UPDATE cover_letters SET recipient_title = $$${recipient_title}$$, intro_text_start = $$${intro_text_start}$$, intro_text_end = $$${intro_text_end}$$, conclusion_text = $$${conclusion_text}$$, salutation_text = $$${salutation_text}$$, template = '${cover_template}', color = '${color}', highlight_color = '${highlight_color}', heading_font = '${header_font}', body_font = '${body_font}'  WHERE id = '${cover_id}'`;
 
     const data = await conn.query(query);
   } catch (error) {
@@ -1377,7 +1377,7 @@ export async function updateUserSkill(formData: FormData) {
     validatedFields.data;
 
   try {
-    const query = `UPDATE user_skills SET skill = '${skill_name}', skill_level = '${skill_level}' WHERE id = '${skill_id}'`;
+    const query = `UPDATE user_skills SET skill = $$${skill_name}$$, skill_level = '${skill_level}' WHERE id = '${skill_id}'`;
 
     const data = await conn.query(query);
   } catch (error) {
@@ -1410,7 +1410,7 @@ export async function createUserSkill(formData: FormData) {
   const { skill_title, skill_level, user_id, resume_id } = validatedFields.data;
 
   try {
-    const query = `INSERT INTO user_skills (skill, skill_level, user_id) VALUES ('${skill_title}', '${skill_level}', '${user_id}')`;
+    const query = `INSERT INTO user_skills (skill, skill_level, user_id) VALUES ($$${skill_title}$$, '${skill_level}', '${user_id}')`;
     const data = await conn.query(query);
   } catch (error) {
     return { message: `Database Error: Failed to Update Invoice. ${error}` };
@@ -1487,7 +1487,7 @@ export async function createUserEducation(formData: FormData) {
   } = validatedFields.data;
 
   try {
-    const query = `INSERT INTO user_education (user_id, institution_name, location, start_date, end_date, grade, program, url) VALUES ('${user_id}', '${institution_name}', '${location}', '${start_date}' , '${end_date}' , '${grade}' , '${program}' , '${url}')`;
+    const query = `INSERT INTO user_education (user_id, institution_name, location, start_date, end_date, grade, program, url) VALUES ('${user_id}', $$${institution_name}$$, $$${location}$$, $$${start_date}$$ , $$${end_date}$$ , $$${grade}$$ , $$${program}$$ , '${url}')`;
     const data = await conn.query(query);
   } catch (error) {
     return { message: `Database Error: Failed to Update Invoice. ${error}` };
@@ -1562,11 +1562,11 @@ export async function createOrganization(formData: FormData) {
   } = validatedFields.data;
 
   try {
-    const query = `INSERT INTO user_custom_section_one (user_id, name, location, start_date, end_date, description) VALUES ('${user_id}', '${organization_name}', '${organization_location}', '${organization_start}' , '${organization_end}' , '${organization_description}' )`;
+    const query = `INSERT INTO user_custom_section_one (user_id, name, location, start_date, end_date, description) VALUES ('${user_id}', $$${organization_name}$$, $$${organization_location}$$, $$${organization_start}$$ , $$${organization_end}$$ , $$${organization_description}$$ )`;
     const data = await conn.query(query);
 
     if (section_title !== "blank") {
-      const query2 = `UPDATE resumes SET custom_section_one_name = '${section_title}' WHERE id = '${resume_id}'`;
+      const query2 = `UPDATE resumes SET custom_section_one_name = $$${section_title}$$ WHERE id = '${resume_id}'`;
       const data2 = await conn.query(query2);
     }
   } catch (error) {
@@ -1664,11 +1664,11 @@ export async function createCertification(formData: FormData) {
     resume_id,
   } = validatedFields.data;
   try {
-    const query = `INSERT INTO user_custom_section_two (user_id, name, location) VALUES ('${user_id}', '${certification_name}', '${certification_location}' )`;
+    const query = `INSERT INTO user_custom_section_two (user_id, name, location) VALUES ('${user_id}', $$${certification_name}$$, $$${certification_location}$$ )`;
     const data = await conn.query(query);
 
     if (section_title !== "blank") {
-      const query2 = `UPDATE resumes SET custom_section_two_name = '${section_title}' WHERE id = '${resume_id}'`;
+      const query2 = `UPDATE resumes SET custom_section_two_name = $$${section_title}$$ WHERE id = '${resume_id}'`;
       const data2 = await conn.query(query2);
     }
   } catch (error) {
@@ -1747,7 +1747,7 @@ export async function createWorkExperience(formData: FormData) {
     description_four,
   } = validatedFields.data;
   try {
-    const query = `INSERT INTO user_work_experience (job_title, company_name, user_id, location, start_date, end_date, description_one, description_two, description_three, description_four) VALUES ('${job_title}', '${company_name}', '${user_id}', '${location}', '${start_date}', '${end_date}', '${description_one}', '${description_two}', '${description_three}', '${description_four}') `;
+    const query = `INSERT INTO user_work_experience (job_title, company_name, user_id, location, start_date, end_date, description_one, description_two, description_three, description_four) VALUES ($$${job_title}$$, $$${company_name}$$, '${user_id}', $$${location}$$, $$${start_date}$$, $$${end_date}$$, $$${description_one}$$, $$${description_two}$$, $$${description_three}$$, $$${description_four}$$) `;
     const data = await conn.query(query);
   } catch (error) {
     return { message: `Database Error: Failed to Delete user skill. ${error}` };
@@ -1817,12 +1817,7 @@ export async function deleteUserImage(formData: FormData) {
   const imageUrl = formData.get("image-url") as string;
   const userId = formData.get("user-id") as string;
 
-  // console.log(formData);
-  // console.log(imageUrl);
-
   const publicId = extractPublicId(imageUrl);
-
-  // console.log(publicId);
 
   if (publicId) {
     const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME as string;
@@ -1906,7 +1901,7 @@ export async function updateUserWorkExperience(formData: FormData) {
   } = validatedFields.data;
 
   try {
-    const query = `UPDATE user_work_experience SET company_name = '${company_name}', job_title = '${job_title}', location = '${location}', start_date = '${start_date}', end_date = '${end_date}', description_one = '${description_one}', description_two = '${description_two}', description_three = '${description_three}', description_four = '${description_four}' WHERE id = '${experience_id}'`;
+    const query = `UPDATE user_work_experience SET company_name = $$${company_name}$$, job_title = $$${job_title}$$, location = $$${location}$$, start_date = $$${start_date}$$, end_date = $$${end_date}$$, description_one = $$${description_one}$$, description_two = $$${description_two}$$, description_three = $$${description_three}$$, description_four = $$${description_four}$$ WHERE id = '${experience_id}'`;
 
     const data = await conn.query(query);
   } catch (error) {
@@ -1949,7 +1944,7 @@ export async function updateUserEducation(formData: FormData) {
     url,
   } = validatedFields.data;
   try {
-    const query = `UPDATE user_education SET institution_name = '${institution_name}', location = '${location}', start_date = '${start_date}', end_date = '${end_date}', grade = '${grade}', program = '${program}', url = '${url}' WHERE id = '${education_id}'`;
+    const query = `UPDATE user_education SET institution_name = $$${institution_name}$$, location = $$${location}$$, start_date = $$${start_date}$$, end_date = $$${end_date}$$, grade = $$${grade}$$, program = $$${program}$$, url = '${url}' WHERE id = '${education_id}'`;
 
     const data = await conn.query(query);
   } catch (error) {
@@ -2107,7 +2102,7 @@ export async function updateUserOrganization(formData: FormData) {
   } = validatedFields.data;
 
   try {
-    const query = `UPDATE user_custom_section_one SET name = '${organization_name}', location = '${organization_location}', start_date = '${organization_start}', end_date = '${organization_end}', description = '${organization_description}' WHERE id = '${organization_id}'`;
+    const query = `UPDATE user_custom_section_one SET name = $$${organization_name}$$, location = $$${organization_location}$$, start_date = $$${organization_start}$$, end_date = $$${organization_end}$$, description = $$${organization_description}$$ WHERE id = '${organization_id}'`;
     const data = await conn.query(query);
   } catch (error) {
     return { message: `Database Error: Failed to Update Invoice. ${error}` };
@@ -2138,7 +2133,7 @@ export async function updateOrganizationSectionTitle(formData: FormData) {
   const { user_id, resume_id, section_title } = validatedFields.data;
 
   try {
-    const query = `UPDATE resumes SET custom_section_one_name = '${section_title}' WHERE id = '${resume_id}'`;
+    const query = `UPDATE resumes SET custom_section_one_name = $$${section_title}$$ WHERE id = '${resume_id}'`;
     const data = await conn.query(query);
   } catch (error) {
     return { message: `Database Error: Failed to Update Invoice. ${error}` };
@@ -2163,7 +2158,7 @@ export async function updateCertificationSectionTitle(formData: FormData) {
   const { user_id, resume_id, section_title } = validatedFields.data;
 
   try {
-    const query = `UPDATE resumes SET custom_section_two_name = '${section_title}' WHERE id = '${resume_id}'`;
+    const query = `UPDATE resumes SET custom_section_two_name = $$${section_title}$$ WHERE id = '${resume_id}'`;
     const data = await conn.query(query);
   } catch (error) {
     return { message: `Database Error: Failed to Update Invoice. ${error}` };
@@ -2195,7 +2190,7 @@ export async function updateUserCertfication(formData: FormData) {
   } = validatedFields.data;
 
   try {
-    const query = `UPDATE user_custom_section_two SET name = '${certification_name}', location = '${certification_location}' WHERE id = '${certification_id}'`;
+    const query = `UPDATE user_custom_section_two SET name = $$${certification_name}$$, location = $$${certification_location}$$ WHERE id = $$${certification_id}$$`;
     const data = await conn.query(query);
   } catch (error) {
     return { message: `Database Error: Failed to Update Invoice. ${error}` };
@@ -2570,7 +2565,7 @@ export async function updateCoverExperience(formData: FormData) {
   const { experience_id, user_id, title, description } = validatedFields.data;
 
   try {
-    const query = `UPDATE cover_experiences SET title = '${title}', description = '${description}' WHERE id = '${experience_id}' AND user_id = '${user_id}'`;
+    const query = `UPDATE cover_experiences SET title = $$${title}$$, description = $$${description}$$ WHERE id = '${experience_id}' AND user_id = '${user_id}'`;
 
     const data = await conn.query(query);
   } catch (error) {
@@ -2623,7 +2618,7 @@ export async function createCoverExperience(formData: FormData) {
   const { user_id, title, description } = validatedFields.data;
 
   try {
-    const query = `INSERT INTO cover_experiences (user_id, title, description) VALUES ('${user_id}', '${title}', '${description}') `;
+    const query = `INSERT INTO cover_experiences (user_id, title, description) VALUES ('${user_id}', $$${title}$$, $$${description}$$) `;
     const data = await conn.query(query);
   } catch (error) {
     return { message: `Database Error: Failed to Delete user skill. ${error}` };
