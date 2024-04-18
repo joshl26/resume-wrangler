@@ -1,11 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { useState } from "react";
 
 import Landing from "../landing/page";
-import { Target } from "puppeteer-core";
 
 const searchProviders = [
   {
@@ -107,7 +105,7 @@ export default function Page() {
             placeholder="e.g. Software Engineer"
           ></input>
           <div className="border-b-2 border-black h-4 w-full"></div>
-          {searchProviders.map((provider) =>
+          {searchProviders?.map((provider) =>
             jobTitle ? (
               <div
                 key={provider.id}
