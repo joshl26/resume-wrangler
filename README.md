@@ -1,23 +1,18 @@
-## Resume Wrangler
+# Resume Wrangler Documentation
 
-![example workflow](https://github.com/joshl26/resume-wrangler/actions/workflows/playwright.yml/badge.svg)
-
-**THIS IS A WORK IN PROGRESS**
-
-<div>
+<img alt="" src="https://github.com/joshl26/resume-wrangler/actions/workflows/playwright.yml/badge.svg" />
   <img alt="Version" src="https://img.shields.io/badge/version-0.0.9-blue.svg?cacheSeconds=2592000" />
   <img alt="NextJS" src="https://img.shields.io/badge/next-%3E%3D14.0.0-blue.svg" />
   <img alt="ReactJS" src="https://img.shields.io/badge/react-%3E%3D18.0.0-blue.svg" />
-  <a href="https://github.com/joshl26/resume-wrangler#readme" target="_blank">
-    <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
-  </a>
+  <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
   <a href="https://github.com/joshl26/resume-wrangler/graphs/commit-activity" target="_blank">
     <img alt="Maintenance" src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" />
   </a>
   <a href="https://github.com/joshl26/resume-wrangler/blob/master/LICENSE" target="_blank">
     <img alt="License: MIT" src="https://img.shields.io/github/license/joshl26/resume-wrangler" />
   </a>
-</div>
+  
+<br/>
 
 ![NextJS](https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
@@ -26,18 +21,14 @@
 ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
 ![Jest](https://img.shields.io/badge/-jest-%23C21325?style=for-the-badge&logo=jest&logoColor=white)
 
+![Home page image](https://raw.githubusercontent.com/joshl26/joshl26/main/assets/Resume_Wrangler_Landing_Page_1.png)
 
-
-# Electronics Inventory README Documentation
-
-![Home page image](https://raw.githubusercontent.com/joshl26/joshl26/main/assets/Laptop_el-in.png)
-
-**Table Of Contents**
+## Table Of Contents
 
 - [Introduction](#introduction)
 - [Live Demo](#live-demo)
 - [Code Repositories](#code-repositories)
-- [API Documentaion](#api-documentation)
+<!-- - [API Documentaion](#api-documentation)
 - [Functionalities](#functionalities)
 - [Technologies Utilized](#technologies-utilized)
 - [Project Setup](#project-setup)
@@ -49,8 +40,8 @@
 - [Usage - New Part](#usage-new-part)
 - [Usage - Edit Part](#usage-edit-part)
 - [Usage - Users List](#usage-users-list)
-- [Usage - New User](#usage-new-user)
-- [Usage - Edit User](#usage-edit-user)
+- [Usage - New User](#usage-new-user) -->
+<!-- - [Usage - Edit User](#usage-edit-user)
 - [Usage - Notes List](#usage-notes-list)
 - [Usage - New Note](#usage-new-note)
 - [Usage - Edit Note](#usage-edit-note)
@@ -60,55 +51,45 @@
 - [Author](#author)
 - [Social Links](#social)
 - [Contributions](#contributions)
-- [License](#license)
+- [License](#license) -->
 
 If you would like to see my progress throughout the development of this application, please take a look at my posts on LinkedIn: [here](https://www.linkedin.com/in/joshrlehman/).
 
-<a name="introduction"></a>
-
 ## Introduction
 
-Electronics Inventory is a cutting-edge SAAS webapp that efficiently organizes electronic lab inventory for both small businesses and individuals with ease. With its user-friendly interface, you can effortlessly keep track of thousands of small components and have complete command over your inventory from anywhere in the world. To take advantage of this revolutionary app, you must have an account.
+The Resume Wrangler is an innovative platform that aims to simplify the job application process. We offer cutting-edge technological solutions that enhance the user experience and help them navigate the job search with ease.
 
-Electronics inventory software is the best way to keep track of stock and ensure that your business has the right items in the right amounts.
+We take pride in our Artificial Intelligence (AI)-powered software that scans resumes using an in-house ATS scanner. Additionally, we leverage open-source language grammar and spellchecking to further enhance our software's accuracy. We'll share more about this in future updates.
 
-It can provide you with real-time data on current stock levels and allow you to quickly and accurately reorder items when necessary.
+Our platform offers two tiers of registered users:
 
-It can also allow you to track and trace items from the moment they enter your inventory until the moment they are sold, providing you with an unprecedented level of visibility and control over your inventory.
+- Basic user: This is a free membership tier that allows users to explore the platform and create customized cover letters and resumes. Currently, there are no download limits. However, in the future, basic users will be able to download a maximum of 5 PDFs per day.
 
-Finally, electronics inventory software can help you easily manage pricing, discounts, returns, and other aspects of inventory management.
+- Pro user: For a small signup fee of $5, users can upgrade to this tier and enjoy additional benefits. Users with Pro access can download up to 100 full-colour PDF vector graphics per day, complete with clickable links, customizable colours, and user images if desired. Users with Pro will also have access to a wider range of pre-made cover letter and resume templates to choose from.
 
-I am proud to say that I created this project from scratch as a capstone project for my career change into Software Engineering.
-
-<a name="live-demo"></a>
+_____ THIS IS A WORK IN PROGRESS _____
 
 ## Live Demo
 
-- [Live Demo](https://el-in.ca)
-
-<a name="code-repositories"></a>
+- [Live Demo](https://resume-wrangler.vercel.app/)
 
 ## Code Repositories
 
-- [Electronics Inventory Frontend (Client) Code](https://github.com/joshl26/electronics-inventory-frontend)
+- [Resume Wrangler Code](https://github.com/joshl26/resume-wrangler)
 
-- [Electronics Inventory Backend (Server) Code](https://github.com/joshl26/electronics-inventory-backend)
+<!-- ## API Documentation
 
-<a name="api-documentation"></a>
-
-## API Documentation
-
-- [Live API Documentation](https://electronics-inventory-server.onrender.com/api-docs/)
+- [Live API Documentation](https://resume-wrangler.vercel.app/api-docs/) -->
 
 <a name="functionalities"></a>
 
-## Functionalities
+<!-- ## Functionalities
 
-- The user will have to login to edit the inventory details.
+- The user will have to log in to edit the resume details.
 
-- The user can only edit/delete the inventory that they have access too.
+- The user can only edit/delete the resume that they have access too.
 
-- All the data will pe persistent and is stored in the amazon cloud.
+- All the data will be persistent and is stored in the Amazon cloud.
 
 <a name="technologies-utilized"></a>
 
@@ -126,9 +107,9 @@ I am proud to say that I created this project from scratch as a capstone project
 
 - Joi - Used for schema description and data validation.
 
-- Swagger-UI/JSDOC - Powerful UI interface for documenting, testing and displaying API endpoints.
+- Swagger-UI/JS DOC - Powerful UI interface for documenting, testing and displaying API endpoints.
 
-- UMLs - Unified Modeling Language diagrams which illustrate the sequence of events between objects within this app.
+- Unified Modeling Language - Diagrams which illustrate the sequence of events between objects within this app.
 
 - REST - REST (REpresentational State Transfer) is an architectural style for developing web services.
 
@@ -140,13 +121,13 @@ I am proud to say that I created this project from scratch as a capstone project
 
 - Render - Cloud platform as a service used as a web application deployment model.
 
-- AWS - Mongodb is hosted on Amazon ec2 instance.
+- AWS - MongoDB is hosted on Amazon ec2 instance.
 
 <a name="project-setup"></a>
 
 ## Project Setup
 
-Electronics inventory uses Javascript so you will need node.js installed to run this application, which includes downloading its dependencies. If you don't have node installed you can get that [here](https://nodejs.org/en/).
+Electronics inventory uses JavaScript, so you will need node.js installed to run this application, which includes downloading its dependencies. If you don't have node installed you can get that [here](https://nodejs.org/en/).
 
 You will also need `git` installed on your computer. You can download it [here](https://git-scm.com/downloads).
 
@@ -188,9 +169,9 @@ and you will have the development version of the backend (server) application ru
 
 `localhost:3500`
 
-You will also need to setup a few environmental constants with a .env file like this:
+You will also need to set up a few environmental constants with a .env file like this:
 
-```
+```text
 NODE_ENV=development
 DATABASE_URI=mongoURI
 ACCESS_TOKEN_SECRET=accessTokenSecret
@@ -202,15 +183,15 @@ CLIENT_URL = http://localhost:3000/
 SERVER_URL= http://localhost:3500/
 ```
 
-and then modify your "/config/allowedOrigins.js" file to suit your particular requirements.
+Next modify your "/config/allowedOrigins.js" file to suit your particular requirements.
 
 <a name="folder-structure"></a>
 
 ## Folder Structure
 
-**Backend (Server) File Structure**
+### Backend (Server) File Structure
 
-```
+```text
 /electronics-inventory-backend
     /config
         /allowedOrigins.js
@@ -252,11 +233,11 @@ Models are responsible for managing data and business rules within an applicatio
 
 Views are responsible for displaying output to the user interface as HTML pages, written using EJS (Embedded JavaScript).
 
-Controllers are responsible for coordinating models and views by responding to user input and making changes to data when required. It acts as a bridge between view layer (user interface) and model layer(data access layer). Controllers also contain request handlers that interpret requests coming from users via URLs/HTTP methods such as GET/POST.
+Controllers are responsible for coordinating models and views by responding to user input and making changes to data when required. It acts as a bridge between view layer (user interface) and model layer (data access layer). Controllers also contain request handlers that interpret requests coming from users via URLs/HTTP methods such as GET/POST.
 
-**Client (Frontend) Side Layout**
+## Client (Frontend) Side Layout
 
-```
+```text
 /electronics-inventory-frontend
     /app
         /api
@@ -428,7 +409,7 @@ Above is an example of the payload that is sent upon making a `POST` request to 
 }
 ```
 
-Above is an example of the payload that is sent upon making a `POST` request to the /notes route effectively creating a new note in the DB by utilizing the createNewNote controller.
+An example of the payload (seen above) that is sent upon making a `POST` request to the /notes route effectively creating a new note in the DB by utilizing the createNewNote controller.
 
 <a name="usage-home-page"></a>
 
@@ -436,7 +417,7 @@ Above is an example of the payload that is sent upon making a `POST` request to 
 
 ![Home Page Image](https://raw.githubusercontent.com/joshl26/joshl26/main/assets/Laptop_el-in_1.png)
 
-This is the home page of the electronics inventory system dashboard. Clicking any of the links on the lefthand sidebar will take you to their respective page.
+This is the home page of the electronics inventory system dashboard. Clicking any of the links on the left-hand sidebar will take you to their respective page.
 
 <a name="usage-parts-list"></a>
 
@@ -445,7 +426,7 @@ This is the home page of the electronics inventory system dashboard. Clicking an
 **Parts List Page**
 ![Partslist Page Image](https://raw.githubusercontent.com/joshl26/joshl26/main/assets/Laptop_el-in.png)
 
-While in the inventory page tab, you will be met with your entire electronics inventory in table form. Clicking on a part row in table will open up a new window displaying all of the current information regarding that specific part.
+While in the inventory page tab, you will be met with your entire electronics inventory in table form. Clicking on a part row in table will open up a new window displaying all the current information regarding that specific part.
 
 <a name="usage-new-part"></a>
 
@@ -468,4 +449,4 @@ While in the inventory page tab, you will be met with your entire electronics in
 **Users List Page**
 ![Userslist Page Image](https://raw.githubusercontent.com/joshl26/joshl26/main/assets/Laptop_el-in.png)
 
-<a name="usage-new-user"></a>
+<a name="usage-new-user"></a> -->
