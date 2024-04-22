@@ -123,6 +123,8 @@ This project demonstrates more than just programming proficiency; it showcases g
 
 ![Public Landing Page Five](https://raw.githubusercontent.com/joshl26/joshl26/main/assets/Resume_Wrangler_Landing_Page_5.png)
 
+<br/>
+
 > User Login
 
 ![User Login](https://raw.githubusercontent.com/joshl26/joshl26/main/assets/Resume_Wrangler_Login_Page_1.png)
@@ -162,5 +164,3 @@ This project demonstrates more than just programming proficiency; it showcases g
 > User Profile
 
 ![User Profile](https://raw.githubusercontent.com/joshl26/joshl26/main/assets/Resume_Wrangler_User_Profile_Page_1.png)
-
-<br/>
