@@ -25,17 +25,25 @@
 
 ![Home page image](https://raw.githubusercontent.com/joshl26/joshl26/main/assets/Resume_Wrangler_Landing_Page_1.png)
 
+![User Dashboard](https://raw.githubusercontent.com/joshl26/joshl26/main/assets/Resume_Wrangler_Dashboard_Page_1.png)
+
+![Resume Styling](https://raw.githubusercontent.com/joshl26/joshl26/main/assets/Resume_Wrangler_Resume_Styling_Page_1.png)
+
 ## Table Of Contents
 
+- [Live Demo](#live-demo)
 - [Introduction](#introduction)
 - [Key Features](#key-features)
 - [Tools and Technologies Used](#tools--technologies-used)
 - [Challenges Overcome](#challenges-overcome)
 - [Conclusion](#conclusion)
-- [Live Demo](#live-demo)
-- [Code Repositories](#code-repositories)
+- [Screenshots](#screenshots)
 
-If you would like to see my progress throughout the development of this application, please take a look at my posts on LinkedIn: [here](https://www.linkedin.com/in/joshrlehman/).
+If you would like to see my progress throughout the development of this application, please take a look at my posts on LinkedIn by searching for the hashtag: #resumewrangler.
+
+## Live Demo
+
+- [Live Demo](https://resume-wrangler.vercel.app/)
 
 ## Introduction
 
@@ -85,10 +93,74 @@ I successfully addressed these challenges by utilizing sophisticated algorithmic
 
 This project demonstrates more than just programming proficiency; it showcases genuine foresight into future recruitment trends. It offers practical solutions that set me apart as a forward-thinking developer ready to tackle contemporary challenges in software development-related sectors with end-to-end solutions that address real-world problems.
 
-## Live Demo
+## Screenshots
 
-- [Live Demo](https://resume-wrangler.vercel.app/)
+> Public Landing Page One
 
-## Code Repositories
+![Public Landing Page One](https://raw.githubusercontent.com/joshl26/joshl26/main/assets/Resume_Wrangler_Landing_Page_1.png)
 
-- [Resume Wrangler Code](https://github.com/joshl26/resume-wrangler)
+<br/>
+
+> Public Landing Page Two
+
+![Public Landing Page Two](https://raw.githubusercontent.com/joshl26/joshl26/main/assets/Resume_Wrangler_Landing_Page_2.png)
+
+<br/>
+
+> Public Landing Page Three
+
+![Public Landing Page Three](https://raw.githubusercontent.com/joshl26/joshl26/main/assets/Resume_Wrangler_Landing_Page_3.png)
+
+<br/>
+
+> Public Landing Page Four
+
+![Public Landing Page Four](https://raw.githubusercontent.com/joshl26/joshl26/main/assets/Resume_Wrangler_Landing_Page_4.png)
+
+<br/>
+
+> Public Landing Page Five
+
+![Public Landing Page Five](https://raw.githubusercontent.com/joshl26/joshl26/main/assets/Resume_Wrangler_Landing_Page_5.png)
+
+> User Login
+
+![User Login](https://raw.githubusercontent.com/joshl26/joshl26/main/assets/Resume_Wrangler_Login_Page_1.png)
+
+<br/>
+
+> New User Register
+
+![New User Register](https://raw.githubusercontent.com/joshl26/joshl26/main/assets/Resume_Wrangler_Register_Page_1.png)
+
+<br/>
+
+> User Dashboard
+
+![User Dashboard](https://raw.githubusercontent.com/joshl26/joshl26/main/assets/Resume_Wrangler_Dashboard_Page_1.png)
+
+<br/>
+
+> Resume Styling
+
+![Resume Styling](https://raw.githubusercontent.com/joshl26/joshl26/main/assets/Resume_Wrangler_Resume_Styling_Page_1.png)
+
+<br/>
+
+> Resume Preview
+
+![Resume Preview](https://raw.githubusercontent.com/joshl26/joshl26/main/assets/Resume_Wrangler_Resume_Preview_Page_1.png)
+
+<br/>
+
+> User Education
+
+![User Education](https://raw.githubusercontent.com/joshl26/joshl26/main/assets/Resume_Wrangler_Education_Page_1.png)
+
+<br/>
+
+> User Profile
+
+![User Profile](https://raw.githubusercontent.com/joshl26/joshl26/main/assets/Resume_Wrangler_User_Profile_Page_1.png)
+
+<br/>
