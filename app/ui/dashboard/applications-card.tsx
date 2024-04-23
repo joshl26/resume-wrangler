@@ -95,8 +95,8 @@ const ApplicationsCard = ({ applications }: { applications: Applications }) => {
           </div>
         </button>
       </div>
-      <div className="overflow-y-auto h-[500px]">
-        <ul>
+      <div className="overflow-y-scroll h-[190px]">
+        <ul className="">
           {filteredApplications.map((application: Application) => (
             <li key={application?.id}>
               <Link href={"/dashboard/applications"}>

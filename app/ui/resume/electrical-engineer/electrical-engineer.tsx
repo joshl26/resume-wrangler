@@ -536,7 +536,7 @@ export default async function ElectricalEngineer(props: Props) {
                     props?.skillResumeLines?.map((userSkill: UserSkill) => (
                       <li
                         className={clsx(
-                          "flex flex-col px-2 rounded py-[2px] border-[3px] text-[black]",
+                          "flex flex-col px-2 rounded py-[2px] border-[1.5px] text-[black]",
                           `border-${props?.highlightColor || props?.resume?.highlight_color}`
                         )}
                         key={userSkill?.id}

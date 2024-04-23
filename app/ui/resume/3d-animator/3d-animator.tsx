@@ -464,20 +464,26 @@ export default async function ThreeDAnimator(props: Props) {
               <div className="flex flex-col">
                 <h2
                   className={clsx(
-                    "font-bold ",
+                    "font-bold",
                     props?.heading_font || props?.resume?.heading_font
                   )}
                 >
                   {props?.resume?.custom_section_two_name}
                 </h2>
+                <div
+                  className={clsx(
+                    props?.color || props?.resume?.color,
+                    "w-full h-[2.5px]"
+                  )}
+                />
                 <ul>
                   {props?.certificationResumeLines?.map(
                     (userCertification: UserCertification) => (
                       <li className="flex flex-col" key={userCertification?.id}>
                         <p
                           className={clsx(
-                            "text-sm font-bold pt-2",
-                            props?.body_font || props?.resume?.body_font
+                            "text-sm font-medium pt-2",
+                            props?.heading_font || props?.resume?.heading_font
                           )}
                         >
                           {userCertification?.name}
