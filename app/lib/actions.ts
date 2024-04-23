@@ -1064,9 +1064,11 @@ export async function createApplication(formData: FormData) {
   redirect("/dashboard/applications");
 }
 
-export async function deleteApplication(id: string) {
+export async function deleteApplication(formData: FormData) {
+  const application_id = formData.get("application_id");
+
   try {
-    const query = `DELETE FROM applications WHERE id = ${id}`;
+    const query = `DELETE FROM applications WHERE id = '${application_id}'`;
 
     const data = await conn.query(query);
   } catch (error) {
@@ -1179,9 +1181,13 @@ export async function deleteCompany(id: string) {
   }
 }
 
-export async function deleteCoverLetter(id: string) {
+export async function deleteCoverLetter(formData: FormData) {
+  
+  const cover_letter_id = formData.get("cover_letter_id");
+
+  
   try {
-    const query = `DELETE FROM cover_letters WHERE id = ${id}`;
+    const query = `DELETE FROM cover_letters WHERE id = ${cover_letter_id}`;
 
     const data = await conn.query(query);
   } catch (error) {
@@ -1222,9 +1228,11 @@ export async function createCoverLetter(formData: FormData) {
   }
 }
 
-export async function deleteResume(id: string) {
+export async function deleteResume(formData: FormData) {
+  const resume_id = formData.get("resume_id");
+
   try {
-    const query = `DELETE FROM resumes WHERE id = ${id}`;
+    const query = `DELETE FROM resumes WHERE id = '${resume_id}'`;
     const data = await conn.query(query);
   } catch (error) {
     return {

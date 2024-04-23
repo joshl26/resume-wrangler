@@ -11,6 +11,7 @@ import { auth } from "@/auth";
 import React from "react";
 import { notFound } from "next/navigation";
 import BackButton from "@/app/ui/back-button";
+import Search from "@/app/ui/search";
 
 export default async function Page() {
   const session = await auth();
@@ -44,11 +45,18 @@ export default async function Page() {
           <h1 className="text-[2rem] font-bold py-1">Applications</h1>
         </div>
         <div className="flex flex-col px-4">
-          <Button className="btn btn-amber tight-shadow hover:animate-pulse">
-            <a href="/dashboard/applications/new" className="m-auto">
-              Add New Application
-            </a>
-          </Button>
+          <div className="flex flex-row gap-x-3 h-auto ">
+            <div className="flex flex-col w-1/2 m-auto  ">
+              <Search placeholder="Search invoices..." />
+            </div>
+            <div className="flex flex-col w-1/2 m-auto">
+              <Button className="btn btn-amber tight-shadow hover:animate-pulse">
+                <a href="/dashboard/applications/new" className="m-auto">
+                  Add New Application
+                </a>
+              </Button>
+            </div>
+          </div>
         </div>
       </div>
       <ApplicationsTable

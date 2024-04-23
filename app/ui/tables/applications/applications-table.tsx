@@ -1,5 +1,3 @@
-"use client";
-
 import {
   createCoverLetter,
   createResume,
@@ -111,20 +109,25 @@ const ApplicationsTable = ({
                       >
                         Edit
                       </a>
-                      <button
-                        id="remove"
-                        onClick={() =>
-                          deleteCoverLetter(
+                      <form action={deleteCoverLetter}>
+                        <input
+                          hidden
+                          readOnly
+                          value={
                             coverLetters.find(
                               (coverLetter: CoverLetter) =>
                                 coverLetter?.application_id === application.id
                             )?.id
-                          )
-                        }
-                        className="font-medium hover:underline ms-3"
-                      >
-                        Remove
-                      </button>
+                          }
+                        />
+                        <button
+                          id="remove"
+                          type="submit"
+                          className="font-medium hover:underline ms-3"
+                        >
+                          Remove
+                        </button>
+                      </form>
                     </div>
                   ) : (
                     <form action={createCoverLetter}>
@@ -178,20 +181,26 @@ const ApplicationsTable = ({
                       >
                         Edit
                       </a>
-                      <button
-                        id="remove"
-                        onClick={() =>
-                          deleteResume(
+                      <form action={deleteResume}>
+                        <input
+                          hidden
+                          readOnly
+                          name="resume_id"
+                          value={
                             resumes.find(
                               (resume: Resume) =>
                                 resume?.application_id === application.id
                             )?.id
-                          )
-                        }
-                        className="font-medium hover:underline ms-3"
-                      >
-                        Remove
-                      </button>
+                          }
+                        />
+                        <button
+                          id="remove"
+                          type="submit"
+                          className="font-medium hover:underline ms-3"
+                        >
+                          Remove
+                        </button>
+                      </form>
                     </div>
                   ) : (
                     <form action={createResume}>
@@ -240,13 +249,16 @@ const ApplicationsTable = ({
                       </a>
                     </div>
                     <div className="flex flex-col  ">
-                      <button
-                        id="remove"
-                        onClick={async () => deleteApplication(application.id)}
-                        className="font-medium hover:underline ms-3"
-                      >
-                        Remove
-                      </button>
+                      <form action={deleteApplication}>
+                        <input hidden readOnly value={application?.id} />
+                        <button
+                          id="remove"
+                          type="submit"
+                          className="font-medium hover:underline ms-3"
+                        >
+                          Remove
+                        </button>
+                      </form>
                     </div>
                   </div>
                 </td>
@@ -292,6 +304,38 @@ const ApplicationsTable = ({
               className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700  "
             >
               1
+            </a>
+          </li>
+          <li>
+            <a
+              href="#"
+              className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700  "
+            >
+              2
+            </a>
+          </li>
+          <li>
+            <a
+              href="#"
+              className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700  "
+            >
+              3
+            </a>
+          </li>
+          <li>
+            <a
+              href="#"
+              className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700  "
+            >
+              4
+            </a>
+          </li>
+          <li>
+            <a
+              href="#"
+              className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700  "
+            >
+              5
             </a>
           </li>
 
