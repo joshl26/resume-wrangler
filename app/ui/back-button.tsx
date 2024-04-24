@@ -5,14 +5,14 @@ import React from "react";
 const BackButton = ({
   href,
   children,
-  classname,
+  className,
 }: {
   href: string;
   children: string;
-  classname: string;
+  className: string;
 }) => {
   return (
-    <Link className={clsx("hover:underline", classname)} href={href}>
+    <Link className={clsx("hover:underline", className)} href={href}>
       {children}
     </Link>
   );

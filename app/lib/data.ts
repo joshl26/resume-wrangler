@@ -108,6 +108,80 @@ export async function fetchApplicationsByUserId(userId: string) {
   }
 }
 
+const ITEMS_PER_PAGE = 9;
+
+export async function fetchFilteredApplications(
+  query: string,
+  currentPage: number,
+  userId: string
+) {
+  noStore();
+
+  const offset = (currentPage - 1) * ITEMS_PER_PAGE;
+
+  try {
+    const applications = await conn.query(`
+      SELECT
+        applications.id,
+        applications.posting_text,
+        applications.is_complete,
+        applications.created_at,
+        applications.date_submitted,
+        applications.job_position,
+        applications.posting_url,
+        applications.analyzed_posting_text,
+        applications.company_id,
+        applications.key_skills,
+        applications.updated_at,
+        applications.user_id,
+        applications.location,
+        companies.name,
+        companies.email,
+        companies.website_url
+      FROM applications
+      JOIN companies ON applications.company_id = companies.id
+      WHERE
+        applications.user_id = '${userId}' AND
+        companies.name ILIKE '${`%${query}%`}' OR
+        companies.email ILIKE '${`%${query}%`}' OR
+        applications.job_position::text ILIKE '${`%${query}%`}' OR
+        companies.address_one::text ILIKE '${`%${query}%`}' OR
+        applications.is_complete ILIKE '${`%${query}%`}'
+      ORDER BY applications.created_at DESC
+      LIMIT '${ITEMS_PER_PAGE}' OFFSET '${offset}'
+    `);
+
+    return applications.rows;
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to fetch applications.");
+  }
+}
+
+export async function fetchApplicationsPages(query: string, userId: string) {
+  noStore();
+
+  try {
+    const count = await conn.query(`SELECT COUNT(*)
+      FROM applications
+      JOIN companies ON applications.company_id = companies.id
+      WHERE
+        applications.user_id = '${userId}' AND
+        companies.name ILIKE '${`%${query}%`}' OR
+        companies.email ILIKE '${`%${query}%`}' OR
+        applications.job_position::text ILIKE '${`%${query}%`}' OR
+        companies.address_one::text ILIKE '${`%${query}%`}' OR
+        applications.is_complete ILIKE '${`%${query}%`}'
+    `);
+
+    const totalPages = Math.ceil(Number(count.rows[0].count) / ITEMS_PER_PAGE);
+    return totalPages;
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to fetch total number of invoices.");
+  }
+}
+
 export async function fetchCompanyNameById(id: string) {
   noStore();
 

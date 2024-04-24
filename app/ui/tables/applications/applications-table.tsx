@@ -17,20 +17,34 @@ import {
   User,
 } from "@/app/lib/definitions";
 import Link from "next/link";
+import Pagination from "../../pagination";
+import { fetchFilteredApplications } from "@/app/lib/data";
 
-const ApplicationsTable = ({
+async function ApplicationsTable({
   user,
   resumes,
   coverLetters,
   applications,
   companies,
+  totalPages,
+  query,
+  currentPage,
 }: {
   user: User;
   resumes: Resumes;
   coverLetters: CoverLetters;
   applications: Applications;
   companies: Companies;
-}) => {
+  totalPages: number;
+  query: string;
+  currentPage: number;
+}) {
+  const filteredApplications = await fetchFilteredApplications(
+    query,
+    currentPage,
+    user?.id
+  );
+
   return (
     <div className="relative overflow-y-auto tight-shadow rounded px-4 py-4 mr-3 bg-white">
       <table className="w-full text-sm text-left rtl:text-right tight-shadow">
@@ -60,8 +74,8 @@ const ApplicationsTable = ({
           </tr>
         </thead>
         <tbody>
-          {applications?.length > 0 ? (
-            applications?.map((application: Application) => (
+          {filteredApplications?.length > 0 ? (
+            filteredApplications?.map((application: Application) => (
               <tr key={application.id} className="border-b  hover:bg-gray-50 ">
                 <th
                   scope="row"
@@ -80,14 +94,14 @@ const ApplicationsTable = ({
                   {application?.company_id
                     ? companies.find(
                         ({ id }: Company) => id === application?.company_id
-                      ).name
+                      )?.name
                     : "N/A"}
                 </td>
                 <td className="px-6 py-4">
                   {application?.company_id
                     ? companies.find(
                         ({ id }: Company) => id === application?.company_id
-                      ).address_one
+                      )?.address_one
                     : "N/A"}
                 </td>
                 {/* <td className="px-6 py-4">{application?.is_complete}</td> */}
@@ -275,7 +289,7 @@ const ApplicationsTable = ({
           )}
         </tbody>
       </table>
-      <nav
+      {/* <nav
         className="flex items-center flex-column flex-wrap md:flex-row justify-between pt-4"
         aria-label="Table navigation"
       >
@@ -348,9 +362,12 @@ const ApplicationsTable = ({
             </a>
           </li>
         </ul>
-      </nav>
+      </nav> */}
+      <div className="pt-4">
+        <Pagination totalPages={totalPages} />
+      </div>
     </div>
   );
-};
+}
 
 export default ApplicationsTable;
