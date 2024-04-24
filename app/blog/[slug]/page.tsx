@@ -99,7 +99,7 @@ export default function Blog({ params }: { params: any }) {
       <main className=" flex flex-col w-full min-h-[97vh] bg-purple-heart-200 px-3">
         <section className="max-w-screen-md tight-shadow w-full mx-auto text-azure-radiance-400 min-h-[97vh] pt-[10vh] bg-purple-heart-300 px-4">
           <BackButton
-            classname="text-azure-radiance-900 hover:text-rose-500"
+            className="text-azure-radiance-900 hover:text-rose-500"
             href="/blog"
           >
             Back
