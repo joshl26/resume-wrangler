@@ -16,7 +16,7 @@ export default function NewWorkExperience({ user }: { user: User }) {
   };
   return (
     <div className="px-2 h-full overflow-y-auto pb-3">
-      <BackButton classname="" href={"/dashboard/work-experience"}>
+      <BackButton className="" href={"/dashboard/work-experience"}>
         Back
       </BackButton>
       <div className="flex flex-row justify-between">

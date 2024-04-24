@@ -21,7 +21,7 @@ export default function EditWorkExperience({
 
   return (
     <div className="overflow-y-auto h-full px-3 pb-3">
-      <BackButton classname="" href={"/dashboard/work-experience"}>
+      <BackButton className="" href={"/dashboard/work-experience"}>
         Back
       </BackButton>
       <h2 className="font-medium text-[2rem] py-1">Edit Work Experience</h2>

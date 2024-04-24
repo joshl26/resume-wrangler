@@ -33,7 +33,7 @@ export default async function Page() {
 
   return (
     <div className="w-full h-full px-2">
-      <BackButton classname="" href={"/dashboard/"}>
+      <BackButton className="" href={"/dashboard/"}>
         Back
       </BackButton>
       <div className="flex flex-col ">

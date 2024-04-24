@@ -3,7 +3,7 @@
   "private": false,
   "scripts": {
     "dev": "export PORT=3053 && next dev",
-    "dev-windows": "set PORT=3000 && next dev",
+    "dev-windows": "set PORT=3053 && next dev",
     "build": "next build",
     "start": "export PORT=3053 && next start",
     "start-windows": "set PORT=3000 && next dev",

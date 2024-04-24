@@ -1,5 +1,3 @@
-"use client";
-
 import {
   createCoverLetter,
   createResume,
@@ -19,20 +17,34 @@ import {
   User,
 } from "@/app/lib/definitions";
 import Link from "next/link";
+import Pagination from "../../pagination";
+import { fetchFilteredApplications } from "@/app/lib/data";
 
-const ApplicationsTable = ({
+async function ApplicationsTable({
   user,
   resumes,
   coverLetters,
   applications,
   companies,
+  totalPages,
+  query,
+  currentPage,
 }: {
   user: User;
   resumes: Resumes;
   coverLetters: CoverLetters;
   applications: Applications;
   companies: Companies;
-}) => {
+  totalPages: number;
+  query: string;
+  currentPage: number;
+}) {
+  const filteredApplications = await fetchFilteredApplications(
+    query,
+    currentPage,
+    user?.id
+  );
+
   return (
     <div className="relative overflow-y-auto tight-shadow rounded px-4 py-4 mr-3 bg-white">
       <table className="w-full text-sm text-left rtl:text-right tight-shadow">
@@ -62,8 +74,8 @@ const ApplicationsTable = ({
           </tr>
         </thead>
         <tbody>
-          {applications?.length > 0 ? (
-            applications?.map((application: Application) => (
+          {filteredApplications?.length > 0 ? (
+            filteredApplications?.map((application: Application) => (
               <tr key={application.id} className="border-b  hover:bg-gray-50 ">
                 <th
                   scope="row"
@@ -82,14 +94,14 @@ const ApplicationsTable = ({
                   {application?.company_id
                     ? companies.find(
                         ({ id }: Company) => id === application?.company_id
-                      ).name
+                      )?.name
                     : "N/A"}
                 </td>
                 <td className="px-6 py-4">
                   {application?.company_id
                     ? companies.find(
                         ({ id }: Company) => id === application?.company_id
-                      ).address_one
+                      )?.address_one
                     : "N/A"}
                 </td>
                 {/* <td className="px-6 py-4">{application?.is_complete}</td> */}
@@ -111,20 +123,25 @@ const ApplicationsTable = ({
                       >
                         Edit
                       </a>
-                      <button
-                        id="remove"
-                        onClick={() =>
-                          deleteCoverLetter(
+                      <form action={deleteCoverLetter}>
+                        <input
+                          hidden
+                          readOnly
+                          value={
                             coverLetters.find(
                               (coverLetter: CoverLetter) =>
                                 coverLetter?.application_id === application.id
                             )?.id
-                          )
-                        }
-                        className="font-medium hover:underline ms-3"
-                      >
-                        Remove
-                      </button>
+                          }
+                        />
+                        <button
+                          id="remove"
+                          type="submit"
+                          className="font-medium hover:underline ms-3"
+                        >
+                          Remove
+                        </button>
+                      </form>
                     </div>
                   ) : (
                     <form action={createCoverLetter}>
@@ -178,20 +195,26 @@ const ApplicationsTable = ({
                       >
                         Edit
                       </a>
-                      <button
-                        id="remove"
-                        onClick={() =>
-                          deleteResume(
+                      <form action={deleteResume}>
+                        <input
+                          hidden
+                          readOnly
+                          name="resume_id"
+                          value={
                             resumes.find(
                               (resume: Resume) =>
                                 resume?.application_id === application.id
                             )?.id
-                          )
-                        }
-                        className="font-medium hover:underline ms-3"
-                      >
-                        Remove
-                      </button>
+                          }
+                        />
+                        <button
+                          id="remove"
+                          type="submit"
+                          className="font-medium hover:underline ms-3"
+                        >
+                          Remove
+                        </button>
+                      </form>
                     </div>
                   ) : (
                     <form action={createResume}>
@@ -240,13 +263,16 @@ const ApplicationsTable = ({
                       </a>
                     </div>
                     <div className="flex flex-col  ">
-                      <button
-                        id="remove"
-                        onClick={async () => deleteApplication(application.id)}
-                        className="font-medium hover:underline ms-3"
-                      >
-                        Remove
-                      </button>
+                      <form action={deleteApplication}>
+                        <input hidden readOnly value={application?.id} />
+                        <button
+                          id="remove"
+                          type="submit"
+                          className="font-medium hover:underline ms-3"
+                        >
+                          Remove
+                        </button>
+                      </form>
                     </div>
                   </div>
                 </td>
@@ -263,7 +289,7 @@ const ApplicationsTable = ({
           )}
         </tbody>
       </table>
-      <nav
+      {/* <nav
         className="flex items-center flex-column flex-wrap md:flex-row justify-between pt-4"
         aria-label="Table navigation"
       >
@@ -294,6 +320,38 @@ const ApplicationsTable = ({
               1
             </a>
           </li>
+          <li>
+            <a
+              href="#"
+              className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700  "
+            >
+              2
+            </a>
+          </li>
+          <li>
+            <a
+              href="#"
+              className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700  "
+            >
+              3
+            </a>
+          </li>
+          <li>
+            <a
+              href="#"
+              className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700  "
+            >
+              4
+            </a>
+          </li>
+          <li>
+            <a
+              href="#"
+              className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700  "
+            >
+              5
+            </a>
+          </li>
 
           <li>
             <a
@@ -304,9 +362,12 @@ const ApplicationsTable = ({
             </a>
           </li>
         </ul>
-      </nav>
+      </nav> */}
+      <div className="pt-4">
+        <Pagination totalPages={totalPages} />
+      </div>
     </div>
   );
-};
+}
 
 export default ApplicationsTable;

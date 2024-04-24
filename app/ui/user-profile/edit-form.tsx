@@ -372,7 +372,7 @@ const UserImageEditForm = ({ user }: { user: User }) => {
 const UserEditForm = ({ user }: { user: User }) => {
   return (
     <div className="overflow-y-auto px-2">
-      <BackButton classname="" href="/dashboard/">
+      <BackButton className="" href="/dashboard/">
         Back
       </BackButton>
       <UserImageEditForm user={user} />

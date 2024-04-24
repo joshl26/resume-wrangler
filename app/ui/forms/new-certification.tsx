@@ -17,7 +17,7 @@ export default function NewCertification({ user }: { user: User }) {
 
   return (
     <div className="px-2">
-      <BackButton classname="" href={"/dashboard/certifications"}>
+      <BackButton className="" href={"/dashboard/certifications"}>
         Back
       </BackButton>
       <div className="flex flex-row justify-between">

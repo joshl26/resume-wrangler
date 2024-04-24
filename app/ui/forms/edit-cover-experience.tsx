@@ -23,7 +23,7 @@ export default function EditCoverExperience({
 
   return (
     <div className="overflow-y-auto h-full w-[600px] px-3 pb-3">
-      <BackButton classname="" href={"/dashboard/cover-experience"}>
+      <BackButton className="" href={"/dashboard/cover-experience"}>
         Back
       </BackButton>
       <h2 className="font-medium text-[2rem] py-1">Edit Cover Experience</h2>

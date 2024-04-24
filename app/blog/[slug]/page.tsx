@@ -99,7 +99,7 @@ export default function Blog({ params }: { params: any }) {
       <main className=" flex flex-col w-full min-h-[97vh] bg-purple-heart-200 px-3">
         <section className="max-w-screen-md tight-shadow w-full mx-auto text-azure-radiance-400 min-h-[97vh] pt-[10vh] bg-purple-heart-300 px-4">
           <BackButton
-            classname="text-azure-radiance-900 hover:text-rose-500"
+            className="text-azure-radiance-900 hover:text-rose-500"
             href="/blog"
           >
             Back
@@ -136,7 +136,7 @@ export default function Blog({ params }: { params: any }) {
               </p>
             </Suspense>
             <Suspense fallback={<p className="h-5" />}>
-              <Views classname="text-azure-radiance-900" slug={post.slug} />
+              <Views className={"text-azure-radiance-900"} slug={post.slug} />
             </Suspense>
           </div>
           <article className="prose prose-quoteless prose-neutral dark:prose-invert ">
@@ -150,8 +150,8 @@ export default function Blog({ params }: { params: any }) {
 
 let incrementViews = cache(increment);
 
-async function Views({ slug, classname }: { slug: string; classname: string }) {
+async function Views({ slug, className }: { slug: string; className: string }) {
   let views = await getViewsCount();
   incrementViews(slug);
-  return <ViewCounter classname={classname} allViews={views} slug={slug} />;
+  return <ViewCounter className={className} allViews={views} slug={slug} />;
 }

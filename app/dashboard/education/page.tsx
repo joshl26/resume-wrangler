@@ -25,7 +25,7 @@ export default async function Page() {
 
   return (
     <div className="h-full w-full overflow-y-auto px-2">
-      <BackButton classname="" href={"/dashboard/"}>
+      <BackButton className="" href={"/dashboard/"}>
         Back
       </BackButton>
       <div className="flex flex-row justify-between">
