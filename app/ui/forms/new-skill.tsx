@@ -22,7 +22,7 @@ export default function NewSkill({ user }: { user: User }) {
 
   return (
     <div className="px-2">
-      <BackButton classname="" href={"/dashboard/skills/"}>
+      <BackButton className="" href={"/dashboard/skills/"}>
         Back
       </BackButton>
       <h2 className="font-medium text-[2rem] py-1">Create New Skill</h2>

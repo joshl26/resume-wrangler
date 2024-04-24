@@ -16,7 +16,7 @@ export default function NewCoverExperience({ user }: { user: User }) {
   };
   return (
     <div className="px-2 h-full overflow-y-auto pb-3">
-      <BackButton classname="" href={"/dashboard/cover-experience"}>
+      <BackButton className="" href={"/dashboard/cover-experience"}>
         Back
       </BackButton>
       <div className="flex flex-row justify-between">

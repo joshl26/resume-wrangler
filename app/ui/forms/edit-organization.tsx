@@ -20,7 +20,7 @@ export default function EditOrganization({
   };
   return (
     <div className="px-3">
-      <BackButton classname="" href={"/dashboard/organizations/"}>
+      <BackButton className="" href={"/dashboard/organizations/"}>
         Back
       </BackButton>
       <h2 className="font-medium text-[2rem] py-1">Edit Organization</h2>

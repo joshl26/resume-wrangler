@@ -26,7 +26,7 @@ export default function EditSkill({ skill }: { skill: UserSkill }) {
 
   return (
     <div className="px-3">
-      <BackButton classname="" href={"/dashboard/skills/"}>
+      <BackButton className="" href={"/dashboard/skills/"}>
         Back
       </BackButton>
       <h2 className="font-medium text-[2rem] py-1">Edit Skill</h2>

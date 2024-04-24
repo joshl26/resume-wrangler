@@ -16,7 +16,7 @@ export default function NewCompany({ user }: { user: User }) {
   };
   return (
     <div className="px-2">
-      <BackButton classname="" href={"/dashboard/companies"}>
+      <BackButton className="" href={"/dashboard/companies"}>
         Back
       </BackButton>
       <div className="flex flex-row justify-between">

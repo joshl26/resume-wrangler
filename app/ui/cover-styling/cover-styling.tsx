@@ -70,7 +70,7 @@ export default function CoverStyling({
       <div className="flex flex-row h-full w-full">
         <div className="flex flex-col h-full w-[400px] overflow-x-none overflow-y-auto px-3">
           <div className="pb-2">
-            <BackButton classname="" href="/dashboard/cover">
+            <BackButton className="" href="/dashboard/cover">
               Back
             </BackButton>{" "}
           </div>

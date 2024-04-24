@@ -35,7 +35,7 @@ export default function EditApplication({
   };
   return (
     <div className="px-3">
-      <BackButton classname="" href={"/dashboard/applications/"}>
+      <BackButton className="" href={"/dashboard/applications/"}>
         Back
       </BackButton>
       <h2 className="font-medium text-[2rem] py-1">Edit Application</h2>

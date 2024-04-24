@@ -136,7 +136,7 @@ export default function Blog({ params }: { params: any }) {
               </p>
             </Suspense>
             <Suspense fallback={<p className="h-5" />}>
-              <Views classname="text-azure-radiance-900" slug={post.slug} />
+              <Views className={"text-azure-radiance-900"} slug={post.slug} />
             </Suspense>
           </div>
           <article className="prose prose-quoteless prose-neutral dark:prose-invert ">
@@ -150,8 +150,8 @@ export default function Blog({ params }: { params: any }) {
 
 let incrementViews = cache(increment);
 
-async function Views({ slug, classname }: { slug: string; classname: string }) {
+async function Views({ slug, className }: { slug: string; className: string }) {
   let views = await getViewsCount();
   incrementViews(slug);
-  return <ViewCounter classname={classname} allViews={views} slug={slug} />;
+  return <ViewCounter className={className} allViews={views} slug={slug} />;
 }

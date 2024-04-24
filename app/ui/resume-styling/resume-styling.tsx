@@ -101,7 +101,7 @@ export default function ResumeStyling(props: Props) {
       <div className="flex flex-row h-full w-full">
         <div className="flex flex-col h-full w-[400px] overflow-x-none overflow-y-auto px-3">
           <div className="pb-2">
-            <BackButton classname="" href="/dashboard/applications">
+            <BackButton className="" href="/dashboard/applications">
               Back
             </BackButton>{" "}
           </div>

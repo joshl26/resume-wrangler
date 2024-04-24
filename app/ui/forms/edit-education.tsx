@@ -20,7 +20,7 @@ export default function EditEducation({
   };
   return (
     <div className="overflow-y-auto h-full px-3">
-      <BackButton classname="" href={"/dashboard/education/"}>
+      <BackButton className="" href={"/dashboard/education/"}>
         Back
       </BackButton>
       <h2 className="font-medium text-[2rem] py-1">

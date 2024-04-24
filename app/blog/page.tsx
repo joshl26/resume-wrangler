@@ -22,7 +22,7 @@ export default function BlogPage() {
         <section className="flex flex-col max-w-screen-md min-h-[97vh] mx-auto bg-amber-300 pt-[10vh] px-4 tight-shadow">
           <div className="flex flex-row w-full justify-start pb-8">
             <BackButton
-              classname="text-azure-radiance-700 font-medium hover:text-rose-500"
+              className="text-azure-radiance-700 font-medium hover:text-rose-500"
               href="/"
             >
               Back
@@ -71,5 +71,5 @@ export default function BlogPage() {
 async function Views({ slug }: { slug: string }) {
   let views = await getViewsCount();
 
-  return <ViewCounter classname="text-rose-500" allViews={views} slug={slug} />;
+  return <ViewCounter className="text-rose-500" allViews={views} slug={slug} />;
 }
