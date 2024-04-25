@@ -74,8 +74,8 @@ async function ApplicationsTable({
           </tr>
         </thead>
         <tbody>
-          {filteredApplications?.length > 0 ? (
-            filteredApplications?.map((application: Application) => (
+          {applications?.length > 0 ? (
+            applications?.map((application: Application) => (
               <tr key={application.id} className="border-b  hover:bg-gray-50 ">
                 <th
                   scope="row"

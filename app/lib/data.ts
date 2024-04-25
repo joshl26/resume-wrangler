@@ -182,6 +182,125 @@ export async function fetchApplicationsPages(query: string, userId: string) {
   }
 }
 
+export async function fetchFilteredEducation(
+  query: string,
+  currentPage: number,
+  userId: string
+) {
+  noStore();
+
+  const offset = (currentPage - 1) * ITEMS_PER_PAGE;
+
+  try {
+    const education = await conn.query(`
+      SELECT * 
+      FROM user_education
+      WHERE
+        user_education.institution_name ILIKE '${`%${query}%`}' OR
+        user_education.program ILIKE '${`%${query}%`}' OR
+        user_education.location::text ILIKE '${`%${query}%`}'
+      ORDER BY user_education.created_at DESC
+      LIMIT '${ITEMS_PER_PAGE}' OFFSET '${offset}'
+    `);
+
+    return education.rows;
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to fetch filtered education records.");
+  }
+}
+
+export async function fetchEducationPages(query: string, userId: string) {
+  noStore();
+
+  try {
+    const count = await conn.query(`SELECT COUNT(*)
+      FROM user_education
+      WHERE
+        user_education.user_id = '${userId}' AND
+        user_education.institution_name::text ILIKE '${`%${query}%`}' OR
+        user_education.program ILIKE '${`%${query}%`}'
+    `);
+
+    const totalPages = Math.ceil(Number(count.rows[0].count) / ITEMS_PER_PAGE);
+    return totalPages;
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to fetch total number of invoices.");
+  }
+}
+
+// export async function fetchFilteredEducation(
+//   query: string,
+//   currentPage: number,
+//   userId: string
+// ) {
+//   noStore();
+
+//   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
+
+//   try {
+//     const education = await conn.query(`
+//       SELECT *
+//       FROM user_education
+//       WHERE
+//         user_education.institution_name ILIKE '${`%${query}%`}' OR
+//         user_education.program ILIKE '${`%${query}%`}' OR
+//         user_education.location::text ILIKE '${`%${query}%`}'
+//       ORDER BY user_education.created_at DESC
+//       LIMIT '${ITEMS_PER_PAGE}' OFFSET '${offset}'
+//     `);
+
+//     return education.rows;
+//   } catch (error) {
+//     console.error("Database Error:", error);
+//     throw new Error("Failed to fetch filtered education records.");
+//   }
+// }
+
+export async function fetchSkillPages(query: string, userId: string) {
+  noStore();
+
+  console.log(`Query: ${query}`);
+  console.log(`userId: ${userId}`);
+
+  const test = `
+  SELECT COUNT(*)
+  FROM user_skills
+  WHERE
+    user_skills.user_id = '${userId}' OR
+    user_skills.skill::text ILIKE '${query}' OR
+    user_skills.skill_level ILIKE '${query}'
+
+    SELECT COUNT(*)
+    FROM user_skills
+    WHERE
+      user_skills.user_id = '1917fa64-1b38-45dd-8a2b-cf276ea376aa' OR
+      user_skills.skill::text ILIKE '' OR
+      user_skills.skill_level ILIKE ''  
+  `;
+
+  console.log(test);
+
+  try {
+    const count = await conn.query(`SELECT COUNT(*)
+      FROM user_skills
+      WHERE
+        user_skills.user_id = '${userId}' AND
+        user_skills.skill::text ILIKE '${`%${query}%`}' OR
+        user_skills.skill_level ILIKE '${`%${query}%`}'
+    `);
+
+    console.log(count.rows[0]);
+
+    const totalPages = Math.ceil(Number(count.rows[0].count) / ITEMS_PER_PAGE);
+    return totalPages;
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to fetch total number of invoices.");
+  }
+}
+
 export async function fetchCompanyNameById(id: string) {
   noStore();
 

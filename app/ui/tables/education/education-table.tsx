@@ -1,6 +1,5 @@
-"use client";
-
 import { deleteEducation } from "@/app/lib/actions";
+import { fetchFilteredEducation } from "@/app/lib/data";
 import {
   User,
   UserEducationExperience,
@@ -8,41 +7,52 @@ import {
 } from "@/app/lib/definitions";
 import Link from "next/link";
 import React from "react";
-import JoyRide from "react-joyride";
-const TOUR_STEPS: any = [
-  {
-    content: <h2>Lets begin our journey!</h2>,
-    placement: "center",
-    target: "body",
-  },
+// import JoyRide from "react-joyride";
+import Pagination from "../../pagination";
 
-  {
-    content: "These are our super awesome projects!",
-    placement: "auto",
-    styles: {
-      options: {
-        width: 300,
-        left: 300,
-      },
-    },
-    target: ".tour_nav",
-    title: "Our projects",
-  },
-];
+//TODO implement guided
+// const TOUR_STEPS: any = [
+//   {
+//     content: <h2>Lets begin our journey!</h2>,
+//     placement: "center",
+//     target: "body",
+//   },
 
-const Education = ({
-  education,
+//   {
+//     content: "These are our super awesome projects!",
+//     placement: "auto",
+//     styles: {
+//       options: {
+//         width: 300,
+//         left: 300,
+//       },
+//     },
+//     target: ".tour_nav",
+//     title: "Our projects",
+//   },
+// ];
+
+async function Education({
   user,
+  totalPages,
+  currentPage,
+  query,
+  education,
 }: {
-  education: UserEducationExperiences;
   user: User;
-}) => {
+  totalPages: number;
+  currentPage: number;
+  query: string;
+  education: UserEducationExperiences;
+}) {
+  const filteredEducation: UserEducationExperiences =
+    await fetchFilteredEducation(query, currentPage, user?.id);
+
   return (
     <div className="relative overflow-x-auto overflow-y-auto tight-shadow rounded bg-white px-4 mr-4 py-4">
       {/* {user.new_user === "true" && (
         <JoyRide steps={TOUR_STEPS} continuous={true} showSkipButton={true} />
       )} */}
-
       <table className="w-full text-sm text-left rtl:text-right rounded tight-shadow">
         <thead
           className="text-xs text-black uppercase  border-spacing-2
@@ -143,7 +153,7 @@ const Education = ({
           )}
         </tbody>
       </table>
-      <nav
+      {/* <nav
         className="flex items-center flex-column flex-wrap md:flex-row justify-between pt-4"
         aria-label="Table navigation"
       >
@@ -183,9 +193,12 @@ const Education = ({
             </a>
           </li>
         </ul>
-      </nav>
+      </nav> */}
+      <div className="pt-4">
+        <Pagination totalPages={totalPages} />
+      </div>
     </div>
   );
-};
+}
 
 export default Education;
