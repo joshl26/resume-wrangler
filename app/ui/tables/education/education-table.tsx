@@ -1,6 +1,5 @@
-"use client";
-
 import { deleteEducation } from "@/app/lib/actions";
+import { fetchFilteredEducation } from "@/app/lib/data";
 import {
   User,
   UserEducationExperience,
@@ -9,6 +8,7 @@ import {
 import Link from "next/link";
 import React from "react";
 import JoyRide from "react-joyride";
+import Pagination from "../../pagination";
 const TOUR_STEPS: any = [
   {
     content: <h2>Lets begin our journey!</h2>,
@@ -30,19 +30,25 @@ const TOUR_STEPS: any = [
   },
 ];
 
-const Education = ({
-  education,
+async function Education({
   user,
+  totalPages,
+  currentPage,
+  query,
 }: {
-  education: UserEducationExperiences;
   user: User;
-}) => {
+  totalPages: number;
+  currentPage: number;
+  query: string;
+}) {
+  const filteredEducation: UserEducationExperiences =
+    await fetchFilteredEducation(query, currentPage, user?.id);
+
   return (
     <div className="relative overflow-x-auto overflow-y-auto tight-shadow rounded bg-white px-4 mr-4 py-4">
       {/* {user.new_user === "true" && (
         <JoyRide steps={TOUR_STEPS} continuous={true} showSkipButton={true} />
       )} */}
-
       <table className="w-full text-sm text-left rtl:text-right rounded tight-shadow">
         <thead
           className="text-xs text-black uppercase  border-spacing-2
@@ -70,8 +76,8 @@ const Education = ({
           </tr>
         </thead>
         <tbody>
-          {education?.length > 0 ? (
-            education?.map((program: UserEducationExperience) => (
+          {filteredEducation?.length > 0 ? (
+            filteredEducation?.map((program: UserEducationExperience) => (
               <tr key={program?.id} className="border-b">
                 <th
                   scope="row"
@@ -143,7 +149,7 @@ const Education = ({
           )}
         </tbody>
       </table>
-      <nav
+      {/* <nav
         className="flex items-center flex-column flex-wrap md:flex-row justify-between pt-4"
         aria-label="Table navigation"
       >
@@ -183,9 +189,12 @@ const Education = ({
             </a>
           </li>
         </ul>
-      </nav>
+      </nav> */}
+      <div className="pt-4">
+        <Pagination totalPages={totalPages} />
+      </div>
     </div>
   );
-};
+}
 
 export default Education;
