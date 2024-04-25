@@ -39,11 +39,13 @@ async function ApplicationsTable({
   query: string;
   currentPage: number;
 }) {
-  const filteredApplications = await fetchFilteredApplications(
+  const filteredApplications: Applications = await fetchFilteredApplications(
     query,
     currentPage,
     user?.id
   );
+
+  // console.log(filteredApplications.length);
 
   return (
     <div className="relative overflow-y-auto tight-shadow rounded px-4 py-4 mr-3 bg-white">

@@ -9,10 +9,12 @@ import {
 import { Button } from "@/app/ui/button";
 import ApplicationsTable from "@/app/ui/tables/applications/applications-table";
 import { auth } from "@/auth";
-import React from "react";
+import React, { Suspense } from "react";
 import { notFound } from "next/navigation";
 import BackButton from "@/app/ui/back-button";
 import Search from "@/app/ui/search";
+import Pagination from "@/app/ui/pagination";
+import { Applications } from "@/app/lib/definitions";
 
 export default async function Page({
   searchParams,
@@ -59,7 +61,7 @@ export default async function Page({
         <div className="flex flex-col px-4">
           <div className="flex flex-row gap-x-3 h-auto ">
             <div className="flex flex-col w-1/2 m-auto  ">
-              <Search placeholder="Search invoices..." />
+              <Search placeholder="Search applications..." />
             </div>
             <div className="flex flex-col w-1/2 m-auto">
               <Button className="btn btn-amber tight-shadow hover:animate-pulse">
@@ -71,16 +73,22 @@ export default async function Page({
           </div>
         </div>
       </div>
-      <ApplicationsTable
-        user={user}
-        resumes={resumes}
-        coverLetters={coverLetters}
-        applications={applications}
-        companies={companies}
-        totalPages={totalPages}
-        query={query}
-        currentPage={currentPage}
-      />
+      <Suspense key={query + currentPage}>
+        <ApplicationsTable
+          user={user}
+          resumes={resumes}
+          coverLetters={coverLetters}
+          applications={applications}
+          companies={companies}
+          totalPages={totalPages}
+          query={query}
+          currentPage={currentPage}
+        />
+      </Suspense>
+
+      {/* <div className="pt-4">
+        <Pagination totalPages={totalPages} />
+      </div> */}
     </div>
   );
 }

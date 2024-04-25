@@ -121,35 +121,35 @@ export async function fetchFilteredApplications(
 
   try {
     const applications = await conn.query(`
-      SELECT
-        applications.id,
-        applications.posting_text,
-        applications.is_complete,
-        applications.created_at,
-        applications.date_submitted,
-        applications.job_position,
-        applications.posting_url,
-        applications.analyzed_posting_text,
-        applications.company_id,
-        applications.key_skills,
-        applications.updated_at,
-        applications.user_id,
-        applications.location,
-        companies.name,
-        companies.email,
-        companies.website_url
-      FROM applications
-      JOIN companies ON applications.company_id = companies.id
-      WHERE
-        applications.user_id = '${userId}' AND
-        companies.name ILIKE '${`%${query}%`}' OR
-        companies.email ILIKE '${`%${query}%`}' OR
-        applications.job_position::text ILIKE '${`%${query}%`}' OR
-        companies.address_one::text ILIKE '${`%${query}%`}' OR
-        applications.is_complete ILIKE '${`%${query}%`}'
-      ORDER BY applications.created_at DESC
-      LIMIT '${ITEMS_PER_PAGE}' OFFSET '${offset}'
+        SELECT *
+        FROM applications a
+        JOIN companies c ON a.company_id = c.id
+        WHERE a.user_id = '${userId}' AND 
+          (
+                c.name::text ILIKE '${`%${query}%`}' OR
+                a.job_position::text ILIKE '${`%${query}%`}' OR
+                c.address_one::text ILIKE '${`%${query}%`}'
+          )
+        ORDER BY a.created_at DESC
+        LIMIT '${ITEMS_PER_PAGE}' OFFSET '${offset}'
     `);
+
+    const test = `
+    SELECT *
+    FROM applications a
+    JOIN companies c ON a.company_id = c.id
+    WHERE a.user_id = '${userId}' AND 
+      (
+            c.name::text ILIKE '${`%${query}%`}' OR
+            a.job_position::text ILIKE '${`%${query}%`}' OR
+            c.address_one::text ILIKE '${`%${query}%`}'
+      )
+    ORDER BY a.created_at DESC
+    LIMIT '${ITEMS_PER_PAGE}' OFFSET '${offset}'`;
+
+    console.log(test);
+
+    // console.log(offset);
 
     return applications.rows;
   } catch (error) {
@@ -161,20 +161,29 @@ export async function fetchFilteredApplications(
 export async function fetchApplicationsPages(query: string, userId: string) {
   noStore();
 
+  // SELECT COUNT(*) AS application_count
+  // FROM applications
+  // WHERE user_id = '${userId}'
+  // AND (job_position ILIKE '${`%${query}%`}' OR job_position ILIKE '${`%${query}%`}')
+
+  // console.log(userId);
+
   try {
-    const count = await conn.query(`SELECT COUNT(*)
-      FROM applications
-      JOIN companies ON applications.company_id = companies.id
-      WHERE
-        applications.user_id = '${userId}' AND
-        companies.name ILIKE '${`%${query}%`}' OR
-        companies.email ILIKE '${`%${query}%`}' OR
-        applications.job_position::text ILIKE '${`%${query}%`}' OR
-        companies.address_one::text ILIKE '${`%${query}%`}' OR
-        applications.is_complete ILIKE '${`%${query}%`}'
+    const count = await conn.query(`    
+      SELECT COUNT(*) AS application_count
+      FROM applications a
+      JOIN companies c ON a.company_id = c.id
+      WHERE a.user_id = '${userId}' 
+      AND (c.name::text ILIKE '${`%${query}%`}' OR 
+      a.job_position::text ILIKE '${`%${query}%`}' OR 
+      c.address_one::text ILIKE '${`%${query}%`}')
     `);
 
-    const totalPages = Math.ceil(Number(count.rows[0].count) / ITEMS_PER_PAGE);
+    // console.log(count);
+
+    const totalPages = Math.ceil(
+      Number(count.rows[0].application_count) / ITEMS_PER_PAGE
+    );
     return totalPages;
   } catch (error) {
     console.error("Database Error:", error);
