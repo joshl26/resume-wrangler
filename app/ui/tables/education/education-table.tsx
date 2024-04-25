@@ -7,39 +7,43 @@ import {
 } from "@/app/lib/definitions";
 import Link from "next/link";
 import React from "react";
-import JoyRide from "react-joyride";
+// import JoyRide from "react-joyride";
 import Pagination from "../../pagination";
-const TOUR_STEPS: any = [
-  {
-    content: <h2>Lets begin our journey!</h2>,
-    placement: "center",
-    target: "body",
-  },
 
-  {
-    content: "These are our super awesome projects!",
-    placement: "auto",
-    styles: {
-      options: {
-        width: 300,
-        left: 300,
-      },
-    },
-    target: ".tour_nav",
-    title: "Our projects",
-  },
-];
+//TODO implement guided
+// const TOUR_STEPS: any = [
+//   {
+//     content: <h2>Lets begin our journey!</h2>,
+//     placement: "center",
+//     target: "body",
+//   },
+
+//   {
+//     content: "These are our super awesome projects!",
+//     placement: "auto",
+//     styles: {
+//       options: {
+//         width: 300,
+//         left: 300,
+//       },
+//     },
+//     target: ".tour_nav",
+//     title: "Our projects",
+//   },
+// ];
 
 async function Education({
   user,
   totalPages,
   currentPage,
   query,
+  education,
 }: {
   user: User;
   totalPages: number;
   currentPage: number;
   query: string;
+  education: UserEducationExperiences;
 }) {
   const filteredEducation: UserEducationExperiences =
     await fetchFilteredEducation(query, currentPage, user?.id);
@@ -76,8 +80,8 @@ async function Education({
           </tr>
         </thead>
         <tbody>
-          {filteredEducation?.length > 0 ? (
-            filteredEducation?.map((program: UserEducationExperience) => (
+          {education?.length > 0 ? (
+            education?.map((program: UserEducationExperience) => (
               <tr key={program?.id} className="border-b">
                 <th
                   scope="row"

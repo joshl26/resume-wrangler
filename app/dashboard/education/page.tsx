@@ -1,4 +1,5 @@
 import {
+  fetchEducationByUserId,
   fetchEducationPages,
   getUser,
 } from "@/app/lib/data";
@@ -28,14 +29,17 @@ export default async function Page({
   }
 
   const user = await getUser(session?.user?.email!);
+  const education = await fetchEducationByUserId(user.id);
 
-  if (!user) {
+  if (!user ?? !education) {
     notFound();
   }
 
   const query = searchParams?.query || "";
   const currentPage = Number(searchParams?.page) || 1;
   const totalPages = await fetchEducationPages(query, user?.id);
+
+  console.log(totalPages);
 
   return (
     <div className="h-full w-full overflow-y-auto px-2">
@@ -63,6 +67,7 @@ export default async function Page({
       </div>
       <Education
         user={user}
+        education={education}
         totalPages={totalPages}
         currentPage={currentPage}
         query={query}
