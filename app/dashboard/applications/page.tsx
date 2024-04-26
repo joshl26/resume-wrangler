@@ -1,5 +1,6 @@
 import {
   fetchApplicationsByUserId,
+  fetchApplicationsCount,
   fetchApplicationsPages,
   fetchCoverLettersByUserId,
   fetchLatestCompaniesByUserId,
@@ -48,9 +49,10 @@ export default async function Page({
   const query = searchParams?.query || "";
   const currentPage = Number(searchParams?.page) || 1;
   const totalPages = await fetchApplicationsPages(query, user?.id);
+  const totalCount = await fetchApplicationsCount(query, user?.id);
 
   return (
-    <div className="h-full w-full overflow-y-auto px-2">
+    <div className="w-full h-auto px-2 mb-2">
       <BackButton className={""} href={"/dashboard/"}>
         Back
       </BackButton>
@@ -83,6 +85,7 @@ export default async function Page({
           totalPages={totalPages}
           query={query}
           currentPage={currentPage}
+          totalCount={totalCount}
         />
       </Suspense>
 

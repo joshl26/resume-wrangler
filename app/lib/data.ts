@@ -1,6 +1,7 @@
 "use server";
 
 import { conn } from "../lib/database";
+import { ITEMS_PER_PAGE } from "./constants";
 
 import {
   BodyFont,
@@ -108,8 +109,6 @@ export async function fetchApplicationsByUserId(userId: string) {
   }
 }
 
-const ITEMS_PER_PAGE = 9;
-
 export async function fetchFilteredApplications(
   query: string,
   currentPage: number,
@@ -184,6 +183,29 @@ export async function fetchApplicationsPages(query: string, userId: string) {
     const totalPages = Math.ceil(
       Number(count.rows[0].application_count) / ITEMS_PER_PAGE
     );
+    return totalPages;
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to fetch total number of invoices.");
+  }
+}
+
+//TODO combine with fetchApplicationsPages
+export async function fetchApplicationsCount(query: string, userId: string) {
+  noStore();
+
+  try {
+    const count = await conn.query(`    
+      SELECT COUNT(*) AS application_count
+      FROM applications a
+      JOIN companies c ON a.company_id = c.id
+      WHERE a.user_id = '${userId}'
+      AND (c.name::text ILIKE '${`%${query}%`}' OR 
+      a.job_position::text ILIKE '${`%${query}%`}' OR 
+      c.address_one::text ILIKE '${`%${query}%`}')
+    `);
+
+    const totalPages: number = count.rows[0].application_count;
     return totalPages;
   } catch (error) {
     console.error("Database Error:", error);
