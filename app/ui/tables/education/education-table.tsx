@@ -1,6 +1,5 @@
-"use client";
-
 import { deleteEducation } from "@/app/lib/actions";
+import { fetchFilteredEducation } from "@/app/lib/data";
 import {
   User,
   UserEducationExperience,
@@ -8,35 +7,47 @@ import {
 } from "@/app/lib/definitions";
 import Link from "next/link";
 import React from "react";
-import JoyRide from "react-joyride";
-const TOUR_STEPS: any = [
-  {
-    content: <h2>Lets begin our journey!</h2>,
-    placement: "center",
-    target: "body",
-  },
+import Pagination from "../../pagination";
+// import JoyRide from "react-joyride";
+// const TOUR_STEPS: any = [
+//   {
+//     content: <h2>Lets begin our journey!</h2>,
+//     placement: "center",
+//     target: "body",
+//   },
 
-  {
-    content: "These are our super awesome projects!",
-    placement: "auto",
-    styles: {
-      options: {
-        width: 300,
-        left: 300,
-      },
-    },
-    target: ".tour_nav",
-    title: "Our projects",
-  },
-];
+//   {
+//     content: "These are our super awesome projects!",
+//     placement: "auto",
+//     styles: {
+//       options: {
+//         width: 300,
+//         left: 300,
+//       },
+//     },
+//     target: ".tour_nav",
+//     title: "Our projects",
+//   },
+// ];
 
-const Education = ({
+async function Education({
   education,
   user,
+  totalPages,
+  query,
+  currentPage,
+  totalCount,
 }: {
   education: UserEducationExperiences;
   user: User;
-}) => {
+  totalPages: number;
+  query: string;
+  currentPage: number;
+  totalCount: number;
+}) {
+  const filteredEducation: UserEducationExperiences =
+    await fetchFilteredEducation(query, currentPage, user?.id);
+
   return (
     <div className="relative overflow-x-auto overflow-y-auto tight-shadow rounded bg-white px-4 mr-4 py-4">
       {/* {user.new_user === "true" && (
@@ -70,12 +81,12 @@ const Education = ({
           </tr>
         </thead>
         <tbody>
-          {education?.length > 0 ? (
-            education?.map((program: UserEducationExperience) => (
+          {filteredEducation?.length > 0 ? (
+            filteredEducation?.map((program: UserEducationExperience) => (
               <tr key={program?.id} className="border-b">
                 <th
                   scope="row"
-                  className="px-6 py-4 font-medium whitespace-nowrap "
+                  className="px-6 h-[47px] font-medium whitespace-nowrap "
                 >
                   <Link href={`/dashboard/education/edit/${program?.id}`}>
                     {program?.institution_name
@@ -83,19 +94,19 @@ const Education = ({
                       : "N/A"}
                   </Link>{" "}
                 </th>
-                <td className="px-6 py-4">
+                <td className="px-6 ">
                   {program?.program ? program?.program : "N/A"}
                 </td>
-                <td className="px-6 py-4">
+                <td className="px-6 ">
                   {program?.location ? program?.location : "N/A"}
                 </td>
-                <td className="px-6 py-4">
+                <td className="px-6 ">
                   {program?.start_date ? program?.start_date : "N/A"}
                 </td>
-                <td className="px-6 py-4">
+                <td className="px-6 ">
                   {program?.end_date ? program?.end_date : "N/A"}
                 </td>
-                <td className="text-left px-6 py-4">
+                <td className="text-left px-6 ">
                   <div className="flex flex-row">
                     <a
                       id="edit"
@@ -143,7 +154,11 @@ const Education = ({
           )}
         </tbody>
       </table>
-      <nav
+      <div className="pt-4">
+        <Pagination totalPages={totalPages} totalCount={totalCount} />
+      </div>
+
+      {/* <nav
         className="flex items-center flex-column flex-wrap md:flex-row justify-between pt-4"
         aria-label="Table navigation"
       >
@@ -183,9 +198,9 @@ const Education = ({
             </a>
           </li>
         </ul>
-      </nav>
+      </nav> */}
     </div>
   );
-};
+}
 
 export default Education;

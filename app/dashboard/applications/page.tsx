@@ -14,8 +14,6 @@ import React, { Suspense } from "react";
 import { notFound } from "next/navigation";
 import BackButton from "@/app/ui/back-button";
 import Search from "@/app/ui/search";
-import Pagination from "@/app/ui/pagination";
-import { Applications } from "@/app/lib/definitions";
 
 export default async function Page({
   searchParams,
@@ -88,10 +86,6 @@ export default async function Page({
           totalCount={totalCount}
         />
       </Suspense>
-
-      {/* <div className="pt-4">
-        <Pagination totalPages={totalPages} />
-      </div> */}
     </div>
   );
 }

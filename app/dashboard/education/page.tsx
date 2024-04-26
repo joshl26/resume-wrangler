@@ -1,13 +1,26 @@
-import { fetchEducationByUserId, getUser } from "@/app/lib/data";
+import {
+  fetchEducationByUserId,
+  fetchEducationCount,
+  fetchEducationPages,
+  getUser,
+} from "@/app/lib/data";
 import BackButton from "@/app/ui/back-button";
 import { Button } from "@/app/ui/button";
+import Search from "@/app/ui/search";
 import Education from "@/app/ui/tables/education/education-table";
 import { auth } from "@/auth";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import React from "react";
+import React, { Suspense } from "react";
 
-export default async function Page() {
+export default async function Page({
+  searchParams,
+}: {
+  searchParams?: {
+    query?: string;
+    page?: string;
+  };
+}) {
   const session = await auth();
   if (session?.user) {
     session.user = {
@@ -23,6 +36,11 @@ export default async function Page() {
     notFound();
   }
 
+  const query = searchParams?.query || "";
+  const currentPage = Number(searchParams?.page) || 1;
+  const totalPages = await fetchEducationPages(query, user?.id);
+  const totalCount = await fetchEducationCount(query, user?.id);
+
   return (
     <div className="h-full w-full overflow-y-auto px-2">
       <BackButton className="" href={"/dashboard/"}>
@@ -33,14 +51,30 @@ export default async function Page() {
           <h1 className="text-[2rem] font-bold py-1">Education</h1>
         </div>
         <div className="flex flex-col px-4">
-          <Button className="btn btn-amber tight-shadow hover:animate-pulse">
-            <a href="/dashboard/education/new" className="m-auto">
-              Add New Education Experience
-            </a>
-          </Button>
+          <div className="flex flex-row gap-x-3 h-auto ">
+            <div className="flex flex-col w-1/2 m-auto  ">
+              <Search placeholder="Search applications..." />
+            </div>
+            <div className="flex flex-col w-1/2 m-auto">
+              <Button className="btn btn-amber tight-shadow hover:animate-pulse">
+                <a href="/dashboard/education/new" className="m-auto">
+                  Add New Education
+                </a>
+              </Button>
+            </div>
+          </div>
         </div>
       </div>
-      <Education user={user} education={education} />
+      <Suspense key={query + currentPage}>
+        <Education
+          user={user}
+          education={education}
+          totalPages={totalPages}
+          query={query}
+          currentPage={currentPage}
+          totalCount={totalCount}
+        />
+      </Suspense>
     </div>
   );
 }
