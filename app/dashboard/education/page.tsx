@@ -68,7 +68,6 @@ export default async function Page({
       <Suspense key={query + currentPage}>
         <Education
           user={user}
-          education={education}
           totalPages={totalPages}
           query={query}
           currentPage={currentPage}

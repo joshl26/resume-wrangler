@@ -31,18 +31,12 @@ import Pagination from "../../pagination";
 // ];
 
 async function Education({
-  education,
   user,
   totalPages,
   query,
   currentPage,
   totalCount,
 }: {
-  user: User;
-  totalPages: number;
-  currentPage: number;
-  query: string;
-  education: UserEducationExperiences;
   user: User;
   totalPages: number;
   query: string;
