@@ -1,69 +1,93 @@
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright"; // 1
 
-test.describe("homepage", () => {
-  // 2
-  test("should not have any automatically detectable accessibility issues", async ({
-    page,
-  }: {
-    page: any;
-  }) => {
-    await page.goto("/"); // 3
+test.describe("accessibility tests", () => {
+  test.describe("homepage", () => {
+    // 2
+    test("should not have any automatically detectable accessibility issues", async ({
+      page,
+    }: {
+      page: any;
+    }) => {
+      await page.goto("/"); // 3
 
-    const accessibilityScanResults = await new AxeBuilder({ page }).analyze(); // 4
+      const accessibilityScanResults = await new AxeBuilder({ page }).analyze(); // 4
 
-    expect(accessibilityScanResults.violations).toEqual([]); // 5
+      expect(accessibilityScanResults.violations).toEqual([]); // 5
+    });
+
+    test("has title", async ({ page }) => {
+      await page.goto("/");
+
+      // Expect a title "to contain" a substring.
+      await expect(page).toHaveTitle(/Résumé Wrangler/);
+    });
   });
 
-  test("has title", async ({ page }) => {
-    await page.goto("/");
+  test.describe("blog", () => {
+    // 2
+    test("should not have any automatically detectable accessibility issues", async ({
+      page,
+    }: {
+      page: any;
+    }) => {
+      await page.goto("/blog"); // 3
 
-    // Expect a title "to contain" a substring.
-    await expect(page).toHaveTitle(/Résumé Wrangler/);
-  });
-});
+      const accessibilityScanResults = await new AxeBuilder({ page }).analyze(); // 4
 
-test.describe("blog", () => {
-  // 2
-  test("should not have any automatically detectable accessibility issues", async ({
-    page,
-  }: {
-    page: any;
-  }) => {
-    await page.goto("/blog"); // 3
+      expect(accessibilityScanResults.violations).toEqual([]); // 5
+    });
 
-    const accessibilityScanResults = await new AxeBuilder({ page }).analyze(); // 4
+    test("has title", async ({ page }) => {
+      await page.goto("/blog");
 
-    expect(accessibilityScanResults.violations).toEqual([]); // 5
-  });
-
-  test("has title", async ({ page }) => {
-    await page.goto("/blog");
-
-    // Expect a title "to contain" a substring.
-    await expect(page).toHaveTitle(/Blog/);
-  });
-});
-
-test.describe("job boards", () => {
-  // 2
-  test("should not have any automatically detectable accessibility issues", async ({
-    page,
-  }: {
-    page: any;
-  }) => {
-    await page.goto("/job-boards"); // 3
-
-    const accessibilityScanResults = await new AxeBuilder({ page }).analyze(); // 4
-
-    expect(accessibilityScanResults.violations).toEqual([]); // 5
+      // Expect a title "to contain" a substring.
+      await expect(page).toHaveTitle(/Blog/);
+    });
   });
 
-  test("has title", async ({ page }) => {
-    await page.goto("/Job Boards");
+  // test.describe("job boards", () => {
+  //   // 2
+  //   test("should not have any automatically detectable accessibility issues", async ({
+  //     page,
+  //   }: {
+  //     page: any;
+  //   }) => {
+  //     await page.goto("/job-boards"); // 3
 
-    // Expect a title "to contain" a substring.
-    await expect(page).toHaveTitle(/Blog/);
+  //     const accessibilityScanResults = await new AxeBuilder({ page }).analyze(); // 4
+
+  //     expect(accessibilityScanResults.violations).toEqual([]); // 5
+  //   });
+
+  //   test("has title", async ({ page }) => {
+  //     await page.goto("/Job Boards");
+
+  //     // Expect a title "to contain" a substring.
+  //     await expect(page).toHaveTitle(/Blog/);
+  //   });
+  // });
+
+  test.describe("login", () => {
+    // 2
+    test("should not have any automatically detectable accessibility issues", async ({
+      page,
+    }: {
+      page: any;
+    }) => {
+      await page.goto("/login"); // 3
+
+      const accessibilityScanResults = await new AxeBuilder({ page }).analyze(); // 4
+
+      expect(accessibilityScanResults.violations).toEqual([]); // 5
+    });
+
+    test("has title", async ({ page }) => {
+      await page.goto("/login");
+
+      // Expect a title "to contain" a substring.
+      await expect(page).toHaveTitle(/Login/);
+    });
   });
 });
 
