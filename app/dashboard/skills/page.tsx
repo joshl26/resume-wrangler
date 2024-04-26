@@ -1,9 +1,11 @@
+
 import {
   fetchSkillsByUserId,
   fetchSkillsCount,
   fetchSkillsPages,
   getUser,
 } from "@/app/lib/data";
+
 import BackButton from "@/app/ui/back-button";
 import { Button } from "@/app/ui/button";
 import Search from "@/app/ui/search";

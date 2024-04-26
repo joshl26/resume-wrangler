@@ -487,6 +487,7 @@ export async function fetchWorkExperiencePages(query: string, userId: string) {
   }
 }
 
+
 //TODO combine with fetchEducationPages
 export async function fetchWorkExperiencesCount(query: string, userId: string) {
   noStore();
@@ -521,6 +522,7 @@ export async function fetchFilteredUserCustomSectionOne(
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
 
   try {
+
     const user_custom_section_one = await conn.query(`
         SELECT *
         FROM user_custom_section_one u
@@ -682,6 +684,8 @@ export async function fetchUserCustomSectionTwoCount(
   } catch (error) {
     console.error("Database Error:", error);
     throw new Error("Failed to fetch total number of user custom section two.");
+=======
+    
   }
 }
 

@@ -7,7 +7,7 @@ import {
 } from "@/app/lib/definitions";
 import Link from "next/link";
 import React from "react";
-import Pagination from "../../pagination";
+
 // import JoyRide from "react-joyride";
 // const TOUR_STEPS: any = [
 //   {
@@ -30,20 +30,20 @@ import Pagination from "../../pagination";
 //   },
 // ];
 
+
 async function Education({
-  education,
   user,
   totalPages,
-  query,
   currentPage,
-  totalCount,
+  query,
+  education,
 }: {
-  education: UserEducationExperiences;
   user: User;
   totalPages: number;
   query: string;
   currentPage: number;
   totalCount: number;
+
 }) {
   const filteredEducation: UserEducationExperiences =
     await fetchFilteredEducation(query, currentPage, user?.id);
@@ -53,7 +53,6 @@ async function Education({
       {/* {user.new_user === "true" && (
         <JoyRide steps={TOUR_STEPS} continuous={true} showSkipButton={true} />
       )} */}
-
       <table className="w-full text-sm text-left rtl:text-right rounded tight-shadow">
         <thead
           className="text-xs text-black uppercase  border-spacing-2
@@ -154,9 +153,6 @@ async function Education({
           )}
         </tbody>
       </table>
-      <div className="pt-4">
-        <Pagination totalPages={totalPages} totalCount={totalCount} />
-      </div>
 
       {/* <nav
         className="flex items-center flex-column flex-wrap md:flex-row justify-between pt-4"
@@ -199,6 +195,9 @@ async function Education({
           </li>
         </ul>
       </nav> */}
+      <div className="pt-4">
+        <Pagination totalPages={totalPages} />
+      </div>
     </div>
   );
 }

@@ -81,6 +81,7 @@ async function ApplicationsTable({
           {filteredApplications?.length > 0 ? (
             filteredApplications?.map((application: Application) => (
               <tr key={application.id} className="border-b hover:bg-gray-50">
+
                 <th
                   scope="row"
                   className="px-6 h-[50px] font-medium whitespace-nowrap "

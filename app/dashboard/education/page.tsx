@@ -40,7 +40,7 @@ export default async function Page({
   const currentPage = Number(searchParams?.page) || 1;
   const totalPages = await fetchEducationPages(query, user?.id);
   const totalCount = await fetchEducationCount(query, user?.id);
-
+  
   return (
     <div className="h-full w-full overflow-y-auto px-2">
       <BackButton className="" href={"/dashboard/"}>
@@ -48,7 +48,7 @@ export default async function Page({
       </BackButton>
       <div className="flex flex-row justify-between">
         <div className="flex flex-col ">
-          <h1 className="text-[2rem] font-bold py-1">Education</h1>
+          <h1 className="text-[2rem] font-bold py-1 pb-2">Education</h1>
         </div>
         <div className="flex flex-col px-4">
           <div className="flex flex-row gap-x-3 h-auto ">
