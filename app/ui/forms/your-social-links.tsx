@@ -43,7 +43,7 @@ const YourSocialLinks = ({
   };
 
   return (
-    <div className="your-profile pt-4">
+    <div className="your-profile">
       <div className="py-2 font-bold text-xl">
         <h2>Your Social Links</h2>
       </div>
