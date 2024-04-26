@@ -3,8 +3,6 @@ import { Suspense } from "react";
 import ViewCounter from "./view-counter";
 import { getViewsCount } from "@/app/lib/blog/queries";
 import { getBlogPosts } from "@/app/lib/blog/blog";
-import LandingFooter from "../ui/landing/landing-footer";
-import LandingNavBar from "../ui/landing/landing-navbar";
 import BackButton from "../ui/back-button";
 import Landing from "../landing/page";
 

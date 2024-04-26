@@ -45,6 +45,28 @@ test.describe("blog", () => {
   });
 });
 
+test.describe("job boards", () => {
+  // 2
+  test("should not have any automatically detectable accessibility issues", async ({
+    page,
+  }: {
+    page: any;
+  }) => {
+    await page.goto("/job-boards"); // 3
+
+    const accessibilityScanResults = await new AxeBuilder({ page }).analyze(); // 4
+
+    expect(accessibilityScanResults.violations).toEqual([]); // 5
+  });
+
+  test("has title", async ({ page }) => {
+    await page.goto("/Job Boards");
+
+    // Expect a title "to contain" a substring.
+    await expect(page).toHaveTitle(/Blog/);
+  });
+});
+
 // test("get started link", async ({ page }) => {
 //   await page.goto("https://playwright.dev/");
 

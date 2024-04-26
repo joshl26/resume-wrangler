@@ -12,7 +12,11 @@ import { auth } from "@/auth";
 
 import SigninNavBar from "../ui/signin/signin-navbar";
 import SigninFooter from "../ui/signin/signin-footer";
-import AzureBlob from "../ui/landing/azure-blob";
+
+export const metadata = {
+  title: "Signup",
+  description: "New user signup page",
+};
 
 export default async function RegisterPage() {
   const session = await auth();

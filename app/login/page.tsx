@@ -4,8 +4,12 @@ import Link from "next/link";
 import SigninNavBar from "../ui/signin/signin-navbar";
 import SigninFooter from "../ui/signin/signin-footer";
 import PurpleBlob from "../ui/landing/purple-blob";
-import RoseBlob from "../ui/landing/rose-blob";
 import AzureBlob from "../ui/landing/azure-blob";
+
+export const metadata = {
+  title: "Login",
+  description: "Returning users login page",
+};
 
 export default function LoginPage() {
   return (

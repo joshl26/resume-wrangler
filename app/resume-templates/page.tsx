@@ -3,6 +3,11 @@ import Landing from "../landing/page";
 import ResumeTemplates from "../ui/resume-templates/resume-templates";
 import { fetchResumeTemplates } from "../lib/data";
 
+export const metadata = {
+  title: "Resume Templates",
+  description: "Search through our resume templates",
+};
+
 async function Page() {
   let resumeTemplates = await fetchResumeTemplates();
 
