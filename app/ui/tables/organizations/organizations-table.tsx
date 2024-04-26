@@ -2,13 +2,27 @@
 
 import { deleteOrganization } from "@/app/lib/actions";
 import { UserOrganization, userOrganizations } from "@/app/lib/definitions";
+import { User } from "next-auth";
 import Link from "next/link";
 import React from "react";
+import Pagination from "../../pagination";
 
 const Organizations = ({
   organizations,
+  user,
+  totalPages,
+  query,
+  currentPage,
+  totalCount,
+  filteredOrganizations,
 }: {
   organizations: userOrganizations;
+  user: User;
+  totalPages: number;
+  query: string;
+  currentPage: number;
+  totalCount: number;
+  filteredOrganizations: userOrganizations;
 }) => {
   return (
     <div className="relative overflow-x-auto overflow-y-auto tight-shadow rounded px-4 py-4 mr-3 bg-white">
@@ -33,8 +47,8 @@ const Organizations = ({
           </tr>
         </thead>
         <tbody>
-          {organizations?.length > 0 ? (
-            organizations?.map((organization: UserOrganization) => (
+          {filteredOrganizations?.length > 0 ? (
+            filteredOrganizations?.map((organization: UserOrganization) => (
               <tr key={organization?.id} className=" border-b  ">
                 <th
                   scope="row"
@@ -105,7 +119,10 @@ const Organizations = ({
           )}
         </tbody>
       </table>
-      <nav
+      <div className="pt-4">
+        <Pagination totalPages={totalPages} totalCount={totalCount} />
+      </div>
+      {/* <nav
         className="flex items-center flex-column flex-wrap md:flex-row justify-between pt-4"
         aria-label="Table navigation"
       >
@@ -145,7 +162,7 @@ const Organizations = ({
             </a>
           </li>
         </ul>
-      </nav>
+      </nav> */}
     </div>
   );
 };

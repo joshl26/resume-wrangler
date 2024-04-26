@@ -53,7 +53,7 @@ export default async function Page({
         <div className="flex flex-col px-4">
           <div className="flex flex-row gap-x-3 h-auto ">
             <div className="flex flex-col w-1/2 m-auto  ">
-              <Search placeholder="Search applications..." />
+              <Search placeholder="Search skills..." />
             </div>
             <div className="flex flex-col w-1/2 m-auto">
               <Button className="btn btn-amber tight-shadow hover:animate-pulse">

@@ -430,6 +430,261 @@ export async function fetchCompaniesCount(query: string, userId: string) {
   }
 }
 
+export async function fetchFilteredWorkExperiences(
+  query: string,
+  currentPage: number,
+  userId: string
+) {
+  noStore();
+
+  const offset = (currentPage - 1) * ITEMS_PER_PAGE;
+
+  try {
+    const companies = await conn.query(`
+        SELECT *
+        FROM user_work_experience u
+        WHERE u.user_id = '${userId}' AND 
+          (
+            u.job_title::text ILIKE '${`%${query}%`}' OR
+            u.company_name::text ILIKE '${`%${query}%`}' OR
+            u.location::text ILIKE '${`%${query}%`}'
+          )
+        ORDER BY u.created_at DESC
+        LIMIT '${ITEMS_PER_PAGE}' OFFSET '${offset}'
+    `);
+
+    return companies.rows;
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to fetch companies.");
+  }
+}
+
+export async function fetchWorkExperiencePages(query: string, userId: string) {
+  noStore();
+
+  try {
+    const count = await conn.query(`    
+      SELECT COUNT(*) AS work_experiences_count
+      FROM user_work_experience u      
+      WHERE u.user_id = '${userId}' 
+      AND (
+          u.job_title::text ILIKE '${`%${query}%`}' OR
+          u.company_name::text ILIKE '${`%${query}%`}' OR
+          u.location::text ILIKE '${`%${query}%`}'
+          )
+    `);
+
+    // console.log(count);
+
+    const totalPages: number = Math.ceil(
+      Number(count.rows[0].work_experiences_count) / ITEMS_PER_PAGE
+    );
+    return totalPages;
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to fetch total number of invoices.");
+  }
+}
+
+//TODO combine with fetchEducationPages
+export async function fetchWorkExperiencesCount(query: string, userId: string) {
+  noStore();
+
+  try {
+    const count = await conn.query(`    
+    SELECT COUNT(*) AS work_experiences_count
+    FROM user_work_experience u      
+    WHERE u.user_id = '${userId}' 
+    AND (
+      u.job_title::text ILIKE '${`%${query}%`}' OR
+      u.company_name::text ILIKE '${`%${query}%`}' OR
+      u.location::text ILIKE '${`%${query}%`}'
+      )
+  `);
+
+    const totalPages: number = count.rows[0].work_experiences_count;
+    return totalPages;
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to fetch total number of invoices.");
+  }
+}
+
+export async function fetchFilteredUserCustomSectionOne(
+  query: string,
+  currentPage: number,
+  userId: string
+) {
+  noStore();
+
+  const offset = (currentPage - 1) * ITEMS_PER_PAGE;
+
+  try {
+    const user_custom_section_one = await conn.query(`
+        SELECT *
+        FROM user_custom_section_one u
+        WHERE u.user_id = '${userId}' AND 
+          (
+            u.name::text ILIKE '${`%${query}%`}' OR
+            u.description::text ILIKE '${`%${query}%`}' OR
+            u.location::text ILIKE '${`%${query}%`}'
+          )
+        ORDER BY u.created_at DESC
+        LIMIT '${ITEMS_PER_PAGE}' OFFSET '${offset}'
+    `);
+
+    return user_custom_section_one.rows;
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to fetch companies.");
+  }
+}
+
+export async function fetchUserCustomSectionOnePages(
+  query: string,
+  userId: string
+) {
+  noStore();
+
+  try {
+    const count = await conn.query(`    
+      SELECT COUNT(*) AS user_custom_section_one_count
+      FROM user_custom_section_one u      
+      WHERE u.user_id = '${userId}' 
+      AND (
+          u.name::text ILIKE '${`%${query}%`}' OR
+          u.description::text ILIKE '${`%${query}%`}' OR
+          u.location::text ILIKE '${`%${query}%`}'
+          )
+    `);
+
+    // console.log(count);
+
+    const totalPages: number = Math.ceil(
+      Number(count.rows[0].user_custom_section_one_count) / ITEMS_PER_PAGE
+    );
+    return totalPages;
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to fetch total number of user custom section one.");
+  }
+}
+
+//TODO combine with fetchEducationPages
+export async function fetchUserCustomSectionOneCount(
+  query: string,
+  userId: string
+) {
+  noStore();
+
+  try {
+    const count = await conn.query(`    
+    SELECT COUNT(*) AS user_custom_section_one_count
+    FROM user_custom_section_one u      
+    WHERE u.user_id = '${userId}' 
+    AND (
+        u.name::text ILIKE '${`%${query}%`}' OR
+        u.description::text ILIKE '${`%${query}%`}' OR
+        u.location::text ILIKE '${`%${query}%`}'
+        )
+  `);
+
+    const totalPages: number = count.rows[0].user_custom_section_one_count;
+    return totalPages;
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to fetch total number of user custom section one.");
+  }
+}
+
+export async function fetchFilteredUserCustomSectionTwo(
+  query: string,
+  currentPage: number,
+  userId: string
+) {
+  noStore();
+
+  const offset = (currentPage - 1) * ITEMS_PER_PAGE;
+
+  try {
+    const user_custom_section_two = await conn.query(`
+        SELECT *
+        FROM user_custom_section_two u
+        WHERE u.user_id = '${userId}' AND 
+          (
+            u.name::text ILIKE '${`%${query}%`}' OR
+            u.description::text ILIKE '${`%${query}%`}' OR
+            u.location::text ILIKE '${`%${query}%`}'
+          )
+        ORDER BY u.created_at DESC
+        LIMIT '${ITEMS_PER_PAGE}' OFFSET '${offset}'
+    `);
+
+    return user_custom_section_two.rows;
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to fetch companies.");
+  }
+}
+
+export async function fetchUserCustomSectionTwoPages(
+  query: string,
+  userId: string
+) {
+  noStore();
+
+  try {
+    const count = await conn.query(`    
+      SELECT COUNT(*) AS user_custom_section_two_count
+      FROM user_custom_section_two u      
+      WHERE u.user_id = '${userId}' 
+      AND (
+          u.name::text ILIKE '${`%${query}%`}' OR
+          u.description::text ILIKE '${`%${query}%`}' OR
+          u.location::text ILIKE '${`%${query}%`}'
+          )
+    `);
+
+    // console.log(count);
+
+    const totalPages: number = Math.ceil(
+      Number(count.rows[0].user_custom_section_two_count) / ITEMS_PER_PAGE
+    );
+    return totalPages;
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to fetch total number of user custom section two.");
+  }
+}
+
+//TODO combine with fetchEducationPages
+export async function fetchUserCustomSectionTwoCount(
+  query: string,
+  userId: string
+) {
+  noStore();
+
+  try {
+    const count = await conn.query(`    
+    SELECT COUNT(*) AS user_custom_section_two_count
+    FROM user_custom_section_two u      
+    WHERE u.user_id = '${userId}' 
+    AND (
+        u.name::text ILIKE '${`%${query}%`}' OR
+        u.description::text ILIKE '${`%${query}%`}' OR
+        u.location::text ILIKE '${`%${query}%`}'
+        )
+  `);
+
+    const totalPages: number = count.rows[0].user_custom_section_two_count;
+    return totalPages;
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to fetch total number of user custom section two.");
+  }
+}
+
 export async function fetchCompanyNameById(id: string) {
   noStore();
 
