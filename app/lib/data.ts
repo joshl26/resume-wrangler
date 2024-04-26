@@ -346,6 +346,90 @@ export async function fetchSkillsCount(query: string, userId: string) {
   }
 }
 
+export async function fetchFilteredCompanies(
+  query: string,
+  currentPage: number,
+  userId: string
+) {
+  noStore();
+
+  const offset = (currentPage - 1) * ITEMS_PER_PAGE;
+
+  try {
+    const companies = await conn.query(`
+        SELECT *
+        FROM companies c
+        WHERE c.user_id = '${userId}' AND 
+          (
+                c.name::text ILIKE '${`%${query}%`}' OR
+                c.address_one::text ILIKE '${`%${query}%`}' OR
+                c.address_two::text ILIKE '${`%${query}%`}' OR
+                c.website_url::text ILIKE '${`%${query}%`}'
+          )
+        ORDER BY c.created_at DESC
+        LIMIT '${ITEMS_PER_PAGE}' OFFSET '${offset}'
+    `);
+
+    return companies.rows;
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to fetch companies.");
+  }
+}
+
+export async function fetchCompaniesPages(query: string, userId: string) {
+  noStore();
+
+  try {
+    const count = await conn.query(`    
+      SELECT COUNT(*) AS companies_count
+      FROM companies c      
+      WHERE c.user_id = '${userId}' 
+      AND (
+        c.name::text ILIKE '${`%${query}%`}' OR
+        c.address_one::text ILIKE '${`%${query}%`}' OR
+        c.address_two::text ILIKE '${`%${query}%`}' OR
+        c.website_url::text ILIKE '${`%${query}%`}'
+        )
+    `);
+
+    // console.log(count);
+
+    const totalPages: number = Math.ceil(
+      Number(count.rows[0].companies_count) / ITEMS_PER_PAGE
+    );
+    return totalPages;
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to fetch total number of invoices.");
+  }
+}
+
+//TODO combine with fetchEducationPages
+export async function fetchCompaniesCount(query: string, userId: string) {
+  noStore();
+
+  try {
+    const count = await conn.query(`    
+    SELECT COUNT(*) AS companies_count
+    FROM companies c      
+    WHERE c.user_id = '${userId}' 
+    AND (
+      c.name::text ILIKE '${`%${query}%`}' OR
+      c.address_one::text ILIKE '${`%${query}%`}' OR
+      c.address_two::text ILIKE '${`%${query}%`}' OR
+      c.website_url::text ILIKE '${`%${query}%`}'
+      )
+  `);
+
+    const totalPages: number = count.rows[0].companies_count;
+    return totalPages;
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to fetch total number of invoices.");
+  }
+}
+
 export async function fetchCompanyNameById(id: string) {
   noStore();
 
