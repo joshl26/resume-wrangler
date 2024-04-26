@@ -83,7 +83,7 @@ async function ApplicationsTable({
               <tr key={application.id} className="border-b hover:bg-gray-50">
                 <th
                   scope="row"
-                  className="px-6 h-[50px] font-medium whitespace-nowrap "
+                  className="px-6 h-[55px] font-medium whitespace-nowrap "
                 >
                   <Link
                     href={`/dashboard/applications/edit/${application?.id}`}
@@ -292,9 +292,9 @@ async function ApplicationsTable({
           )}
         </tbody>
       </table>
-      <div className="pt-4">
+      {/* <div className="pt-4">
         <Pagination totalPages={totalPages} totalCount={totalCount} />
-      </div>
+      </div> */}
     </div>
   );
 }

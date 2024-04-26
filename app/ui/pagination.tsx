@@ -30,7 +30,7 @@ export default function Pagination({
 
   return (
     <nav
-      className="flex items-center flex-column flex-wrap md:flex-row justify-between pt-4"
+      className="flex items-center flex-column flex-wrap md:flex-row justify-between "
       aria-label="Table navigation"
     >
       <span className="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">
@@ -92,14 +92,14 @@ function PaginationNumber({
   isActive: boolean;
 }) {
   const className = clsx(
-    "flex h-10 w-10 items-center justify-center text-sm border",
+    "flex h-10 w-10 items-center justify-center text-sm border ",
     {
       "rounded-l-md": position === "first" || position === "single",
       "rounded-r-md": position === "last" || position === "single",
       "z-10 bg-azure-radiance-600 border-azure-radiance-600 text-white":
         isActive,
-      "hover:bg-gray-100": !isActive && position !== "middle",
-      "text-gray-300": position === "middle",
+      "hover:bg-gray-100 bg-white": !isActive && position !== "middle",
+      "text-gray-300 bg-white": position === "middle",
     }
   );
 
@@ -122,7 +122,7 @@ function PaginationArrow({
   isDisabled?: boolean;
 }) {
   const className = clsx(
-    "flex h-10 w-10 items-center justify-center rounded-md border",
+    "flex h-10 w-10 items-center justify-center rounded-md border bg-white",
     {
       "pointer-events-none text-gray-300": isDisabled,
       "hover:bg-gray-100": !isDisabled,
