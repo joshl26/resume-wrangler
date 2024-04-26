@@ -1,14 +1,31 @@
 "use client";
 
 import { deleteWorkExperience } from "@/app/lib/actions";
-import { UserWorkExperience, UserWorkExperiences } from "@/app/lib/definitions";
+import {
+  User,
+  UserWorkExperience,
+  UserWorkExperiences,
+} from "@/app/lib/definitions";
 import Link from "next/link";
 import React from "react";
+import Pagination from "../../pagination";
 
 const WorkExperience = ({
   workExperiences,
+  user,
+  totalPages,
+  query,
+  currentPage,
+  totalCount,
+  filteredWorkExperiences,
 }: {
+  user: User;
   workExperiences: UserWorkExperiences;
+  totalPages: number;
+  query: string;
+  currentPage: number;
+  totalCount: number;
+  filteredWorkExperiences: UserWorkExperiences;
 }) => {
   return (
     <div className="relative overflow-y-auto tight-shadow rounded px-4 mr-2 py-4 bg-white">
@@ -36,75 +53,81 @@ const WorkExperience = ({
           </tr>
         </thead>
         <tbody>
-          {workExperiences?.length > 0 ? (
-            workExperiences?.map((workExperience: UserWorkExperience) => (
-              <tr
-                key={workExperience?.id}
-                className="border-b  hover:bg-gray-50 "
-              >
-                <td className="px-6 py-4 font-medium whitespace-nowrap">
-                  <Link
-                    href={`/dashboard/work-experience/edit/${workExperience?.id}`}
-                  >
-                    {workExperience?.company_name
-                      ? workExperience?.company_name
-                      : "N/A"}
-                  </Link>
-                </td>
-                <td className="px-6 py-4">
-                  {workExperience?.job_title
-                    ? workExperience?.job_title
-                    : "N/A"}
-                </td>
-                <td className="px-6 py-4">
-                  {workExperience?.location ? workExperience?.location : "N/A"}
-                </td>
-                <td className="px-6 py-4">
-                  {workExperience?.start_date
-                    ? workExperience?.start_date
-                    : "N/A"}
-                </td>
-                <td className="px-6 py-4">
-                  {workExperience?.end_date ? workExperience?.end_date : "N/A"}
-                </td>
-
-                <td className="text-left py-4">
-                  <div className="flex flex-row justify-around">
-                    <a
-                      id="edit"
-                      href={`/dashboard/work-experience/edit/${workExperience.id}`}
-                      className="font-medium  hover:underline"
+          {filteredWorkExperiences?.length > 0 ? (
+            filteredWorkExperiences?.map(
+              (workExperience: UserWorkExperience) => (
+                <tr
+                  key={workExperience?.id}
+                  className="border-b  hover:bg-gray-50 "
+                >
+                  <td className="px-6 py-4 font-medium whitespace-nowrap">
+                    <Link
+                      href={`/dashboard/work-experience/edit/${workExperience?.id}`}
                     >
-                      Edit
-                    </a>
-                    <form action={deleteWorkExperience}>
-                      <input
-                        required
-                        hidden
-                        readOnly
-                        value={workExperience.id}
-                        name="work_experience_id"
-                      />
-                      <input
-                        required
-                        hidden
-                        readOnly
-                        value="blank"
-                        id="resume_id"
-                        name="resume_id"
-                      />
-                      <button
-                        id="remove"
-                        type="submit"
-                        className="font-medium hover:underline "
+                      {workExperience?.company_name
+                        ? workExperience?.company_name
+                        : "N/A"}
+                    </Link>
+                  </td>
+                  <td className="px-6 py-4">
+                    {workExperience?.job_title
+                      ? workExperience?.job_title
+                      : "N/A"}
+                  </td>
+                  <td className="px-6 py-4">
+                    {workExperience?.location
+                      ? workExperience?.location
+                      : "N/A"}
+                  </td>
+                  <td className="px-6 py-4">
+                    {workExperience?.start_date
+                      ? workExperience?.start_date
+                      : "N/A"}
+                  </td>
+                  <td className="px-6 py-4">
+                    {workExperience?.end_date
+                      ? workExperience?.end_date
+                      : "N/A"}
+                  </td>
+
+                  <td className="text-left py-4">
+                    <div className="flex flex-row justify-around">
+                      <a
+                        id="edit"
+                        href={`/dashboard/work-experience/edit/${workExperience.id}`}
+                        className="font-medium  hover:underline"
                       >
-                        Remove
-                      </button>
-                    </form>
-                  </div>
-                </td>
-              </tr>
-            ))
+                        Edit
+                      </a>
+                      <form action={deleteWorkExperience}>
+                        <input
+                          required
+                          hidden
+                          readOnly
+                          value={workExperience.id}
+                          name="work_experience_id"
+                        />
+                        <input
+                          required
+                          hidden
+                          readOnly
+                          value="blank"
+                          id="resume_id"
+                          name="resume_id"
+                        />
+                        <button
+                          id="remove"
+                          type="submit"
+                          className="font-medium hover:underline "
+                        >
+                          Remove
+                        </button>
+                      </form>
+                    </div>
+                  </td>
+                </tr>
+              )
+            )
           ) : (
             <tr>
               <Link href="/dashboard/work-experience/new">
@@ -116,7 +139,10 @@ const WorkExperience = ({
           )}
         </tbody>
       </table>
-      <nav
+      <div className="pt-4">
+        <Pagination totalPages={totalPages} totalCount={totalCount} />
+      </div>
+      {/* <nav
         className="flex items-center flex-column flex-wrap md:flex-row justify-between pt-4"
         aria-label="Table navigation"
       >
@@ -157,7 +183,7 @@ const WorkExperience = ({
             </a>
           </li>
         </ul>
-      </nav>
+      </nav> */}
     </div>
   );
 };

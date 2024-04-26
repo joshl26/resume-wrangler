@@ -1,5 +1,6 @@
 import {
   fetchApplicationsByUserId,
+  fetchApplicationsCount,
   fetchApplicationsPages,
   fetchCoverLettersByUserId,
   fetchLatestCompaniesByUserId,
@@ -9,7 +10,7 @@ import {
 import { Button } from "@/app/ui/button";
 import ApplicationsTable from "@/app/ui/tables/applications/applications-table";
 import { auth } from "@/auth";
-import React from "react";
+import React, { Suspense } from "react";
 import { notFound } from "next/navigation";
 import BackButton from "@/app/ui/back-button";
 import Search from "@/app/ui/search";
@@ -46,9 +47,10 @@ export default async function Page({
   const query = searchParams?.query || "";
   const currentPage = Number(searchParams?.page) || 1;
   const totalPages = await fetchApplicationsPages(query, user?.id);
+  const totalCount = await fetchApplicationsCount(query, user?.id);
 
   return (
-    <div className="h-full w-full overflow-y-auto px-2">
+    <div className="w-full h-auto px-2 mb-2">
       <BackButton className={""} href={"/dashboard/"}>
         Back
       </BackButton>
@@ -59,7 +61,7 @@ export default async function Page({
         <div className="flex flex-col px-4">
           <div className="flex flex-row gap-x-3 h-auto ">
             <div className="flex flex-col w-1/2 m-auto  ">
-              <Search placeholder="Search invoices..." />
+              <Search placeholder="Search applications..." />
             </div>
             <div className="flex flex-col w-1/2 m-auto">
               <Button className="btn btn-amber tight-shadow hover:animate-pulse">
@@ -71,16 +73,19 @@ export default async function Page({
           </div>
         </div>
       </div>
-      <ApplicationsTable
-        user={user}
-        resumes={resumes}
-        coverLetters={coverLetters}
-        applications={applications}
-        companies={companies}
-        totalPages={totalPages}
-        query={query}
-        currentPage={currentPage}
-      />
+      <Suspense key={query + currentPage}>
+        <ApplicationsTable
+          user={user}
+          resumes={resumes}
+          coverLetters={coverLetters}
+          applications={applications}
+          companies={companies}
+          totalPages={totalPages}
+          query={query}
+          currentPage={currentPage}
+          totalCount={totalCount}
+        />
+      </Suspense>
     </div>
   );
 }

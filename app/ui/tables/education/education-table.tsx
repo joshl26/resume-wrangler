@@ -7,10 +7,8 @@ import {
 } from "@/app/lib/definitions";
 import Link from "next/link";
 import React from "react";
-// import JoyRide from "react-joyride";
 import Pagination from "../../pagination";
-
-//TODO implement guided
+// import JoyRide from "react-joyride";
 // const TOUR_STEPS: any = [
 //   {
 //     content: <h2>Lets begin our journey!</h2>,
@@ -33,17 +31,23 @@ import Pagination from "../../pagination";
 // ];
 
 async function Education({
+  education,
   user,
   totalPages,
-  currentPage,
   query,
-  education,
+  currentPage,
+  totalCount,
 }: {
   user: User;
   totalPages: number;
   currentPage: number;
   query: string;
   education: UserEducationExperiences;
+  user: User;
+  totalPages: number;
+  query: string;
+  currentPage: number;
+  totalCount: number;
 }) {
   const filteredEducation: UserEducationExperiences =
     await fetchFilteredEducation(query, currentPage, user?.id);
@@ -80,12 +84,12 @@ async function Education({
           </tr>
         </thead>
         <tbody>
-          {education?.length > 0 ? (
-            education?.map((program: UserEducationExperience) => (
+          {filteredEducation?.length > 0 ? (
+            filteredEducation?.map((program: UserEducationExperience) => (
               <tr key={program?.id} className="border-b">
                 <th
                   scope="row"
-                  className="px-6 py-4 font-medium whitespace-nowrap "
+                  className="px-6 h-[47px] font-medium whitespace-nowrap "
                 >
                   <Link href={`/dashboard/education/edit/${program?.id}`}>
                     {program?.institution_name
@@ -93,19 +97,19 @@ async function Education({
                       : "N/A"}
                   </Link>{" "}
                 </th>
-                <td className="px-6 py-4">
+                <td className="px-6 ">
                   {program?.program ? program?.program : "N/A"}
                 </td>
-                <td className="px-6 py-4">
+                <td className="px-6 ">
                   {program?.location ? program?.location : "N/A"}
                 </td>
-                <td className="px-6 py-4">
+                <td className="px-6 ">
                   {program?.start_date ? program?.start_date : "N/A"}
                 </td>
-                <td className="px-6 py-4">
+                <td className="px-6 ">
                   {program?.end_date ? program?.end_date : "N/A"}
                 </td>
-                <td className="text-left px-6 py-4">
+                <td className="text-left px-6 ">
                   <div className="flex flex-row">
                     <a
                       id="edit"
@@ -153,6 +157,10 @@ async function Education({
           )}
         </tbody>
       </table>
+      <div className="pt-4">
+        <Pagination totalPages={totalPages} totalCount={totalCount} />
+      </div>
+
       {/* <nav
         className="flex items-center flex-column flex-wrap md:flex-row justify-between pt-4"
         aria-label="Table navigation"
@@ -194,9 +202,6 @@ async function Education({
           </li>
         </ul>
       </nav> */}
-      <div className="pt-4">
-        <Pagination totalPages={totalPages} />
-      </div>
     </div>
   );
 }

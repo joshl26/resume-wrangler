@@ -1,11 +1,28 @@
 "use client";
 
 import { deleteCompany } from "@/app/lib/actions";
-import { Company } from "@/app/lib/definitions";
+import type { Companies, Company, User } from "@/app/lib/definitions";
 import Link from "next/link";
 import React from "react";
+import Pagination from "../../pagination";
 
-const Companies = ({ companies }: { companies: Company[] }) => {
+const CompaniesTable = ({
+  companies,
+  user,
+  totalPages,
+  query,
+  currentPage,
+  totalCount,
+  filteredCompanies,
+}: {
+  companies: Companies;
+  user: User;
+  totalPages: number;
+  query: string;
+  currentPage: number;
+  totalCount: number;
+  filteredCompanies: Companies;
+}) => {
   return (
     <div className="relative overflow-x-auto overflow-y-auto tight-shadow rounded px-4 py-4 mr-3 bg-white">
       <table className="w-full text-sm text-left rtl:text-right tight-shadow">
@@ -26,39 +43,36 @@ const Companies = ({ companies }: { companies: Company[] }) => {
             <th scope="col" className="px-6 py-3">
               Phone
             </th>
-
             <th scope="col" className="px-6 py-3">
               Action
             </th>
           </tr>
         </thead>
         <tbody>
-          {companies?.length > 0 ? (
-            companies?.map((company: Company) => (
+          {filteredCompanies?.length > 0 ? (
+            filteredCompanies?.map((company: Company) => (
               <tr key={company?.id} className=" border-b da hover:bg-gray-50 ">
                 <th
                   scope="row"
-                  className="px-6 py-4 font-medium  whitespace-nowrap "
+                  className="px-6 h-[45px] font-medium  whitespace-nowrap "
                 >
                   <Link href={`/dashboard/companies/edit/${company?.id}`}>
                     {company?.name ? company?.name : "N/A"}
                   </Link>
                 </th>
-
-                <td className="px-6 py-4">
+                <td className="px-6 ">
                   {company?.address_one ? company?.address_one : "N/A"}
                 </td>
-                <td className="px-6 py-4">
+                <td className="px-6 ">
                   {company?.recipient_title ? company?.recipient_title : "N/A"}
                 </td>
-                <td className="px-6 py-4">
+                <td className="px-6 ">
                   {company?.email ? company?.email : "N/A"}
                 </td>
-                <td className="text-left px-6 py-4">
+                <td className="text-left px-6 ">
                   {company?.phone ? company?.phone : "N/A"}
                 </td>
-
-                <td className="text-left px-6 py-4">
+                <td className="text-left px-6 ">
                   <div className="flex flex-row">
                     <a
                       id="edit"
@@ -67,6 +81,7 @@ const Companies = ({ companies }: { companies: Company[] }) => {
                     >
                       Edit
                     </a>
+
                     <form action={() => deleteCompany(company.id)}>
                       <button
                         id="remove"
@@ -91,7 +106,10 @@ const Companies = ({ companies }: { companies: Company[] }) => {
           )}
         </tbody>
       </table>
-      <nav
+      <div className="pt-4">
+        <Pagination totalPages={totalPages} totalCount={totalCount} />
+      </div>
+      {/* <nav
         className="flex items-center flex-column flex-wrap md:flex-row justify-between pt-4"
         aria-label="Table navigation"
       >
@@ -131,9 +149,9 @@ const Companies = ({ companies }: { companies: Company[] }) => {
             </a>
           </li>
         </ul>
-      </nav>
+      </nav> */}
     </div>
   );
 };
 
-export default Companies;
+export default CompaniesTable;

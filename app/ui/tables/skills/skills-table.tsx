@@ -1,11 +1,31 @@
-"use client";
-
 import { deleteUserSkill } from "@/app/lib/actions";
-import { UserSkills } from "@/app/lib/definitions";
+import { User, UserSkills } from "@/app/lib/definitions";
 import Link from "next/link";
 import React from "react";
+import Pagination from "../../pagination";
+import { fetchFilteredSkills } from "@/app/lib/data";
 
-const Skills = ({ skills }: { skills: UserSkills }) => {
+async function Skills({
+  user,
+  skills,
+  totalPages,
+  query,
+  currentPage,
+  totalCount,
+}: {
+  user: User;
+  skills: UserSkills;
+  totalPages: number;
+  query: string;
+  currentPage: number;
+  totalCount: number;
+}) {
+  const filteredSkills: UserSkills = await fetchFilteredSkills(
+    query,
+    currentPage,
+    user?.id
+  );
+
   return (
     <div className="relative overflow-x-auto tight-shadow rounded px-4 pt-4 pb-4 mb-10 mr-3 bg-white">
       <table
@@ -26,18 +46,18 @@ const Skills = ({ skills }: { skills: UserSkills }) => {
           </tr>
         </thead>
         <tbody className="">
-          {skills?.length > 0 ? (
-            skills?.map((skill: any) => (
+          {filteredSkills?.length > 0 ? (
+            filteredSkills?.map((skill: any) => (
               <tr key={skill?.id} className="border-b">
                 <td
                   scope="row"
-                  className="px-6 py-2 font-medium text-gray-900 whitespace-nowrap "
+                  className="px-6 h-[45px] font-medium text-gray-900 whitespace-nowrap "
                 >
                   <Link href={`/dashboard/skills/edit/${skill?.id}`}>
                     {skill?.skill ? skill?.skill : "N/A"}
                   </Link>
                 </td>
-                <td className="px-6 py-2">
+                <td className="px-6 ">
                   <div className="flex flex-row gap-2 justify-start">
                     <input
                       className="shadow-none"
@@ -48,7 +68,7 @@ const Skills = ({ skills }: { skills: UserSkills }) => {
                     {skill?.skill_level ? <p>{skill?.skill_level}%</p> : "N/A"}
                   </div>
                 </td>
-                <td className="text-left px-6 py-2">
+                <td className="text-left px-6 ">
                   <div className="flex flex-row">
                     <a
                       id="edit"
@@ -95,7 +115,7 @@ const Skills = ({ skills }: { skills: UserSkills }) => {
           )}
         </tbody>
       </table>
-      <nav
+      {/* <nav
         className="flex items-center flex-column flex-wrap md:flex-row justify-between pt-4"
         aria-label="Table navigation"
       >
@@ -136,9 +156,12 @@ const Skills = ({ skills }: { skills: UserSkills }) => {
             </a>
           </li>
         </ul>
-      </nav>
+      </nav> */}
+      <div className="pt-4">
+        <Pagination totalPages={totalPages} totalCount={totalCount} />
+      </div>
     </div>
   );
-};
+}
 
 export default Skills;

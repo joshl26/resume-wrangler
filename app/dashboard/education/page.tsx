@@ -1,5 +1,6 @@
 import {
   fetchEducationByUserId,
+  fetchEducationCount,
   fetchEducationPages,
   getUser,
 } from "@/app/lib/data";
@@ -10,7 +11,7 @@ import Education from "@/app/ui/tables/education/education-table";
 import { auth } from "@/auth";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import React from "react";
+import React, { Suspense } from "react";
 
 export default async function Page({
   searchParams,
@@ -38,8 +39,7 @@ export default async function Page({
   const query = searchParams?.query || "";
   const currentPage = Number(searchParams?.page) || 1;
   const totalPages = await fetchEducationPages(query, user?.id);
-
-  console.log(totalPages);
+  const totalCount = await fetchEducationCount(query, user?.id);
 
   return (
     <div className="h-full w-full overflow-y-auto px-2">
@@ -65,13 +65,16 @@ export default async function Page({
           </div>
         </div>
       </div>
-      <Education
-        user={user}
-        education={education}
-        totalPages={totalPages}
-        currentPage={currentPage}
-        query={query}
-      />
+      <Suspense key={query + currentPage}>
+        <Education
+          user={user}
+          education={education}
+          totalPages={totalPages}
+          query={query}
+          currentPage={currentPage}
+          totalCount={totalCount}
+        />
+      </Suspense>
     </div>
   );
 }

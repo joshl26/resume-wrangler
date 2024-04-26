@@ -1,4 +1,9 @@
-import { fetchSkillPages, fetchSkillsByUserId, getUser } from "@/app/lib/data";
+import {
+  fetchSkillsByUserId,
+  fetchSkillsCount,
+  fetchSkillsPages,
+  getUser,
+} from "@/app/lib/data";
 import BackButton from "@/app/ui/back-button";
 import { Button } from "@/app/ui/button";
 import Search from "@/app/ui/search";
@@ -6,7 +11,7 @@ import Skills from "@/app/ui/tables/skills/skills-table";
 import { auth } from "@/auth";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import React from "react";
+import React, { Suspense } from "react";
 
 export default async function Page({
   searchParams,
@@ -33,9 +38,8 @@ export default async function Page({
 
   const query = searchParams?.query || "";
   const currentPage = Number(searchParams?.page) || 1;
-  const totalPages = await fetchSkillPages(query, user?.id);
-
-  console.log(totalPages);
+  const totalPages = await fetchSkillsPages(query, user?.id);
+  const totalCount = await fetchSkillsCount(query, user?.id);
 
   return (
     <div className="h-full w-full px-2 overflow-y-auto ">
@@ -61,7 +65,16 @@ export default async function Page({
           </div>
         </div>
       </div>
-      <Skills skills={skills} />
+      <Suspense key={query + currentPage}>
+        <Skills
+          user={user}
+          skills={skills}
+          totalPages={totalPages}
+          query={query}
+          currentPage={currentPage}
+          totalCount={totalCount}
+        />
+      </Suspense>
     </div>
   );
 }

@@ -1,14 +1,31 @@
 "use client";
 
 import { deleteCertification } from "@/app/lib/actions";
-import { UserCertification, UserCertifications } from "@/app/lib/definitions";
+import {
+  User,
+  UserCertification,
+  UserCertifications,
+} from "@/app/lib/definitions";
 import Link from "next/link";
 import React from "react";
+import Pagination from "../../pagination";
 
 const Certifications = ({
   certifications,
+  user,
+  totalPages,
+  query,
+  currentPage,
+  totalCount,
+  filteredCertifications,
 }: {
   certifications: UserCertifications;
+  user: User;
+  totalPages: number;
+  query: string;
+  currentPage: number;
+  totalCount: number;
+  filteredCertifications: UserCertifications;
 }) => {
   return (
     <div className="relative overflow-x-auto overflow-y-auto tight-shadow rounded px-4 py-4 mr-3 bg-white">
@@ -33,8 +50,8 @@ const Certifications = ({
           </tr>
         </thead>
         <tbody>
-          {certifications[0] ? (
-            certifications?.map((certification: UserCertification) => (
+          {filteredCertifications[0] ? (
+            filteredCertifications?.map((certification: UserCertification) => (
               <tr
                 key={certification?.id}
                 className=" border-b  hover:bg-gray-50 "
@@ -110,7 +127,10 @@ const Certifications = ({
           )}
         </tbody>
       </table>
-      <nav
+      <div className="pt-4">
+        <Pagination totalPages={totalPages} totalCount={totalCount} />
+      </div>
+      {/* <nav
         className="flex items-center flex-column flex-wrap md:flex-row justify-between pt-4"
         aria-label="Table navigation"
       >
@@ -150,7 +170,7 @@ const Certifications = ({
             </a>
           </li>
         </ul>
-      </nav>
+      </nav> */}
     </div>
   );
 };
