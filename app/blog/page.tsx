@@ -18,11 +18,11 @@ export default function BlogPage() {
 
   return (
     <Landing>
-      <main className="h-full min-h-[97vh] bg-amber-200">
+      <section className="h-full min-h-[97vh] bg-amber-200">
         <section className="flex flex-col max-w-screen-md min-h-[97vh] mx-auto bg-amber-300 pt-[10vh] px-4 tight-shadow">
           <div className="flex flex-row w-full justify-start pb-8">
             <BackButton
-              className="text-azure-radiance-700 font-medium hover:text-rose-500"
+              className="text-azure-radiance-700 font-medium hover:text-rose-700"
               href="/"
             >
               Back
@@ -63,7 +63,7 @@ export default function BlogPage() {
               </Link>
             ))}
         </section>
-      </main>
+      </section>
     </Landing>
   );
 }
@@ -71,5 +71,5 @@ export default function BlogPage() {
 async function Views({ slug }: { slug: string }) {
   let views = await getViewsCount();
 
-  return <ViewCounter className="text-rose-500" allViews={views} slug={slug} />;
+  return <ViewCounter className="text-rose-700" allViews={views} slug={slug} />;
 }

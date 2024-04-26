@@ -12,7 +12,7 @@ const LandingNavBar = () => {
     <nav className=" bg-amber-50 flex fixed opacity-100 t-0 w-screen items-center justify-between flex-wrap p-2 z-40">
       <div className="max-w-screen-xl w-full flex flex-row items-center justify-between m-auto">
         <div className="flex items-center flex-shrink-0 mr-6 ">
-          <Link href="/" className="w-[50px] h-[50px]">
+          <Link aria-label="home" href="/" className="w-[50px] h-[50px]">
             <Image
               className="rounded"
               width={100}
@@ -25,18 +25,21 @@ const LandingNavBar = () => {
         <div className="w-full hidden flex-grow lg:flex lg:items-center lg:w-auto md:visible">
           <div className="text-sm lg:flex-grow">
             <Link
+              aria-label="resume templates"
               href="/resume-templates"
               className="block mt-4 lg:inline-block lg:mt-0  hover:text-rose-400 mr-4"
             >
               Resume Templates
             </Link>
             <Link
+              aria-label="job boards"
               href="/job-boards"
               className="block mt-4 lg:inline-block lg:mt-0  hover:text-rose-400 mr-4"
             >
               Job Boards
             </Link>
             <Link
+              aria-label="blog"
               href="/blog"
               className="block mt-4 lg:inline-block lg:mt-0  hover:text-rose-400"
             >
@@ -46,12 +49,14 @@ const LandingNavBar = () => {
           <div className="invisible lg:visible">
             <div className="flex flex-row justify-end gap-2">
               <Link
+                aria-label="login"
                 href="/login"
                 className="w-auto rounded-full bg-amber-50 hover:text-rose-400 px-6 py-3"
               >
                 Log in
               </Link>
               <Link
+                aria-label="register"
                 href="/register"
                 className="rounded-full px-6 py-3 btn btn-amber border-none bg-amber-400 "
               >
@@ -81,6 +86,7 @@ const LandingNavBar = () => {
         <div className="w-full block lg:hidden p-2 mb-2">
           <div className="text-sm lg:flex-grow">
             <Link
+              aria-label="resume templates"
               href="/resume-templates"
               className="block mt-4 lg:inline-block lg:mt-0  hover:text-rose-400 mr-4"
             >
@@ -93,18 +99,21 @@ const LandingNavBar = () => {
               Features
             </Link> */}
             <Link
+              aria-label="blog"
               href="/blog"
               className="block mt-4 lg:inline-block lg:mt-0  hover:text-rose-400"
             >
               Blog
             </Link>
             <Link
+              aria-label="login"
               href="/login"
               className="block w-[100px] rounded-full mt-4 hover:text-rose-400 "
             >
               Log in
             </Link>
             <Link
+              aria-label="register"
               href="/register"
               className="btn btn-amber block w-fit rounded-full mt-4 border  px-6 py-3 font-medium "
             >
