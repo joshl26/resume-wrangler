@@ -8,7 +8,7 @@ export default async function sitemap() {
     "/register",
     "/resume-templates",
   ].map((route) => ({
-    url: `${process.env.DEPLOYMENT_URL}/${route}`,
+    url: `${process.env.DEPLOYMENT_URL}${route}`,
     lastModified: new Date().toISOString().split("T")[0],
   }));
 
