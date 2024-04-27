@@ -47,7 +47,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} antialiased`}>
-        <div className="sr-only">Skip to main content</div>
+        {/* <div className="sr-only">Skip to main content</div> */}
         <Suspense>{children}</Suspense>
       </body>
     </html>

@@ -89,6 +89,32 @@ test.describe("accessibility tests", () => {
       await expect(page).toHaveTitle(/Login/);
     });
   });
+
+  // test("should not have any automatically detectable WCAG A or AA violations", async ({
+  //   page,
+  // }: {
+  //   page: any;
+  // }) => {
+  //   await page.goto("/");
+
+  //   const accessibilityScanResults = await new AxeBuilder({ page })
+  //     .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"])
+  //     .analyze();
+
+  //   // //Attached the violations to the test report
+  //   // await testInfo.attach("accessibility-scan-results", {
+  //   //   body: JSON.stringify(accessibilityScanResults.violations, null, 2),
+  //   //   contentType: "application/json",
+  //   // });
+
+  //   // //Console log the violations
+  //   // let violation = accessibilityScanResults.violations;
+  //   // violation.forEach(function (entry) {
+  //   //   console.log(entry.impact + " " + entry.description);
+  //   // });
+
+  //   expect(accessibilityScanResults.violations).toEqual([]);
+  // });
 });
 
 // test("get started link", async ({ page }) => {
