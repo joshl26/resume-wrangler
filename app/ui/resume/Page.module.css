@@ -6,12 +6,18 @@
   /* border: 1px solid red; */
 
   /* A4 page size */
-  /* width: 210mm;
-  height: 297mm; */
+  /* max-width: 210mm;
+  max-height: 297mm;
+
+  min-width: 210mm;
+  min-height: 297mm; */
 
   /* letter page size */
-  width: 216mm;
-  height: 279mm;
+  min-width: 216mm;
+  min-height: 279mm;
+
+  max-width: 216mm;
+  max-height: 279mm;
 
   padding: 32px;
   color: black;

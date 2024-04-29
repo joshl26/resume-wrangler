@@ -42,7 +42,7 @@ interface Props {
   userEducation: UserEducationExperiences;
   userCertifications: UserCertifications;
   userOrganizations: userOrganizations;
-  selectedResumeHighlightColor: any;
+  highlightColor: any;
   show_social_icons: string;
   show_skills_section: string;
   show_skill_progress: string;
@@ -374,7 +374,7 @@ export default async function ThreeDAnimator(props: Props) {
                       <li
                         className={clsx(
                           "flex flex-col px-2 rounded py-[2px] border-[1px] text-[black]",
-                          `border-${props?.selectedResumeHighlightColor || props?.resume?.highlight_color}`
+                          `border-${props?.highlightColor || props?.resume?.highlight_color}`
                         )}
                         key={userSkill?.id}
                       >

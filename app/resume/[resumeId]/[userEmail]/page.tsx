@@ -3,6 +3,7 @@ import ElectricalEngineer from "@/app/ui/resume/electrical-engineer/electrical-e
 // import Classic from "@/app/ui/resume/classic/classic-resume";
 import { getData } from "@/app/lib/data";
 import ThreeDAnimator from "@/app/ui/resume/3d-animator/3d-animator";
+import Elegant from "@/app/ui/resume/elegant/elegant";
 
 async function Page({
   params: { resumeId, userEmail },
@@ -19,6 +20,8 @@ async function Page({
       {props.resume?.template === "3d-animator" && (
         <ThreeDAnimator {...props} />
       )}
+      {props.resume?.template === "elegant" && <Elegant {...props} />}
+
       {/* {props.resume?.template === "classic" && <Classic {...props} />} */}
     </div>
   );
