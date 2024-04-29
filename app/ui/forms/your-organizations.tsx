@@ -137,6 +137,14 @@ export default function YourOrganizations({
                 <input
                   readOnly
                   hidden
+                  name="section_title"
+                  id="section_title"
+                  value={sectionTitle}
+                />
+
+                <input
+                  readOnly
+                  hidden
                   name="user_id"
                   id="user_id"
                   value={user?.id}

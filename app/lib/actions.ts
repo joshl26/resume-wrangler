@@ -1182,10 +1182,8 @@ export async function deleteCompany(id: string) {
 }
 
 export async function deleteCoverLetter(formData: FormData) {
-  
   const cover_letter_id = formData.get("cover_letter_id");
 
-  
   try {
     const query = `DELETE FROM cover_letters WHERE id = ${cover_letter_id}`;
 
@@ -1541,6 +1539,8 @@ export async function deleteEducation(formData: FormData) {
 }
 
 export async function createOrganization(formData: FormData) {
+  console.log(formData);
+
   const validatedFields = CreateOrganizationSchema.safeParse({
     user_id: formData.get("user_id"),
     section_title: formData.get("section_title"),
