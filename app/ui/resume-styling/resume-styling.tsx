@@ -32,6 +32,7 @@ import ResumePreviewButton from "@/app/ui/resume-preview-button";
 import Link from "next/link";
 import clsx from "clsx";
 import Elegant from "../resume/elegant/elegant";
+import Modern from "../resume/modern/modern";
 
 interface Props {
   resumeTemplates: ResumeTemplates;
@@ -368,6 +369,34 @@ export default function ResumeStyling(props: Props) {
           {selectedResumeTemplate === "elegant" && (
             <Suspense>
               <Elegant
+                heading_font={selectedResumeHeadingFont}
+                body_font={selectedResumeBodyFont}
+                color={selectedResumeColor}
+                highlightColor={selectedResumeHighlightColor}
+                show_social_icons={showSocials}
+                user={props?.user}
+                resume={props?.resume}
+                userWorkExperiences={props?.userWorkExperiences}
+                userSkills={props?.userSkills}
+                userEducation={props?.userEducation}
+                userCertifications={props?.userCertifications}
+                userOrganizations={props?.userOrganizations}
+                show_skills_section={showSkills}
+                show_skill_progress={showSkillProgress}
+                show_education_section={showEducation}
+                show_custom_section_one={showCustomSectionOne}
+                show_custom_section_two={showCustomSectionTwo}
+                educationResumeLines={props?.educationResumeLines}
+                workResumeLines={props?.workResumeLines}
+                skillResumeLines={props?.skillResumeLines}
+                organizationResumeLines={props?.organizationResumeLines}
+                certificationResumeLines={props?.certificationResumeLines}
+              />
+            </Suspense>
+          )}
+          {selectedResumeTemplate === "modern" && (
+            <Suspense>
+              <Modern
                 heading_font={selectedResumeHeadingFont}
                 body_font={selectedResumeBodyFont}
                 color={selectedResumeColor}
