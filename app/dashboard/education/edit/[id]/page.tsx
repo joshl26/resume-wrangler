@@ -22,7 +22,7 @@ export default async function Page({ params }: { params: { id: string } }) {
   }
 
   return (
-    <div>
+    <div className="overflow-y-auto h-full w-full">
       <EditEducation education={education} />
     </div>
   );

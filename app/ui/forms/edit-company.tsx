@@ -17,7 +17,7 @@ export default function EditCompany({ company }: { company: Company }) {
     }
   };
   return (
-    <div className="px-4 overflow-y-auto w-[600px] h-full pb-10">
+    <div className="">
       <BackButton className="" href={"/dashboard/companies/"}>
         Back
       </BackButton>
@@ -34,13 +34,17 @@ export default function EditCompany({ company }: { company: Company }) {
           defaultValue={company?.id}
         />
         <div className="flex flex-row justify-between">
-          <div className="flex flex-col bg-amber-100 tight-shadow px-1 border rounded">
+          <div className="flex flex-col  ">
             <h1 className="font-bold">Date Created</h1>
-            <p>{company?.created_at?.toString().slice(0, 24)}</p>
+            <div className="bg-white tight-shadow rounded p-2">
+              <p>{company?.created_at?.toString().slice(0, 24)}</p>
+            </div>
           </div>
-          <div className="flex flex-col bg-amber-100 tight-shadow px-1 border rounded">
+          <div className="flex flex-col">
             <h1 className="font-bold">Date Updated</h1>
-            <p>{company?.updated_at?.toString().slice(0, 24)}</p>
+            <div className="bg-white tight-shadow rounded p-2">
+              <p>{company?.updated_at?.toString().slice(0, 24)}</p>
+            </div>
           </div>
         </div>
         <div className="flex flex-col py-2">

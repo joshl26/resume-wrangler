@@ -27,7 +27,7 @@ export default async function Page({ params }: { params: { id: string } }) {
     }
 
     return (
-      <div>
+      <div className="w-full h-full overflow-y-auto">
         <EditApplication application={application} companies={companies} />
       </div>
     );

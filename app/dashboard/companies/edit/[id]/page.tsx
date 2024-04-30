@@ -15,7 +15,7 @@ export default async function Page({ params }: { params: { id: string } }) {
     throw new Error("Application not found");
   }
   return (
-    <div>
+    <div className="px-4 overflow-y-auto w-full h-full pb-10">
       <EditCompany company={company} />
     </div>
   );

@@ -19,7 +19,7 @@ export default function EditEducation({
     }
   };
   return (
-    <div className="overflow-y-auto h-full px-3">
+    <div className="px-4">
       <BackButton className="" href={"/dashboard/education/"}>
         Back
       </BackButton>
@@ -29,7 +29,7 @@ export default function EditEducation({
       <form
         onSubmit={() => setEdited(false)}
         action={updateUserEducation}
-        className="flex flex-col w-[500px] form-amber px-3 pb-2  rounded"
+        className="flex flex-col  form-amber px-3 pb-2  rounded"
       >
         <input
           required

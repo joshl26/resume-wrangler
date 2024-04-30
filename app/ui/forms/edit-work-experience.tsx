@@ -20,7 +20,7 @@ export default function EditWorkExperience({
   };
 
   return (
-    <div className="overflow-y-auto h-full px-3 pb-3">
+    <div className="px-4 pb-4">
       <BackButton className="" href={"/dashboard/work-experience"}>
         Back
       </BackButton>
@@ -39,19 +39,12 @@ export default function EditWorkExperience({
           name="experience_id"
           id="experience_id"
           defaultValue={workExperience?.id}
-        ></input>
+        />
         <label hidden htmlFor="resume_id">
           Resume Id
         </label>
-        <input
-          hidden
-          name="resume_id"
-          id="resume_id"
-          readOnly
-          value="blank"
-        ></input>
-
-        <div className="flex flex-row">
+        <input hidden name="resume_id" id="resume_id" readOnly value="blank" />
+        <div className="flex flex-row justify-between">
           <div className="flex flex-col p-2">
             <label className="font-bold" htmlFor="company_name">
               Company Name
@@ -62,8 +55,7 @@ export default function EditWorkExperience({
               id="company_name"
               onChange={() => onChangeHandler()}
               defaultValue={workExperience?.company_name}
-              type="text"
-            ></input>
+            />
           </div>
           <div className="flex flex-col p-2">
             <label className="font-bold" htmlFor="location">
@@ -75,8 +67,29 @@ export default function EditWorkExperience({
               id="location"
               onChange={() => onChangeHandler()}
               defaultValue={workExperience?.location}
-              type="text"
-            ></input>
+            />
+          </div>
+          <div className="flex flex-col p-2">
+            <label className="font-bold" htmlFor="start_date">
+              Start Date
+            </label>
+            <input
+              name="start_date"
+              id="start_date"
+              onChange={() => onChangeHandler()}
+              defaultValue={workExperience?.start_date}
+            />
+          </div>
+          <div className="flex flex-col p-2">
+            <label className="font-bold" htmlFor="end_date">
+              End Date
+            </label>
+            <input
+              name="end_date"
+              id="end_date"
+              onChange={() => onChangeHandler()}
+              defaultValue={workExperience?.end_date}
+            />
           </div>
         </div>
         <div className="flex flex-col p-2">
@@ -88,34 +101,7 @@ export default function EditWorkExperience({
             id="job_title"
             onChange={() => onChangeHandler()}
             defaultValue={workExperience?.job_title}
-            type="text"
-          ></input>
-        </div>
-        <div className="flex flex-row">
-          <div className="flex flex-col p-2">
-            <label className="font-bold" htmlFor="start_date">
-              Start Date
-            </label>
-            <input
-              name="start_date"
-              id="start_date"
-              onChange={() => onChangeHandler()}
-              defaultValue={workExperience?.start_date}
-              type="text"
-            ></input>
-          </div>
-          <div className="flex flex-col p-2">
-            <label className="font-bold" htmlFor="end_date">
-              End Date
-            </label>
-            <input
-              name="end_date"
-              id="end_date"
-              onChange={() => onChangeHandler()}
-              defaultValue={workExperience?.end_date}
-              type="text"
-            ></input>
-          </div>
+          />
         </div>
         <div className="flex flex-col p-2">
           <label className="font-bold" htmlFor="description_one">
@@ -127,7 +113,7 @@ export default function EditWorkExperience({
             id="description_one"
             onChange={() => onChangeHandler()}
             defaultValue={workExperience?.description_one}
-          ></textarea>
+          />
         </div>
         <div className="flex flex-col p-2">
           <label className="font-bold" htmlFor="description_two">
@@ -139,7 +125,7 @@ export default function EditWorkExperience({
             id="description_two"
             onChange={() => onChangeHandler()}
             defaultValue={workExperience?.description_two}
-          ></textarea>
+          />
         </div>
         <div className="flex flex-col p-2">
           <label className="font-bold" htmlFor="description_three">
@@ -151,7 +137,7 @@ export default function EditWorkExperience({
             id="description_three"
             onChange={() => onChangeHandler()}
             defaultValue={workExperience?.description_three}
-          ></textarea>
+          />
         </div>
         <div className="flex flex-col p-2">
           <label className="font-bold" htmlFor="description_four">
@@ -163,9 +149,8 @@ export default function EditWorkExperience({
             id="description_four"
             onChange={() => onChangeHandler()}
             defaultValue={workExperience?.description_four}
-          ></textarea>
+          />
         </div>
-
         {edited && (
           <>
             <div style={{ height: "0.5rem" }} />
