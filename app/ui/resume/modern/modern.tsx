@@ -50,11 +50,11 @@ interface Props {
 export default async function Modern(props: Props) {
   return (
     <Page>
-      <div className="bg-slate-50 w-full h-[80px] mt-11 absolute left-0 right-0"></div>
+      <div className="bg-slate-100 w-full h-[80px] mt-11 absolute left-0 right-0"></div>
       <div className="relative text-center flex flex-col">
         <div
           className={clsx(
-            `border-${props.highlightColor}`,
+            `border-${props.highlightColor || props?.resume?.highlight_color}`,
             "flex flex-row py-1 px-8 border-[2px] m-auto w-auto text-[40px] font-bold bg-white"
           )}
         >

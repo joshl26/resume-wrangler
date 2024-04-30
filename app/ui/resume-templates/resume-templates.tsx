@@ -15,23 +15,33 @@ const ResumeTemplates = ({
         </h1>
       </div>
       <div className="flex flex-row flex-wrap gap-10 px-14 pb-20 max-w-screen-lg m-auto bg-rose-300 w-full justify-around">
-        {resumeTemplates?.map((template: ResumeTemplate) => (
-          <div className="w-[350px]" key={template?.id}>
-            <a className="w-full" href={`/dashboard/resume/${template?.id}`}>
-              <Image
-                className=""
-                width={350}
-                height={0}
-                alt={template?.name}
-                src={template?.thumbnail_url}
-              />
-              <div className="flex flex-row justify-between">
-                <h1 className="font-bold">{template?.name}</h1>
-                <h1 className="hover:text-rose-500">Preview</h1>
+        {resumeTemplates?.map(
+          (template: ResumeTemplate) =>
+            template?.thumbnail_url !== null && (
+              <div className="w-[350px]" key={template?.id}>
+                <a
+                  className="w-full"
+                  href={`/dashboard/resume/${template?.id}`}
+                >
+                  <Image
+                    className=""
+                    width={350}
+                    height={0}
+                    alt={template?.name}
+                    src={
+                      template?.thumbnail_url == null
+                        ? ""
+                        : template?.thumbnail_url
+                    }
+                  />
+                  <div className="flex flex-row justify-between">
+                    <h1 className="font-bold">{template?.name}</h1>
+                    <h1 className="hover:text-rose-500">Preview</h1>
+                  </div>
+                </a>
               </div>
-            </a>
-          </div>
-        ))}
+            )
+        )}
       </div>
     </div>
   );
