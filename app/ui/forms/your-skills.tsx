@@ -71,12 +71,12 @@ export default function YourSkills({
           <>
             <h2 className="font-medium py-1">Choose Skills</h2>
 
-            <div className="flex flex-row h-[100px] overflow-y-auto tight-shadow bg-white">
-              <ul>
+            <div className="flex flex-row h-[300px] w-full overflow-y-auto tight-shadow bg-white">
+              <ul className="w-full">
                 {userSkills.map((skill: UserSkill) => (
                   <li className="border  p-2" key={skill?.id}>
-                    <div className="flex flex-row justify-between">
-                      <div className="flex flex-col w-1/3">
+                    <div className="flex flex-row  justify-between">
+                      <div className="flex flex-col w-1/3 mr-8">
                         <h2 className="font-bold">{skill.skill}</h2>
                       </div>
                       <div className="flex flex-col w-1/3 m-auto">

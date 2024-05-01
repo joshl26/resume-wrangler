@@ -100,7 +100,7 @@ export default async function Modern(props: Props) {
             <div
               className={clsx(
                 props?.color || props?.resume?.color,
-                " w-full h-[2px]"
+                " w-full h-[3px]"
               )}
             />
             <div className="flex flex-row pt-2">
@@ -159,14 +159,17 @@ export default async function Modern(props: Props) {
                 ) : (
                   <div className="flex flex-row">
                     <div className="flex flex-col w-[30px] ">
-                      <FontAwesomeIcon icon={faLinkedin} className="m-auto" />
+                      <FontAwesomeIcon
+                        icon={faLinkedin}
+                        className="m-auto w-[18px]"
+                      />
                     </div>
                     <div className="flex flex-col w-3/4">
                       <a
                         href={`https://linkedin.com/in/${props?.user?.linked_in}`}
                         className={clsx(
                           props?.body_font || props?.resume?.body_font,
-                          "text-[0.7rem] py-1"
+                          "text-[0.7rem] py-1 "
                         )}
                       >
                         {`linkedin.com/in/${props?.user?.linked_in}`}
@@ -288,7 +291,7 @@ export default async function Modern(props: Props) {
                 <div
                   className={clsx(
                     props?.color || props?.resume?.color,
-                    "w-full h-[2px]"
+                    "w-full h-[3px]"
                   )}
                 />
                 <div className="pt-2">
@@ -353,7 +356,7 @@ export default async function Modern(props: Props) {
                 <div
                   className={clsx(
                     props?.color || props?.resume?.color,
-                    " w-full h-[2px]"
+                    " w-full h-[3px]"
                   )}
                 />
                 <ul className="pt-3 flex flex-row flex-wrap gap-1">
@@ -399,7 +402,7 @@ export default async function Modern(props: Props) {
                 <div
                   className={clsx(
                     props?.color || props?.resume?.color,
-                    "w-full h-[2px]"
+                    "w-full h-[3px]"
                   )}
                 />
                 {props?.educationResumeLines?.map(
@@ -461,7 +464,7 @@ export default async function Modern(props: Props) {
                 <div
                   className={clsx(
                     props?.color || props?.resume?.color,
-                    "w-full h-[2.5px]"
+                    "w-full h-[3px]"
                   )}
                 />
                 <ul>
@@ -508,14 +511,14 @@ export default async function Modern(props: Props) {
           <div
             className={clsx(
               props?.color || props?.resume?.color,
-              " w-full h-[2px]"
+              " w-full h-[3px]"
             )}
           />
           <div className="flex flex-row"></div>{" "}
           <ul className="pb-2">
             {props?.workResumeLines?.map(
               (userWorkExperience: UserWorkExperience) => (
-                <li className="py-2" key={userWorkExperience?.id}>
+                <li className="pt-1" key={userWorkExperience?.id}>
                   <h2
                     className={clsx(
                       "font-bold",
@@ -644,11 +647,11 @@ export default async function Modern(props: Props) {
               <div
                 className={clsx(
                   props?.color || props?.resume?.color,
-                  " w-full h-[2px]"
+                  " w-full h-[3px]"
                 )}
               />
               <div className="flex flex-row"></div>{" "}
-              <ul className="px-3 py-2">
+              <ul className="px-3 ">
                 {props?.organizationResumeLines?.map(
                   (userOrganization: UserOrganization) => (
                     <li className="list-disc py-2" key={userOrganization?.id}>
