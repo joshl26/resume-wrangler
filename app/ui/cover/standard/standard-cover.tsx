@@ -68,13 +68,13 @@ export default async function StandardCover({
         </div>
         <div className="flex px-2"> | </div>
         <div className="flex">
-          <a href={`https://linkedin.com/${user?.linked_in}`}>
-            {`linkedin.com/${user?.linked_in}`}
+          <a href={`https://linkedin.com/in/${user?.linked_in}`}>
+            {`linkedin.com/in/${user?.linked_in}`}
           </a>
         </div>
         <div className="flex px-2"> | </div>
         <div className="flex">
-          <a href={user?.website}>{user?.website}</a>
+          <a href={`https://${user?.website}`}>{user?.website}</a>
         </div>
       </div>
       <div

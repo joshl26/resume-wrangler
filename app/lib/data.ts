@@ -1444,7 +1444,7 @@ export async function fetchCoverLettersByUserIDJoinApplications(
   noStore();
 
   try {
-    const query = `SELECT * FROM cover_letters r JOIN applications u ON r.application_id = u.id WHERE r.user_id = '${userId}' ORDER BY r.id ASC`;
+    const query = `SELECT * FROM applications a JOIN cover_letters c ON c.application_id = a.id WHERE c.user_id = '${userId}' ORDER BY c.id ASC`;
     const data = await conn.query(query);
 
     const coverLetters: CoverLetters & Applications = data.rows.map(
@@ -1467,7 +1467,7 @@ export async function fetchResumesByUserIDJoinApplications(userId: string) {
   noStore();
 
   try {
-    const query = `SELECT * FROM resumes r JOIN applications u ON r.application_id = u.id WHERE r.user_id = '${userId}' ORDER BY r.id ASC`;
+    const query = `SELECT * FROM applications a JOIN resumes r ON r.application_id = a.id WHERE r.user_id = '${userId}' ORDER BY r.id ASC`;
     const data = await conn.query(query);
 
     const resumes: Resumes & Applications = data.rows.map(
