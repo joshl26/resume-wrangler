@@ -47,7 +47,7 @@ async function ApplicationsTable({
     user?.id
   );
 
-  // console.log(filteredApplications.length);
+  console.log(filteredApplications);
 
   return (
     <div className="relative tight-shadow rounded px-4 py-4 mr-3 bg-white">

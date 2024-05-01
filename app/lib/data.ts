@@ -121,8 +121,8 @@ export async function fetchFilteredApplications(
   try {
     const applications = await conn.query(`
         SELECT *
-        FROM applications a
-        JOIN companies c ON a.company_id = c.id
+        FROM companies c
+        JOIN applications a ON a.company_id = c.id
         WHERE a.user_id = '${userId}' AND 
           (
                 c.name::text ILIKE '${`%${query}%`}' OR
