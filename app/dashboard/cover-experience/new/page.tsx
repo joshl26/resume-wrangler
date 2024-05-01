@@ -19,7 +19,7 @@ export default async function Page() {
     }
 
     return (
-      <div>
+      <div className="w-full h-full overflow-y-auto px-4">
         <NewCoverExperience user={user} />
       </div>
     );

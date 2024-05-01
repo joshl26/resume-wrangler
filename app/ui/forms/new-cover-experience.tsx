@@ -15,7 +15,7 @@ export default function NewCoverExperience({ user }: { user: User }) {
     }
   };
   return (
-    <div className="px-2 h-full overflow-y-auto pb-3">
+    <div className="pb-3">
       <BackButton className="" href={"/dashboard/cover-experience"}>
         Back
       </BackButton>
@@ -30,32 +30,33 @@ export default function NewCoverExperience({ user }: { user: User }) {
         className="flex flex-col tight-shadow form-amber rounded p-2"
       >
         <input readOnly hidden name="user_id" id="user_id" value={user?.id} />
-        <div className="flex flex-row">
-          <div className="flex flex-col p-2">
-            <label className="font-bold" htmlFor="title">
-              Title
-            </label>
-            <input
-              required
-              name="title"
-              id="title"
-              onChange={onChangeHandler}
-              defaultValue={""}
-            />
-          </div>
-          <div className="flex flex-col p-2">
-            <label className="font-bold" htmlFor="description">
-              Description
-            </label>
-            <input
-              required
-              name="description"
-              id="description"
-              onChange={onChangeHandler}
-              defaultValue={""}
-            />
-          </div>
+
+        <div className="flex flex-col p-2">
+          <label className="font-bold" htmlFor="title">
+            Title
+          </label>
+          <input
+            required
+            name="title"
+            id="title"
+            onChange={onChangeHandler}
+            defaultValue={""}
+          />
         </div>
+        <div className="flex flex-col p-2">
+          <label className="font-bold" htmlFor="description">
+            Description
+          </label>
+          <textarea
+            className="h-[200px]"
+            required
+            name="description"
+            id="description"
+            onChange={onChangeHandler}
+            defaultValue={""}
+          />
+        </div>
+
         {edited && (
           <>
             <div style={{ height: "0.5rem" }} />
