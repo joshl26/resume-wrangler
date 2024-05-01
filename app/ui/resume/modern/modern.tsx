@@ -104,15 +104,15 @@ export default async function Modern(props: Props) {
               )}
             />
             <div className="flex flex-row pt-2">
-              <div className="flex flex-col w-[30px]">
-                <MapPinIcon className="w-[25px] m-auto" />
+              <div className="flex flex-col w-[26px] pl-1">
+                <MapPinIcon className="m-auto" />
               </div>
               <div className="flex flex-col w-auto">
                 <a
                   href={`https://www.google.com/search?q=${props?.user?.address_one}`}
                   className={clsx(
                     props?.body_font || props?.resume?.body_font,
-                    "text-sm py-1"
+                    "text-[0.75rem] py-1 pl-1"
                   )}
                 >
                   {props?.user?.address_one}
@@ -120,15 +120,15 @@ export default async function Modern(props: Props) {
               </div>
             </div>
             <div className="flex flex-row">
-              <div className="flex flex-col w-[30px] ">
-                <PhoneIcon className="w-[18px] m-auto" />
+              <div className="flex flex-col w-[28px] ">
+                <PhoneIcon className=" m-auto pl-2" />
               </div>
               <div className="flex flex-col w-full">
                 <a
                   href={`tel:${props?.user?.phone}`}
                   className={clsx(
                     props?.body_font || props?.resume?.body_font,
-                    "text-sm py-1 pl-1"
+                    "text-[0.75rem] py-1 pl-1"
                   )}
                 >
                   {props?.user?.phone}
@@ -139,12 +139,12 @@ export default async function Modern(props: Props) {
               <div className="flex flex-col w-[30px] ">
                 <EnvelopeIcon className="w-[18px] m-auto" />
               </div>
-              <div className="flex flex-col w-[85%]">
+              <div className="flex flex-col">
                 <a
                   href={`mailto:${props?.user?.email}`}
                   className={clsx(
                     props?.body_font || props?.resume?.body_font,
-                    "text-sm truncate py-1 pl-1"
+                    "text-[0.7rem] truncate py-1 "
                   )}
                 >
                   {props?.user?.email}
@@ -159,20 +159,17 @@ export default async function Modern(props: Props) {
                 ) : (
                   <div className="flex flex-row">
                     <div className="flex flex-col w-[30px] ">
-                      <FontAwesomeIcon
-                        icon={faLinkedin}
-                        className="w-[18px] m-auto"
-                      />
+                      <FontAwesomeIcon icon={faLinkedin} className="m-auto" />
                     </div>
                     <div className="flex flex-col w-3/4">
                       <a
                         href={`https://linkedin.com/in/${props?.user?.linked_in}`}
                         className={clsx(
                           props?.body_font || props?.resume?.body_font,
-                          "text-sm py-1"
+                          "text-[0.7rem] py-1"
                         )}
                       >
-                        LinkedIn
+                        {`linkedin.com/in/${props?.user?.linked_in}`}
                       </a>
                     </div>
                   </div>
@@ -192,10 +189,10 @@ export default async function Modern(props: Props) {
                         href={`https://facebook.com/${props?.user?.facebook}`}
                         className={clsx(
                           props?.body_font || props?.resume?.body_font,
-                          "text-sm py-1"
+                          "text-[0.7rem] py-1"
                         )}
                       >
-                        Facebook
+                        {`facebook.com/${props?.user?.facebook}`}
                       </a>
                     </div>
                   </div>
@@ -215,10 +212,10 @@ export default async function Modern(props: Props) {
                         href={`https://instagram.com/${props?.user?.instagram}`}
                         className={clsx(
                           props?.body_font || props?.resume?.body_font,
-                          "text-sm py-1"
+                          "text-[0.7rem] py-1 truncate"
                         )}
                       >
-                        Instagram
+                        {`instagram.com/${props?.user?.instagram}`}
                       </a>
                     </div>
                   </div>
@@ -238,10 +235,10 @@ export default async function Modern(props: Props) {
                         href={`https://twitter.com/${props?.user?.twitter}`}
                         className={clsx(
                           props?.body_font || props?.resume?.body_font,
-                          "text-sm py-1"
+                          "text-[0.7rem] py-1 truncate"
                         )}
                       >
-                        Twitter
+                        {`twitter.com/${props?.user?.twitter}`}
                       </a>
                     </div>
                   </div>
@@ -261,10 +258,10 @@ export default async function Modern(props: Props) {
                         href={`https://github.com/${props?.user?.github}`}
                         className={clsx(
                           props?.body_font || props?.resume?.body_font,
-                          "text-sm py-1"
+                          "text-[0.7rem] py-1 truncate"
                         )}
                       >
-                        Github
+                        {`github.com/${props?.user?.github}`}
                       </a>
                     </div>
                   </div>

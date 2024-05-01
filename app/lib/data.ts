@@ -118,6 +118,7 @@ export async function fetchFilteredApplications(
 
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
 
+  // Join companies to applications so that applications.id becomes joined table.id
   try {
     const applications = await conn.query(`
         SELECT *
@@ -155,15 +156,13 @@ export async function fetchApplicationsPages(query: string, userId: string) {
   try {
     const count = await conn.query(`    
       SELECT COUNT(*) AS application_count
-      FROM applications a
-      JOIN companies c ON a.company_id = c.id
+      FROM companies c
+      JOIN applications a ON a.company_id = c.id
       WHERE a.user_id = '${userId}' 
       AND (c.name::text ILIKE '${`%${query}%`}' OR 
       a.job_position::text ILIKE '${`%${query}%`}' OR 
       c.address_one::text ILIKE '${`%${query}%`}')
     `);
-
-    // console.log(count);
 
     const totalPages = Math.ceil(
       Number(count.rows[0].application_count) / ITEMS_PER_PAGE
@@ -182,8 +181,8 @@ export async function fetchApplicationsCount(query: string, userId: string) {
   try {
     const count = await conn.query(`    
       SELECT COUNT(*) AS application_count
-      FROM applications a
-      JOIN companies c ON a.company_id = c.id
+      FROM companies c
+      JOIN applications a ON a.company_id = c.id
       WHERE a.user_id = '${userId}'
       AND (c.name::text ILIKE '${`%${query}%`}' OR 
       a.job_position::text ILIKE '${`%${query}%`}' OR 
