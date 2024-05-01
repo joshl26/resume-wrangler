@@ -289,7 +289,7 @@ export async function fetchFilteredSkills(
                 u.skill::text ILIKE '${`%${query}%`}' OR
                 u.skill_level::text ILIKE '${`%${query}%`}'
           )
-        ORDER BY u.created_at DESC
+        ORDER BY u.skill ASC
         LIMIT '${ITEMS_PER_PAGE}' OFFSET '${offset}'
     `);
 

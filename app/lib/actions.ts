@@ -1415,19 +1415,48 @@ export async function createUserSkill(formData: FormData) {
   }
   const { skill_title, skill_level, user_id, resume_id } = validatedFields.data;
 
+  let flag: true | false = false;
+
   try {
-    const query = `INSERT INTO user_skills (skill, skill_level, user_id) VALUES ($$${skill_title}$$, '${skill_level}', '${user_id}')`;
+    const query = `
+      SELECT COUNT(*) AS skills_count 
+      FROM user_skills u      
+      WHERE u.user_id = '${user_id}' 
+      AND u.skill = '${skill_title}' 
+      `;
+
     const data = await conn.query(query);
+
+    // console.log(data.rows[0].skills_count);
+
+    if (data.rows[0].skills_count > 0) {
+      flag = false;
+    } else {
+      flag = true;
+    }
   } catch (error) {
-    return { message: `Database Error: Failed to Update Invoice. ${error}` };
+    return {
+      message: `Database Error: Failed to fetch skills count. ${error}`,
+    };
   }
 
-  if (resume_id !== "blank") {
-    revalidatePath(`/dashboard/resume/edit/${resume_id}`);
-    redirect(`/dashboard/resume/edit/${resume_id}`);
-  } else {
-    revalidatePath(`/dashboard/skills`);
-    redirect(`/dashboard/skills`);
+  if (flag) {
+    try {
+      const query = `INSERT INTO user_skills (skill, skill_level, user_id) VALUES ($$${skill_title}$$, '${skill_level}', '${user_id}')`;
+      const data = await conn.query(query);
+    } catch (error) {
+      return {
+        message: `Database Error: Failed to create user skill. ${error}`,
+      };
+    }
+
+    if (resume_id !== "blank") {
+      revalidatePath(`/dashboard/resume/edit/${resume_id}`);
+      redirect(`/dashboard/resume/edit/${resume_id}`);
+    } else {
+      revalidatePath(`/dashboard/skills`);
+      redirect(`/dashboard/skills`);
+    }
   }
 }
 
