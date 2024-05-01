@@ -61,9 +61,9 @@ async function ApplicationsTable({
             <th scope="col" className="px-6 py-3">
               Location
             </th>
-            {/* <th scope="col" className="px-6 py-3">
+            <th scope="col" className="px-6 py-3">
               Submitted
-            </th> */}
+            </th>
             <th scope="col" className="px-6 py-3">
               Cover
             </th>
@@ -105,7 +105,7 @@ async function ApplicationsTable({
                       )?.address_one
                     : "N/A"}
                 </td>
-                {/* <td className="px-6 py-4">{application?.is_complete}</td> */}
+                <td className="px-6 py-4">{application?.is_complete}</td>
                 <td className="text-left px-6">
                   {coverLetters?.find(
                     (coverLetter: CoverLetter) =>
@@ -284,15 +284,12 @@ async function ApplicationsTable({
               <Link href="/dashboard/applications/new">
                 <td className="flex items-center px-6 py-4">
                   Start by creating your first application here
-                </td>{" "}
+                </td>
               </Link>
             </tr>
           )}
         </tbody>
       </table>
-      {/* <div className="pt-4">
-        <Pagination totalPages={totalPages} totalCount={totalCount} />
-      </div> */}
     </div>
   );
 }
