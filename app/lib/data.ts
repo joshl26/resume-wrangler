@@ -971,7 +971,7 @@ export async function fetchSkillsByUserId(userId: string) {
   noStore();
 
   try {
-    const query = `SELECT * FROM user_skills WHERE user_id = '${userId}'`;
+    const query = `SELECT * FROM user_skills WHERE user_id = '${userId}' ORDER BY skill ASC`;
     const data = await conn.query(query);
 
     const skills: UserSkills = data?.rows;
@@ -1074,7 +1074,7 @@ export async function fetchCoverExperiencesByUserId(userId: string) {
   // console.log(userId);
 
   try {
-    const query = `SELECT * FROM cover_experiences WHERE user_id = '${userId}'`;
+    const query = `SELECT * FROM cover_experiences WHERE user_id = '${userId}' ORDER BY title ASC`;
     const data = await conn.query(query);
 
     const userCoverExperiences: UserCoverExperiences = data?.rows?.map(

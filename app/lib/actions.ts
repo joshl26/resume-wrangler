@@ -1429,6 +1429,8 @@ export async function createUserSkill(formData: FormData) {
 
     // console.log(data.rows[0].skills_count);
 
+    //TODO return message back to form allerting user no duplicate skill names allowed
+
     if (data.rows[0].skills_count > 0) {
       flag = false;
     } else {

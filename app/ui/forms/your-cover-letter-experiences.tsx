@@ -36,15 +36,15 @@ export default function YourCoverLetterExperiences({
       <div className="your-work-experiences form-amber rounded px-4 pt-1 pb-2">
         <div className="pb-2">
           <h3 className="font-medium py-1">Choose Experience from the list:</h3>
-          <div className="h-[200px] rounded overflow-y-auto tight-shadow bg-white">
+          <div className="h-[300px] rounded overflow-y-auto tight-shadow bg-white">
             <ul className="">
               {userCoverExperiences?.map((experience: UserCoverExperience) => (
-                <li key={experience?.id} className="border p-2">
-                  <div className="flex flex-row">
-                    <div className="flex flex-col w-3/4">
+                <li key={experience?.id} className="border p-2 ">
+                  <div className="flex flex-row h-[50px]">
+                    <div className="flex flex-col w-3/4 m-auto">
                       <h2 className="font-bold">{experience?.title}</h2>
                     </div>
-                    <div className="flex flex-col pt-3 pr-6">
+                    <div className="flex flex-col pr-6 m-auto">
                       <form action={createCoverLine}>
                         <input
                           hidden

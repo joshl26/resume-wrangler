@@ -77,13 +77,13 @@ export default function YourSkills({
                   <li className="border  p-2" key={skill?.id}>
                     <div className="flex flex-row  justify-between">
                       <div className="flex flex-col w-1/3 mr-8">
-                        <h2 className="font-bold">{skill.skill}</h2>
+                        <h2 className="font-bold">{skill?.skill}</h2>
                       </div>
                       <div className="flex flex-col w-1/3 m-auto">
                         <input
                           readOnly
                           type="range"
-                          value={skill.skill_level}
+                          value={skill?.skill_level}
                         />
                       </div>
                       <div className="flex flex-col w-1/3 m-auto">
@@ -94,13 +94,13 @@ export default function YourSkills({
                               hidden
                               readOnly
                               name="resume_id"
-                              value={resume.id}
+                              value={resume?.id}
                             />
                             <input
                               hidden
                               readOnly
                               name="user_id"
-                              value={user.id}
+                              value={user?.id}
                             />
                             <input
                               hidden
@@ -108,7 +108,12 @@ export default function YourSkills({
                               name="line_type"
                               value={"skill"}
                             />
-                            <input hidden readOnly name="id" value={skill.id} />
+                            <input
+                              hidden
+                              readOnly
+                              name="id"
+                              value={skill?.id}
+                            />
                             <SubmitButton
                               className={"hover:text-azure-radiance-500"}
                             >
@@ -161,7 +166,7 @@ export default function YourSkills({
                             hidden
                             readOnly
                             name="user_id"
-                            value={user.id}
+                            value={user?.id}
                           />
                           <input
                             hidden

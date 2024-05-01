@@ -86,7 +86,7 @@ export default async function StandardCover({
         <h2>Cover Letter</h2>
       </div>
       <div className="text-sm">
-        <div className="flex flex-row pt-6">
+        <div className="flex flex-row ">
           <div className={clsx(selectedCoverBodyFont, "flex flex-col")}>
             <p>{company?.name}</p>
             <p>{company?.address_one}</p>
