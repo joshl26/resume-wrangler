@@ -68,7 +68,7 @@ export default async function Modern(props: Props) {
           </h1>
           <h1
             className={clsx(
-              `text-${props.highlightColor} font-bold`,
+              `text-${props.highlightColor || props?.resume?.highlight_color} font-bold`,
               props?.heading_font || props?.resume?.heading_font
             )}
           >
@@ -562,7 +562,7 @@ export default async function Modern(props: Props) {
                   )}
                   {userWorkExperience?.description_two && (
                     <div className="flex flex-row justify-start">
-                      <div className="flex flex-col pr-3 pt-[10px]">
+                      <div className="flex flex-col pr-3 pt-[8px]">
                         <div
                           className={clsx(
                             "h-[5px] w-[5px] rounded-full",
@@ -584,7 +584,7 @@ export default async function Modern(props: Props) {
                   )}
                   {userWorkExperience?.description_three && (
                     <div className="flex flex-row justify-start">
-                      <div className="flex flex-col pr-3 pt-[10px]">
+                      <div className="flex flex-col pr-3 pt-[8px]">
                         <div
                           className={clsx(
                             "h-[5px] w-[5px] rounded-full",
@@ -606,7 +606,7 @@ export default async function Modern(props: Props) {
                   )}
                   {userWorkExperience?.description_four && (
                     <div className="flex flex-row justify-start">
-                      <div className="flex flex-col pr-3 pt-[10px]">
+                      <div className="flex flex-col pr-3 pt-[8px]">
                         <div
                           className={clsx(
                             "h-[5px] w-[5px] rounded-full",
