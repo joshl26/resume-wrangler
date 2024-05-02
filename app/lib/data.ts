@@ -1303,7 +1303,7 @@ export async function fetchWorkExperiencesbyResumeID(id: string) {
   noStore();
 
   try {
-    const query = `SELECT * FROM resume_lines r JOIN user_work_experience u ON r.work_experience_id = u.id WHERE r.resume_id = '${id}' ORDER BY position ASC`;
+    const query = `SELECT * FROM resume_lines r JOIN user_work_experience u ON r.work_experience_id = u.id WHERE r.resume_id = '${id}' ORDER BY created_at ASC`;
     const data = await conn.query(query);
 
     const userWorkExperiences: UserWorkExperiences = data.rows.map(
