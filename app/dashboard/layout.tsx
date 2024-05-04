@@ -23,7 +23,7 @@ export default async function Layout({
           <div className="flex-none md:w-64">
             <SideNav session={session} />
           </div>
-          <div className="pt-4 pb-4 w-full flex">{children}</div>
+          <div className="w-full h-full flex">{children}</div>
         </div>
       </SessionProvider>
     </WindowSize>

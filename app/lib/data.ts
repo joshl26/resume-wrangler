@@ -112,27 +112,69 @@ export async function fetchApplicationsByUserId(userId: string) {
 export async function fetchFilteredApplications(
   query: string,
   currentPage: number,
-  userId: string
+  userId: string,
+  sort: string
 ) {
   noStore();
 
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
 
+  let mainQuery: string;
+
+  if (sort === "" || sort === "all") {
+    mainQuery = `
+    SELECT *
+    FROM companies c
+    JOIN applications a ON a.company_id = c.id
+    WHERE a.user_id = '${userId}' 
+    AND 
+      (
+            c.name::text ILIKE '${`%${query}%`}' OR
+            a.job_position::text ILIKE '${`%${query}%`}' OR
+            c.address_one::text ILIKE '${`%${query}%`}'
+      )
+    ORDER BY a.created_at DESC
+    LIMIT '${ITEMS_PER_PAGE}' OFFSET '${offset}'
+`;
+  }
+  if (sort === "submitted") {
+    mainQuery = `
+    SELECT *
+    FROM companies c
+    JOIN applications a ON a.company_id = c.id
+    WHERE a.user_id = '${userId}' 
+    AND a.is_complete = 'true'
+    AND 
+      (
+            c.name::text ILIKE '${`%${query}%`}' OR
+            a.job_position::text ILIKE '${`%${query}%`}' OR
+            c.address_one::text ILIKE '${`%${query}%`}'
+      )
+    ORDER BY a.created_at DESC
+    LIMIT '${ITEMS_PER_PAGE}' OFFSET '${offset}'
+`;
+  }
+  if (sort === "not_submitted") {
+    mainQuery = `
+    SELECT *
+    FROM companies c
+    JOIN applications a ON a.company_id = c.id
+    WHERE a.user_id = '${userId}' 
+    AND a.is_complete = 'false'
+    AND 
+      (
+            c.name::text ILIKE '${`%${query}%`}' OR
+            a.job_position::text ILIKE '${`%${query}%`}' OR
+            c.address_one::text ILIKE '${`%${query}%`}'
+      )
+    ORDER BY a.created_at DESC
+    LIMIT '${ITEMS_PER_PAGE}' OFFSET '${offset}'
+`;
+  }
+
   // Join companies to applications so that applications.id becomes joined table.id
   try {
-    const applications = await conn.query(`
-        SELECT *
-        FROM companies c
-        JOIN applications a ON a.company_id = c.id
-        WHERE a.user_id = '${userId}' AND 
-          (
-                c.name::text ILIKE '${`%${query}%`}' OR
-                a.job_position::text ILIKE '${`%${query}%`}' OR
-                c.address_one::text ILIKE '${`%${query}%`}'
-          )
-        ORDER BY a.created_at DESC
-        LIMIT '${ITEMS_PER_PAGE}' OFFSET '${offset}'
-    `);
+    const applications = await conn.query(mainQuery);
 
     // console.log(offset);
 
@@ -143,26 +185,56 @@ export async function fetchFilteredApplications(
   }
 }
 
-export async function fetchApplicationsPages(query: string, userId: string) {
+export async function fetchApplicationsPages(
+  query: string,
+  userId: string,
+  sort: string
+) {
   noStore();
 
-  // SELECT COUNT(*) AS application_count
-  // FROM applications
-  // WHERE user_id = '${userId}'
-  // AND (job_position ILIKE '${`%${query}%`}' OR job_position ILIKE '${`%${query}%`}')
+  let mainQuery: string;
 
-  // console.log(userId);
+  if (sort === "" || sort === "all") {
+    mainQuery = `    
+    SELECT COUNT(*) AS application_count
+    FROM companies c
+    JOIN applications a ON a.company_id = c.id
+    WHERE a.user_id = '${userId}'    
+    AND (c.name::text ILIKE '${`%${query}%`}' OR 
+    a.job_position::text ILIKE '${`%${query}%`}' OR 
+    c.address_one::text ILIKE '${`%${query}%`}'
+  )
+  `;
+  }
+  if (sort === "submitted") {
+    mainQuery = `    
+    SELECT COUNT(*) AS application_count
+    FROM companies c
+    JOIN applications a ON a.company_id = c.id
+    WHERE a.user_id = '${userId}' 
+    AND a.is_complete = 'true'
+    AND (c.name::text ILIKE '${`%${query}%`}' OR 
+    a.job_position::text ILIKE '${`%${query}%`}' OR 
+    c.address_one::text ILIKE '${`%${query}%`}'
+  )
+  `;
+  }
+  if (sort === "not_submitted") {
+    mainQuery = `    
+    SELECT COUNT(*) AS application_count
+    FROM companies c
+    JOIN applications a ON a.company_id = c.id
+    WHERE a.user_id = '${userId}' 
+    AND a.is_complete = 'false'
+    AND (c.name::text ILIKE '${`%${query}%`}' OR 
+    a.job_position::text ILIKE '${`%${query}%`}' OR 
+    c.address_one::text ILIKE '${`%${query}%`}'
+  )
+  `;
+  }
 
   try {
-    const count = await conn.query(`    
-      SELECT COUNT(*) AS application_count
-      FROM companies c
-      JOIN applications a ON a.company_id = c.id
-      WHERE a.user_id = '${userId}' 
-      AND (c.name::text ILIKE '${`%${query}%`}' OR 
-      a.job_position::text ILIKE '${`%${query}%`}' OR 
-      c.address_one::text ILIKE '${`%${query}%`}')
-    `);
+    const count = await conn.query(mainQuery);
 
     const totalPages = Math.ceil(
       Number(count.rows[0].application_count) / ITEMS_PER_PAGE
@@ -175,19 +247,56 @@ export async function fetchApplicationsPages(query: string, userId: string) {
 }
 
 //TODO combine with fetchApplicationsPages
-export async function fetchApplicationsCount(query: string, userId: string) {
+export async function fetchApplicationsCount(
+  query: string,
+  userId: string,
+  sort: string
+) {
   noStore();
 
+  let mainQuery: string;
+
+  if (sort === "" || sort === "all") {
+    mainQuery = `    
+    SELECT COUNT(*) AS application_count
+    FROM companies c
+    JOIN applications a ON a.company_id = c.id
+    WHERE a.user_id = '${userId}'    
+    AND (c.name::text ILIKE '${`%${query}%`}' OR 
+    a.job_position::text ILIKE '${`%${query}%`}' OR 
+    c.address_one::text ILIKE '${`%${query}%`}'
+  )
+  `;
+  }
+  if (sort === "submitted") {
+    mainQuery = `    
+    SELECT COUNT(*) AS application_count
+    FROM companies c
+    JOIN applications a ON a.company_id = c.id
+    WHERE a.user_id = '${userId}' 
+    AND a.is_complete = 'true'
+    AND (c.name::text ILIKE '${`%${query}%`}' OR 
+    a.job_position::text ILIKE '${`%${query}%`}' OR 
+    c.address_one::text ILIKE '${`%${query}%`}'
+  )
+  `;
+  }
+  if (sort === "not_submitted") {
+    mainQuery = `    
+    SELECT COUNT(*) AS application_count
+    FROM companies c
+    JOIN applications a ON a.company_id = c.id
+    WHERE a.user_id = '${userId}' 
+    AND a.is_complete = 'false'
+    AND (c.name::text ILIKE '${`%${query}%`}' OR 
+    a.job_position::text ILIKE '${`%${query}%`}' OR 
+    c.address_one::text ILIKE '${`%${query}%`}'
+  )
+  `;
+  }
+
   try {
-    const count = await conn.query(`    
-      SELECT COUNT(*) AS application_count
-      FROM companies c
-      JOIN applications a ON a.company_id = c.id
-      WHERE a.user_id = '${userId}'
-      AND (c.name::text ILIKE '${`%${query}%`}' OR 
-      a.job_position::text ILIKE '${`%${query}%`}' OR 
-      c.address_one::text ILIKE '${`%${query}%`}')
-    `);
+    const count = await conn.query(mainQuery);
 
     const totalPages: number = count.rows[0].application_count;
     return totalPages;

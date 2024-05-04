@@ -24,31 +24,32 @@ async function ApplicationsTable({
   user,
   resumes,
   coverLetters,
-  applications,
   companies,
   totalPages,
   query,
   currentPage,
   totalCount,
+  sort,
 }: {
   user: User;
   resumes: Resumes;
   coverLetters: CoverLetters;
-  applications: Applications;
   companies: Companies;
   totalPages: number;
   query: string;
   currentPage: number;
   totalCount: number;
+  sort: string;
 }) {
   const filteredApplications: Applications = await fetchFilteredApplications(
     query,
     currentPage,
-    user?.id
+    user?.id,
+    sort
   );
 
   return (
-    <div className="relative tight-shadow rounded px-4 py-4 mr-3 bg-white">
+    <div className="relative tight-shadow rounded px-4 py-4 mr-3  bg-white">
       <table className="w-full text-sm text-left rtl:text-right tight-shadow">
         <thead className="text-xs uppercase">
           <tr>
@@ -290,6 +291,9 @@ async function ApplicationsTable({
           )}
         </tbody>
       </table>
+      <div className="relative pt-4">
+        <Pagination totalPages={totalPages} totalCount={totalCount} />
+      </div>
     </div>
   );
 }

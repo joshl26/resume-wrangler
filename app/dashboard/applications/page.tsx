@@ -14,8 +14,8 @@ import React, { Suspense } from "react";
 import { notFound } from "next/navigation";
 import BackButton from "@/app/ui/back-button";
 import Search from "@/app/ui/search";
-import Pagination from "@/app/ui/pagination";
 import Link from "next/link";
+import Dropdown from "@/app/ui/DropdownButton";
 
 export default async function Page({
   searchParams,
@@ -23,6 +23,7 @@ export default async function Page({
   searchParams?: {
     query?: string;
     page?: string;
+    sort?: string;
   };
 }) {
   const session = await auth();
@@ -47,12 +48,13 @@ export default async function Page({
   }
 
   const query = searchParams?.query || "";
+  const sort = searchParams?.sort || "";
   const currentPage = Number(searchParams?.page) || 1;
-  const totalPages = await fetchApplicationsPages(query, user?.id);
-  const totalCount = await fetchApplicationsCount(query, user?.id);
+  const totalPages = await fetchApplicationsPages(query, user?.id, sort);
+  const totalCount = await fetchApplicationsCount(query, user?.id, sort);
 
   return (
-    <div className="w-full h-auto px-2 mb-2">
+    <div className="w-full px-2 py-4">
       <div className="flex flex-row justify-between ">
         <div className="flex flex-col">
           <BackButton className={""} href={"/dashboard/"}>
@@ -104,8 +106,8 @@ export default async function Page({
             <div className="flex flex-col ">
               <Search placeholder="Search applications..." />
             </div>
-            <div className="flex flex-col w-1/2">
-              <Pagination totalPages={totalPages} totalCount={totalCount} />
+            <div className="flex flex-col">
+              <Dropdown />
             </div>
           </div>
         </div>
@@ -115,12 +117,12 @@ export default async function Page({
           user={user}
           resumes={resumes}
           coverLetters={coverLetters}
-          applications={applications}
           companies={companies}
           totalPages={totalPages}
           query={query}
           currentPage={currentPage}
           totalCount={totalCount}
+          sort={sort}
         />
       </Suspense>
     </div>
