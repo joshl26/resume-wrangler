@@ -302,7 +302,7 @@ const Dashboard = ({
   pendingApplicationsCount: any;
 }) => {
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-full mt-4">
       {user?.tour_dashboard === "true" && (
         <ReactJoyride
           steps={TOUR_STEPS}
