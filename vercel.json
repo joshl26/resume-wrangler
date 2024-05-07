@@ -1,11 +1,7 @@
 {
   "crons": [
     {
-      "path": "/api/pdf",
-      "schedule": "0 5 * * *"
-    },
-    {
-      "path": "/api/resume-data",
+      "path": "/api/pdf?resumeId=19&userEmail=joshlehman.dev@gmail.com",
       "schedule": "0 5 * * *"
     }
   ]
