@@ -1,0 +1,24 @@
+{
+  "crons": [
+    {
+      "path": "/api/pdf",
+      "schedule": "0 5 * * *"
+    },
+    {
+      "path": "/api/resume-data",
+      "schedule": "0 5 * * *"
+    },
+    {
+      "path": "/api/cover-data",
+      "schedule": "0 5 * * *"
+    },
+    {
+      "path": "/api/cover-pdf",
+      "schedule": "0 5 * * *"
+    },
+    {
+      "path": "/api/auth",
+      "schedule": "0 5 * * *"
+    }
+  ]
+}
