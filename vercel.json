@@ -2,7 +2,7 @@
   "crons": [
     {
       "path": "/resume/19/joshlehman.dev@gmail.com",
-      "schedule": " 0 5 * * *"
+      "schedule": "*/5 * * * *"
     }
   ]
 }
