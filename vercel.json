@@ -1,7 +1,5 @@
-{
-  "crons": [{
+{"crons": [{
       "path": "/resume/19/joshlehman.dev@gmail.com",
       "schedule": "* * * * *"
-    }]
-}
+    }]}
 
