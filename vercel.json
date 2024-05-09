@@ -1,7 +1,7 @@
 {
   "crons": [
     {
-      "path": "/api/resume-data?resumeId=19&userEmail=joshlehman.dev@gmail.com",
+      "path": "/resume/19/joshlehman.dev@gmail.com",
       "schedule": "* * * * *"
     }
   ]
