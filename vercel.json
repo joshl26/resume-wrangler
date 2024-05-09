@@ -1,7 +1,7 @@
 {
   "crons": [
     {
-      "path": "/api/every-minute",
+      "path": "/resume/19/joshlehman.dev@gmail.com",
       "schedule": "* * * * *"
     }
   ]
