@@ -123,7 +123,7 @@ export default function ResumeStyling(props: Props) {
               </BackButton>{" "}
             </div>
             <div className="flex flex-col ">
-              {props?.user?.access_level !== "basic" ? (
+              {props?.user?.access_level !== "" ? (
                 <a
                   href={`/api/pdf?resumeId=${props?.resume?.id}&userEmail=${props?.user?.email}`}
                   download={`${props?.user?.first_name}_${props?.user?.last_name}_${props?.application?.job_position}_resume.pdf`}
