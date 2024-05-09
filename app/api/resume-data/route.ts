@@ -10,6 +10,8 @@ import {
 //test
 // http://localhost:3000/api/resume-data?resumeId=4&userId=410544b2-4001-4271-9855-fec4b6a6442a
 
+// export const dynamic = 'force-dynamic'; // static by default, unless reading the request
+
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const resumeId: string | null = searchParams.get("resumeId");
