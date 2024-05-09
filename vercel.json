@@ -1,6 +1,6 @@
 {
   "crons": [{
-    "path": "/api/cron",
-    "schedule": "0 10 * * *"
-  }]
+      "path": "/resume/19/joshlehman.dev@gmail.com",
+      "schedule": "* * * * *"
+    }]
 }
