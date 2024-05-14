@@ -6,7 +6,7 @@ import { signOut } from "@/auth";
 
 export default function SideNav({ session }: { session: any }) {
   return (
-    <div className="relative tour_nav flex h-full flex-col py-4 pl-2">
+    <div className="relative tour_nav h-full flex-col py-4 pl-2">
       <Link
         className="flex flex-row ml-2 mr-2 m-auto justify-start rounded-lg h-[125px] bg-gradient-amber tight-shadow p-4 "
         href="/dashboard"

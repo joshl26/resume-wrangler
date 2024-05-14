@@ -54,7 +54,7 @@ export default async function Page({
   const totalCount = await fetchApplicationsCount(query, user?.id, sort);
 
   return (
-    <div className="w-full px-2 py-4">
+    <div className="w-full px-2 ">
       <div className="flex flex-row justify-between ">
         <div className="flex flex-col">
           <BackButton className={""} href={"/dashboard/"}>

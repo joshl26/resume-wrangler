@@ -18,11 +18,11 @@ import clsx from "clsx";
 import { usePathname } from "next/navigation";
 
 const links = [
-  {
-    name: "Upgrade to PRO",
-    href: "/dashboard/upgrade",
-    icon: UserGroupIcon,
-  },
+  // {
+  //   name: "Upgrade to PRO",
+  //   href: "/dashboard/upgrade",
+  //   icon: UserGroupIcon,
+  // },
   {
     name: "User Profile",
     href: "/dashboard/user-profile",
@@ -65,16 +65,16 @@ const links = [
     href: "/dashboard/organizations",
     icon: ListBulletIcon,
   },
-  {
-    name: "Cover Letter Templates",
-    href: "/dashboard/cover-templates",
-    icon: DocumentDuplicateIcon,
-  },
-  {
-    name: "Cover Letters",
-    href: "/dashboard/cover",
-    icon: DocumentDuplicateIcon,
-  },
+  // {
+  //   name: "Cover Letter Templates",
+  //   href: "/dashboard/cover-templates",
+  //   icon: DocumentDuplicateIcon,
+  // },
+  // {
+  //   name: "Cover Letters",
+  //   href: "/dashboard/cover",
+  //   icon: DocumentDuplicateIcon,
+  // },
   {
     name: "Cover Experience",
     href: "/dashboard/cover-experience",
@@ -86,11 +86,11 @@ const links = [
     href: "/dashboard/resume-templates",
     icon: DocumentDuplicateIcon,
   },
-  {
-    name: "Resumes",
-    href: "/dashboard/resume",
-    icon: DocumentDuplicateIcon,
-  },
+  // {
+  //   name: "Resumes",
+  //   href: "/dashboard/resume",
+  //   icon: DocumentDuplicateIcon,
+  // },
 ];
 
 export default function NavLinks() {
