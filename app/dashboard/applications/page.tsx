@@ -95,10 +95,10 @@ export default async function Page({
             <div className="flex flex-col m-auto text-[.9rem] hover:underline">
               <Link href={"/dashboard/skills"}>Skills</Link>
             </div>
-            <div className="flex flex-col m-auto px-1"> | </div>
+            {/* <div className="flex flex-col m-auto px-1"> | </div>
             <div className="flex flex-col m-auto text-[.9rem] hover:underline">
-              <Link href={"/dashboard/work-experience"}>Work Experience</Link>
-            </div>
+              <Link href={"/dashboard/work-experience"}>Resume Experience</Link>
+            </div> */}
           </div>
         </div>
         <div className="flex flex-col pr-3">

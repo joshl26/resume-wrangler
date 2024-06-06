@@ -30,6 +30,6 @@
     "app/lib/placeholder-data.js",
     "scripts/seed.js",
     "app/__tests__/snapshot.tsx"
-  ],
+, "playwright-tests/tests-examples/tesy", "app/__tests__/components/dashboard"  ],
   "exclude": ["node_modules"]
 }

@@ -301,6 +301,7 @@ const Dashboard = ({
   closedApplicationsCount: any;
   pendingApplicationsCount: any;
 }) => {
+  console.log(user);
   return (
     <div className="w-full h-full mt-1">
       {user?.tour_dashboard === "true" && (

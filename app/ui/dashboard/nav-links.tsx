@@ -30,38 +30,45 @@ const links = [
   },
 
   { name: "Dashboard", href: "/dashboard", icon: HomeIcon },
+
   {
-    name: "Your Education",
-    href: "/dashboard/education",
-    icon: AcademicCapIcon,
-  },
-  {
-    name: "Your Skills",
-    href: "/dashboard/skills",
-    icon: AdjustmentsHorizontalIcon,
-  },
-  {
-    name: "Your Applications",
+    name: "Applications",
     href: "/dashboard/applications",
     icon: NewspaperIcon,
   },
   {
-    name: "Your Companies",
+    name: "Companies",
     href: "/dashboard/companies",
     icon: BuildingOffice2Icon,
   },
+
   {
-    name: "Your Work Experience",
+    name: "Education",
+    href: "/dashboard/education",
+    icon: AcademicCapIcon,
+  },
+  {
+    name: "Skills",
+    href: "/dashboard/skills",
+    icon: AdjustmentsHorizontalIcon,
+  },
+  {
+    name: "Cover Experience",
+    href: "/dashboard/cover-experience",
+    icon: DocumentDuplicateIcon,
+  },
+  {
+    name: "Resume Experience",
     href: "/dashboard/work-experience",
     icon: BriefcaseIcon,
   },
   {
-    name: "Your Certifications",
+    name: "Certifications",
     href: "/dashboard/certifications",
     icon: CheckIcon,
   },
   {
-    name: "Your Organizations",
+    name: "Organizations",
     href: "/dashboard/organizations",
     icon: ListBulletIcon,
   },
@@ -75,12 +82,6 @@ const links = [
   //   href: "/dashboard/cover",
   //   icon: DocumentDuplicateIcon,
   // },
-  {
-    name: "Cover Experience",
-    href: "/dashboard/cover-experience",
-    icon: DocumentDuplicateIcon,
-  },
-
   {
     name: "Resume Templates",
     href: "/dashboard/resume-templates",

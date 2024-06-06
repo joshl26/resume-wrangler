@@ -46,6 +46,17 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <meta
+          name="google-adsense-account"
+          content="ca-pub-2880932731702994"
+        ></meta>
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2880932731702994"
+          crossOrigin="anonymous"
+        ></script>
+      </head>
       <body className={`${inter.className} antialiased`}>
         {/* <div className="sr-only">Skip to main content</div> */}
         <Suspense>{children}</Suspense>
