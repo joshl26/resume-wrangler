@@ -46,27 +46,27 @@ test.describe("accessibility tests", () => {
     });
   });
 
-  // test.describe("job boards", () => {
-  //   // 2
-  //   test("should not have any automatically detectable accessibility issues", async ({
-  //     page,
-  //   }: {
-  //     page: any;
-  //   }) => {
-  //     await page.goto("/job-boards"); // 3
+  test.describe("job boards", () => {
+    // 2
+    test("should not have any automatically detectable accessibility issues", async ({
+      page,
+    }: {
+      page: any;
+    }) => {
+      await page.goto("/job-boards"); // 3
 
-  //     const accessibilityScanResults = await new AxeBuilder({ page }).analyze(); // 4
+      const accessibilityScanResults = await new AxeBuilder({ page }).analyze(); // 4
 
-  //     expect(accessibilityScanResults.violations).toEqual([]); // 5
-  //   });
+      expect(accessibilityScanResults.violations).toEqual([]); // 5
+    });
 
-  //   test("has title", async ({ page }) => {
-  //     await page.goto("/Job Boards");
+    test("has title", async ({ page }) => {
+      await page.goto("/job-boards");
 
-  //     // Expect a title "to contain" a substring.
-  //     await expect(page).toHaveTitle(/Blog/);
-  //   });
-  // });
+      // Expect a title "to contain" a substring.
+      await expect(page).toHaveTitle(/Job Boards/);
+    });
+  });
 
   test.describe("login", () => {
     // 2
@@ -111,42 +111,25 @@ test.describe("accessibility tests", () => {
       await expect(page).toHaveTitle(/Signup/);
     });
   });
+  test.describe("resume templates", () => {
+    // 2
+    test("should not have any automatically detectable accessibility issues", async ({
+      page,
+    }: {
+      page: any;
+    }) => {
+      await page.goto("/resume-templates"); // 3
 
-  // test("should not have any automatically detectable WCAG A or AA violations", async ({
-  //   page,
-  // }: {
-  //   page: any;
-  // }) => {
-  //   await page.goto("/");
+      const accessibilityScanResults = await new AxeBuilder({ page }).analyze(); // 4
 
-  //   const accessibilityScanResults = await new AxeBuilder({ page })
-  //     .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"])
-  //     .analyze();
+      expect(accessibilityScanResults.violations).toEqual([]); // 5
+    });
 
-  //   // //Attached the violations to the test report
-  //   // await testInfo.attach("accessibility-scan-results", {
-  //   //   body: JSON.stringify(accessibilityScanResults.violations, null, 2),
-  //   //   contentType: "application/json",
-  //   // });
+    test("has title", async ({ page }) => {
+      await page.goto("/resume-templates");
 
-  //   // //Console log the violations
-  //   // let violation = accessibilityScanResults.violations;
-  //   // violation.forEach(function (entry) {
-  //   //   console.log(entry.impact + " " + entry.description);
-  //   // });
-
-  //   expect(accessibilityScanResults.violations).toEqual([]);
-  // });
+      // Expect a title "to contain" a substring.
+      await expect(page).toHaveTitle(/Resume Templates/);
+    });
+  });
 });
-
-// test("get started link", async ({ page }) => {
-//   await page.goto("https://playwright.dev/");
-
-//   // Click the get started link.
-//   await page.getByRole("link", { name: "Get started" }).click();
-
-//   // Expects page to have a heading with the name of Installation.
-//   await expect(
-//     page.getByRole("heading", { name: "Installation" })
-//   ).toBeVisible();
-// });

@@ -93,7 +93,7 @@ const JobBoards = () => {
   return (
     <section className="py-10 flex flex-row bg-orange-100 w-full">
       <div className="flex flex-col w-9/12 bg-orange-200 tight-shadow py-4 px-4 mt-20 mb-6 mx-auto">
-        <h2 className="text-2xl font-semibold">What is your job title?</h2>
+        <h1 className="text-2xl font-semibold">What is your job title?</h1>
         <p className="py-2">Type in the job position you are looking for.</p>
         <input
           type="text"
