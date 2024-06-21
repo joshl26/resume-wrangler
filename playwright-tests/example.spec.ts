@@ -90,6 +90,28 @@ test.describe("accessibility tests", () => {
     });
   });
 
+  test.describe("register", () => {
+    // 2
+    test("should not have any automatically detectable accessibility issues", async ({
+      page,
+    }: {
+      page: any;
+    }) => {
+      await page.goto("/register"); // 3
+
+      const accessibilityScanResults = await new AxeBuilder({ page }).analyze(); // 4
+
+      expect(accessibilityScanResults.violations).toEqual([]); // 5
+    });
+
+    test("has title", async ({ page }) => {
+      await page.goto("/register");
+
+      // Expect a title "to contain" a substring.
+      await expect(page).toHaveTitle(/Signup/);
+    });
+  });
+
   // test("should not have any automatically detectable WCAG A or AA violations", async ({
   //   page,
   // }: {

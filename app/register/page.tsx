@@ -12,6 +12,7 @@ import { auth } from "@/auth";
 
 import SigninNavBar from "../ui/signin/signin-navbar";
 import SigninFooter from "../ui/signin/signin-footer";
+import Landing from "../landing/page";
 
 export const metadata = {
   title: "Signup",
@@ -24,10 +25,8 @@ export default async function RegisterPage() {
     redirect("/dashboard");
   }
   return (
-    <div className="h-screen">
-      <SigninNavBar />
+    <Landing>
       <RegisterUser />
-      <SigninFooter />
-    </div>
+    </Landing>
   );
 }
