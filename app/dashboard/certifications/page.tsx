@@ -13,6 +13,7 @@ import { notFound } from "next/navigation";
 import BackButton from "@/app/ui/back-button";
 import { UserCertifications } from "@/app/lib/definitions";
 import Search from "@/app/ui/search";
+import Breadcrumbs from "@/app/ui/Breadcrumbs";
 
 export default async function Page({
   searchParams,
@@ -51,7 +52,7 @@ export default async function Page({
       </BackButton>
       <div className="flex flex-row justify-between">
         <div className="flex flex-col ">
-          <h1 className="text-[2rem] font-bold py-1">Certifications</h1>
+          <Breadcrumbs />
         </div>
         <div className="flex flex-col px-4">
           <div className="flex flex-row gap-x-3 h-auto ">

@@ -14,8 +14,8 @@ import React, { Suspense } from "react";
 import { notFound } from "next/navigation";
 import BackButton from "@/app/ui/back-button";
 import Search from "@/app/ui/search";
-import Link from "next/link";
 import Dropdown from "@/app/ui/DropdownButton";
+import Breadcrumbs from "@/app/ui/Breadcrumbs";
 
 export default async function Page({
   searchParams,
@@ -71,35 +71,7 @@ export default async function Page({
       </div>
       <div className="flex flex-row justify-between ">
         <div className="flex flex-col">
-          <div className="flex flex-row justify-between">
-            <div className="flex flex-col m-auto">
-              <h1 className="text-[2rem] font-bold py-1 pb-2">Applications</h1>
-            </div>
-            <div className="flex flex-col m-auto px-1"> | </div>
-            <div className="flex flex-col m-auto text-[.9rem] hover:underline">
-              <Link href={"/dashboard/companies"}>Companies</Link>
-            </div>
-            <div className="flex flex-col m-auto px-1"> | </div>
-            <div className="flex flex-col m-auto text-[.9rem] hover:underline">
-              <Link href={"/dashboard/certifications"}>Certifications</Link>
-            </div>
-            <div className="flex flex-col m-auto px-1"> | </div>
-            <div className="flex flex-col m-auto text-[.9rem] hover:underline">
-              <Link href={"/dashboard/education"}>Education</Link>
-            </div>
-            <div className="flex flex-col m-auto px-1"> | </div>
-            <div className="flex flex-col m-auto text-[.9rem] hover:underline">
-              <Link href={"/dashboard/organizations"}>Organizations</Link>
-            </div>
-            <div className="flex flex-col m-auto px-1"> | </div>
-            <div className="flex flex-col m-auto text-[.9rem] hover:underline">
-              <Link href={"/dashboard/skills"}>Skills</Link>
-            </div>
-            {/* <div className="flex flex-col m-auto px-1"> | </div>
-            <div className="flex flex-col m-auto text-[.9rem] hover:underline">
-              <Link href={"/dashboard/work-experience"}>Resume Experience</Link>
-            </div> */}
-          </div>
+          <Breadcrumbs />
         </div>
         <div className="flex flex-col pr-3">
           <div className="flex flex-row gap-x-3 m-auto ">

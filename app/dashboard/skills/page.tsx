@@ -4,12 +4,12 @@ import {
   fetchSkillsPages,
   getUser,
 } from "@/app/lib/data";
+import Breadcrumbs from "@/app/ui/Breadcrumbs";
 import BackButton from "@/app/ui/back-button";
 import { Button } from "@/app/ui/button";
 import Search from "@/app/ui/search";
 import Skills from "@/app/ui/tables/skills/skills-table";
 import { auth } from "@/auth";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import React, { Suspense } from "react";
 
@@ -48,7 +48,7 @@ export default async function Page({
       </BackButton>
       <div className="flex flex-row justify-between">
         <div className="flex flex-col ">
-          <h1 className="text-[2rem] font-bold py-1">Skills</h1>
+          <Breadcrumbs />
         </div>
         <div className="flex flex-col px-4">
           <div className="flex flex-row gap-x-3 h-auto ">

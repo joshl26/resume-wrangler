@@ -11,7 +11,6 @@ import {
   BuildingOffice2Icon,
   AdjustmentsHorizontalIcon,
   NewspaperIcon,
-  UserGroupIcon,
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import clsx from "clsx";
@@ -23,16 +22,11 @@ const links = [
   //   href: "/dashboard/upgrade",
   //   icon: UserGroupIcon,
   // },
-  {
-    name: "User Profile",
-    href: "/dashboard/user-profile",
-    icon: AdjustmentsVerticalIcon,
-  },
 
   { name: "Dashboard", href: "/dashboard", icon: HomeIcon },
 
   {
-    name: "Applications",
+    name: "Job Applications",
     href: "/dashboard/applications",
     icon: NewspaperIcon,
   },
@@ -53,7 +47,7 @@ const links = [
     icon: AdjustmentsHorizontalIcon,
   },
   {
-    name: "Cover Experience",
+    name: "Cover Letter Experience",
     href: "/dashboard/cover-experience",
     icon: DocumentDuplicateIcon,
   },
@@ -86,6 +80,11 @@ const links = [
     name: "Resume Templates",
     href: "/dashboard/resume-templates",
     icon: DocumentDuplicateIcon,
+  },
+  {
+    name: "User Profile",
+    href: "/dashboard/user-profile",
+    icon: AdjustmentsVerticalIcon,
   },
   // {
   //   name: "Resumes",
