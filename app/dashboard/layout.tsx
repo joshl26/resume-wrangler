@@ -17,15 +17,15 @@ export default async function Layout({
   }
 
   return (
-    <WindowSize>
-      <SessionProvider session={session}>
-        <div className="flex flex-col md:flex-row md:overflow-hidden h-screen w-screen">
-          <div className="flex-none md:w-64">
-            <SideNav session={session} />
-          </div>
-          <div className="w-full h-full flex py-3">{children}</div>
+    // <WindowSize>
+    <SessionProvider session={session}>
+      <div className="flex flex-col md:flex-row md:overflow-hidden h-screen w-screen">
+        <div className="flex-none md:w-64">
+          <SideNav session={session} />
         </div>
-      </SessionProvider>
-    </WindowSize>
+        <div className="w-full h-full flex py-3">{children}</div>
+      </div>
+    </SessionProvider>
+    // </WindowSize>
   );
 }
