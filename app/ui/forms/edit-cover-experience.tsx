@@ -14,10 +14,30 @@ export default function EditCoverExperience({
   userId: string;
 }) {
   const [edited, setEdited] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const onChangeHandler = () => {
     if (edited === false) {
       setEdited(true);
+    }
+  };
+
+  // Wrapper so form.action gets (formData: FormData) => void | Promise<void>
+  const handleUpdateCoverExperience = async (
+    formData: FormData,
+  ): Promise<void> => {
+    try {
+      setIsSubmitting(true);
+      const result = await updateCoverExperience(formData);
+      if (result?.errors) {
+        console.error("Update cover experience failed:", result);
+      } else {
+        setEdited(false);
+      }
+    } catch (err) {
+      console.error("Unexpected error updating cover experience:", err);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -28,8 +48,7 @@ export default function EditCoverExperience({
       </BackButton>
       <h2 className="font-medium text-[2rem] py-1">Edit Cover Experience</h2>
       <form
-        onSubmit={(e) => setEdited(false)}
-        action={updateCoverExperience}
+        action={handleUpdateCoverExperience}
         className="flex flex-col tight-shadow form-amber rounded p-2 "
       >
         <input
@@ -39,7 +58,13 @@ export default function EditCoverExperience({
           id="experience_id"
           defaultValue={coverExperience?.id}
         />
-        <input hidden name="user_id" id="user_id" readOnly value={userId} />
+        <input
+          hidden
+          name="user_id"
+          id="user_id"
+          readOnly
+          defaultValue={userId}
+        />
         <div className="flex flex-col p-2">
           <div className="flex flex-col p-2">
             <label className="font-bold" htmlFor="title">
@@ -48,7 +73,7 @@ export default function EditCoverExperience({
             <input
               name="title"
               id="title"
-              onChange={() => onChangeHandler()}
+              onChange={onChangeHandler}
               defaultValue={coverExperience?.title}
               type="text"
             />
@@ -62,15 +87,18 @@ export default function EditCoverExperience({
             className="h-[350px]"
             name="description"
             id="description"
-            onChange={() => onChangeHandler()}
+            onChange={onChangeHandler}
             defaultValue={coverExperience?.description}
           />
         </div>
         {edited && (
           <>
             <div style={{ height: "0.5rem" }} />
-            <SubmitButton className="btn btn-amber my-4 animate-pulse">
-              Update Cover Experience
+            <SubmitButton
+              className="btn btn-amber my-4 animate-pulse"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Updating…" : "Update Cover Experience"}
             </SubmitButton>
           </>
         )}

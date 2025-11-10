@@ -62,14 +62,14 @@ const CoverLetters = ({
                 <td className="px-6 py-4">
                   {coverLetter?.company_id
                     ? companies?.find(
-                        (company) => company?.id === coverLetter?.company_id
+                        (company) => company?.id === coverLetter?.company_id,
                       )?.name
                     : "N/A"}
                 </td>
                 <td className="px-6 py-4">
                   {coverLetter?.company_id
                     ? companies?.find(
-                        (company) => company?.id === coverLetter?.company_id
+                        (company) => company?.id === coverLetter?.company_id,
                       )?.address_one
                     : "N/A"}
                 </td>

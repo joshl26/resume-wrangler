@@ -1,49 +1,65 @@
 "use client";
 
-import { User } from "@/app/lib/definitions";
 import React, { useState } from "react";
-import { useFormState } from "react-dom";
-import {
-  updateUser,
-  updateSocials,
-  deleteUserImage,
-  updateUserSocials,
-  updateUserDetails,
-} from "@/app/lib/actions";
-import { SubmitButton } from "../submit-button";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
+
+import {
+  deleteUserImage,
+  updateUserDetails,
+  updateUserSocials,
+} from "@/app/lib/actions";
+import type { User } from "@/app/lib/definitions";
+
+import { SubmitButton } from "../submit-button";
 import ImagePicker from "../image-picker/image-picker";
 import BackButton from "../back-button";
 
 const UserDetailsEditForm = ({ user }: { user: User }) => {
-  const initialState = { message: null, errors: {} };
-  const updateUserWithId = updateUser.bind(null, user?.id!);
-  const [state, dispatch] = useFormState(updateUserWithId, initialState);
-
+  const router = useRouter();
   const [edited, setEdited] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const onChangeHandler = () => {
-    if (edited === false) {
-      setEdited(true);
+    if (!edited) setEdited(true);
+  };
+
+  // Wrapper for updateUserDetails action: receives FormData from the form
+  const handleUpdateUserDetails = async (formData: FormData): Promise<void> => {
+    setIsSubmitting(true);
+    try {
+      // Pass FormData directly to server action (match your server action signature)
+      const result = (await updateUserDetails(formData)) as any;
+      if (result?.errors) {
+        console.error("Update user details failed:", result);
+      } else {
+        router.refresh();
+      }
+    } catch (err) {
+      console.error("Unexpected error updating user details:", err);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
   return (
     <div className="py-3 mr-3">
       <h2 className="font-bold text-[2rem]">Edit User Details</h2>
+
       <form
         className="flex flex-col p-3 tight-shadow rounded form-amber"
         onSubmit={() => setEdited(false)}
-        action={updateUserDetails}
+        action={(formData: FormData) => handleUpdateUserDetails(formData)}
       >
         <input type="hidden" name="id" value={user?.id} />
+
         <div className="flex flex-row">
           <div className="flex flex-col p-1">
             <label htmlFor="name" className="mb-2 block text-sm font-medium">
               Username
             </label>
             <input
-              onChange={(e) => {}}
+              onChange={() => {}}
               id="name"
               name="name"
               placeholder="Type a Username"
@@ -53,22 +69,24 @@ const UserDetailsEditForm = ({ user }: { user: User }) => {
               autoComplete="username"
             />
           </div>
+
           <div className="flex flex-col p-1">
             <label htmlFor="email" className="mb-2 block text-sm font-medium">
               Email
             </label>
             <input
-              onChange={(e) => {}}
+              onChange={() => {}}
               id="email"
               name="email"
-              value={user?.email}
               placeholder="something@something.com"
               required
               disabled
+              defaultValue={user?.email}
               autoComplete="email"
             />
           </div>
         </div>
+
         <div className="flex flex-row">
           <div className="flex flex-col p-1">
             <label
@@ -78,14 +96,15 @@ const UserDetailsEditForm = ({ user }: { user: User }) => {
               First Name
             </label>
             <input
-              onChange={() => onChangeHandler()}
+              onChange={onChangeHandler}
               id="first_name"
               name="first_name"
               placeholder="Type your first name"
-              defaultValue={user?.first_name}
+              defaultValue={user?.first_name ?? ""}
               autoComplete="given-name"
             />
           </div>
+
           <div className="flex flex-col p-1">
             <label
               htmlFor="last_name"
@@ -94,10 +113,10 @@ const UserDetailsEditForm = ({ user }: { user: User }) => {
               Last Name
             </label>
             <input
-              onChange={() => onChangeHandler()}
+              onChange={onChangeHandler}
               id="last_name"
               name="last_name"
-              defaultValue={user?.last_name}
+              defaultValue={user?.last_name ?? ""}
               placeholder="Type your last name"
               autoComplete="family-name"
             />
@@ -113,14 +132,15 @@ const UserDetailsEditForm = ({ user }: { user: User }) => {
               Address Line One
             </label>
             <input
-              onChange={() => onChangeHandler()}
+              onChange={onChangeHandler}
               id="address_one"
               name="address_one"
-              defaultValue={user?.address_one}
+              defaultValue={user?.address_one ?? ""}
               placeholder="City, Province OR State"
               autoComplete="address-line1"
             />
           </div>
+
           <div className="flex flex-col p-1">
             <label
               htmlFor="address_two"
@@ -129,10 +149,10 @@ const UserDetailsEditForm = ({ user }: { user: User }) => {
               Address Line Two
             </label>
             <input
-              onChange={() => onChangeHandler()}
+              onChange={onChangeHandler}
               id="address_two"
               name="address_two"
-              defaultValue={user?.address_two}
+              defaultValue={user?.address_two ?? ""}
               placeholder="Optional, not currently used"
               autoComplete="address-line2"
             />
@@ -140,7 +160,6 @@ const UserDetailsEditForm = ({ user }: { user: User }) => {
         </div>
 
         <div className="flex flex-row">
-          {" "}
           <div className="flex flex-col p-1">
             <label
               htmlFor="address_three"
@@ -149,47 +168,53 @@ const UserDetailsEditForm = ({ user }: { user: User }) => {
               Address Line Three
             </label>
             <input
-              onChange={() => onChangeHandler()}
+              onChange={onChangeHandler}
               id="address_three"
               name="address_three"
-              defaultValue={user?.address_three}
+              defaultValue={user?.address_three ?? ""}
               placeholder="Optional, not currently used"
               autoComplete="address-line3"
             />
           </div>
+
           <div className="flex flex-col p-1">
             <label htmlFor="phone" className="mb-2 block text-sm font-medium">
               Phone Number
             </label>
             <input
-              onChange={() => onChangeHandler()}
+              onChange={onChangeHandler}
               id="phone"
               name="phone"
               placeholder="123-456-7891"
               pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-              defaultValue={user?.phone}
+              defaultValue={user?.phone ?? ""}
               autoComplete="tel"
             />
           </div>
         </div>
+
         <div>
           <label htmlFor="website" className="mb-2 block text-sm font-medium">
             Website
           </label>
           <input
-            onChange={() => onChangeHandler()}
+            onChange={onChangeHandler}
             id="website"
             name="website"
             placeholder="https://www.yoursite.com"
-            defaultValue={user?.website}
+            defaultValue={user?.website ?? ""}
             autoComplete="url"
           />
         </div>
+
         {edited && (
           <div className="w-1/2 m-auto">
             <div style={{ height: "0.5rem" }} />
-            <SubmitButton className="btn btn-amber my-4  animate-pulse">
-              Save Change
+            <SubmitButton
+              className="btn btn-amber my-4 animate-pulse"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Saving..." : "Save Change"}
             </SubmitButton>
           </div>
         )}
@@ -199,25 +224,38 @@ const UserDetailsEditForm = ({ user }: { user: User }) => {
 };
 
 const UserSocialsEditForm = ({ user }: { user: User }) => {
-  const initialState = { message: "inital state", formData: null, errors: {} };
-  const updateSocialsWithId = updateSocials.bind(null, user?.id!);
-  const [state, dispatch] = useFormState(updateSocialsWithId, initialState);
-
+  const router = useRouter();
   const [edited, setEdited] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const onChangeHandler = () => {
-    if (edited === false) {
-      setEdited(true);
+    if (!edited) setEdited(true);
+  };
+
+  const handleUpdateUserSocials = async (formData: FormData): Promise<void> => {
+    setIsSubmitting(true);
+    try {
+      const result = (await updateUserSocials(formData)) as any;
+      if (result?.errors) {
+        console.error("Update socials failed:", result);
+      } else {
+        router.refresh();
+      }
+    } catch (err) {
+      console.error("Unexpected error updating socials:", err);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
   return (
     <div className="h-full overflow-y-auto">
       <h2 className="font-bold text-[2rem]">Edit Social Links</h2>
+
       <form
         className="flex flex-col p-3 tight-shadow rounded mr-3 form-amber"
         onSubmit={() => setEdited(false)}
-        action={updateUserSocials}
+        action={(formData: FormData) => handleUpdateUserSocials(formData)}
       >
         <input type="hidden" name="id" value={user?.id} />
 
@@ -230,26 +268,28 @@ const UserSocialsEditForm = ({ user }: { user: User }) => {
               LinkedIn
             </label>
             <input
-              onChange={() => onChangeHandler()}
+              onChange={onChangeHandler}
               id="linked_in"
               name="linked_in"
               placeholder="Type your linkedin address"
-              defaultValue={user?.linked_in}
+              defaultValue={user?.linked_in ?? ""}
             />
           </div>
+
           <div className="flex flex-col p-1">
             <label htmlFor="twitter" className="mb-2 block text-sm font-medium">
               Twitter
             </label>
             <input
-              onChange={() => onChangeHandler()}
+              onChange={onChangeHandler}
               id="twitter"
               name="twitter"
               placeholder="Type your twitter address"
-              defaultValue={user?.twitter}
+              defaultValue={user?.twitter ?? ""}
             />
           </div>
         </div>
+
         <div className="flex flex-row ">
           <div className="flex flex-col p-1">
             <label
@@ -259,13 +299,14 @@ const UserSocialsEditForm = ({ user }: { user: User }) => {
               Facebook
             </label>
             <input
-              onChange={() => onChangeHandler()}
+              onChange={onChangeHandler}
               id="facebook"
               name="facebook"
               placeholder="Type your facebook address"
-              defaultValue={user?.facebook}
+              defaultValue={user?.facebook ?? ""}
             />
           </div>
+
           <div className="flex flex-col p-1">
             <label
               htmlFor="instagram"
@@ -274,33 +315,38 @@ const UserSocialsEditForm = ({ user }: { user: User }) => {
               Instagram
             </label>
             <input
-              onChange={() => onChangeHandler()}
+              onChange={onChangeHandler}
               id="instagram"
               name="instagram"
               placeholder="Type your instagram address"
-              defaultValue={user?.instagram}
+              defaultValue={user?.instagram ?? ""}
             />
           </div>
         </div>
+
         <div className="flex flex-row ">
           <div className="flex flex-col p-1">
             <label htmlFor="github" className="mb-2 block text-sm font-medium">
               Github
             </label>
             <input
-              onChange={() => onChangeHandler()}
+              onChange={onChangeHandler}
               id="github"
               name="github"
               placeholder="Type your Github address"
-              defaultValue={user?.github}
+              defaultValue={user?.github ?? ""}
             />
           </div>
         </div>
+
         {edited && (
           <div className="w-1/2 m-auto">
             <div style={{ height: "0.5rem" }} />
-            <SubmitButton className="btn btn-amber my-4 animate-pulse">
-              Save Change
+            <SubmitButton
+              className="btn btn-amber my-4 animate-pulse"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Saving..." : "Save Change"}
             </SubmitButton>
           </div>
         )}
@@ -310,9 +356,29 @@ const UserSocialsEditForm = ({ user }: { user: User }) => {
 };
 
 const UserImageEditForm = ({ user }: { user: User }) => {
+  const router = useRouter();
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  const handleDeleteUserImage = async (formData: FormData): Promise<void> => {
+    setIsDeleting(true);
+    try {
+      const result = (await deleteUserImage(formData)) as any;
+      if (result?.errors) {
+        console.error("Delete user image failed:", result);
+      } else {
+        router.refresh();
+      }
+    } catch (err) {
+      console.error("Unexpected error deleting user image:", err);
+    } finally {
+      setIsDeleting(false);
+    }
+  };
+
   return (
     <div className=" ">
       <h2 className="font-bold text-[2rem] py-1">Edit User Image</h2>
+
       <div className="flex flex-col p-3 tight-shadow mr-3 rounded form-amber w-auto">
         {user?.thumbnail ? (
           <div className="flex flex-row">
@@ -325,8 +391,11 @@ const UserImageEditForm = ({ user }: { user: User }) => {
                 className="h-[250px] w-[250px] p-2 flex flex-row items-center justify-center rounded-full"
               />
             </div>
+
             <div className="flex flex-col items-center justify-center m-auto">
-              <form action={deleteUserImage}>
+              <form
+                action={(formData: FormData) => handleDeleteUserImage(formData)}
+              >
                 <input
                   name="image-url"
                   value={user?.thumbnail}
@@ -335,8 +404,11 @@ const UserImageEditForm = ({ user }: { user: User }) => {
                 />
                 <input name="user-id" value={user?.id} hidden readOnly />
                 {user.access_level !== "template" ? (
-                  <SubmitButton className="btn btn-amber hover:animate-pulse rounded px-2">
-                    Delete Image
+                  <SubmitButton
+                    className="btn btn-amber hover:animate-pulse rounded px-2"
+                    disabled={isDeleting}
+                  >
+                    {isDeleting ? "Deleting..." : "Delete Image"}
                   </SubmitButton>
                 ) : (
                   <div>
@@ -358,11 +430,13 @@ const UserImageEditForm = ({ user }: { user: User }) => {
                 </div>
               </div>
             </div>
+
             <div className="flex flex-col">
               <ImagePicker user={user} />
             </div>
           </div>
         )}
+
         <input type="hidden" name="id" value={user?.id} />
       </div>
     </div>
@@ -375,6 +449,7 @@ const UserEditForm = ({ user }: { user: User }) => {
       <BackButton className="" href="/dashboard/">
         Back
       </BackButton>
+
       <UserImageEditForm user={user} />
       <UserDetailsEditForm user={user} />
       <UserSocialsEditForm user={user} />

@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import React, { useState } from "react";
-import ResumeWranglerIcon from "/public/ResumeWranglerLogo-white.png";
+import ResumeWranglerIcon from "@/public/images/ResumeWranglerLogo-white.png";
 import Link from "next/link";
 
 const LandingNavBar = () => {
@@ -67,6 +67,7 @@ const LandingNavBar = () => {
         </div>
         <div className="block lg:hidden">
           <button
+            title="menu-button"
             onClick={(e) => setShowMenu(showMenu === false ? true : false)}
             className="flex items-center px-3 py-2 border rounded  border-black hover:text-azure-radiance-900 hover:border-azure-radiance-900"
           >

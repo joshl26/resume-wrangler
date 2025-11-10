@@ -1,3 +1,5 @@
+"use client";
+
 import { updateUser } from "@/app/lib/actions";
 import Image from "next/image";
 import { useState } from "react";
@@ -12,7 +14,23 @@ export default function YourProfile({
   user: User;
   resume: Resume;
 }) {
-  const initialState = { message: null, errors: {} };
+  // Updated initialState to match expected types
+  const initialState = {
+    message: "",
+    errors: {
+      name: undefined,
+      email: undefined,
+      first_name: undefined,
+      last_name: undefined,
+      address_line_one: undefined,
+      address_line_two: undefined,
+      address_line_three: undefined,
+      phone: undefined,
+      website: undefined,
+      resume_id: undefined,
+    },
+  };
+
   const updateUserWithId = updateUser.bind(null, user?.id!);
   const [state, dispatch] = useFormState(updateUserWithId, initialState);
 
@@ -56,13 +74,13 @@ export default function YourProfile({
         </div>
         <div className="py-2"></div>
         <div className="form-amber tight-shadow rounded px-5 py-2 ">
-          <form onSubmit={() => setEdited(false)} action={dispatch}>
+          <form action={dispatch}>
             <div className="flex flex-row justify-between w-auto">
               <div className="flex flex-col w-1/2 py-1 px-1">
                 <input
                   hidden
                   readOnly
-                  value={resume?.id}
+                  value={resume?.id || ""}
                   id="resume_id"
                   name="resume_id"
                   autoComplete="off"
@@ -70,7 +88,7 @@ export default function YourProfile({
                 <input
                   hidden
                   readOnly
-                  value={user?.name}
+                  value={user?.name || ""}
                   id="name"
                   name="name"
                   autoComplete="off"
@@ -81,11 +99,17 @@ export default function YourProfile({
                 <input
                   id="first_name"
                   name="first_name"
-                  defaultValue={user?.first_name}
+                  defaultValue={user?.first_name || ""}
                   onChange={onChangeHandler}
                   placeholder="First Name"
                   autoComplete="given-name"
                 />
+                {state.errors?.first_name &&
+                  state.errors.first_name.map((error: string) => (
+                    <p className="mt-2 text-sm text-red-500" key={error}>
+                      {error}
+                    </p>
+                  ))}
               </div>
               <div className="flex flex-col w-1/2 py-1">
                 <label className="py-1 font-medium" htmlFor="last_name">
@@ -94,11 +118,17 @@ export default function YourProfile({
                 <input
                   id="last_name"
                   name="last_name"
-                  defaultValue={user?.last_name}
+                  defaultValue={user?.last_name || ""}
                   onChange={onChangeHandler}
                   placeholder="Last Name"
                   autoComplete="family-name"
                 />
+                {state.errors?.last_name &&
+                  state.errors.last_name.map((error: string) => (
+                    <p className="mt-2 text-sm text-red-500" key={error}>
+                      {error}
+                    </p>
+                  ))}
               </div>
             </div>
             <div className="flex flex-col">
@@ -109,11 +139,17 @@ export default function YourProfile({
                 <input
                   id="address_one"
                   name="address_one"
-                  defaultValue={user?.address_one}
+                  defaultValue={user?.address_one || ""}
                   onChange={onChangeHandler}
                   placeholder="City, Prov/State"
                   autoComplete="address-line1"
                 />
+                {state.errors?.address_line_one &&
+                  state.errors.address_line_one.map((error: string) => (
+                    <p className="mt-2 text-sm text-red-500" key={error}>
+                      {error}
+                    </p>
+                  ))}
               </div>
             </div>
             <div className="flex flex-col">
@@ -124,11 +160,17 @@ export default function YourProfile({
                 <input
                   id="address_two"
                   name="address_two"
-                  defaultValue={user?.address_two}
+                  defaultValue={user?.address_two || ""}
                   onChange={onChangeHandler}
                   placeholder="Street Address"
                   autoComplete="address-line2"
                 />
+                {state.errors?.address_line_two &&
+                  state.errors.address_line_two.map((error: string) => (
+                    <p className="mt-2 text-sm text-red-500" key={error}>
+                      {error}
+                    </p>
+                  ))}
               </div>
             </div>
             <div className="flex flex-col">
@@ -139,11 +181,17 @@ export default function YourProfile({
                 <input
                   id="address_three"
                   name="address_three"
-                  defaultValue={user?.address_three}
+                  defaultValue={user?.address_three || ""}
                   onChange={onChangeHandler}
                   placeholder="Apartment/Buzzer"
                   autoComplete="address-line3"
                 />
+                {state.errors?.address_line_three &&
+                  state.errors.address_line_three.map((error: string) => (
+                    <p className="mt-2 text-sm text-red-500" key={error}>
+                      {error}
+                    </p>
+                  ))}
               </div>
             </div>
             <div className="flex flex-col">
@@ -153,7 +201,8 @@ export default function YourProfile({
                 </label>
                 <input
                   id="country"
-                  defaultValue={user?.country}
+                  name="country"
+                  defaultValue={user?.country || ""}
                   onChange={onChangeHandler}
                   placeholder="Country"
                   autoComplete="country"
@@ -168,11 +217,17 @@ export default function YourProfile({
                 <input
                   id="phone"
                   name="phone"
-                  defaultValue={user?.phone}
+                  defaultValue={user?.phone || ""}
                   onChange={onChangeHandler}
                   placeholder="xxx-xxx-xxxx"
                   autoComplete="tel"
                 />
+                {state.errors?.phone &&
+                  state.errors.phone.map((error: string) => (
+                    <p className="mt-2 text-sm text-red-500" key={error}>
+                      {error}
+                    </p>
+                  ))}
               </div>
             </div>
             <div className="flex flex-col">
@@ -185,7 +240,7 @@ export default function YourProfile({
                   readOnly
                   id="email"
                   name="email"
-                  defaultValue={user?.email}
+                  defaultValue={user?.email || ""}
                   placeholder="Email Address"
                   autoComplete="email"
                 />
@@ -199,14 +254,23 @@ export default function YourProfile({
                 <input
                   id="website"
                   name="website"
-                  defaultValue={user?.website}
+                  defaultValue={user?.website || ""}
                   onChange={onChangeHandler}
                   placeholder="http://www.your-site.com"
                   autoComplete="url"
                 />
+                {state.errors?.website &&
+                  state.errors.website.map((error: string) => (
+                    <p className="mt-2 text-sm text-red-500" key={error}>
+                      {error}
+                    </p>
+                  ))}
               </div>
             </div>
             <div style={{ height: "0.5rem" }} />
+            {state.message && (
+              <p className="mt-2 text-sm text-red-500">{state.message}</p>
+            )}
             {edited && (
               <SubmitButton className="btn btn-amber my-4 p-2 text-center w-auto animate-pulse">
                 Save Change

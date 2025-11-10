@@ -12,10 +12,30 @@ export default function EditWorkExperience({
   workExperience: UserWorkExperience;
 }) {
   const [edited, setEdited] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const onChangeHandler = () => {
     if (edited === false) {
       setEdited(true);
+    }
+  };
+
+  // Wrapper so form.action gets (formData: FormData) => void | Promise<void>
+  const handleUpdateUserWorkExperience = async (
+    formData: FormData,
+  ): Promise<void> => {
+    try {
+      setIsSubmitting(true);
+      const result = await updateUserWorkExperience(formData);
+      if (result?.errors) {
+        console.error("Update work experience failed:", result);
+      } else {
+        setEdited(false);
+      }
+    } catch (err) {
+      console.error("Unexpected error updating work experience:", err);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -26,8 +46,7 @@ export default function EditWorkExperience({
       </BackButton>
       <h2 className="font-medium text-[2rem] py-1">Edit Work Experience</h2>
       <form
-        onSubmit={(e) => setEdited(false)}
-        action={updateUserWorkExperience}
+        action={handleUpdateUserWorkExperience}
         className="flex flex-col tight-shadow form-amber rounded p-2 "
       >
         <label hidden htmlFor="experience_id">
@@ -43,7 +62,13 @@ export default function EditWorkExperience({
         <label hidden htmlFor="resume_id">
           Resume Id
         </label>
-        <input hidden name="resume_id" id="resume_id" readOnly value="blank" />
+        <input
+          hidden
+          name="resume_id"
+          id="resume_id"
+          readOnly
+          defaultValue="blank"
+        />
         <div className="flex flex-row justify-between">
           <div className="flex flex-col p-2">
             <label className="font-bold" htmlFor="company_name">
@@ -53,7 +78,7 @@ export default function EditWorkExperience({
               required
               name="company_name"
               id="company_name"
-              onChange={() => onChangeHandler()}
+              onChange={onChangeHandler}
               defaultValue={workExperience?.company_name}
             />
           </div>
@@ -65,7 +90,7 @@ export default function EditWorkExperience({
               required
               name="location"
               id="location"
-              onChange={() => onChangeHandler()}
+              onChange={onChangeHandler}
               defaultValue={workExperience?.location}
             />
           </div>
@@ -76,7 +101,7 @@ export default function EditWorkExperience({
             <input
               name="start_date"
               id="start_date"
-              onChange={() => onChangeHandler()}
+              onChange={onChangeHandler}
               defaultValue={workExperience?.start_date}
             />
           </div>
@@ -87,7 +112,7 @@ export default function EditWorkExperience({
             <input
               name="end_date"
               id="end_date"
-              onChange={() => onChangeHandler()}
+              onChange={onChangeHandler}
               defaultValue={workExperience?.end_date}
             />
           </div>
@@ -99,7 +124,7 @@ export default function EditWorkExperience({
           <input
             name="job_title"
             id="job_title"
-            onChange={() => onChangeHandler()}
+            onChange={onChangeHandler}
             defaultValue={workExperience?.job_title}
           />
         </div>
@@ -111,7 +136,7 @@ export default function EditWorkExperience({
             className="h-[150px]"
             name="description_one"
             id="description_one"
-            onChange={() => onChangeHandler()}
+            onChange={onChangeHandler}
             defaultValue={workExperience?.description_one}
           />
         </div>
@@ -123,7 +148,7 @@ export default function EditWorkExperience({
             className="h-[150px]"
             name="description_two"
             id="description_two"
-            onChange={() => onChangeHandler()}
+            onChange={onChangeHandler}
             defaultValue={workExperience?.description_two}
           />
         </div>
@@ -135,7 +160,7 @@ export default function EditWorkExperience({
             className="h-[150px]"
             name="description_three"
             id="description_three"
-            onChange={() => onChangeHandler()}
+            onChange={onChangeHandler}
             defaultValue={workExperience?.description_three}
           />
         </div>
@@ -147,15 +172,18 @@ export default function EditWorkExperience({
             className="h-[150px]"
             name="description_four"
             id="description_four"
-            onChange={() => onChangeHandler()}
+            onChange={onChangeHandler}
             defaultValue={workExperience?.description_four}
           />
         </div>
         {edited && (
           <>
             <div style={{ height: "0.5rem" }} />
-            <SubmitButton className="btn btn-amber my-4 animate-pulse">
-              Update Work Experience
+            <SubmitButton
+              className="btn btn-amber my-4 animate-pulse"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Updating…" : "Update Work Experience"}
             </SubmitButton>
           </>
         )}

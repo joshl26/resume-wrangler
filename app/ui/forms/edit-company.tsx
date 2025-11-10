@@ -7,8 +7,6 @@ import { Company } from "@/app/lib/definitions";
 import BackButton from "../back-button";
 
 export default function EditCompany({ company }: { company: Company }) {
-  //   console.log(application);
-
   const [edited, setEdited] = useState(false);
 
   const onChangeHandler = () => {
@@ -16,14 +14,33 @@ export default function EditCompany({ company }: { company: Company }) {
       setEdited(true);
     }
   };
+
+  // Wrapper to satisfy form action type (returns Promise<void>)
+  const handleUpdate = async (formData: FormData): Promise<void> => {
+    try {
+      const result = await updateCompany(formData);
+      if (result?.errors) {
+        // handle validation errors (UI toast, set state, etc.)
+        console.error("Update company validation errors:", result.errors);
+      } else {
+        // success handling (optional): e.g. redirect or show toast
+        // window.location.href = "/dashboard/companies/";
+      }
+    } catch (err) {
+      console.error("Unexpected error updating company:", err);
+    }
+  };
+
   return (
     <div className="">
       <BackButton className="" href={"/dashboard/companies/"}>
         Back
       </BackButton>
       <h2 className="font-medium text-[2rem] py-1">Edit Company</h2>
+
+      {/* use handleUpdate as the form action */}
       <form
-        action={updateCompany}
+        action={handleUpdate}
         className="flex flex-col form-amber px-3 pt-3 pb-1"
       >
         <input
@@ -94,7 +111,6 @@ export default function EditCompany({ company }: { company: Company }) {
           />
         </div>
         <div className="flex flex-row justify-start gap-3">
-          {" "}
           <div className="flex flex-col w-full py-2">
             <label className="font-bold" htmlFor="email">
               Email
@@ -130,11 +146,9 @@ export default function EditCompany({ company }: { company: Company }) {
           />
         </div>
         {edited && (
-          <>
-            <SubmitButton className="btn btn-amber my-2 rounded animate-pulse">
-              Save Updates
-            </SubmitButton>
-          </>
+          <SubmitButton className="btn btn-amber my-2 rounded animate-pulse">
+            Save Updates
+          </SubmitButton>
         )}
       </form>
     </div>

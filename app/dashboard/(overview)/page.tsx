@@ -23,13 +23,13 @@ export default async function Page() {
 
   const applications = await fetchApplicationsByUserId(user?.id!);
   const openApplicationsCount = await fetchOpenApplicationsCountByUserId(
-    user?.id
+    user?.id,
   );
   const closedApplicationsCount = await fetchClosedApplicationsCountByUserId(
-    user?.id
+    user?.id,
   );
   const pendingApplicationsCount = await fetchPendingApplicationsCountByUserId(
-    user?.id
+    user?.id,
   );
 
   return (

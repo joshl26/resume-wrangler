@@ -33,13 +33,23 @@ export default function EditApplication({
       setEdited(true);
     }
   };
+
+  // Wrapper function that handles the result of the action
+  const handleSubmit = async (formData: FormData) => {
+    const result = await updateApplication(formData);
+    if (result?.errors) {
+      // Handle errors - you could show a toast or alert here
+      console.error("Update failed:", result.message);
+    }
+  };
+
   return (
     <div className="px-4">
       <BackButton className="" href={"/dashboard/applications/"}>
         Back
       </BackButton>
       <h2 className="font-medium text-[2rem] py-1">Edit Application</h2>
-      <form action={updateApplication} className="flex flex-col form-amber p-3">
+      <form action={handleSubmit} className="flex flex-col form-amber p-3">
         <div hidden>
           <label hidden htmlFor="application_id">
             Application Id
@@ -60,7 +70,7 @@ export default function EditApplication({
               defaultValue={application?.company_id}
               id="company_id"
               name="company_id"
-              className="text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block   "
+              className="text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block"
             >
               {companies.map((company: any) => (
                 <option key={company.id} value={company.id}>
@@ -70,7 +80,7 @@ export default function EditApplication({
             </select>
           </div>
 
-          <div className="flex flex-col w-1/3 ">
+          <div className="flex flex-col w-1/3">
             <div className="flex flex-row gap-2 m-auto">
               <label className="font-bold" htmlFor="is_complete">
                 Is Complete?
@@ -83,6 +93,7 @@ export default function EditApplication({
                 value={isComplete}
               />
               <input
+                title="Mark as complete"
                 className="m-auto"
                 onChange={isCompleteChangeHandler}
                 checked={isComplete === "true" ? true : false}
@@ -168,11 +179,9 @@ export default function EditApplication({
 
         <div className="flex flex-row py-2"></div>
         {edited && (
-          <>
-            <SubmitButton className="btn btn-amber my-2 rounded animate-pulse">
-              Save Updates
-            </SubmitButton>
-          </>
+          <SubmitButton className="btn btn-amber my-2 rounded animate-pulse">
+            Save Updates
+          </SubmitButton>
         )}
       </form>
     </div>

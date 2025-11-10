@@ -779,8 +779,10 @@ const FinishTourSchema = z.object({
 // const CreateInvoice = InvoiceSchema.omit({ id: true, date: true });
 // const UpdateInvoice = InvoiceSchema.omit({ id: true, date: true });
 // const DeleteInvoice = InvoiceSchema.omit({ id: true, date: true });
-const UpdateUser = UserSchema.omit({ id: true, date: true });
-const UpdateSocials = UserSocialsSchema.omit({ id: true, date: true });
+
+// Remove 'date: true' since UserSchema doesn't have a 'date' field
+const UpdateUser = UserSchema.omit({ id: true });
+const UpdateSocials = UserSocialsSchema.omit({ id: true });
 
 // This is temporary until @types/react-dom is updated
 export type State = {
@@ -790,7 +792,7 @@ export type State = {
 
 export async function authenticate(
   prevState: string | undefined,
-  formData: FormData
+  formData: FormData,
 ) {
   try {
     await signIn("credentials", Object.fromEntries(formData));
@@ -805,7 +807,7 @@ export async function authenticate(
 export async function updateUser(
   id: string,
   prevState: State,
-  formData: FormData
+  formData: FormData,
 ) {
   const validatedFields = UpdateUser.safeParse({
     name: formData.get("name"),
@@ -861,7 +863,7 @@ export async function updateUser(
 export async function updateSocials(
   id: string,
   prevState: State,
-  formData: FormData
+  formData: FormData,
 ) {
   const validatedFields = UpdateSocials.safeParse({
     linked_in: formData.get("linked_in"),
@@ -1009,7 +1011,7 @@ export async function updateApplication(formData: FormData) {
   } = validatedFields.data;
 
   try {
-    let query: string;
+    let query: string = ""; // Initialize with empty string
 
     if (isComplete === "true") {
       query = `UPDATE applications SET posting_text = $$${postingText}$$, job_position = $$${jobPosition}$$, posting_url = '${postingUrl}', analyzed_posting_text = $$${analyzedPostingText}$$, company_id = '${companyId}', is_complete = '${isComplete}', date_submitted = 'now()' WHERE id = '${id}'`;
@@ -1017,9 +1019,16 @@ export async function updateApplication(formData: FormData) {
       query = `UPDATE applications SET posting_text = $$${postingText}$$, job_position = $$${jobPosition}$$, posting_url = '${postingUrl}', analyzed_posting_text = $$${analyzedPostingText}$$, company_id = '${companyId}', is_complete = '${isComplete}', date_submitted = NULL WHERE id = '${id}'`;
     }
 
+    // Check if query was assigned
+    if (!query) {
+      throw new Error(`Invalid isComplete value: ${isComplete}`);
+    }
+
     const data = await conn.query(query);
   } catch (error) {
-    return { message: `Database Error: Failed to Update Invoice. ${error}` };
+    return {
+      message: `Database Error: Failed to Update Application. ${error}`,
+    };
   }
 
   revalidatePath("/dashboard/applications");
@@ -1824,7 +1833,7 @@ export async function createUserImage(formData: FormData) {
               return;
             }
             resolve(result);
-          }
+          },
         )
         .end(buffer);
     });
@@ -2246,6 +2255,7 @@ export async function updateUserCertfication(formData: FormData) {
 
 export async function updateResumeLine(formData: FormData) {}
 
+// deleteResumeLine (updated)
 export async function deleteResumeLine(formData: FormData) {
   const validatedFields = DeleteResumeLineSchema.safeParse({
     user_id: formData.get("user_id"),
@@ -2263,9 +2273,9 @@ export async function deleteResumeLine(formData: FormData) {
   const { user_id, id, resume_id, line_type } = validatedFields.data;
 
   try {
-    let query;
+    let query = "";
 
-    //check the linetype and formulate a specific query
+    // check the linetype and formulate a specific query
     if (line_type === "education") {
       query = `DELETE FROM resume_lines WHERE resume_id = '${resume_id}' AND user_education_id = '${id}'`;
     } else if (line_type === "custom-section-one") {
@@ -2277,27 +2287,30 @@ export async function deleteResumeLine(formData: FormData) {
     } else if (line_type === "work") {
       query = `DELETE FROM resume_lines WHERE resume_id = '${resume_id}' AND work_experience_id = '${id}'`;
     } else {
-      query = "";
+      // unknown line type
+      throw new Error(`Unknown line_type: ${line_type}`);
     }
 
+    // now execute
     const data = await conn.query(query);
   } catch (error) {
     return { message: `Database Error: Failed to Update Invoice. ${error}` };
   }
 
-  if (resume_id === "blank" ?? line_type === "education") {
+  // Redirects: check resume_id === "blank" AND specific line_type
+  if (resume_id === "blank" && line_type === "education") {
     revalidatePath(`/dashboard/education/`);
     redirect(`/dashboard/education/`);
-  } else if (resume_id === "blank" ?? line_type === "skill") {
+  } else if (resume_id === "blank" && line_type === "skill") {
     revalidatePath(`/dashboard/skills/`);
     redirect(`/dashboard/skills/`);
-  } else if (resume_id === "blank" ?? line_type === "work") {
+  } else if (resume_id === "blank" && line_type === "work") {
     revalidatePath(`/dashboard/work-experience/`);
     redirect(`/dashboard/work-experience/`);
-  } else if (resume_id === "blank" ?? line_type === "custom-section-one") {
+  } else if (resume_id === "blank" && line_type === "custom-section-one") {
     revalidatePath(`/dashboard/organizations/`);
     redirect(`/dashboard/organizations/`);
-  } else if (resume_id === "blank" ?? line_type === "custom-section-two") {
+  } else if (resume_id === "blank" && line_type === "custom-section-two") {
     revalidatePath(`/dashboard/certifications/`);
     redirect(`/dashboard/certifications/`);
   } else if (resume_id !== "blank") {
@@ -2305,7 +2318,6 @@ export async function deleteResumeLine(formData: FormData) {
     redirect(`/dashboard/resume/edit/${resume_id}`);
   }
 }
-
 export async function CreateNewUser(formData: FormData) {
   const validatedFields = CreateNewUserSchema.safeParse({
     username: formData.get("username"),
@@ -2375,6 +2387,7 @@ export async function CreateNewUser(formData: FormData) {
   redirect(`/login`);
 }
 
+// createResumeLine (updated)
 export async function createResumeLine(formData: FormData) {
   const validatedFields = CreateResumeLineSchema.safeParse({
     user_id: formData.get("user_id"),
@@ -2391,12 +2404,12 @@ export async function createResumeLine(formData: FormData) {
   }
   const { user_id, resume_id, line_type, id } = validatedFields.data;
 
-  let data1;
+  let data1: any;
 
   try {
-    let query;
+    let query = "";
 
-    //check the linetype and formulate a specific query
+    // check the linetype and formulate a specific query
     if (line_type === "education") {
       query = `SELECT * FROM resume_lines WHERE resume_id = '${resume_id}' AND user_education_id = '${id}'`;
     } else if (line_type === "custom-section-one") {
@@ -2408,7 +2421,7 @@ export async function createResumeLine(formData: FormData) {
     } else if (line_type === "work") {
       query = `SELECT * FROM resume_lines WHERE resume_id = '${resume_id}' AND work_experience_id = '${id}'`;
     } else {
-      query = "";
+      throw new Error(`Unknown line_type: ${line_type}`);
     }
 
     data1 = await conn.query(query);
@@ -2423,7 +2436,7 @@ export async function createResumeLine(formData: FormData) {
       message: `Database Error: Resume already has ${line_type} ${id} included.`,
     };
   } else {
-    let query;
+    let query = "";
 
     if (line_type === "education") {
       query = `INSERT INTO resume_lines (user_id, resume_id, user_education_id, line_type, position) VALUES ('${user_id}', '${resume_id}', '${id}', '${line_type}', '0' )`;
@@ -2436,7 +2449,7 @@ export async function createResumeLine(formData: FormData) {
     } else if (line_type === "work") {
       query = `INSERT INTO resume_lines (user_id, resume_id, work_experience_id, line_type, position) VALUES ('${user_id}', '${resume_id}', '${id}', '${line_type}', '0' )`;
     } else {
-      query = "";
+      throw new Error(`Unknown line_type: ${line_type}`);
     }
 
     try {
@@ -2447,19 +2460,20 @@ export async function createResumeLine(formData: FormData) {
       };
     }
 
-    if (resume_id === "blank" ?? line_type === "education") {
+    // same redirect logic as deleteResumeLine
+    if (resume_id === "blank" && line_type === "education") {
       revalidatePath(`/dashboard/education/`);
       redirect(`/dashboard/education/`);
-    } else if (resume_id === "blank" ?? line_type === "skill") {
+    } else if (resume_id === "blank" && line_type === "skill") {
       revalidatePath(`/dashboard/skills/`);
       redirect(`/dashboard/skills/`);
-    } else if (resume_id === "blank" ?? line_type === "work") {
+    } else if (resume_id === "blank" && line_type === "work") {
       revalidatePath(`/dashboard/work-experience/`);
       redirect(`/dashboard/work-experience/`);
-    } else if (resume_id === "blank" ?? line_type === "custom-section-one") {
+    } else if (resume_id === "blank" && line_type === "custom-section-one") {
       revalidatePath(`/dashboard/organizations/`);
       redirect(`/dashboard/organizations/`);
-    } else if (resume_id === "blank" ?? line_type === "custom-section-two") {
+    } else if (resume_id === "blank" && line_type === "custom-section-two") {
       revalidatePath(`/dashboard/certifications/`);
       redirect(`/dashboard/certifications/`);
     } else if (resume_id !== "blank") {
@@ -2468,7 +2482,6 @@ export async function createResumeLine(formData: FormData) {
     }
   }
 }
-
 export async function finishUserTour(userId: string, tourPage: string) {
   // console.log(userId, tourPage);
 
@@ -2500,8 +2513,6 @@ export async function finishUserTour(userId: string, tourPage: string) {
 
 //TODO ---------------------------------------------------------
 export async function createCoverLine(formData: FormData) {
-  // console.log(formData);
-
   const validatedFields = CreateCoverLineSchema.safeParse({
     user_id: formData.get("user_id"),
     cover_letter_id: formData.get("cover_letter_id"),
@@ -2515,17 +2526,20 @@ export async function createCoverLine(formData: FormData) {
     };
   }
 
-  // console.log(validatedFields.success);
-
   const { user_id, cover_letter_id, experience_id, line_type } =
     validatedFields.data;
 
   let data1: any;
   try {
-    let query: string;
-    //check the linetype and formulate a specific query
+    // initialize query and ensure it's assigned on every path
+    let query = "";
+
+    // check the linetype and formulate a specific query
     if (line_type === "experience") {
       query = `SELECT * FROM cover_experience_lines WHERE cover_letter_id = '${cover_letter_id}' AND cover_experience_id = '${experience_id}'`;
+    } else {
+      // If you might add more types later, expand this conditional.
+      throw new Error(`Unknown line_type: ${line_type}`);
     }
 
     data1 = await conn.query(query);
@@ -2534,15 +2548,20 @@ export async function createCoverLine(formData: FormData) {
       message: `Database Error: ${error}`,
     };
   }
+
   if (data1.rowCount > 0) {
     return {
       message: `Database Error: Cover Experience Lines already has ${line_type} ${experience_id} included.`,
     };
   } else {
-    let query: string;
+    let query = "";
+
     if (line_type === "experience") {
       query = `INSERT INTO cover_experience_lines (user_id, cover_letter_id, cover_experience_id, line_type, position) VALUES ('${user_id}', '${cover_letter_id}', '${experience_id}', '${line_type}', '0' )`;
+    } else {
+      throw new Error(`Unknown line_type: ${line_type}`);
     }
+
     try {
       const data = await conn.query(query);
     } catch (error) {
@@ -2556,9 +2575,8 @@ export async function createCoverLine(formData: FormData) {
   }
 }
 
-//TODO ---------------------------------------------------------
 export async function deleteCoverLine(formData: FormData) {
-  const validatedFields = CreateCoverLineSchema.safeParse({
+  const validatedFields = DeleteCoverLineSchema.safeParse({
     user_id: formData.get("user_id"),
     cover_letter_id: formData.get("cover_letter_id"),
     line_type: formData.get("line_type"),
@@ -2574,10 +2592,14 @@ export async function deleteCoverLine(formData: FormData) {
   const { user_id, cover_letter_id, experience_id, line_type } =
     validatedFields.data;
   try {
-    let query: string;
-    //check the linetype and formulate a specific query
+    let query = ""; // Initialize query
+
+    // Check the line type and formulate a specific query
     if (line_type === "experience") {
       query = `DELETE FROM cover_experience_lines WHERE cover_letter_id = '${cover_letter_id}' AND cover_experience_id = '${experience_id}' AND user_id = '${user_id}'`;
+    } else {
+      // Handle unknown line types
+      throw new Error(`Unknown line_type: ${line_type}`);
     }
 
     const data = await conn.query(query);
@@ -2587,7 +2609,6 @@ export async function deleteCoverLine(formData: FormData) {
   revalidatePath(`/dashboard/cover/edit/${cover_letter_id}`);
   redirect(`/dashboard/cover/edit/${cover_letter_id}`);
 }
-
 export async function updateCoverExperience(formData: FormData) {
   const validatedFields = UpdateCoverExperienceSchema.safeParse({
     experience_id: formData.get("experience_id"),
@@ -2614,7 +2635,7 @@ export async function updateCoverExperience(formData: FormData) {
   }
 
   revalidatePath(
-    `/dashboard/cover-experience/edit/${experience_id}/${user_id}`
+    `/dashboard/cover-experience/edit/${experience_id}/${user_id}`,
   );
   redirect(`/dashboard/cover-experience/edit/${experience_id}/${user_id}`);
 }

@@ -106,7 +106,7 @@ export default function NavLinks() {
             href={link?.href}
             className={clsx(
               "flex row h-auto tight-shadow gap-2 rounded-md hover:text-rose-50 hover:font-bold p-2 text-sm font-lite hover:bg-amber-600",
-              pathname === link?.href ? "bg-amber-300 " : "bg-amber-50"
+              pathname === link?.href ? "bg-amber-300 " : "bg-amber-50",
             )}
           >
             <LinkIcon className="w-5" />

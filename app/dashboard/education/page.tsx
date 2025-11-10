@@ -1,3 +1,4 @@
+// app/dashboard/education/page.tsx
 import {
   fetchEducationByUserId,
   fetchEducationCount,
@@ -13,33 +14,50 @@ import { auth } from "@/auth";
 import { notFound } from "next/navigation";
 import React, { Suspense } from "react";
 
-export default async function Page({
-  searchParams,
-}: {
-  searchParams?: {
-    query?: string;
-    page?: string;
-  };
-}) {
+type SearchParams = {
+  query?: string;
+  page?: string;
+};
+
+interface PageProps {
+  // match Next's generated signature: searchParams may be a Promise or undefined
+  searchParams?: Promise<SearchParams>;
+}
+
+// Type guard to filter out null/undefined from arrays if needed
+function notNull<T>(v: T | null | undefined): v is T {
+  return v != null;
+}
+
+export default async function Page({ searchParams }: PageProps) {
+  const resolvedSearchParams = await searchParams;
+  const query = resolvedSearchParams?.query || "";
+  const currentPage = Number(resolvedSearchParams?.page) || 1;
+
   const session = await auth();
-  if (session?.user) {
-    session.user = {
-      name: session.user.name,
-      email: session.user.email,
-    };
+  if (!session?.user) {
+    return notFound();
   }
 
-  const user = await getUser(session?.user?.email!);
-  const education = await fetchEducationByUserId(user.id);
+  // Keep only necessary user fields
+  session.user = {
+    name: session.user.name,
+    email: session.user.email,
+  };
 
-  if (!user ?? !education) {
-    notFound();
+  const user = await getUser(session.user.email!);
+  if (!user) return notFound();
+
+  // Fetch education records and ensure non-null entries
+  const educationRaw = await fetchEducationByUserId(user.id);
+  const education = (educationRaw ?? []).filter(notNull);
+
+  if (!education || education.length === 0) {
+    return notFound();
   }
 
-  const query = searchParams?.query || "";
-  const currentPage = Number(searchParams?.page) || 1;
-  const totalPages = await fetchEducationPages(query, user?.id);
-  const totalCount = await fetchEducationCount(query, user?.id);
+  const totalPages = await fetchEducationPages(query, user.id);
+  const totalCount = await fetchEducationCount(query, user.id);
 
   return (
     <div className="h-full w-full overflow-y-auto px-2">

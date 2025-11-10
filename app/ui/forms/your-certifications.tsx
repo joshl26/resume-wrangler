@@ -31,7 +31,7 @@ export default function YourCertifications({
   certificationResumeLines: any;
 }) {
   const [sectionTitle, setSectionTitle] = useState(
-    resume?.custom_section_two_name
+    resume?.custom_section_two_name,
   );
 
   const [edited, setEdited] = useState(false);
@@ -52,7 +52,7 @@ export default function YourCertifications({
   };
 
   const setSectionTitleOnChangeHandler = (
-    e: React.ChangeEvent<HTMLInputElement>
+    e: React.ChangeEvent<HTMLInputElement>,
   ) => {
     setSectionTitle(e.target.value);
 
@@ -62,7 +62,7 @@ export default function YourCertifications({
   };
 
   const showCertificationsOnChangeHandler = (
-    e: React.ChangeEvent<HTMLInputElement>
+    e: React.ChangeEvent<HTMLInputElement>,
   ) => {
     if (e.target.checked === true) {
       setShowCustomSectionTwo("true");
@@ -72,6 +72,93 @@ export default function YourCertifications({
 
     if (edited === false) {
       setEditSection(true);
+    }
+  };
+
+  // Wrappers so form.action gets (formData: FormData) => void | Promise<void>
+  const handleUpdateSectionTitle = async (
+    formData: FormData,
+  ): Promise<void> => {
+    try {
+      const result = await updateCertificationSectionTitle(formData);
+      if (result?.errors) {
+        console.error("Update section title failed:", result);
+      } else {
+        setEditSectionTitle(false);
+      }
+    } catch (err) {
+      console.error("Unexpected error updating section title:", err);
+    }
+  };
+
+  const handleCreateCertification = async (
+    formData: FormData,
+  ): Promise<void> => {
+    try {
+      const result = await createCertification(formData);
+      if (result?.errors) {
+        console.error("Create certification failed:", result);
+      } else {
+        setAddCertification(false);
+      }
+    } catch (err) {
+      console.error("Unexpected error creating certification:", err);
+    }
+  };
+
+  const handleCreateResumeLine = async (formData: FormData): Promise<void> => {
+    try {
+      const result = await createResumeLine(formData);
+      if (result?.errors) {
+        console.error("Create resume line failed:", result);
+      } else {
+        // success — you may want to revalidate or update UI
+      }
+    } catch (err) {
+      console.error("Unexpected error creating resume line:", err);
+    }
+  };
+
+  const handleDeleteResumeLine = async (formData: FormData): Promise<void> => {
+    try {
+      const result = await deleteResumeLine(formData);
+      if (result?.errors) {
+        console.error("Delete resume line failed:", result);
+      } else {
+        // success — you may want to revalidate or update UI
+      }
+    } catch (err) {
+      console.error("Unexpected error deleting resume line:", err);
+    }
+  };
+
+  const handleUpdateUserCertification = async (
+    formData: FormData,
+  ): Promise<void> => {
+    try {
+      const result = await updateUserCertfication(formData);
+      if (result?.errors) {
+        console.error("Update certification failed:", result);
+      } else {
+        setEdited(false);
+      }
+    } catch (err) {
+      console.error("Unexpected error updating certification:", err);
+    }
+  };
+
+  const handleUpdateCertificationsSection = async (
+    formData: FormData,
+  ): Promise<void> => {
+    try {
+      const result = await updateCertificationsSection(formData);
+      if (result?.errors) {
+        console.error("Update certifications section failed:", result);
+      } else {
+        setEditSection(false);
+      }
+    } catch (err) {
+      console.error("Unexpected error updating certifications section:", err);
     }
   };
 
@@ -87,25 +174,21 @@ export default function YourCertifications({
         </div>
         {showCustomSectionTwo === "true" ? (
           <>
-            <form
-              onSubmit={() => setEditSectionTitle(false)}
-              action={updateCertificationSectionTitle}
-              className="pb-2"
-            >
+            <form action={handleUpdateSectionTitle} className="pb-2">
               <div className="flex flex-col">
                 <input
                   readOnly
                   hidden
                   name="resume_id"
                   id="resume_id"
-                  value={resume?.id}
+                  defaultValue={resume?.id}
                 />
                 <input
                   readOnly
                   hidden
                   name="user_id"
                   id="user_id"
-                  value={user?.id}
+                  defaultValue={user?.id}
                 />
                 <label className="py-1 font-medium" htmlFor="section_title">
                   Section Title
@@ -131,9 +214,9 @@ export default function YourCertifications({
                 </>
               )}
             </form>
+
             <form
-              onSubmit={() => setAddCertification(false)}
-              action={createCertification}
+              action={handleCreateCertification}
               className="flex flex-row w-auto"
             >
               <div className="flex flex-col w-full py-1 px-1">
@@ -181,7 +264,7 @@ export default function YourCertifications({
                         name="certification_name"
                         className="rounded"
                         defaultValue={""}
-                        onChange={(e) => {}}
+                        onChange={() => {}}
                         placeholder="Title, Activity, name, etc.."
                       />
                     </div>
@@ -216,30 +299,36 @@ export default function YourCertifications({
                 </div>
               </div>
             </form>
+
             <h2 className="font-medium py-1">Your Certifications</h2>
             <ul className="overflow-y-auto h-[150px] tight-shadow rounded bg-white">
               {userCertifications[0] &&
                 userCertifications?.map((certification: UserCertification) => (
                   <li className="p-2 border" key={certification?.id}>
-                    <form action={createResumeLine}>
+                    <form action={handleCreateResumeLine}>
                       <input
                         hidden
                         readOnly
                         name="resume_id"
-                        value={resume?.id}
+                        defaultValue={resume?.id}
                       />
-                      <input hidden readOnly name="user_id" value={user?.id} />
+                      <input
+                        hidden
+                        readOnly
+                        name="user_id"
+                        defaultValue={user?.id}
+                      />
                       <input
                         hidden
                         readOnly
                         name="line_type"
-                        value={"custom-section-two"}
+                        defaultValue={"custom-section-two"}
                       />
                       <input
                         hidden
                         readOnly
                         name="id"
-                        value={certification?.id}
+                        defaultValue={certification?.id}
                       />
                       <div className="flex flex-row justify-between">
                         <div className="flex flex-col w-3/4">
@@ -258,6 +347,7 @@ export default function YourCertifications({
                   </li>
                 ))}
             </ul>
+
             <h2 className="font-medium pt-4">Selected Certifications</h2>
             <ul className="overflow-y-auto h-[200px] tight-shadow bg-white">
               {certificationResumeLines[0] &&
@@ -265,32 +355,32 @@ export default function YourCertifications({
                   <li className="border bg-white p-2" key={certification?.id}>
                     <div className="flex flex-row justify-between">
                       <h2 className="font-bold">{certification?.name}</h2>
-                      <form action={deleteResumeLine}>
+                      <form action={handleDeleteResumeLine}>
                         <input
                           hidden
                           readOnly
                           name="user_id"
-                          value={user?.id}
+                          defaultValue={user?.id}
                         />
                         <input
                           hidden
                           readOnly
                           name="line_type"
-                          value={"custom-section-two"}
+                          defaultValue={"custom-section-two"}
                         />
                         <input
                           readOnly
                           hidden
                           name="id"
                           id="id"
-                          value={certification?.id}
+                          defaultValue={certification?.id}
                         />
                         <input
                           readOnly
                           hidden
                           name="resume_id"
                           id="resume_id"
-                          value={resume?.id}
+                          defaultValue={resume?.id}
                         />
                         <div className="flex flex-col">
                           <SubmitButton className="hover:text-rose-500">
@@ -299,10 +389,10 @@ export default function YourCertifications({
                         </div>
                       </form>
                     </div>
+
                     <form
                       className="pb-4"
-                      onSubmit={() => setEdited(false)}
-                      action={updateUserCertfication}
+                      action={handleUpdateUserCertification}
                     >
                       <div className="flex flex-col">
                         <input
@@ -310,21 +400,21 @@ export default function YourCertifications({
                           hidden
                           name="user_id"
                           id="user_id"
-                          value={user?.id}
+                          defaultValue={user?.id}
                         />
                         <input
                           readOnly
                           hidden
                           name="certification_id"
                           id="certification_id"
-                          value={certification?.id}
+                          defaultValue={certification?.id}
                         />
                         <input
                           readOnly
                           hidden
                           name="resume_id"
                           id="resume_id"
-                          value={resume?.id}
+                          defaultValue={resume?.id}
                         />
                         <label className="py-1" htmlFor="certification_name">
                           Name
@@ -368,17 +458,20 @@ export default function YourCertifications({
           ""
         )}
 
-        <form
-          onSubmit={() => setEditSection(false)}
-          action={updateCertificationsSection}
-        >
-          <input hidden readOnly id="user_id" name="user_id" value={user?.id} />
+        <form action={handleUpdateCertificationsSection}>
+          <input
+            hidden
+            readOnly
+            id="user_id"
+            name="user_id"
+            defaultValue={user?.id}
+          />
           <input
             hidden
             readOnly
             id="resume_id"
             name="resume_id"
-            value={resume?.id}
+            defaultValue={resume?.id}
           />
           <input
             hidden
@@ -386,11 +479,16 @@ export default function YourCertifications({
             name="show_custom_section_two"
             id="show_custom_section_two"
             type="text"
-            value={showCustomSectionTwo}
+            defaultValue={showCustomSectionTwo}
           />
           <div className="flex flex-row ">
             <div className="px-2 flex align-middle">
+              <label
+                htmlFor="show_custom_section_two_input"
+                className="m-auto"
+              />
               <input
+                title="Show Certifications Section"
                 className="m-auto rounded"
                 type="checkbox"
                 checked={showCustomSectionTwo === "true" ? true : false}

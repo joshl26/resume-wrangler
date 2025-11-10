@@ -1,4 +1,5 @@
-import React from "react";
+// app/dashboard/cover/page.tsx
+import React, { JSX } from "react";
 import {
   fetchApplicationsByUserId,
   fetchCoverLettersByUserIDJoinApplications,
@@ -10,26 +11,68 @@ import { notFound } from "next/navigation";
 import CoverLetters from "@/app/ui/tables/cover-letters/covers-table";
 import { auth } from "@/auth";
 import BackButton from "@/app/ui/back-button";
+import type {
+  CoverLetter,
+  Application,
+  Company,
+  User,
+} from "@/app/lib/definitions";
 
-export default async function Page() {
+/** Type guard to filter out null/undefined entries from arrays */
+function notNull<T>(v: T | null | undefined): v is T {
+  return v != null;
+}
+
+export default async function Page(): Promise<JSX.Element> {
   const session = await auth();
-  if (session?.user) {
-    session.user = {
-      name: session.user.name,
-      email: session.user.email,
-    };
+
+  // Ensure we have an authenticated user with an email string
+  const email = session?.user?.email;
+  if (!email) {
+    return notFound();
   }
 
-  const user = await getUser(session?.user?.email!);
-  const coverLetters = await fetchCoverLettersByUserIDJoinApplications(
-    user?.id
-  );
-  const applications = await fetchApplicationsByUserId(user?.id);
-  const companies = await fetchLatestCompaniesByUserId(user?.id);
+  // Keep only the fields we need on session.user
+  session.user = {
+    name: session.user?.name,
+    email,
+  };
 
-  if (!coverLetters ?? !user ?? !applications ?? !companies) {
-    notFound();
+  // Safe: email is a string
+  const user = await getUser(email);
+  if (!user || !user.id) {
+    return notFound();
   }
+
+  // Fetch resources in parallel
+  const [coverLettersRaw, applicationsRaw, companiesRaw] = await Promise.all([
+    fetchCoverLettersByUserIDJoinApplications(user.id),
+    fetchApplicationsByUserId(user.id),
+    fetchLatestCompaniesByUserId(user.id),
+  ]);
+
+  // If any fetcher returned null/undefined, treat as not found
+  if (
+    coverLettersRaw == null ||
+    applicationsRaw == null ||
+    companiesRaw == null
+  ) {
+    return notFound();
+  }
+
+  // Normalize results:
+  // Convert each raw value into a plain array of unknown, then filter with the notNull guard.
+  // This avoids TypeScript confusion over unioned array types / differing filter overloads.
+  const coverLettersArr = Array.from(coverLettersRaw as Iterable<unknown>);
+  const applicationsArr = Array.from(applicationsRaw as Iterable<unknown>);
+  const companiesArr = Array.from(companiesRaw as Iterable<unknown>);
+
+  const coverLetters = coverLettersArr.filter(notNull) as CoverLetter[];
+  const applications = applicationsArr.filter(notNull) as Application[];
+  const companies = companiesArr.filter(notNull) as Company[];
+
+  // Optionally treat empty lists as valid states (remove checks if you prefer)
+  // if (!coverLetters.length || !applications.length || !companies.length) return notFound();
 
   return (
     <div className="w-full h-full px-2">
@@ -40,7 +83,7 @@ export default async function Page() {
         <h1 className="text-[2rem] font-bold py-1">Cover Letters</h1>
       </div>
       <CoverLetters
-        user={user}
+        user={user as User}
         coverLetters={coverLetters}
         applications={applications}
         companies={companies}

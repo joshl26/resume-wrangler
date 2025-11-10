@@ -16,6 +16,15 @@ const CoverExperience = ({
   coverExperiences: UserCoverExperiences;
   user: User;
 }) => {
+  // Wrapper function that handles the result of the action
+  const handleDelete = async (formData: FormData) => {
+    const result = await deleteCoverExperience(formData);
+    if (result?.errors) {
+      // Handle errors - you could show a toast or alert here
+      console.error("Delete failed:", result.message);
+    }
+  };
+
   return (
     <div className="relative overflow-y-auto tight-shadow rounded-lg bg-white px-4 mr-2 py-4">
       <table className="w-full text-sm text-left rtl:text-right tight-shadow">
@@ -62,7 +71,7 @@ const CoverExperience = ({
                     >
                       Edit
                     </a>
-                    <form action={deleteCoverExperience}>
+                    <form action={handleDelete}>
                       <input
                         required
                         hidden
@@ -92,11 +101,11 @@ const CoverExperience = ({
             ))
           ) : (
             <tr>
-              <Link href="/dashboard/work-experience/new">
-                <td className="flex items-center px-6 py-4">
+              <td className="flex items-center px-6 py-4">
+                <Link href="/dashboard/work-experience/new">
                   Start by creating your first work experience, click here
-                </td>
-              </Link>
+                </Link>
+              </td>
             </tr>
           )}
         </tbody>

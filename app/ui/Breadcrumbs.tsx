@@ -17,7 +17,7 @@ const Breadcrumbs = () => {
             clsx(
               pathname == "/dashboard/applications"
                 ? "text-[2rem] font-bold"
-                : "text-[0.9rem]"
+                : "text-[0.9rem]",
             ) + " py-1 pb-2 hover:underline"
           }
         >
@@ -32,7 +32,7 @@ const Breadcrumbs = () => {
             clsx(
               pathname == "/dashboard/companies"
                 ? "text-[2rem] font-bold"
-                : "text-[0.9rem]"
+                : "text-[0.9rem]",
             ) + " py-1 pb-2 hover:underline"
           }
         >
@@ -47,7 +47,7 @@ const Breadcrumbs = () => {
             clsx(
               pathname == "/dashboard/certifications"
                 ? "text-[2rem] font-bold"
-                : "text-[0.9rem]"
+                : "text-[0.9rem]",
             ) + " py-1 pb-2 hover:underline"
           }
         >
@@ -62,7 +62,7 @@ const Breadcrumbs = () => {
             clsx(
               pathname == "/dashboard/education"
                 ? "text-[2rem] font-bold"
-                : "text-[0.9rem]"
+                : "text-[0.9rem]",
             ) + " py-1 pb-2 hover:underline"
           }
         >
@@ -77,7 +77,7 @@ const Breadcrumbs = () => {
             clsx(
               pathname == "/dashboard/organizations"
                 ? "text-[2rem] font-bold"
-                : "text-[0.9rem]"
+                : "text-[0.9rem]",
             ) + " py-1 pb-2 hover:underline"
           }
         >
@@ -92,7 +92,7 @@ const Breadcrumbs = () => {
             clsx(
               pathname == "/dashboard/skills"
                 ? "text-[2rem] font-bold"
-                : "text-[0.9rem]"
+                : "text-[0.9rem]",
             ) + " py-1 pb-2 hover:underline"
           }
         >

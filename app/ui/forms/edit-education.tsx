@@ -12,12 +12,33 @@ export default function EditEducation({
   education: UserEducationExperience;
 }) {
   const [edited, setEdited] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const onChangeHandler = () => {
     if (edited === false) {
       setEdited(true);
     }
   };
+
+  // Wrapper so form.action gets (formData: FormData) => void | Promise<void>
+  const handleUpdateUserEducation = async (
+    formData: FormData,
+  ): Promise<void> => {
+    try {
+      setIsSubmitting(true);
+      const result = await updateUserEducation(formData);
+      if (result?.errors) {
+        console.error("Update user education failed:", result);
+      } else {
+        setEdited(false);
+      }
+    } catch (err) {
+      console.error("Unexpected error updating user education:", err);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <div className="px-4">
       <BackButton className="" href={"/dashboard/education/"}>
@@ -26,10 +47,10 @@ export default function EditEducation({
       <h2 className="font-medium text-[2rem] py-1">
         Edit Education Experience
       </h2>
+
       <form
-        onSubmit={() => setEdited(false)}
-        action={updateUserEducation}
-        className="flex flex-col  form-amber px-3 pb-2  rounded"
+        action={handleUpdateUserEducation}
+        className="flex flex-col form-amber px-3 pb-2 rounded"
       >
         <input
           required
@@ -45,9 +66,10 @@ export default function EditEducation({
           hidden
           name="resume_id"
           id="resume_id"
-          value="blank"
+          defaultValue="blank"
           type="text"
         />
+
         <div className="flex flex-col py-2">
           <label className="font-bold" htmlFor="institution_name">
             Institution Name
@@ -56,10 +78,11 @@ export default function EditEducation({
             required
             name="institution_name"
             id="institution_name"
-            onChange={() => onChangeHandler()}
+            onChange={onChangeHandler}
             defaultValue={education?.institution_name}
           />
         </div>
+
         <div className="flex flex-col py-2">
           <label className="font-bold" htmlFor="location">
             Location
@@ -67,10 +90,11 @@ export default function EditEducation({
           <input
             name="location"
             id="location"
-            onChange={() => onChangeHandler()}
+            onChange={onChangeHandler}
             defaultValue={education?.location}
           />
         </div>
+
         <div className="flex flex-row justify-start">
           <div className="flex flex-col w-1/3 py-2 ">
             <label className="font-bold" htmlFor="start_date">
@@ -79,33 +103,36 @@ export default function EditEducation({
             <input
               name="start_date"
               id="start_date"
-              onChange={() => onChangeHandler()}
+              onChange={onChangeHandler}
               defaultValue={education?.start_date}
             />
           </div>
-          <div className="flex flex-col w-1/3 py-2 space-x-2">
+
+          <div className="flex flex-col w-1/3 py-2">
             <label className="font-bold pl-2" htmlFor="end_date">
               End Date
             </label>
             <input
               name="end_date"
               id="end_date"
-              onChange={() => onChangeHandler()}
+              onChange={onChangeHandler}
               defaultValue={education?.end_date}
             />
           </div>
-          <div className="flex flex-col w-1/3 py-2 space-x-2">
+
+          <div className="flex flex-col w-1/3 py-2">
             <label className="font-bold pl-2" htmlFor="grade">
               Grade
             </label>
             <input
               name="grade"
               id="grade"
-              onChange={() => onChangeHandler()}
+              onChange={onChangeHandler}
               defaultValue={education?.grade}
             />
           </div>
         </div>
+
         <div className="flex flex-col py-2">
           <label className="font-bold" htmlFor="program">
             Program
@@ -113,10 +140,11 @@ export default function EditEducation({
           <input
             name="program"
             id="program"
-            onChange={() => onChangeHandler()}
+            onChange={onChangeHandler}
             defaultValue={education?.program}
           />
         </div>
+
         <div className="flex flex-col py-2">
           <label className="font-bold" htmlFor="url">
             Link (Web URL)
@@ -124,15 +152,19 @@ export default function EditEducation({
           <input
             name="url"
             id="url"
-            onChange={() => onChangeHandler()}
+            onChange={onChangeHandler}
             defaultValue={education?.url}
           />
         </div>
+
         {edited && (
           <>
             <div style={{ height: "0.5rem" }} />
-            <SubmitButton className="btn btn-amber my-4 p-2 text-center w-auto animate-pulse">
-              Save Updates
+            <SubmitButton
+              className="btn btn-amber my-4 p-2 text-center w-auto animate-pulse"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Saving…" : "Save Updates"}
             </SubmitButton>
           </>
         )}

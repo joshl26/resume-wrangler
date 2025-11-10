@@ -78,8 +78,6 @@ export default function RegisterUser() {
 
     var OnlyLettersAndNumbersRegex = new RegExp(lettersAndNumbersRegex);
 
-    console.log(OnlyLettersAndNumbersRegex.test(usernameInput));
-
     if (OnlyLettersAndNumbersRegex.test(usernameInput)) {
       setOnlyLettersAndNumbers(true);
     } else {
@@ -162,12 +160,34 @@ export default function RegisterUser() {
   };
 
   function onClickHandler() {
-    if (showPassword === false) {
-      setShowPassword(true);
-    } else {
-      setShowPassword(false);
-    }
+    setShowPassword((s) => !s);
   }
+
+  // Wrapper so form.action receives (formData: FormData) => void | Promise<void>
+  const handleCreate = async (formData: FormData): Promise<void> => {
+    setError("");
+    try {
+      const result = await CreateNewUser(formData);
+      if (result?.errors) {
+        // show the returned validation message (or a generic message)
+        setError(result.message || "Validation failed");
+      } else {
+        // success — reset form and validation state
+        setUsername("");
+        setEmail("");
+        setPassword("");
+        setUsernameValidated(false);
+        setEmailValidated(false);
+        setPasswordValidated(false);
+        setFormValidated(false);
+        // optional: redirect or show a success toast
+        // window.location.href = "/login";
+      }
+    } catch (err) {
+      console.error("Unexpected error creating user:", err);
+      setError("Unexpected error. Please try again.");
+    }
+  };
 
   return (
     <div className="relative flex flex-col h-[92vh] justify-center overflow-x-hidden overflow-clip">
@@ -180,25 +200,9 @@ export default function RegisterUser() {
         </h1>
         <div className="flex flex-row justify-around z-10">
           <form
-            action={CreateNewUser}
+            action={handleCreate}
             className="flex flex-col relative form-amber rounded-lg w-auto md:w-[450px] gap-2 tight-shadow p-10 mb-3"
           >
-            {/* <h1>Six Chars: {sixCharacters === false ? "false" : "true"}</h1>
-            <h1>
-              One Lower Case: {oneLowerCaseEnglish === false ? "false" : "true"}
-            </h1>
-            <h1>
-              One Upper Case: {oneUpperCaseEnglish === false ? "false" : "true"}
-            </h1>
-            <h1>One Number: {oneNumber === false ? "false" : "true"}</h1>
-            <h1>No White Space: {noWhiteSpace === false ? "false" : "true"}</h1>
-
-            <h1>
-              Letters and numbers:{" "}
-              {onlyLettersAndNumbers === false ? "false" : "true"}
-            </h1>
-            <h1>Username Input: {username}</h1>
- */}
             <label className="font-bold" htmlFor="username">
               Username
             </label>
@@ -223,7 +227,7 @@ export default function RegisterUser() {
                   <li
                     className={clsx(
                       "italic font-lite",
-                      sixCharacters ? "text-emerald-400" : " text-rose-800"
+                      sixCharacters ? "text-emerald-400" : " text-rose-800",
                     )}
                   >
                     - Have six to twenty characters
@@ -233,7 +237,7 @@ export default function RegisterUser() {
                       "italic font-lite",
                       onlyLettersAndNumbers
                         ? "text-emerald-400"
-                        : " text-rose-800"
+                        : " text-rose-800",
                     )}
                   >
                     - Contain only A-Z, a-z and 0-9 characters
@@ -243,7 +247,7 @@ export default function RegisterUser() {
                       "italic font-lite",
                       onlyLettersAndNumbers
                         ? "text-emerald-400"
-                        : " text-rose-800"
+                        : " text-rose-800",
                     )}
                   >
                     - Not contain spaces or special characters
@@ -268,18 +272,6 @@ export default function RegisterUser() {
                 />
               </>
             )}
-            {/* {usernameValidated && !emailValidated ? (
-              <div className="py-1">
-                <p className="font-medium">A valid email will:</p>
-                <ul className="font-lite italic">
-                  <li>- Contain only A-Z, a-z and 0-9 characters</li>
-                  <li>- Not contain spaces or special characters</li>
-                  <li>- Name and domain seperated by @ symbol</li>
-                </ul>
-              </div>
-            ) : (
-              ""
-            )} */}
             {emailValidated && (
               <>
                 <label className="font-bold" htmlFor="email">
@@ -325,7 +317,7 @@ export default function RegisterUser() {
                       "italic font-lite",
                       oneUpperCaseEnglish
                         ? "text-emerald-400"
-                        : " text-rose-800"
+                        : " text-rose-800",
                     )}
                   >
                     - Contain at least one upper case A-Z
@@ -335,7 +327,7 @@ export default function RegisterUser() {
                       "italic font-lite",
                       oneLowerCaseEnglish
                         ? "text-emerald-400"
-                        : " text-rose-800"
+                        : " text-rose-800",
                     )}
                   >
                     - Contain at least one lower case a-z
@@ -343,7 +335,7 @@ export default function RegisterUser() {
                   <li
                     className={clsx(
                       "italic font-lite",
-                      oneNumber ? "text-emerald-400" : " text-rose-800"
+                      oneNumber ? "text-emerald-400" : " text-rose-800",
                     )}
                   >
                     - At least one digit from 0-9
@@ -351,7 +343,7 @@ export default function RegisterUser() {
                   <li
                     className={clsx(
                       "italic font-lite",
-                      oneSpecialChar ? "text-emerald-400" : " text-rose-800"
+                      oneSpecialChar ? "text-emerald-400" : " text-rose-800",
                     )}
                   >
                     - At least one special character
@@ -359,7 +351,7 @@ export default function RegisterUser() {
                   <li
                     className={clsx(
                       "italic font-lite",
-                      sixCharacters2 ? "text-emerald-400" : " text-rose-800"
+                      sixCharacters2 ? "text-emerald-400" : " text-rose-800",
                     )}
                   >
                     - Minimum six, to max twenty characters
@@ -372,12 +364,15 @@ export default function RegisterUser() {
 
             {formValidated && (
               <>
-                <SubmitButton className="btn btn-amber mt-4 mb-2 animate-pulse">
+                <SubmitButton
+                  disabled={pending}
+                  className="btn btn-amber mt-4 mb-2 animate-pulse"
+                >
                   Register New User
                 </SubmitButton>
               </>
             )}
-            {error && <p>{error}</p>}
+            {error && <p className="text-rose-700 mt-2">{error}</p>}
           </form>
         </div>
         <div className="flex flex-row m-auto">

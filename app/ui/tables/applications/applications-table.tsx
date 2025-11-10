@@ -1,3 +1,5 @@
+"use client";
+
 import {
   createCoverLetter,
   createResume,
@@ -19,8 +21,10 @@ import {
 import Link from "next/link";
 import Pagination from "../../pagination";
 import { fetchFilteredApplications } from "@/app/lib/data";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
-async function ApplicationsTable({
+export default function ApplicationsTable({
   user,
   resumes,
   coverLetters,
@@ -41,15 +45,53 @@ async function ApplicationsTable({
   totalCount: number;
   sort: string;
 }) {
-  const filteredApplications: Applications = await fetchFilteredApplications(
-    query,
-    currentPage,
-    user?.id,
-    sort
-  );
+  const router = useRouter();
+  const [isSubmitting, setIsSubmitting] = useState<Record<string, boolean>>({});
+  const [filteredApplications, setFilteredApplications] =
+    useState<Applications>([]);
+
+  useEffect(() => {
+    let mounted = true;
+
+    (async () => {
+      try {
+        const data = await fetchFilteredApplications(
+          query,
+          currentPage,
+          user?.id,
+          sort,
+        );
+        if (mounted) setFilteredApplications(data ?? []);
+      } catch (err) {
+        console.error("Failed to fetch filtered applications:", err);
+        if (mounted) setFilteredApplications([]);
+      }
+    })();
+
+    return () => {
+      mounted = false;
+    };
+  }, [query, currentPage, user?.id, sort]);
+
+  const handleSubmit = async (
+    actionFn: (formData: FormData) => Promise<unknown>,
+    formData: FormData,
+    id: string,
+  ) => {
+    setIsSubmitting((prev) => ({ ...prev, [id]: true }));
+    try {
+      await actionFn(formData);
+      // After server action completes, refresh the page data
+      router.refresh();
+    } catch (error) {
+      console.error("Action failed:", error);
+    } finally {
+      setIsSubmitting((prev) => ({ ...prev, [id]: false }));
+    }
+  };
 
   return (
-    <div className="relative tight-shadow rounded px-4 py-4 mr-3  bg-white">
+    <div className="relative tight-shadow rounded px-4 py-4 mr-3 bg-white">
       <table className="w-full text-sm text-left rtl:text-right tight-shadow">
         <thead className="text-xs uppercase">
           <tr>
@@ -76,226 +118,285 @@ async function ApplicationsTable({
             </th>
           </tr>
         </thead>
+
         <tbody>
-          {filteredApplications?.length > 0 ? (
-            filteredApplications?.map((application: Application) => (
-              <tr key={application.id} className="border-b hover:bg-gray-50">
-                <th
-                  scope="row"
-                  className="px-6 h-[55px] font-medium whitespace-nowrap "
-                >
-                  <Link
-                    href={`/dashboard/applications/edit/${application?.id}`}
+          {filteredApplications && filteredApplications.length > 0 ? (
+            filteredApplications.map((application: Application) => {
+              // compute once to avoid repeated finds
+              const company = companies.find(
+                (c: Company) => c.id === application.company_id,
+              );
+              const companyName = company?.name ?? "N/A";
+              const companyLocation = company?.address_one ?? "N/A";
+
+              const cover = coverLetters.find(
+                (coverLetter: CoverLetter) =>
+                  coverLetter.application_id === application.id,
+              );
+              const coverId = cover?.id;
+
+              const resume = resumes.find(
+                (r: Resume) => r.application_id === application.id,
+              );
+              const resumeId = resume?.id;
+
+              return (
+                <tr key={application.id} className="border-b hover:bg-gray-50">
+                  <th
+                    scope="row"
+                    className="px-6 h-[55px] font-medium whitespace-nowrap "
                   >
-                    {application?.job_position
-                      ? application?.job_position
-                      : "N/A"}
-                  </Link>
-                </th>
-                <td className="px-6">
-                  {application?.company_id
-                    ? companies.find(
-                        ({ id }: Company) => id === application?.company_id
-                      )?.name
-                    : "N/A"}
-                </td>
-                <td className="px-6">
-                  {application?.company_id
-                    ? companies.find(
-                        ({ id }: Company) => id === application?.company_id
-                      )?.address_one
-                    : "N/A"}
-                </td>
-                <td className="px-6 py-4">{application?.is_complete}</td>
-                <td className="text-left px-6">
-                  {coverLetters?.find(
-                    (coverLetter: CoverLetter) =>
-                      coverLetter?.application_id === application.id
-                  )?.id !== undefined ? (
-                    <div className="flex flex-row">
-                      <a
-                        id="edit"
-                        href={`/dashboard/cover/edit/${
-                          coverLetters.find(
-                            (coverLetter: CoverLetter) =>
-                              coverLetter?.application_id === application.id
-                          )?.id
-                        }`}
-                        className="font-medium hover:underline"
-                      >
-                        Edit
-                      </a>
-                      <form action={deleteCoverLetter}>
-                        <input
-                          hidden
-                          readOnly
-                          value={
-                            coverLetters.find(
-                              (coverLetter: CoverLetter) =>
-                                coverLetter?.application_id === application.id
-                            )?.id
+                    <Link
+                      href={`/dashboard/applications/edit/${application.id}`}
+                    >
+                      {application.job_position ?? "N/A"}
+                    </Link>
+                  </th>
+
+                  <td className="px-6">{companyName}</td>
+                  <td className="px-6">{companyLocation}</td>
+                  <td className="px-6 py-4">
+                    {application.is_complete ?? "—"}
+                  </td>
+
+                  <td className="text-left px-6">
+                    {coverId !== undefined ? (
+                      <div className="flex flex-row items-center gap-3">
+                        <Link
+                          id={`edit-cover-${coverId}`}
+                          href={`/dashboard/cover/edit/${coverId}`}
+                          className="font-medium hover:underline"
+                        >
+                          Edit
+                        </Link>
+
+                        <form
+                          action={(formData) =>
+                            handleSubmit(
+                              deleteCoverLetter,
+                              formData,
+                              `delete-cover-${application.id}`,
+                            )
                           }
+                        >
+                          <input
+                            type="hidden"
+                            name="id"
+                            value={String(coverId)}
+                            readOnly
+                          />
+                          <button
+                            id={`remove-cover-${coverId}`}
+                            type="submit"
+                            disabled={
+                              isSubmitting[`delete-cover-${application.id}`]
+                            }
+                            className="font-medium hover:underline ms-3"
+                          >
+                            {isSubmitting[`delete-cover-${application.id}`]
+                              ? "Removing..."
+                              : "Remove"}
+                          </button>
+                        </form>
+                      </div>
+                    ) : (
+                      <form
+                        action={(formData) =>
+                          handleSubmit(
+                            createCoverLetter,
+                            formData,
+                            `create-cover-${application.id}`,
+                          )
+                        }
+                      >
+                        <input
+                          type="hidden"
+                          name="user_id"
+                          value={String(user.id)}
+                          readOnly
+                        />
+                        <input
+                          type="hidden"
+                          name="application_id"
+                          value={String(application.id)}
+                          readOnly
+                        />
+                        <input
+                          type="hidden"
+                          name="company_id"
+                          value={
+                            application.company_id
+                              ? String(application.company_id)
+                              : ""
+                          }
+                          readOnly
                         />
                         <button
-                          id="remove"
                           type="submit"
-                          className="font-medium hover:underline ms-3"
+                          disabled={
+                            isSubmitting[`create-cover-${application.id}`]
+                          }
+                          className="font-medium text-azure-radiance-600 dark:text-azure-radiance-500 hover:underline"
                         >
-                          Remove
+                          {isSubmitting[`create-cover-${application.id}`]
+                            ? "Creating..."
+                            : "Create"}
                         </button>
                       </form>
-                    </div>
-                  ) : (
-                    <form action={createCoverLetter}>
-                      <input
-                        type="text"
-                        required
-                        hidden
-                        name="user_id"
-                        readOnly
-                        value={user.id}
-                      />
-                      <input
-                        type="text"
-                        required
-                        hidden
-                        readOnly
-                        name="application_id"
-                        value={application.id}
-                      />
-                      <input
-                        type="text"
-                        required
-                        hidden
-                        name="company_id"
-                        readOnly
-                        value={application.company_id}
-                      />
-                      <button
-                        type="submit"
-                        className="font-medium text-azure-radiance-600 dark:text-azure-radiance-500 hover:underline"
-                      >
-                        Create
-                      </button>
-                    </form>
-                  )}
-                </td>
-                <td className="text-left px-6">
-                  {resumes?.find(
-                    (resume: Resume) => resume.application_id === application.id
-                  )?.id !== undefined ? (
-                    <div className="flex flex-row">
-                      <a
-                        id="edit"
-                        href={`/dashboard/resume/edit/${
-                          resumes.find(
-                            (resume: Resume) =>
-                              resume.application_id === application.id
-                          )?.id
-                        }`}
-                        className="font-medium  hover:underline"
-                      >
-                        Edit
-                      </a>
-                      <form action={deleteResume}>
-                        <input
-                          hidden
-                          readOnly
-                          name="resume_id"
-                          value={
-                            resumes.find(
-                              (resume: Resume) =>
-                                resume?.application_id === application.id
-                            )?.id
+                    )}
+                  </td>
+
+                  <td className="text-left px-6">
+                    {resumeId !== undefined ? (
+                      <div className="flex flex-row items-center gap-3">
+                        <Link
+                          id={`edit-resume-${resumeId}`}
+                          href={`/dashboard/resume/edit/${resumeId}`}
+                          className="font-medium hover:underline"
+                        >
+                          Edit
+                        </Link>
+
+                        <form
+                          action={(formData) =>
+                            handleSubmit(
+                              deleteResume,
+                              formData,
+                              `delete-resume-${application.id}`,
+                            )
                           }
+                        >
+                          <input
+                            type="hidden"
+                            name="id"
+                            value={String(resumeId)}
+                            readOnly
+                          />
+                          <button
+                            id={`remove-resume-${resumeId}`}
+                            type="submit"
+                            disabled={
+                              isSubmitting[`delete-resume-${application.id}`]
+                            }
+                            className="font-medium hover:underline ms-3"
+                          >
+                            {isSubmitting[`delete-resume-${application.id}`]
+                              ? "Removing..."
+                              : "Remove"}
+                          </button>
+                        </form>
+                      </div>
+                    ) : (
+                      <form
+                        action={(formData) =>
+                          handleSubmit(
+                            createResume,
+                            formData,
+                            `create-resume-${application.id}`,
+                          )
+                        }
+                      >
+                        <input
+                          type="hidden"
+                          name="user_id"
+                          value={String(user.id)}
+                          readOnly
+                        />
+                        <input
+                          type="hidden"
+                          name="application_id"
+                          value={String(application.id)}
+                          readOnly
+                        />
+                        <input
+                          type="hidden"
+                          name="company_id"
+                          value={
+                            application.company_id
+                              ? String(application.company_id)
+                              : ""
+                          }
+                          readOnly
                         />
                         <button
-                          id="remove"
                           type="submit"
-                          className="font-medium hover:underline ms-3"
+                          disabled={
+                            isSubmitting[`create-resume-${application.id}`]
+                          }
+                          className="font-medium text-azure-radiance-600 dark:text-azure-radiance-500 hover:underline"
                         >
-                          Remove
+                          {isSubmitting[`create-resume-${application.id}`]
+                            ? "Creating..."
+                            : "Create"}
                         </button>
                       </form>
-                    </div>
-                  ) : (
-                    <form action={createResume}>
-                      <input
-                        type="text"
-                        required
-                        hidden
-                        name="user_id"
-                        readOnly
-                        value={user.id}
-                      />
-                      <input
-                        type="text"
-                        required
-                        hidden
-                        name="application_id"
-                        readOnly
-                        value={application.id}
-                      />
-                      <input
-                        type="text"
-                        required
-                        hidden
-                        name="company_id"
-                        readOnly
-                        value={application.company_id}
-                      />
-                      <button
-                        type="submit"
-                        className="font-medium text-azure-radiance-600 dark:text-azure-radiance-500 hover:underline"
-                      >
-                        Create
-                      </button>
-                    </form>
-                  )}
-                </td>
-                <td className="px-2">
-                  <div className="flex flex-row justify-start">
-                    <div className="flex flex-col ">
-                      <a
-                        id="edit"
+                    )}
+                  </td>
+
+                  <td className="px-2">
+                    <div className="flex flex-row justify-start items-center gap-3">
+                      <Link
+                        id={`edit-app-${application.id}`}
                         href={`/dashboard/applications/edit/${application.id}`}
                         className="font-medium hover:underline"
                       >
                         Edit
-                      </a>
-                    </div>
-                    <div className="flex flex-col  ">
-                      <form action={deleteApplication}>
-                        <input hidden readOnly value={application?.id} />
+                      </Link>
+
+                      <form
+                        action={(formData) =>
+                          handleSubmit(
+                            deleteApplication,
+                            formData,
+                            `delete-app-${application.id}`,
+                          )
+                        }
+                      >
+                        <input
+                          type="hidden"
+                          name="id"
+                          value={String(application.id)}
+                          readOnly
+                        />
                         <button
-                          id="remove"
+                          id={`remove-app-${application.id}`}
                           type="submit"
+                          disabled={
+                            isSubmitting[`delete-app-${application.id}`]
+                          }
                           className="font-medium hover:underline ms-3"
                         >
-                          Remove
+                          {isSubmitting[`delete-app-${application.id}`]
+                            ? "Removing..."
+                            : "Remove"}
                         </button>
                       </form>
                     </div>
-                  </div>
-                </td>
-              </tr>
-            ))
+                  </td>
+                </tr>
+              );
+            })
           ) : (
             <tr>
-              <Link href="/dashboard/applications/new">
-                <td className="flex items-center px-6 py-4">
-                  Start by creating your first application here
-                </td>
-              </Link>
+              <td colSpan={7} className="px-6 py-6">
+                <div className="flex items-center gap-2">
+                  <span>Start by creating your first application</span>
+                  <Link
+                    href="/dashboard/applications/new"
+                    className="font-medium text-azure-radiance-600 hover:underline"
+                  >
+                    here
+                  </Link>
+                </div>
+              </td>
             </tr>
           )}
         </tbody>
       </table>
+
       <div className="relative pt-4">
         <Pagination totalPages={totalPages} totalCount={totalCount} />
       </div>
     </div>
   );
 }
-
-export default ApplicationsTable;

@@ -40,7 +40,7 @@ const ResumeTemplates = ({
                   </div>
                 </a>
               </div>
-            )
+            ),
         )}
       </div>
     </div>

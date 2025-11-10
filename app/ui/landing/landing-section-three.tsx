@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
 import Link from "next/link";
 import Lottie from "lottie-react";
 import FormAnimation from "@/public/lottie/form.json";

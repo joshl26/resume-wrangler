@@ -100,7 +100,7 @@ function PaginationNumber({
         isActive,
       "hover:bg-gray-100 bg-white": !isActive && position !== "middle",
       "text-gray-300 bg-white": position === "middle",
-    }
+    },
   );
 
   return isActive || position === "middle" ? (
@@ -128,7 +128,7 @@ function PaginationArrow({
       "hover:bg-gray-100": !isDisabled,
       "mr-2 md:mr-4": direction === "left",
       "ml-2 md:ml-4": direction === "right",
-    }
+    },
   );
 
   const icon =

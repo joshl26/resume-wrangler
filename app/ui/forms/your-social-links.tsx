@@ -190,6 +190,7 @@ const YourSocialLinks = ({
               value={showSocials}
             />
             <input
+              title="show_socials_input"
               type="checkbox"
               id="show_socials_input"
               className="rounded"

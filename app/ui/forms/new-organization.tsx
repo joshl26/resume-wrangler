@@ -15,15 +15,33 @@ export default function NewOrganization({ user }: { user: User }) {
     }
   };
 
+  // Wrapper so form.action gets (formData: FormData) => void | Promise<void>
+  const handleCreate = async (formData: FormData): Promise<void> => {
+    try {
+      const result = await createOrganization(formData);
+      if (result?.errors) {
+        // handle validation errors (show toast/inline UI, etc.)
+        console.error("Create organization failed:", result);
+      } else {
+        // success handling: reset edited and optionally redirect or show a toast
+        setEdited(false);
+        // e.g. window.location.href = "/dashboard/organizations/";
+      }
+    } catch (err) {
+      console.error("Unexpected error creating organization:", err);
+    }
+  };
+
   return (
     <div className="px-3">
       <BackButton className="" href={"/dashboard/organizations/"}>
         Back
       </BackButton>
       <h2 className="font-medium text-[2rem] py-1">Create New Organization</h2>
+
+      {/* use wrapper as action */}
       <form
-        onSubmit={() => setEdited(false)}
-        action={createOrganization}
+        action={handleCreate}
         className="flex flex-col w-full p-3 tight-shadow form-amber rounded "
       >
         <input
@@ -32,7 +50,7 @@ export default function NewOrganization({ user }: { user: User }) {
           readOnly
           name="user_id"
           id="user_id"
-          value={user?.id}
+          defaultValue={user?.id}
         />
         <input
           required
@@ -40,7 +58,7 @@ export default function NewOrganization({ user }: { user: User }) {
           hidden
           name="section_title"
           id="section_title"
-          value="blank"
+          defaultValue="blank"
         />
         <input
           required
@@ -48,7 +66,7 @@ export default function NewOrganization({ user }: { user: User }) {
           hidden
           name="resume_id"
           id="resume_id"
-          value="blank"
+          defaultValue="blank"
         />
         <div className="flex flex-col p-2">
           <label className="font-bold" htmlFor="organization_name">

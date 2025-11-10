@@ -62,13 +62,10 @@ const Dropdown = () => {
         </button>
         {isOpen && (
           <div className="origin-top-right z-30 absolute right-0 mt-2 w-44 rounded-lg tight-shadow bg-white ring-1 ring-black ring-opacity-5">
-            <ul
-              role="menu"
-              aria-orientation="vertical"
-              aria-labelledby="options-menu"
-            >
+            <ul role="list" aria-labelledby="options-menu">
               <li>
                 <button
+                  type="button"
                   id="all"
                   name="All Applications"
                   className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"

@@ -4,7 +4,6 @@
 //   ssl: 'allow',
 // });
 
-
 import { Pool } from "pg";
 
 let conn: any;

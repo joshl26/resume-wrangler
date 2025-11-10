@@ -14,6 +14,24 @@ export default function NewWorkExperience({ user }: { user: User }) {
       setEdited(true);
     }
   };
+
+  // Wrapper so form.action gets (formData: FormData) => void | Promise<void>
+  const handleCreate = async (formData: FormData): Promise<void> => {
+    try {
+      const result = await createWorkExperience(formData);
+      if (result?.errors) {
+        // handle validation errors (show toast/inline UI, etc.)
+        console.error("Create work experience failed:", result);
+      } else {
+        // success handling: reset edited and optionally redirect or show a toast
+        setEdited(false);
+        // e.g. window.location.href = "/dashboard/work-experience";
+      }
+    } catch (err) {
+      console.error("Unexpected error creating work experience:", err);
+    }
+  };
+
   return (
     <div className="px-2 h-full overflow-y-auto pb-3">
       <BackButton className="" href={"/dashboard/work-experience"}>
@@ -24,13 +42,26 @@ export default function NewWorkExperience({ user }: { user: User }) {
           <h1 className="text-[2rem] font-bold">Add New Work Experience</h1>
         </div>
       </div>
+
+      {/* use wrapper as action */}
       <form
-        onSubmit={(e) => setEdited(false)}
-        action={createWorkExperience}
+        action={handleCreate}
         className="flex flex-col tight-shadow form-amber rounded p-2 "
       >
-        <input readOnly hidden name="user_id" id="user_id" value={user?.id} />
-        <input readOnly hidden name="resume_id" id="resume_id" value="blank" />
+        <input
+          readOnly
+          hidden
+          name="user_id"
+          id="user_id"
+          defaultValue={user?.id}
+        />
+        <input
+          readOnly
+          hidden
+          name="resume_id"
+          id="resume_id"
+          defaultValue="blank"
+        />
         <div className="flex flex-row">
           <div className="flex flex-col p-2">
             <label className="font-bold" htmlFor="company_name">

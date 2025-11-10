@@ -14,6 +14,23 @@ export default function NewCompany({ user }: { user: User }) {
       setEdited(true);
     }
   };
+
+  // Wrapper - returns Promise<void> so it's compatible with form action
+  const handleCreate = async (formData: FormData): Promise<void> => {
+    try {
+      const result = await createCompany(formData);
+      if (result?.errors) {
+        // handle validation errors (toast, UI state, console, etc.)
+        console.error("Create company failed:", result);
+      } else {
+        // optionally handle success (redirect, toast, revalidation, ...)
+        // e.g. window.location.href = "/dashboard/companies";
+      }
+    } catch (err) {
+      console.error("Unexpected error creating company:", err);
+    }
+  };
+
   return (
     <div className="px-2">
       <BackButton className="" href={"/dashboard/companies"}>
@@ -24,8 +41,10 @@ export default function NewCompany({ user }: { user: User }) {
           <h1 className="text-[2rem] font-bold">Add New Company</h1>
         </div>
       </div>
+
+      {/* use wrapper here */}
       <form
-        action={createCompany}
+        action={handleCreate}
         className="flex flex-col w-[500px] form-amber px-3 pb-2"
       >
         <input
@@ -115,11 +134,9 @@ export default function NewCompany({ user }: { user: User }) {
           />
         </div>
         {edited && (
-          <>
-            <SubmitButton className="btn btn-amber rounded animate-pulse my-3">
-              Create New Company
-            </SubmitButton>
-          </>
+          <SubmitButton className="btn btn-amber rounded animate-pulse my-3">
+            Create New Company
+          </SubmitButton>
         )}
       </form>
     </div>

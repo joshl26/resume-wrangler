@@ -1,8 +1,6 @@
 "use client";
 
-import {
-  updateYourCoverLetterStyle,
-} from "@/app/lib/actions";
+import { updateYourCoverLetterStyle } from "@/app/lib/actions";
 import { useState } from "react";
 import { SubmitButton } from "../submit-button";
 import {
@@ -59,7 +57,19 @@ export default function YourCoverStyling({
     }
   };
 
-  // console.log(selectedCoverTemplate);
+  // Wrapper so form.action gets (formData: FormData) => void | Promise<void>
+  const handleUpdateStyle = async (formData: FormData): Promise<void> => {
+    try {
+      const result = await updateYourCoverLetterStyle(formData);
+      if (result?.errors) {
+        console.error("Update cover letter style failed:", result);
+      } else {
+        setEdited(false);
+      }
+    } catch (err) {
+      console.error("Unexpected error updating cover letter style:", err);
+    }
+  };
 
   return (
     <div className="resume-styling">
@@ -67,8 +77,7 @@ export default function YourCoverStyling({
         <h2 className="">Cover Styling</h2>
       </div>
       <form
-        action={updateYourCoverLetterStyle}
-        onSubmit={() => setEdited(false)}
+        action={handleUpdateStyle}
         className="tight-shadow rounded form-amber px-5 py-2 "
       >
         <div className="flex flex-col py-1">
@@ -91,7 +100,6 @@ export default function YourCoverStyling({
                   <option
                     key={coverTemplate?.id}
                     value={coverTemplate?.description}
-                    onChange={() => {}}
                   >
                     {coverTemplate?.name}
                   </option>
@@ -109,14 +117,14 @@ export default function YourCoverStyling({
                 id="color"
                 name="color"
                 value={selectedCoverColor}
-                onChange={() => {}}
+                readOnly
               />
               <input
                 hidden
                 id="highlight_color"
                 name="highlight_color"
                 value={selectedCoverHighlightColor}
-                onChange={() => {}}
+                readOnly
               />{" "}
               <div className="flex flex-row justify-around">
                 {resumeColors?.map((color: ResumeColor) => (
@@ -132,7 +140,7 @@ export default function YourCoverStyling({
                     className={clsx(
                       "rounded-full border-2 border-black tight-shadow h-8 w-8 hover:-translate-y-1 duration-500",
                       color?.color,
-                      color?.color === selectedCoverColor && "-translate-y-1"
+                      color?.color === selectedCoverColor && "-translate-y-1",
                     )}
                   />
                 ))}
@@ -160,7 +168,6 @@ export default function YourCoverStyling({
                       className={font.name}
                       key={font.id}
                       value={font.name}
-                      onChange={() => {}}
                     >
                       {font.description}
                     </option>
@@ -185,12 +192,7 @@ export default function YourCoverStyling({
             >
               {bodyFonts.map((font: BodyFont) => {
                 return (
-                  <option
-                    className={font.name}
-                    key={font.id}
-                    value={font.name}
-                    onChange={() => {}}
-                  >
+                  <option className={font.name} key={font.id} value={font.name}>
                     {font.description}
                   </option>
                 );
@@ -231,7 +233,7 @@ export default function YourCoverStyling({
           />
         </div>
         <div className="flex flex-col py-1">
-          <label className="py-1 font-medium" htmlFor="intro_text_start">
+          <label className="py-1 font-medium" htmlFor="intro_text_end">
             Intro End
           </label>
           <textarea

@@ -11,22 +11,20 @@ import type {
 import Link from "next/link";
 import React from "react";
 
+type CombinedResume = Resume & Partial<Application>;
+
 const Resumes = ({
   user,
   resumes,
   companies,
 }: {
   user: User;
-  resumes: Resumes & Applications;
-  applications: Applications;
+  resumes: CombinedResume[]; // each item may contain resume fields and optionally some application fields
   companies: Companies;
 }) => {
   return (
     <div className="relative overflow-y-auto tight-shadow rounded px-4 py-4 mr-3 bg-white">
-      <table
-        className="w-full text-sm text-left rtl:text-right tight-shadow
-      "
-      >
+      <table className="w-full text-sm text-left rtl:text-right tight-shadow">
         <thead className="text-xs uppercase ">
           <tr>
             <th scope="col" className="px-6 py-3">
@@ -48,74 +46,82 @@ const Resumes = ({
         </thead>
         <tbody>
           {resumes?.length > 0 ? (
-            resumes?.map((resume: Resume & Application) => (
-              <tr key={resume?.id} className="border-b  hover:bg-gray-50 ">
-                <th
-                  scope="row"
-                  className="px-6 py-4 font-medium  whitespace-nowrap "
-                >
-                  <Link href={`/dashboard/resume/edit/${resume?.id}`}>
-                    {resume?.job_position ? resume?.job_position : "N/A"}
-                  </Link>
-                </th>
-                <td className="px-6 py-4">
-                  {resume?.company_id
-                    ? companies?.find(
-                        (company) => company?.id === resume?.company_id
-                      )?.name
-                    : "N/A"}
-                </td>
-                <td className="px-6 py-4">
-                  {resume?.company_id
-                    ? companies?.find(
-                        (company) => company?.id === resume?.company_id
-                      )?.address_one
-                    : "N/A"}
-                </td>
-                <td className="px-6 py-4 ">
-                  <Link
-                    id="edit"
-                    className="font-medium hover:underline"
-                    href={`/dashboard/applications/edit/${resume?.application_id}`}
+            resumes.map((resume) => {
+              const companyName = resume?.company_id
+                ? (companies?.find(
+                    (company) => company?.id === resume.company_id,
+                  )?.name ?? "N/A")
+                : "N/A";
+              const companyLocation = resume?.company_id
+                ? (companies?.find(
+                    (company) => company?.id === resume.company_id,
+                  )?.address_one ?? "N/A")
+                : "N/A";
+
+              return (
+                <tr key={resume?.id} className="border-b hover:bg-gray-50">
+                  <th
+                    scope="row"
+                    className="px-6 py-4 font-medium whitespace-nowrap "
                   >
-                    Edit
-                  </Link>
-                </td>
-                <td className="px-2 py-4">
-                  <div className="flex flex-row justify-start">
-                    <div className="flex flex-col ">
-                      <Link
-                        id="edit"
-                        href={`/dashboard/resume/edit/${resume.id}`}
-                        className="font-medium hover:underline"
-                      >
-                        Edit
-                      </Link>
+                    <Link href={`/dashboard/resume/edit/${resume?.id}`}>
+                      {resume?.job_position ?? "N/A"}
+                    </Link>
+                  </th>
+
+                  <td className="px-6 py-4">{companyName}</td>
+
+                  <td className="px-6 py-4">{companyLocation}</td>
+
+                  <td className="px-6 py-4 ">
+                    <Link
+                      id="edit"
+                      className="font-medium hover:underline"
+                      href={`/dashboard/applications/edit/${resume?.application_id}`}
+                    >
+                      Edit
+                    </Link>
+                  </td>
+
+                  <td className="px-2 py-4">
+                    <div className="flex flex-row justify-start">
+                      <div className="flex flex-col ">
+                        <Link
+                          id="edit"
+                          href={`/dashboard/resume/edit/${resume.id}`}
+                          className="font-medium hover:underline"
+                        >
+                          Edit
+                        </Link>
+                      </div>
+                      <div className="flex flex-col">
+                        {/* Replace with a form wrapper to call a server action if you want delete behavior */}
+                        <button
+                          id="remove"
+                          className="font-medium hover:underline ms-3"
+                        >
+                          Remove
+                        </button>
+                      </div>
                     </div>
-                    <div className="flex flex-col  ">
-                      <button
-                        id="remove"
-                        // onClick={async () => deleteCoverLetter(application.id)}
-                        className="font-medium hover:underline ms-3"
-                      >
-                        Remove
-                      </button>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-            ))
+                  </td>
+                </tr>
+              );
+            })
           ) : (
             <tr>
-              <Link href="/dashboard/applications/new">
-                <td className="flex items-center px-6 py-4">
-                  Start by creating your first application here
-                </td>{" "}
-              </Link>
+              <td colSpan={5}>
+                <Link href="/dashboard/applications/new">
+                  <div className="flex items-center px-6 py-4">
+                    Start by creating your first application here
+                  </div>
+                </Link>
+              </td>
             </tr>
           )}
         </tbody>
       </table>
+
       <nav
         className="flex items-center flex-column flex-wrap md:flex-row justify-between pt-4"
         aria-label="Table navigation"

@@ -41,7 +41,7 @@ export default async function StandardCover({
         <h1
           className={clsx(
             selectedCoverHeadingFont,
-            "m-auto text-6xl font-bold"
+            "m-auto text-6xl font-bold",
           )}
         >
           {user?.first_name} {user?.last_name}
@@ -50,7 +50,7 @@ export default async function StandardCover({
       <div
         className={clsx(
           selectedCoverBodyFont,
-          "flex flex-row justify-center text-[0.85rem]"
+          "flex flex-row justify-center text-[0.85rem]",
         )}
       >
         <div className="flex">
@@ -80,7 +80,7 @@ export default async function StandardCover({
       <div
         className={clsx(
           selectedCoverHeadingFont,
-          "flex flex-row text-4xl py-6 font-lite justify-center"
+          "flex flex-row text-4xl py-6 font-lite justify-center",
         )}
       >
         <h2>Cover Letter</h2>
@@ -117,7 +117,7 @@ export default async function StandardCover({
                     userCoverExperiences?.filter(
                       (userCoverExperience: UserCoverExperience) =>
                         userCoverExperience?.id ===
-                        coverExperience?.cover_experience_id
+                        coverExperience?.cover_experience_id,
                     )[0]?.title
                   }{" "}
                 </p>
@@ -127,12 +127,12 @@ export default async function StandardCover({
                     userCoverExperiences?.filter(
                       (userCoverExperience: UserCoverExperience) =>
                         userCoverExperience?.id ===
-                        coverExperience?.cover_experience_id
+                        coverExperience?.cover_experience_id,
                     )[0]?.description
                   }
                 </p>
               </li>
-            )
+            ),
           )}
         </ul>
         <div className={clsx(selectedCoverBodyFont, "flex flex-row pt-4")}>

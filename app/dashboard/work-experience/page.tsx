@@ -1,3 +1,4 @@
+// app/dashboard/work-experience/page.tsx
 import {
   fetchFilteredWorkExperiences,
   fetchWorkExperiencePages,
@@ -14,36 +15,53 @@ import { auth } from "@/auth";
 import { notFound } from "next/navigation";
 import React, { Suspense } from "react";
 
-export default async function Page({
-  searchParams,
-}: {
-  searchParams?: {
-    query?: string;
-    page?: string;
-  };
-}) {
+type SearchParams = {
+  query?: string;
+  page?: string;
+};
+
+interface PageProps {
+  // Next may pass searchParams as a Promise or a plain object
+  searchParams?: Promise<SearchParams>;
+}
+
+// Type guard to filter out null/undefined from arrays
+function notNull<T>(v: T | null | undefined): v is T {
+  return v != null;
+}
+
+export default async function Page({ searchParams }: PageProps) {
+  // unwrap searchParams whether Promise or object
+  const resolvedSearchParams = await searchParams;
+  const query = resolvedSearchParams?.query || "";
+  const currentPage = Number(resolvedSearchParams?.page) || 1;
+
   const session = await auth();
-  if (session?.user) {
-    session.user = {
-      name: session.user.name,
-      email: session.user.email,
-    };
-  }
+  if (!session?.user) return notFound();
 
-  const user = await getUser(session?.user?.email!);
-  const workExperiences = await fetchWorkExperiencesByUserId(user?.id);
+  // keep only necessary fields
+  session.user = { name: session.user.name, email: session.user.email };
 
-  if (!user ?? !workExperiences) {
-    notFound();
-  }
+  const user = await getUser(session.user.email!);
+  if (!user) return notFound();
 
-  const query = searchParams?.query || "";
-  const currentPage = Number(searchParams?.page) || 1;
-  const totalPages = await fetchWorkExperiencePages(query, user?.id);
-  const totalCount = await fetchWorkExperiencesCount(query, user?.id);
+  // fetch work experiences and filter nulls
+  const workExperiencesRaw = await fetchWorkExperiencesByUserId(user.id);
+  const workExperiences = (workExperiencesRaw ?? []).filter(notNull);
 
-  const filteredWorkExperiences: UserWorkExperiences =
-    await fetchFilteredWorkExperiences(query, currentPage, user?.id);
+  if (!workExperiences) return notFound();
+
+  const totalPages = await fetchWorkExperiencePages(query, user.id);
+  const totalCount = await fetchWorkExperiencesCount(query, user.id);
+
+  const filteredRaw = await fetchFilteredWorkExperiences(
+    query,
+    currentPage,
+    user.id,
+  );
+  const filteredWorkExperiences: UserWorkExperiences = (
+    filteredRaw ?? []
+  ).filter(notNull) as unknown as UserWorkExperiences;
 
   return (
     <div className="h-full w-full px-2">

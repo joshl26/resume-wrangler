@@ -1,3 +1,4 @@
+// app/dashboard/skills/page.tsx
 import {
   fetchSkillsByUserId,
   fetchSkillsCount,
@@ -13,33 +14,47 @@ import { auth } from "@/auth";
 import { notFound } from "next/navigation";
 import React, { Suspense } from "react";
 
-export default async function Page({
-  searchParams,
-}: {
-  searchParams?: {
-    query?: string;
-    page?: string;
-  };
-}) {
+type SearchParams = {
+  query?: string;
+  page?: string;
+};
+
+interface PageProps {
+  // Match Next's generated signature: searchParams may be a Promise or undefined
+  searchParams?: Promise<SearchParams>;
+}
+
+// Type guard to filter out null/undefined from arrays
+function notNull<T>(v: T | null | undefined): v is T {
+  return v != null;
+}
+
+export default async function Page({ searchParams }: PageProps) {
+  // Unwrap searchParams whether it's a Promise or a plain object
+  const resolvedSearchParams = await searchParams;
+  const query = resolvedSearchParams?.query || "";
+  const currentPage = Number(resolvedSearchParams?.page) || 1;
+
+  // Auth
   const session = await auth();
-  if (session?.user) {
-    session.user = {
-      name: session.user.name,
-      email: session.user.email,
-    };
-  }
+  if (!session?.user) return notFound();
 
-  const user = await getUser(session?.user?.email!);
-  const skills = await fetchSkillsByUserId(user?.id);
+  session.user = {
+    name: session.user.name,
+    email: session.user.email,
+  };
 
-  if (!user ?? !skills) {
-    notFound();
-  }
+  const user = await getUser(session.user.email!);
+  if (!user) return notFound();
 
-  const query = searchParams?.query || "";
-  const currentPage = Number(searchParams?.page) || 1;
-  const totalPages = await fetchSkillsPages(query, user?.id);
-  const totalCount = await fetchSkillsCount(query, user?.id);
+  // Fetch skills and ensure non-null entries
+  const skillsRaw = await fetchSkillsByUserId(user.id);
+  const skills = (skillsRaw ?? []).filter(notNull);
+
+  if (!skills) return notFound();
+
+  const totalPages = await fetchSkillsPages(query, user.id);
+  const totalCount = await fetchSkillsCount(query, user.id);
 
   return (
     <div className="h-full w-full px-2 overflow-y-auto ">

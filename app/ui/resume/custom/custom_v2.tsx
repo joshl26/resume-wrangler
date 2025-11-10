@@ -60,13 +60,13 @@ export default async function ModernV2(props: Props) {
         <div
           className={clsx(
             `border-${props.highlightColor || props?.resume?.highlightColor}`,
-            "flex flex-row py-1 px-8 border-[2px] m-auto w-auto text-[40px] font-bold bg-white"
+            "flex flex-row py-1 px-8 border-[2px] m-auto w-auto text-[40px] font-bold bg-white",
           )}
         >
           <h1
             className={clsx(
               "pr-3 font-thin",
-              props?.headingFont || props?.resume?.headingFont
+              props?.headingFont || props?.resume?.headingFont,
             )}
           >
             {props?.user?.first_name}
@@ -74,7 +74,7 @@ export default async function ModernV2(props: Props) {
           <h1
             className={clsx(
               `text-${props.highlightColor || props?.resume?.highlightColor} font-bold`,
-              props?.headingFont || props?.resume?.headingFont
+              props?.headingFont || props?.resume?.headingFont,
             )}
           >
             {props?.user?.last_name}
@@ -84,7 +84,7 @@ export default async function ModernV2(props: Props) {
           <p
             className={clsx(
               "text-[1.5rem] font-bold text-black mb-2",
-              props?.bodyFont || props?.resume?.bodyFont
+              props?.bodyFont || props?.resume?.bodyFont,
             )}
           >
             {props?.resume?.title}
@@ -97,7 +97,7 @@ export default async function ModernV2(props: Props) {
             <h2
               className={clsx(
                 "font-bold",
-                props?.headingFont || props?.resume?.headingFont
+                props?.headingFont || props?.resume?.headingFont,
               )}
             >
               PROFILE
@@ -105,7 +105,7 @@ export default async function ModernV2(props: Props) {
             <div
               className={clsx(
                 props?.color || props?.resume?.color,
-                " w-full h-[3px]"
+                " w-full h-[3px]",
               )}
             />
             <div className="flex flex-row pt-2">
@@ -117,7 +117,7 @@ export default async function ModernV2(props: Props) {
                   href={`https://www.google.com/search?q=${props?.user?.address_one}`}
                   className={clsx(
                     props?.bodyFont || props?.resume?.bodyFont,
-                    "text-[0.75rem] py-1 pl-1"
+                    "text-[0.75rem] py-1 pl-1",
                   )}
                 >
                   {props?.user?.address_one}
@@ -133,7 +133,7 @@ export default async function ModernV2(props: Props) {
                   href={`tel:${props?.user?.phone}`}
                   className={clsx(
                     props?.bodyFont || props?.resume?.bodyFont,
-                    "text-[0.75rem] py-1 pl-1"
+                    "text-[0.75rem] py-1 pl-1",
                   )}
                 >
                   {props?.user?.phone}
@@ -149,7 +149,7 @@ export default async function ModernV2(props: Props) {
                   href={`mailto:${props?.user?.email}`}
                   className={clsx(
                     props?.bodyFont || props?.resume?.bodyFont,
-                    "text-[0.7rem] truncate py-1 "
+                    "text-[0.7rem] truncate py-1 ",
                   )}
                 >
                   {props?.user?.email}
@@ -171,7 +171,7 @@ export default async function ModernV2(props: Props) {
                         href={`https://linkedin.com/in/${props?.user?.linked_in}`}
                         className={clsx(
                           props?.bodyFont || props?.resume?.bodyFont,
-                          "text-[0.7rem] py-1 "
+                          "text-[0.7rem] py-1 ",
                         )}
                       >
                         {`linkedin.com/in/${props?.user?.linked_in}`}
@@ -192,7 +192,7 @@ export default async function ModernV2(props: Props) {
                         href={`https://facebook.com/${props?.user?.facebook}`}
                         className={clsx(
                           props?.bodyFont || props?.resume?.bodyFont,
-                          "text-[0.7rem] py-1"
+                          "text-[0.7rem] py-1",
                         )}
                       >
                         {`facebook.com/${props?.user?.facebook}`}
@@ -213,7 +213,7 @@ export default async function ModernV2(props: Props) {
                         href={`https://instagram.com/${props?.user?.instagram}`}
                         className={clsx(
                           props?.bodyFont || props?.resume?.bodyFont,
-                          "text-[0.7rem] py-1 truncate"
+                          "text-[0.7rem] py-1 truncate",
                         )}
                       >
                         {`instagram.com/${props?.user?.instagram}`}
@@ -234,7 +234,7 @@ export default async function ModernV2(props: Props) {
                         href={`https://twitter.com/${props?.user?.twitter}`}
                         className={clsx(
                           props?.bodyFont || props?.resume?.bodyFont,
-                          "text-[0.7rem] py-1 truncate"
+                          "text-[0.7rem] py-1 truncate",
                         )}
                       >
                         {`twitter.com/${props?.user?.twitter}`}
@@ -255,7 +255,7 @@ export default async function ModernV2(props: Props) {
                         href={`https://github.com/${props?.user?.github}`}
                         className={clsx(
                           props?.bodyFont || props?.resume?.bodyFont,
-                          "text-[0.7rem] py-1 truncate"
+                          "text-[0.7rem] py-1 truncate",
                         )}
                       >
                         {`github.com/${props?.user?.github}`}
@@ -272,7 +272,7 @@ export default async function ModernV2(props: Props) {
               <h2
                 className={clsx(
                   "font-bold",
-                  props?.headingFont || props?.resume?.headingFont
+                  props?.headingFont || props?.resume?.headingFont,
                 )}
               >
                 SKILLS
@@ -280,7 +280,7 @@ export default async function ModernV2(props: Props) {
               <div
                 className={clsx(
                   props?.color || props?.resume?.color,
-                  "w-full h-[3px]"
+                  "w-full h-[3px]",
                 )}
               />
               {props?.showSkillProgress ? (
@@ -290,7 +290,7 @@ export default async function ModernV2(props: Props) {
                       <p
                         className={clsx(
                           "text-[0.75rem] font-bold",
-                          props?.bodyFont || props?.resume?.bodyFont
+                          props?.bodyFont || props?.resume?.bodyFont,
                         )}
                       >
                         {userSkill?.skill}
@@ -300,13 +300,13 @@ export default async function ModernV2(props: Props) {
                         <div
                           className={clsx(
                             props?.resume?.highlightColor,
-                            "rounded-full h-[10px] border border-black"
+                            "rounded-full h-[10px] border border-black",
                           )}
                         >
                           <div
                             className={clsx(
                               "progress-bar rounded-[1rem]",
-                              props?.color || props?.resume?.color
+                              props?.color || props?.resume?.color,
                             )}
                             style={{
                               width: `${userSkill?.skill_level}%`,
@@ -324,14 +324,14 @@ export default async function ModernV2(props: Props) {
                     <li
                       className={clsx(
                         "flex flex-col px-2 rounded py-[2px] border-[1px] text-[black]",
-                        `border-${props?.highlightColor || props?.resume?.highlightColor}`
+                        `border-${props?.highlightColor || props?.resume?.highlightColor}`,
                       )}
                       key={userSkill?.id}
                     >
                       <p
                         className={clsx(
                           "text-[0.75rem] font-bold",
-                          props?.bodyFont || props?.resume?.bodyFont
+                          props?.bodyFont || props?.resume?.bodyFont,
                         )}
                       >
                         {userSkill?.skill}
@@ -349,7 +349,7 @@ export default async function ModernV2(props: Props) {
                 <h2
                   className={clsx(
                     "font-bold",
-                    props?.headingFont || props?.resume?.headingFont
+                    props?.headingFont || props?.resume?.headingFont,
                   )}
                 >
                   EDUCATION
@@ -357,7 +357,7 @@ export default async function ModernV2(props: Props) {
                 <div
                   className={clsx(
                     props?.color || props?.resume?.color,
-                    "w-full h-[3px]"
+                    "w-full h-[3px]",
                   )}
                 />
                 {props?.educationResumeLines?.map(
@@ -366,7 +366,7 @@ export default async function ModernV2(props: Props) {
                       <h3
                         className={clsx(
                           "font-bold text-sm",
-                          props?.headingFont || props?.resume?.headingFont
+                          props?.headingFont || props?.resume?.headingFont,
                         )}
                       >
                         {userEducation?.institution_name}
@@ -374,7 +374,7 @@ export default async function ModernV2(props: Props) {
                       <p
                         className={clsx(
                           "text-sm",
-                          props?.bodyFont || props?.resume?.bodyFont
+                          props?.bodyFont || props?.resume?.bodyFont,
                         )}
                       >
                         {userEducation?.location}
@@ -382,7 +382,7 @@ export default async function ModernV2(props: Props) {
                       <p
                         className={clsx(
                           "text-sm",
-                          props?.bodyFont || props?.resume?.bodyFont
+                          props?.bodyFont || props?.resume?.bodyFont,
                         )}
                       >
                         {userEducation?.start_date} - {userEducation?.end_date}
@@ -390,13 +390,13 @@ export default async function ModernV2(props: Props) {
                       <p
                         className={clsx(
                           "text-sm italic font-black",
-                          props?.bodyFont || props?.resume?.bodyFont
+                          props?.bodyFont || props?.resume?.bodyFont,
                         )}
                       >
                         {userEducation?.program}
                       </p>
                     </li>
-                  )
+                  ),
                 )}
               </ul>
             </div>
@@ -408,7 +408,7 @@ export default async function ModernV2(props: Props) {
                 <h2
                   className={clsx(
                     "font-bold",
-                    props?.headingFont || props?.resume?.headingFont
+                    props?.headingFont || props?.resume?.headingFont,
                   )}
                 >
                   {props?.resume?.customSectionTwoName}
@@ -416,7 +416,7 @@ export default async function ModernV2(props: Props) {
                 <div
                   className={clsx(
                     props?.color || props?.resume?.color,
-                    "w-full h-[3px]"
+                    "w-full h-[3px]",
                   )}
                 />
                 <ul>
@@ -426,7 +426,7 @@ export default async function ModernV2(props: Props) {
                         <p
                           className={clsx(
                             "text-sm font-medium pt-2",
-                            props?.headingFont || props?.resume?.headingFont
+                            props?.headingFont || props?.resume?.headingFont,
                           )}
                         >
                           {userCertification?.name}
@@ -434,13 +434,13 @@ export default async function ModernV2(props: Props) {
                         <p
                           className={clsx(
                             "text-sm",
-                            props?.bodyFont || props?.resume?.bodyFont
+                            props?.bodyFont || props?.resume?.bodyFont,
                           )}
                         >
                           {userCertification?.location}
                         </p>
                       </li>
-                    )
+                    ),
                   )}
                 </ul>
               </div>
@@ -452,7 +452,7 @@ export default async function ModernV2(props: Props) {
             <h2
               className={clsx(
                 "font-bold",
-                props?.headingFont || props?.resume?.headingFont
+                props?.headingFont || props?.resume?.headingFont,
               )}
             >
               WORK EXPERIENCE
@@ -461,7 +461,7 @@ export default async function ModernV2(props: Props) {
           <div
             className={clsx(
               props?.color || props?.resume?.color,
-              "w-full h-[3px]"
+              "w-full h-[3px]",
             )}
           />
           <ul className="pb-2">
@@ -471,7 +471,7 @@ export default async function ModernV2(props: Props) {
                   <h3
                     className={clsx(
                       "font-bold",
-                      props?.headingFont || props?.resume?.headingFont
+                      props?.headingFont || props?.resume?.headingFont,
                     )}
                   >
                     {userWorkExperience?.job_title}
@@ -479,7 +479,7 @@ export default async function ModernV2(props: Props) {
                   <p
                     className={clsx(
                       "text-[0.85rem] font-lite",
-                      props?.headingFont || props?.resume?.headingFont
+                      props?.headingFont || props?.resume?.headingFont,
                     )}
                   >
                     {userWorkExperience?.company_name} -{" "}
@@ -493,7 +493,7 @@ export default async function ModernV2(props: Props) {
                         <div
                           className={clsx(
                             "h-[5px] w-[5px] rounded-full",
-                            props?.color || props?.resume?.color
+                            props?.color || props?.resume?.color,
                           )}
                         />
                       </div>
@@ -501,7 +501,7 @@ export default async function ModernV2(props: Props) {
                         <p
                           className={clsx(
                             "text-sm",
-                            props?.bodyFont || props?.resume?.bodyFont
+                            props?.bodyFont || props?.resume?.bodyFont,
                           )}
                         >
                           {userWorkExperience?.description_one}
@@ -515,7 +515,7 @@ export default async function ModernV2(props: Props) {
                         <div
                           className={clsx(
                             "h-[5px] w-[5px] rounded-full",
-                            props?.color || props?.resume?.color
+                            props?.color || props?.resume?.color,
                           )}
                         />
                       </div>
@@ -523,7 +523,7 @@ export default async function ModernV2(props: Props) {
                         <p
                           className={clsx(
                             "text-sm ",
-                            props?.bodyFont || props?.resume?.bodyFont
+                            props?.bodyFont || props?.resume?.bodyFont,
                           )}
                         >
                           {userWorkExperience?.description_two}
@@ -537,7 +537,7 @@ export default async function ModernV2(props: Props) {
                         <div
                           className={clsx(
                             "h-[5px] w-[5px] rounded-full",
-                            props?.color || props?.resume?.color
+                            props?.color || props?.resume?.color,
                           )}
                         />
                       </div>
@@ -545,7 +545,7 @@ export default async function ModernV2(props: Props) {
                         <p
                           className={clsx(
                             "text-sm",
-                            props?.bodyFont || props?.resume?.bodyFont
+                            props?.bodyFont || props?.resume?.bodyFont,
                           )}
                         >
                           {userWorkExperience?.description_three}
@@ -559,7 +559,7 @@ export default async function ModernV2(props: Props) {
                         <div
                           className={clsx(
                             "h-[5px] w-[5px] rounded-full",
-                            props?.color || props?.resume?.color
+                            props?.color || props?.resume?.color,
                           )}
                         />
                       </div>
@@ -567,7 +567,7 @@ export default async function ModernV2(props: Props) {
                         <p
                           className={clsx(
                             "text-sm",
-                            props?.bodyFont || props?.resume?.bodyFont
+                            props?.bodyFont || props?.resume?.bodyFont,
                           )}
                         >
                           {userWorkExperience?.description_four}
@@ -576,7 +576,7 @@ export default async function ModernV2(props: Props) {
                     </div>
                   )}
                 </li>
-              )
+              ),
             )}
           </ul>
 
@@ -586,7 +586,7 @@ export default async function ModernV2(props: Props) {
                 <h2
                   className={clsx(
                     "font-bold",
-                    props?.headingFont || props?.resume?.headingFont
+                    props?.headingFont || props?.resume?.headingFont,
                   )}
                 >
                   {props?.resume?.customSectionOneName}
@@ -595,7 +595,7 @@ export default async function ModernV2(props: Props) {
               <div
                 className={clsx(
                   props?.color || props?.resume?.color,
-                  " w-full h-[3px]"
+                  " w-full h-[3px]",
                 )}
               />
               <ul className="px-3">
@@ -605,7 +605,7 @@ export default async function ModernV2(props: Props) {
                       <p
                         className={clsx(
                           "font-bold",
-                          props?.headingFont || props?.resume?.headingFont
+                          props?.headingFont || props?.resume?.headingFont,
                         )}
                       >
                         {userOrganization?.name}
@@ -613,13 +613,13 @@ export default async function ModernV2(props: Props) {
                       <p
                         className={clsx(
                           "text-sm",
-                          props?.bodyFont || props?.resume?.bodyFont
+                          props?.bodyFont || props?.resume?.bodyFont,
                         )}
                       >
                         {userOrganization?.location}
                       </p>
                     </li>
-                  )
+                  ),
                 )}
               </ul>
             </>
@@ -631,7 +631,7 @@ export default async function ModernV2(props: Props) {
                 <h2
                   className={clsx(
                     "font-bold",
-                    props?.headingFont || props?.resume?.headingFont
+                    props?.headingFont || props?.resume?.headingFont,
                   )}
                 >
                   PROJECTS
@@ -640,7 +640,7 @@ export default async function ModernV2(props: Props) {
               <div
                 className={clsx(
                   props?.color || props?.resume?.color,
-                  "w-full h-[3px]"
+                  "w-full h-[3px]",
                 )}
               />
               <ul className="px-3">
@@ -649,7 +649,7 @@ export default async function ModernV2(props: Props) {
                     <p
                       className={clsx(
                         "font-bold",
-                        props?.headingFont || props?.resume?.headingFont
+                        props?.headingFont || props?.resume?.headingFont,
                       )}
                     >
                       {project?.title}
@@ -657,7 +657,7 @@ export default async function ModernV2(props: Props) {
                     <p
                       className={clsx(
                         "text-sm",
-                        props?.bodyFont || props?.resume?.bodyFont
+                        props?.bodyFont || props?.resume?.bodyFont,
                       )}
                     >
                       {project?.description}
@@ -674,7 +674,7 @@ export default async function ModernV2(props: Props) {
                 <h2
                   className={clsx(
                     "font-bold",
-                    props?.headingFont || props?.resume?.headingFont
+                    props?.headingFont || props?.resume?.headingFont,
                   )}
                 >
                   LANGUAGES
@@ -683,7 +683,7 @@ export default async function ModernV2(props: Props) {
               <div
                 className={clsx(
                   props?.color || props?.resume?.color,
-                  "w-full h-[3px]"
+                  "w-full h-[3px]",
                 )}
               />
               <ul className="px-3">
@@ -692,7 +692,7 @@ export default async function ModernV2(props: Props) {
                     <p
                       className={clsx(
                         "font-bold",
-                        props?.headingFont || props?.resume?.headingFont
+                        props?.headingFont || props?.resume?.headingFont,
                       )}
                     >
                       {language?.name}
@@ -700,7 +700,7 @@ export default async function ModernV2(props: Props) {
                     <p
                       className={clsx(
                         "text-sm",
-                        props?.bodyFont || props?.resume?.bodyFont
+                        props?.bodyFont || props?.resume?.bodyFont,
                       )}
                     >
                       {language?.proficiency}

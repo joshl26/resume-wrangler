@@ -1,7 +1,5 @@
-import {
-  fetchCoverExperiencesByUserId,
-  getUser,
-} from "@/app/lib/data";
+// app/dashboard/cover-experience/page.tsx
+import { fetchCoverExperiencesByUserId, getUser } from "@/app/lib/data";
 import BackButton from "@/app/ui/back-button";
 import { Button } from "@/app/ui/button";
 import CoverExperience from "@/app/ui/cover-experience/cover-experience-table";
@@ -9,21 +7,35 @@ import { auth } from "@/auth";
 import { notFound } from "next/navigation";
 import React from "react";
 
+// Type guard to filter out null/undefined from arrays
+function notNull<T>(v: T | null | undefined): v is T {
+  return v != null;
+}
+
 export default async function Page() {
   const session = await auth();
-  if (session?.user) {
-    session.user = {
-      name: session.user.name,
-      email: session.user.email,
-    };
+
+  // Require authenticated user with email
+  const email = session?.user?.email;
+  if (!email) {
+    return notFound();
   }
 
-  const user = await getUser(session?.user?.email!);
-  const coverExperiences = await fetchCoverExperiencesByUserId(user?.id);
+  // Keep only necessary user fields
+  session.user = {
+    name: session.user?.name,
+    email,
+  };
 
-  if (!user ?? !coverExperiences) {
-    notFound();
+  // Safe to call getUser with a string
+  const user = await getUser(email);
+  if (!user || !user.id) {
+    return notFound();
   }
+
+  // Fetch cover experiences and filter out nulls
+  const coverExperiencesRaw = await fetchCoverExperiencesByUserId(user.id);
+  const coverExperiences = (coverExperiencesRaw ?? []).filter(notNull);
 
   return (
     <div className="h-full w-full px-2">

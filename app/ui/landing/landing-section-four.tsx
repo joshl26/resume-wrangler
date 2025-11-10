@@ -1,11 +1,10 @@
 import React from "react";
-import Image from "next/image";
-import Finance from "/public/finance.svg";
-import Graph from "/public/graph.svg";
-import Megaphone from "/public/megaphone.svg";
-import Handshake from "/public/handshake.svg";
-import Rocket from "/public/rocket.svg";
-import Ai from "/public/ai.svg";
+import Finance from "@/public/images/finance.svg";
+import Graph from "@/public/images/graph.svg";
+import Megaphone from "@/public/images/megaphone.svg";
+import Handshake from "@/public/images/handshake.svg";
+import Rocket from "@/public/images/rocket.svg";
+import Ai from "@/public/images/ai.svg";
 
 const LandingFour = () => {
   return (
@@ -27,7 +26,7 @@ const LandingFour = () => {
       <div className="flex flex-row flex-wrap max-w-screen-xl items-center m-auto justify-center  gap-10 pt-32">
         <div className="flex flex-col">
           <div className="h-[300px] w-[300px]  p-6">
-            <Image className="w-[200px] h-auto m-auto" alt="" src={Graph} />
+            <Graph className="w-[200px] h-auto m-auto" alt="" />
             <p className="text-center text-[2rem] text-white">
               Achieve results.
             </p>
@@ -35,7 +34,7 @@ const LandingFour = () => {
         </div>
         <div className="flex flex-col">
           <div className="h-[300px] w-[300px]  p-6">
-            <Image className="w-[175px] h-auto m-auto" alt="" src={Finance} />
+            <Finance className="w-[175px] h-auto m-auto" alt="" />
             <p className="text-center text-[2rem] text-white">
               Increase your net value.
             </p>
@@ -43,7 +42,7 @@ const LandingFour = () => {
         </div>
         <div className="flex flex-col">
           <div className="h-[300px] w-[300px]  p-6">
-            <Image className="w-[175px] h-auto m-auto" alt="" src={Megaphone} />
+            <Megaphone className="w-[175px] h-auto m-auto" alt="" />
             <p className="text-center text-[2rem] text-white">
               Market your skills.
             </p>
@@ -51,7 +50,7 @@ const LandingFour = () => {
         </div>
         <div className="flex flex-col">
           <div className="h-[300px] w-[300px]  p-6">
-            <Image className="w-[175px] h-auto m-auto" alt="" src={Handshake} />
+            <Handshake className="w-[175px] h-auto m-auto" alt="" />
             <p className="text-center text-[2rem] text-white">
               Connect with the right people.
             </p>
@@ -59,7 +58,7 @@ const LandingFour = () => {
         </div>
         <div className="flex flex-col">
           <div className="h-[300px] w-[300px]  p-6">
-            <Image className="w-[175px] h-auto m-auto" alt="" src={Rocket} />
+            <Rocket className="w-[175px] h-auto m-auto" alt="" />
             <p className="text-center text-[2rem] text-white">
               Launch your career with us.
             </p>
@@ -67,7 +66,7 @@ const LandingFour = () => {
         </div>
         <div className="flex flex-col">
           <div className="h-[300px] w-[300px]  p-6">
-            <Image className="w-[175px] h-auto m-auto" alt="" src={Ai} />
+            <Ai className="w-[175px] h-auto m-auto" alt="" />
             <p className="text-center text-[2rem] text-white">
               Harness the power of our Ai
             </p>

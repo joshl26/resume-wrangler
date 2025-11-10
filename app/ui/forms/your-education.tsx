@@ -1,3 +1,5 @@
+"use client";
+
 import {
   createResumeLine,
   deleteResumeLine,
@@ -32,7 +34,7 @@ export default function YourEducation({
   const [sectionEdited, setSectionEdited] = useState(false);
 
   const showEducationOnChangeHandler = (
-    e: React.ChangeEvent<HTMLInputElement>
+    e: React.ChangeEvent<HTMLInputElement>,
   ) => {
     if (e.target.checked === true) {
       setShowEducation("true");
@@ -48,6 +50,65 @@ export default function YourEducation({
   const onChangeHandler = () => {
     if (edited === false) {
       setEdited(true);
+    }
+  };
+
+  // Wrappers so form.action gets (formData: FormData) => void | Promise<void>
+  const handleCreateResumeLine = async (formData: FormData): Promise<void> => {
+    try {
+      const result = await createResumeLine(formData);
+      if (result?.errors) {
+        console.error("Create resume line failed:", result);
+      } else {
+        // success — optionally revalidate or update local UI
+      }
+    } catch (err) {
+      console.error("Unexpected error creating resume line:", err);
+    }
+  };
+
+  const handleDeleteResumeLine = async (formData: FormData): Promise<void> => {
+    try {
+      const result = await deleteResumeLine(formData);
+      if (result?.errors) {
+        console.error("Delete resume line failed:", result);
+      } else {
+        // success — optionally revalidate or update local UI
+      }
+    } catch (err) {
+      console.error("Unexpected error deleting resume line:", err);
+    }
+  };
+
+  const handleUpdateUserEducation = async (
+    formData: FormData,
+  ): Promise<void> => {
+    try {
+      const result = await updateUserEducation(formData);
+      if (result?.errors) {
+        console.error("Update user education failed:", result);
+      } else {
+        setEdited(false);
+        // success — optionally revalidate or show toast
+      }
+    } catch (err) {
+      console.error("Unexpected error updating user education:", err);
+    }
+  };
+
+  const handleUpdateEducationSection = async (
+    formData: FormData,
+  ): Promise<void> => {
+    try {
+      const result = await updateEducationSection(formData);
+      if (result?.errors) {
+        console.error("Update education section failed:", result);
+      } else {
+        setSectionEdited(false);
+        // success — optionally revalidate or show toast
+      }
+    } catch (err) {
+      console.error("Unexpected error updating education section:", err);
     }
   };
 
@@ -79,30 +140,30 @@ export default function YourEducation({
                         </div>
                         <div className="flex flex-col pt-3 pr-6 ">
                           <div className="flex flex-row m-auto">
-                            <form action={createResumeLine}>
+                            <form action={handleCreateResumeLine}>
                               <input
                                 hidden
                                 readOnly
                                 name="resume_id"
-                                value={resume?.id}
+                                defaultValue={resume?.id}
                               />
                               <input
                                 hidden
                                 readOnly
                                 name="user_id"
-                                value={user?.id}
+                                defaultValue={user?.id}
                               />
                               <input
                                 hidden
                                 readOnly
                                 name="line_type"
-                                value={"education"}
+                                defaultValue={"education"}
                               />
                               <input
                                 hidden
                                 readOnly
                                 name="id"
-                                value={education?.id}
+                                defaultValue={education?.id}
                               />
                               <SubmitButton
                                 className={"hover:text-azure-radiance-500"}
@@ -111,27 +172,6 @@ export default function YourEducation({
                               </SubmitButton>
                             </form>
                           </div>
-                          {/* <form action={deleteResumeLine}>
-                            <input
-                              hidden
-                              readOnly
-                              name="user_id"
-                              value={user.id}
-                            />
-                            <input
-                              hidden
-                              readOnly
-                              name="user_education_id"
-                              value={education.id}
-                            />
-                            <input
-                              hidden
-                              readOnly
-                              name="resume_id"
-                              value={resume.id}
-                            />
-                            <SubmitButton className={""}>Remove</SubmitButton>
-                          </form> */}
                         </div>
                       </div>
                     </li>
@@ -149,27 +189,27 @@ export default function YourEducation({
                           </div>
                           <div className="flex flex-col"></div>
                           <div className="flex flex-col">
-                            <form action={deleteResumeLine}>
+                            <form action={handleDeleteResumeLine}>
                               <input
                                 hidden
                                 readOnly
                                 name="user_id"
                                 id="user_id"
-                                value={user?.id}
+                                defaultValue={user?.id}
                               />
                               <input
                                 hidden
                                 readOnly
                                 name="resume_id"
                                 id="resume_id"
-                                value={resume?.id}
+                                defaultValue={resume?.id}
                               />
                               <input
                                 hidden
                                 readOnly
                                 name="user_education_id"
                                 id="user_education_id"
-                                value={education?.user_education_id}
+                                defaultValue={education?.user_education_id}
                               />
                               <div className="flex flex-row justify-end">
                                 <SubmitButton className={"hover:text-rose-500"}>
@@ -180,8 +220,7 @@ export default function YourEducation({
                           </div>
                         </div>
                         <form
-                          onSubmit={() => setEdited(false)}
-                          action={updateUserEducation}
+                          action={handleUpdateUserEducation}
                           className="tight-shadow bg-slate-50 rounded w-full pb-2 px-2"
                         >
                           <div className="flex flex-row w-auto">
@@ -334,10 +373,7 @@ export default function YourEducation({
           ) : (
             ""
           )}
-          <form
-            onSubmit={() => setSectionEdited(false)}
-            action={updateEducationSection}
-          >
+          <form action={handleUpdateEducationSection}>
             <div className="flex flex-row py-1">
               <div className="flex flex-col px-1 py-2">
                 <input
@@ -345,23 +381,25 @@ export default function YourEducation({
                   readOnly
                   id="user_id"
                   name="user_id"
-                  value={user?.id}
+                  defaultValue={user?.id}
                 />
                 <input
                   hidden
                   readOnly
                   id="resume_id"
                   name="resume_id"
-                  value={resume?.id}
+                  defaultValue={resume?.id}
                 />
                 <input
                   hidden
                   readOnly
                   id="show_education_section"
                   name="show_education_section"
-                  value={showEducation}
+                  defaultValue={showEducation}
                 />
+                <label htmlFor="show_education_section_input" hidden />
                 <input
+                  title="Show Education Section?"
                   type="checkbox"
                   className="rounded bg-slate-200"
                   checked={showEducation === "true" ? true : false}

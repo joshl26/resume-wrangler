@@ -1,3 +1,4 @@
+// app/dashboard/applications/page.tsx
 import {
   fetchApplicationsByUserId,
   fetchApplicationsCount,
@@ -16,42 +17,73 @@ import BackButton from "@/app/ui/back-button";
 import Search from "@/app/ui/search";
 import Dropdown from "@/app/ui/DropdownButton";
 import Breadcrumbs from "@/app/ui/Breadcrumbs";
+// If you have typed definitions, import them — optional but recommended
+// import { Resumes, CoverLetters, Companies, Applications } from "@/app/lib/definitions";
 
-export default async function Page({
-  searchParams,
-}: {
-  searchParams?: {
-    query?: string;
-    page?: string;
-    sort?: string;
-  };
-}) {
+type SearchParams = {
+  query?: string;
+  page?: string;
+  sort?: string;
+};
+
+interface PageProps {
+  // Match Next's generated signature: searchParams may be a Promise or undefined
+  searchParams?: Promise<SearchParams>;
+}
+
+// Type guard to filter out null/undefined entries from arrays
+function notNull<T>(v: T | null | undefined): v is T {
+  return v != null;
+}
+
+export default async function Page({ searchParams }: PageProps) {
+  // Await so it works whether searchParams is a Promise or plain object
+  const resolvedSearchParams = await searchParams;
+  const query = resolvedSearchParams?.query || "";
+  const sort = resolvedSearchParams?.sort || "";
+  const currentPage = Number(resolvedSearchParams?.page) || 1;
+
   const session = await auth();
-  if (session?.user) {
-    session.user = {
-      name: session.user.name,
-      email: session.user.email,
-    };
+  // Ensure session user + email exist before calling getUser
+  const email = session?.user?.email;
+  if (!email) {
+    return notFound();
   }
 
-  const [user] = await Promise.all([getUser(session?.user?.email)]);
+  // Keep only necessary user fields
+  session.user = {
+    name: session.user?.name,
+    email,
+  };
 
-  const [applications, companies, resumes, coverLetters] = await Promise.all([
-    fetchApplicationsByUserId(user?.id),
-    fetchLatestCompaniesByUserId(user?.id),
-    fetchResumesByUserId(user?.id),
-    fetchCoverLettersByUserId(user?.id),
-  ]);
-
-  if (!applications ?? !companies ?? !resumes ?? !coverLetters) {
-    notFound();
+  const user = await getUser(email);
+  if (!user || !user.id) {
+    return notFound();
   }
 
-  const query = searchParams?.query || "";
-  const sort = searchParams?.sort || "";
-  const currentPage = Number(searchParams?.page) || 1;
-  const totalPages = await fetchApplicationsPages(query, user?.id, sort);
-  const totalCount = await fetchApplicationsCount(query, user?.id, sort);
+  // Fetch data in parallel
+  const [applicationsRaw, companiesRaw, resumesRaw, coverLettersRaw] =
+    await Promise.all([
+      fetchApplicationsByUserId(user.id),
+      fetchLatestCompaniesByUserId(user.id),
+      fetchResumesByUserId(user.id),
+      fetchCoverLettersByUserId(user.id),
+    ]);
+
+  // Filter out any null/undefined entries returned by the fetchers
+  const applications = (applicationsRaw ?? []).filter(notNull);
+  const companies = (companiesRaw ?? []).filter(notNull);
+  const resumes = (resumesRaw ?? []).filter(notNull);
+  const coverLetters = (coverLettersRaw ?? []).filter(notNull);
+
+  // If you prefer to treat empty lists as "valid" (not 404), remove the following check.
+  if (!applications || !companies || !resumes || !coverLetters) {
+    return notFound();
+  }
+
+  // Compute pagination values
+  const totalPages = await fetchApplicationsPages(query, user.id, sort);
+  const totalCount = await fetchApplicationsCount(query, user.id, sort);
 
   return (
     <div className="w-full px-2 ">
@@ -69,6 +101,7 @@ export default async function Page({
           </Button>
         </div>
       </div>
+
       <div className="flex flex-row justify-between ">
         <div className="flex flex-col">
           <Breadcrumbs />
@@ -84,6 +117,7 @@ export default async function Page({
           </div>
         </div>
       </div>
+
       <Suspense key={query + currentPage}>
         <ApplicationsTable
           user={user}

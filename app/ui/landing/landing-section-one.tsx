@@ -1,6 +1,5 @@
 import React from "react";
-import Lasso from "/public/LassoBlack.svg";
-import Image from "next/image";
+import Lasso from "@/public/LassoBlack.svg";
 import RoseBlob from "./rose-blob";
 import AzureBlob from "./azure-blob";
 
@@ -15,7 +14,7 @@ const LandingOne = () => {
       />
       <div className="relative flex flex-row items-center pt-[5vh] z-10 max-w-screen-xl min-h-[95vh]">
         <div className="flex flex-col w-1/2 ">
-          <Image className="mx-auto" alt="" src={Lasso} />
+          <Lasso className="mx-auto" alt="" />
         </div>
         <div className="flex flex-col w-1/2">
           <h1 className="text-[3rem]  sm:text-[4rem] md:text-[6rem] pl-2  font-bold leading-tight ">

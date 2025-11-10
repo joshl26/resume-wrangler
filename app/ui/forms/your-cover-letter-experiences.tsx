@@ -1,3 +1,5 @@
+"use client";
+
 import { createCoverLine, deleteCoverLine } from "@/app/lib/actions";
 import { useState } from "react";
 import { SubmitButton } from "../submit-button";
@@ -28,6 +30,33 @@ export default function YourCoverLetterExperiences({
     }
   };
 
+  // Wrappers so form.action gets (formData: FormData) => void | Promise<void>
+  const handleCreateCoverLine = async (formData: FormData): Promise<void> => {
+    try {
+      const result = await createCoverLine(formData);
+      if (result?.errors) {
+        console.error("Create cover line failed:", result);
+      } else {
+        // success — optionally update UI / revalidate or clear local state
+      }
+    } catch (err) {
+      console.error("Unexpected error creating cover line:", err);
+    }
+  };
+
+  const handleDeleteCoverLine = async (formData: FormData): Promise<void> => {
+    try {
+      const result = await deleteCoverLine(formData);
+      if (result?.errors) {
+        console.error("Delete cover line failed:", result);
+      } else {
+        // success — optionally update UI / revalidate
+      }
+    } catch (err) {
+      console.error("Unexpected error deleting cover line:", err);
+    }
+  };
+
   return (
     <div className="pt-4">
       <div className="py-2 font-bold text-xl">
@@ -45,30 +74,30 @@ export default function YourCoverLetterExperiences({
                       <h2 className="font-bold">{experience?.title}</h2>
                     </div>
                     <div className="flex flex-col pr-6 m-auto">
-                      <form action={createCoverLine}>
+                      <form action={handleCreateCoverLine}>
                         <input
                           hidden
                           readOnly
                           name="user_id"
-                          value={user?.id}
+                          defaultValue={user?.id}
                         />
                         <input
                           hidden
                           readOnly
                           name="line_type"
-                          value={"experience"}
+                          defaultValue={"experience"}
                         />
                         <input
                           hidden
                           readOnly
                           name="cover_letter_id"
-                          value={coverLetter?.id}
+                          defaultValue={coverLetter?.id}
                         />
                         <input
                           hidden
                           readOnly
                           name="experience_id"
-                          value={experience?.id}
+                          defaultValue={experience?.id}
                         />
                         <SubmitButton
                           className={
@@ -78,30 +107,31 @@ export default function YourCoverLetterExperiences({
                           Add
                         </SubmitButton>
                       </form>
-                      <form action={deleteCoverLine}>
+
+                      <form action={handleDeleteCoverLine} className="mt-1">
                         <input
                           hidden
                           readOnly
                           name="user_id"
-                          value={user?.id}
+                          defaultValue={user?.id}
                         />
                         <input
                           hidden
                           readOnly
                           name="line_type"
-                          value={"experience"}
+                          defaultValue={"experience"}
                         />
                         <input
                           hidden
                           readOnly
                           name="cover_letter_id"
-                          value={coverLetter?.id}
+                          defaultValue={coverLetter?.id}
                         />
                         <input
                           hidden
                           readOnly
                           name="experience_id"
-                          value={experience?.id}
+                          defaultValue={experience?.id}
                         />
                         <SubmitButton
                           className={"hover:text-rose-500 hover:underline"}

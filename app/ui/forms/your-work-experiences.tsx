@@ -1,3 +1,5 @@
+"use client";
+
 import {
   createResumeLine,
   deleteResumeLine,
@@ -24,10 +26,62 @@ export default function YourWorkExperiences({
   workResumeLines: any;
 }) {
   const [edited, setEdited] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const onChangeHandler = () => {
     if (edited === false) {
       setEdited(true);
+    }
+  };
+
+  // Wrappers so form.action gets (formData: FormData) => void | Promise<void>
+  const handleCreateResumeLine = async (formData: FormData): Promise<void> => {
+    try {
+      setIsSubmitting(true);
+      const result = await createResumeLine(formData);
+      if (result?.errors) {
+        console.error("Create resume line failed:", result);
+      } else {
+        setEdited(false);
+      }
+    } catch (err) {
+      console.error("Unexpected error creating resume line:", err);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleDeleteResumeLine = async (formData: FormData): Promise<void> => {
+    try {
+      setIsSubmitting(true);
+      const result = await deleteResumeLine(formData);
+      if (result?.errors) {
+        console.error("Delete resume line failed:", result);
+      } else {
+        setEdited(false);
+      }
+    } catch (err) {
+      console.error("Unexpected error deleting resume line:", err);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleUpdateUserWorkExperience = async (
+    formData: FormData,
+  ): Promise<void> => {
+    try {
+      setIsSubmitting(true);
+      const result = await updateUserWorkExperience(formData);
+      if (result?.errors) {
+        console.error("Update work experience failed:", result);
+      } else {
+        setEdited(false);
+      }
+    } catch (err) {
+      console.error("Unexpected error updating work experience:", err);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -48,32 +102,38 @@ export default function YourWorkExperiences({
                     <p>{experience?.location}</p>
                   </div>
                   <div className="flex flex-col pt-3 pr-6">
-                    <form action={createResumeLine}>
+                    <form action={handleCreateResumeLine}>
                       <input
                         hidden
                         readOnly
                         name="resume_id"
-                        value={resume?.id}
+                        defaultValue={resume?.id}
                       />
-                      <input hidden readOnly name="user_id" value={user?.id} />
-                      <input hidden readOnly name="line_type" value={"work"} />
-                      <input hidden readOnly name="id" value={experience?.id} />
-                      <SubmitButton className={"hover:text-azure-radiance-500"}>
+                      <input
+                        hidden
+                        readOnly
+                        name="user_id"
+                        defaultValue={user?.id}
+                      />
+                      <input
+                        hidden
+                        readOnly
+                        name="line_type"
+                        defaultValue={"work"}
+                      />
+                      <input
+                        hidden
+                        readOnly
+                        name="id"
+                        defaultValue={experience?.id}
+                      />
+                      <SubmitButton
+                        className={"hover:text-azure-radiance-500"}
+                        disabled={isSubmitting}
+                      >
                         Add
                       </SubmitButton>
                     </form>
-                    {/* <form action={deleteResumeLine}>
-                      <input hidden readOnly name="user_id" value={user.id} />
-                      <input hidden readOnly name="line_type" value={"work"} />
-                      <input hidden readOnly name="id" value={experience.id} />
-                      <input
-                        hidden
-                        readOnly
-                        name="resume_id"
-                        value={resume.id}
-                      />
-                      <SubmitButton className={""}>Remove</SubmitButton>
-                    </form> */}
                   </div>
                 </div>
               </li>
@@ -91,95 +151,57 @@ export default function YourWorkExperiences({
                     hidden
                     name="resume_id"
                     id="resume_id"
-                    value={workExperience?.id}
+                    defaultValue={workExperience?.id}
                   />
                   <input
                     readOnly
                     hidden
                     name="user_id"
                     id="user_id"
-                    value={user?.id}
+                    defaultValue={user?.id}
                   />
                   <div className="flex flex-col w-full py-1 px-1">
                     <div className="flex flex-row justify-between">
                       <div className="flex flex-col w-1/4">
-                        <div className="flex flex-row justify-between">
-                          {/* <form action={""}>
-                            <input
-                              hidden
-                              readOnly
-                              name="resume_id"
-                              value={resume?.id}
-                            />
-                            <input
-                              hidden
-                              readOnly
-                              name="user_id"
-                              value={user?.id}
-                            />
-                            <input
-                              hidden
-                              readOnly
-                              name="line_type"
-                              value={"education"}
-                            />
-                            <SubmitButton className={""}>Up</SubmitButton>
-                          </form>
-                          <form action={""}>
-                            <input
-                              hidden
-                              readOnly
-                              name="user_id"
-                              value={user?.id}
-                            />
-                            <input
-                              hidden
-                              readOnly
-                              name="resume_id"
-                              value={resume?.id}
-                            />
-                            <SubmitButton className={""}>Down</SubmitButton>
-                          </form> */}
-                        </div>
+                        <div className="flex flex-row justify-between" />
                       </div>
                       <div className="flex flex-col" />
-                      <form action={deleteResumeLine}>
+                      <form className="p-1" action={handleDeleteResumeLine}>
                         <input
                           readOnly
                           hidden
                           name="line_type"
-                          id="line_type"
-                          value={"work"}
+                          defaultValue={"work"}
                         />
                         <input
                           readOnly
                           hidden
                           name="id"
-                          id="id"
-                          value={workExperience?.id}
+                          defaultValue={workExperience?.id}
                         />
                         <input
                           readOnly
                           hidden
                           name="resume_id"
-                          id="resume_id"
-                          value={resume?.id}
+                          defaultValue={resume?.id}
                         />
                         <input
                           readOnly
                           hidden
                           name="user_id"
-                          id="user_id"
-                          value={user?.id}
+                          defaultValue={user?.id}
                         />
-                        <button className="hover:text-rose-500" type="submit">
+                        <SubmitButton
+                          className={"hover:text-rose-500"}
+                          disabled={isSubmitting}
+                        >
                           Remove
-                        </button>
+                        </SubmitButton>
                       </form>
                     </div>
+
                     <form
-                      onSubmit={() => setEdited(false)}
-                      action={updateUserWorkExperience}
+                      action={handleUpdateUserWorkExperience}
                       className="rounded tight-shadow bg-gray-50 px-2"
                     >
                       <div className="flex flex-row w-auto">
@@ -189,12 +211,12 @@ export default function YourWorkExperiences({
                             readOnly
                             id="experience_id"
                             name="experience_id"
-                            value={workExperience?.id}
+                            defaultValue={workExperience?.id}
                           />
                           <input
                             hidden
                             readOnly
-                            value={resume?.id}
+                            defaultValue={resume?.id}
                             id="resume_id"
                             name="resume_id"
                           />
@@ -359,8 +381,11 @@ export default function YourWorkExperiences({
                         </div>
                       </div>
                       {edited && (
-                        <SubmitButton className="btn btn-amber my-4 p-2 text-center w-auto animate-pulse">
-                          Save Change
+                        <SubmitButton
+                          className="btn btn-amber my-4 p-2 text-center w-auto animate-pulse"
+                          disabled={isSubmitting}
+                        >
+                          {isSubmitting ? "Saving…" : "Save Change"}
                         </SubmitButton>
                       )}
                     </form>

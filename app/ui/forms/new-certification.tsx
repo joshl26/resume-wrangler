@@ -15,6 +15,23 @@ export default function NewCertification({ user }: { user: User }) {
     }
   };
 
+  // Wrapper to satisfy form action type: (formData: FormData) => void | Promise<void>
+  const handleCreate = async (formData: FormData): Promise<void> => {
+    try {
+      const result = await createCertification(formData);
+      if (result?.errors) {
+        // handle validation errors (show UI feedback, set state, etc.)
+        console.error("Create certification failed:", result);
+      } else {
+        // success handling (reset edited, redirect, toast, revalidate, etc.)
+        setEdited(false);
+        // Example: window.location.href = "/dashboard/certifications";
+      }
+    } catch (err) {
+      console.error("Unexpected error creating certification:", err);
+    }
+  };
+
   return (
     <div className="px-2">
       <BackButton className="" href={"/dashboard/certifications"}>
@@ -25,9 +42,10 @@ export default function NewCertification({ user }: { user: User }) {
           <h1 className="text-[2rem] font-bold">Add New Certification</h1>
         </div>
       </div>
+
+      {/* use wrapper here */}
       <form
-        onSubmit={() => setEdited(false)}
-        action={createCertification}
+        action={handleCreate}
         className="flex flex-col w-[500px] p-3 form-amber"
       >
         <input

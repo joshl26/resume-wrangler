@@ -15,16 +15,34 @@ export default function NewEducation({ user }: { user: User }) {
     }
   };
 
+  // Wrapper so form.action gets (formData: FormData) => void | Promise<void>
+  const handleCreate = async (formData: FormData): Promise<void> => {
+    try {
+      const result = await createUserEducation(formData);
+      if (result?.errors) {
+        // handle validation errors (show toast/inline UI, etc.)
+        console.error("Create education failed:", result);
+      } else {
+        // success handling: reset edited and optionally redirect or show a toast
+        setEdited(false);
+        // e.g. window.location.href = "/dashboard/education/";
+      }
+    } catch (err) {
+      console.error("Unexpected error creating education:", err);
+    }
+  };
+
   return (
     <div className="overflow-y-auto w-[500px] h-full px-3 pb-3">
       <BackButton className="" href={"/dashboard/education/"}>
         Back
       </BackButton>
       <h2 className="font-medium text-[2rem] py-1">Education Experience</h2>
+
+      {/* use wrapper as action */}
       <form
-        onSubmit={() => setEdited(false)}
-        action={createUserEducation}
-        className="flex flex-col w-full px-3 pb-3 border form-amber rounded "
+        action={handleCreate}
+        className="flex flex-col w-full px-3 pb-3 border form-amber rounded"
       >
         <input
           readOnly
@@ -38,7 +56,7 @@ export default function NewEducation({ user }: { user: User }) {
           hidden
           name="resume_id"
           id="resume_id"
-          value="blank"
+          defaultValue="blank"
           type="text"
         />
         <div className="flex flex-col py-2">

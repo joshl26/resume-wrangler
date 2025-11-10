@@ -1,9 +1,11 @@
+"use client";
+
 import {
   createResumeLine,
   deleteResumeLine,
   updateSkillsSection,
 } from "@/app/lib/actions";
-import { useState } from "react";
+import React, { useState } from "react";
 import { SubmitButton } from "../submit-button";
 import { Resume, User, UserSkill, UserSkills } from "@/app/lib/definitions";
 
@@ -27,9 +29,10 @@ export default function YourSkills({
   skillResumeLines: any;
 }) {
   const [edited, setEdited] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const showSkillsOnChangeHandler = (
-    e: React.ChangeEvent<HTMLInputElement>
+    e: React.ChangeEvent<HTMLInputElement>,
   ) => {
     if (e.target.checked === true) {
       setShowSkills("true");
@@ -43,7 +46,7 @@ export default function YourSkills({
   };
 
   const showSkillProgressBarsOnChangeHandler = (
-    e: React.ChangeEvent<HTMLInputElement>
+    e: React.ChangeEvent<HTMLInputElement>,
   ) => {
     if (e.target.checked === true) {
       setShowSkillProgress("true");
@@ -53,6 +56,57 @@ export default function YourSkills({
 
     if (edited === false) {
       setEdited(true);
+    }
+  };
+
+  // Wrapper so form.action gets (formData: FormData) => void | Promise<void>
+  const handleCreateResumeLine = async (formData: FormData): Promise<void> => {
+    try {
+      setIsSubmitting(true);
+      const result = await createResumeLine(formData);
+      if (result?.errors) {
+        console.error("Create resume line failed:", result);
+      } else {
+        setEdited(false);
+      }
+    } catch (err) {
+      console.error("Unexpected error creating resume line:", err);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleDeleteResumeLine = async (formData: FormData): Promise<void> => {
+    try {
+      setIsSubmitting(true);
+      const result = await deleteResumeLine(formData);
+      if (result?.errors) {
+        console.error("Delete resume line failed:", result);
+      } else {
+        setEdited(false);
+      }
+    } catch (err) {
+      console.error("Unexpected error deleting resume line:", err);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleUpdateSkillsSection = async (
+    formData: FormData,
+  ): Promise<void> => {
+    try {
+      setIsSubmitting(true);
+      const result = await updateSkillsSection(formData);
+      if (result?.errors) {
+        console.error("Update skills section failed:", result);
+      } else {
+        setEdited(false);
+      }
+    } catch (err) {
+      console.error("Unexpected error updating skills section:", err);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -88,34 +142,34 @@ export default function YourSkills({
                       </div>
                       <div className="flex flex-col w-1/3 m-auto">
                         <div className="flex flex-row justify-end">
-                          {" "}
-                          <form action={createResumeLine}>
+                          <form action={handleCreateResumeLine}>
                             <input
                               hidden
                               readOnly
                               name="resume_id"
-                              value={resume?.id}
+                              defaultValue={resume?.id}
                             />
                             <input
                               hidden
                               readOnly
                               name="user_id"
-                              value={user?.id}
+                              defaultValue={user?.id}
                             />
                             <input
                               hidden
                               readOnly
                               name="line_type"
-                              value={"skill"}
+                              defaultValue={"skill"}
                             />
                             <input
                               hidden
                               readOnly
                               name="id"
-                              value={skill?.id}
+                              defaultValue={skill?.id}
                             />
                             <SubmitButton
                               className={"hover:text-azure-radiance-500"}
+                              disabled={isSubmitting}
                             >
                               Add
                             </SubmitButton>
@@ -143,6 +197,7 @@ export default function YourSkills({
                         {showSkillProgress === "true" ? (
                           <div className="flex flex-row p-2">
                             <input
+                              title="skill_level"
                               readOnly
                               className="w-full"
                               value={userSkill?.skill_level}
@@ -161,18 +216,18 @@ export default function YourSkills({
                         )}
                       </div>
                       <div className="flex flex-col w-1/4 m-auto">
-                        <form className="p-1" action={deleteResumeLine}>
+                        <form className="p-1" action={handleDeleteResumeLine}>
                           <input
                             hidden
                             readOnly
                             name="user_id"
-                            value={user?.id}
+                            defaultValue={user?.id}
                           />
                           <input
                             hidden
                             readOnly
                             name="line_type"
-                            value={"skill"}
+                            defaultValue={"skill"}
                           />
                           <input
                             hidden
@@ -190,7 +245,10 @@ export default function YourSkills({
                             defaultValue={userSkill?.id}
                             hidden
                           />
-                          <SubmitButton className={"hover:text-rose-500"}>
+                          <SubmitButton
+                            className={"hover:text-rose-500"}
+                            disabled={isSubmitting}
+                          >
                             Remove
                           </SubmitButton>
                         </form>
@@ -208,11 +266,7 @@ export default function YourSkills({
         ) : (
           ""
         )}
-        <form
-          onSubmit={() => setEdited(false)}
-          action={updateSkillsSection}
-          className="flex flex-col"
-        >
+        <form action={handleUpdateSkillsSection} className="flex flex-col">
           {showSkills === "true" ? (
             <div className="flex flex-row py-2">
               <div className="px-1 flex align-middle">
@@ -221,9 +275,10 @@ export default function YourSkills({
                   readOnly
                   id="show_skill_progress"
                   name="show_skill_progress"
-                  value={showSkillProgress}
+                  defaultValue={showSkillProgress}
                 />
                 <input
+                  title="show_skill_progress_input"
                   checked={showSkillProgress === "true" ? true : false}
                   value={showSkillProgress}
                   onChange={showSkillProgressBarsOnChangeHandler}
@@ -245,7 +300,7 @@ export default function YourSkills({
                 readOnly
                 id="show_skill_progress"
                 name="show_skill_progress"
-                value={showSkillProgress}
+                defaultValue={showSkillProgress}
               />
             </div>
           )}
@@ -257,7 +312,7 @@ export default function YourSkills({
                 readOnly
                 id="user_id"
                 name="user_id"
-                value={user?.id}
+                defaultValue={user?.id}
               />
               <label hidden htmlFor="resume_id" />
               <input
@@ -265,7 +320,7 @@ export default function YourSkills({
                 readOnly
                 id="resume_id"
                 name="resume_id"
-                value={resume?.id}
+                defaultValue={resume?.id}
               />
               <label hidden htmlFor="show_skills_section" />
               <input
@@ -273,9 +328,10 @@ export default function YourSkills({
                 readOnly
                 id="show_skills_section"
                 name="show_skills_section"
-                value={showSkills}
+                defaultValue={showSkills}
               />
               <input
+                title="show_skills_section_input"
                 type="checkbox"
                 className="rounded"
                 checked={showSkills === "true" ? true : false}
@@ -291,8 +347,11 @@ export default function YourSkills({
           {edited && (
             <>
               <div style={{ height: "0.5rem" }} />
-              <SubmitButton className="btn btn-amber my-4 animate-pulse">
-                Save Change
+              <SubmitButton
+                className="btn btn-amber my-4 animate-pulse"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? "Saving…" : "Save Change"}
               </SubmitButton>
             </>
           )}

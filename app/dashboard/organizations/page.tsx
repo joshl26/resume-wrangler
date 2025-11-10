@@ -1,3 +1,4 @@
+// app/dashboard/organizations/page.tsx
 import {
   fetchFilteredUserCustomSectionOne,
   fetchOrganizationsByUserId,
@@ -15,41 +16,66 @@ import { auth } from "@/auth";
 import { notFound } from "next/navigation";
 import React, { Suspense } from "react";
 
-export default async function Page({
-  searchParams,
-}: {
-  searchParams?: {
-    query?: string;
-    page?: string;
-  };
-}) {
+type SearchParams = {
+  query?: string;
+  page?: string;
+};
+
+interface PageProps {
+  // Match Next's generated signature: searchParams may be a Promise or undefined
+  searchParams?: Promise<SearchParams>;
+}
+
+// Type guard to filter out null/undefined from arrays
+function notNull<T>(v: T | null | undefined): v is T {
+  return v != null;
+}
+
+export default async function Page({ searchParams }: PageProps) {
+  // Unwrap searchParams whether it's a Promise or a plain object
+  const resolvedSearchParams = await searchParams;
+  const query = resolvedSearchParams?.query || "";
+  const currentPage = Number(resolvedSearchParams?.page) || 1;
+
+  // Auth
   const session = await auth();
-  if (session?.user) {
-    session.user = {
-      name: session.user.name,
-      email: session.user.email,
-    };
+  if (!session?.user) return notFound();
+
+  session.user = {
+    name: session.user.name,
+    email: session.user.email,
+  };
+
+  const user = await getUser(session.user.email!);
+  if (!user) return notFound();
+
+  // Fetch organizations and ensure non-null entries
+  const organizationsRaw = await fetchOrganizationsByUserId(user.id);
+  const organizations = (organizationsRaw ?? []).filter(notNull);
+
+  if (!organizations || organizations.length === 0) {
+    return notFound();
   }
 
-  const user = await getUser(session?.user?.email!);
-  const organizations = await fetchOrganizationsByUserId(user?.id);
+  const totalPages = await fetchUserCustomSectionOnePages(query, user.id);
+  const totalCount = await fetchUserCustomSectionOneCount(query, user.id);
 
-  if (!user ?? !organizations) {
-    notFound();
-  }
-
-  const query = searchParams?.query || "";
-  const currentPage = Number(searchParams?.page) || 1;
-  const totalPages = await fetchUserCustomSectionOnePages(query, user?.id);
-  const totalCount = await fetchUserCustomSectionOneCount(query, user?.id);
-  const filteredOrganizations: userOrganizations =
-    await fetchFilteredUserCustomSectionOne(query, currentPage, user?.id);
+  // Fetch filtered organizations and ensure non-null entries
+  const filteredOrgsRaw = await fetchFilteredUserCustomSectionOne(
+    query,
+    currentPage,
+    user.id,
+  );
+  const filteredOrganizations: userOrganizations = (
+    filteredOrgsRaw ?? []
+  ).filter(notNull) as userOrganizations;
 
   return (
     <div className="h-full w-full px-2">
       <BackButton className="" href={"/dashboard/"}>
         Back
       </BackButton>
+
       <div className="flex flex-row justify-between">
         <div className="flex flex-col ">
           <Breadcrumbs />
@@ -69,6 +95,7 @@ export default async function Page({
           </div>
         </div>
       </div>
+
       <Suspense key={query + currentPage}>
         <Organizations
           organizations={organizations}

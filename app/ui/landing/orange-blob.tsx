@@ -6,7 +6,7 @@ const OrangeBlob = ({ className }: { className: any }) => {
     <div
       className={clsx(
         className,
-        "absolute rounded-full bg-gradient-radial-orange blur-[131px] opacity-[0.6]"
+        "absolute rounded-full bg-gradient-radial-orange blur-[131px] opacity-[0.6]",
       )}
     />
   );

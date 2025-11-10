@@ -1,30 +1,51 @@
+// app/cover-letter/[coverLetterId]/[userEmail]/page.tsx
 import React from "react";
 import { getCoverData } from "@/app/lib/data";
 import StandardCover from "@/app/ui/cover/standard/standard-cover";
 import CoverEditButton from "@/app/ui/cover-edit-button";
+import { notFound } from "next/navigation";
 
-async function Page({
-  params: { coverLetterId, userEmail },
-}: {
-  params: { coverLetterId: string; userEmail: string };
-}) {
+type CoverParams = {
+  coverLetterId: string;
+  userEmail: string;
+};
+
+interface PageProps {
+  // Match Next's generated signature: params may be a Promise or undefined
+  params?: Promise<CoverParams>;
+}
+
+export default async function Page({ params }: PageProps) {
+  const resolvedParams = await params;
+  if (!resolvedParams) {
+    return notFound();
+  }
+
+  const { coverLetterId, userEmail } = resolvedParams;
+
   const props = await getCoverData(coverLetterId, userEmail);
 
-  const user = props?.user;
-  const coverLetter = props?.coverLetter;
-  const company = props?.company;
-  const application = props?.application;
-  const selectedCoverExperiences = props?.selectedCoverExperiences;
-  const userCoverExperiences = props?.userCoverExperiences;
-  const selectedCoverBodyFont = props?.selectedCoverBodyFont;
-  const selectedCoverHeadingFont = props?.selectedCoverHeadingFont;
-  const selectedCoverColor = props?.selectedCoverColor;
-  const selectedCoverHighlightColor = props?.selectedCoverHighlightColor;
+  if (!props || !props.coverLetter) {
+    return notFound();
+  }
+
+  const {
+    user,
+    coverLetter,
+    company,
+    application,
+    selectedCoverExperiences,
+    userCoverExperiences,
+    selectedCoverBodyFont,
+    selectedCoverHeadingFont,
+    selectedCoverColor,
+    selectedCoverHighlightColor,
+  } = props;
 
   return (
     <div className="h-auto overflow-y-auto w-full">
       <CoverEditButton coverId={coverLetterId} />
-      {props.coverLetter.template === "standard" && (
+      {coverLetter?.template === "standard" && (
         <StandardCover
           user={user}
           coverLetter={coverLetter}
@@ -41,5 +62,3 @@ async function Page({
     </div>
   );
 }
-
-export default Page;

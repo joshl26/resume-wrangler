@@ -1,64 +1,57 @@
-// export const maxDuration = 60; // This function can run for a maximum of 5 seconds
-
-// import Chromium from "chrome-aws-lambda";
-import { NextRequest } from "next/server";
-// import { PuppeteerNode } from "puppeteer";
-
+// app/api/cover-pdf/route.ts
+import { NextRequest, NextResponse } from "next/server";
 import chrome from "@sparticuz/chromium-min";
 import puppeteer from "puppeteer-core";
+import type * as PuppeteerNamespace from "puppeteer-core";
 
-// export const dynamic = "force-dynamic";
-// export const runtime = "edge";
-//   puppeteer = require("puppeteer-core");
-// import chrome from "chrome-aws-lambda";
-// import puppeteer from "puppeteer-core";
-// import puppeteer from "puppeteer";
-
-// let chrome = { args: "", defaultViewport: null, executablePath: "" };
-// let puppeteer: PuppeteerNode;
-
-// console.log(process.env.DEPLOY === "true");
-
-// if (process.env.DEPLOY == "true") {
-//   // running on the Vercel platform.
-//   chrome = require("chrome-aws-lambda");
-//   puppeteer = require("puppeteer-core");
-// } else {
-//   // running locally.
-//   puppeteer = require("puppeteer");
-// }
-
-//TODO simpler way of doing below, consider implementing
-// export async function GET(request: Request) {
-//   const { searchParams } = new URL(request.url);
-//   const bodyFont = searchParams.get("bodyFont");
+/**
+ * Generates a PDF of a cover letter page by launching Chromium + Puppeteer,
+ * navigating to the client-side route that renders the cover letter, and
+ * returning the resulting PDF bytes.
+ *
+ * Notes:
+ * - This must run in the Node server runtime (not Edge).
+ * - Ensure env values (DEPLOYMENT_URL, AWS_REGION) are set appropriately.
+ */
 
 export async function GET(req: NextRequest) {
-  const executablePath = await chrome.executablePath;
-
-  // console.log(executablePath);
-
-  let params: any = {};
-  for (const [key, val] of req.nextUrl.searchParams.entries()) {
-    params[key] = val;
+  const params: Record<string, string> = {};
+  for (const [k, v] of req.nextUrl.searchParams.entries()) {
+    params[k] = v;
   }
 
-  try {
-    const coverLetterId = params.coverLetterId as string;
-    const userEmail = params.userEmail as string;
+  const coverLetterId = params.coverLetterId;
+  const userEmail = params.userEmail;
 
-    const options = process.env.AWS_REGION
+  if (!coverLetterId) {
+    return NextResponse.json(
+      { message: "no coverLetterId provided" },
+      { status: 400 },
+    );
+  }
+  if (!userEmail) {
+    return NextResponse.json(
+      { message: "no userEmail provided" },
+      { status: 400 },
+    );
+  }
+
+  let browser: PuppeteerNamespace.Browser | null = null;
+
+  try {
+    const isAws = Boolean(process.env.AWS_REGION);
+
+    const options: PuppeteerNamespace.LaunchOptions &
+      PuppeteerNamespace.BrowserLaunchArgumentOptions = isAws
       ? {
           args: chrome.args,
           executablePath: await chrome.executablePath(
-            "https://github.com/Sparticuz/chromium/releases/download/v119.0.2/chromium-v119.0.2-pack.tar"
+            "https://github.com/Sparticuz/chromium/releases/download/v119.0.2/chromium-v119.0.2-pack.tar",
           ),
           headless: true,
-          ignoreHTTPSErrors: true,
         }
       : {
           headless: true,
-          ignoreHTTPSErrors: true,
           args: [
             "--autoplay-policy=user-gesture-required",
             "--disable-background-networking",
@@ -96,53 +89,62 @@ export async function GET(req: NextRequest) {
             "--use-gl=swiftshader",
             "--use-mock-keychain",
           ],
+          // Adjust local path if not on Windows
           executablePath:
             "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
         };
 
-    const browser = await puppeteer.launch(options);
+    browser = await puppeteer.launch(options);
     const page = await browser.newPage();
 
-    // await page.setUserAgent(
-    //   "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36"
-    // );
+    const baseUrl =
+      process.env.DEPLOYMENT_URL ??
+      `http://localhost:${process.env.PORT ?? 3000}`;
+    const targetUrl = `${baseUrl}/cover-letter/${encodeURIComponent(
+      coverLetterId,
+    )}/${encodeURIComponent(userEmail)}`;
 
-    //   // await page.goto("http://localhost:3000/login");
-
-    //   // await page.type("#email", "user@nextmail.com");
-    //   // await page.type("#password", "123456");
-
-    //   // await page.click("#submit");
-
-    //   // await page.waitForNavigation(); // <------------------------- Wait for Navigation
-
-    await page.goto(
-      `${process.env.DEPLOYMENT_URL}/cover-letter/${coverLetterId}/${userEmail}`,
-      // `http://localhost:3000/resume/${resumeId}/${userEmail}`,
-
-      {
-        waitUntil: "networkidle0",
-      }
-    );
+    await page.goto(targetUrl, { waitUntil: "networkidle0" });
 
     await page.emulateMediaType("print");
 
-    await page.evaluateHandle("document.fonts.ready");
+    try {
+      await page.evaluateHandle("document.fonts.ready");
+    } catch {
+      // ignore if not supported
+    }
 
     const buffer = await page.pdf({
       displayHeaderFooter: false,
-      // format: "a4",
       format: "letter",
       printBackground: true,
     });
 
-    browser.close();
+    // close browser before building Response
+    await browser.close();
+    browser = null;
 
-    return new Response(buffer, { headers: { "content-type": "image/png" } });
+    // Copy buffer into a fresh Uint8Array to guarantee an ArrayBuffer-backed view
+    const original = buffer as Uint8Array;
+    const copy = Uint8Array.from(original); // new Uint8Array backed by ArrayBuffer
+    const arrayBuffer = copy.buffer; // this is a plain ArrayBuffer (not SharedArrayBuffer)
 
-    // Close browser **after** we returned the PDF to the caller.
+    return new Response(arrayBuffer, {
+      headers: {
+        "Content-Type": "application/pdf",
+        // "Content-Disposition": `attachment; filename="cover-${coverLetterId}.pdf"`,
+      },
+    });
   } catch (error) {
-    console.log(error);
-    return Response.json({ error: error });
+    console.error("cover-pdf generation error:", error);
+    try {
+      if (browser) await browser.close();
+    } catch (closeErr) {
+      console.error("failed closing browser:", closeErr);
+    }
+    return NextResponse.json(
+      { error: (error as Error).message ?? String(error) },
+      { status: 500 },
+    );
   }
 }

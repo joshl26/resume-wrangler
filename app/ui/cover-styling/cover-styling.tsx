@@ -47,19 +47,19 @@ export default function CoverStyling({
   headerFonts: HeaderFonts;
 }) {
   const [selectedCoverTemplate, setSelectedCoverTemplate] = useState(
-    coverLetter?.template
+    coverLetter?.template,
   );
 
   const [selectedCoverBodyFont, setSelectedCoverBodyFont] = useState(
-    coverLetter?.body_font
+    coverLetter?.body_font,
   );
 
   const [selectedCoverHeadingFont, setSelectedCoverHeadingFont] = useState(
-    coverLetter?.heading_font
+    coverLetter?.heading_font,
   );
 
   const [selectedCoverColor, setSelectedCoverColor] = useState(
-    coverLetter?.color
+    coverLetter?.color,
   );
 
   const [selectedCoverHighlightColor, setSelectedCoverHighlightColor] =
@@ -99,10 +99,6 @@ export default function CoverStyling({
           />
           <div className="py-2" />
           <div className="p-2 text-center">
-
-         
-
-
             {user?.access_level !== "basic" ? (
               <a
                 href={`/api/cover-pdf?coverLetterId=${coverLetter?.id}&userEmail=${user?.email}`}

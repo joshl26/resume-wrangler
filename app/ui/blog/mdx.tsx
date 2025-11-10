@@ -142,7 +142,7 @@ function createHeading(level: any) {
           className: "anchor",
         }),
       ],
-      children
+      children,
     );
   };
 }

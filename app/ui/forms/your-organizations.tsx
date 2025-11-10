@@ -1,3 +1,5 @@
+"use client";
+
 import {
   createOrganization,
   createResumeLine,
@@ -31,7 +33,7 @@ export default function YourOrganizations({
   organizationResumeLines: any;
 }) {
   const [sectionTitle, setSectionTitle] = useState(
-    resume?.custom_section_one_name
+    resume?.custom_section_one_name,
   );
 
   const [edited, setEdited] = useState(false);
@@ -45,7 +47,7 @@ export default function YourOrganizations({
   };
 
   const setSectionTitleOnChangeHandler = (
-    e: React.ChangeEvent<HTMLInputElement>
+    e: React.ChangeEvent<HTMLInputElement>,
   ) => {
     setSectionTitle(e.target.value);
 
@@ -55,7 +57,7 @@ export default function YourOrganizations({
   };
 
   const showOrganizationsOnChangeHandler = (
-    e: React.ChangeEvent<HTMLInputElement>
+    e: React.ChangeEvent<HTMLInputElement>,
   ) => {
     if (e.target.checked === true) {
       setShowCustomSectionOne("true");
@@ -65,6 +67,93 @@ export default function YourOrganizations({
 
     if (edited === false) {
       setEditSection(true);
+    }
+  };
+
+  // Wrappers so form.action gets (formData: FormData) => void | Promise<void>
+  const handleUpdateSectionTitle = async (
+    formData: FormData,
+  ): Promise<void> => {
+    try {
+      const result = await updateOrganizationSectionTitle(formData);
+      if (result?.errors) {
+        console.error("Update section title failed:", result);
+      } else {
+        setEditSectionTitle(false);
+      }
+    } catch (err) {
+      console.error("Unexpected error updating section title:", err);
+    }
+  };
+
+  const handleCreateOrganization = async (
+    formData: FormData,
+  ): Promise<void> => {
+    try {
+      const result = await createOrganization(formData);
+      if (result?.errors) {
+        console.error("Create organization failed:", result);
+      } else {
+        setEdited(false);
+      }
+    } catch (err) {
+      console.error("Unexpected error creating organization:", err);
+    }
+  };
+
+  const handleCreateResumeLine = async (formData: FormData): Promise<void> => {
+    try {
+      const result = await createResumeLine(formData);
+      if (result?.errors) {
+        console.error("Create resume line failed:", result);
+      } else {
+        // success — optionally revalidate or update local UI
+      }
+    } catch (err) {
+      console.error("Unexpected error creating resume line:", err);
+    }
+  };
+
+  const handleDeleteResumeLine = async (formData: FormData): Promise<void> => {
+    try {
+      const result = await deleteResumeLine(formData);
+      if (result?.errors) {
+        console.error("Delete resume line failed:", result);
+      } else {
+        // success — optionally revalidate or update local UI
+      }
+    } catch (err) {
+      console.error("Unexpected error deleting resume line:", err);
+    }
+  };
+
+  const handleUpdateUserOrganization = async (
+    formData: FormData,
+  ): Promise<void> => {
+    try {
+      const result = await updateUserOrganization(formData);
+      if (result?.errors) {
+        console.error("Update user organization failed:", result);
+      } else {
+        setEdited(false);
+      }
+    } catch (err) {
+      console.error("Unexpected error updating user organization:", err);
+    }
+  };
+
+  const handleUpdateOrganizationSection = async (
+    formData: FormData,
+  ): Promise<void> => {
+    try {
+      const result = await updateOrganizationSection(formData);
+      if (result?.errors) {
+        console.error("Update organization section failed:", result);
+      } else {
+        setEditSection(false);
+      }
+    } catch (err) {
+      console.error("Unexpected error updating organization section:", err);
     }
   };
 
@@ -80,18 +169,14 @@ export default function YourOrganizations({
         </div>
         {showCustomSectionOne === "true" ? (
           <>
-            <form
-              onSubmit={() => setEditSectionTitle(false)}
-              action={updateOrganizationSectionTitle}
-              className="pb-2"
-            >
+            <form action={handleUpdateSectionTitle} className="pb-2">
               <div className="flex flex-col">
                 <input
                   readOnly
                   hidden
                   name="resume_id"
                   id="resume_id"
-                  value={resume?.id}
+                  defaultValue={resume?.id}
                 />
                 <label hidden htmlFor="user_id" />
                 <input
@@ -99,7 +184,7 @@ export default function YourOrganizations({
                   hidden
                   name="user_id"
                   id="user_id"
-                  value={user?.id}
+                  defaultValue={user?.id}
                 />
                 <label className="py-1 font-medium" htmlFor="section_title">
                   Section Title
@@ -125,21 +210,24 @@ export default function YourOrganizations({
               )}
             </form>
             <h2 className="py-1 font-medium">Add New {sectionTitle}</h2>
-            <form action={createOrganization} className="flex flex-row w-auto">
+            <form
+              action={handleCreateOrganization}
+              className="flex flex-row w-auto"
+            >
               <div className="flex flex-col w-full py-1 px-1">
                 <input
                   readOnly
                   hidden
                   name="resume_id"
                   id="resume_id"
-                  value={resume?.id}
+                  defaultValue={resume?.id}
                 />
                 <input
                   readOnly
                   hidden
                   name="section_title"
                   id="section_title"
-                  value={sectionTitle}
+                  defaultValue={sectionTitle}
                 />
 
                 <input
@@ -147,7 +235,7 @@ export default function YourOrganizations({
                   hidden
                   name="user_id"
                   id="user_id"
-                  value={user?.id}
+                  defaultValue={user?.id}
                 />
                 <div className="rounded tight-shadow bg-gray-50 w-full px-2">
                   <div className="flex flex-row w-auto">
@@ -244,21 +332,31 @@ export default function YourOrganizations({
             <ul className="bg-white overflow-y-auto tight-shadow rounded h-[100px]">
               {userOrganizations?.map((organization: UserOrganization) => (
                 <li className="border p-2" key={organization?.id}>
-                  <form action={createResumeLine}>
+                  <form action={handleCreateResumeLine}>
                     <input
                       hidden
                       readOnly
                       name="resume_id"
-                      value={resume?.id}
+                      defaultValue={resume?.id}
                     />
-                    <input hidden readOnly name="user_id" value={user?.id} />
+                    <input
+                      hidden
+                      readOnly
+                      name="user_id"
+                      defaultValue={user?.id}
+                    />
                     <input
                       hidden
                       readOnly
                       name="line_type"
-                      value={"custom-section-one"}
+                      defaultValue={"custom-section-one"}
                     />
-                    <input hidden readOnly name="id" value={organization?.id} />
+                    <input
+                      hidden
+                      readOnly
+                      name="id"
+                      defaultValue={organization?.id}
+                    />
                     <div className="flex flex-row justify-between ">
                       <div className="flex flex-col w-3/4">
                         <h2 className="font-bold">{organization?.name}</h2>
@@ -282,30 +380,30 @@ export default function YourOrganizations({
                 organizationResumeLines?.map(
                   (organization: UserOrganization) => (
                     <li className="mt-2 mb-4" key={organization?.id}>
-                      <form action={deleteResumeLine}>
+                      <form action={handleDeleteResumeLine}>
                         <input
                           hidden
                           readOnly
                           name="resume_id"
-                          value={resume?.id}
+                          defaultValue={resume?.id}
                         />
                         <input
                           hidden
                           readOnly
                           name="user_id"
-                          value={user?.id}
+                          defaultValue={user?.id}
                         />
                         <input
                           hidden
                           readOnly
                           name="line_type"
-                          value={"custom-section-one"}
+                          defaultValue={"custom-section-one"}
                         />
                         <input
                           hidden
                           readOnly
                           name="id"
-                          value={organization?.id}
+                          defaultValue={organization?.id}
                         />
                         <div className="flex flex-row justify-between ">
                           <div className="flex flex-col w-3/4">
@@ -319,30 +417,27 @@ export default function YourOrganizations({
                           </div>
                         </div>
                       </form>
-                      <form
-                        onSubmit={() => setEdited(false)}
-                        action={updateUserOrganization}
-                      >
+                      <form action={handleUpdateUserOrganization}>
                         <input
                           readOnly
                           hidden
                           name="user_id"
                           id="user_id"
-                          value={user?.id}
+                          defaultValue={user?.id}
                         />
                         <input
                           readOnly
                           hidden
                           name="organization_id"
                           id="organization_id"
-                          value={organization?.id}
+                          defaultValue={organization?.id}
                         />
                         <input
                           readOnly
                           hidden
                           name="resume_id"
                           id="resume_id"
-                          value={resume?.id}
+                          defaultValue={resume?.id}
                         />
                         <div className="rounded tight-shadow bg-gray-50 w-full px-2 ">
                           <div className="flex flex-row w-auto">
@@ -446,17 +541,14 @@ export default function YourOrganizations({
                         )}
                       </form>
                     </li>
-                  )
+                  ),
                 )}
             </ul>
           </>
         ) : (
           ""
         )}
-        <form
-          action={updateOrganizationSection}
-          onSubmit={() => setEditSection(false)}
-        >
+        <form action={handleUpdateOrganizationSection}>
           <div className="flex flex-row py-2">
             <div className="px-1 flex align-middle">
               <input
@@ -464,14 +556,14 @@ export default function YourOrganizations({
                 readOnly
                 id="user_id"
                 name="user_id"
-                value={user?.id}
+                defaultValue={user?.id}
               />
               <input
                 hidden
                 readOnly
                 id="resume_id"
                 name="resume_id"
-                value={resume?.id}
+                defaultValue={resume?.id}
               />
               <label htmlFor="show_custom_section_one" hidden />
               <input
@@ -480,9 +572,11 @@ export default function YourOrganizations({
                 name="show_custom_section_one"
                 id="show_custom_section_one"
                 type="text"
-                value={showCustomSectionOne}
+                defaultValue={showCustomSectionOne}
               />
+              <label htmlFor="show_organizations_section_input" hidden />
               <input
+                title="Show Organizations Section"
                 className="m-auto rounded"
                 type="checkbox"
                 checked={showCustomSectionOne === "true" ? true : false}

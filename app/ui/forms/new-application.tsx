@@ -21,6 +21,15 @@ export default function NewApplication({
     }
   };
 
+  // Wrapper function that handles the result of the action
+  const handleCreate = async (formData: FormData) => {
+    const result = await createApplication(formData);
+    if (result?.errors) {
+      // Handle errors - you could show a toast or alert here
+      console.error("Create failed:", result.message);
+    }
+  };
+
   return (
     <div className="px-2">
       <BackButton className="" href={"/dashboard/applications/"}>
@@ -28,7 +37,7 @@ export default function NewApplication({
       </BackButton>
       <h2 className="font-medium text-[2rem] pt-2">Create New Application</h2>
       <form
-        action={createApplication}
+        action={handleCreate}
         className="flex flex-col form-amber w-[500px] p-3"
       >
         <input
@@ -44,6 +53,7 @@ export default function NewApplication({
               Select a Company
             </label>
             <select
+              title="company_id"
               defaultValue={""}
               onChange={onChangeHandler}
               required

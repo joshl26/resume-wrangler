@@ -1,24 +1,28 @@
-import {
-  fetchCertificationById,
-  fetchEducationById,
-  fetchEducationByUserId,
-  fetchOrganizationById,
-  getUser,
-} from "@/app/lib/data";
-import EditCertification from "@/app/ui/forms/edit-certification";
+// app/.../page.tsx
+import { fetchEducationById } from "@/app/lib/data";
 import EditEducation from "@/app/ui/forms/edit-education";
-import EditOrganization from "@/app/ui/forms/edit-organization";
-import { auth } from "@/auth";
 import { notFound } from "next/navigation";
 import React from "react";
 
-export default async function Page({ params }: { params: { id: string } }) {
-  const id = params.id;
+type Params = { id: string };
+
+interface PageProps {
+  // Match Next's generated signature: params may be a Promise or undefined
+  params?: Promise<Params>;
+}
+
+export default async function Page({ params }: PageProps) {
+  const resolvedParams = await params;
+  if (!resolvedParams) {
+    return notFound();
+  }
+
+  const { id } = resolvedParams;
 
   const education = await fetchEducationById(id);
 
   if (!education) {
-    notFound();
+    return notFound();
   }
 
   return (

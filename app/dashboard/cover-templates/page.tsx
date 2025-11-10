@@ -1,15 +1,23 @@
-import React from "react";
-import ResumeTemplates from "@/app/ui/resume-templates/resume-templates";
-import { fetchCoverTemplates, fetchResumeTemplates } from "@/app/lib/data";
-import { Button } from "@/app/ui/button";
-import { notFound } from "next/navigation";
+// app/dashboard/cover-templates/page.tsx
+import React, { JSX } from "react";
 import CoverTemplates from "@/app/ui/cover-templates/cover-templates";
+import { fetchCoverTemplates } from "@/app/lib/data";
+import { notFound } from "next/navigation";
 
-export default async function Page() {
-  const coverTemplates = await fetchCoverTemplates();
+/** Type guard to filter out null/undefined values from arrays */
+function notNull<T>(v: T | null | undefined): v is T {
+  return v != null;
+}
 
-  if (!coverTemplates) {
-    notFound();
+export default async function Page(): Promise<JSX.Element> {
+  const coverTemplatesRaw = await fetchCoverTemplates();
+
+  // Normalize and filter out any null/undefined entries that might come from the data layer
+  const coverTemplates = (coverTemplatesRaw ?? []).filter(notNull);
+
+  // If you treat an empty list as "not found", keep this check. Otherwise remove it to allow an empty state.
+  if (!coverTemplates.length) {
+    return notFound();
   }
 
   return (

@@ -3,13 +3,13 @@
 import React, { useState } from "react";
 import { SubmitButton } from "../submit-button";
 import { updateUserSkill } from "@/app/lib/actions";
-import Link from "next/link";
 import { UserSkill } from "@/app/lib/definitions";
 import BackButton from "../back-button";
 
 export default function EditSkill({ skill }: { skill: UserSkill }) {
   const [edited, setEdited] = useState(false);
   const [skillLevel, setSkillLevel] = useState(skill?.skill_level);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const skillOnChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSkillLevel(e.target.value);
@@ -24,6 +24,23 @@ export default function EditSkill({ skill }: { skill: UserSkill }) {
     }
   };
 
+  // Wrapper so form.action gets (formData: FormData) => void | Promise<void>
+  const handleUpdateUserSkill = async (formData: FormData): Promise<void> => {
+    try {
+      setIsSubmitting(true);
+      const result = await updateUserSkill(formData);
+      if (result?.errors) {
+        console.error("Update user skill failed:", result);
+      } else {
+        setEdited(false);
+      }
+    } catch (err) {
+      console.error("Unexpected error updating user skill:", err);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <div className="px-3">
       <BackButton className="" href={"/dashboard/skills/"}>
@@ -31,8 +48,7 @@ export default function EditSkill({ skill }: { skill: UserSkill }) {
       </BackButton>
       <h2 className="font-medium text-[2rem] py-1">Edit Skill</h2>
       <form
-        onSubmit={() => setEdited(false)}
-        action={updateUserSkill}
+        action={handleUpdateUserSkill}
         className="flex flex-col w-[500px] p-3 form-amber rounded"
       >
         <input
@@ -48,7 +64,7 @@ export default function EditSkill({ skill }: { skill: UserSkill }) {
             hidden
             name="resume_id"
             id="resume_id"
-            value="blank"
+            defaultValue="blank"
             type="text"
           />
           <input
@@ -56,7 +72,7 @@ export default function EditSkill({ skill }: { skill: UserSkill }) {
             hidden
             name="user_id"
             id="user_id"
-            value="blank"
+            defaultValue="blank"
             type="text"
           />
           <label className="font-bold" htmlFor="skill_name">
@@ -87,8 +103,11 @@ export default function EditSkill({ skill }: { skill: UserSkill }) {
         {edited && (
           <>
             <div style={{ height: "0.5rem" }} />
-            <SubmitButton className="btn btn-amber my-4 p-2 text-center w-auto animate-pulse">
-              Save Update
+            <SubmitButton
+              className="btn btn-amber my-4 p-2 text-center w-auto animate-pulse"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Saving…" : "Save Update"}
             </SubmitButton>
           </>
         )}

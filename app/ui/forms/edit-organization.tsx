@@ -12,12 +12,33 @@ export default function EditOrganization({
   organization: UserOrganization;
 }) {
   const [edited, setEdited] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const onChangeHandler = () => {
     if (edited === false) {
       setEdited(true);
     }
   };
+
+  // Wrapper so form.action gets (formData: FormData) => void | Promise<void>
+  const handleUpdateUserOrganization = async (
+    formData: FormData,
+  ): Promise<void> => {
+    try {
+      setIsSubmitting(true);
+      const result = await updateUserOrganization(formData);
+      if (result?.errors) {
+        console.error("Update user organization failed:", result);
+      } else {
+        setEdited(false);
+      }
+    } catch (err) {
+      console.error("Unexpected error updating user organization:", err);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <div className="px-3">
       <BackButton className="" href={"/dashboard/organizations/"}>
@@ -25,8 +46,7 @@ export default function EditOrganization({
       </BackButton>
       <h2 className="font-medium text-[2rem] py-1">Edit Organization</h2>
       <form
-        onSubmit={() => setEdited(false)}
-        action={updateUserOrganization}
+        action={handleUpdateUserOrganization}
         className="flex flex-col w-[500px] p-3 tight-shadow form-amber rounded"
       >
         <input
@@ -44,7 +64,7 @@ export default function EditOrganization({
             readOnly
             name="resume_id"
             id="resume_id"
-            value="blank"
+            defaultValue="blank"
           />
           <input
             readOnly
@@ -52,7 +72,7 @@ export default function EditOrganization({
             hidden
             name="user_id"
             id="user_id"
-            value="blank"
+            defaultValue="blank"
           />
           <label className="font-bold" htmlFor="organization_name">
             Organization Name
@@ -112,8 +132,11 @@ export default function EditOrganization({
         {edited && (
           <>
             <div style={{ height: "0.5rem" }} />
-            <SubmitButton className="btn btn-amber p-2 text-center w-auto animate-pulse">
-              Save Updates
+            <SubmitButton
+              className="btn btn-amber p-2 text-center w-auto animate-pulse"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Saving…" : "Save Updates"}
             </SubmitButton>
           </>
         )}

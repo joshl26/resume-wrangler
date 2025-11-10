@@ -98,7 +98,7 @@ export async function fetchApplicationsByUserId(userId: string) {
     const userApplications: Applications = data.rows.map(
       (application: Application) => ({
         ...application,
-      })
+      }),
     );
 
     return userApplications;
@@ -113,7 +113,7 @@ export async function fetchFilteredApplications(
   query: string,
   currentPage: number,
   userId: string,
-  sort: string
+  sort: string,
 ) {
   noStore();
 
@@ -136,8 +136,7 @@ export async function fetchFilteredApplications(
     ORDER BY a.created_at DESC
     LIMIT '${ITEMS_PER_PAGE}' OFFSET '${offset}'
 `;
-  }
-  if (sort === "submitted") {
+  } else if (sort === "submitted") {
     mainQuery = `
     SELECT *
     FROM companies c
@@ -153,14 +152,29 @@ export async function fetchFilteredApplications(
     ORDER BY a.created_at DESC
     LIMIT '${ITEMS_PER_PAGE}' OFFSET '${offset}'
 `;
-  }
-  if (sort === "not_submitted") {
+  } else if (sort === "not_submitted") {
     mainQuery = `
     SELECT *
     FROM companies c
     JOIN applications a ON a.company_id = c.id
     WHERE a.user_id = '${userId}' 
     AND a.is_complete = 'false'
+    AND 
+      (
+            c.name::text ILIKE '${`%${query}%`}' OR
+            a.job_position::text ILIKE '${`%${query}%`}' OR
+            c.address_one::text ILIKE '${`%${query}%`}'
+      )
+    ORDER BY a.created_at DESC
+    LIMIT '${ITEMS_PER_PAGE}' OFFSET '${offset}'
+`;
+  } else {
+    // Default query when sort doesn't match any condition
+    mainQuery = `
+    SELECT *
+    FROM companies c
+    JOIN applications a ON a.company_id = c.id
+    WHERE a.user_id = '${userId}' 
     AND 
       (
             c.name::text ILIKE '${`%${query}%`}' OR
@@ -184,11 +198,10 @@ export async function fetchFilteredApplications(
     throw new Error("Failed to fetch applications.");
   }
 }
-
 export async function fetchApplicationsPages(
   query: string,
   userId: string,
-  sort: string
+  sort: string,
 ) {
   noStore();
 
@@ -205,8 +218,7 @@ export async function fetchApplicationsPages(
     c.address_one::text ILIKE '${`%${query}%`}'
   )
   `;
-  }
-  if (sort === "submitted") {
+  } else if (sort === "submitted") {
     mainQuery = `    
     SELECT COUNT(*) AS application_count
     FROM companies c
@@ -218,14 +230,25 @@ export async function fetchApplicationsPages(
     c.address_one::text ILIKE '${`%${query}%`}'
   )
   `;
-  }
-  if (sort === "not_submitted") {
+  } else if (sort === "not_submitted") {
     mainQuery = `    
     SELECT COUNT(*) AS application_count
     FROM companies c
     JOIN applications a ON a.company_id = c.id
     WHERE a.user_id = '${userId}' 
     AND a.is_complete = 'false'
+    AND (c.name::text ILIKE '${`%${query}%`}' OR 
+    a.job_position::text ILIKE '${`%${query}%`}' OR 
+    c.address_one::text ILIKE '${`%${query}%`}'
+  )
+  `;
+  } else {
+    // Default fallback query
+    mainQuery = `    
+    SELECT COUNT(*) AS application_count
+    FROM companies c
+    JOIN applications a ON a.company_id = c.id
+    WHERE a.user_id = '${userId}'    
     AND (c.name::text ILIKE '${`%${query}%`}' OR 
     a.job_position::text ILIKE '${`%${query}%`}' OR 
     c.address_one::text ILIKE '${`%${query}%`}'
@@ -237,7 +260,7 @@ export async function fetchApplicationsPages(
     const count = await conn.query(mainQuery);
 
     const totalPages = Math.ceil(
-      Number(count.rows[0].application_count) / ITEMS_PER_PAGE
+      Number(count.rows[0].application_count) / ITEMS_PER_PAGE,
     );
     return totalPages;
   } catch (error) {
@@ -245,12 +268,11 @@ export async function fetchApplicationsPages(
     throw new Error("Failed to fetch total number of invoices.");
   }
 }
-
 //TODO combine with fetchApplicationsPages
 export async function fetchApplicationsCount(
   query: string,
   userId: string,
-  sort: string
+  sort: string,
 ) {
   noStore();
 
@@ -267,8 +289,7 @@ export async function fetchApplicationsCount(
     c.address_one::text ILIKE '${`%${query}%`}'
   )
   `;
-  }
-  if (sort === "submitted") {
+  } else if (sort === "submitted") {
     mainQuery = `    
     SELECT COUNT(*) AS application_count
     FROM companies c
@@ -280,14 +301,25 @@ export async function fetchApplicationsCount(
     c.address_one::text ILIKE '${`%${query}%`}'
   )
   `;
-  }
-  if (sort === "not_submitted") {
+  } else if (sort === "not_submitted") {
     mainQuery = `    
     SELECT COUNT(*) AS application_count
     FROM companies c
     JOIN applications a ON a.company_id = c.id
     WHERE a.user_id = '${userId}' 
     AND a.is_complete = 'false'
+    AND (c.name::text ILIKE '${`%${query}%`}' OR 
+    a.job_position::text ILIKE '${`%${query}%`}' OR 
+    c.address_one::text ILIKE '${`%${query}%`}'
+  )
+  `;
+  } else {
+    // Default fallback query
+    mainQuery = `    
+    SELECT COUNT(*) AS application_count
+    FROM companies c
+    JOIN applications a ON a.company_id = c.id
+    WHERE a.user_id = '${userId}'    
     AND (c.name::text ILIKE '${`%${query}%`}' OR 
     a.job_position::text ILIKE '${`%${query}%`}' OR 
     c.address_one::text ILIKE '${`%${query}%`}'
@@ -305,11 +337,10 @@ export async function fetchApplicationsCount(
     throw new Error("Failed to fetch total number of invoices.");
   }
 }
-
 export async function fetchFilteredEducation(
   query: string,
   currentPage: number,
-  userId: string
+  userId: string,
 ) {
   noStore();
 
@@ -350,7 +381,7 @@ export async function fetchEducationPages(query: string, userId: string) {
     // console.log(count);
 
     const totalPages: number = Math.ceil(
-      Number(count.rows[0].education_count) / ITEMS_PER_PAGE
+      Number(count.rows[0].education_count) / ITEMS_PER_PAGE,
     );
     return totalPages;
   } catch (error) {
@@ -383,7 +414,7 @@ export async function fetchEducationCount(query: string, userId: string) {
 export async function fetchFilteredSkills(
   query: string,
   currentPage: number,
-  userId: string
+  userId: string,
 ) {
   noStore();
 
@@ -424,7 +455,7 @@ export async function fetchSkillsPages(query: string, userId: string) {
     // console.log(count);
 
     const totalPages: number = Math.ceil(
-      Number(count.rows[0].skills_count) / ITEMS_PER_PAGE
+      Number(count.rows[0].skills_count) / ITEMS_PER_PAGE,
     );
     return totalPages;
   } catch (error) {
@@ -457,7 +488,7 @@ export async function fetchSkillsCount(query: string, userId: string) {
 export async function fetchFilteredCompanies(
   query: string,
   currentPage: number,
-  userId: string
+  userId: string,
 ) {
   noStore();
 
@@ -504,7 +535,7 @@ export async function fetchCompaniesPages(query: string, userId: string) {
     // console.log(count);
 
     const totalPages: number = Math.ceil(
-      Number(count.rows[0].companies_count) / ITEMS_PER_PAGE
+      Number(count.rows[0].companies_count) / ITEMS_PER_PAGE,
     );
     return totalPages;
   } catch (error) {
@@ -541,7 +572,7 @@ export async function fetchCompaniesCount(query: string, userId: string) {
 export async function fetchFilteredWorkExperiences(
   query: string,
   currentPage: number,
-  userId: string
+  userId: string,
 ) {
   noStore();
 
@@ -586,7 +617,7 @@ export async function fetchWorkExperiencePages(query: string, userId: string) {
     // console.log(count);
 
     const totalPages: number = Math.ceil(
-      Number(count.rows[0].work_experiences_count) / ITEMS_PER_PAGE
+      Number(count.rows[0].work_experiences_count) / ITEMS_PER_PAGE,
     );
     return totalPages;
   } catch (error) {
@@ -622,7 +653,7 @@ export async function fetchWorkExperiencesCount(query: string, userId: string) {
 export async function fetchFilteredUserCustomSectionOne(
   query: string,
   currentPage: number,
-  userId: string
+  userId: string,
 ) {
   noStore();
 
@@ -651,7 +682,7 @@ export async function fetchFilteredUserCustomSectionOne(
 
 export async function fetchUserCustomSectionOnePages(
   query: string,
-  userId: string
+  userId: string,
 ) {
   noStore();
 
@@ -670,7 +701,7 @@ export async function fetchUserCustomSectionOnePages(
     // console.log(count);
 
     const totalPages: number = Math.ceil(
-      Number(count.rows[0].user_custom_section_one_count) / ITEMS_PER_PAGE
+      Number(count.rows[0].user_custom_section_one_count) / ITEMS_PER_PAGE,
     );
     return totalPages;
   } catch (error) {
@@ -682,7 +713,7 @@ export async function fetchUserCustomSectionOnePages(
 //TODO combine with fetchEducationPages
 export async function fetchUserCustomSectionOneCount(
   query: string,
-  userId: string
+  userId: string,
 ) {
   noStore();
 
@@ -709,7 +740,7 @@ export async function fetchUserCustomSectionOneCount(
 export async function fetchFilteredUserCustomSectionTwo(
   query: string,
   currentPage: number,
-  userId: string
+  userId: string,
 ) {
   noStore();
 
@@ -738,7 +769,7 @@ export async function fetchFilteredUserCustomSectionTwo(
 
 export async function fetchUserCustomSectionTwoPages(
   query: string,
-  userId: string
+  userId: string,
 ) {
   noStore();
 
@@ -757,7 +788,7 @@ export async function fetchUserCustomSectionTwoPages(
     // console.log(count);
 
     const totalPages: number = Math.ceil(
-      Number(count.rows[0].user_custom_section_two_count) / ITEMS_PER_PAGE
+      Number(count.rows[0].user_custom_section_two_count) / ITEMS_PER_PAGE,
     );
     return totalPages;
   } catch (error) {
@@ -769,7 +800,7 @@ export async function fetchUserCustomSectionTwoPages(
 //TODO combine with fetchEducationPages
 export async function fetchUserCustomSectionTwoCount(
   query: string,
-  userId: string
+  userId: string,
 ) {
   noStore();
 
@@ -890,7 +921,7 @@ export async function fetchCoverLettersByUserId(userId: string) {
     const coverLetters: CoverLetters = data.rows.map(
       (coverLetter: CoverLetter) => ({
         ...coverLetter,
-      })
+      }),
     );
 
     return coverLetters;
@@ -901,29 +932,27 @@ export async function fetchCoverLettersByUserId(userId: string) {
   }
 }
 
-export async function fetchResumeTemplates() {
+// app/lib/data.ts
+export async function fetchResumeTemplates(): Promise<ResumeTemplates> {
   noStore();
 
   try {
-    // const query = `SELECT * FROM resume_templates ORDER BY name ASC`;
     const query = `SELECT * FROM resume_templates WHERE active = 'true' ORDER BY name ASC`;
-
     const data = await conn.query(query);
 
     const resumeTemplates: ResumeTemplates = data.rows.map(
       (resumeTemplate: ResumeTemplate) => ({
         ...resumeTemplate,
-      })
+      }),
     );
 
     return resumeTemplates;
   } catch (error: any) {
     console.error("Database Error:", error);
-    // throw new Error("Failed to fetch resume template by id.");
-    return [null];
+    // Return an empty array instead of [null] or {} to satisfy the expected type
+    return [];
   }
 }
-
 export async function fetchResumeColors() {
   noStore();
 
@@ -934,7 +963,7 @@ export async function fetchResumeColors() {
     const resumeColors: ResumeColors = data.rows.map(
       (resumeColor: ResumeColor) => ({
         ...resumeColor,
-      })
+      }),
     );
 
     return resumeColors;
@@ -975,7 +1004,7 @@ export async function fetchHeaderFonts() {
     const headerFonts: HeaderFonts = data.rows.map(
       (headerFont: HeaderFont) => ({
         ...headerFont,
-      })
+      }),
     );
 
     return headerFonts;
@@ -1065,7 +1094,7 @@ export async function fetchCoverTemplates() {
     const coverTemplates: CoverTemplates = data.rows.map(
       (coverTemplate: CoverTemplate) => ({
         ...coverTemplate,
-      })
+      }),
     );
 
     return coverTemplates;
@@ -1103,7 +1132,7 @@ export async function fetchEducationByUserId(userId: string) {
     const userEducationExperiences: UserEducationExperiences = data?.rows?.map(
       (userEducationExperience: UserEducationExperience) => ({
         ...userEducationExperience,
-      })
+      }),
     );
 
     return userEducationExperiences;
@@ -1124,7 +1153,7 @@ export async function fetchOrganizationsByUserId(userId: string) {
     const userOrganizations: userOrganizations = data?.rows?.map(
       (userOrganization: UserOrganization) => ({
         ...userOrganization,
-      })
+      }),
     );
 
     return userOrganizations;
@@ -1145,7 +1174,7 @@ export async function fetchCertificationsByUserId(userId: string) {
     const userCertifications: UserCertifications = data?.rows?.map(
       (userCertification: UserCertification) => ({
         ...userCertification,
-      })
+      }),
     );
 
     return userCertifications;
@@ -1166,7 +1195,7 @@ export async function fetchWorkExperiencesByUserId(userId: string) {
     const userWorkExperiences: UserWorkExperiences = data?.rows?.map(
       (userWorkExperience: UserWorkExperience) => ({
         ...userWorkExperience,
-      })
+      }),
     );
 
     return userWorkExperiences;
@@ -1189,7 +1218,7 @@ export async function fetchCoverExperiencesByUserId(userId: string) {
     const userCoverExperiences: UserCoverExperiences = data?.rows?.map(
       (userCoverExperience: UserCoverExperience) => ({
         ...userCoverExperience,
-      })
+      }),
     );
 
     return userCoverExperiences;
@@ -1212,7 +1241,7 @@ export async function fetchCoverExperiencesByCoverLetterId(id: string) {
     const userCoverExperiences: UserCoverExperienceLines = data?.rows?.map(
       (userCoverExperience: UserCoverExperienceLine) => ({
         ...userCoverExperience,
-      })
+      }),
     );
 
     return userCoverExperiences;
@@ -1231,7 +1260,7 @@ export async function getData(resumeId: string, userEmail: string) {
   // console.log(process.env.DEPLOYMENT_URL);
 
   const res = await fetch(
-    `${process.env.DEPLOYMENT_URL}/api/resume-data?resumeId=${resumeId}&userEmail=${userEmail}`
+    `${process.env.DEPLOYMENT_URL}/api/resume-data?resumeId=${resumeId}&userEmail=${userEmail}`,
     // `http://localhost:3000/api/resume-data?resumeId=${resumeId}&userEmail=${userEmail}`
   );
   if (!res.ok) {
@@ -1249,7 +1278,7 @@ export async function getCoverData(coverId: string, userEmail: string) {
   // console.log(process.env.DEPLOYMENT_URL);
 
   const res = await fetch(
-    `${process.env.DEPLOYMENT_URL}/api/cover-data?coverId=${coverId}&userEmail=${userEmail}`
+    `${process.env.DEPLOYMENT_URL}/api/cover-data?coverId=${coverId}&userEmail=${userEmail}`,
     // `http://localhost:3000/api/resume-data?resumeId=${resumeId}&userEmail=${userEmail}`
   );
   if (!res.ok) {
@@ -1363,7 +1392,7 @@ export async function fetchEducationExperiencesbyResumeID(id: string) {
     const userEducationExperiences: UserEducationExperiences = data.rows.map(
       (userEducationExperience: UserEducationExperience) => ({
         ...userEducationExperience,
-      })
+      }),
     );
 
     return userEducationExperiences;
@@ -1418,7 +1447,7 @@ export async function fetchWorkExperiencesbyResumeID(id: string) {
     const userWorkExperiences: UserWorkExperiences = data.rows.map(
       (userWorkExperience: UserWorkExperience) => ({
         ...userWorkExperience,
-      })
+      }),
     );
 
     return userWorkExperiences;
@@ -1458,7 +1487,7 @@ export async function fetchCertificationsByResumeID(id: string) {
     const userCertifications: UserCertifications = data.rows.map(
       (userCertification: UserCertification) => ({
         ...userCertification,
-      })
+      }),
     );
 
     return userCertifications;
@@ -1479,7 +1508,7 @@ export async function fetchOrganizationsByResumeID(id: string) {
     const userOrganizations: userOrganizations = data.rows.map(
       (userOrganization: UserOrganization) => ({
         ...userOrganization,
-      })
+      }),
     );
 
     return userOrganizations;
@@ -1548,7 +1577,7 @@ export async function fetchPendingApplicationsCountByUserId(userId: string) {
 }
 
 export async function fetchCoverLettersByUserIDJoinApplications(
-  userId: string
+  userId: string,
 ) {
   noStore();
 
@@ -1559,7 +1588,7 @@ export async function fetchCoverLettersByUserIDJoinApplications(
     const coverLetters: CoverLetters & Applications = data.rows.map(
       (coverLetter: CoverLetter & Application) => ({
         ...coverLetter,
-      })
+      }),
     );
 
     // console.log(coverLetters);
@@ -1582,7 +1611,7 @@ export async function fetchResumesByUserIDJoinApplications(userId: string) {
     const resumes: Resumes & Applications = data.rows.map(
       (resume: Resume & Application) => ({
         ...resume,
-      })
+      }),
     );
 
     // console.log(coverLetters);

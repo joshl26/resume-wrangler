@@ -1,3 +1,4 @@
+// app/api/cover-data/route.ts
 import {
   fetchApplicationById,
   fetchCompanyById,
@@ -6,50 +7,61 @@ import {
   fetchCoverLetterByIdAndUserId,
   getUser,
 } from "@/app/lib/data";
-//test
-// http://localhost:3000/api/resume-data?resumeId=4&userId=410544b2-4001-4271-9855-fec4b6a6442a
+import { NextResponse } from "next/server";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
-  const coverId: string | null = searchParams.get("coverId");
-  const userEmail: string | null = searchParams.get("userEmail");
+  const coverId = searchParams.get("coverId");
+  const userEmail = searchParams.get("userEmail");
 
-  if (coverId === null) {
-    return Response.json({ message: "no cover id" });
-  } else if (userEmail === null) {
-    return Response.json({ message: "no user email" });
+  if (!coverId) {
+    return NextResponse.json({ message: "no cover id" }, { status: 400 });
+  }
+  if (!userEmail) {
+    return NextResponse.json({ message: "no user email" }, { status: 400 });
   }
 
-  const [user] = await Promise.all([getUser(userEmail)]);
-
-  const [coverLetter] = await Promise.all([
-    fetchCoverLetterByIdAndUserId(coverId, user),
-  ]);
-
-  if (user === undefined) {
-    return Response.json({ message: "not valid email" });
+  const user = await getUser(userEmail);
+  if (!user) {
+    return NextResponse.json({ message: "not valid email" }, { status: 404 });
   }
 
+  const coverLetter = await fetchCoverLetterByIdAndUserId(coverId, user);
+  if (!coverLetter) {
+    return NextResponse.json(
+      { message: "cover letter not found" },
+      { status: 404 },
+    );
+  }
+
+  // Only call these fetchers when the id exists (otherwise resolve to null)
   const [company, application] = await Promise.all([
-    fetchCompanyById(coverLetter?.company_id),
-    fetchApplicationById(coverLetter?.application_id),
+    coverLetter.company_id
+      ? fetchCompanyById(coverLetter.company_id)
+      : Promise.resolve(null),
+    coverLetter.application_id
+      ? fetchApplicationById(coverLetter.application_id)
+      : Promise.resolve(null),
   ]);
 
+  // coverLetter.id should exist (we've verified coverLetter), but guard anyway
   const [selectedCoverExperiences, userCoverExperiences] = await Promise.all([
-    fetchCoverExperiencesByCoverLetterId(coverLetter?.id),
-    fetchCoverExperiencesByUserId(user?.id),
+    coverLetter.id
+      ? fetchCoverExperiencesByCoverLetterId(coverLetter.id)
+      : Promise.resolve([]),
+    fetchCoverExperiencesByUserId(user.id),
   ]);
 
-  return Response.json({
-    user: user,
-    coverLetter: coverLetter,
-    selectedCoverExperiences: selectedCoverExperiences,
-    userCoverExperiences: userCoverExperiences,
-    company: company,
-    application: application,
-    selectedCoverBodyFont: coverLetter?.body_font,
-    selectedCoverHeadingFont: coverLetter?.heading_font,
-    selectedCoverColor: coverLetter?.color,
-    selectedCoverHighlightColor: coverLetter?.highlight_color,
+  return NextResponse.json({
+    user,
+    coverLetter,
+    selectedCoverExperiences,
+    userCoverExperiences,
+    company,
+    application,
+    selectedCoverBodyFont: coverLetter.body_font ?? null,
+    selectedCoverHeadingFont: coverLetter.heading_font ?? null,
+    selectedCoverColor: coverLetter.color ?? null,
+    selectedCoverHighlightColor: coverLetter.highlight_color ?? null,
   });
 }

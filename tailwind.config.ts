@@ -1,3 +1,4 @@
+// tailwind.config.ts
 import type { Config } from "tailwindcss";
 const plugin = require("tailwindcss/plugin");
 
@@ -10,7 +11,6 @@ const config: Config = {
   safelist: [
     {
       pattern: /(bg|text|border)-./, // 👈  This includes bg of all colors and shades
-      
     },
   ],
   theme: {
@@ -154,7 +154,11 @@ const config: Config = {
     require("@tailwindcss/forms"),
     require("@tailwindcss/aspect-ratio"),
     require("@tailwindcss/container-queries"),
-    plugin(function ({ addComponents }) {
+    plugin(function ({
+      addComponents,
+    }: {
+      addComponents: (components: Record<string, any>) => void;
+    }) {
       addComponents({
         ".btn": {
           padding: ".5rem 1rem",
@@ -205,4 +209,5 @@ const config: Config = {
     }),
   ],
 };
+
 export default config;

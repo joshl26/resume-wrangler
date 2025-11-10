@@ -1,3 +1,4 @@
+// app/.../page.tsx
 import {
   fetchApplicationById,
   fetchLatestCompaniesByUserId,
@@ -8,28 +9,44 @@ import { auth } from "@/auth";
 import { notFound } from "next/navigation";
 import React from "react";
 
-export default async function Page({ params }: { params: { id: string } }) {
-  const id = params.id;
+type Params = { id: string };
+
+interface PageProps {
+  // Match Next's generated signature: params may be a Promise or undefined
+  params?: Promise<Params>;
+}
+
+export default async function Page({ params }: PageProps) {
+  const resolvedParams = await params;
+  if (!resolvedParams) {
+    return notFound();
+  }
+
+  const { id } = resolvedParams;
 
   const session = await auth();
-  if (session?.user) {
-    session.user = {
-      name: session.user.name,
-      email: session.user.email,
-    };
-
-    const user = await getUser(session?.user?.email!);
-    const companies = await fetchLatestCompaniesByUserId(user.id);
-    const application = await fetchApplicationById(id);
-
-    if (!user ?? !companies ?? !application) {
-      notFound();
-    }
-
-    return (
-      <div className="w-full h-full overflow-y-auto">
-        <EditApplication application={application} companies={companies} />
-      </div>
-    );
+  if (!session?.user) {
+    return notFound();
   }
+
+  // Keep only necessary user fields
+  session.user = {
+    name: session.user.name,
+    email: session.user.email,
+  };
+
+  const user = await getUser(session.user.email!);
+  const companies = await fetchLatestCompaniesByUserId(user.id);
+  const application = await fetchApplicationById(id);
+
+  // Use logical OR to check for any missing value
+  if (!user || !companies || !application) {
+    return notFound();
+  }
+
+  return (
+    <div className="w-full h-full overflow-y-auto">
+      <EditApplication application={application} companies={companies} />
+    </div>
+  );
 }

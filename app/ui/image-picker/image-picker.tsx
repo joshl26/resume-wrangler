@@ -43,6 +43,7 @@ const ImagePicker = ({ user }: { user: User }) => {
       <form className="py-2" onSubmit={handleSubmit}>
         <label htmlFor="file"></label>
         <input
+          title="file"
           className="w-[300px]"
           required
           name="file"

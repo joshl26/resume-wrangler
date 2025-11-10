@@ -1,8 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 
 const searchProviders = [
   {
@@ -87,9 +86,10 @@ const searchProviders = [
 const JobBoards = () => {
   const [jobTitle, setJobTitle] = useState("Software Engineer");
 
-  function OnChangeHandler(e) {
+  function OnChangeHandler(e: React.ChangeEvent<HTMLInputElement>) {
     setJobTitle(e.target.value);
   }
+
   return (
     <section className="py-10 flex flex-row bg-orange-100 w-full">
       <div className="flex flex-col w-9/12 bg-orange-200 tight-shadow py-4 px-4 mt-20 mb-6 mx-auto">
@@ -100,26 +100,31 @@ const JobBoards = () => {
           onChange={OnChangeHandler}
           value={jobTitle}
           placeholder="e.g. Software Engineer"
-        ></input>
+          className="mb-4 p-2 rounded border border-gray-300"
+        />
         <div className="border-b-2 border-black h-4 w-full"></div>
         {searchProviders?.map((provider) =>
           jobTitle ? (
             <div
               key={provider.id}
-              className="border-b-2 border-black w-full flex flex-row justify-between"
+              className="border-b-2 border-black w-full flex flex-row justify-between items-center py-2"
             >
-              <div className="w-auto contents">
+              <div className="w-auto">
                 <Image
                   className="h-auto"
                   width={100}
-                  height={0}
-                  alt=""
+                  height={40}
+                  alt={`${provider.name} logo`}
                   src={provider.logoImage}
-                ></Image>
+                />
               </div>
-              <a target="_blank" href={`${provider.searchUrl}${jobTitle}`}>
-                <h2 className="py-2 text-1xl">
-                  {" "}
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                href={`${provider.searchUrl}${encodeURIComponent(jobTitle)}`}
+                className="text-blue-600 hover:underline"
+              >
+                <h2 className="text-lg">
                   Search {provider.name} for {jobTitle} positions
                 </h2>
               </a>
@@ -127,22 +132,27 @@ const JobBoards = () => {
           ) : (
             <div
               key={provider.id}
-              className="border-b-2 border-black w-full flex flex-row justify-between"
+              className="border-b-2 border-black w-full flex flex-row justify-between items-center py-2"
             >
-              <div className="contents">
+              <div>
                 <Image
                   className="h-auto"
                   width={100}
-                  height={0}
-                  alt=""
+                  height={40}
+                  alt={`${provider.name} logo`}
                   src={provider.logoImage}
-                ></Image>
+                />
               </div>
-              <a target="_blank" href={provider.url}>
-                <h2 className="py-2 text-1xl">Search {provider.name}</h2>
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                href={provider.url}
+                className="text-blue-600 hover:underline"
+              >
+                <h2 className="text-lg">Search {provider.name}</h2>
               </a>
             </div>
-          )
+          ),
         )}
       </div>
     </section>

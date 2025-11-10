@@ -18,20 +18,22 @@ const ApplicationsCard = ({ applications }: { applications: Applications }) => {
       setApplicationButton("open");
       setFilteredApplications(
         applications.filter(
-          (application) => application.is_complete === "false"
-        )
+          (application) => application.is_complete === "false",
+        ),
       );
     } else if (e === "pending") {
       setApplicationButton("pending");
       setFilteredApplications(
         applications.filter(
-          (application) => application.is_complete === "pending"
-        )
+          (application) => application.is_complete === "pending",
+        ),
       );
     } else if (e === "closed") {
       setApplicationButton("closed");
       setFilteredApplications(
-        applications.filter((application) => application.is_complete === "true")
+        applications.filter(
+          (application) => application.is_complete === "true",
+        ),
       );
     }
   }
@@ -55,7 +57,7 @@ const ApplicationsCard = ({ applications }: { applications: Applications }) => {
             className={clsx(
               applicationButton === "all"
                 ? `font-medium px-6 border text-white border-purple-heart-400 bg-purple-heart-400 rounded-full p-1`
-                : `font-medium px-6 border border-purple-heart-400 bg-white rounded-full p-1 hover:bg-purple-heart-100`
+                : `font-medium px-6 border border-purple-heart-400 bg-white rounded-full p-1 hover:bg-purple-heart-100`,
             )}
           >
             All
@@ -66,7 +68,7 @@ const ApplicationsCard = ({ applications }: { applications: Applications }) => {
             className={clsx(
               applicationButton === "open"
                 ? `font-medium px-6 border text-white border-rose-400 bg-rose-400 rounded-full p-1`
-                : `font-medium px-6 border border-rose-400  bg-white rounded-full p-1 hover:bg-rose-100`
+                : `font-medium px-6 border border-rose-400  bg-white rounded-full p-1 hover:bg-rose-100`,
             )}
           >
             Open
@@ -77,7 +79,7 @@ const ApplicationsCard = ({ applications }: { applications: Applications }) => {
             className={clsx(
               applicationButton === "pending"
                 ? `font-medium px-6 text-white border bg-international-orange-400 border-international-orange-400  rounded-full p-1`
-                : `font-medium px-6 border border-international-orange-400 bg-white rounded-full p-1 hover:bg-international-orange-100`
+                : `font-medium px-6 border border-international-orange-400 bg-white rounded-full p-1 hover:bg-international-orange-100`,
             )}
           >
             Pending
@@ -88,7 +90,7 @@ const ApplicationsCard = ({ applications }: { applications: Applications }) => {
             className={clsx(
               applicationButton === "closed"
                 ? `font-medium px-6 text-white bg-amber-500 border border-amber-400   rounded-full p-1`
-                : `font-medium px-6 border border-amber-400 bg-white  rounded-full p-1 hover:bg-amber-100`
+                : `font-medium px-6 border border-amber-400 bg-white  rounded-full p-1 hover:bg-amber-100`,
             )}
           >
             Closed

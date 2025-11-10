@@ -8,13 +8,6 @@ import JobTypeCard from "./job-type-card";
 import ResponsesCard from "./responses-card";
 import ApplicationsCard from "./applications-card";
 import DemographicsCard from "./demographics-card";
-import ReactJoyride, {
-  ACTIONS,
-  CallBackProps,
-  EVENTS,
-  ORIGIN,
-} from "react-joyride";
-import { finishUserTour } from "@/app/lib/actions";
 import {
   beaconInner,
   beaconOuter,
@@ -276,18 +269,6 @@ const TOUR_STEPS: any = [
   },
 ];
 
-async function handleJoyrideCallback(data: CallBackProps, userId: string) {
-  const { action, index, origin, status, type } = data;
-
-  try {
-    if (action === ACTIONS.RESET) {
-      await finishUserTour(userId, "/dashboard");
-    }
-  } catch (error) {
-    new Error(error);
-  }
-}
-
 const Dashboard = ({
   applications,
   user,
@@ -304,15 +285,6 @@ const Dashboard = ({
   console.log(user);
   return (
     <div className="w-full h-full mt-1">
-      {user?.tour_dashboard === "true" && (
-        <ReactJoyride
-          steps={TOUR_STEPS}
-          callback={(e) => handleJoyrideCallback(e, user.id)}
-          continuous={true}
-          showSkipButton={true}
-        />
-      )}
-
       <div className="flex flex-row gap-4 px-4 pb-4 ">
         <OpenApplicationsCount openApplicationsCount={openApplicationsCount} />
         <ClosedApplicationsCount

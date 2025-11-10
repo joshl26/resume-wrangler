@@ -49,10 +49,31 @@ export default function YourResumeStyling({
   selectedResumeHighlightColor: any;
 }) {
   const [edited, setEdited] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const onChangeHandler = () => {
     if (edited === false) {
       setEdited(true);
+    }
+  };
+
+  // Wrapper so form.action gets (formData: FormData) => void | Promise<void>
+  const handleUpdateYourResumeStyle = async (
+    formData: FormData,
+  ): Promise<void> => {
+    try {
+      setIsSubmitting(true);
+      const result = await updateYourResumeStyle(formData);
+      if (result?.errors) {
+        // handle or log server-side validation errors if needed
+        console.error("Update resume style failed:", result);
+      } else {
+        setEdited(false);
+      }
+    } catch (err) {
+      console.error("Unexpected error updating resume style:", err);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -62,8 +83,7 @@ export default function YourResumeStyling({
         <h2 className="">Resume Styling</h2>
       </div>
       <form
-        action={updateYourResumeStyle}
-        onSubmit={() => setEdited(false)}
+        action={handleUpdateYourResumeStyle}
         className="tight-shadow rounded form-amber px-5 py-2 "
       >
         <div className="flex flex-col py-1">
@@ -86,12 +106,14 @@ export default function YourResumeStyling({
             placeholder="Resume Title"
           />
         </div>
+
         <div className="flex flex-col py-1">
           <input
             hidden
             id="resume_id"
             name="resume_id"
             defaultValue={resume?.id}
+            readOnly
           />
           <label className="py-1 font-medium" htmlFor="description">
             Description
@@ -105,13 +127,14 @@ export default function YourResumeStyling({
             placeholder="Resume Description"
           />
         </div>
+
         <div className="flex flex-col py-1">
           <label className="py-1 font-medium" htmlFor="resume_template">
             Resume Template
           </label>
           <select
             className="rounded"
-            defaultValue={selectedResumeTemplate}
+            value={selectedResumeTemplate}
             onChange={(e) => {
               setEdited(true);
               setSelectedResumeTemplate(e.target.value);
@@ -119,38 +142,37 @@ export default function YourResumeStyling({
             name="resume_template"
             id="resume_template"
           >
-            {resumeTemplates.map((resume: any) => {
+            {resumeTemplates.map((tmpl: any) => {
               return (
-                <option
-                  key={resume.id}
-                  value={resume.description}
-                  onChange={() => {}}
-                >
-                  {resume.name}
+                <option key={tmpl.id} value={tmpl.description}>
+                  {tmpl.name}
                 </option>
               );
             })}
           </select>
         </div>
+
         <div className="flex flex-col">
           <div className="py-1 flex flex-col">
             <label className="py-1 font-medium" htmlFor="color">
               Colors
             </label>
+
             <input
               hidden
               id="color"
               name="color"
-              value={selectedResumeColor}
-              onChange={() => {}}
+              defaultValue={selectedResumeColor}
+              readOnly
             />
             <input
               hidden
               id="highlight_color"
               name="highlight_color"
-              value={selectedResumeHighlightColor}
-              onChange={() => {}}
-            />{" "}
+              defaultValue={selectedResumeHighlightColor}
+              readOnly
+            />
+
             <div className="flex flex-row justify-around">
               {resumeColors?.map((color: ResumeColor) => (
                 <div
@@ -165,13 +187,14 @@ export default function YourResumeStyling({
                   className={clsx(
                     "rounded-full border-2 border-black tight-shadow h-8 w-8 hover:-translate-y-1 duration-500",
                     color?.color,
-                    color?.color === selectedResumeColor && "-translate-y-1"
+                    color?.color === selectedResumeColor && "-translate-y-1",
                   )}
                 />
               ))}
             </div>
           </div>
         </div>
+
         <div className="flex flex-col">
           <div className="py-1 flex flex-col">
             <label className="py-1 font-medium" htmlFor="header_font">
@@ -189,12 +212,7 @@ export default function YourResumeStyling({
             >
               {headerFonts.map((font: HeaderFont) => {
                 return (
-                  <option
-                    className={font.name}
-                    key={font.id}
-                    value={font.name}
-                    onChange={() => {}}
-                  >
+                  <option key={font.id} value={font.name}>
                     {font.description}
                   </option>
                 );
@@ -202,13 +220,14 @@ export default function YourResumeStyling({
             </select>
           </div>
         </div>
+
         <div className="flex flex-col py-1">
           <label className="py-1 font-medium" htmlFor="body_font">
             Body Font
           </label>
           <select
             className={`${selectedResumeBodyFont} rounded`}
-            defaultValue={selectedResumeBodyFont}
+            value={selectedResumeBodyFont}
             onChange={(e) => {
               onChangeHandler();
               setSelectedResumeBodyFont(e.target.value);
@@ -218,22 +237,22 @@ export default function YourResumeStyling({
           >
             {bodyFonts.map((font: BodyFont) => {
               return (
-                <option
-                  className={font.name}
-                  key={font.id}
-                  value={font.name}
-                  onChange={() => {}}
-                >
+                <option key={font.id} value={font.name}>
                   {font.description}
                 </option>
               );
             })}
           </select>
         </div>
+
         <div style={{ height: "0.5rem" }}></div>
+
         {edited && (
-          <SubmitButton className={"btn btn-amber my-4 animate-pulse"}>
-            Save Change
+          <SubmitButton
+            className={"btn btn-amber my-4 animate-pulse"}
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? "Saving…" : "Save Change"}
           </SubmitButton>
         )}
       </form>

@@ -1,11 +1,10 @@
 import React from "react";
-import Image from "next/image";
-import Indeed from "/public/logo-indeed.svg";
-import LinkedIn from "/public/logo-linkedin.svg";
-import ZipRecruiter from "/public/logo-zip-recruiter.svg";
-import Monster from "/public/monster.svg";
-import Google from "/public/logo-google.svg";
-import Jooble from "/public/logo-jooble.svg";
+import Indeed from "@/public/logo-indeed.svg";
+import LinkedIn from "@/public/logo-linkedin.svg";
+import ZipRecruiter from "@/public/logo-zip-recruiter.svg";
+import Monster from "@/public/monster.svg";
+import Google from "@/public/logo-google.svg";
+import Jooble from "@/public/logo-jooble.svg";
 
 const LandingTwo = () => {
   return (
@@ -38,58 +37,27 @@ const LandingTwo = () => {
       </div>
       <div className="flex flex-row flex-wrap max-w-screen-xl items-center m-auto justify-center  gap-10 pt-32">
         <div className="flex flex-col h-[100px] p-3 md:mb-12">
-          <Image
-            className="w-full h-full"
-            width={100}
-            height={100}
-            alt=""
-            src={Indeed}
-          />
+          <Indeed className="w-full h-full" width={100} height={100} alt="" />
         </div>
         <div className="flex flex-col h-[100px] p-3 md:mb-12">
-          <Image
-            className="w-full h-full"
-            width={100}
-            height={100}
-            alt=""
-            src={LinkedIn}
-          />
+          <LinkedIn className="w-full h-full" width={100} height={100} alt="" />
         </div>
         <div className="flex flex-col h-[100px]  p-3 md:mb-12">
-          <Image
+          <ZipRecruiter
             className="w-full h-full"
             width={100}
             height={100}
             alt=""
-            src={ZipRecruiter}
           />
         </div>
         <div className="flex flex-col h-[100px] p-3">
-          <Image
-            className="w-full h-full"
-            width={100}
-            height={100}
-            alt=""
-            src={Jooble}
-          />
+          <Jooble className="w-full h-full" width={100} height={100} alt="" />
         </div>
         <div className="flex flex-col h-[100px] p-3">
-          <Image
-            className="w-full h-full"
-            width={100}
-            height={100}
-            alt=""
-            src={Google}
-          />
+          <Google className="w-full h-full" width={100} height={100} alt="" />
         </div>
         <div className="flex flex-col h-[100px]  p-3">
-          <Image
-            className="w-full h-full"
-            width={100}
-            height={100}
-            alt=""
-            src={Monster}
-          />
+          <Monster className="w-full h-full" width={100} height={100} alt="" />
         </div>
       </div>
     </div>

@@ -73,7 +73,7 @@ export default async function ElectricalEngineer(props: Props) {
             }}
             className={clsx(
               "pb-3",
-              props?.heading_font || props?.resume?.heading_font
+              props?.heading_font || props?.resume?.heading_font,
             )}
           >
             {props?.user?.first_name} {props?.user?.last_name}
@@ -81,7 +81,7 @@ export default async function ElectricalEngineer(props: Props) {
           <p
             className={clsx(
               "text-[1rem]",
-              props?.body_font || props?.resume?.body_font
+              props?.body_font || props?.resume?.body_font,
             )}
           >
             {props?.resume?.description}
@@ -91,7 +91,7 @@ export default async function ElectricalEngineer(props: Props) {
       <div
         className={clsx(
           props?.color || props?.resume?.color,
-          " w-full h-[3px]"
+          " w-full h-[3px]",
         )}
       ></div>
       <div className="flex flex-row pt-4">
@@ -100,7 +100,7 @@ export default async function ElectricalEngineer(props: Props) {
             <h2
               className={clsx(
                 "font-bold",
-                props?.heading_font || props?.resume?.heading_font
+                props?.heading_font || props?.resume?.heading_font,
               )}
             >
               WORK EXPERIENCE
@@ -113,7 +113,7 @@ export default async function ElectricalEngineer(props: Props) {
                   <h2
                     className={clsx(
                       "font-bold",
-                      props?.heading_font || props?.resume?.heading_font
+                      props?.heading_font || props?.resume?.heading_font,
                     )}
                   >
                     {userWorkExperience?.job_title}
@@ -121,7 +121,7 @@ export default async function ElectricalEngineer(props: Props) {
                   <p
                     className={clsx(
                       "text-[0.85rem] font-lite",
-                      props?.heading_font || props?.resume?.heading_font
+                      props?.heading_font || props?.resume?.heading_font,
                     )}
                   >
                     {userWorkExperience?.company_name} -{" "}
@@ -135,7 +135,7 @@ export default async function ElectricalEngineer(props: Props) {
                         <div
                           className={clsx(
                             "h-[7px] w-[7px] rounded-full ",
-                            props?.color || props?.resume?.color
+                            props?.color || props?.resume?.color,
                           )}
                         />
                       </div>
@@ -143,7 +143,7 @@ export default async function ElectricalEngineer(props: Props) {
                         <p
                           className={clsx(
                             "text-sm",
-                            props?.body_font || props?.resume?.body_font
+                            props?.body_font || props?.resume?.body_font,
                           )}
                         >
                           {userWorkExperience?.description_one}
@@ -157,7 +157,7 @@ export default async function ElectricalEngineer(props: Props) {
                         <div
                           className={clsx(
                             "h-[7px] w-[7px] rounded-full",
-                            props?.color || props?.resume?.color
+                            props?.color || props?.resume?.color,
                           )}
                         />
                       </div>
@@ -165,7 +165,7 @@ export default async function ElectricalEngineer(props: Props) {
                         <p
                           className={clsx(
                             "text-sm ",
-                            props?.body_font || props?.resume?.body_font
+                            props?.body_font || props?.resume?.body_font,
                           )}
                         >
                           {userWorkExperience?.description_two}
@@ -179,7 +179,7 @@ export default async function ElectricalEngineer(props: Props) {
                         <div
                           className={clsx(
                             "h-[7px] w-[7px] rounded-full",
-                            props?.color || props?.resume?.color
+                            props?.color || props?.resume?.color,
                           )}
                         />
                       </div>
@@ -187,7 +187,7 @@ export default async function ElectricalEngineer(props: Props) {
                         <p
                           className={clsx(
                             "text-sm",
-                            props?.body_font || props?.resume?.body_font
+                            props?.body_font || props?.resume?.body_font,
                           )}
                         >
                           {userWorkExperience?.description_three}
@@ -202,7 +202,7 @@ export default async function ElectricalEngineer(props: Props) {
                           className={clsx(
                             "h-[7px] w-[7px] rounded-full",
 
-                            props?.color || props?.resume?.color
+                            props?.color || props?.resume?.color,
                           )}
                         />
                       </div>
@@ -210,7 +210,7 @@ export default async function ElectricalEngineer(props: Props) {
                         <p
                           className={clsx(
                             "text-sm",
-                            props?.body_font || props?.resume?.body_font
+                            props?.body_font || props?.resume?.body_font,
                           )}
                         >
                           {userWorkExperience?.description_four}
@@ -219,7 +219,7 @@ export default async function ElectricalEngineer(props: Props) {
                     </div>
                   )}
                 </li>
-              )
+              ),
             )}
           </ul>
           {props?.show_custom_section_one === "true" ||
@@ -229,7 +229,7 @@ export default async function ElectricalEngineer(props: Props) {
                 <h2
                   className={clsx(
                     "font-bold",
-                    props?.heading_font || props?.resume?.heading_font
+                    props?.heading_font || props?.resume?.heading_font,
                   )}
                 >
                   {props.resume.custom_section_one_name}
@@ -249,7 +249,7 @@ export default async function ElectricalEngineer(props: Props) {
                       <p
                         className={clsx(
                           "font-bold",
-                          props?.heading_font || props?.resume?.heading_font
+                          props?.heading_font || props?.resume?.heading_font,
                         )}
                       >
                         {userOrganization?.name}
@@ -257,13 +257,13 @@ export default async function ElectricalEngineer(props: Props) {
                       <p
                         className={clsx(
                           "text-sm",
-                          props?.body_font || props?.resume?.body_font
+                          props?.body_font || props?.resume?.body_font,
                         )}
                       >
                         {userOrganization?.location}
                       </p>
                     </li>
-                  )
+                  ),
                 )}
               </ul>
             </>
@@ -276,7 +276,7 @@ export default async function ElectricalEngineer(props: Props) {
             <h2
               className={clsx(
                 "font-bold",
-                props?.heading_font || props?.resume?.heading_font
+                props?.heading_font || props?.resume?.heading_font,
               )}
             >
               PROFILE
@@ -296,7 +296,7 @@ export default async function ElectricalEngineer(props: Props) {
                   href={`https://www.google.com/search?q=${props?.user?.address_one}`}
                   className={clsx(
                     props?.body_font || props?.resume?.body_font,
-                    "text-sm py-1"
+                    "text-sm py-1",
                   )}
                 >
                   {props?.user?.address_one}
@@ -312,7 +312,7 @@ export default async function ElectricalEngineer(props: Props) {
                   href={`tel:${props?.user?.phone}`}
                   className={clsx(
                     props?.body_font || props?.resume?.body_font,
-                    "text-sm py-1 pl-1"
+                    "text-sm py-1 pl-1",
                   )}
                 >
                   {props?.user?.phone}
@@ -328,7 +328,7 @@ export default async function ElectricalEngineer(props: Props) {
                   href={`mailto:${props?.user?.email}`}
                   className={clsx(
                     props?.body_font || props?.resume?.body_font,
-                    "text-sm truncate py-1 pl-1"
+                    "text-sm truncate py-1 pl-1",
                   )}
                 >
                   {props?.user?.email}
@@ -353,7 +353,7 @@ export default async function ElectricalEngineer(props: Props) {
                         href={`https://linkedin.com/in/${props?.user?.linked_in}`}
                         className={clsx(
                           props?.body_font || props?.resume?.body_font,
-                          "text-sm py-1"
+                          "text-sm py-1",
                         )}
                       >
                         LinkedIn
@@ -376,7 +376,7 @@ export default async function ElectricalEngineer(props: Props) {
                         href={`https://facebook.com/${props?.user?.facebook}`}
                         className={clsx(
                           props?.body_font || props?.resume?.body_font,
-                          "text-sm py-1"
+                          "text-sm py-1",
                         )}
                       >
                         Facebook
@@ -399,7 +399,7 @@ export default async function ElectricalEngineer(props: Props) {
                         href={`https://instagram.com/${props?.user?.instagram}`}
                         className={clsx(
                           props?.body_font || props?.resume?.body_font,
-                          "text-sm py-1"
+                          "text-sm py-1",
                         )}
                       >
                         Instagram
@@ -422,7 +422,7 @@ export default async function ElectricalEngineer(props: Props) {
                         href={`https://twitter.com/${props?.user?.twitter}`}
                         className={clsx(
                           props?.body_font || props?.resume?.body_font,
-                          "text-sm py-1"
+                          "text-sm py-1",
                         )}
                       >
                         Twitter
@@ -445,7 +445,7 @@ export default async function ElectricalEngineer(props: Props) {
                         href={`https://github.com/${props?.user?.github}`}
                         className={clsx(
                           props?.body_font || props?.resume?.body_font,
-                          "text-sm py-1"
+                          "text-sm py-1",
                         )}
                       >
                         Github
@@ -467,7 +467,7 @@ export default async function ElectricalEngineer(props: Props) {
                 <h2
                   className={clsx(
                     "font-bold pb-1",
-                    props?.heading_font || props?.resume?.heading_font
+                    props?.heading_font || props?.resume?.heading_font,
                   )}
                 >
                   SKILLS
@@ -482,7 +482,7 @@ export default async function ElectricalEngineer(props: Props) {
                         <p
                           className={clsx(
                             "text-[0.75rem] font-bold",
-                            props?.body_font || props?.resume?.body_font
+                            props?.body_font || props?.resume?.body_font,
                           )}
                         >
                           {userSkill?.skill}
@@ -493,13 +493,13 @@ export default async function ElectricalEngineer(props: Props) {
                             className={clsx(
                               props?.resume?.highlight_color ||
                                 props?.resume?.highlight_color,
-                              "rounded-full h-[10px] border border-black"
+                              "rounded-full h-[10px] border border-black",
                             )}
                           >
                             <div
                               className={clsx(
                                 "progress-bar rounded-full",
-                                props?.color || props?.resume?.color
+                                props?.color || props?.resume?.color,
                               )}
                               style={{
                                 width: `${userSkill?.skill_level}%`,
@@ -526,7 +526,7 @@ export default async function ElectricalEngineer(props: Props) {
                 <h2
                   className={clsx(
                     "font-bold ",
-                    props?.heading_font || props?.resume?.heading_font
+                    props?.heading_font || props?.resume?.heading_font,
                   )}
                 >
                   SKILLS
@@ -537,14 +537,14 @@ export default async function ElectricalEngineer(props: Props) {
                       <li
                         className={clsx(
                           "flex flex-col px-2 rounded py-[2px] border-[1.5px] text-[black]",
-                          `border-${props?.highlightColor || props?.resume?.highlight_color}`
+                          `border-${props?.highlightColor || props?.resume?.highlight_color}`,
                         )}
                         key={userSkill?.id}
                       >
                         <p
                           className={clsx(
                             "text-[0.75rem] font-bold",
-                            props?.body_font || props?.resume?.body_font
+                            props?.body_font || props?.resume?.body_font,
                           )}
                         >
                           {userSkill?.skill}
@@ -566,7 +566,7 @@ export default async function ElectricalEngineer(props: Props) {
                 <h1
                   className={clsx(
                     "font-bold ",
-                    props?.heading_font || props?.resume?.heading_font
+                    props?.heading_font || props?.resume?.heading_font,
                   )}
                 >
                   EDUCATION
@@ -577,7 +577,7 @@ export default async function ElectricalEngineer(props: Props) {
                       <h2
                         className={clsx(
                           "font-bold text-sm",
-                          props?.heading_font || props?.resume?.heading_font
+                          props?.heading_font || props?.resume?.heading_font,
                         )}
                       >
                         {userEducation?.institution_name}
@@ -585,7 +585,7 @@ export default async function ElectricalEngineer(props: Props) {
                       <p
                         className={clsx(
                           "text-sm",
-                          props?.body_font || props?.resume?.body_font
+                          props?.body_font || props?.resume?.body_font,
                         )}
                       >
                         {userEducation?.location}
@@ -593,7 +593,7 @@ export default async function ElectricalEngineer(props: Props) {
                       <p
                         className={clsx(
                           "text-sm",
-                          props?.body_font || props?.resume?.body_font
+                          props?.body_font || props?.resume?.body_font,
                         )}
                       >
                         {userEducation?.start_date} - {userEducation?.end_date}
@@ -601,13 +601,13 @@ export default async function ElectricalEngineer(props: Props) {
                       <p
                         className={clsx(
                           "text-sm italic font-black",
-                          props?.body_font || props?.resume?.body_font
+                          props?.body_font || props?.resume?.body_font,
                         )}
                       >
                         {userEducation?.program}
                       </p>
                     </li>
-                  )
+                  ),
                 )}
               </ul>
             </div>
@@ -621,7 +621,7 @@ export default async function ElectricalEngineer(props: Props) {
                 <h2
                   className={clsx(
                     "font-bold ",
-                    props?.heading_font || props?.resume?.heading_font
+                    props?.heading_font || props?.resume?.heading_font,
                   )}
                 >
                   {props?.resume?.custom_section_two_name}
@@ -633,7 +633,7 @@ export default async function ElectricalEngineer(props: Props) {
                         <p
                           className={clsx(
                             "text-sm font-bold pt-2",
-                            props?.body_font || props?.resume?.body_font
+                            props?.body_font || props?.resume?.body_font,
                           )}
                         >
                           {userCertification?.name}
@@ -641,13 +641,13 @@ export default async function ElectricalEngineer(props: Props) {
                         <p
                           className={clsx(
                             "text-sm",
-                            props?.body_font || props?.resume?.body_font
+                            props?.body_font || props?.resume?.body_font,
                           )}
                         >
                           {userCertification?.location}
                         </p>
                       </li>
-                    )
+                    ),
                   )}
                 </ul>
               </div>

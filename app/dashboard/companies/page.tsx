@@ -1,3 +1,4 @@
+// app/dashboard/companies/page.tsx
 import {
   fetchCompaniesCount,
   fetchCompaniesPages,
@@ -15,45 +16,72 @@ import { auth } from "@/auth";
 import { notFound } from "next/navigation";
 import React, { Suspense } from "react";
 
-export default async function Page({
-  searchParams,
-}: {
-  searchParams?: {
-    query?: string;
-    page?: string;
-  };
-}) {
+type SearchParams = {
+  query?: string;
+  page?: string;
+};
+
+interface PageProps {
+  // Match Next's generated signature: searchParams may be a Promise or undefined
+  searchParams?: Promise<SearchParams>;
+}
+
+// Type guard to filter out null/undefined from arrays
+function notNull<T>(v: T | null | undefined): v is T {
+  return v != null;
+}
+
+export default async function Page({ searchParams }: PageProps) {
+  // Allow searchParams to be Promise or a plain object
+  const resolvedSearchParams = await searchParams;
+  const query = resolvedSearchParams?.query || "";
+  const currentPage = Number(resolvedSearchParams?.page) || 1;
+
   const session = await auth();
-  if (session?.user) {
-    session.user = {
-      name: session.user.name,
-      email: session.user.email,
-    };
+  if (!session?.user) {
+    return notFound();
   }
 
-  const user = await getUser(session?.user?.email!);
-  const companies = await fetchLatestCompaniesByUserId(user.id);
+  // Only keep needed fields
+  session.user = {
+    name: session.user.name,
+    email: session.user.email,
+  };
 
-  if (!user ?? !companies) {
-    notFound();
+  const user = await getUser(session.user.email!);
+  if (!user) return notFound();
+
+  // Fetch raw companies; these fetchers sometimes return arrays containing nulls
+  const companiesRaw = await fetchLatestCompaniesByUserId(user.id);
+
+  // Filter out nulls to produce a strict Companies type
+  const companies: Companies = (companiesRaw ?? []).filter(
+    notNull,
+  ) as Companies;
+
+  if (!companies || companies.length === 0) {
+    return notFound();
   }
 
-  const query = searchParams?.query || "";
-  const currentPage = Number(searchParams?.page) || 1;
-  const totalPages = await fetchCompaniesPages(query, user?.id);
-  const totalCount = await fetchCompaniesCount(query, user?.id);
+  const totalPages = await fetchCompaniesPages(query, user.id);
+  const totalCount = await fetchCompaniesCount(query, user.id);
 
-  const filteredCompanies: Companies = await fetchFilteredCompanies(
+  // filteredCompanies should already be typed as Companies from your API, but guard anyway
+  const filteredCompaniesRaw = await fetchFilteredCompanies(
     query,
     currentPage,
-    user?.id
+    user.id,
   );
+  const filteredCompanies: Companies = (filteredCompaniesRaw ?? []).filter(
+    notNull,
+  ) as Companies;
 
   return (
     <div className="h-full w-full px-2">
       <BackButton className="" href={"/dashboard/"}>
         Back
       </BackButton>
+
       <div className="flex flex-row justify-between">
         <div className="flex flex-col ">
           <Breadcrumbs />
@@ -73,6 +101,7 @@ export default async function Page({
           </div>
         </div>
       </div>
+
       <Suspense key={query + currentPage}>
         <CompaniesTable
           companies={companies}

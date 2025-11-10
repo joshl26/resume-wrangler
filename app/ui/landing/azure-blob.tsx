@@ -7,7 +7,7 @@ const AzureBlob = ({ className }: { className: StringOrUndefined }) => {
     <div
       className={clsx(
         className,
-        "absolute rounded-full bg-gradient-radial-azure blur-[131px] opacity-[0.6]"
+        "absolute rounded-full bg-gradient-radial-azure blur-[131px] opacity-[0.6]",
       )}
     />
   );

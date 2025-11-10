@@ -29,7 +29,7 @@ export async function POST(request: Request) {
       },
       {
         status: 200,
-      }
+      },
     );
   } catch (e: any) {
     if (e.code === "23505") {
@@ -40,7 +40,7 @@ export async function POST(request: Request) {
         {
           statusText: e.detail,
           status: 500,
-        }
+        },
       );
     } else {
       return NextResponse.json(
@@ -50,7 +50,7 @@ export async function POST(request: Request) {
         {
           statusText: "Unknown Error",
           status: 400,
-        }
+        },
       );
     }
   }
