@@ -339,7 +339,7 @@ export async function fetchFilteredEducation(
   query: string,
   currentPage: number,
   userId: string,
-):Promise<UserEducationExperiences> {
+): Promise<UserEducationExperiences> {
   noStore();
 
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
@@ -357,12 +357,13 @@ export async function fetchFilteredEducation(
         LIMIT '${ITEMS_PER_PAGE}' OFFSET '${offset}'
     `);
 
-// typed conversion
-return safeRows<UserEducationExperience>(applications);
-} catch (error) {
-  console.error("Database Error:", error);
-  return []; // typed empty array
-}}
+    // typed conversion
+    return safeRows<UserEducationExperience>(applications);
+  } catch (error) {
+    console.error("Database Error:", error);
+    return []; // typed empty array
+  }
+}
 
 export async function fetchEducationPages(query: string, userId: string) {
   noStore();
@@ -410,7 +411,7 @@ export async function fetchFilteredSkills(
   query: string,
   currentPage: number,
   userId: string,
-):Promise<UserSkills> {
+): Promise<UserSkills> {
   noStore();
 
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
@@ -432,7 +433,8 @@ export async function fetchFilteredSkills(
   } catch (error) {
     console.error("Database Error:", error);
     return []; // Return empty UserSkills array
-  }}
+  }
+}
 
 export async function fetchSkillsPages(query: string, userId: string) {
   noStore();
@@ -690,7 +692,9 @@ export async function fetchUserCustomSectionOnePages(
     return totalPages;
   } catch (error) {
     console.error("Database Error:", error);
-    throw new Error("Failed to fetch total number of custom section one pages.");
+    throw new Error(
+      "Failed to fetch total number of custom section one pages.",
+    );
   }
 }
 
@@ -774,7 +778,9 @@ export async function fetchUserCustomSectionTwoPages(
     return totalPages;
   } catch (error) {
     console.error("Database Error:", error);
-    throw new Error("Failed to fetch total number of custom section two pages.");
+    throw new Error(
+      "Failed to fetch total number of custom section two pages.",
+    );
   }
 }
 
@@ -824,9 +830,11 @@ export async function fetchLatestCompaniesByUserId(userId: string) {
     const query = `SELECT * FROM companies WHERE user_id = '${userId}'`;
     const data = await conn.query(query);
 
-    const userCompanies: Companies = safeRows<Company>(data).map((company: Company) => ({
-      ...company,
-    }));
+    const userCompanies: Companies = safeRows<Company>(data).map(
+      (company: Company) => ({
+        ...company,
+      }),
+    );
 
     return userCompanies;
   } catch (error: any) {
@@ -949,9 +957,11 @@ export async function fetchBodyFonts() {
     const query = `SELECT * FROM body_fonts ORDER BY name ASC`;
     const data = await conn.query(query);
 
-    const bodyFonts: BodyFonts = safeRows<BodyFont>(data).map((bodyFont: BodyFont) => ({
-      ...bodyFont,
-    }));
+    const bodyFonts: BodyFonts = safeRows<BodyFont>(data).map(
+      (bodyFont: BodyFont) => ({
+        ...bodyFont,
+      }),
+    );
 
     return bodyFonts;
   } catch (error: any) {
@@ -1078,11 +1088,12 @@ export async function fetchEducationByUserId(userId: string) {
     const query = `SELECT * FROM user_education WHERE user_id = '${userId}'`;
     const data = await conn.query(query);
 
-    const userEducationExperiences: UserEducationExperiences = safeRows<UserEducationExperience>(data).map(
-      (userEducationExperience: UserEducationExperience) => ({
-        ...userEducationExperience,
-      }),
-    );
+    const userEducationExperiences: UserEducationExperiences =
+      safeRows<UserEducationExperience>(data).map(
+        (userEducationExperience: UserEducationExperience) => ({
+          ...userEducationExperience,
+        }),
+      );
 
     return userEducationExperiences;
   } catch (error: any) {
@@ -1098,11 +1109,11 @@ export async function fetchOrganizationsByUserId(userId: string) {
     const query = `SELECT * FROM user_custom_section_one WHERE user_id = '${userId}'`;
     const data = await conn.query(query);
 
-    const userOrganizations: userOrganizations = safeRows<UserOrganization>(data).map(
-      (userOrganization: UserOrganization) => ({
-        ...userOrganization,
-      }),
-    );
+    const userOrganizations: userOrganizations = safeRows<UserOrganization>(
+      data,
+    ).map((userOrganization: UserOrganization) => ({
+      ...userOrganization,
+    }));
 
     return userOrganizations;
   } catch (error: any) {
@@ -1118,11 +1129,11 @@ export async function fetchCertificationsByUserId(userId: string) {
     const query = `SELECT * FROM user_custom_section_two WHERE user_id = '${userId}'`;
     const data = await conn.query(query);
 
-    const userCertifications: UserCertifications = safeRows<UserCertification>(data).map(
-      (userCertification: UserCertification) => ({
-        ...userCertification,
-      }),
-    );
+    const userCertifications: UserCertifications = safeRows<UserCertification>(
+      data,
+    ).map((userCertification: UserCertification) => ({
+      ...userCertification,
+    }));
 
     return userCertifications;
   } catch (error: any) {
@@ -1138,11 +1149,12 @@ export async function fetchWorkExperiencesByUserId(userId: string) {
     const query = `SELECT * FROM user_work_experience WHERE user_id = '${userId}'`;
     const data = await conn.query(query);
 
-    const userWorkExperiences: UserWorkExperiences = safeRows<UserWorkExperience>(data).map(
-      (userWorkExperience: UserWorkExperience) => ({
-        ...userWorkExperience,
-      }),
-    );
+    const userWorkExperiences: UserWorkExperiences =
+      safeRows<UserWorkExperience>(data).map(
+        (userWorkExperience: UserWorkExperience) => ({
+          ...userWorkExperience,
+        }),
+      );
 
     return userWorkExperiences;
   } catch (error: any) {
@@ -1158,11 +1170,12 @@ export async function fetchCoverExperiencesByUserId(userId: string) {
     const query = `SELECT * FROM cover_experiences WHERE user_id = '${userId}' ORDER BY title ASC`;
     const data = await conn.query(query);
 
-    const userCoverExperiences: UserCoverExperiences = safeRows<UserCoverExperience>(data).map(
-      (userCoverExperience: UserCoverExperience) => ({
-        ...userCoverExperience,
-      }),
-    );
+    const userCoverExperiences: UserCoverExperiences =
+      safeRows<UserCoverExperience>(data).map(
+        (userCoverExperience: UserCoverExperience) => ({
+          ...userCoverExperience,
+        }),
+      );
 
     return userCoverExperiences;
   } catch (error: any) {
@@ -1178,11 +1191,12 @@ export async function fetchCoverExperiencesByCoverLetterId(id: string) {
     const query = `SELECT * FROM cover_experience_lines WHERE cover_letter_id = '${id}'`;
     const data = await conn.query(query);
 
-    const userCoverExperiences: UserCoverExperienceLines = safeRows<UserCoverExperienceLine>(data).map(
-      (userCoverExperience: UserCoverExperienceLine) => ({
-        ...userCoverExperience,
-      }),
-    );
+    const userCoverExperiences: UserCoverExperienceLines =
+      safeRows<UserCoverExperienceLine>(data).map(
+        (userCoverExperience: UserCoverExperienceLine) => ({
+          ...userCoverExperience,
+        }),
+      );
 
     return userCoverExperiences;
   } catch (error: any) {
@@ -1299,11 +1313,12 @@ export async function fetchEducationExperiencesbyResumeID(id: string) {
     const query = `SELECT * FROM resume_lines r JOIN user_education u ON r.user_education_id = u.id WHERE r.resume_id = '${id}' ORDER BY position ASC`;
     const data = await conn.query(query);
 
-    const userEducationExperiences: UserEducationExperiences = safeRows<UserEducationExperience>(data).map(
-      (userEducationExperience: UserEducationExperience) => ({
-        ...userEducationExperience,
-      }),
-    );
+    const userEducationExperiences: UserEducationExperiences =
+      safeRows<UserEducationExperience>(data).map(
+        (userEducationExperience: UserEducationExperience) => ({
+          ...userEducationExperience,
+        }),
+      );
 
     return userEducationExperiences;
   } catch (error: any) {
@@ -1351,11 +1366,12 @@ export async function fetchWorkExperiencesbyResumeID(id: string) {
     const query = `SELECT * FROM resume_lines r JOIN user_work_experience u ON r.work_experience_id = u.id WHERE r.resume_id = '${id}' ORDER BY u.created_at DESC`;
     const data = await conn.query(query);
 
-    const userWorkExperiences: UserWorkExperiences = safeRows<UserWorkExperience>(data).map(
-      (userWorkExperience: UserWorkExperience) => ({
-        ...userWorkExperience,
-      }),
-    );
+    const userWorkExperiences: UserWorkExperiences =
+      safeRows<UserWorkExperience>(data).map(
+        (userWorkExperience: UserWorkExperience) => ({
+          ...userWorkExperience,
+        }),
+      );
 
     return userWorkExperiences;
   } catch (error: any) {
@@ -1371,9 +1387,11 @@ export async function fetchSkillsByResumeID(id: string) {
     const query = `SELECT * FROM resume_lines r JOIN user_skills u ON r.user_skills_id = u.id WHERE r.resume_id = '${id}' ORDER BY position ASC`;
     const data = await conn.query(query);
 
-    const userSkills: UserSkills = safeRows<UserSkill>(data).map((userSkill: UserSkill) => ({
-      ...userSkill,
-    }));
+    const userSkills: UserSkills = safeRows<UserSkill>(data).map(
+      (userSkill: UserSkill) => ({
+        ...userSkill,
+      }),
+    );
 
     return userSkills;
   } catch (error: any) {
@@ -1389,11 +1407,11 @@ export async function fetchCertificationsByResumeID(id: string) {
     const query = `SELECT * FROM resume_lines r JOIN user_custom_section_two u ON r.user_custom_section_two_id = u.id WHERE r.resume_id = '${id}' ORDER BY position ASC`;
     const data = await conn.query(query);
 
-    const userCertifications: UserCertifications = safeRows<UserCertification>(data).map(
-      (userCertification: UserCertification) => ({
-        ...userCertification,
-      }),
-    );
+    const userCertifications: UserCertifications = safeRows<UserCertification>(
+      data,
+    ).map((userCertification: UserCertification) => ({
+      ...userCertification,
+    }));
 
     return userCertifications;
   } catch (error: any) {
@@ -1409,11 +1427,11 @@ export async function fetchOrganizationsByResumeID(id: string) {
     const query = `SELECT * FROM resume_lines r JOIN user_custom_section_one u ON r.user_custom_section_one_id = u.id WHERE r.resume_id = '${id}' ORDER BY position ASC`;
     const data = await conn.query(query);
 
-    const userOrganizations: userOrganizations = safeRows<UserOrganization>(data).map(
-      (userOrganization: UserOrganization) => ({
-        ...userOrganization,
-      }),
-    );
+    const userOrganizations: userOrganizations = safeRows<UserOrganization>(
+      data,
+    ).map((userOrganization: UserOrganization) => ({
+      ...userOrganization,
+    }));
 
     return userOrganizations;
   } catch (error: any) {
@@ -1479,11 +1497,11 @@ export async function fetchCoverLettersByUserIDJoinApplications(
     const query = `SELECT * FROM applications a JOIN cover_letters c ON c.application_id = a.id WHERE c.user_id = '${userId}' ORDER BY c.id ASC`;
     const data = await conn.query(query);
 
-    const coverLetters: (CoverLetter & Application)[] = safeRows<CoverLetter & Application>(data).map(
-      (coverLetter: CoverLetter & Application) => ({
-        ...coverLetter,
-      }),
-    );
+    const coverLetters: (CoverLetter & Application)[] = safeRows<
+      CoverLetter & Application
+    >(data).map((coverLetter: CoverLetter & Application) => ({
+      ...coverLetter,
+    }));
 
     return coverLetters;
   } catch (error: any) {
@@ -1499,11 +1517,11 @@ export async function fetchResumesByUserIDJoinApplications(userId: string) {
     const query = `SELECT * FROM applications a JOIN resumes r ON r.application_id = a.id WHERE r.user_id = '${userId}' ORDER BY r.id ASC`;
     const data = await conn.query(query);
 
-    const resumes: (Resume & Application)[] = safeRows<Resume & Application>(data).map(
-      (resume: Resume & Application) => ({
-        ...resume,
-      }),
-    );
+    const resumes: (Resume & Application)[] = safeRows<Resume & Application>(
+      data,
+    ).map((resume: Resume & Application) => ({
+      ...resume,
+    }));
 
     return resumes;
   } catch (error: any) {

@@ -1,11 +1,19 @@
 // app/dashboard/(overview)/page.tsx (streaming-friendly)
-import React, { Suspense } from 'react';
-import { CardsSkeleton } from '@/app/ui/skeletons';
-import Dashboard from '@/app/ui/dashboard/dashboard';
-import { auth } from '@/auth';
-import BackButton from '@/ui/back-button';
-import { CardCountsSkeleton, ApplicationsTableSkeleton } from '@/app/ui/skeletons';
-import { Applications, Companies, CoverLetters, Resumes } from '@/app/lib/definitions';
+import React, { Suspense } from "react";
+import { CardsSkeleton } from "@/app/ui/skeletons";
+import Dashboard from "@/app/ui/dashboard/dashboard";
+import { auth } from "@/auth";
+import BackButton from "@/ui/back-button";
+import {
+  CardCountsSkeleton,
+  ApplicationsTableSkeleton,
+} from "@/app/ui/skeletons";
+import {
+  Applications,
+  Companies,
+  CoverLetters,
+  Resumes,
+} from "@/app/lib/definitions";
 
 export default async function Page() {
   const session = await auth();
@@ -36,7 +44,7 @@ export default async function Page() {
 
 // CardCounts — async server component that fetches counts in parallel
 async function CardCounts({ userEmail }: { userEmail: string }) {
-  const { getUser } = await import('@/app/lib/data');
+  const { getUser } = await import("@/app/lib/data");
   const user = await getUser(userEmail);
   if (!user) return null;
 
@@ -45,9 +53,15 @@ async function CardCounts({ userEmail }: { userEmail: string }) {
     closedApplicationsCount,
     pendingApplicationsCount,
   ] = await Promise.all([
-    (await import('@/app/lib/data')).fetchOpenApplicationsCountByUserId(user.id),
-    (await import('@/app/lib/data')).fetchClosedApplicationsCountByUserId(user.id),
-    (await import('@/app/lib/data')).fetchPendingApplicationsCountByUserId(user.id),
+    (await import("@/app/lib/data")).fetchOpenApplicationsCountByUserId(
+      user.id,
+    ),
+    (await import("@/app/lib/data")).fetchClosedApplicationsCountByUserId(
+      user.id,
+    ),
+    (await import("@/app/lib/data")).fetchPendingApplicationsCountByUserId(
+      user.id,
+    ),
   ]);
 
   return (
@@ -60,7 +74,6 @@ async function CardCounts({ userEmail }: { userEmail: string }) {
     />
   );
 }
-
 
 // server-side ApplicationsList (replace existing implementation)
 async function ApplicationsList({ userEmail }: { userEmail: string }) {

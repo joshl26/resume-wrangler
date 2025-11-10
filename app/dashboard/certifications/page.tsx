@@ -54,7 +54,9 @@ export default async function Page({ searchParams }: PageProps) {
 
   // assert/normalize certifications into the correct type
   const certifications: UserCertifications = Array.isArray(certificationsRaw)
-    ? (certificationsRaw.filter(notNull).filter(isUserCertification) as UserCertifications)
+    ? (certificationsRaw
+        .filter(notNull)
+        .filter(isUserCertification) as UserCertifications)
     : ([] as UserCertifications);
 
   if (!certifications || certifications.length === 0) {
@@ -72,7 +74,9 @@ export default async function Page({ searchParams }: PageProps) {
   );
 
   const filteredCertifications: UserCertifications = Array.isArray(filteredRaw)
-    ? (filteredRaw.filter(notNull).filter(isUserCertification) as UserCertifications)
+    ? (filteredRaw
+        .filter(notNull)
+        .filter(isUserCertification) as UserCertifications)
     : ([] as UserCertifications);
 
   return (

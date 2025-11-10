@@ -44,21 +44,22 @@ export default async function Page({ searchParams }: PageProps) {
   if (!user) return notFound();
 
   // Fetch all page data in parallel for better performance
-  const [workExperiencesRaw, totalPages, totalCount, filteredRaw] = await Promise.all([
-    fetchWorkExperiencesByUserId(user.id),
-    fetchWorkExperiencePages(query, user.id),
-    fetchWorkExperiencesCount(query, user.id),
-    fetchFilteredWorkExperiences(query, currentPage, user.id),
-  ]);
+  const [workExperiencesRaw, totalPages, totalCount, filteredRaw] =
+    await Promise.all([
+      fetchWorkExperiencesByUserId(user.id),
+      fetchWorkExperiencePages(query, user.id),
+      fetchWorkExperiencesCount(query, user.id),
+      fetchFilteredWorkExperiences(query, currentPage, user.id),
+    ]);
 
   // normalize and filter nulls
-  const workExperiences: UserWorkExperiences = ((workExperiencesRaw ?? []) as any[]).filter(
-    notNull,
-  ) as unknown as UserWorkExperiences;
+  const workExperiences: UserWorkExperiences = (
+    (workExperiencesRaw ?? []) as any[]
+  ).filter(notNull) as unknown as UserWorkExperiences;
 
-  const filteredWorkExperiences: UserWorkExperiences = ((filteredRaw ?? []) as any[]).filter(
-    notNull,
-  ) as unknown as UserWorkExperiences;
+  const filteredWorkExperiences: UserWorkExperiences = (
+    (filteredRaw ?? []) as any[]
+  ).filter(notNull) as unknown as UserWorkExperiences;
 
   return (
     <div className="h-full w-full px-2">
@@ -85,7 +86,12 @@ export default async function Page({ searchParams }: PageProps) {
         </div>
       </div>
 
-      <Suspense fallback={<div className="py-8 text-center">Loading work experiences…</div>} key={query + currentPage}>
+      <Suspense
+        fallback={
+          <div className="py-8 text-center">Loading work experiences…</div>
+        }
+        key={query + currentPage}
+      >
         <WorkExperience
           workExperiences={workExperiences}
           user={user}
