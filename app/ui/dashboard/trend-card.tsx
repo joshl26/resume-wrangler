@@ -1,12 +1,16 @@
 import Image from "next/image";
 import React from "react";
 import BarChart from "@/app/ui/charts/barchart";
+import ErrorBoundary from "../ErrorBoundary";
 
 const TrendCard = () => {
   return (
     <div className="tour-trend w-full h-[250px] m-auto bg-white rounded-lg tight-shadow">
       <h2 className="font-bold p-2">Demographics</h2>
-      <BarChart />
+      <ErrorBoundary>
+        <BarChart />
+      </ErrorBoundary>
+
       {/* <div className="flex flex-row justify-between">
         <h2 className="font-bold p-2">Trend</h2>
         <div className="relative h-auto w-[125px] m-4">

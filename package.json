@@ -3,10 +3,8 @@
   "private": false,
   "scripts": {
     "dev": "next dev --turbopack",
-    "dev:port": "cross-env PORT=3000 next dev --turbopack",
     "build": "next build",
-    "start": "cross-env PORT=3053 next start",
-    "start:prod": "next start",
+    "start": "next start",
     "seed": "node -r dotenv/config ./scripts/seed.js",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",

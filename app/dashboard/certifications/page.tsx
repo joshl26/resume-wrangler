@@ -1,4 +1,4 @@
-// app/.../page.tsx
+// app/dashboard/certifications/page.tsx
 import React, { Suspense } from "react";
 import {
   fetchCertificationsByUserId,
@@ -12,7 +12,7 @@ import Certifications from "@/app/ui/tables/certifications/certifications-table"
 import { auth } from "@/auth";
 import { notFound } from "next/navigation";
 import BackButton from "@/app/ui/back-button";
-import { UserCertifications } from "@/app/lib/definitions";
+import { UserCertifications, UserCertification } from "@/app/lib/definitions";
 import Search from "@/app/ui/search";
 import Breadcrumbs from "@/app/ui/Breadcrumbs";
 
@@ -22,8 +22,12 @@ type SearchParams = {
 };
 
 interface PageProps {
-  // match Next's generated signature: searchParams may be a Promise or undefined
   searchParams?: Promise<SearchParams>;
+}
+
+// runtime type guard for single certification (adjust as needed)
+function isUserCertification(v: any): v is UserCertification {
+  return v && typeof v === "object" && typeof v.id === "string";
 }
 
 // tiny type guard to filter null/undefined values
@@ -32,7 +36,6 @@ function notNull<T>(v: T | null | undefined): v is T {
 }
 
 export default async function Page({ searchParams }: PageProps) {
-  // unwrap searchParams whether it's a Promise or a plain object
   const resolvedSearchParams = await searchParams;
   const query = resolvedSearchParams?.query || "";
   const currentPage = Number(resolvedSearchParams?.page) || 1;
@@ -42,7 +45,6 @@ export default async function Page({ searchParams }: PageProps) {
     return notFound();
   }
 
-  // keep only required fields and fetch user
   session.user = { name: session.user.name, email: session.user.email };
   const user = await getUser(session.user.email!);
   if (!user) return notFound();
@@ -50,19 +52,28 @@ export default async function Page({ searchParams }: PageProps) {
   // fetch raw data
   const certificationsRaw = await fetchCertificationsByUserId(user.id);
 
-  // filter out any null/undefined elements (type-safe)
-  const certifications = (certificationsRaw ?? []).filter(notNull);
+  // assert/normalize certifications into the correct type
+  const certifications: UserCertifications = Array.isArray(certificationsRaw)
+    ? (certificationsRaw.filter(notNull).filter(isUserCertification) as UserCertifications)
+    : ([] as UserCertifications);
 
-  // guard for missing data
   if (!certifications || certifications.length === 0) {
     return notFound();
   }
 
-  // paging/count/filter data
   const totalPages = await fetchUserCustomSectionTwoPages(query, user.id);
   const totalCount = await fetchUserCustomSectionTwoCount(query, user.id);
-  const filteredCertifications: UserCertifications =
-    await fetchFilteredUserCustomSectionTwo(query, currentPage, user.id);
+
+  // normalized fetch + explicit cast + runtime sanity check
+  const filteredRaw = await fetchFilteredUserCustomSectionTwo(
+    query,
+    currentPage,
+    user.id,
+  );
+
+  const filteredCertifications: UserCertifications = Array.isArray(filteredRaw)
+    ? (filteredRaw.filter(notNull).filter(isUserCertification) as UserCertifications)
+    : ([] as UserCertifications);
 
   return (
     <div className="h-full w-full px-2">

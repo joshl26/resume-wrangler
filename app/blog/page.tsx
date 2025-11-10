@@ -1,18 +1,26 @@
+// app/blog/page.tsx (streaming-friendly)
 import Link from "next/link";
 import { Suspense } from "react";
-import ViewCounter from "./view-counter";
-import { getViewsCount } from "@/app/lib/blog/queries";
+import ViewCounter from "./view-counter"; // keep as client component
 import { getBlogPosts } from "@/app/lib/blog/blog";
-import BackButton from "../ui/back-button";
-import Landing from "../landing/page";
+import BackButton from "@/ui/back-button";
+import Landing from "@/app/landing/page";
+import { ViewsSkeleton } from "@/app/ui/skeletons";
 
 export const metadata = {
   title: "Blog",
   description: "Stay up to date with our newest features by reading our blog.",
 };
 
-export default function BlogPage() {
-  const allBlogs = getBlogPosts();
+export default async function BlogPage() {
+  // only fetch the list of posts here (fast)
+  const allBlogs = await getBlogPosts();
+
+  const sorted = allBlogs.sort((a, b) =>
+    new Date(a.metadata.publishedAt) > new Date(b.metadata.publishedAt)
+      ? -1
+      : 1,
+  );
 
   return (
     <Landing>
@@ -26,48 +34,46 @@ export default function BlogPage() {
               Back
             </BackButton>
           </div>
+
           <h1 className="text-black font-bold text-3xl mb-8 tracking-tighter">
             Resume Wrangler Blog
           </h1>
+
           <h2 className="text-black font-lite mb-8 text-[1.25rem] tracking-tighter">
             A great place to stay up to date with the latest feature releases,
             tutorials and news regarding the Resume Wrangler.
           </h2>
 
-          {allBlogs
-            .sort((a, b) => {
-              if (
-                new Date(a.metadata.publishedAt) >
-                new Date(b.metadata.publishedAt)
-              ) {
-                return -1;
-              }
-              return 1;
-            })
-            .map((post) => (
-              <Link
-                key={post.slug}
-                className="flex flex-col space-y-1 mb-4"
-                href={`/blog/${post.slug}`}
-              >
-                <div className="w-full flex flex-col">
-                  <p className="text-azure-radiance-800 font-medium tracking-tight">
-                    {post.metadata.title}
-                  </p>
-                  <Suspense fallback={<p className="h-6" />}>
-                    <Views slug={post.slug} />
-                  </Suspense>
-                </div>
-              </Link>
-            ))}
+          {sorted.map((post) => (
+            <Link
+              key={post.slug}
+              className="flex flex-col space-y-1 mb-4"
+              href={`/blog/${post.slug}`}
+            >
+              <div className="w-full flex flex-col">
+                <p className="text-azure-radiance-800 font-medium tracking-tight">
+                  {post.metadata.title}
+                </p>
+
+                {/* Stream view count per-post */}
+                <Suspense fallback={<ViewsSkeleton />}>
+                  {/* Views is an async server component (see below) that fetches only this post's views */}
+                  <Views slug={post.slug} />
+                </Suspense>
+              </div>
+            </Link>
+          ))}
         </section>
       </section>
     </Landing>
   );
 }
 
+// Views is an async server component that streams independently
 async function Views({ slug }: { slug: string }) {
+  // fetch views for this slug only; server fetch will stream when ready
+  const { getViewsCount } = await import("@/app/lib/blog/queries"); // lazy import OK
   const views = await getViewsCount();
-
+  // ViewCounter is a client component that can accept the server-provided count
   return <ViewCounter className="text-rose-700" allViews={views} slug={slug} />;
 }

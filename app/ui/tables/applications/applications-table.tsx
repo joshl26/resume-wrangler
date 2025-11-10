@@ -34,6 +34,7 @@ export default function ApplicationsTable({
   currentPage,
   totalCount,
   sort,
+  serverApplications,
 }: {
   user: User;
   resumes: Resumes;
@@ -44,14 +45,25 @@ export default function ApplicationsTable({
   currentPage: number;
   totalCount: number;
   sort: string;
+  // Optional server-provided initial data for streaming/server-side rendering
+  serverApplications?: Applications;
 }) {
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState<Record<string, boolean>>({});
+  // Use serverApplications as the initial state if provided to avoid extra client fetch
   const [filteredApplications, setFilteredApplications] =
-    useState<Applications>([]);
+    useState<Applications>(serverApplications ?? []);
 
   useEffect(() => {
     let mounted = true;
+
+    // If serverApplications was provided (including empty array), sync state and skip client-side fetch
+    if (serverApplications !== undefined) {
+      if (mounted) setFilteredApplications(serverApplications ?? []);
+      return () => {
+        mounted = false;
+      };
+    }
 
     (async () => {
       try {
@@ -71,7 +83,7 @@ export default function ApplicationsTable({
     return () => {
       mounted = false;
     };
-  }, [query, currentPage, user?.id, sort]);
+  }, [query, currentPage, user?.id, sort, serverApplications]);
 
   const handleSubmit = async (
     actionFn: (formData: FormData) => Promise<unknown>,

@@ -39,29 +39,26 @@ export default async function Page({ searchParams }: PageProps) {
   const session = await auth();
   if (!session?.user) return notFound();
 
-  // keep only necessary fields
-  session.user = { name: session.user.name, email: session.user.email };
-
-  const user = await getUser(session.user.email!);
+  const userEmail = session.user.email!;
+  const user = await getUser(userEmail);
   if (!user) return notFound();
 
-  // fetch work experiences and filter nulls
-  const workExperiencesRaw = await fetchWorkExperiencesByUserId(user.id);
-  const workExperiences = (workExperiencesRaw ?? []).filter(notNull);
+  // Fetch all page data in parallel for better performance
+  const [workExperiencesRaw, totalPages, totalCount, filteredRaw] = await Promise.all([
+    fetchWorkExperiencesByUserId(user.id),
+    fetchWorkExperiencePages(query, user.id),
+    fetchWorkExperiencesCount(query, user.id),
+    fetchFilteredWorkExperiences(query, currentPage, user.id),
+  ]);
 
-  if (!workExperiences) return notFound();
+  // normalize and filter nulls
+  const workExperiences: UserWorkExperiences = ((workExperiencesRaw ?? []) as any[]).filter(
+    notNull,
+  ) as unknown as UserWorkExperiences;
 
-  const totalPages = await fetchWorkExperiencePages(query, user.id);
-  const totalCount = await fetchWorkExperiencesCount(query, user.id);
-
-  const filteredRaw = await fetchFilteredWorkExperiences(
-    query,
-    currentPage,
-    user.id,
-  );
-  const filteredWorkExperiences: UserWorkExperiences = (
-    filteredRaw ?? []
-  ).filter(notNull) as unknown as UserWorkExperiences;
+  const filteredWorkExperiences: UserWorkExperiences = ((filteredRaw ?? []) as any[]).filter(
+    notNull,
+  ) as unknown as UserWorkExperiences;
 
   return (
     <div className="h-full w-full px-2">
@@ -87,7 +84,8 @@ export default async function Page({ searchParams }: PageProps) {
           </div>
         </div>
       </div>
-      <Suspense key={query + currentPage}>
+
+      <Suspense fallback={<div className="py-8 text-center">Loading work experiences…</div>} key={query + currentPage}>
         <WorkExperience
           workExperiences={workExperiences}
           user={user}

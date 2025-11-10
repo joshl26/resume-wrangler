@@ -1,8 +1,10 @@
+// app/dashboard/applications/error.tsx
 "use client";
 
-import { useEffect } from "react";
+import React, { useEffect } from "react";
+import ErrorFallback from "@/ui/ErrorFallback";
 
-export default function Error({
+export default function RouteError({
   error,
   reset,
 }: {
@@ -10,22 +12,10 @@ export default function Error({
   reset: () => void;
 }) {
   useEffect(() => {
-    //TODO Optionally log the error to an error reporting service
-    console.error(error);
+    // Route-level logging; ErrorFallback can also log if desired.
+    console.error("[RouteError] /dashboard/applications", error);
   }, [error]);
 
-  return (
-    <main className="flex h-full flex-col items-center justify-center">
-      <h2 className="text-center">Something went wrong!</h2>
-      <button
-        className="mt-4 rounded-md bg-blue-500 px-4 py-2 text-sm text-white transition-colors hover:bg-blue-400"
-        onClick={
-          // Attempt to recover by trying to re-render the applications route
-          () => reset()
-        }
-      >
-        Try again
-      </button>
-    </main>
-  );
+  // Delegate UI + reset actions to the shared fallback
+  return <ErrorFallback error={error} reset={reset} />;
 }
