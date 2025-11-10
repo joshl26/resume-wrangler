@@ -1,5 +1,3 @@
-"use client";
-
 import { Applications, User } from "@/app/lib/definitions";
 
 import React from "react";
@@ -302,7 +300,7 @@ const Dashboard = ({
           closedApplicationsCount={closedApplicationsCount}
           pendingApplicationsCount={pendingApplicationsCount}
         />
-        <ResponsesCard />
+        {/* <ResponsesCard /> */}
       </div>
       <div className="flex flex-row gap-4 px-4 pt-4">
         <ApplicationsCard applications={applications} />

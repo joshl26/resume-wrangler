@@ -56,11 +56,11 @@ export default function RegisterUser() {
   }, [usernameValidated, emailValidated, passwordValidated]);
 
   const usernameOnChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    var usernameInput = e.target.value;
+    const usernameInput = e.target.value;
 
     setUsername(usernameInput);
 
-    var UserNameRegex = new RegExp(usernameRegex);
+    const UserNameRegex = new RegExp(usernameRegex);
 
     if (UserNameRegex.test(usernameInput)) {
       setUsernameValidated(true);
@@ -68,7 +68,7 @@ export default function RegisterUser() {
       setUsernameValidated(false);
     }
 
-    var SixCharactersRegex = new RegExp(atLeastSixCharactersRegex);
+    const SixCharactersRegex = new RegExp(atLeastSixCharactersRegex);
 
     if (SixCharactersRegex.test(usernameInput)) {
       setSixCharacters(true);
@@ -76,7 +76,7 @@ export default function RegisterUser() {
       setSixCharacters(false);
     }
 
-    var OnlyLettersAndNumbersRegex = new RegExp(lettersAndNumbersRegex);
+    const OnlyLettersAndNumbersRegex = new RegExp(lettersAndNumbersRegex);
 
     if (OnlyLettersAndNumbersRegex.test(usernameInput)) {
       setOnlyLettersAndNumbers(true);
@@ -86,11 +86,11 @@ export default function RegisterUser() {
   };
 
   const emailOnChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    var emailInput = e.target.value;
+    const emailInput = e.target.value;
 
     setEmail(emailInput);
 
-    var re = new RegExp(emailRegex);
+    const re = new RegExp(emailRegex);
     if (re.test(emailInput)) {
       setEmailValidated(true);
     } else {
@@ -99,18 +99,20 @@ export default function RegisterUser() {
   };
 
   const passwordOnChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    var passwordInput = e.target.value;
+    const passwordInput = e.target.value;
 
     setPassword(passwordInput);
 
-    var re = new RegExp(passwordRegex);
+    const re = new RegExp(passwordRegex);
     if (re.test(passwordInput)) {
       setPasswordValidated(true);
     } else {
       setPasswordValidated(false);
     }
 
-    var OneUpperCaseEnglishRegex = new RegExp(atLeastOneUpperCaseEnglishRegex);
+    const OneUpperCaseEnglishRegex = new RegExp(
+      atLeastOneUpperCaseEnglishRegex,
+    );
 
     if (OneUpperCaseEnglishRegex.test(passwordInput)) {
       setOneUpperCaseEnglish(true);
@@ -118,7 +120,9 @@ export default function RegisterUser() {
       setOneUpperCaseEnglish(false);
     }
 
-    var OneLowerCaseEnglishRegex = new RegExp(atLeastOneLowerCaseEnglishRegex);
+    const OneLowerCaseEnglishRegex = new RegExp(
+      atLeastOneLowerCaseEnglishRegex,
+    );
 
     if (OneLowerCaseEnglishRegex.test(passwordInput)) {
       setOneLowerCaseEnglish(true);
@@ -126,7 +130,7 @@ export default function RegisterUser() {
       setOneLowerCaseEnglish(false);
     }
 
-    var OneNumberRegex = new RegExp(atLeastOneNumberZeroToNineRegex);
+    const OneNumberRegex = new RegExp(atLeastOneNumberZeroToNineRegex);
 
     if (OneNumberRegex.test(passwordInput)) {
       setOneNumber(true);
@@ -134,7 +138,7 @@ export default function RegisterUser() {
       setOneNumber(false);
     }
 
-    var OneSpecialCharRegex = new RegExp(atLeastOneSpecialCharacterRegex);
+    const OneSpecialCharRegex = new RegExp(atLeastOneSpecialCharacterRegex);
 
     if (OneSpecialCharRegex.test(passwordInput)) {
       setOneSpecialChar(true);
@@ -142,7 +146,7 @@ export default function RegisterUser() {
       setOneSpecialChar(false);
     }
 
-    var SixCharactersRegex = new RegExp(atLeastSixCharactersRegex);
+    const SixCharactersRegex = new RegExp(atLeastSixCharactersRegex);
 
     if (SixCharactersRegex.test(passwordInput)) {
       setSixCharacters2(true);
@@ -150,7 +154,7 @@ export default function RegisterUser() {
       setSixCharacters2(false);
     }
 
-    var NoWhiteSpaceRegex = new RegExp(noWhiteSpaceRegex);
+    const NoWhiteSpaceRegex = new RegExp(noWhiteSpaceRegex);
 
     if (NoWhiteSpaceRegex.test(passwordInput)) {
       setNoWhiteSpace(true);

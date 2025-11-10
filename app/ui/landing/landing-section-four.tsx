@@ -16,14 +16,14 @@ const LandingFour = () => {
           </h2>
         </div>
       </div>
-      <div className="flex flex-row justify-center max-w-screen-xl text-center m-auto w-full pt-20">
+      <div className="flex flex-row justify-center max-w-(--breakpoint-xl) text-center m-auto w-full pt-20">
         <div className="flex flex-col">
           <h2 className="text-white font-medium text-[3rem] p-2">
             We have all the tools you need to make it happen!
           </h2>
         </div>
       </div>
-      <div className="flex flex-row flex-wrap max-w-screen-xl items-center m-auto justify-center  gap-10 pt-32">
+      <div className="flex flex-row flex-wrap max-w-(--breakpoint-xl) items-center m-auto justify-center  gap-10 pt-32">
         <div className="flex flex-col">
           <div className="h-[300px] w-[300px]  p-6">
             <Graph className="w-[200px] h-auto m-auto" alt="" />

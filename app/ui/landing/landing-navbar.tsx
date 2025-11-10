@@ -10,8 +10,8 @@ const LandingNavBar = () => {
 
   return (
     <nav className=" bg-amber-50 flex fixed opacity-100 t-0 w-screen items-center justify-between flex-wrap p-2 z-40">
-      <div className="max-w-screen-xl w-full flex flex-row items-center justify-between m-auto">
-        <div className="flex items-center flex-shrink-0 mr-6 ">
+      <div className="max-w-(--breakpoint-xl) w-full flex flex-row items-center justify-between m-auto">
+        <div className="flex items-center shrink-0 mr-6 ">
           <Link aria-label="home" href="/" className="w-[50px] h-[50px]">
             <Image
               className="rounded"
@@ -22,8 +22,8 @@ const LandingNavBar = () => {
             />
           </Link>
         </div>
-        <div className="w-full hidden flex-grow lg:flex lg:items-center lg:w-auto md:visible">
-          <div className="text-sm lg:flex-grow">
+        <div className="w-full hidden grow lg:flex lg:items-center lg:w-auto md:visible">
+          <div className="text-sm lg:grow">
             <Link
               aria-label="resume templates"
               href="/resume-templates"
@@ -85,7 +85,7 @@ const LandingNavBar = () => {
 
       {showMenu && (
         <div className="w-full block lg:hidden p-2 mb-2">
-          <div className="text-sm lg:flex-grow">
+          <div className="text-sm lg:grow">
             <Link
               aria-label="resume templates"
               href="/resume-templates"

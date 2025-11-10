@@ -15,27 +15,27 @@ const LandingTwo = () => {
         </h2>
       </div>
       <div className="flex flex-row justify-center pt-2">
-        <span className="text-white font-bold text-[2.5rem] max-w-screen-xl text-center bg-gradient-harvest text-transparent bg-clip-text px-4">
+        <span className="text-white font-bold text-[2.5rem] max-w-(--breakpoint-xl) text-center bg-gradient-harvest text-transparent bg-clip-text px-4">
           Most people spend a large chunk of their life at work… <br></br>
           Choose a company AND a career you’ll love!
         </span>
       </div>
       <div className="flex flex-row justify-center pt-16">
-        <h2 className="font-medium text-center text-white max-w-screen-lg text-[1.25rem] px-6">
+        <h2 className="font-medium text-center text-white max-w-(--breakpoint-lg) text-[1.25rem] px-6">
           Setting us apart from other custom resume generators is our
           understanding that applicants deserve to find their dream company, not
           just their dream role.
         </h2>
       </div>
       <div className="flex flex-row justify-center pt-16">
-        <h2 className="font-medium text-center text-white max-w-screen-lg text-[1.25rem] px-6">
+        <h2 className="font-medium text-center text-white max-w-(--breakpoint-lg) text-[1.25rem] px-6">
           We used cutting edge technology and artifical intelligence to design
           this app. All the while keeping in mind that simplicity is best. With
           this in mind I think you will apppreciate the application we have
           developed.
         </h2>
       </div>
-      <div className="flex flex-row flex-wrap max-w-screen-xl items-center m-auto justify-center  gap-10 pt-32">
+      <div className="flex flex-row flex-wrap max-w-(--breakpoint-xl) items-center m-auto justify-center  gap-10 pt-32">
         <div className="flex flex-col h-[100px] p-3 md:mb-12">
           <Indeed className="w-full h-full" width={100} height={100} alt="" />
         </div>

@@ -6,7 +6,7 @@ import Link from "next/link";
 const SigninFooter = () => {
   return (
     <footer className="shadow bg-azure-radiance-900 ">
-      <div className="w-full max-w-screen-xl mx-auto p-4 md:py-8">
+      <div className="w-full max-w-(--breakpoint-xl) mx-auto p-4 md:py-8">
         <div className="sm:flex sm:items-center sm:justify-between">
           <a
             href="#"
@@ -46,7 +46,7 @@ const SigninFooter = () => {
       </div>
     </footer>
     // <footer className="bg-azure-radiance-900 w-screen h-[20vh]">
-    //   <div className="flex flex-row max-w-screen-xl m-auto h-full text-white">
+    //   <div className="flex flex-row max-w-(--breakpoint-xl) m-auto h-full text-white">
     //     <div className="flex flex-col w-1/3 m-auto ">
     //       <div className="flex flex-row flex-wrap py-1">
     //         <div className="flex flex-col w-[50px] h-[50px] m-auto">

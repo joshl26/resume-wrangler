@@ -60,7 +60,7 @@ export default async function ModernV2(props: Props) {
         <div
           className={clsx(
             `border-${props.highlightColor || props?.resume?.highlightColor}`,
-            "flex flex-row py-1 px-8 border-[2px] m-auto w-auto text-[40px] font-bold bg-white",
+            "flex flex-row py-1 px-8 border-2 m-auto w-auto text-[40px] font-bold bg-white",
           )}
         >
           <h1
@@ -305,7 +305,7 @@ export default async function ModernV2(props: Props) {
                         >
                           <div
                             className={clsx(
-                              "progress-bar rounded-[1rem]",
+                              "progress-bar rounded-2xl",
                               props?.color || props?.resume?.color,
                             )}
                             style={{
@@ -323,7 +323,7 @@ export default async function ModernV2(props: Props) {
                   {props?.skillResumeLines?.map((userSkill: UserSkill) => (
                     <li
                       className={clsx(
-                        "flex flex-col px-2 rounded py-[2px] border-[1px] text-[black]",
+                        "flex flex-col px-2 rounded py-[2px] border text-[black]",
                         `border-${props?.highlightColor || props?.resume?.highlightColor}`,
                       )}
                       key={userSkill?.id}

@@ -29,7 +29,7 @@ const LandingThree = () => {
           Our software is extremely easy to use.
         </h2>
       </div>
-      <div className="flex flex-row gap-6 flex-wrap max-w-screen-xl m-auto justify-between pt-8 relative">
+      <div className="flex flex-row gap-6 flex-wrap max-w-(--breakpoint-xl) m-auto justify-between pt-8 relative">
         <div className="flex flex-col m-auto max-w-[300px]">
           <h2 className="font-medium text-center text-[3rem]">1</h2>
           <Lottie
@@ -67,7 +67,7 @@ const LandingThree = () => {
           </p>
         </div>
       </div>
-      <div className="flex flex-row gap-6 flex-wrap max-w-screen-xl m-auto justify-center pt-32 relative">
+      <div className="flex flex-row gap-6 flex-wrap max-w-(--breakpoint-xl) m-auto justify-center pt-32 relative">
         <Link
           href="/register"
           className="rounded-full btn btn-amber bg-amber-500 border-none px-6 py-3 font-medium "

@@ -10,8 +10,8 @@ const SigninNavBar = () => {
 
   return (
     <nav className=" bg-amber-50 relative flex opacity-100 t-0 items-center justify-between flex-wrap p-2 z-40">
-      <div className="max-w-screen-xl w-full h-auto flex flex-row items-center justify-between m-auto">
-        <div className="flex items-center flex-shrink-0 mr-6 ">
+      <div className="max-w-(--breakpoint-xl) w-full h-auto flex flex-row items-center justify-between m-auto">
+        <div className="flex items-center shrink-0 mr-6 ">
           <div className="w-[50px] h-[50px]">
             <Image
               className="rounded"
@@ -41,7 +41,7 @@ const SigninNavBar = () => {
 
       {showMenu && (
         <div className="w-full block lg:hidden p-2 mb-2">
-          <div className="text-sm lg:flex-grow">
+          <div className="text-sm lg:grow">
             <Link
               href="/resume-templates"
               className="block mt-4 lg:inline-block lg:mt-0  hover:text-rose-400 mr-4"

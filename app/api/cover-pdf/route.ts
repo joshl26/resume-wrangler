@@ -1,4 +1,6 @@
 // app/api/cover-pdf/route.ts
+export const runtime = "nodejs";
+
 import { NextRequest, NextResponse } from "next/server";
 import chrome from "@sparticuz/chromium-min";
 import puppeteer from "puppeteer-core";
@@ -41,8 +43,8 @@ export async function GET(req: NextRequest) {
   try {
     const isAws = Boolean(process.env.AWS_REGION);
 
-    const options: PuppeteerNamespace.LaunchOptions &
-      PuppeteerNamespace.BrowserLaunchArgumentOptions = isAws
+    // Use only PuppeteerNamespace.LaunchOptions (BrowserLaunchArgumentOptions is not present in some puppeteer-core versions)
+    const options: PuppeteerNamespace.LaunchOptions = isAws
       ? {
           args: chrome.args,
           executablePath: await chrome.executablePath(
@@ -89,8 +91,9 @@ export async function GET(req: NextRequest) {
             "--use-gl=swiftshader",
             "--use-mock-keychain",
           ],
-          // Adjust local path if not on Windows
+          // prefer CHROME_PATH from env; fallback to common Windows path
           executablePath:
+            process.env.CHROME_PATH ??
             "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
         };
 
@@ -100,9 +103,7 @@ export async function GET(req: NextRequest) {
     const baseUrl =
       process.env.DEPLOYMENT_URL ??
       `http://localhost:${process.env.PORT ?? 3000}`;
-    const targetUrl = `${baseUrl}/cover-letter/${encodeURIComponent(
-      coverLetterId,
-    )}/${encodeURIComponent(userEmail)}`;
+    const targetUrl = `${baseUrl}/cover-letter/${encodeURIComponent(coverLetterId)}/${encodeURIComponent(userEmail)}`;
 
     await page.goto(targetUrl, { waitUntil: "networkidle0" });
 
@@ -120,14 +121,14 @@ export async function GET(req: NextRequest) {
       printBackground: true,
     });
 
-    // close browser before building Response
+    // close browser before building response
     await browser.close();
     browser = null;
 
     // Copy buffer into a fresh Uint8Array to guarantee an ArrayBuffer-backed view
     const original = buffer as Uint8Array;
-    const copy = Uint8Array.from(original); // new Uint8Array backed by ArrayBuffer
-    const arrayBuffer = copy.buffer; // this is a plain ArrayBuffer (not SharedArrayBuffer)
+    const copy = Uint8Array.from(original);
+    const arrayBuffer = copy.buffer;
 
     return new Response(arrayBuffer, {
       headers: {

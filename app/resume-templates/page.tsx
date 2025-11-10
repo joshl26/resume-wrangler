@@ -9,7 +9,7 @@ export const metadata = {
 };
 
 async function Page() {
-  let resumeTemplates = await fetchResumeTemplates();
+  const resumeTemplates = await fetchResumeTemplates();
 
   return (
     <Landing>

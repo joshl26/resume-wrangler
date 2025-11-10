@@ -6,10 +6,10 @@ import React from "react";
 import { LiveCode } from "./sandpack";
 
 function Table({ data }: { data: any }) {
-  let headers = data.headers.map((header: any, index: any) => (
+  const headers = data.headers.map((header: any, index: any) => (
     <th key={index}>{header}</th>
   ));
-  let rows = data.rows.map((row: any, index: any) => (
+  const rows = data.rows.map((row: any, index: any) => (
     <tr key={index}>
       {row.map((cell: any, cellIndex: any) => (
         <td key={cellIndex}>{cell}</td>
@@ -28,7 +28,7 @@ function Table({ data }: { data: any }) {
 }
 
 function CustomLink(props: any) {
-  let href = props.href;
+  const href = props.href;
 
   if (href.startsWith("/")) {
     return (
@@ -113,7 +113,7 @@ function ConsCard({ title, cons }: { title: any; cons: any }) {
 }
 
 function Code({ children, ...props }: { children: any }) {
-  let codeHTML = highlight(children);
+  const codeHTML = highlight(children);
   return <code dangerouslySetInnerHTML={{ __html: codeHTML }} {...props} />;
 }
 
@@ -129,9 +129,8 @@ function slugify(str: any) {
 }
 
 function createHeading(level: any) {
-  // eslint-disable-next-line react/display-name
   return ({ children }: { children: any }) => {
-    let slug = slugify(children);
+    const slug = slugify(children);
     return React.createElement(
       `h${level}`,
       { id: slug },
@@ -147,7 +146,7 @@ function createHeading(level: any) {
   };
 }
 
-let components = {
+const components = {
   h1: createHeading(1),
   h2: createHeading(2),
   h3: createHeading(3),

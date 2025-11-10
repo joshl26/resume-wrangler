@@ -20,13 +20,14 @@ const nextConfig = {
 
   // Experimental features
   experimental: {
-    reactCompiler: true, // Enables automatic memoization
-    optimizePackageImports: [
-      "@heroicons/react",
-      "@fortawesome/react-fontawesome",
-      "lucide-react",
-    ],
+    // optimizePackageImports: [
+    //   "@heroicons/react",
+    //   "@fortawesome/react-fontawesome",
+    //   "lucide-react",
+    // ],
   },
+
+  reactCompiler: true, // Enables automatic memoization
 
   // Image Optimization Settings
   images: {

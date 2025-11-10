@@ -1,3 +1,5 @@
+export const runtime = "nodejs";
+
 // app/api/pdf/route.ts
 import { NextRequest, NextResponse } from "next/server";
 import chrome from "@sparticuz/chromium-min";
@@ -31,8 +33,7 @@ export async function GET(req: NextRequest) {
   try {
     const isAws = Boolean(process.env.AWS_REGION);
 
-    const options: PuppeteerNamespace.LaunchOptions &
-      PuppeteerNamespace.BrowserLaunchArgumentOptions = isAws
+    const options: PuppeteerNamespace.LaunchOptions = isAws
       ? {
           args: chrome.args,
           executablePath: await chrome.executablePath(
@@ -80,6 +81,7 @@ export async function GET(req: NextRequest) {
             "--use-mock-keychain",
           ],
           executablePath:
+            process.env.CHROME_PATH ??
             "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
         };
 

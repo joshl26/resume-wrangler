@@ -1060,15 +1060,13 @@ export async function fetchCoverLetterByIdAndUserId(id: string, user: User) {
   noStore();
 
   try {
-    let query: string;
-
     // if (user.access_level === "admin") {
     //   query = `SELECT * FROM resumes WHERE id = '${id}'`;
     // } else {
     //   query = `SELECT * FROM resumes WHERE id = '${id}' AND user_id = '${user.id}'`;
     // }
 
-    query = `SELECT * FROM cover_letters WHERE id = '${id}' AND user_id = '${user.id}'`;
+    const query = `SELECT * FROM cover_letters WHERE id = '${id}' AND user_id = '${user.id}'`;
 
     const data = await conn.query(query);
 

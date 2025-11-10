@@ -5,7 +5,7 @@ import Link from "next/link";
 const LandingFooter = () => {
   return (
     <footer className="shadow bg-azure-radiance-900 ">
-      <div className="w-full max-w-screen-xl mx-auto p-4 md:py-8">
+      <div className="w-full max-w-(--breakpoint-xl) mx-auto p-4 md:py-8">
         <div className="sm:flex sm:items-center sm:justify-between">
           <div className="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
             <Logo alt="" width={100} height={100} />

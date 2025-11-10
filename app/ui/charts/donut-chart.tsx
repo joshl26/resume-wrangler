@@ -8,16 +8,20 @@ function DonutChart({
   closedApplicationsCount,
   pendingApplicationsCount,
 }: {
-  openApplicationsCount: any;
-  closedApplicationsCount: any;
-  pendingApplicationsCount: any;
+  openApplicationsCount: number;
+  closedApplicationsCount: number;
+  pendingApplicationsCount: number;
 }) {
   useEffect(() => {
+    // 1. Declare chart var in scope accessible to cleanup
+    let myChart: Chart | undefined;
+
     const canvas3 = document?.getElementById("myChart4");
     const ctx = (canvas3 as HTMLCanvasElement)?.getContext("2d");
 
     if (ctx) {
-      var myChart = new Chart(ctx, {
+      // 2. Assign to the outer var
+      myChart = new Chart(ctx, {
         type: "doughnut",
         data: {
           labels: ["Open", "Pending", "Closed"],
@@ -34,7 +38,7 @@ function DonutChart({
                 "rgb(255, 99, 132)",
               ],
               backgroundColor: [
-                "rgb(75, 192, 192 )",
+                "rgb(75, 192, 192)", // Fixed extra space
                 "rgb(255, 205, 86)",
                 "rgb(255, 99, 132)",
               ],
@@ -43,27 +47,25 @@ function DonutChart({
           ],
         },
         options: {
-          scales: {
-            xAxes: {
-              display: false,
-            },
-
-            yAxes: {
-              display: false,
-            },
-          },
+          // Doughnut charts don't use scales - removed
+          responsive: true,
+          maintainAspectRatio: false,
         },
       });
     }
 
+    // 3. Cleanup references the outer var
     return () => {
-      myChart.destroy();
+      if (myChart) {
+        myChart.destroy();
+      }
     };
   }, [
     openApplicationsCount,
     pendingApplicationsCount,
     closedApplicationsCount,
   ]);
+
   return (
     <div className="absolute px-14 t-0 w-[300px]">
       <canvas id="myChart4"></canvas>

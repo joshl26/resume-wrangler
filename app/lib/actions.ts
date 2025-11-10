@@ -44,736 +44,346 @@ const CreateNewUserSchema = z.object({
 
 const InvoiceSchema = z.object({
   id: z.string(),
-  customerId: z.string({
-    invalid_type_error: "Please select a customer.",
-  }),
+  customerId: z.string().min(1, "Please select a customer."),
   amount: z.coerce
     .number()
     .gt(0, { message: "Please enter an amount greater than $0." }),
-  status: z.enum(["pending", "paid"], {
-    invalid_type_error: "Please select an invoice status.",
-  }),
+  // Use string-based enum validation to preserve custom message behavior
+  status: z
+    .string()
+    .min(1, "Please select an invoice status.")
+    .refine((v) => v === "pending" || v === "paid", {
+      message: "Please select an invoice status.",
+    }),
   date: z.string(),
 });
 
 const UserSchema = z.object({
   id: z.string(),
-  name: z.string({
-    invalid_type_error: "Please select a username.",
-  }),
-  email: z.string({
-    invalid_type_error: "Please enter a valid email address.",
-  }),
-  first_name: z.string({
-    invalid_type_error: "Please enter a valid first_name.",
-  }),
-  last_name: z.string({
-    invalid_type_error: "Please enter a valid last_name.",
-  }),
-  address_line_one: z.string({
-    invalid_type_error: "Please enter a valid address_line_one.",
-  }),
-  address_line_two: z.string({
-    invalid_type_error: "Please enter a valid address_line_two.",
-  }),
-  address_line_three: z.string({
-    invalid_type_error: "Please enter a valid address_line_three.",
-  }),
-  phone: z.string({
-    invalid_type_error: "Please enter a valid phone number.",
-  }),
-  website: z.string({
-    invalid_type_error: "Please enter a valid website.",
-  }),
-  resume_id: z.string({
-    invalid_type_error: "Please enter a valid website.",
-  }),
+  name: z.string().min(1, "Please select a username."),
+  email: z.string().min(1, "Please enter a valid email address."),
+  first_name: z.string().min(1, "Please enter a valid first_name."),
+  last_name: z.string().min(1, "Please enter a valid last_name."),
+  address_line_one: z.string().min(1, "Please enter a valid address_line_one."),
+  address_line_two: z.string().min(1, "Please enter a valid address_line_two."),
+  address_line_three: z
+    .string()
+    .min(1, "Please enter a valid address_line_three."),
+  phone: z.string().min(1, "Please enter a valid phone number."),
+  website: z.string().min(1, "Please enter a valid website."),
+  resume_id: z.string().min(1, "Please enter a valid website."),
 });
 
 const UserSocialsSchema = z.object({
   id: z.string(),
-  linked_in: z.string({
-    invalid_type_error: "Please enter a valid linkedin in address",
-  }),
-  twitter: z.string({
-    invalid_type_error: "Please enter a valid twitter in address",
-  }),
-  facebook: z.string({
-    invalid_type_error: "Please enter a valid facebook in address",
-  }),
-  instagram: z.string({
-    invalid_type_error: "Please enter a valid instagram in address",
-  }),
-  show_socials: z.string({
-    invalid_type_error: "Please enter a valid show_socials in address",
-  }),
-  github: z.string({
-    invalid_type_error: "Please enter a valid github in address",
-  }),
-  resume_id: z.string({
-    invalid_type_error: "Please enter a valid github in address",
-  }),
+  linked_in: z.string().min(1, "Please enter a valid linkedin in address"),
+  twitter: z.string().min(1, "Please enter a valid twitter in address"),
+  facebook: z.string().min(1, "Please enter a valid facebook in address"),
+  instagram: z.string().min(1, "Please enter a valid instagram in address"),
+  show_socials: z
+    .string()
+    .min(1, "Please enter a valid show_socials in address"),
+  github: z.string().min(1, "Please enter a valid github in address"),
+  resume_id: z.string().min(1, "Please enter a valid github in address"),
 });
 
 const UpdateUserSocialsSchema = z.object({
   id: z.string(),
-  linked_in: z.string({
-    invalid_type_error: "Please enter a valid linkedin in address",
-  }),
-  twitter: z.string({
-    invalid_type_error: "Please enter a valid twitter in address",
-  }),
-  facebook: z.string({
-    invalid_type_error: "Please enter a valid facebook in address",
-  }),
-  instagram: z.string({
-    invalid_type_error: "Please enter a valid instagram in address",
-  }),
-  github: z.string({
-    invalid_type_error: "Please enter a valid github in address",
-  }),
+  linked_in: z.string().min(1, "Please enter a valid linkedin in address"),
+  twitter: z.string().min(1, "Please enter a valid twitter in address"),
+  facebook: z.string().min(1, "Please enter a valid facebook in address"),
+  instagram: z.string().min(1, "Please enter a valid instagram in address"),
+  github: z.string().min(1, "Please enter a valid github in address"),
 });
 
 const UpdateUserDetailsSchema = z.object({
   id: z.string(),
-  first_name: z.string({
-    invalid_type_error: "Please enter a valid first name",
-  }),
-  last_name: z.string({
-    invalid_type_error: "Please enter a valid first name",
-  }),
-  address_one: z.string({
-    invalid_type_error: "Please enter a valid address line one",
-  }),
-  address_two: z.string({
-    invalid_type_error: "Please enter a valid address line two",
-  }),
-  address_three: z.string({
-    invalid_type_error: "Please enter a valid address line three",
-  }),
-  phone: z.string({
-    invalid_type_error: "Please enter a valid address line one",
-  }),
-  website: z.string({
-    invalid_type_error: "Please enter a valid address line one",
-  }),
+  first_name: z.string().min(1, "Please enter a valid first name"),
+  last_name: z.string().min(1, "Please enter a valid first name"),
+  address_one: z.string().min(1, "Please enter a valid address line one"),
+  address_two: z.string().min(1, "Please enter a valid address line two"),
+  address_three: z.string().min(1, "Please enter a valid address line three"),
+  phone: z.string().min(1, "Please enter a valid address line one"),
+  website: z.string().min(1, "Please enter a valid address line one"),
 });
 
 const ApplicationSchema = z.object({
   id: z.string(),
-  postingText: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  jobPosition: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  postingUrl: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  analyzedPostingText: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  companyId: z.string({
-    invalid_type_error: "Please enter a number.",
-  }),
+  postingText: z.string().min(1, "Please enter a string."),
+  jobPosition: z.string().min(1, "Please enter a string."),
+  postingUrl: z.string().min(1, "Please enter a string."),
+  analyzedPostingText: z.string().min(1, "Please enter a string."),
+  companyId: z.string().min(1, "Please enter a number."),
 });
 
 const UpdateApplicationSchema = z.object({
   id: z.string(),
-  postingText: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  jobPosition: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  postingUrl: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  analyzedPostingText: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  companyId: z.string({
-    invalid_type_error: "Please enter a number.",
-  }),
-  isComplete: z.string({
-    invalid_type_error: "Please enter a number.",
-  }),
+  postingText: z.string().min(1, "Please enter a string."),
+  jobPosition: z.string().min(1, "Please enter a string."),
+  postingUrl: z.string().min(1, "Please enter a string."),
+  analyzedPostingText: z.string().min(1, "Please enter a string."),
+  companyId: z.string().min(1, "Please enter a number."),
+  isComplete: z.string().min(1, "Please enter a number."),
 });
 
 const CompanySchema = z.object({
   id: z.string(),
-  name: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  addressOne: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  addressTwo: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  recipientTitle: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  email: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  phone: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  website: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
+  name: z.string().min(1, "Please enter a string."),
+  addressOne: z.string().min(1, "Please enter a string."),
+  addressTwo: z.string().min(1, "Please enter a string."),
+  recipientTitle: z.string().min(1, "Please enter a string."),
+  email: z.string().min(1, "Please enter a string."),
+  phone: z.string().min(1, "Please enter a string."),
+  website: z.string().min(1, "Please enter a string."),
 });
 
 const CreateCoverLetterSchema = z.object({
-  application_id: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  company_id: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  user_id: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
+  application_id: z.string().min(1, "Please enter a string."),
+  company_id: z.string().min(1, "Please enter a string."),
+  user_id: z.string().min(1, "Please enter a string."),
 });
 
 const CreateResumeSchema = z.object({
-  application_id: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  company_id: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  user_id: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
+  application_id: z.string().min(1, "Please enter a string."),
+  company_id: z.string().min(1, "Please enter a string."),
+  user_id: z.string().min(1, "Please enter a string."),
 });
 
 const YourResumeStyleSchema = z.object({
-  resume_title: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  resume_template: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  color: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  highlight_color: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  header_font: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  body_font: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  resume_id: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  description: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
+  resume_title: z.string().min(1, "Please enter a string."),
+  resume_template: z.string().min(1, "Please enter a string."),
+  color: z.string().min(1, "Please enter a string."),
+  highlight_color: z.string().min(1, "Please enter a string."),
+  header_font: z.string().min(1, "Please enter a string."),
+  body_font: z.string().min(1, "Please enter a string."),
+  resume_id: z.string().min(1, "Please enter a string."),
+  description: z.string().min(1, "Please enter a string."),
 });
 
 const YourCoverLetterStyleSchema = z.object({
-  cover_id: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  recipient_title: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  intro_text_start: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  intro_text_end: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  conclusion_text: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  salutation_text: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  cover_template: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  color: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  highlight_color: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  header_font: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  body_font: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
+  cover_id: z.string().min(1, "Please enter a string."),
+  recipient_title: z.string().min(1, "Please enter a string."),
+  intro_text_start: z.string().min(1, "Please enter a string."),
+  intro_text_end: z.string().min(1, "Please enter a string."),
+  conclusion_text: z.string().min(1, "Please enter a string."),
+  salutation_text: z.string().min(1, "Please enter a string."),
+  cover_template: z.string().min(1, "Please enter a string."),
+  color: z.string().min(1, "Please enter a string."),
+  highlight_color: z.string().min(1, "Please enter a string."),
+  header_font: z.string().min(1, "Please enter a string."),
+  body_font: z.string().min(1, "Please enter a string."),
 });
 
 const CreateSkillsSchema = z.object({
-  skill_title: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  skill_level: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  user_id: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  resume_id: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
+  skill_title: z.string().min(1, "Please enter a string."),
+  skill_level: z.string().min(1, "Please enter a string."),
+  user_id: z.string().min(1, "Please enter a string."),
+  resume_id: z.string().min(1, "Please enter a string."),
 });
 
 const UpdateSkillSchema = z.object({
-  user_id: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  resume_id: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  skill_id: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  skill_level: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  skill_name: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
+  user_id: z.string().min(1, "Please enter a string."),
+  resume_id: z.string().min(1, "Please enter a string."),
+  skill_id: z.string().min(1, "Please enter a string."),
+  skill_level: z.string().min(1, "Please enter a string."),
+  skill_name: z.string().min(1, "Please enter a string."),
 });
 
 const UpdateSkillsSectionSchema = z.object({
-  user_id: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  resume_id: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  show_skills_section: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  show_skill_progress: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
+  user_id: z.string().min(1, "Please enter a string."),
+  resume_id: z.string().min(1, "Please enter a string."),
+  show_skills_section: z.string().min(1, "Please enter a string."),
+  show_skill_progress: z.string().min(1, "Please enter a string."),
 });
 
 const DeleteSkillsSchema = z.object({
-  id: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  resume_id: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
+  id: z.string().min(1, "Please enter a string."),
+  resume_id: z.string().min(1, "Please enter a string."),
 });
 
 const CreateEducationSchema = z.object({
-  user_id: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  institution_name: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  location: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  start_date: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  end_date: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  grade: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  program: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  url: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  resume_id: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
+  user_id: z.string().min(1, "Please enter a string."),
+  institution_name: z.string().min(1, "Please enter a string."),
+  location: z.string().min(1, "Please enter a string."),
+  start_date: z.string().min(1, "Please enter a string."),
+  end_date: z.string().min(1, "Please enter a string."),
+  grade: z.string().min(1, "Please enter a string."),
+  program: z.string().min(1, "Please enter a string."),
+  url: z.string().min(1, "Please enter a string."),
+  resume_id: z.string().min(1, "Please enter a string."),
 });
 
 const UpdateEducationSectionSchema = z.object({
-  user_id: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  resume_id: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  show_education_section: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
+  user_id: z.string().min(1, "Please enter a string."),
+  resume_id: z.string().min(1, "Please enter a string."),
+  show_education_section: z.string().min(1, "Please enter a string."),
 });
 
 const UpdateEducationSchema = z.object({
-  education_id: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  institution_name: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  location: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  start_date: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  end_date: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  grade: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  program: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  url: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  resume_id: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
+  education_id: z.string().min(1, "Please enter a string."),
+  institution_name: z.string().min(1, "Please enter a string."),
+  location: z.string().min(1, "Please enter a string."),
+  start_date: z.string().min(1, "Please enter a string."),
+  end_date: z.string().min(1, "Please enter a string."),
+  grade: z.string().min(1, "Please enter a string."),
+  program: z.string().min(1, "Please enter a string."),
+  url: z.string().min(1, "Please enter a string."),
+  resume_id: z.string().min(1, "Please enter a string."),
 });
 
 const DeleteEducationSchema = z.object({
-  id: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  resume_id: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
+  id: z.string().min(1, "Please enter a string."),
+  resume_id: z.string().min(1, "Please enter a string."),
 });
 
 const DeleteOrganizationSchema = z.object({
-  id: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  resume_id: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
+  id: z.string().min(1, "Please enter a string."),
+  resume_id: z.string().min(1, "Please enter a string."),
 });
 
 const UpdateOrganizationsSectionSchema = z.object({
-  user_id: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  resume_id: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  show_custom_section_one: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
+  user_id: z.string().min(1, "Please enter a string."),
+  resume_id: z.string().min(1, "Please enter a string."),
+  show_custom_section_one: z.string().min(1, "Please enter a string."),
 });
 
 const UpdateOrganizationsSectionTitleSchema = z.object({
-  user_id: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  resume_id: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  section_title: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
+  user_id: z.string().min(1, "Please enter a string."),
+  resume_id: z.string().min(1, "Please enter a string."),
+  section_title: z.string().min(1, "Please enter a string."),
 });
 
 const UpdateOrganizationSchema = z.object({
-  user_id: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  resume_id: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  organization_id: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  organization_name: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  organization_location: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  organization_start: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  organization_end: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  organization_description: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
+  user_id: z.string().min(1, "Please enter a string."),
+  resume_id: z.string().min(1, "Please enter a string."),
+  organization_id: z.string().min(1, "Please enter a string."),
+  organization_name: z.string().min(1, "Please enter a string."),
+  organization_location: z.string().min(1, "Please enter a string."),
+  organization_start: z.string().min(1, "Please enter a string."),
+  organization_end: z.string().min(1, "Please enter a string."),
+  organization_description: z.string().min(1, "Please enter a string."),
 });
 
 const CreateOrganizationSchema = z.object({
-  user_id: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  section_title: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  organization_name: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  organization_location: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  organization_start: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  organization_end: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  organization_description: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  resume_id: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
+  user_id: z.string().min(1, "Please enter a string."),
+  section_title: z.string().min(1, "Please enter a string."),
+  organization_name: z.string().min(1, "Please enter a string."),
+  organization_location: z.string().min(1, "Please enter a string."),
+  organization_start: z.string().min(1, "Please enter a string."),
+  organization_end: z.string().min(1, "Please enter a string."),
+  organization_description: z.string().min(1, "Please enter a string."),
+  resume_id: z.string().min(1, "Please enter a string."),
 });
 
 const CreateCertificationSchema = z.object({
-  user_id: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  section_title: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  certification_name: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  certification_location: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  resume_id: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
+  user_id: z.string().min(1, "Please enter a string."),
+  section_title: z.string().min(1, "Please enter a string."),
+  certification_name: z.string().min(1, "Please enter a string."),
+  certification_location: z.string().min(1, "Please enter a string."),
+  resume_id: z.string().min(1, "Please enter a string."),
 });
 
 const UpdateCertificationsSectionSchema = z.object({
-  user_id: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  resume_id: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  show_custom_section_two: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
+  user_id: z.string().min(1, "Please enter a string."),
+  resume_id: z.string().min(1, "Please enter a string."),
+  show_custom_section_two: z.string().min(1, "Please enter a string."),
 });
 
 const UpdateCertificationSchema = z.object({
-  user_id: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  resume_id: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  certification_id: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  certification_name: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  certification_location: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
+  user_id: z.string().min(1, "Please enter a string."),
+  resume_id: z.string().min(1, "Please enter a string."),
+  certification_id: z.string().min(1, "Please enter a string."),
+  certification_name: z.string().min(1, "Please enter a string."),
+  certification_location: z.string().min(1, "Please enter a string."),
 });
 
 const CreateWorkExperienceSchema = z.object({
-  user_id: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  resume_id: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  company_name: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  job_title: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  location: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  start_date: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  end_date: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  description_one: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  description_two: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  description_three: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  description_four: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
+  user_id: z.string().min(1, "Please enter a string."),
+  resume_id: z.string().min(1, "Please enter a string."),
+  company_name: z.string().min(1, "Please enter a string."),
+  job_title: z.string().min(1, "Please enter a string."),
+  location: z.string().min(1, "Please enter a string."),
+  start_date: z.string().min(1, "Please enter a string."),
+  end_date: z.string().min(1, "Please enter a string."),
+  description_one: z.string().min(1, "Please enter a string."),
+  description_two: z.string().min(1, "Please enter a string."),
+  description_three: z.string().min(1, "Please enter a string."),
+  description_four: z.string().min(1, "Please enter a string."),
 });
 
 const UpdateWorkExperienceSchema = z.object({
-  experience_id: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  resume_id: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  company_name: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  job_title: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  location: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  start_date: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  end_date: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  description_one: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  description_two: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  description_three: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  description_four: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
+  experience_id: z.string().min(1, "Please enter a string."),
+  resume_id: z.string().min(1, "Please enter a string."),
+  company_name: z.string().min(1, "Please enter a string."),
+  job_title: z.string().min(1, "Please enter a string."),
+  location: z.string().min(1, "Please enter a string."),
+  start_date: z.string().min(1, "Please enter a string."),
+  end_date: z.string().min(1, "Please enter a string."),
+  description_one: z.string().min(1, "Please enter a string."),
+  description_two: z.string().min(1, "Please enter a string."),
+  description_three: z.string().min(1, "Please enter a string."),
+  description_four: z.string().min(1, "Please enter a string."),
 });
 
 const DeleteWorkExperienceSchema = z.object({
-  id: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  resume_id: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
+  id: z.string().min(1, "Please enter a string."),
+  resume_id: z.string().min(1, "Please enter a string."),
 });
 
 const CreateResumeLineSchema = z.object({
-  user_id: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  resume_id: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  line_type: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  id: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
+  user_id: z.string().min(1, "Please enter a string."),
+  resume_id: z.string().min(1, "Please enter a string."),
+  line_type: z.string().min(1, "Please enter a string."),
+  id: z.string().min(1, "Please enter a string."),
 });
 
 const DeleteResumeLineSchema = z.object({
-  user_id: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  id: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  resume_id: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  line_type: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
+  user_id: z.string().min(1, "Please enter a string."),
+  id: z.string().min(1, "Please enter a string."),
+  resume_id: z.string().min(1, "Please enter a string."),
+  line_type: z.string().min(1, "Please enter a string."),
 });
 
 //TODO ----------------------------------------------------
 const CreateCoverExperienceSchema = z.object({
-  user_id: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  title: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  description: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
+  user_id: z.string().min(1, "Please enter a string."),
+  title: z.string().min(1, "Please enter a string."),
+  description: z.string().min(1, "Please enter a string."),
 });
 
 //TODO ----------------------------------------------------
 const UpdateCoverExperienceSchema = z.object({
-  experience_id: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  user_id: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  title: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  description: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
+  experience_id: z.string().min(1, "Please enter a string."),
+  user_id: z.string().min(1, "Please enter a string."),
+  title: z.string().min(1, "Please enter a string."),
+  description: z.string().min(1, "Please enter a string."),
 });
 
 //TODO ----------------------------------------------------
 const DeleteCoverExperienceSchema = z.object({
-  id: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  user_id: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
+  id: z.string().min(1, "Please enter a string."),
+  user_id: z.string().min(1, "Please enter a string."),
 });
 
 //TODO ----------------------------------------------------
 const CreateCoverLineSchema = z.object({
-  user_id: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  cover_letter_id: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  experience_id: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  line_type: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
+  user_id: z.string().min(1, "Please enter a string."),
+  cover_letter_id: z.string().min(1, "Please enter a string."),
+  experience_id: z.string().min(1, "Please enter a string."),
+  line_type: z.string().min(1, "Please enter a string."),
 });
 
 //TODO ----------------------------------------------------
 const DeleteCoverLineSchema = z.object({
-  user_id: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  cover_letter_id: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  experience_id: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  line_type: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
+  user_id: z.string().min(1, "Please enter a string."),
+  cover_letter_id: z.string().min(1, "Please enter a string."),
+  experience_id: z.string().min(1, "Please enter a string."),
+  line_type: z.string().min(1, "Please enter a string."),
 });
 
 const FinishTourSchema = z.object({
-  user_id: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
-  tour_page: z.string({
-    invalid_type_error: "Please enter a string.",
-  }),
+  user_id: z.string().min(1, "Please enter a string."),
+  tour_page: z.string().min(1, "Please enter a string."),
 });
 
 // const CreateInvoice = InvoiceSchema.omit({ id: true, date: true });
@@ -846,12 +456,6 @@ export async function updateUser(
     const query = `UPDATE users SET name = '${name}', email = '${email}', first_name = '${first_name}', last_name = '${last_name}', address_one = $$${address_line_one}$$, address_two = $$${address_line_two}$$, address_three = $$${address_line_three}$$, phone = '${phone}', website = '${website}' WHERE id = '${id}'`;
 
     const data = await conn.query(query);
-
-    // await sql`
-    //     UPDATE invoices
-    //     SET name = '${name}', email = '${email}'
-    //     WHERE id = ${id}
-    //   `;
   } catch (error) {
     return { message: "Database Error: Failed to Update Invoice." };
   }
@@ -1816,8 +1420,8 @@ export async function createUserImage(formData: FormData) {
 
   // console.log(userId);
 
-  let arrayBuffer = await file.arrayBuffer();
-  let buffer = new Uint8Array(arrayBuffer);
+  const arrayBuffer = await file.arrayBuffer();
+  const buffer = new Uint8Array(arrayBuffer);
   //console.log(buffer);
 
   let cldRes: any;
@@ -2357,31 +1961,6 @@ export async function CreateNewUser(formData: FormData) {
 
     revalidatePath(`/register`);
     redirect(`/register`);
-
-    // if (e.code === "23505") {
-    //redirect(`/register`);
-    // return [
-    //   {
-    //     success: false,
-    //   },
-    //   {
-    //     statusText: e.detail,
-    //     status: 500,
-    //   },
-    // ];
-    // }
-
-    // else {
-    // return [
-    //   {
-    //     success: false,
-    //   },
-    //   {
-    //     statusText: "Unknown Error",
-    //     status: 400,
-    //   },
-    // ];
-    // }
   }
   revalidatePath(`/login`);
   redirect(`/login`);

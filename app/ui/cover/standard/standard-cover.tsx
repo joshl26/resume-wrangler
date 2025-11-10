@@ -111,7 +111,7 @@ export default async function StandardCover({
         <ul className={clsx(selectedCoverBodyFont, "pt-2")}>
           {selectedCoverExperiences?.map(
             (coverExperience: UserCoverExperienceLine) => (
-              <li key={coverExperience?.id} className="py-[0.125rem]">
+              <li key={coverExperience?.id} className="py-0.5">
                 <p className="inline font-bold">
                   {
                     userCoverExperiences?.filter(

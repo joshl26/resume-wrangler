@@ -85,7 +85,7 @@ export default async function Elegant(props: Props) {
             </p>
             <div className="flex flex-col ml-[-3px]">
               <div className="flex flex-row justify-start gap-1 h-[20px]">
-                <div className="flex flex-col w-[18px] ml-[1px] text-white">
+                <div className="flex flex-col w-[18px] ml-px text-white">
                   <MapPinIcon className="m-auto" />
                 </div>
                 <div className="flex flex-col">
@@ -93,7 +93,7 @@ export default async function Elegant(props: Props) {
                     href={`https://www.google.com/search?q=${props?.user?.address_one}`}
                     className={clsx(
                       props?.body_font || props?.resume?.body_font,
-                      "text-[0.65rem] py-1 text-white pl-[1px]",
+                      "text-[0.65rem] py-1 text-white pl-px",
                     )}
                   >
                     {props?.user?.address_one}

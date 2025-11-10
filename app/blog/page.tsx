@@ -12,12 +12,12 @@ export const metadata = {
 };
 
 export default function BlogPage() {
-  let allBlogs = getBlogPosts();
+  const allBlogs = getBlogPosts();
 
   return (
     <Landing>
       <section className="h-full min-h-[97vh] bg-amber-200">
-        <section className="flex flex-col max-w-screen-md min-h-[97vh] mx-auto bg-amber-300 pt-[10vh] px-4 tight-shadow">
+        <section className="flex flex-col max-w-(--breakpoint-md) min-h-[97vh] mx-auto bg-amber-300 pt-[10vh] px-4 tight-shadow">
           <div className="flex flex-row w-full justify-start pb-8">
             <BackButton
               className="text-azure-radiance-700 font-medium hover:text-rose-700"
@@ -67,7 +67,7 @@ export default function BlogPage() {
 }
 
 async function Views({ slug }: { slug: string }) {
-  let views = await getViewsCount();
+  const views = await getViewsCount();
 
   return <ViewCounter className="text-rose-700" allViews={views} slug={slug} />;
 }

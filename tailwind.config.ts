@@ -2,7 +2,13 @@
 import type { Config } from "tailwindcss";
 const plugin = require("tailwindcss/plugin");
 
-const config: Config = {
+// Extend Tailwind config type to include safelist
+type TailwindSafelistEntry =
+  | string
+  | RegExp
+  | { pattern: RegExp; variants?: string[] };
+
+const config: Config & { safelist?: TailwindSafelistEntry[] } = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -10,7 +16,7 @@ const config: Config = {
   ],
   safelist: [
     {
-      pattern: /(bg|text|border)-./, // 👈  This includes bg of all colors and shades
+      pattern: /(bg|text|border)-./, // Keeps all color variations for bg, text, border
     },
   ],
   theme: {
