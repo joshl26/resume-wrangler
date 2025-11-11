@@ -182,28 +182,38 @@ export type ResumeColors = ResumeColor[];
 
 export interface CoverLetter {
   id: string;
-  created_at: string;
-  updated_at: string;
-  company_id: string;
-  first_name: string;
-  last_name: string;
-  recipient_title: string;
-  intro_text_start: string;
-  intro_skills: string;
-  intro_experience: string;
-  application_id: string;
-  intro_text_end: string;
-  salutation_text: string;
-  conclusion_text: string;
-  thanks_text: string;
-  user_id: string;
-  template: string;
-  heading_font: string;
-  body_font: string;
-  color: string;
-  highlight_color: string;
-}
+  // allow created/updated to be string or Date or null
+  created_at?: string | Date | null;
+  updated_at?: string | Date | null;
 
+  // primary associations
+  company_id?: string | null;
+  application_id?: string | null;
+  user_id: string;
+
+  // content fields (added title and body)
+  title?: string | null;
+  body?: string | null;
+
+  // existing parts of the letter (keep as-is)
+  first_name?: string;
+  last_name?: string;
+  recipient_title?: string;
+  intro_text_start?: string;
+  intro_skills?: string;
+  intro_experience?: string;
+  intro_text_end?: string;
+  salutation_text?: string;
+  conclusion_text?: string;
+  thanks_text?: string;
+  template?: string;
+
+  // styling
+  heading_font?: string;
+  body_font?: string;
+  color?: string;
+  highlight_color?: string;
+}
 export type CoverLetters = CoverLetter[];
 
 export interface ResumeLine {
