@@ -1,3 +1,6 @@
+// Description: User Profile Page - Displays the user profile edit form for authenticated users.
+// file: app/dashboard/user-profile/page.tsx
+
 import React from "react";
 import { auth } from "@/auth";
 import { getUser } from "@/app/lib/data";

@@ -10,6 +10,7 @@ import axios from "axios";
 import crypto from "crypto";
 import bcrypt from "bcrypt";
 import { emailRegex, passwordRegex, usernameRegex } from "./regex";
+import { auth } from "@/auth";
 const cloudinary = require("cloudinary").v2;
 
 const generateSHA1 = (data: any) => {
@@ -38,6 +39,10 @@ const CreateNewUserSchema = z.object({
     .min(6, "Password must be 6 characters minimum")
     .max(20, "Password must be 20 characters maximum")
     .regex(new RegExp(passwordRegex)),
+});
+
+const DeleteAccountSchema = z.object({
+  id: z.string().min(1, "User ID is required"),
 });
 
 const InvoiceSchema = z.object({
@@ -2287,4 +2292,74 @@ export async function createCoverExperience(formData: FormData) {
 
   revalidatePath(`/dashboard/cover-experience`);
   redirect(`/dashboard/cover-experience`);
+}
+
+
+export async function deleteAccount(formData: FormData) {
+  // Require server-side auth helper — adapt if you use a different session method
+  const session = await auth?.();
+
+  if (!session?.user?.id) {
+    return { success: false, error: "Not authenticated" };
+  }
+
+  const userIdFromForm = formData.get("id")?.toString();
+  const userId = userIdFromForm ?? session.user.id;
+
+  if (session.user.id !== userId) {
+    return { success: false, error: "Unauthorized" };
+  }
+
+  // Basic validation (uses DeleteAccountSchema if present)
+  const validated = (typeof DeleteAccountSchema !== "undefined")
+    ? DeleteAccountSchema.safeParse({ id: userId })
+    : { success: true, data: { id: userId } };
+
+  if (validated.success === false) {
+    return { success: false, error: "Invalid user ID" };
+  }
+
+  try {
+    await conn.query("BEGIN");
+
+    // Order: delete child/linked rows first, then parent rows, then users
+    const deletes: { sql: string; params?: any[] }[] = [
+      { sql: "DELETE FROM user_accounts WHERE user_id = $1", params: [userId] },
+      { sql: "DELETE FROM resume_lines WHERE user_id = $1", params: [userId] },
+      { sql: "DELETE FROM resume_experiences WHERE user_id = $1", params: [userId] },
+      { sql: "DELETE FROM cover_experience_lines WHERE user_id = $1", params: [userId] },
+      { sql: "DELETE FROM cover_experiences WHERE user_id = $1", params: [userId] },
+      { sql: "DELETE FROM cover_letters WHERE user_id = $1", params: [userId] },
+      { sql: "DELETE FROM applications WHERE user_id = $1", params: [userId] },
+      { sql: "DELETE FROM companies WHERE user_id = $1", params: [userId] },
+      { sql: "DELETE FROM user_custom_section_one WHERE user_id = $1", params: [userId] },
+      { sql: "DELETE FROM user_custom_section_two WHERE user_id = $1", params: [userId] },
+      { sql: "DELETE FROM user_education WHERE user_id = $1", params: [userId] },
+      { sql: "DELETE FROM user_skills WHERE user_id = $1", params: [userId] },
+      { sql: "DELETE FROM user_work_experience WHERE user_id = $1", params: [userId] },
+      // delete resumes after resume_lines (resume_lines references resumes)
+      { sql: "DELETE FROM resumes WHERE user_id = $1", params: [userId] },
+      // finally delete the user row by its PK column 'id'
+      { sql: "DELETE FROM users WHERE id = $1", params: [userId] },
+    ];
+
+    for (const stmt of deletes) {
+      await conn.query(stmt.sql, stmt.params ?? [userId]);
+    }
+
+    await conn.query("COMMIT");
+
+    // NOTE: External cleanup (Cloudinary/S3) and session invalidation should be handled
+    // separately (after commit) — do not rely on DB transaction for external ops.
+
+    return { success: true };
+  } catch (err) {
+    try {
+      await conn.query("ROLLBACK");
+    } catch (_) {
+      // ignore rollback errors
+    }
+    console.error("[deleteAccount] Error:", err);
+    return { success: false, error: "Failed to delete account" };
+  }
 }

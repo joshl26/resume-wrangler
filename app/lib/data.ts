@@ -1701,13 +1701,14 @@ export async function createUser(data: {
   name: string;
   first_name?: string | null;
   last_name?: string | null;
+  password?: string | null;
 }): Promise<User> {
   noStore();
 
   try {
     const query = `
-      INSERT INTO users (email, name, first_name, last_name)
-      VALUES ($1, $2, $3, $4)
+      INSERT INTO users (email, name, first_name, last_name, password)
+      VALUES ($1, $2, $3, $4, $5)
       RETURNING *;
     `;
     const values = [
@@ -1715,6 +1716,7 @@ export async function createUser(data: {
       data.name,
       data.first_name || null,
       data.last_name || null,
+      data.password || null, // allow null for OAuth users
     ];
     const result = await conn.query(query, values);
     return result.rows[0];

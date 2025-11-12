@@ -8,6 +8,7 @@ import {
   deleteUserImage,
   updateUserDetails,
   updateUserSocials,
+  deleteAccount,
 } from "@/app/lib/actions";
 import type { User } from "@/app/lib/definitions";
 
@@ -443,6 +444,51 @@ const UserImageEditForm = ({ user }: { user: User }) => {
   );
 };
 
+const DeleteAccountSection = ({ user }: { user: User }) => {
+  const router = useRouter();
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  const handleDelete = async (formData: FormData) => {
+    const confirmed = confirm(
+      "Are you sure you want to permanently delete your account and all associated data?"
+    );
+    if (!confirmed) return;
+
+    setIsDeleting(true);
+    try {
+      const result = await deleteAccount(formData);
+      if (result?.success) {
+        router.push("/");
+      } else {
+        alert(result?.error || "Failed to delete account");
+      }
+    } catch (err) {
+      console.error("Unexpected error deleting account:", err);
+      alert("Unexpected error deleting account. Please try again.");
+    } finally {
+      setIsDeleting(false);
+    }
+  };
+
+  return (
+    <div className="mt-6 p-3 tight-shadow rounded form-amber">
+      <h2 className="font-bold text-[1.5rem] text-rose-700">Delete Account</h2>
+      <p className="text-sm mb-3 text-rose-700">
+        Permanently remove your account and all data.
+      </p>
+      <form action={(formData: FormData) => handleDelete(formData)}>
+        <input type="hidden" name="id" value={user?.id} />
+        <SubmitButton
+          className="bg-rose-700 hover:bg-rose-800 text-white"
+          disabled={isDeleting}
+        >
+          {isDeleting ? "Deleting..." : "Delete My Account"}
+        </SubmitButton>
+      </form>
+    </div>
+  );
+};
+
 const UserEditForm = ({ user }: { user: User }) => {
   return (
     <div className="overflow-y-auto px-2">
@@ -453,6 +499,7 @@ const UserEditForm = ({ user }: { user: User }) => {
       <UserImageEditForm user={user} />
       <UserDetailsEditForm user={user} />
       <UserSocialsEditForm user={user} />
+      <DeleteAccountSection user={user} />
     </div>
   );
 };
