@@ -1,3 +1,6 @@
+// PostgreSQL database connection using pg Pool
+// file: /app/lib/database.ts
+
 import { Pool } from 'pg';
 
 // Define pool options with defaults

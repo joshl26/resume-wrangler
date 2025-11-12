@@ -1,10 +1,3 @@
-// prox
-
-import NextAuth from "next-auth";
-import { authConfig } from "./auth.config";
-
-export default NextAuth(authConfig).auth;
-
 // middleware.ts
 import { NextRequest, NextResponse } from "next/server";
 // Import your NextAuth middleware-compatible handler (proxy.ts should export the handler)
@@ -25,7 +18,7 @@ function isStaticOrInternal(pathname: string) {
   );
 }
 
-export async function middleware(req: NextRequest) {
+export default async function middleware(req: NextRequest) {
   const { pathname, search } = req.nextUrl;
 
   // Skip static/internal files early

@@ -1,63 +1,44 @@
-import NextAuth from "next-auth";
+// auth.ts
+import NextAuth, { AuthOptions } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { authConfig } from "./auth.config";
-import { z } from "zod";
 import bcrypt from "bcrypt";
-import { getUser } from "./app/lib/data";
+import { z } from "zod";
+import { getUser } from "@/app/lib/data";
+import { getServerSession, type Session } from "next-auth";
 
-/**
- * NextAuth handler with Credentials provider.
- * - validates input with zod
- * - compares password with bcrypt
- * - strips sensitive fields before returning the user object
- */
-export const {
-  handlers: { GET, POST },
-  auth,
-  signIn,
-  signOut,
-} = NextAuth({
+export const authOptions: AuthOptions = {
   ...authConfig,
   providers: [
     Credentials({
       name: "Credentials",
       credentials: {
-        email: { label: "Email", type: "text", placeholder: "you@example.com" },
+        email: { label: "Email", type: "text" },
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        if (!credentials) {
-          console.warn("No credentials provided");
-          return null;
-        }
+        console.log("[auth] authorize called with email:", credentials?.email ?? null);
+        if (!credentials) return null;
+        const parsed = z.object({ email: z.string().email(), password: z.string().min(1) }).safeParse(credentials);
+        if (!parsed.success) return null;
 
-        const parsed = z
-          .object({
-            email: z.string().email("Email is invalid"),
-            password: z.string().min(6).max(72),
-          })
-          .safeParse(credentials);
+        const user = await getUser(parsed.data.email);
+        if (!user || !user.password) return null;
 
-        if (!parsed.success) {
-          console.warn("Invalid credentials format", parsed.error.format());
-          return null;
-        }
-
-        const { email, password } = parsed.data;
-        const user = await getUser(email);
-        if (!user) {
-          // don't reveal which part failed (security)
-          return null;
-        }
-
-        const match = await bcrypt.compare(password, user.password);
+        const match = await bcrypt.compare(parsed.data.password, user.password);
         if (!match) return null;
 
-        // Return a safe user object (strip password and other secrets)
-        // Adjust fields you want to expose in the session/token
-        const { password: _pwd, ...safeUser } = user as any;
+        const { password, ...safeUser } = user as any;
         return safeUser;
       },
     }),
   ],
-});
+};
+
+export default function nextAuthHandler(req: Request) {
+  return NextAuth(authOptions)(req as any);
+}
+
+export async function auth(): Promise<Session | null> {
+  return (await getServerSession(authOptions)) as Session | null;
+}

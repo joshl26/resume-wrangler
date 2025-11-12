@@ -72,6 +72,10 @@ const nextConfig = {
   poweredByHeader: false,
   generateEtags: true,
 
+  async rewrites() {
+    return [{ source: '/api/auth/:path*', destination: '/api/v1/auth/:path*' }];
+  },
+
   async redirects() {
     return [
       // Your custom redirects go here

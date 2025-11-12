@@ -6,38 +6,46 @@ import {
   KeyIcon,
   ExclamationCircleIcon,
 } from "@heroicons/react/24/outline";
-import { authenticate } from "@/app/lib/actions";
+import { signIn } from "next-auth/react"; // ✅ Import signIn
 import { LoginButton } from "../login-button";
 import { emailRegex } from "@/app/lib/regex";
 
 export default function LoginForm() {
-  // provide the required initialState (undefined) and accept isPending
-  const [code, action, isPending] = React.useActionState(
-    authenticate,
-    undefined,
-  );
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
-  const [edited, setEdited] = useState(false);
-  const [emailValidated, setEmailValidated] = useState(false);
-  const [passwordValidated, setPasswordValidated] = useState(false);
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+
+    const res = await signIn("credentials", {
+      redirect: false,
+      email,
+      password,
+      callbackUrl: "/dashboard",
+    });
+
+    if (res?.error) {
+      setError("Invalid credentials");
+      setLoading(false);
+    } else {
+      window.location.href = "/dashboard"; // or useRouter().push("/dashboard")
+    }
+  };
 
   const emailOnChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const emailInput = e.target.value;
-    const re = new RegExp(emailRegex);
-    setEmailValidated(re.test(emailInput));
-    if (!edited) setEdited(true);
+    setEmail(e.target.value);
   };
 
   const passwordOnChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const passwordInput = e.target.value;
-    // only check for 6 characters, some previous passwords were 4 char
-    const re = new RegExp("^.{6,}$");
-    setPasswordValidated(re.test(passwordInput));
-    if (!edited) setEdited(true);
+    setPassword(e.target.value);
   };
 
   return (
-    <form action={action} className="space-y-3">
+    <form onSubmit={handleSubmit} className="space-y-3">
       <h1 className="text-[2rem] font-bold text-center">Log In</h1>
 
       <div className="flex-1 rounded-lg form-amber p-8">
@@ -55,6 +63,7 @@ export default function LoginForm() {
                 autoComplete="email"
                 placeholder="Enter your email address"
                 required
+                value={email}
                 onChange={emailOnChangeHandler}
               />
               <AtSymbolIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
@@ -75,6 +84,7 @@ export default function LoginForm() {
                 autoComplete="current-password"
                 required
                 minLength={6}
+                value={password}
                 onChange={passwordOnChangeHandler}
               />
               <KeyIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
@@ -82,23 +92,19 @@ export default function LoginForm() {
           </div>
         </div>
 
-        {emailValidated && passwordValidated ? (
-          <LoginButton
-            className={`btn btn-amber mt-6 ${isPending ? "opacity-70 pointer-events-none" : "animate-pulse"}`}
-            disabled={isPending}
-          >
-            {isPending ? "Signing in..." : "Log In"}
-          </LoginButton>
-        ) : (
-          ""
-        )}
+        <LoginButton
+          className={`btn btn-amber mt-6 ${loading ? "opacity-70 pointer-events-none" : "animate-pulse"}`}
+          disabled={loading}
+        >
+          {loading ? "Signing in..." : "Log In"}
+        </LoginButton>
 
-        <div className="flex items-end ">
-          {code === "CredentialSignin" && (
+        <div className="flex items-end">
+          {error && (
             <>
               <ExclamationCircleIcon className="h-5 w-5 text-red-500" />
               <p aria-live="polite" className="text-sm text-red-500">
-                Invalid credentials
+                {error}
               </p>
             </>
           )}

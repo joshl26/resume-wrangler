@@ -6,8 +6,6 @@ import { conn } from "@/app/lib/database";
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { signIn } from "@/auth";
-
 import axios from "axios";
 import crypto from "crypto";
 import bcrypt from "bcrypt";
@@ -400,20 +398,45 @@ export type State = {
   // message?: string | null;
 };
 
+// app/lib/actions.ts
 export async function authenticate(
   prevState: string | undefined,
-  formData: FormData,
+  formData: FormData
 ) {
+
   try {
-    await signIn("credentials", Object.fromEntries(formData));
-  } catch (error) {
-    if ((error as Error).message.includes("CredentialsSignin")) {
-      return "CredentialSignin";
+    // Prepare the data for the POST request
+    const body = new URLSearchParams();
+    body.set("email", formData.get("email") as string);
+    body.set("password", formData.get("password") as string);
+    body.set("callbackUrl", "/dashboard"); // or wherever you want to redirect after login
+
+    // POST to the credentials callback endpoint
+    const res = await fetch(
+      `${process.env.NEXTAUTH_URL}/api/v1/auth/callback/credentials`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: body.toString(),
+        // credentials: "include", // optional: if you need cookies in cross-origin requests
+      }
+    );
+
+    // Check if the response is a redirect (successful login)
+    if (res.status === 302 || res.ok) {
+      // You can redirect here if needed, or let the client handle it
+      return undefined; // success
     }
-    throw error;
+
+    // If not a redirect, it's likely an error (e.g. 401)
+    return "CredentialSignin";
+  } catch (error) {
+    console.error("Authentication error:", error);
+    return "UnknownError";
   }
 }
-
 export async function updateUser(
   id: string,
   prevState: State,
