@@ -395,3 +395,21 @@ export interface ResumeTemplate {
     description: string;
   }[];
 }
+
+export interface ProviderAccount {
+  id?: string;
+  userId: string;
+  provider: string;
+  providerAccountId: string;
+  accessToken?: string | null;
+  refreshToken?: string | null;
+  expiresAt?: number | null; // epoch seconds
+  scope?: string | null;
+  tokenType?: string | null;
+  idToken?: string | null;
+  profileJson?: any;
+  profileName?: string | null;
+  profileEmail?: string | null;
+  profilePicture?: string | null;
+  lastSignInAt?: string | null; // ISO timestamp
+}

@@ -1572,3 +1572,122 @@ export async function fetchResumesByUserIDJoinApplications(userId: string) {
     return [];
   }
 }
+
+export async function getUserByEmail(email: string): Promise<User | null> {
+  noStore();
+
+  try {
+    const query = `SELECT * FROM users WHERE email = $1`;
+    const data = await conn.query(query, [email]);
+    return data.rows[0] || null;
+  } catch (error) {
+    console.error("Failed to fetch user by email:", error);
+    throw new Error("Failed to fetch user by email.");
+  }
+}
+
+export async function createUser(data: {
+  email: string;
+  name: string;
+  first_name?: string | null;
+  last_name?: string | null;
+}): Promise<User> {
+  noStore();
+
+  try {
+    const query = `
+      INSERT INTO users (email, name, first_name, last_name)
+      VALUES ($1, $2, $3, $4)
+      RETURNING *;
+    `;
+    const values = [data.email, data.name, data.first_name || null, data.last_name || null];
+    const result = await conn.query(query, values);
+    return result.rows[0];
+  } catch (error) {
+    console.error("Failed to create user:", error);
+    throw new Error("Failed to create user.");
+  }
+}
+
+export async function upsertProviderAccount(args: {
+  userId: string;
+  provider: string;
+  providerAccountId: string;
+  accessToken?: string | null;
+  refreshToken?: string | null;
+  expiresAt?: Date | null;
+  scope?: string | null;
+  tokenType?: string | null;
+  idToken?: string | null;
+  profileJson?: any;
+  profileName?: string | null;
+  profileEmail?: string | null;
+  profilePicture?: string | null;
+  lastSignInAt?: Date | null;
+}) {
+  noStore();
+
+  const {
+    userId,
+    provider,
+    providerAccountId,
+    accessToken,
+    refreshToken,
+    expiresAt,
+    scope,
+    tokenType,
+    idToken,
+    profileJson,
+    profileName,
+    profileEmail,
+    profilePicture,
+    lastSignInAt,
+  } = args;
+
+  try {
+    const query = `
+      INSERT INTO public.user_accounts
+        (user_id, provider, provider_account_id, access_token, refresh_token, expires_at, scope, token_type, id_token, profile_json, profile_name, profile_email, profile_picture, last_signin_at)
+      VALUES
+        ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14)
+      ON CONFLICT (provider, provider_account_id)
+      DO UPDATE SET
+        user_id = EXCLUDED.user_id,
+        access_token = EXCLUDED.access_token,
+        refresh_token = COALESCE(EXCLUDED.refresh_token, public.user_accounts.refresh_token),
+        expires_at = EXCLUDED.expires_at,
+        scope = EXCLUDED.scope,
+        token_type = EXCLUDED.token_type,
+        id_token = EXCLUDED.id_token,
+        profile_json = EXCLUDED.profile_json,
+        profile_name = EXCLUDED.profile_name,
+        profile_email = EXCLUDED.profile_email,
+        profile_picture = EXCLUDED.profile_picture,
+        last_signin_at = EXCLUDED.last_signin_at,
+        updated_at = NOW()
+      RETURNING *;
+    `;
+    const values = [
+      userId,
+      provider,
+      providerAccountId,
+      accessToken,
+      refreshToken,
+      expiresAt,
+      scope,
+      tokenType,
+      idToken,
+      profileJson ? JSON.stringify(profileJson) : null,
+      profileName,
+      profileEmail,
+      profilePicture,
+      lastSignInAt,
+    ];
+
+    const result = await conn.query(query, values);
+    return result.rows[0];
+  } catch (error) {
+    console.error("Failed to upsert provider account:", error);
+    throw new Error("Failed to upsert provider account.");
+  }
+}
