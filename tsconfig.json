@@ -37,6 +37,6 @@
     ".next/dev/types/**/*.ts",
     "types",
     "app"
-  ],
+, "__mocks__/fileMock.js"  ],
   "exclude": ["node_modules"]
 }
