@@ -42,13 +42,13 @@ export default async function Page({ searchParams }: PageProps) {
     return notFound();
   }
 
-  // Only keep needed fields
-  session.user = {
-    name: session.user.name,
-    email: session.user.email,
-  };
+  // Safely extract and validate email (do not mutate session.user)
+  const email = session.user.email;
+  if (!email) {
+    return notFound();
+  }
 
-  const user = await getUser(session.user.email!);
+  const user = await getUser(email);
   if (!user) return notFound();
 
   // Fetch raw companies; these fetchers sometimes return arrays containing nulls

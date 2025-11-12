@@ -21,12 +21,6 @@ export default async function Page() {
     return notFound();
   }
 
-  // Keep only necessary user fields
-  session.user = {
-    name: session.user?.name,
-    email,
-  };
-
   // Safe to call getUser with a string
   const user = await getUser(email);
   if (!user || !user.id) {

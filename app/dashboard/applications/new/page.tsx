@@ -15,8 +15,8 @@ export default async function Page(): Promise<JSX.Element> {
     return notFound();
   }
 
-  // Keep only the fields we need on the session user (optional)
-  session.user = { name: session.user?.name, email };
+  // Remove the problematic session.user reassignment
+  // session.user = { name: session.user?.name, email }; // <- This line caused the error
 
   // Now it's safe to call getUser with a `string`
   const user = await getUser(email);

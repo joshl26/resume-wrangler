@@ -25,17 +25,11 @@ export default async function Page({ params }: PageProps) {
   const { id } = resolvedParams;
 
   const session = await auth();
-  if (!session?.user) {
+  if (!session?.user?.email) {
     return notFound();
   }
 
-  // Keep only necessary user fields
-  session.user = {
-    name: session.user.name,
-    email: session.user.email,
-  };
-
-  const user = await getUser(session.user.email!);
+  const user = await getUser(session.user.email);
   const companies = await fetchLatestCompaniesByUserId(user.id);
   const application = await fetchApplicationById(id);
 

@@ -107,8 +107,7 @@ export default async function EditCover({ params }: PageProps) {
   const email = session?.user?.email;
   if (!email) return notFound();
 
-  session.user = { name: session.user?.name, email };
-
+  // Do NOT mutate session.user (it may require an id). Use email directly.
   const user = await getUser(email);
   if (!user || !user.id) return notFound();
 
@@ -178,8 +177,6 @@ export default async function EditCover({ params }: PageProps) {
 
   // Final check (mostly defensive; previous checks already ensure existence)
   if (
-    !user ||
-    !coverLetter ||
     !coverTemplates.length ||
     !resumeColors.length ||
     !bodyFonts.length ||

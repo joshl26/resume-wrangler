@@ -95,12 +95,13 @@ export default async function EditResume({ params }: PageProps) {
 
   const { id } = resolvedParams;
 
-  // Auth
+  // Auth: require authenticated user with an email
   const session = await auth();
-  if (!session?.user?.email) return notFound();
-  session.user = { name: session.user.name, email: session.user.email };
+  const email = session?.user?.email;
+  if (!email) return notFound();
 
-  const user = await getUser(session.user.email!);
+  // Fetch the full user record using email (do not mutate session.user)
+  const user = await getUser(email);
   if (!user) return notFound();
 
   // Fetch independent resources in parallel
@@ -229,9 +230,7 @@ export default async function EditResume({ params }: PageProps) {
     resumeTemplates.length === 0 ||
     resumeColors.length === 0 ||
     bodyFonts.length === 0 ||
-    headerFonts.length === 0 ||
-    !user ||
-    !resume
+    headerFonts.length === 0
   ) {
     return notFound();
   }

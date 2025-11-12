@@ -1,23 +1,27 @@
+// app/.../page.tsx
 import { getUser } from "@/app/lib/data";
 import NewCertification from "@/app/ui/forms/new-certification";
-import NewCompany from "@/app/ui/forms/new-company";
 import { auth } from "@/auth";
+import { notFound } from "next/navigation";
 import React from "react";
 
 export default async function Page() {
   const session = await auth();
-  if (session?.user) {
-    session.user = {
-      name: session.user.name,
-      email: session.user.email,
-    };
 
-    const user = await getUser(session?.user?.email!);
-
-    return (
-      <div>
-        <NewCertification user={user} />
-      </div>
-    );
+  // Guard: require a valid email before proceeding
+  const email = session?.user?.email;
+  if (!email) {
+    return notFound();
   }
+
+  const user = await getUser(email);
+  if (!user) {
+    return notFound();
+  }
+
+  return (
+    <div>
+      <NewCertification user={user} />
+    </div>
+  );
 }

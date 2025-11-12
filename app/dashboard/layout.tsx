@@ -1,8 +1,7 @@
-// app/layout.tsx (or the layout file you showed)
+// app/layout.tsx
 import SideNav from "@/app/ui/dashboard/sidenav";
 import { auth } from "@/auth"; // server-side helper that calls getServerSession
 import Providers from "@/app/dashboard/providers"; // client wrapper
-import WindowSize from "../hooks/WindowSize";
 
 export default async function Layout({
   children,
@@ -11,13 +10,10 @@ export default async function Layout({
 }) {
   const session = await auth();
 
-  // Optionally sanitize session.user
-  if (session?.user) {
-    session.user = {
-      name: session.user.name,
-      email: session.user.email,
-    };
-  }
+  // Do NOT mutate session.user (may require `id` per your types).
+  // Pass the original session through to Providers/SideNav.
+  // If you ever need a smaller "public" session for client code, create a new object
+  // (do not overwrite `session.user`) and ensure types align with your component props.
 
   return (
     <Providers session={session}>

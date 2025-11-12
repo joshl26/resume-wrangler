@@ -11,7 +11,7 @@
     "lint:ci": "eslint . --ext .js,.jsx,.ts,.tsx --max-warnings=0",
     "format": "prettier --write .",
     "test": "jest --coverage",
-  "test:watch": "jest --watch",
+    "test:watch": "jest --watch",
     "migrate": "node-pg-migrate",
     "migrate:up": "node-pg-migrate up",
     "migrate:down": "node-pg-migrate down",

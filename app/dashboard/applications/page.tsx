@@ -17,8 +17,6 @@ import BackButton from "@/app/ui/back-button";
 import Search from "@/app/ui/search";
 import Dropdown from "@/app/ui/DropdownButton";
 import Breadcrumbs from "@/app/ui/Breadcrumbs";
-// If you have typed definitions, import them — optional but recommended
-// import { Resumes, CoverLetters, Companies, Applications } from "@/app/lib/definitions";
 
 type SearchParams = {
   query?: string;
@@ -49,12 +47,6 @@ export default async function Page({ searchParams }: PageProps) {
   if (!email) {
     return notFound();
   }
-
-  // Keep only necessary user fields
-  session.user = {
-    name: session.user?.name,
-    email,
-  };
 
   const user = await getUser(email);
   if (!user || !user.id) {

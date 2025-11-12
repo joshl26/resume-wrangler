@@ -35,17 +35,12 @@ export default async function Page({ searchParams }: PageProps) {
   const currentPage = Number(resolvedSearchParams?.page) || 1;
 
   const session = await auth();
-  if (!session?.user) {
+  const email = session?.user?.email;
+  if (!email) {
     return notFound();
   }
 
-  // Keep only necessary user fields
-  session.user = {
-    name: session.user.name,
-    email: session.user.email,
-  };
-
-  const user = await getUser(session.user.email!);
+  const user = await getUser(email);
   if (!user) return notFound();
 
   // Fetch education records and ensure non-null entries

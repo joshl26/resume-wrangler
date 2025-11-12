@@ -1,14 +1,14 @@
 /// <reference types="@testing-library/jest-dom" />
-import '@testing-library/jest-dom';
+import "@testing-library/jest-dom";
 
 // common mocks (example)
-jest.mock('next/router', () => ({
+jest.mock("next/router", () => ({
   useRouter: () => ({
-    route: '/',
-    pathname: '/',
+    route: "/",
+    pathname: "/",
     query: {},
     push: jest.fn(),
     replace: jest.fn(),
-    prefetch: jest.fn().mockResolvedValue(undefined)
-  })
+    prefetch: jest.fn().mockResolvedValue(undefined),
+  }),
 }));

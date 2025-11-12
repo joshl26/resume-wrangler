@@ -6,7 +6,7 @@
 
 /// <reference types="jest" />
 
-import { jest } from '@jest/globals';
+import { jest } from "@jest/globals";
 
 /**
  * Note:
@@ -15,102 +15,126 @@ import { jest } from '@jest/globals';
  */
 
 // 1) Register module mocks BEFORE requiring the module under test
-jest.mock('@/app/lib/data', () => ({
+jest.mock("@/app/lib/data", () => ({
   getUser: jest.fn(),
   getUserByEmail: jest.fn(),
   createUser: jest.fn(),
   upsertProviderAccount: jest.fn(),
 }));
 
-jest.mock('bcrypt', () => ({
+jest.mock("bcrypt", () => ({
   compare: jest.fn(),
 }));
 
-jest.mock('next-auth', () => ({
+jest.mock("next-auth", () => ({
   __esModule: true,
   default: jest.fn(),
 }));
 
 // 2) Now require the module under test
-const authModule = require('../auth'); // adjust path if needed
+const authModule = require("../auth"); // adjust path if needed
 const authOptions: any = authModule.authOptions;
 const nextAuthHandler: any = authModule.default;
 
 // 3) Import mocks and cast them to properly-typed jest.MockedFunction signatures
-const data = require('@/app/lib/data') as {
+const data = require("@/app/lib/data") as {
   getUser: jest.MockedFunction<(email: string) => Promise<any | null>>;
   getUserByEmail: jest.MockedFunction<(email: string) => Promise<any | null>>;
   createUser: jest.MockedFunction<(payload: any) => Promise<any>>;
   upsertProviderAccount: jest.MockedFunction<(payload: any) => Promise<any>>;
 };
 
-const bcrypt = require('bcrypt') as {
-  compare: jest.MockedFunction<(plain: string, hashed: string) => Promise<boolean>>;
+const bcrypt = require("bcrypt") as {
+  compare: jest.MockedFunction<
+    (plain: string, hashed: string) => Promise<boolean>
+  >;
 };
 
-const NextAuth = require('next-auth').default as jest.MockedFunction<
+const NextAuth = require("next-auth").default as jest.MockedFunction<
   (opts?: any) => (req?: any, res?: any) => any
 >;
 
-describe('auth.ts', () => {
+describe("auth.ts", () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  describe('Credentials provider - authorize', () => {
+  describe("Credentials provider - authorize", () => {
     const credentialsProvider = (authOptions.providers || []).find(
-      (p: any) => p?.id === 'credentials' || p?.name === 'Credentials'
+      (p: any) => p?.id === "credentials" || p?.name === "Credentials",
     ) as any;
 
-    it('returns null when no credentials provided', async () => {
+    it("returns null when no credentials provided", async () => {
       const authorize = credentialsProvider.options.authorize;
       const res = await authorize(null);
       expect(res).toBeNull();
     });
 
-    it('returns null when credentials fail zod validation (invalid email)', async () => {
+    it("returns null when credentials fail zod validation (invalid email)", async () => {
       const authorize = credentialsProvider.options.authorize;
-      const res = await authorize({ email: 'not-an-email', password: 'x' });
+      const res = await authorize({ email: "not-an-email", password: "x" });
       expect(res).toBeNull();
     });
 
-    it('returns null when user not found', async () => {
+    it("returns null when user not found", async () => {
       data.getUser.mockResolvedValue(null);
       const authorize = credentialsProvider.options.authorize;
-      const res = await authorize({ email: 'test@example.com', password: 'pass' });
+      const res = await authorize({
+        email: "test@example.com",
+        password: "pass",
+      });
       expect(res).toBeNull();
-      expect(data.getUser).toHaveBeenCalledWith('test@example.com');
+      expect(data.getUser).toHaveBeenCalledWith("test@example.com");
     });
 
-    it('returns null when password does not match', async () => {
+    it("returns null when password does not match", async () => {
       // typed mocked functions accept object values now
-      const dbUser = { id: 'u1', email: 'test@example.com', password: 'hashed' };
+      const dbUser = {
+        id: "u1",
+        email: "test@example.com",
+        password: "hashed",
+      };
       data.getUser.mockResolvedValue(dbUser);
       bcrypt.compare.mockResolvedValue(false);
 
       const authorize = credentialsProvider.options.authorize;
-      const res = await authorize({ email: 'test@example.com', password: 'pass' });
+      const res = await authorize({
+        email: "test@example.com",
+        password: "pass",
+      });
       expect(res).toBeNull();
-      expect(bcrypt.compare).toHaveBeenCalledWith('pass', 'hashed');
+      expect(bcrypt.compare).toHaveBeenCalledWith("pass", "hashed");
     });
 
-    it('returns safe user object when credentials valid', async () => {
-      const dbUser = { id: 'u1', email: 'test@example.com', password: 'hashed', name: 'Tester' };
+    it("returns safe user object when credentials valid", async () => {
+      const dbUser = {
+        id: "u1",
+        email: "test@example.com",
+        password: "hashed",
+        name: "Tester",
+      };
       data.getUser.mockResolvedValue(dbUser);
       bcrypt.compare.mockResolvedValue(true);
 
       const authorize = credentialsProvider.options.authorize;
-      const res = await authorize({ email: 'test@example.com', password: 'pass' });
+      const res = await authorize({
+        email: "test@example.com",
+        password: "pass",
+      });
 
-      expect(res).toEqual({ id: 'u1', email: 'test@example.com', name: 'Tester' });
-      expect(bcrypt.compare).toHaveBeenCalledWith('pass', 'hashed');
+      expect(res).toEqual({
+        id: "u1",
+        email: "test@example.com",
+        name: "Tester",
+      });
+      expect(bcrypt.compare).toHaveBeenCalledWith("pass", "hashed");
     });
   });
 
-  describe('Google provider config', () => {
-    it('includes a google provider entry', () => {
+  describe("Google provider config", () => {
+    it("includes a google provider entry", () => {
       const googleProvider = (authOptions.providers || []).find(
-        (p: any) => p?.id === 'google' || p?.name === 'Google'
+        (p: any) => p?.id === "google" || p?.name === "Google",
       );
       expect(googleProvider).toBeDefined();
       const prov: any = googleProvider;
@@ -118,80 +142,87 @@ describe('auth.ts', () => {
     });
   });
 
-  describe('callbacks', () => {
-    describe('signIn', () => {
-      it('returns false when account.provider exists but user.email missing', async () => {
+  describe("callbacks", () => {
+    describe("signIn", () => {
+      it("returns false when account.provider exists but user.email missing", async () => {
         const res = await authOptions.callbacks.signIn({
           user: {},
-          account: { provider: 'google' },
+          account: { provider: "google" },
           profile: {},
         } as any);
         expect(res).toBe(false);
       });
 
-      it('links existing user and calls upsertProviderAccount', async () => {
-        const existing = { id: 'existing-1', email: 'ex@example.com', name: 'Ex' };
+      it("links existing user and calls upsertProviderAccount", async () => {
+        const existing = {
+          id: "existing-1",
+          email: "ex@example.com",
+          name: "Ex",
+        };
         data.getUserByEmail.mockResolvedValue(existing);
         data.upsertProviderAccount.mockResolvedValue({});
 
         const res = await authOptions.callbacks.signIn({
-          user: { email: 'ex@example.com', name: 'Ex' },
+          user: { email: "ex@example.com", name: "Ex" },
           account: {
-            provider: 'google',
-            providerAccountId: 'prov-1',
-            access_token: 'a',
-            refresh_token: 'r',
+            provider: "google",
+            providerAccountId: "prov-1",
+            access_token: "a",
+            refresh_token: "r",
             expires_at: Math.floor(Date.now() / 1000) + 1000,
-            scope: 's',
-            token_type: 't',
-            id_token: 'id',
+            scope: "s",
+            token_type: "t",
+            id_token: "id",
           },
-          profile: { sub: 'prov-1', email: 'ex@example.com' },
+          profile: { sub: "prov-1", email: "ex@example.com" },
         } as any);
 
         expect(res).toBe(true);
-        expect(data.getUserByEmail).toHaveBeenCalledWith('ex@example.com');
+        expect(data.getUserByEmail).toHaveBeenCalledWith("ex@example.com");
         expect(data.upsertProviderAccount).toHaveBeenCalledWith(
           expect.objectContaining({
-            userId: 'existing-1',
-            provider: 'google',
-            providerAccountId: 'prov-1',
-            profileEmail: 'ex@example.com',
-          })
+            userId: "existing-1",
+            provider: "google",
+            providerAccountId: "prov-1",
+            profileEmail: "ex@example.com",
+          }),
         );
       });
 
-      it('creates new user when none exists and links via upsertProviderAccount', async () => {
+      it("creates new user when none exists and links via upsertProviderAccount", async () => {
         data.getUserByEmail.mockResolvedValue(null);
-        data.createUser.mockResolvedValue({ id: 'new-1', email: 'new@example.com' });
+        data.createUser.mockResolvedValue({
+          id: "new-1",
+          email: "new@example.com",
+        });
         data.upsertProviderAccount.mockResolvedValue({});
 
         const res = await authOptions.callbacks.signIn({
-          user: { email: 'new@example.com', name: 'New' },
-          account: { provider: 'google', providerAccountId: 'prov-2' },
-          profile: { sub: 'prov-2', email: 'new@example.com' },
+          user: { email: "new@example.com", name: "New" },
+          account: { provider: "google", providerAccountId: "prov-2" },
+          profile: { sub: "prov-2", email: "new@example.com" },
         } as any);
 
         expect(res).toBe(true);
         expect(data.createUser).toHaveBeenCalledWith(
-          expect.objectContaining({ email: 'new@example.com', name: 'New' })
+          expect.objectContaining({ email: "new@example.com", name: "New" }),
         );
         expect(data.upsertProviderAccount).toHaveBeenCalledWith(
           expect.objectContaining({
-            userId: 'new-1',
-            provider: 'google',
-            providerAccountId: 'prov-2',
-            profileEmail: 'new@example.com',
-          })
+            userId: "new-1",
+            provider: "google",
+            providerAccountId: "prov-2",
+            profileEmail: "new@example.com",
+          }),
         );
       });
 
-      it('returns false if an exception occurs', async () => {
-        data.getUserByEmail.mockRejectedValue(new Error('db err'));
+      it("returns false if an exception occurs", async () => {
+        data.getUserByEmail.mockRejectedValue(new Error("db err"));
 
         const res = await authOptions.callbacks.signIn({
-          user: { email: 'err@example.com' },
-          account: { provider: 'google' },
+          user: { email: "err@example.com" },
+          account: { provider: "google" },
           profile: {},
         } as any);
 
@@ -199,41 +230,47 @@ describe('auth.ts', () => {
       });
     });
 
-    describe('jwt', () => {
-      it('attaches userId to token when user exists', async () => {
-        data.getUserByEmail.mockResolvedValue({ id: 'uid-1', email: 'u@example.com' });
+    describe("jwt", () => {
+      it("attaches userId to token when user exists", async () => {
+        data.getUserByEmail.mockResolvedValue({
+          id: "uid-1",
+          email: "u@example.com",
+        });
 
         const token: any = {};
-        const user: any = { email: 'u@example.com' };
+        const user: any = { email: "u@example.com" };
 
         const out = await authOptions.callbacks.jwt({ token, user } as any);
-        expect((out as any).userId).toBe('uid-1');
-        expect(data.getUserByEmail).toHaveBeenCalledWith('u@example.com');
+        expect((out as any).userId).toBe("uid-1");
+        expect(data.getUserByEmail).toHaveBeenCalledWith("u@example.com");
       });
 
-      it('leaves token untouched when no user', async () => {
-        const token = { existing: 'x' };
+      it("leaves token untouched when no user", async () => {
+        const token = { existing: "x" };
         const out = await authOptions.callbacks.jwt({ token } as any);
         expect(out).toEqual(token);
       });
     });
 
-    describe('session', () => {
-      it('adds token.userId to session.user.id', async () => {
+    describe("session", () => {
+      it("adds token.userId to session.user.id", async () => {
         const session: any = { user: {} };
-        const token: any = { userId: 'uid-1' };
-        const out = await authOptions.callbacks.session({ session, token } as any);
-        expect((out.user as any).id).toBe('uid-1');
+        const token: any = { userId: "uid-1" };
+        const out = await authOptions.callbacks.session({
+          session,
+          token,
+        } as any);
+        expect((out.user as any).id).toBe("uid-1");
       });
     });
   });
 
-  describe('nextAuthHandler', () => {
-    it('calls NextAuth with authOptions and calls returned handler with req', () => {
+  describe("nextAuthHandler", () => {
+    it("calls NextAuth with authOptions and calls returned handler with req", () => {
       const inner = jest.fn();
       NextAuth.mockImplementation(() => inner);
 
-      const req = { method: 'GET' } as any;
+      const req = { method: "GET" } as any;
       const result = nextAuthHandler(req);
 
       expect(NextAuth).toHaveBeenCalledWith(authOptions);

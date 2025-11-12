@@ -45,8 +45,13 @@ export default async function Page({ searchParams }: PageProps) {
     return notFound();
   }
 
-  session.user = { name: session.user.name, email: session.user.email };
-  const user = await getUser(session.user.email!);
+  // Safely extract email (don't mutate session.user which has a required `id`)
+  const email = session.user.email;
+  if (!email) {
+    return notFound();
+  }
+
+  const user = await getUser(email);
   if (!user) return notFound();
 
   // fetch raw data

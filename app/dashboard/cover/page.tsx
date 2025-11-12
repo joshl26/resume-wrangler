@@ -32,13 +32,8 @@ export default async function Page(): Promise<JSX.Element> {
     return notFound();
   }
 
-  // Keep only the fields we need on session.user
-  session.user = {
-    name: session.user?.name,
-    email,
-  };
-
-  // Safe: email is a string
+  // Do NOT mutate session.user (it may require additional fields like `id`)
+  // Use the plain `email` string to fetch the user.
   const user = await getUser(email);
   if (!user || !user.id) {
     return notFound();

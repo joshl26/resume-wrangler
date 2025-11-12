@@ -6,22 +6,21 @@ import React from "react";
 
 export default async function Page() {
   const session = await auth();
-  if (session?.user) {
-    session.user = {
-      name: session.user.name,
-      email: session.user.email,
-    };
 
-    const user = await getUser(session?.user?.email!);
-
-    if (!user) {
-      notFound();
-    }
-
-    return (
-      <div className="w-full h-full overflow-y-auto px-4">
-        <NewCoverExperience user={user} />
-      </div>
-    );
+  // Guard: require a valid email before proceeding
+  const email = session?.user?.email;
+  if (!email) {
+    return notFound();
   }
+
+  const user = await getUser(email);
+  if (!user) {
+    return notFound();
+  }
+
+  return (
+    <div className="w-full h-full overflow-y-auto px-4">
+      <NewCoverExperience user={user} />
+    </div>
+  );
 }

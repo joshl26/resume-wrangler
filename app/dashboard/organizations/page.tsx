@@ -39,14 +39,11 @@ export default async function Page({ searchParams }: PageProps) {
 
   // Auth
   const session = await auth();
-  if (!session?.user) return notFound();
+  const email = session?.user?.email;
+  if (!email) return notFound();
 
-  session.user = {
-    name: session.user.name,
-    email: session.user.email,
-  };
-
-  const user = await getUser(session.user.email!);
+  // Use plain email string to fetch user (do not mutate session.user)
+  const user = await getUser(email);
   if (!user) return notFound();
 
   // Fetch organizations and ensure non-null entries

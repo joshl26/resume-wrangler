@@ -23,11 +23,11 @@ type ResumeWithApplication = Resume & Partial<Application>;
 export default async function Page(): Promise<JSX.Element> {
   const session = await auth();
 
+  // Require authenticated user with an email
   const email = session?.user?.email;
   if (!email) return notFound();
 
-  session.user = { name: session.user?.name, email };
-
+  // Fetch full user record using email (do not mutate session.user)
   const user = await getUser(email);
   if (!user || !user.id) return notFound();
 
