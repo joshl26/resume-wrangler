@@ -18,10 +18,16 @@ async function coverPdfHandler(req: NextRequest) {
   const userEmail = params.userEmail;
 
   if (!coverLetterId) {
-    return NextResponse.json({ message: "no coverLetterId provided" }, { status: 400 });
+    return NextResponse.json(
+      { message: "no coverLetterId provided" },
+      { status: 400 },
+    );
   }
   if (!userEmail) {
-    return NextResponse.json({ message: "no userEmail provided" }, { status: 400 });
+    return NextResponse.json(
+      { message: "no userEmail provided" },
+      { status: 400 },
+    );
   }
 
   const sanitizedCoverId = coverLetterId.trim();
@@ -36,7 +42,7 @@ async function coverPdfHandler(req: NextRequest) {
       ? {
           args: chrome.args,
           executablePath: await chrome.executablePath(
-            "https://github.com/Sparticuz/chromium/releases/download/v119.0.2/chromium-v119.0.2-pack.tar"
+            "https://github.com/Sparticuz/chromium/releases/download/v119.0.2/chromium-v119.0.2-pack.tar",
           ),
           headless: true,
         }
@@ -49,8 +55,7 @@ async function coverPdfHandler(req: NextRequest) {
             "--disable-gpu",
           ],
           executablePath:
-            process.env.CHROME_PATH ??
-            "/usr/bin/chromium-browser",
+            process.env.CHROME_PATH ?? "/usr/bin/chromium-browser",
         };
 
     browser = await puppeteer.launch(options);
@@ -59,7 +64,9 @@ async function coverPdfHandler(req: NextRequest) {
     page.setDefaultTimeout(15000);
     await page.setViewport({ width: 1200, height: 800 });
 
-    const baseUrl = process.env.DEPLOYMENT_URL ?? `http://localhost:${process.env.PORT ?? 3000}`;
+    const baseUrl =
+      process.env.DEPLOYMENT_URL ??
+      `http://localhost:${process.env.PORT ?? 3000}`;
     const targetUrl = `${baseUrl}/cover-letter/${encodeURIComponent(sanitizedCoverId)}/${encodeURIComponent(sanitizedEmail)}`;
 
     await page.setExtraHTTPHeaders({
@@ -71,7 +78,10 @@ async function coverPdfHandler(req: NextRequest) {
 
     try {
       await page.evaluate(() =>
-        Promise.race([document.fonts.ready, new Promise((res) => setTimeout(res, 3000))])
+        Promise.race([
+          document.fonts.ready,
+          new Promise((res) => setTimeout(res, 3000)),
+        ]),
       );
     } catch {
       /* ignore */
@@ -123,9 +133,12 @@ async function coverPdfHandler(req: NextRequest) {
     return NextResponse.json(
       {
         error: "Failed to generate PDF",
-        message: process.env.NODE_ENV === "development" ? error.message : "Please try again later",
+        message:
+          process.env.NODE_ENV === "development"
+            ? error.message
+            : "Please try again later",
       },
-      { status }
+      { status },
     );
   }
 }

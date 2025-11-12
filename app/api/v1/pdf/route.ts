@@ -18,10 +18,16 @@ async function pdfHandler(req: NextRequest) {
   const userEmail = params.userEmail;
 
   if (!resumeId) {
-    return NextResponse.json({ message: "no resumeId provided" }, { status: 400 });
+    return NextResponse.json(
+      { message: "no resumeId provided" },
+      { status: 400 },
+    );
   }
   if (!userEmail) {
-    return NextResponse.json({ message: "no userEmail provided" }, { status: 400 });
+    return NextResponse.json(
+      { message: "no userEmail provided" },
+      { status: 400 },
+    );
   }
 
   const sanitizedResumeId = String(resumeId).trim();
@@ -36,7 +42,7 @@ async function pdfHandler(req: NextRequest) {
       ? {
           args: chrome.args,
           executablePath: await chrome.executablePath(
-            "https://github.com/Sparticuz/chromium/releases/download/v119.0.2/chromium-v119.0.2-pack.tar"
+            "https://github.com/Sparticuz/chromium/releases/download/v119.0.2/chromium-v119.0.2-pack.tar",
           ),
           headless: true,
         }
@@ -51,7 +57,8 @@ async function pdfHandler(req: NextRequest) {
             "--disable-extensions",
             "--disable-background-timer-throttling",
           ],
-          executablePath: process.env.CHROME_PATH ?? "/usr/bin/chromium-browser",
+          executablePath:
+            process.env.CHROME_PATH ?? "/usr/bin/chromium-browser",
         };
 
     browser = await puppeteer.launch(launchOptions);
@@ -67,7 +74,9 @@ async function pdfHandler(req: NextRequest) {
       await page.setExtraHTTPHeaders({ "X-API-Key": internalKey });
     }
 
-    const baseUrl = process.env.DEPLOYMENT_URL ?? `http://localhost:${process.env.PORT ?? 3000}`;
+    const baseUrl =
+      process.env.DEPLOYMENT_URL ??
+      `http://localhost:${process.env.PORT ?? 3000}`;
     const targetUrl = `${baseUrl}/resume/${encodeURIComponent(sanitizedResumeId)}/${encodeURIComponent(sanitizedUserEmail)}`;
 
     await page.goto(targetUrl, { waitUntil: "networkidle0", timeout: 20000 });
@@ -78,7 +87,10 @@ async function pdfHandler(req: NextRequest) {
     try {
       await page.evaluate(() =>
         // Wait for document.fonts.ready or 3s fallback
-        Promise.race([document.fonts?.ready ?? Promise.resolve(), new Promise((r) => setTimeout(r, 3000))])
+        Promise.race([
+          document.fonts?.ready ?? Promise.resolve(),
+          new Promise((r) => setTimeout(r, 3000)),
+        ]),
       );
     } catch {
       // ignore font timing errors
@@ -123,10 +135,20 @@ async function pdfHandler(req: NextRequest) {
       console.error("failed closing browser:", closeErr);
     }
 
-    const status = String(error?.message ?? "").toLowerCase().includes("timeout") ? 408 : 500;
+    const status = String(error?.message ?? "")
+      .toLowerCase()
+      .includes("timeout")
+      ? 408
+      : 500;
     return NextResponse.json(
-      { error: "Failed to generate PDF", message: process.env.NODE_ENV === "development" ? error?.message : "Please try again later" },
-      { status }
+      {
+        error: "Failed to generate PDF",
+        message:
+          process.env.NODE_ENV === "development"
+            ? error?.message
+            : "Please try again later",
+      },
+      { status },
     );
   }
 }

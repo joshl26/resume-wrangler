@@ -12,7 +12,9 @@ function isStaticOrInternal(pathname: string) {
     pathname.startsWith("/_next/") ||
     pathname.startsWith("/static/") ||
     pathname.startsWith("/api/auth") || // don't rewrite or auth NextAuth's own API routes
-    /\.(?:png|jpe?g|gif|svg|webp|ico|css|js|json|woff2?|ttf|map)$/.test(pathname) ||
+    /\.(?:png|jpe?g|gif|svg|webp|ico|css|js|json|woff2?|ttf|map)$/.test(
+      pathname,
+    ) ||
     pathname === "/favicon.ico" ||
     pathname === "/robots.txt"
   );

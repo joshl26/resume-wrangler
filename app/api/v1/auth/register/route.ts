@@ -14,14 +14,14 @@ async function signupHandler(request: Request) {
     if (!username || !email || !password) {
       return NextResponse.json(
         { success: false, message: "Missing required fields" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
     if (password.length < 6) {
       return NextResponse.json(
         { success: false, message: "Password must be at least 6 characters" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -45,33 +45,33 @@ async function signupHandler(request: Request) {
         user: {
           id: user.id,
           name: user.name,
-          email: user.email
-        }
+          email: user.email,
+        },
       },
-      { status: 201 }
+      { status: 201 },
     );
   } catch (e: any) {
     console.error("Signup error:", e); // Server-side logging only
-    
+
     // Handle duplicate email/username
     if (e.code === "23505") {
-      const field = e.detail?.includes('email') ? 'Email' : 'Username';
+      const field = e.detail?.includes("email") ? "Email" : "Username";
       return NextResponse.json(
-        { 
-          success: false, 
-          message: `${field} already exists` 
+        {
+          success: false,
+          message: `${field} already exists`,
         },
-        { status: 409 }
+        { status: 409 },
       );
     }
 
     // Handle other database errors
     return NextResponse.json(
-      { 
-        success: false, 
-        message: "Signup failed. Please try again." 
+      {
+        success: false,
+        message: "Signup failed. Please try again.",
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

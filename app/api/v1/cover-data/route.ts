@@ -20,14 +20,14 @@ async function coverDataHandler(request: Request) {
     if (!coverId || typeof coverId !== "string") {
       return NextResponse.json(
         { message: "Valid cover ID is required" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
     if (!userEmail || typeof userEmail !== "string") {
       return NextResponse.json(
         { message: "Valid user email is required" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -38,21 +38,18 @@ async function coverDataHandler(request: Request) {
     // Fetch user
     const user = await getUser(sanitizedUserEmail);
     if (!user) {
-      return NextResponse.json(
-        { message: "User not found" },
-        { status: 404 }
-      );
+      return NextResponse.json({ message: "User not found" }, { status: 404 });
     }
 
     // Fetch cover letter
     const coverLetter = await fetchCoverLetterByIdAndUserId(
       sanitizedCoverId,
-      user.id
+      user.id,
     );
     if (!coverLetter) {
       return NextResponse.json(
         { message: "Cover letter not found or access denied" },
-        { status: 404 }
+        { status: 404 },
       );
     }
 
@@ -61,7 +58,7 @@ async function coverDataHandler(request: Request) {
       company,
       application,
       selectedCoverExperiences,
-      userCoverExperiences
+      userCoverExperiences,
     ] = await Promise.all([
       coverLetter.company_id
         ? fetchCompanyById(coverLetter.company_id)
@@ -70,7 +67,7 @@ async function coverDataHandler(request: Request) {
         ? fetchApplicationById(coverLetter.application_id)
         : Promise.resolve(null),
       fetchCoverExperiencesByCoverLetterId(coverLetter.id),
-      fetchCoverExperiencesByUserId(user.id)
+      fetchCoverExperiencesByUserId(user.id),
     ]);
 
     return NextResponse.json({
@@ -79,7 +76,7 @@ async function coverDataHandler(request: Request) {
         user: {
           id: user.id,
           name: user.name,
-          email: user.email
+          email: user.email,
         },
         coverLetter: {
           id: coverLetter.id,
@@ -88,7 +85,7 @@ async function coverDataHandler(request: Request) {
           createdAt: coverLetter.created_at,
           updatedAt: coverLetter.updated_at,
           companyId: coverLetter.company_id,
-          applicationId: coverLetter.application_id
+          applicationId: coverLetter.application_id,
         },
         selectedCoverExperiences,
         userCoverExperiences,
@@ -98,18 +95,18 @@ async function coverDataHandler(request: Request) {
           bodyFont: coverLetter.body_font ?? null,
           headingFont: coverLetter.heading_font ?? null,
           color: coverLetter.color ?? null,
-          highlightColor: coverLetter.highlight_color ?? null
-        }
-      }
+          highlightColor: coverLetter.highlight_color ?? null,
+        },
+      },
     });
   } catch (error) {
     console.error("Cover data fetch error:", error);
     return NextResponse.json(
-      { 
-        success: false, 
-        message: "Failed to fetch cover data" 
+      {
+        success: false,
+        message: "Failed to fetch cover data",
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

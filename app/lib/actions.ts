@@ -401,9 +401,8 @@ export type State = {
 // app/lib/actions.ts
 export async function authenticate(
   prevState: string | undefined,
-  formData: FormData
+  formData: FormData,
 ) {
-
   try {
     // Prepare the data for the POST request
     const body = new URLSearchParams();
@@ -421,7 +420,7 @@ export async function authenticate(
         },
         body: body.toString(),
         // credentials: "include", // optional: if you need cookies in cross-origin requests
-      }
+      },
     );
 
     // Check if the response is a redirect (successful login)

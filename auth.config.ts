@@ -4,7 +4,7 @@ import type { NextAuthOptions } from "next-auth";
 export const authConfig = {
   session: {
     maxAge: 30 * 24 * 60 * 60, // 30 days
-    updateAge: 24 * 60 * 60,   // 24 hours
+    updateAge: 24 * 60 * 60, // 24 hours
   },
   basePath: "/api/v1/auth",
   providers: [],

@@ -5,7 +5,12 @@ import GoogleProvider from "next-auth/providers/google";
 import { authConfig } from "./auth.config";
 import bcrypt from "bcrypt";
 import { z } from "zod";
-import { getUser, getUserByEmail, createUser, upsertProviderAccount } from "@/app/lib/data";
+import {
+  getUser,
+  getUserByEmail,
+  createUser,
+  upsertProviderAccount,
+} from "@/app/lib/data";
 import { getServerSession, type Session } from "next-auth";
 
 export const authOptions: AuthOptions = {
@@ -18,9 +23,14 @@ export const authOptions: AuthOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        console.log("[auth] authorize called with email:", credentials?.email ?? null);
+        console.log(
+          "[auth] authorize called with email:",
+          credentials?.email ?? null,
+        );
         if (!credentials) return null;
-        const parsed = z.object({ email: z.string().email(), password: z.string().min(1) }).safeParse(credentials);
+        const parsed = z
+          .object({ email: z.string().email(), password: z.string().min(1) })
+          .safeParse(credentials);
         if (!parsed.success) return null;
 
         const user = await getUser(parsed.data.email);
@@ -63,7 +73,10 @@ export const authOptions: AuthOptions = {
         if (account && account.provider) {
           // Ensure we have an email
           if (!user?.email) {
-            console.error("[auth][signIn] no email present on OAuth profile", { provider: account.provider, profile });
+            console.error("[auth][signIn] no email present on OAuth profile", {
+              provider: account.provider,
+              profile,
+            });
             return false;
           }
 
@@ -78,7 +91,9 @@ export const authOptions: AuthOptions = {
               providerAccountId: account.providerAccountId,
               accessToken: (account as any).access_token ?? null,
               refreshToken: (account as any).refresh_token ?? null,
-              expiresAt: (account as any).expires_at ? new Date((account as any).expires_at * 1000) : null,
+              expiresAt: (account as any).expires_at
+                ? new Date((account as any).expires_at * 1000)
+                : null,
               scope: (account as any).scope ?? null,
               tokenType: (account as any).token_type ?? null,
               idToken: (account as any).id_token ?? null,
@@ -107,7 +122,9 @@ export const authOptions: AuthOptions = {
               providerAccountId: account.providerAccountId,
               accessToken: (account as any).access_token ?? null,
               refreshToken: (account as any).refresh_token ?? null,
-              expiresAt: (account as any).expires_at ? new Date((account as any).expires_at * 1000) : null,
+              expiresAt: (account as any).expires_at
+                ? new Date((account as any).expires_at * 1000)
+                : null,
               scope: (account as any).scope ?? null,
               tokenType: (account as any).token_type ?? null,
               idToken: (account as any).id_token ?? null,

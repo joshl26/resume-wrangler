@@ -73,7 +73,7 @@ const nextConfig = {
   generateEtags: true,
 
   async rewrites() {
-    return [{ source: '/api/auth/:path*', destination: '/api/v1/auth/:path*' }];
+    return [{ source: "/api/auth/:path*", destination: "/api/v1/auth/:path*" }];
   },
 
   async redirects() {

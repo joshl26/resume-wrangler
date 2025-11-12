@@ -60,10 +60,16 @@ exports.up = function (pgm) {
 exports.down = function (pgm) {
   pgm.noTransaction();
 
-  pgm.sql(`DROP INDEX CONCURRENTLY IF EXISTS idx_applications_posting_url_trgm;`);
-  pgm.sql(`DROP INDEX CONCURRENTLY IF EXISTS idx_applications_posting_text_tsv;`);
+  pgm.sql(
+    `DROP INDEX CONCURRENTLY IF EXISTS idx_applications_posting_url_trgm;`,
+  );
+  pgm.sql(
+    `DROP INDEX CONCURRENTLY IF EXISTS idx_applications_posting_text_tsv;`,
+  );
   pgm.sql(`DROP INDEX CONCURRENTLY IF EXISTS idx_applications_incomplete;`);
-  pgm.sql(`DROP INDEX CONCURRENTLY IF EXISTS idx_applications_user_id_date_submitted;`);
+  pgm.sql(
+    `DROP INDEX CONCURRENTLY IF EXISTS idx_applications_user_id_date_submitted;`,
+  );
   pgm.sql(`DROP INDEX CONCURRENTLY IF EXISTS idx_applications_created_at;`);
   pgm.sql(`DROP INDEX CONCURRENTLY IF EXISTS idx_applications_date_submitted;`);
   pgm.sql(`DROP INDEX CONCURRENTLY IF EXISTS idx_applications_user_id;`);

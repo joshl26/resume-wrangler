@@ -18,29 +18,47 @@ async function resumeDataHandler(req: NextRequest) {
     const userEmailRaw = searchParams.get("userEmail");
 
     if (!resumeIdRaw) {
-      return NextResponse.json({ success: false, message: "resumeId is required" }, { status: 400 });
+      return NextResponse.json(
+        { success: false, message: "resumeId is required" },
+        { status: 400 },
+      );
     }
     if (!userEmailRaw) {
-      return NextResponse.json({ success: false, message: "userEmail is required" }, { status: 400 });
+      return NextResponse.json(
+        { success: false, message: "userEmail is required" },
+        { status: 400 },
+      );
     }
 
     const resumeId = resumeIdRaw.trim();
     const userEmail = userEmailRaw.trim().toLowerCase();
 
     // Resolve user + resume in parallel
-    const [user, resume] = await Promise.all([getUser(userEmail), fetchResumeById(resumeId)]);
+    const [user, resume] = await Promise.all([
+      getUser(userEmail),
+      fetchResumeById(resumeId),
+    ]);
 
     if (!user) {
-      return NextResponse.json({ success: false, message: "User not found" }, { status: 404 });
+      return NextResponse.json(
+        { success: false, message: "User not found" },
+        { status: 404 },
+      );
     }
 
     if (!resume) {
-      return NextResponse.json({ success: false, message: "Resume not found" }, { status: 404 });
+      return NextResponse.json(
+        { success: false, message: "Resume not found" },
+        { status: 404 },
+      );
     }
 
     // Authorization: allow if owner or admin
     if (user.access_level !== "admin" && resume.user_id !== user.id) {
-      return NextResponse.json({ success: false, message: "Forbidden" }, { status: 403 });
+      return NextResponse.json(
+        { success: false, message: "Forbidden" },
+        { status: 403 },
+      );
     }
 
     // Fetch resume-linked data in parallel
@@ -81,13 +99,13 @@ async function resumeDataHandler(req: NextRequest) {
           // Set caching as appropriate. If the data is sensitive, use 'no-store'
           "Cache-Control": "no-store",
         },
-      }
+      },
     );
   } catch (error: any) {
     console.error("resume-data error:", error);
     return NextResponse.json(
       { success: false, message: "Failed to fetch resume data" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

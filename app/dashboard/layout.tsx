@@ -1,10 +1,14 @@
 // app/layout.tsx (or the layout file you showed)
 import SideNav from "@/app/ui/dashboard/sidenav";
-import { auth } from "@/auth";          // server-side helper that calls getServerSession
-import  Providers  from "@/app/dashboard/providers"; // client wrapper
+import { auth } from "@/auth"; // server-side helper that calls getServerSession
+import Providers from "@/app/dashboard/providers"; // client wrapper
 import WindowSize from "../hooks/WindowSize";
 
-export default async function Layout({ children }: { children: React.ReactNode; }) {
+export default async function Layout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const session = await auth();
 
   // Optionally sanitize session.user
