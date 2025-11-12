@@ -87,11 +87,21 @@ export default function RegisterUser() {
     const re = new RegExp(passwordRegex);
     setPasswordValidated(re.test(passwordInput));
 
-    setOneUpperCaseEnglish(new RegExp(atLeastOneUpperCaseEnglishRegex).test(passwordInput));
-    setOneLowerCaseEnglish(new RegExp(atLeastOneLowerCaseEnglishRegex).test(passwordInput));
-    setOneNumber(new RegExp(atLeastOneNumberZeroToNineRegex).test(passwordInput));
-    setOneSpecialChar(new RegExp(atLeastOneSpecialCharacterRegex).test(passwordInput));
-    setSixCharacters2(new RegExp(atLeastSixCharactersRegex).test(passwordInput));
+    setOneUpperCaseEnglish(
+      new RegExp(atLeastOneUpperCaseEnglishRegex).test(passwordInput),
+    );
+    setOneLowerCaseEnglish(
+      new RegExp(atLeastOneLowerCaseEnglishRegex).test(passwordInput),
+    );
+    setOneNumber(
+      new RegExp(atLeastOneNumberZeroToNineRegex).test(passwordInput),
+    );
+    setOneSpecialChar(
+      new RegExp(atLeastOneSpecialCharacterRegex).test(passwordInput),
+    );
+    setSixCharacters2(
+      new RegExp(atLeastSixCharactersRegex).test(passwordInput),
+    );
     setNoWhiteSpace(new RegExp(noWhiteSpaceRegex).test(passwordInput));
   };
 
@@ -187,7 +197,9 @@ export default function RegisterUser() {
                   <li
                     className={clsx(
                       "italic font-lite",
-                      onlyLettersAndNumbers ? "text-emerald-400" : " text-rose-800",
+                      onlyLettersAndNumbers
+                        ? "text-emerald-400"
+                        : " text-rose-800",
                     )}
                   >
                     - Contain only A-Z, a-z and 0-9 characters
@@ -195,7 +207,9 @@ export default function RegisterUser() {
                   <li
                     className={clsx(
                       "italic font-lite",
-                      onlyLettersAndNumbers ? "text-emerald-400" : " text-rose-800",
+                      onlyLettersAndNumbers
+                        ? "text-emerald-400"
+                        : " text-rose-800",
                     )}
                   >
                     - Not contain spaces or special characters
@@ -242,13 +256,13 @@ export default function RegisterUser() {
                     {showPassword === false ? (
                       <FontAwesomeIcon
                         onClick={onClickHandler}
-                        className="h-[20px] pt-3"
+                        className="h-5 pt-3"
                         icon={faEye}
                       />
                     ) : (
                       <FontAwesomeIcon
                         onClick={onClickHandler}
-                        className="h-[20px] pt-3"
+                        className="h-5 pt-3"
                         icon={faEyeSlash}
                       />
                     )}
@@ -263,7 +277,9 @@ export default function RegisterUser() {
                   <li
                     className={clsx(
                       "italic font-lite",
-                      oneUpperCaseEnglish ? "text-emerald-400" : " text-rose-800",
+                      oneUpperCaseEnglish
+                        ? "text-emerald-400"
+                        : " text-rose-800",
                     )}
                   >
                     - Contain at least one upper case A-Z
@@ -271,7 +287,9 @@ export default function RegisterUser() {
                   <li
                     className={clsx(
                       "italic font-lite",
-                      oneLowerCaseEnglish ? "text-emerald-400" : " text-rose-800",
+                      oneLowerCaseEnglish
+                        ? "text-emerald-400"
+                        : " text-rose-800",
                     )}
                   >
                     - Contain at least one lower case a-z
@@ -323,7 +341,9 @@ export default function RegisterUser() {
                 <div className="w-full border-t border-gray-300"></div>
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="bg-white px-2 text-gray-500">Or sign up with</span>
+                <span className="bg-white px-2 text-gray-500">
+                  Or sign up with
+                </span>
               </div>
             </div>
 

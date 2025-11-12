@@ -24,7 +24,10 @@ export const authOptions: AuthOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        console.log("[auth] authorize called with email:", credentials?.email ?? null);
+        console.log(
+          "[auth] authorize called with email:",
+          credentials?.email ?? null,
+        );
         if (!credentials) return null;
         const parsed = z
           .object({ email: z.string().email(), password: z.string().min(1) })

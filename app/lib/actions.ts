@@ -2294,7 +2294,6 @@ export async function createCoverExperience(formData: FormData) {
   redirect(`/dashboard/cover-experience`);
 }
 
-
 export async function deleteAccount(formData: FormData) {
   // Require server-side auth helper — adapt if you use a different session method
   const session = await auth?.();
@@ -2311,9 +2310,10 @@ export async function deleteAccount(formData: FormData) {
   }
 
   // Basic validation (uses DeleteAccountSchema if present)
-  const validated = (typeof DeleteAccountSchema !== "undefined")
-    ? DeleteAccountSchema.safeParse({ id: userId })
-    : { success: true, data: { id: userId } };
+  const validated =
+    typeof DeleteAccountSchema !== "undefined"
+      ? DeleteAccountSchema.safeParse({ id: userId })
+      : { success: true, data: { id: userId } };
 
   if (validated.success === false) {
     return { success: false, error: "Invalid user ID" };
@@ -2326,17 +2326,38 @@ export async function deleteAccount(formData: FormData) {
     const deletes: { sql: string; params?: any[] }[] = [
       { sql: "DELETE FROM user_accounts WHERE user_id = $1", params: [userId] },
       { sql: "DELETE FROM resume_lines WHERE user_id = $1", params: [userId] },
-      { sql: "DELETE FROM resume_experiences WHERE user_id = $1", params: [userId] },
-      { sql: "DELETE FROM cover_experience_lines WHERE user_id = $1", params: [userId] },
-      { sql: "DELETE FROM cover_experiences WHERE user_id = $1", params: [userId] },
+      {
+        sql: "DELETE FROM resume_experiences WHERE user_id = $1",
+        params: [userId],
+      },
+      {
+        sql: "DELETE FROM cover_experience_lines WHERE user_id = $1",
+        params: [userId],
+      },
+      {
+        sql: "DELETE FROM cover_experiences WHERE user_id = $1",
+        params: [userId],
+      },
       { sql: "DELETE FROM cover_letters WHERE user_id = $1", params: [userId] },
       { sql: "DELETE FROM applications WHERE user_id = $1", params: [userId] },
       { sql: "DELETE FROM companies WHERE user_id = $1", params: [userId] },
-      { sql: "DELETE FROM user_custom_section_one WHERE user_id = $1", params: [userId] },
-      { sql: "DELETE FROM user_custom_section_two WHERE user_id = $1", params: [userId] },
-      { sql: "DELETE FROM user_education WHERE user_id = $1", params: [userId] },
+      {
+        sql: "DELETE FROM user_custom_section_one WHERE user_id = $1",
+        params: [userId],
+      },
+      {
+        sql: "DELETE FROM user_custom_section_two WHERE user_id = $1",
+        params: [userId],
+      },
+      {
+        sql: "DELETE FROM user_education WHERE user_id = $1",
+        params: [userId],
+      },
       { sql: "DELETE FROM user_skills WHERE user_id = $1", params: [userId] },
-      { sql: "DELETE FROM user_work_experience WHERE user_id = $1", params: [userId] },
+      {
+        sql: "DELETE FROM user_work_experience WHERE user_id = $1",
+        params: [userId],
+      },
       // delete resumes after resume_lines (resume_lines references resumes)
       { sql: "DELETE FROM resumes WHERE user_id = $1", params: [userId] },
       // finally delete the user row by its PK column 'id'

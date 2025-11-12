@@ -450,7 +450,7 @@ const DeleteAccountSection = ({ user }: { user: User }) => {
 
   const handleDelete = async (formData: FormData) => {
     const confirmed = confirm(
-      "Are you sure you want to permanently delete your account and all associated data?"
+      "Are you sure you want to permanently delete your account and all associated data?",
     );
     if (!confirmed) return;
 
