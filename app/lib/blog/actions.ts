@@ -2,7 +2,7 @@
 
 import { auth } from "@/auth";
 import { type Session } from "next-auth";
-import { conn } from "./postgres";
+import { conn } from "@/app/lib/database";
 import { revalidatePath, unstable_noStore as noStore } from "next/cache";
 
 export async function increment(slug: string) {

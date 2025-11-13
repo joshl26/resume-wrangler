@@ -37,12 +37,28 @@ function parseFrontmatter(fileContent: string): {
 
   const metadataPartial: Partial<Metadata> = {};
 
+  // Quick validation: ensure quotes are balanced on each value (if a value starts with a quote it must end with same quote)
   for (const line of frontMatterLines) {
     const idx = line.indexOf(":");
     if (idx === -1) continue;
     const key = line.slice(0, idx).trim();
     let value = line.slice(idx + 1).trim();
-    value = value.replace(/^['"](.*)['"]$/, "$1"); // remove surrounding quotes
+
+    // If value starts with a quote but does not end with the same quote => treat frontmatter as malformed
+    if (
+      (value.startsWith('"') && !value.endsWith('"')) ||
+      (value.startsWith("'") && !value.endsWith("'"))
+    ) {
+      // Malformed frontmatter — return defaults
+      return { metadata: defaultMetadata, content };
+    }
+
+    // Remove surrounding quotes if present
+    value = value.replace(/^['"](.*)['"]$/, "$1");
+
+    // Unescape any escaped quotes inside the value (e.g. \" => ")
+    value = value.replace(/\\"/g, '"').replace(/\\'/g, "'");
+
     if (
       key === "title" ||
       key === "publishedAt" ||
@@ -65,9 +81,12 @@ function parseFrontmatter(fileContent: string): {
 
 function getMDXFiles(dir: string): string[] {
   if (!fs.existsSync(dir)) return [];
+
+  // Accept both .mdx and .md (case-insensitive)
+  const validExts = new Set([".mdx", ".md"]);
   return fs
     .readdirSync(dir)
-    .filter((file) => path.extname(file).toLowerCase() === ".mdx");
+    .filter((file) => validExts.has(path.extname(file).toLowerCase()));
 }
 
 function readMDXFile(filePath: string) {
@@ -76,12 +95,10 @@ function readMDXFile(filePath: string) {
 }
 
 function extractTweetIds(content: string): string[] {
-  const regex = /<StaticTweet\s+id=(?:["'])([0-9]+)(?:["'])\s*\/>/g;
+  // Match <StaticTweet id="123" />  or <StaticTweet id='123'/> or <StaticTweet id="123"></StaticTweet>
+  const regex = /<StaticTweet\s+[^>]*id=(?:'|")([0-9]+)(?:'|")[^>]*\/?>/g;
   const matches = [...content.matchAll(regex)];
-  // Filter out undefined values and ensure we only return strings
-  return matches
-    .map((match) => match[1])
-    .filter((id): id is string => id !== undefined);
+  return matches.map((m) => m[1]).filter((id): id is string => !!id);
 }
 
 function getMDXData(dir: string) {

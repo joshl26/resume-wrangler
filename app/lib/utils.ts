@@ -16,6 +16,7 @@ export const formatDateToLocal = (
     day: "numeric",
     month: "short",
     year: "numeric",
+    timeZone: "UTC", // force UTC so tests are deterministic across environments
   };
   const formatter = new Intl.DateTimeFormat(locale, options);
   return formatter.format(date);

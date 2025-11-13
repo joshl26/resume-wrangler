@@ -49,7 +49,7 @@ describe("app/lib/data", () => {
       expect(user.email).toBe("test@example.com");
       expect(connQueryMock).toHaveBeenCalledWith(
         expect.stringContaining("SELECT * FROM users WHERE email = $1"),
-        ["test@example.com"]
+        ["test@example.com"],
       );
     });
 
@@ -57,25 +57,25 @@ describe("app/lib/data", () => {
       connQueryMock.mockRejectedValueOnce(new Error("DB down"));
 
       await expect(data.getUser("someone@example.com")).rejects.toThrow(
-        /Failed to fetch user/i
+        /Failed to fetch user/i,
       );
     });
   });
 
   describe("fetchResumeTemplates", () => {
     it("returns an array of templates", async () => {
-        connQueryMock.mockResolvedValueOnce({
-          rows: [{ id: "t1", name: "Simple", active: "true" }],
-        } as any);
-      
-        const templates = (await data.fetchResumeTemplates()) ?? [];
-        expect(Array.isArray(templates)).toBe(true);
-        expect(templates).toHaveLength(1);
-        expect(templates[0]!.id).toBe("t1");
-                expect(connQueryMock).toHaveBeenCalledWith(
-          expect.stringContaining("SELECT * FROM resume_templates WHERE active")
-        );
-      });
+      connQueryMock.mockResolvedValueOnce({
+        rows: [{ id: "t1", name: "Simple", active: "true" }],
+      } as any);
+
+      const templates = (await data.fetchResumeTemplates()) ?? [];
+      expect(Array.isArray(templates)).toBe(true);
+      expect(templates).toHaveLength(1);
+      expect(templates[0]!.id).toBe("t1");
+      expect(connQueryMock).toHaveBeenCalledWith(
+        expect.stringContaining("SELECT * FROM resume_templates WHERE active"),
+      );
+    });
 
     it("returns [] on DB error", async () => {
       connQueryMock.mockRejectedValueOnce(new Error("boom"));
@@ -95,7 +95,7 @@ describe("app/lib/data", () => {
       expect(app?.id).toBe("app-1");
       expect(connQueryMock).toHaveBeenCalledWith(
         expect.stringContaining("SELECT * FROM applications WHERE id = $1"),
-        ["app-1"]
+        ["app-1"],
       );
     });
 
@@ -117,18 +117,21 @@ describe("app/lib/data", () => {
         "acme",
         1,
         "user-1",
-        "all"
+        "all",
       );
 
       expect(Array.isArray(result)).toBe(true);
       expect(result).toHaveLength(1);
       // Ensure query was invoked with values array containing userId and pattern
-      expect(connQueryMock).toHaveBeenCalledWith(expect.any(String), expect.arrayContaining([
-        "user-1",
-        "%acme%",
-        expect.any(Number),
-        expect.any(Number),
-      ]));
+      expect(connQueryMock).toHaveBeenCalledWith(
+        expect.any(String),
+        expect.arrayContaining([
+          "user-1",
+          "%acme%",
+          expect.any(Number),
+          expect.any(Number),
+        ]),
+      );
     });
 
     it("returns [] on DB error", async () => {
@@ -157,7 +160,7 @@ describe("app/lib/data", () => {
     it("throws on DB error", async () => {
       connQueryMock.mockRejectedValueOnce(new Error("boom"));
       await expect(
-        data.fetchApplicationsPages("q", "user-1", "")
+        data.fetchApplicationsPages("q", "user-1", ""),
       ).rejects.toThrow(/Failed to fetch total number of applications/i);
     });
   });
@@ -180,13 +183,16 @@ describe("app/lib/data", () => {
       });
 
       expect(result).toEqual(newUser);
-      expect(connQueryMock).toHaveBeenCalledWith(expect.stringContaining("INSERT INTO users"), expect.any(Array));
+      expect(connQueryMock).toHaveBeenCalledWith(
+        expect.stringContaining("INSERT INTO users"),
+        expect.any(Array),
+      );
     });
 
     it("throws on DB error", async () => {
       connQueryMock.mockRejectedValueOnce(new Error("nope"));
       await expect(
-        data.createUser({ email: "a@b.com", name: "A" })
+        data.createUser({ email: "a@b.com", name: "A" }),
       ).rejects.toThrow(/Failed to create user/i);
     });
   });
@@ -203,7 +209,10 @@ describe("app/lib/data", () => {
       });
 
       expect(res).toEqual(mockRow);
-      expect(connQueryMock).toHaveBeenCalledWith(expect.stringContaining("INSERT INTO public.user_accounts"), expect.any(Array));
+      expect(connQueryMock).toHaveBeenCalledWith(
+        expect.stringContaining("INSERT INTO public.user_accounts"),
+        expect.any(Array),
+      );
     });
 
     it("throws on DB error", async () => {
@@ -213,7 +222,7 @@ describe("app/lib/data", () => {
           userId: "u",
           provider: "p",
           providerAccountId: "pid",
-        })
+        }),
       ).rejects.toThrow(/Failed to upsert provider account/i);
     });
   });
