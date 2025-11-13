@@ -11,7 +11,6 @@ import ClosedApplicationsCount from "./closed-applications-count";
 import PendingApplicationsCount from "./pending-applications-count";
 import PendingWeeklyGoalCount from "./weekly-goal";
 
-
 const Dashboard = ({
   applications,
   user,

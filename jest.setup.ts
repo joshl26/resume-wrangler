@@ -12,3 +12,22 @@ jest.mock("next/router", () => ({
     prefetch: jest.fn().mockResolvedValue(undefined),
   }),
 }));
+
+import React from "react";
+
+/**
+ * Global mock for next/image to avoid Next.js image loader in JSDOM tests.
+ * Returns a plain <img /> with a resolved src string.
+ */
+jest.mock("next/image", () => {
+  const NextImage = ({ src, alt, ...props }: any) => {
+    const resolvedSrc =
+      typeof src === "string" ? src : (src && (src.src || src.default)) || "";
+    return React.createElement("img", {
+      src: resolvedSrc,
+      alt: alt ?? "",
+      ...props,
+    });
+  };
+  return { __esModule: true, default: NextImage };
+});

@@ -16,16 +16,17 @@ const config: Config.InitialOptions = {
     "^.+\\.(js|jsx)$": "babel-jest",
   },
   moduleNameMapper: {
-    // Path alias: '@/...' -> <rootDir>/...
-    "^@/(.*)$": "<rootDir>/$1",
+    // Static assets (images/fonts/etc.) — must come BEFORE the path alias mapping so it matches imports like "@/public/..."
+    "^@/public/(.*)\\.(png|jpe?g|gif|svg|webp|avif)$": "<rootDir>/__mocks__/fileMock.js",
+    "\\.(gif|ttf|eot|svg|png|jpg|jpeg|webp|avif)$": "<rootDir>/__mocks__/fileMock.js",
 
     // CSS modules/styling -> identity-obj-proxy so className lookups work
     "\\.(css|less|sass|scss)$": "identity-obj-proxy",
 
-    // Static assets -> simple file mock
-    "\\.(gif|ttf|eot|svg|png|jpg|jpeg)$": "<rootDir>/__mocks__/fileMock.js",
+    // Path alias: '@/...' -> <rootDir>/...
+    "^@/(.*)$": "<rootDir>/$1",
   },
-  // optional: allow imports without relative paths (node resolution)
+    // optional: allow imports without relative paths (node resolution)
   moduleDirectories: ["node_modules", "<rootDir>"],
 
   collectCoverage: true,
