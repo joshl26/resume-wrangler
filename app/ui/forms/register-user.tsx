@@ -170,6 +170,7 @@ export default function RegisterUser() {
             </label>
             <div className="flex flex-row items-center">
               <input
+                id="username" // Added id
                 disabled={pending || oauthLoading}
                 name="username"
                 className="border border-slate-300 rounded w-full"
@@ -223,6 +224,7 @@ export default function RegisterUser() {
                   Email
                 </label>
                 <input
+                  id="email" // Added id
                   disabled={pending || oauthLoading}
                   name="email"
                   className="border border-slate-300 rounded w-full"
@@ -236,11 +238,12 @@ export default function RegisterUser() {
             )}
             {emailValidated && (
               <>
-                <label className="font-bold" htmlFor="email">
+                <label className="font-bold" htmlFor="password">
                   Password
                 </label>
                 <div className="">
                   <input
+                    id="password" // Added id + changed htmlFor to "password"
                     disabled={pending || oauthLoading}
                     name="password"
                     className="border border-slate-300 rounded w-full"
@@ -255,12 +258,14 @@ export default function RegisterUser() {
                   <span className="absolute right-[52px] ">
                     {showPassword === false ? (
                       <FontAwesomeIcon
+                        data-testid="eye-icon" // Added data-testid
                         onClick={onClickHandler}
                         className="h-5 pt-3"
                         icon={faEye}
                       />
                     ) : (
                       <FontAwesomeIcon
+                        data-testid="eye-slash-icon" // Added data-testid
                         onClick={onClickHandler}
                         className="h-5 pt-3"
                         icon={faEyeSlash}

@@ -7,7 +7,7 @@ import {
   updateUserEducation,
 } from "@/app/lib/actions";
 import { useState } from "react";
-import { SubmitButton } from "../submit-button";
+import { SubmitButton } from "@/app/ui/submit-button";
 import {
   Resume,
   User,
