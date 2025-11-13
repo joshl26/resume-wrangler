@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect } from "react";
-import ErrorFallback from "@/ui/ErrorFallback"; // Adjust the import path as needed
+import ErrorFallback from "@/app/ui/ErrorFallback"; // Adjust the import path as needed
 
 export default function DashboardOverviewError({
   error,

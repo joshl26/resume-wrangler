@@ -36,34 +36,34 @@ const TEST_ENV_KEYS = [
 ];
 
 beforeEach(() => {
-    // Ensure a completely fresh module environment
-    jest.resetModules();
-  
-    // Clear any global pool left from previous tests
-    // @ts-ignore
-    delete (global as any).__DB_POOL__;
-  
-    // Safely clear only the env keys used by tests
-    const TEST_ENV_KEYS = [
-      "POSTGRES_DB_USERNAME",
-      "POSTGRES_DB_PASSWORD",
-      "POSTGRES_DB_HOST",
-      "POSTGRES_DB_PORT",
-      "POSTGRES_DB_DATABASE",
-      "PG_POOL_MAX",
-      "PG_IDLE_MS",
-      "PG_CONN_TIMEOUT_MS",
-      "NODE_ENV",
-    ];
-  
-    for (const key of TEST_ENV_KEYS) {
-      delete process.env[key];
-    }
-  
-    // Explicitly set NODE_ENV after deletion (bypasses readonly error)
-    //@ts-ignore
-    process.env.NODE_ENV = "test";
-  });
+  // Ensure a completely fresh module environment
+  jest.resetModules();
+
+  // Clear any global pool left from previous tests
+  // @ts-ignore
+  delete (global as any).__DB_POOL__;
+
+  // Safely clear only the env keys used by tests
+  const TEST_ENV_KEYS = [
+    "POSTGRES_DB_USERNAME",
+    "POSTGRES_DB_PASSWORD",
+    "POSTGRES_DB_HOST",
+    "POSTGRES_DB_PORT",
+    "POSTGRES_DB_DATABASE",
+    "PG_POOL_MAX",
+    "PG_IDLE_MS",
+    "PG_CONN_TIMEOUT_MS",
+    "NODE_ENV",
+  ];
+
+  for (const key of TEST_ENV_KEYS) {
+    delete process.env[key];
+  }
+
+  // Explicitly set NODE_ENV after deletion (bypasses readonly error)
+  //@ts-ignore
+  process.env.NODE_ENV = "test";
+});
 afterEach(() => {
   jest.restoreAllMocks();
 });
@@ -142,7 +142,6 @@ describe("PostgreSQL Connection Pool (/app/lib/database.ts)", () => {
   it("reuses existing pool in development (NODE_ENV !== production)", async () => {
     //@ts-ignore
     process.env.NODE_ENV = "development";
-    
 
     const { conn: conn1 } = await import("@/app/lib/database");
     const { conn: conn2 } = await import("@/app/lib/database");

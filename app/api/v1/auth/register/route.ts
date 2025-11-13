@@ -1,4 +1,4 @@
-// app/api/auth/signup/route.ts
+// app/api/auth/register/route.ts
 "use server";
 
 import { NextResponse } from "next/server";

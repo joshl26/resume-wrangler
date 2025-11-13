@@ -45,7 +45,7 @@ describe("WindowSize", () => {
     render(
       <WindowSize>
         <div data-testid="child-content">Child Content</div>
-      </WindowSize>
+      </WindowSize>,
     );
 
     expect(screen.getByTestId("child-content")).toBeInTheDocument();
@@ -58,7 +58,7 @@ describe("WindowSize", () => {
     render(
       <WindowSize>
         <div data-testid="child-content">Child Content</div>
-      </WindowSize>
+      </WindowSize>,
     );
 
     expect(screen.getByTestId("device-size")).toBeInTheDocument();
@@ -71,7 +71,7 @@ describe("WindowSize", () => {
     render(
       <WindowSize>
         <div data-testid="child-content">Child Content</div>
-      </WindowSize>
+      </WindowSize>,
     );
 
     expect(screen.getByTestId("device-size")).toBeInTheDocument();
@@ -84,7 +84,7 @@ describe("WindowSize", () => {
     const { container } = render(
       <WindowSize>
         <div data-testid="child-content">Child Content</div>
-      </WindowSize>
+      </WindowSize>,
     );
 
     // Component currently returns nothing for (0,0) — the container should be empty
@@ -100,7 +100,7 @@ describe("WindowSize", () => {
     const { rerender } = render(
       <WindowSize>
         <div data-testid="child-content">Child Content</div>
-      </WindowSize>
+      </WindowSize>,
     );
 
     expect(screen.getByTestId("child-content")).toBeInTheDocument();
@@ -112,7 +112,7 @@ describe("WindowSize", () => {
       rerender(
         <WindowSize>
           <div data-testid="child-content">Child Content</div>
-        </WindowSize>
+        </WindowSize>,
       );
     });
 

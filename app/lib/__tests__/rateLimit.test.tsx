@@ -4,7 +4,14 @@
  * Tests for app/lib/rateLimit.ts with correct Jest mock typing.
  */
 
-import { jest, beforeEach, afterEach, describe, it, expect } from "@jest/globals";
+import {
+  jest,
+  beforeEach,
+  afterEach,
+  describe,
+  it,
+  expect,
+} from "@jest/globals";
 import type { NextRequest } from "next/server";
 import type { RateLimiterRes } from "rate-limiter-flexible";
 
@@ -33,7 +40,9 @@ if (typeof (globalThis as any).Response === "undefined") {
 // --- Typed mocks ---
 
 // typed mock for consume: accepts (key: string, points: number) and returns Promise<RateLimiterRes>
-const mockConsume = jest.fn() as jest.Mock<(key: string, points: number) => Promise<RateLimiterRes>>;
+const mockConsume = jest.fn() as jest.Mock<
+  (key: string, points: number) => Promise<RateLimiterRes>
+>;
 
 // mocks for RateLimiter classes that return an object with consume
 const mockRateLimiterRedis = jest.fn(() => ({ consume: mockConsume }));
@@ -55,10 +64,12 @@ jest.mock("ioredis", () => RedisMock);
 
 // --- Helpers ---
 
-function createMockRequest(overrides: {
-  headers?: Record<string, string>;
-  cookies?: Record<string, string>;
-} = {}): NextRequest {
+function createMockRequest(
+  overrides: {
+    headers?: Record<string, string>;
+    cookies?: Record<string, string>;
+  } = {},
+): NextRequest {
   const headersMap = new Map<string, string>();
   if (overrides.headers) {
     for (const [k, v] of Object.entries(overrides.headers)) {
@@ -100,7 +111,7 @@ beforeEach(() => {
   delete process.env.RATE_LIMIT_DURATION;
 
   // Ensure NODE_ENV exists (satisfies project global types)
-    //@ts-expect-error - readonly
+  //@ts-expect-error - readonly
   process.env.NODE_ENV = "test";
 
   // Clear any module-level singletons your app might set
@@ -118,12 +129,14 @@ afterEach(() => {
 
 describe("rateLimit", () => {
   it("uses RateLimiterMemory in development", async () => {
-      //@ts-expect-error - readonly
+    //@ts-expect-error - readonly
 
     process.env.NODE_ENV = "development";
     const { rateLimit } = await import("@/app/lib/rateLimit");
 
-    mockConsume.mockResolvedValueOnce({ remainingPoints: 99 } as RateLimiterRes);
+    mockConsume.mockResolvedValueOnce({
+      remainingPoints: 99,
+    } as RateLimiterRes);
 
     const req = createMockRequest({});
     const result = await rateLimit(req);
@@ -137,7 +150,9 @@ describe("rateLimit", () => {
     delete process.env.REDIS_URL;
     const { rateLimit } = await import("@/app/lib/rateLimit");
 
-    mockConsume.mockResolvedValueOnce({ remainingPoints: 99 } as RateLimiterRes);
+    mockConsume.mockResolvedValueOnce({
+      remainingPoints: 99,
+    } as RateLimiterRes);
 
     const req = createMockRequest({});
     const result = await rateLimit(req);
@@ -147,13 +162,15 @@ describe("rateLimit", () => {
   });
 
   it("uses RateLimiterRedis if REDIS_URL is present and not dev", async () => {
-      //@ts-expect-error - readonly
+    //@ts-expect-error - readonly
 
     process.env.NODE_ENV = "production";
     process.env.REDIS_URL = "redis://localhost:6379";
     const { rateLimit } = await import("@/app/lib/rateLimit");
 
-    mockConsume.mockResolvedValueOnce({ remainingPoints: 49 } as RateLimiterRes);
+    mockConsume.mockResolvedValueOnce({
+      remainingPoints: 49,
+    } as RateLimiterRes);
 
     const req = createMockRequest({});
     const result = await rateLimit(req);
@@ -167,7 +184,9 @@ describe("rateLimit", () => {
 
   it("uses x-user-id header as key if present", async () => {
     const { rateLimit } = await import("@/app/lib/rateLimit");
-    mockConsume.mockResolvedValueOnce({ remainingPoints: 99 } as RateLimiterRes);
+    mockConsume.mockResolvedValueOnce({
+      remainingPoints: 99,
+    } as RateLimiterRes);
 
     const req = createMockRequest({ headers: { "x-user-id": "user-123" } });
     await rateLimit(req);
@@ -177,7 +196,9 @@ describe("rateLimit", () => {
 
   it("uses session token as key if present (token sliced to 32 chars)", async () => {
     const { rateLimit } = await import("@/app/lib/rateLimit");
-    mockConsume.mockResolvedValueOnce({ remainingPoints: 99 } as RateLimiterRes);
+    mockConsume.mockResolvedValueOnce({
+      remainingPoints: 99,
+    } as RateLimiterRes);
 
     const longToken = "a".repeat(40); // >= 32 chars so slice produces 32 chars
     const req = createMockRequest({
@@ -185,12 +206,17 @@ describe("rateLimit", () => {
     });
     await rateLimit(req);
 
-    expect(mockConsume).toHaveBeenCalledWith(expect.stringMatching(/^sess:[a]{32}$/), 1);
+    expect(mockConsume).toHaveBeenCalledWith(
+      expect.stringMatching(/^sess:[a]{32}$/),
+      1,
+    );
   });
 
   it("uses IP from x-forwarded-for as key", async () => {
     const { rateLimit } = await import("@/app/lib/rateLimit");
-    mockConsume.mockResolvedValueOnce({ remainingPoints: 99 } as RateLimiterRes);
+    mockConsume.mockResolvedValueOnce({
+      remainingPoints: 99,
+    } as RateLimiterRes);
 
     const req = createMockRequest({
       headers: { "x-forwarded-for": "203.0.113.195, 198.51.100.10" },
@@ -219,15 +245,17 @@ describe("rateLimit", () => {
 describe("withRateLimit", () => {
   it("calls handler if rate limit passes", async () => {
     const { withRateLimit } = await import("@/app/lib/rateLimit");
-    mockConsume.mockResolvedValueOnce({ remainingPoints: 99 } as RateLimiterRes);
+    mockConsume.mockResolvedValueOnce({
+      remainingPoints: 99,
+    } as RateLimiterRes);
 
     // Cast the mock to the correct function type to avoid TS errors
     const mockHandler = jest.fn().mockResolvedValue(
-          //@ts-expect-error - readonly
+      //@ts-expect-error - readonly
 
-      new Response("OK", { status: 200 })
+      new Response("OK", { status: 200 }),
     ) as unknown as (req: NextRequest) => Promise<Response>;
-    
+
     const wrapped = withRateLimit(mockHandler);
     const req = createMockRequest({});
 
@@ -245,7 +273,9 @@ describe("withRateLimit", () => {
     } as RateLimiterRes);
 
     // Cast the mock to the correct function type to avoid TS errors
-    const mockHandler = jest.fn() as unknown as (req: NextRequest) => Promise<Response>;
+    const mockHandler = jest.fn() as unknown as (
+      req: NextRequest,
+    ) => Promise<Response>;
     const wrapped = withRateLimit(mockHandler);
     const req = createMockRequest({});
 

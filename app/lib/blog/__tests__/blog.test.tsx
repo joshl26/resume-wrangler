@@ -1,240 +1,274 @@
 /**
  * @jest-environment node
  *
- * app/lib/blog/__tests__/actions.test.tsx
+ * app/lib/__tests__/blog.test.ts
  *
- * Tests for server actions: increment, saveGuestbookEntry, deleteGuestbookEntries
+ * Tests for blog post utilities: frontmatter parsing, MDX file handling, tweet extraction
  */
 
-import { increment, saveGuestbookEntry, deleteGuestbookEntries } from "@/app/lib/blog/actions";
-import { auth } from "@/auth";
-import { conn } from "@/app/lib/database";
-import { revalidatePath } from "next/cache";
+import fs from "fs";
+import path from "path";
+import {
+  getBlogPosts,
+  // Private functions we'll test indirectly through public API
+} from "@/app/lib/blog/blog";
 
-// Mock external dependencies
-jest.mock("@/auth", () => ({
-  auth: jest.fn()
-}));
+// Mock filesystem
+jest.mock("fs");
 
-jest.mock("@/app/lib/database", () => ({
-  conn: {
-    query: jest.fn()
-  }
-}));
+// Fixed mock typing to resolve TypeScript errors
+const mockFs: jest.Mocked<typeof fs> = fs as any;
 
-jest.mock("next/cache", () => ({
-  revalidatePath: jest.fn(),
-  unstable_noStore: jest.fn()
-}));
+type Metadata = {
+  title: string;
+  publishedAt: string;
+  summary: string;
+  image?: string;
+};
 
-// Type assertions for mocks - fixed TypeScript errors
-const mockAuth = auth as unknown as jest.Mock;
-const mockQuery = conn.query as unknown as jest.Mock;
-const mockRevalidatePath = revalidatePath as unknown as jest.Mock;
+// Sample MDX content for testing
+const samplePost1 = `---
+title: "My First Post"
+publishedAt: "2023-01-01"
+summary: "This is my first blog post"
+image: "/images/first-post.jpg"
+---
 
-describe("increment", () => {
+# Hello World
+
+This is the content of my first post.
+
+<StaticTweet id="123456789" />
+
+More content here.
+`;
+
+const samplePost2 = `---
+title: "Second Post"
+publishedAt: "2023-02-01"
+summary: "Another great post"
+---
+
+Just some content without an image.
+
+<StaticTweet id="987654321" />
+<StaticTweet id="456789123" />
+`;
+
+const postWithoutFrontmatter = `# No Frontmatter
+
+Just content without any frontmatter section.
+
+<StaticTweet id="111222333" />
+`;
+
+const postWithMalformedFrontmatter = `---
+title: "Malformed
+publishedAt: "2023-03-01"
+summary: "This has broken frontmatter"
+---
+
+Content with malformed frontmatter.
+`;
+
+describe("Blog Utilities", () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  it("should insert new view count when slug doesn't exist", async () => {
-    mockQuery.mockResolvedValueOnce({ rows: [], rowCount: 1 } as any);
+  describe("getBlogPosts", () => {
+    it("should return blog posts with parsed metadata and tweet IDs", () => {
+      // Mock filesystem
+      mockFs.existsSync.mockReturnValue(true);
+      mockFs.readdirSync.mockReturnValue([
+        "first-post.mdx",
+        "second-post.mdx",
+        "no-frontmatter.mdx",
+        "not-mdx.txt", // Should be ignored
+      ] as any);
 
-    await increment("test-slug");
+      mockFs.readFileSync
+        .mockReturnValueOnce(samplePost1)
+        .mockReturnValueOnce(samplePost2)
+        .mockReturnValueOnce(postWithoutFrontmatter);
 
-    expect(mockQuery).toHaveBeenCalledWith(
-      `INSERT INTO views (slug, count) VALUES ('test-slug', 1) ON CONFLICT (slug) DO UPDATE SET count = views.count + 1`
-    );
-  });
+      const posts = getBlogPosts();
 
-  it("should increment existing view count", async () => {
-    mockQuery.mockResolvedValueOnce({ rows: [], rowCount: 1 } as any);
+      expect(posts).toHaveLength(3);
 
-    await increment("existing-slug");
+      // Check first post
+      expect(posts[0]!).toEqual({
+        metadata: {
+          title: "My First Post",
+          publishedAt: "2023-01-01",
+          summary: "This is my first blog post",
+          image: "/images/first-post.jpg",
+        },
+        slug: "first-post",
+        tweetIds: ["123456789"],
+        content: expect.stringContaining("# Hello World"),
+      });
 
-    expect(mockQuery).toHaveBeenCalledWith(
-      expect.stringContaining("ON CONFLICT (slug) DO UPDATE SET count = views.count + 1")
-    );
-  });
+      // Check second post
+      expect(posts[1]!).toEqual({
+        metadata: {
+          title: "Second Post",
+          publishedAt: "2023-02-01",
+          summary: "Another great post",
+          image: undefined,
+        },
+        slug: "second-post",
+        tweetIds: ["987654321", "456789123"],
+        content: expect.stringContaining("Just some content"),
+      });
 
-  it("should handle database errors gracefully", async () => {
-    mockQuery.mockRejectedValueOnce(new Error("Database error"));
+      // Check post without frontmatter
+      expect(posts[2]!).toEqual({
+        metadata: {
+          title: "",
+          publishedAt: "",
+          summary: "",
+          image: undefined,
+        },
+        slug: "no-frontmatter",
+        tweetIds: ["111222333"],
+        content: expect.stringContaining("# No Frontmatter"),
+      });
+    });
 
-    // Should not throw - function catches errors
-    await expect(increment("error-slug")).resolves.toBeUndefined();
-    expect(mockQuery).toHaveBeenCalled();
-  });
-});
+    it("should handle directory that doesn't exist", () => {
+      mockFs.existsSync.mockReturnValue(false);
 
-describe("saveGuestbookEntry", () => {
-  const mockFormData = new FormData();
-  mockFormData.append("entry", "Test guestbook message");
+      const posts = getBlogPosts();
 
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
+      expect(posts).toEqual([]);
+      expect(mockFs.readdirSync).not.toHaveBeenCalled();
+    });
 
-  it("should save guestbook entry for authenticated user", async () => {
-    mockAuth.mockResolvedValueOnce({
-      user: {
-        email: "user@example.com",
-        name: "Test User"
-      },
-      expires: "2025-01-01"
-    } as any);
+    it("should handle empty directory", () => {
+      mockFs.existsSync.mockReturnValue(true);
+      mockFs.readdirSync.mockReturnValue([] as any);
 
-    mockQuery.mockResolvedValueOnce({ rows: [], rowCount: 1 } as any);
+      const posts = getBlogPosts();
 
-    await saveGuestbookEntry(mockFormData);
+      expect(posts).toEqual([]);
+    });
 
-    expect(mockAuth).toHaveBeenCalled();
-    expect(mockQuery).toHaveBeenCalledWith(
-      expect.stringContaining("INSERT INTO guestbook")
-    );
-    expect(mockQuery).toHaveBeenCalledWith(
-      expect.stringContaining("user@example.com")
-    );
-    expect(mockQuery).toHaveBeenCalledWith(
-      expect.stringContaining("Test User")
-    );
-    expect(mockQuery).toHaveBeenCalledWith(
-      expect.stringContaining("Test guestbook message")
-    );
-    expect(mockRevalidatePath).toHaveBeenCalledWith("/guestbook");
-  });
+    it("should only process .mdx/.md files (case-insensitive)", () => {
+      mockFs.existsSync.mockReturnValue(true);
+      mockFs.readdirSync.mockReturnValue([
+        "post1.mdx",
+        "post2.md", // processed (.md is valid)
+        "post3.txt", // ignored
+        "post4.MDX", // processed (case-insensitive)
+        "README.md", // processed
+      ] as any);
 
-  it("should throw error when user is not authenticated", async () => {
-    mockAuth.mockResolvedValueOnce(null);
+      mockFs.readFileSync.mockReturnValue(samplePost1);
 
-    await expect(saveGuestbookEntry(mockFormData)).rejects.toThrow("Unauthorized");
-  });
+      const posts = getBlogPosts();
 
-  it("should throw error when user data is missing", async () => {
-    mockAuth.mockResolvedValueOnce({
-      user: undefined,
-      expires: "2025-01-01"
-    } as any);
+      // Should process 4 files (.mdx, .md, .MDX, README.md)
+      expect(posts).toHaveLength(4);
+      expect(mockFs.readFileSync).toHaveBeenCalledTimes(4);
+    });
 
-    await expect(saveGuestbookEntry(mockFormData)).rejects.toThrow("Unauthorized");
-  });
+    it("should handle malformed frontmatter gracefully", () => {
+      mockFs.existsSync.mockReturnValue(true);
+      mockFs.readdirSync.mockReturnValue(["malformed.mdx"] as any);
+      mockFs.readFileSync.mockReturnValue(postWithMalformedFrontmatter);
 
-  it("should truncate long messages to 500 characters", async () => {
-    const longMessage = "a".repeat(600);
-    const truncatedMessage = "a".repeat(500);
-    
-    mockFormData.set("entry", longMessage);
-    
-    mockAuth.mockResolvedValueOnce({
-      user: {
-        email: "user@example.com",
-        name: "Test User"
-      },
-      expires: "2025-01-01"
-    } as any);
+      const posts = getBlogPosts();
 
-    mockQuery.mockResolvedValueOnce({ rows: [], rowCount: 1 } as any);
+      expect(posts).toHaveLength(1);
+      // Should have default metadata for malformed frontmatter
+      expect(posts[0]!.metadata).toEqual({
+        title: "",
+        publishedAt: "",
+        summary: "",
+        image: undefined,
+      });
+    });
 
-    await saveGuestbookEntry(mockFormData);
+    it("should extract tweet IDs correctly", () => {
+      mockFs.existsSync.mockReturnValue(true);
+      mockFs.readdirSync.mockReturnValue(["tweets.mdx"] as any);
 
-    expect(mockQuery).toHaveBeenCalledWith(
-      expect.stringContaining(truncatedMessage)
-    );
-    expect(mockQuery).toHaveBeenCalledWith(
-      expect.not.stringContaining(longMessage)
-    );
-  });
+      const contentWithTweets = `---
+title: "Tweets Post"
+publishedAt: "2023-01-01"
+summary: "Post with tweets"
+---
 
-  it("should handle database errors gracefully", async () => {
-    mockAuth.mockResolvedValueOnce({
-      user: {
-        email: "user@example.com",
-        name: "Test User"
-      },
-      expires: "2025-01-01"
-    } as any);
+Content with various tweet formats:
 
-    mockQuery.mockRejectedValueOnce(new Error("Database error"));
+<StaticTweet id="123456789" />
+<StaticTweet id='987654321' />
+<StaticTweet id="456789123"/>
+<StaticTweet id="789456123" ></StaticTweet>
 
-    // Should not throw - function catches errors
-    await expect(saveGuestbookEntry(mockFormData)).resolves.toBeUndefined();
-    expect(mockRevalidatePath).not.toHaveBeenCalled(); // Should not revalidate on error
-  });
-});
+Not a tweet: <div id="123" />
+`;
 
-describe("deleteGuestbookEntries", () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
+      mockFs.readFileSync.mockReturnValue(contentWithTweets);
 
-  it("should delete entries for admin user", async () => {
-    mockAuth.mockResolvedValueOnce({
-      user: {
-        email: "joshlehman.dev@gmail.com"
-      },
-      expires: "2025-01-01"
-    } as any);
+      const posts = getBlogPosts();
 
-    mockQuery.mockResolvedValueOnce({ rows: [], rowCount: 2 } as any);
+      expect(posts).toHaveLength(1);
+      expect(posts[0]!.tweetIds).toEqual([
+        "123456789",
+        "987654321",
+        "456789123",
+        "789456123",
+      ]);
+    });
 
-    await deleteGuestbookEntries(["1", "2"]);
+    it("should handle posts with no tweets", () => {
+      mockFs.existsSync.mockReturnValue(true);
+      mockFs.readdirSync.mockReturnValue(["no-tweets.mdx"] as any);
 
-    expect(mockAuth).toHaveBeenCalled();
-    expect(mockQuery).toHaveBeenCalledWith(
-      expect.stringContaining("DELETE FROM guestbook WHERE id = ANY")
-    );
-    expect(mockQuery).toHaveBeenCalledWith(
-      expect.stringContaining("{1,2}")
-    );
-    expect(mockRevalidatePath).toHaveBeenCalledWith("/admin");
-    expect(mockRevalidatePath).toHaveBeenCalledWith("/guestbook");
-  });
+      const contentWithoutTweets = `---
+title: "No Tweets"
+publishedAt: "2023-01-01"
+summary: "Post without tweets"
+---
 
-  it("should throw error when user is not admin", async () => {
-    mockAuth.mockResolvedValueOnce({
-      user: {
-        email: "user@example.com"
-      },
-      expires: "2025-01-01"
-    } as any);
+Just regular content without any tweets.
+`;
 
-    await expect(deleteGuestbookEntries(["1", "2"])).rejects.toThrow("Unauthorized");
-  });
+      mockFs.readFileSync.mockReturnValue(contentWithoutTweets);
 
-  it("should throw error when user is not authenticated", async () => {
-    mockAuth.mockResolvedValueOnce(null);
+      const posts = getBlogPosts();
 
-    await expect(deleteGuestbookEntries(["1", "2"])).rejects.toThrow("Unauthorized");
-  });
+      expect(posts).toHaveLength(1);
+      expect(posts[0]!.tweetIds).toEqual([]);
+    });
 
-  it("should handle empty entry list", async () => {
-    mockAuth.mockResolvedValueOnce({
-      user: {
-        email: "joshlehman.dev@gmail.com"
-      },
-      expires: "2025-01-01"
-    } as any);
+    it("should handle frontmatter with quoted values", () => {
+      mockFs.existsSync.mockReturnValue(true);
+      mockFs.readdirSync.mockReturnValue(["quoted.mdx"] as any);
 
-    mockQuery.mockResolvedValueOnce({ rows: [], rowCount: 0 } as any);
+      const contentWithQuotes = `---
+title: "Quoted Title"
+publishedAt: '2023-01-01'
+summary: "Summary with \\"quotes\\""
+image: '/images/test.jpg'
+---
 
-    await deleteGuestbookEntries([]);
+Content here.
+`;
 
-    expect(mockQuery).toHaveBeenCalledWith(
-      expect.stringContaining("DELETE FROM guestbook WHERE id = ANY('{}'::int[])")
-    );
-  });
+      mockFs.readFileSync.mockReturnValue(contentWithQuotes);
 
-  it("should handle database errors gracefully", async () => {
-    mockAuth.mockResolvedValueOnce({
-      user: {
-        email: "joshlehman.dev@gmail.com"
-      },
-      expires: "2025-01-01"
-    } as any);
+      const posts = getBlogPosts();
 
-    mockQuery.mockRejectedValueOnce(new Error("Database error"));
-
-    // Should not throw - function catches errors
-    await expect(deleteGuestbookEntries(["1", "2"])).resolves.toBeUndefined();
-    expect(mockRevalidatePath).not.toHaveBeenCalled(); // Should not revalidate on error
+      expect(posts).toHaveLength(1);
+      expect(posts[0]!.metadata).toEqual({
+        title: "Quoted Title",
+        publishedAt: "2023-01-01",
+        summary: 'Summary with "quotes"',
+        image: "/images/test.jpg",
+      });
+    });
   });
 });

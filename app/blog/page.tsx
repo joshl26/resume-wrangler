@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Suspense } from "react";
 import ViewCounter from "./view-counter"; // keep as client component
 import { getBlogPosts } from "@/app/lib/blog/blog";
-import BackButton from "@/ui/back-button";
+import BackButton from "@/app/ui/back-button";
 import Landing from "@/app/landing/page";
 import { ViewsSkeleton } from "@/app/ui/skeletons";
 

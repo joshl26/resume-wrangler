@@ -7,7 +7,8 @@ export const usernameRegex = /^[A-Za-z][A-Za-z0-9_]{5,19}$/;
 export const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
 
 // Password: at least one upper, one lower, one digit, one special char, minimum 6 chars
-export const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[#?!@$%^&*\-]).{6,}$/;
+export const passwordRegex =
+  /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[#?!@$%^&*\-]).{6,}$/;
 
 // Components (useful for building combined regexes)
 export const atLeastOneLowerCaseEnglishRegex = /(?=.*[a-z])/;

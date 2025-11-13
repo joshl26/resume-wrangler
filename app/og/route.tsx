@@ -1,5 +1,6 @@
-import { ImageResponse } from "next/og";
+// app/og/route.tsx (unchanged top-level import.meta usage stays here)
 import { NextRequest } from "next/server";
+import { createOgImageResponse } from "./og-util";
 
 export const runtime = "edge";
 
@@ -11,48 +12,5 @@ export async function GET(req: NextRequest) {
   ).then((res) => res.arrayBuffer());
   const fontData = await font;
 
-  return new ImageResponse(
-    (
-      <div
-        style={{
-          height: "100%",
-          width: "100%",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "flex-start",
-          justifyContent: "center",
-          backgroundColor: "black",
-          backgroundImage: `url(${process.env.DEPLOYMENT_URL}/og-bg.png)`,
-        }}
-      >
-        <div
-          style={{
-            marginLeft: 190,
-            marginRight: 190,
-            display: "flex",
-            fontSize: 130,
-            fontFamily: "Raleway",
-            letterSpacing: "-0.05em",
-            fontStyle: "normal",
-            color: "white",
-            lineHeight: "120px",
-            whiteSpace: "pre-wrap",
-          }}
-        >
-          {postTitle}
-        </div>
-      </div>
-    ),
-    {
-      width: 1920,
-      height: 1080,
-      fonts: [
-        {
-          name: "Raleway",
-          data: fontData,
-          style: "normal",
-        },
-      ],
-    },
-  );
+  return createOgImageResponse(postTitle, fontData, process.env.DEPLOYMENT_URL);
 }

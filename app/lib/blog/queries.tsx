@@ -1,41 +1,28 @@
 "use server";
 
-// import { auth, youtube } from "@googleapis/youtube";
-import { conn } from "./postgres";
+import { conn } from "../database";
 
 import {
   unstable_cache as cache,
   unstable_noStore as noStore,
 } from "next/cache";
 
-// let googleAuth = new auth.GoogleAuth({
-//   credentials: {
-//     client_email: process.env.GOOGLE_CLIENT_EMAIL,
-//     private_key: process.env.GOOGLE_PRIVATE_KEY,
-//   },
-//   scopes: ["https://www.googleapis.com/auth/youtube.readonly"],
-// });
-
-// let yt = youtube({
-//   version: "v3",
-//   auth: googleAuth,
-// });
-
-export async function getBlogViews() {
+export async function getBlogViews(): Promise<number> {
   if (!process.env.POSTGRES_DB_HOST) {
-    return [];
+    return 0;
   }
 
   noStore();
 
   try {
     const query = `SELECT count FROM views`;
-    const views = await conn.query(query);
-    return views.reduce((acc: any, curr: any) => acc + Number(curr.count), 0);
+    // If your conn.query is typed, you can provide a row type:
+    const res = await conn.query<{ count: number }>(query);
+    const rows = res.rows ?? [];
+    return rows.reduce((acc, curr) => acc + Number(curr.count ?? 0), 0);
   } catch (error: any) {
     console.error("Database Error:", error);
-    // throw new Error("Failed to fetch resume templates.");
-    return;
+    return 0;
   }
 }
 
@@ -50,62 +37,15 @@ export async function getViewsCount(): Promise<
 
   try {
     const query = `SELECT slug, count FROM views`;
-    const views = await conn.query(query);
-    return views.rows;
+    const res = await conn.query<{ slug: string; count: number }>(query);
+    const rows = res.rows ?? [];
+    // Make sure to normalize types (count -> number)
+    return rows.map((r) => ({
+      slug: String(r.slug),
+      count: Number(r.count ?? 0),
+    }));
   } catch (error: any) {
     console.error("Database Error:", error);
-    // throw new Error("Failed to fetch resume templates.");
-    // return;
     return [];
-  }
-}
-
-// export const getJoshYouTubeSubs = cache(
-//   async () => {
-//     let response = await yt.channels.list({
-//       id: ["UCZMli3czZnd1uoc1ShTouQw"],
-//       part: ["statistics"],
-//     });
-
-//     let channel = response.data.items![0];
-//     return Number(channel?.statistics?.subscriberCount).toLocaleString();
-//   },
-//   ["josh-youtube-subs"],
-//   {
-//     revalidate: 3600,
-//   }
-// );
-
-// export const getVercelYouTubeSubs = cache(
-//   async () => {
-//     let response = await yt.channels.list({
-//       id: ["UCLq8gNoee7oXM7MvTdjyQvA"],
-//       part: ["statistics"],
-//     });
-
-//     let channel = response.data.items![0];
-//     return Number(channel?.statistics?.subscriberCount).toLocaleString();
-//   },
-//   ["vercel-youtube-subs"],
-//   {
-//     revalidate: 3600,
-//   }
-// );
-
-export async function getGuestbookEntries() {
-  if (!process.env.POSTGRES_DB_HOST) {
-    return [];
-  }
-
-  noStore();
-
-  try {
-    const query = `SELECT id, body, created_by, updated_at FROM guestbook ORDER BY created_at DESC LIMIT 100`;
-    const guestbookEntries = await conn.query(query);
-    return guestbookEntries.rows;
-  } catch (error: any) {
-    console.error("Database Error:", error);
-    // throw new Error("Failed to fetch resume templates.");
-    return;
   }
 }
