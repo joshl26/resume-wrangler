@@ -49,9 +49,9 @@ export default function NewApplication({
         />
         <div className="flex flex-row pb-2">
           <div className="flex flex-col w-full">
-            <label htmlFor="countries_multiple" className="block font-bold">
+            <label htmlFor="company_id" className="block font-bold">
               Select a Company
-            </label>
+            </label>{" "}
             <select
               title="company_id"
               defaultValue={""}
