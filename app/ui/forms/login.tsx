@@ -50,10 +50,10 @@ export default function LoginForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-3">
-      <h1 className="text-[2rem] font-bold text-center">Log In</h1>
+    <form onSubmit={handleSubmit} className="space-y-3 ">
+      <h1 className="text-[2rem] font-bold text-center pb-4">Log In</h1>
 
-      <div className="flex-1 rounded-lg form-amber p-8">
+      <div className="flex-1 rounded-lg form-amber p-8 ">
         {/* Email */}
         <div className="w-full">
           <div>

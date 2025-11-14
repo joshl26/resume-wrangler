@@ -9,16 +9,16 @@ export default function SiteLayout({
   children: React.ReactNode;
 }) {
   return (
-    <>
+    <div className="overflow-x-hidden min-h-screen flex flex-col">
       <header>
         <LandingNavBar />
       </header>
 
-      <main>{children}</main>
+      {children}
 
       <footer>
         <LandingFooter />
       </footer>
-    </>
+    </div>
   );
 }

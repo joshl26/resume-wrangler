@@ -1,0 +1,225 @@
+/* app/ui/styles/components/register-user.css */
+
+/* Shared theme variables for contrast (light + dark fallbacks) */
+:root {
+  --card-bg: rgba(255, 255, 255, 0.92);
+  --card-border: rgba(0, 0, 0, 0.06);
+  --card-shadow: 0 8px 24px rgba(16, 24, 40, 0.06);
+
+  --card-bg-dark: rgba(15, 23, 42, 0.92);
+  --card-border-dark: rgba(255, 255, 255, 0.08);
+  --card-shadow-dark: 0 12px 30px rgba(2, 6, 23, 0.45);
+
+  --input-bg-dark: rgba(255, 255, 255, 0.02);
+  --input-border-dark: rgba(148, 163, 184, 0.14);
+  --placeholder-dark: rgba(226, 238, 248, 0.6);
+}
+
+/* Component styles */
+@layer components {
+  .register-page {
+    @apply relative overflow-x-hidden min-h-screen w-full;
+  }
+
+  .register-container {
+    @apply relative h-full w-full;
+  }
+
+  .register-blob {
+    @apply absolute w-[750px] h-[750px] top-1/2 transform -translate-y-1/2 -z-10;
+  }
+
+  .register-blob-azure {
+    @apply -left-[500px];
+  }
+
+  .register-blob-orange {
+    @apply -right-[600px];
+  }
+
+  .register-content {
+    @apply flex items-center justify-center h-full w-full;
+  }
+
+  .register-form-wrapper {
+    @apply relative mx-auto flex w-full max-w-[500px] flex-col space-y-4 p-2;
+  }
+
+  .form-amber {
+    @apply rounded-lg;
+    background-color: var(--card-bg);
+    border: 1px solid var(--card-border);
+    backdrop-filter: blur(8px);
+    box-shadow: var(--card-shadow);
+  }
+
+  /* Dark mode: stronger contrast for cards */
+  html.dark .form-amber {
+    background-color: var(--card-bg-dark);
+    border: 1px solid var(--card-border-dark);
+    box-shadow: var(--card-shadow-dark);
+    color: #e6eef8;
+  }
+
+  .tight-shadow {
+    box-shadow:
+      0 8px 20px rgba(2, 6, 23, 0.06),
+      0 2px 6px rgba(2, 6, 23, 0.04);
+  }
+
+  /* Inputs */
+  .form-input {
+    @apply block w-full rounded-md border border-gray-200 py-[9px] pl-10 pr-3 text-sm transition-colors duration-150;
+    background: transparent;
+    color: var(--text-primary, #0f172a);
+  }
+
+  html.dark .form-input {
+    background: var(--input-bg-dark);
+    border-color: var(--input-border-dark);
+    color: #e6eef8;
+  }
+
+  .form-input::placeholder {
+    color: #94a3b8;
+  }
+
+  html.dark .form-input::placeholder {
+    color: var(--placeholder-dark);
+  }
+
+  .form-input:focus {
+    outline: none;
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.12);
+  }
+
+  .form-icon {
+    @apply pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 h-[18px] w-[18px] text-gray-500;
+  }
+  .peer:focus ~ .form-icon,
+  .peer:focus + .form-icon,
+  .input-wrapper:focus-within .form-icon {
+    color: #4f46e5;
+  }
+
+  /* dark-mode icon accent */
+  html.dark .form-icon,
+  html.dark .peer:focus ~ .form-icon,
+  html.dark .peer:focus + .form-icon,
+  html.dark .input-wrapper:focus-within .form-icon {
+    color: #a78bfa;
+  }
+
+  /* password toggle */
+  .password-toggle {
+    @apply absolute right-3 top-1/2 -translate-y-1/2 text-gray-500;
+    background: transparent;
+    border: none;
+  }
+
+  /* validation box */
+  .validation-message {
+    @apply mt-2 p-3 rounded-md text-sm;
+    background: #fffbeb;
+    border: 1px solid #fde68a;
+    color: #92400e;
+  }
+
+  html.dark .validation-message {
+    background: rgba(255, 248, 227, 0.04);
+    border-color: rgba(250, 204, 21, 0.14);
+    color: #ffdca8;
+  }
+
+  /* buttons */
+  .btn-amber {
+    @apply inline-flex items-center justify-center px-4 py-2 rounded-md font-medium;
+    background-color: #f59e0b;
+    color: #000;
+  }
+  html.dark .btn-amber {
+    background-color: #fb7185;
+    color: #fff;
+  }
+  .btn-amber:disabled {
+    @apply opacity-70 cursor-not-allowed;
+  }
+
+  .submit-btn {
+    @apply w-full rounded-md py-2 text-sm font-semibold;
+    background-color: #f59e0b;
+    color: #000;
+  }
+  .submit-btn:disabled {
+    @apply opacity-70 cursor-not-allowed;
+  }
+
+  .oauth-btn {
+    @apply flex items-center justify-center gap-2 rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm;
+  }
+  html.dark .oauth-btn {
+    background: rgba(255, 255, 255, 0.03);
+    border-color: rgba(255, 255, 255, 0.06);
+    color: #e6eef8;
+  }
+  .oauth-btn:disabled {
+    @apply opacity-70 cursor-not-allowed;
+  }
+
+  /* divider */
+  .divider .divider-line {
+    @apply border-t border-gray-300 w-full;
+  }
+  .divider .divider-text {
+    @apply relative flex justify-center text-sm px-2 -mt-3 bg-white text-gray-500;
+  }
+  html.dark .divider .divider-text {
+    background: rgba(15, 23, 42, 0.92);
+    color: #94a3b8;
+  }
+
+  /* error */
+  .error-message {
+    @apply mt-1 text-sm text-red-600;
+  }
+  html.dark .error-message {
+    @apply text-red-400;
+  }
+
+  /* links */
+  .signin-anchor {
+    @apply font-medium text-rose-700 hover:text-rose-600;
+  }
+  html.dark .signin-anchor {
+    @apply text-rose-400 hover:text-rose-300;
+  }
+
+  /* responsive */
+  @media (max-width: 640px) {
+    .register-blob {
+      @apply w-[500px] h-[500px];
+    }
+    .register-blob-azure {
+      @apply -left-[300px];
+    }
+    .register-blob-orange {
+      @apply -right-[400px];
+    }
+    .form-amber {
+      @apply p-6;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .register-blob {
+      @apply w-[400px] h-[400px];
+    }
+    .register-blob-azure {
+      @apply -left-[200px];
+    }
+    .register-blob-orange {
+      @apply -right-[300px];
+    }
+  }
+}

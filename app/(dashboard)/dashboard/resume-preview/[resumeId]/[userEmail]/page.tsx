@@ -4,7 +4,7 @@ import ElectricalEngineer from "@/app/ui/resume/electrical-engineer/electrical-e
 import { getData } from "@/app/lib/data";
 import EditButton from "@/app/ui/resume-edit-button";
 import ThreeDAnimator from "@/app/ui/resume/3d-animator/3d-animator";
-import Modern from "@/app/ui/resume/modern/modern";
+// import Modern from "@/app/ui/resume/modern/modern";
 import { notFound } from "next/navigation";
 
 type ResumeParams = {
@@ -37,7 +37,7 @@ export default async function Page({ params }: PageProps) {
       <EditButton resumeId={resumeId} />
       {template === "electrical-engineer" && <ElectricalEngineer {...props} />}
       {template === "3d-animator" && <ThreeDAnimator {...props} />}
-      {template === "modern" && <Modern {...props} />}
+      {/* {template === "modern" && <Modern {...props} />} */}
       {/* {template === "classic" && <Classic {...props} />} */}
     </div>
   );

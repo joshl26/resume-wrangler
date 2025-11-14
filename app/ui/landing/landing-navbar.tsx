@@ -1,4 +1,3 @@
-// app/ui/landing/landing-navbar.tsx
 "use client";
 
 import Image from "next/image";
@@ -36,52 +35,49 @@ const LandingNavBar: React.FC = () => {
       <div className="landing-nav-placeholder" />
 
       <nav
-        className="landing-nav py-3"
+        className="landing-nav"
         role="navigation"
         aria-label="Main navigation"
       >
         <div className="landing-nav-inner">
+          {/* Left: logo */}
           <div className="nav-left">
             <Link href="/" aria-label="Home" className="nav-logo">
               <Image
                 src={ResumeWranglerIcon}
                 alt="Resume Wrangler"
-                width={48}
-                height={48}
-                className="nav-logo-img"
+                width={40}
+                height={40}
+                className="logo-svg"
               />
               <span className="nav-brand">Resume Wrangler</span>
             </Link>
           </div>
 
+          {/* Center: desktop links */}
           <div className="nav-center hidden lg:flex">
             <div className="nav-links" role="menubar" aria-label="Primary">
-              <Link
-                href="/resume-templates"
-                className="nav-link"
-                aria-current={false}
-              >
+              <Link href="/resume-templates" className="nav-link">
                 Resume Templates
               </Link>
               <Link href="/job-boards" className="nav-link">
                 Job Boards
               </Link>
-              <Link href="/blog" className="nav-link">
-                Blog
-              </Link>
             </div>
           </div>
 
+          {/* Right: actions */}
           <div className="nav-right">
-            <div className="nav-actions">
+            <div className="nav-actions hidden lg:flex items-center">
               <button
                 aria-label={
                   theme === "dark"
                     ? "Switch to light mode"
                     : "Switch to dark mode"
                 }
+                aria-pressed={theme === "dark"}
                 onClick={toggleTheme}
-                className="theme-toggle"
+                className="theme-toggle icon-btn"
                 title="Toggle color mode"
               >
                 {theme === "dark" ? (
@@ -116,18 +112,37 @@ const LandingNavBar: React.FC = () => {
               </Link>
             </div>
 
-            {/* mobile menu button */}
-            <button
-              className="menu-toggle lg:hidden"
-              aria-expanded={showMenu}
-              aria-controls="mobile-menu"
-              onClick={() => setShowMenu((s) => !s)}
-              aria-label="Toggle menu"
-            >
-              <svg className="h-6 w-6" viewBox="0 0 24 24" aria-hidden>
-                <path fill="currentColor" d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            </button>
+            {/* Mobile menu button */}
+            <div className="lg:hidden flex items-center">
+              <button
+                className="menu-toggle"
+                aria-expanded={showMenu}
+                aria-controls="mobile-menu"
+                onClick={() => setShowMenu((s) => !s)}
+                aria-label={showMenu ? "Close menu" : "Open menu"}
+              >
+                {showMenu ? (
+                  <svg
+                    className="h-6 w-6"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    aria-hidden
+                  >
+                    <path
+                      d="M6 18L18 6M6 6l12 12"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                ) : (
+                  <svg className="h-6 w-6" viewBox="0 0 24 24" aria-hidden>
+                    <path fill="currentColor" d="M4 6h16M4 12h16M4 18h16" />
+                  </svg>
+                )}
+              </button>
+            </div>
           </div>
         </div>
 
@@ -151,26 +166,32 @@ const LandingNavBar: React.FC = () => {
             >
               Job Boards
             </Link>
-            <Link
-              href="/blog"
-              className="mobile-link"
-              onClick={() => setShowMenu(false)}
-            >
-              Blog
-            </Link>
+
             <div className="mobile-actions">
-              <button className="theme-toggle" onClick={toggleTheme}>
-                {theme === "dark" ? "Light" : "Dark"}
-              </button>
-              <Link
-                href="/login"
-                className="login-btn block w-full text-center mt-2"
-              >
-                Log in
-              </Link>
+              <div className="flex gap-2">
+                <button
+                  className="theme-toggle px-3 py-2 rounded-md w-1/2"
+                  onClick={() => {
+                    toggleTheme();
+                    setShowMenu(false);
+                  }}
+                >
+                  {theme === "dark" ? "Light" : "Dark"}
+                </button>
+
+                <Link
+                  href="/login"
+                  className="login-btn w-1/2 text-center px-3 py-2"
+                  onClick={() => setShowMenu(false)}
+                >
+                  Log in
+                </Link>
+              </div>
+
               <Link
                 href="/register"
-                className="signup-btn block w-full text-center mt-2"
+                className="signup-btn block w-full text-center mt-3 px-3 py-2"
+                onClick={() => setShowMenu(false)}
               >
                 Create Account
               </Link>

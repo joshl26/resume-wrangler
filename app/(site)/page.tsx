@@ -13,13 +13,9 @@ export const metadata: Metadata = {
 
 export default async function Page() {
   return (
-    <main
-      className="overflow-x-hidden min-h-screen flex flex-col"
-      aria-live="polite"
-      role="main"
-    >
+    <main aria-live="polite" role="main">
       <LandingOne />
-      <LandingTwo />
+      {/* <LandingTwo /> */}
       <LandingThree />
       <LandingFour />
     </main>

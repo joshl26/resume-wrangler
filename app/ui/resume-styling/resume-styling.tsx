@@ -31,8 +31,8 @@ import ThreeDAnimator from "../resume/3d-animator/3d-animator";
 import ResumePreviewButton from "@/app/ui/resume-preview-button";
 import Link from "next/link";
 import clsx from "clsx";
-import Elegant from "../resume/elegant/elegant";
-import Modern from "../resume/modern/modern";
+import Elegant from "../resume/old/elegant/elegant";
+// import Modern from "../resume/modern/modern";
 
 interface Props {
   resumeTemplates: ResumeTemplates;
@@ -396,7 +396,7 @@ export default function ResumeStyling(props: Props) {
           )}
           {selectedResumeTemplate === "modern" && (
             <Suspense>
-              <Modern
+              {/* <Modern
                 heading_font={selectedResumeHeadingFont}
                 body_font={selectedResumeBodyFont}
                 color={selectedResumeColor}
@@ -419,7 +419,7 @@ export default function ResumeStyling(props: Props) {
                 skillResumeLines={props?.skillResumeLines}
                 organizationResumeLines={props?.organizationResumeLines}
                 certificationResumeLines={props?.certificationResumeLines}
-              />
+              /> */}
             </Suspense>
           )}
         </div>

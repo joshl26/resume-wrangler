@@ -1,86 +1,149 @@
+/* Updated resume-templates.css — uses shared variables for accessible text colors */
+
 @layer components {
   .resume-templates {
-    @apply w-full h-full overflow-y-auto py-12;
+    @apply w-full h-full overflow-y-auto py-8;
+    background-color: var(--site-bg);
+    color: var(--text-body);
   }
 
   .resume-templates-header {
-    @apply max-w-5xl mx-auto px-4 text-center mb-12;
+    @apply max-w-5xl mx-auto px-4 text-center mb-10;
   }
 
   .resume-templates-title {
     @apply text-2xl md:text-3xl font-bold;
-    color: var(--site-text);
+    color: var(--text-primary);
+  }
+
+  .resume-templates-sub {
+    @apply mt-3 text-sm;
+    color: var(--text-muted);
   }
 
   .resume-templates-grid {
-    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto px-4 pb-16;
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-w-7xl mx-auto px-4 pb-16;
   }
 
   .resume-template-card {
-    @apply rounded-lg overflow-hidden shadow-md transition-all duration-200;
-    background-color: var(--site-bg);
-    border: 1px solid rgba(0, 0, 0, 0.08);
+    @apply rounded-xl overflow-hidden shadow-sm transition-all duration-300 border;
+    background-color: var(--card-bg);
+    border-color: var(--card-border);
+    box-shadow: var(--card-shadow);
   }
 
-  html.dark .resume-template-card {
-    border-color: rgba(255, 255, 255, 0.1);
+  .resume-template-card:hover {
+    @apply shadow-md;
+    transform: translateY(-2px);
   }
 
   .resume-template-link {
     @apply block h-full;
     text-decoration: none;
+    color: inherit; /* ensure link text uses our variables */
   }
 
   .resume-template-thumb {
-    @apply w-full overflow-hidden;
+    @apply w-full overflow-hidden aspect-[350/450];
+    background-color: rgba(0, 0, 0, 0.02);
   }
 
   .resume-template-img {
-    @apply w-full h-auto object-cover transition-transform duration-300;
+    @apply w-full h-full object-cover transition-transform duration-500;
   }
 
-  .resume-template-link:hover .resume-template-img {
+  .resume-template-card:hover .resume-template-img {
     transform: scale(1.03);
   }
 
   .resume-template-info {
     @apply flex justify-between items-center p-4;
-    background-color: var(--site-bg);
-    color: var(--site-text);
+    background-color: var(--card-bg);
+    color: var(--text-body);
   }
 
   .resume-template-name {
-    @apply font-bold text-lg;
+    @apply font-bold text-lg truncate;
+    color: var(--text-primary);
   }
 
   .resume-template-preview {
-    @apply text-sm font-medium transition-colors;
-    color: var(--site-muted);
+    @apply text-xs font-medium px-2 py-1 rounded-full transition-colors;
+    color: var(--text-body);
+    background-color: rgba(0, 0, 0, 0.04); /* subtle contrast from card bg */
   }
 
-  .resume-template-link:hover .resume-template-preview {
-    color: var(--site-accent);
+  /* make preview chip more visible on dark mode */
+  html.dark .resume-template-preview {
+    background-color: rgba(255, 255, 255, 0.06);
+    color: var(--text-muted);
+  }
+
+  .resume-template-card:hover .resume-template-preview {
+    color: var(--accent);
+    background-color: rgba(245, 158, 11, 0.08);
   }
 
   /* Empty state */
   .resume-templates-empty {
     @apply text-center py-20 text-lg;
-    color: var(--site-muted);
+    color: var(--text-muted);
+  }
+
+  /* Links / anchors in cards */
+  .resume-template-link:hover .resume-template-name,
+  .resume-template-link:focus .resume-template-name {
+    color: var(--text-primary);
+  }
+
+  /* Headings & section titles */
+  h2,
+  .section-title {
+    color: var(--text-primary);
+  }
+
+  /* Buttons & accent text */
+  .btn-accent {
+    background-color: var(--accent);
+    color: var(--accent-contrast);
+  }
+
+  /* Input placeholders / search */
+  input::placeholder,
+  textarea::placeholder {
+    color: var(--placeholder);
+    opacity: 1;
+  }
+
+  /* Accessibility-focused focus style (visible and high contrast) */
+  :focus {
+    outline: 3px solid rgba(79, 70, 229, 0.14);
+    outline-offset: 3px;
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .resume-template-card,
+    .resume-template-img {
+      transition: none;
+    }
+    .resume-template-card:hover {
+      transform: none;
+    }
   }
 
   /* Responsive tweaks */
   @media (max-width: 640px) {
     .resume-templates-grid {
-      grid-template-columns: 1fr;
-      padding: 0 1rem 2rem;
+      @apply grid-cols-1 gap-5 px-4;
     }
 
     .resume-template-info {
-      padding: 0.75rem;
+      @apply p-3;
     }
 
     .resume-template-name {
-      font-size: 1rem;
+      @apply text-base;
     }
   }
 }

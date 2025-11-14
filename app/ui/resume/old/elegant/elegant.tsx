@@ -1,5 +1,6 @@
-import Page from "../page";
-import Image from "next/image";
+// app/ui/resume-templates/elegant.tsx
+import React from "react";
+import Page from "../../page";
 import clsx from "clsx";
 import {
   MapPinIcon,
@@ -25,39 +26,87 @@ import {
 
 interface Props {
   user: User;
-  body_font: string;
-  heading_font: string;
-  color: string;
-  highlightColor: string;
-  resume: any;
-  userWorkExperiences: any;
-  userSkills: any;
-  userEducation: any;
-  userCertifications: any;
-  userOrganizations: any;
-  show_social_icons: any;
-  show_skills_section: any;
-  show_skill_progress: any;
-  show_education_section: any;
-  show_custom_section_one: any;
-  show_custom_section_two: any;
-  educationResumeLines: any;
-  workResumeLines: any;
-  skillResumeLines: any;
-  organizationResumeLines: any;
-  certificationResumeLines: any;
+  body_font?: string;
+  heading_font?: string;
+  color?: string; // can be tailwind class or CSS color (#hex / rgb...)
+  highlightColor?: string; // same
+  resume?: any;
+  userWorkExperiences?: any;
+  userSkills?: any;
+  userEducation?: any;
+  userCertifications?: any;
+  userOrganizations?: any;
+  show_social_icons?: any;
+  show_skills_section?: any;
+  show_skill_progress?: any;
+  show_education_section?: any;
+  show_custom_section_one?: any;
+  show_custom_section_two?: any;
+  educationResumeLines?: any;
+  workResumeLines?: any;
+  skillResumeLines?: any;
+  organizationResumeLines?: any;
+  certificationResumeLines?: any;
+}
+
+function isCssColor(value?: string) {
+  if (!value || typeof value !== "string") return false;
+  const v = value.trim().toLowerCase();
+  return (
+    v.startsWith("#") ||
+    v.startsWith("rgb(") ||
+    v.startsWith("rgba(") ||
+    v === "transparent" ||
+    // basic css color names (optional): a short whitelist
+    [
+      "black",
+      "white",
+      "red",
+      "blue",
+      "green",
+      "yellow",
+      "orange",
+      "gray",
+      "grey",
+      "slate",
+      "transparent",
+    ].includes(v)
+  );
 }
 
 export default async function Elegant(props: Props) {
+  // prefer explicit props.color, fall back to resume.color
+  const colorValue = props.color ?? props?.resume?.color ?? "";
+  const highlightValue =
+    props.highlightColor ?? props?.resume?.highlight_color ?? "";
+
+  const colorIsCss = isCssColor(colorValue);
+  const highlightIsCss = isCssColor(highlightValue);
+
+  // classes to use when the value is a class name
+  const colorClass = !colorIsCss && colorValue ? colorValue : "";
+  const highlightClass =
+    !highlightIsCss && highlightValue ? highlightValue : "";
+
+  // inline styles to use when the value is a CSS color
+  const colorStyle: React.CSSProperties =
+    colorIsCss && colorValue ? { backgroundColor: colorValue } : {};
+  const colorBorderStyle: React.CSSProperties =
+    colorIsCss && colorValue ? { backgroundColor: colorValue } : {};
+
+  const highlightStyle: React.CSSProperties =
+    highlightIsCss && highlightValue ? { borderColor: highlightValue } : {};
+  const highlightBgStyle: React.CSSProperties =
+    highlightIsCss && highlightValue ? { backgroundColor: highlightValue } : {};
+
   return (
     <Page>
       <div className="flex flex-row w-full h-full">
         <div className="flex flex-col">
           <div
-            className={clsx(
-              props?.color || props?.resume?.color,
-              "w-full h-auto p-2",
-            )}
+            // apply color either via class (Tailwind) or inline backgroundColor
+            className={clsx(colorClass, "w-full h-auto p-2")}
+            style={colorStyle}
           >
             <h1
               style={{
@@ -75,6 +124,7 @@ export default async function Elegant(props: Props) {
             >
               {props?.user?.first_name} {props?.user?.last_name}
             </h1>
+
             <p
               className={clsx(
                 "text-[1rem] italic font-medium text-white mb-2",
@@ -83,6 +133,7 @@ export default async function Elegant(props: Props) {
             >
               {props?.resume?.description}
             </p>
+
             <div className="flex flex-col ml-[-3px]">
               <div className="flex flex-row justify-start gap-1 h-[20px]">
                 <div className="flex flex-col w-[18px] ml-px text-white">
@@ -100,6 +151,7 @@ export default async function Elegant(props: Props) {
                   </a>
                 </div>
               </div>
+
               <div className="flex flex-row justify-start gap-1 h-[20px]">
                 <div className="flex flex-col w-[15px] ml-[3px] text-white">
                   <PhoneIcon className="m-auto" />
@@ -116,6 +168,7 @@ export default async function Elegant(props: Props) {
                   </a>
                 </div>
               </div>
+
               <div className="flex flex-row justify-start gap-1 h-[20px]">
                 <div className="flex flex-col w-[15px] ml-[2.5px] ">
                   <EnvelopeIcon className="m-auto text-white " />
@@ -132,12 +185,11 @@ export default async function Elegant(props: Props) {
                   </a>
                 </div>
               </div>
+
               {props?.show_social_icons === "true" ||
               props?.resume?.show_social_icons === "true" ? (
                 <>
-                  {props?.user?.linked_in === "" ? (
-                    ""
-                  ) : (
+                  {props?.user?.linked_in ? (
                     <div className="flex flex-row justify-start gap-1 h-[20px] ">
                       <div className="flex flex-col w-[15px] ml-[3px] text-white">
                         <FontAwesomeIcon icon={faLinkedin} className="m-auto" />
@@ -154,10 +206,9 @@ export default async function Elegant(props: Props) {
                         </a>
                       </div>
                     </div>
-                  )}
-                  {props?.user?.facebook === "" ? (
-                    ""
-                  ) : (
+                  ) : null}
+
+                  {props?.user?.facebook ? (
                     <div className="flex flex-row justify-start gap-1 h-[20px]">
                       <div className="flex flex-col w-[15px] ml-[3px] text-white">
                         <FontAwesomeIcon
@@ -177,10 +228,9 @@ export default async function Elegant(props: Props) {
                         </a>
                       </div>
                     </div>
-                  )}
-                  {props?.user?.instagram === "" ? (
-                    ""
-                  ) : (
+                  ) : null}
+
+                  {props?.user?.instagram ? (
                     <div className="flex flex-row justify-start gap-1 h-[20px] my-auto">
                       <div className="flex flex-col w-[15px] ml-[3px]  text-white">
                         <FontAwesomeIcon
@@ -200,10 +250,9 @@ export default async function Elegant(props: Props) {
                         </a>
                       </div>
                     </div>
-                  )}
-                  {props?.user?.twitter === "" ? (
-                    ""
-                  ) : (
+                  ) : null}
+
+                  {props?.user?.twitter ? (
                     <div className="flex flex-row justify-start gap-1 h-[20px]">
                       <div className="flex flex-col w-[15px] ml-[3px] text-white">
                         <FontAwesomeIcon
@@ -223,10 +272,9 @@ export default async function Elegant(props: Props) {
                         </a>
                       </div>
                     </div>
-                  )}
-                  {props?.user?.github === "" ? (
-                    ""
-                  ) : (
+                  ) : null}
+
+                  {props?.user?.github ? (
                     <div className="flex flex-row justify-start gap-1 h-[20px]">
                       <div className="flex flex-col w-[15px] ml-[3px] text-white">
                         <FontAwesomeIcon
@@ -246,14 +294,15 @@ export default async function Elegant(props: Props) {
                         </a>
                       </div>
                     </div>
-                  )}
+                  ) : null}
                 </>
-              ) : (
-                ""
-              )}
+              ) : null}
             </div>
           </div>
+
+          {/* right-col main content */}
           <div className="bg-slate-100 h-[755px] w-full p-2">
+            {/* EDUCATION */}
             {props?.show_education_section === "true" ||
             props?.resume?.show_education_section === "true" ? (
               <div className="flex flex-row pb-4">
@@ -266,6 +315,7 @@ export default async function Elegant(props: Props) {
                   >
                     EDUCATION
                   </h1>
+
                   {props?.educationResumeLines?.map(
                     (userEducation: UserEducationExperience) => (
                       <li
@@ -310,9 +360,9 @@ export default async function Elegant(props: Props) {
                   )}
                 </ul>
               </div>
-            ) : (
-              ""
-            )}
+            ) : null}
+
+            {/* CERTIFICATIONS / CUSTOM SECTION */}
             {props?.show_custom_section_two === "true" ||
             props?.resume?.show_custom_section_two === "true" ? (
               <div className="flex flex-row pb-4">
@@ -354,9 +404,9 @@ export default async function Elegant(props: Props) {
                   </ul>
                 </div>
               </div>
-            ) : (
-              ""
-            )}
+            ) : null}
+
+            {/* SKILLS (with progress) */}
             {props?.show_skill_progress === "true" ||
             props?.resume?.show_skill_progress === "true" ? (
               props.show_skills_section === "true" ||
@@ -371,7 +421,7 @@ export default async function Elegant(props: Props) {
                     SKILLS
                   </h2>
                   <div className="pt-2">
-                    {props?.skillResumeLines[0] &&
+                    {props?.skillResumeLines?.length &&
                       props?.skillResumeLines?.map((userSkill: UserSkill) => (
                         <div
                           className="flex flex-col py-[2px]"
@@ -389,33 +439,37 @@ export default async function Elegant(props: Props) {
                           <div className="progress-container">
                             <div
                               className={clsx(
-                                props?.resume?.highlight_color ||
-                                  props?.resume?.highlight_color,
-                                "rounded-full h-[10px] border border-black",
+                                highlightClass,
+                                "rounded-full h-[10px] border",
                               )}
+                              style={{
+                                ...(highlightIsCss ? highlightStyle : {}),
+                                overflow: "hidden",
+                              }}
                             >
                               <div
                                 className={clsx(
                                   "progress-bar rounded-full",
-                                  props?.color || props?.resume?.color,
+                                  colorClass,
                                 )}
                                 style={{
-                                  width: `${userSkill?.skill_level}%`,
+                                  width: `${userSkill?.skill_level ?? 0}%`,
                                   height: "100%",
+                                  ...(colorIsCss
+                                    ? { backgroundColor: colorValue }
+                                    : {}),
                                 }}
-                              ></div>
+                              />
                             </div>
                           </div>
                         </div>
                       ))}
                   </div>
                 </div>
-              ) : (
-                ""
-              )
-            ) : (
-              ""
-            )}
+              ) : null
+            ) : null}
+
+            {/* SKILLS (no progress) */}
             {props?.show_skill_progress === "false" ||
             props?.resume?.show_skill_progress === "false" ? (
               props.show_skills_section === "true" ||
@@ -430,35 +484,36 @@ export default async function Elegant(props: Props) {
                     SKILLS
                   </h2>
                   <ul className="pt-2 flex flex-row flex-wrap gap-1">
-                    {props?.skillResumeLines[0] &&
-                      props?.skillResumeLines?.map((userSkill: UserSkill) => (
-                        <li
+                    {props?.skillResumeLines?.map((userSkill: UserSkill) => (
+                      <li
+                        key={userSkill?.id}
+                        className={clsx(
+                          "flex flex-col px-2 rounded py-[2px] border-[1.5px] text-black",
+                        )}
+                        style={
+                          highlightIsCss
+                            ? { borderColor: highlightValue }
+                            : undefined
+                        }
+                      >
+                        <p
                           className={clsx(
-                            "flex flex-col px-2 rounded py-[2px] border-[1.5px] text-[black]",
-                            `border-${props?.highlightColor || props?.resume?.highlight_color}`,
+                            "text-[0.75rem] font-bold",
+                            props?.body_font || props?.resume?.body_font,
                           )}
-                          key={userSkill?.id}
                         >
-                          <p
-                            className={clsx(
-                              "text-[0.75rem] font-bold",
-                              props?.body_font || props?.resume?.body_font,
-                            )}
-                          >
-                            {userSkill?.skill}
-                          </p>
-                        </li>
-                      ))}
+                          {userSkill?.skill}
+                        </p>
+                      </li>
+                    ))}
                   </ul>
                 </div>
-              ) : (
-                ""
-              )
-            ) : (
-              ""
-            )}
+              ) : null
+            ) : null}
           </div>
         </div>
+
+        {/* Work experience / Organizations column */}
         <div className="flex flex-col pl-4 pt-1">
           <div className="flex flex-row">
             <h2
@@ -470,6 +525,7 @@ export default async function Elegant(props: Props) {
               WORK EXPERIENCE
             </h2>
           </div>
+
           <ul className="pr-3 pb-2 ">
             {props?.workResumeLines?.map(
               (userWorkExperience: UserWorkExperience) => (
@@ -493,99 +549,46 @@ export default async function Elegant(props: Props) {
                     {userWorkExperience?.start_date} -{" "}
                     {userWorkExperience?.end_date})
                   </p>
-                  {userWorkExperience?.description_one && (
-                    <div className="flex flex-row justify-start">
-                      <div className="flex flex-col pr-3 pt-[10px]">
-                        <div
-                          className={clsx(
-                            "h-[7px] w-[7px] rounded-full ",
-                            props?.color || props?.resume?.color,
-                          )}
-                        />
-                      </div>
-                      <div className="flex flex-col w-auto text-left">
-                        <p
-                          className={clsx(
-                            "text-sm",
-                            props?.body_font || props?.resume?.body_font,
-                          )}
-                        >
-                          {userWorkExperience?.description_one}
-                        </p>
-                      </div>
-                    </div>
-                  )}
-                  {userWorkExperience?.description_two && (
-                    <div className="flex flex-row justify-start">
-                      <div className="flex flex-col pr-3 pt-[10px]">
-                        <div
-                          className={clsx(
-                            "h-[7px] w-[7px] rounded-full",
-                            props?.color || props?.resume?.color,
-                          )}
-                        />
-                      </div>
-                      <div className="flex flex-col">
-                        <p
-                          className={clsx(
-                            "text-sm ",
-                            props?.body_font || props?.resume?.body_font,
-                          )}
-                        >
-                          {userWorkExperience?.description_two}
-                        </p>
-                      </div>
-                    </div>
-                  )}
-                  {userWorkExperience?.description_three && (
-                    <div className="flex flex-row justify-start">
-                      <div className="flex flex-col pr-3 pt-[10px]">
-                        <div
-                          className={clsx(
-                            "h-[7px] w-[7px] rounded-full",
-                            props?.color || props?.resume?.color,
-                          )}
-                        />
-                      </div>
-                      <div className="flex flex-col">
-                        <p
-                          className={clsx(
-                            "text-sm",
-                            props?.body_font || props?.resume?.body_font,
-                          )}
-                        >
-                          {userWorkExperience?.description_three}
-                        </p>
-                      </div>
-                    </div>
-                  )}
-                  {userWorkExperience?.description_four && (
-                    <div className="flex flex-row justify-start">
-                      <div className="flex flex-col pr-3 pt-[10px]">
-                        <div
-                          className={clsx(
-                            "h-[7px] w-[7px] rounded-full",
 
-                            props?.color || props?.resume?.color,
-                          )}
-                        />
+                  {/* descriptions */}
+                  {[1, 2, 3, 4].map((i) => {
+                    const desc = (userWorkExperience as any)[
+                      `description_${["one", "two", "three", "four"][i - 1]}`
+                    ];
+                    return desc ? (
+                      <div className="flex flex-row justify-start" key={i}>
+                        <div className="flex flex-col pr-3 pt-[10px]">
+                          <div
+                            className={clsx(
+                              "h-[7px] w-[7px] rounded-full",
+                              colorClass,
+                            )}
+                            style={
+                              colorIsCss
+                                ? { backgroundColor: colorValue }
+                                : undefined
+                            }
+                          />
+                        </div>
+                        <div className="flex flex-col">
+                          <p
+                            className={clsx(
+                              "text-sm",
+                              props?.body_font || props?.resume?.body_font,
+                            )}
+                          >
+                            {desc}
+                          </p>
+                        </div>
                       </div>
-                      <div className="flex flex-col">
-                        <p
-                          className={clsx(
-                            "text-sm",
-                            props?.body_font || props?.resume?.body_font,
-                          )}
-                        >
-                          {userWorkExperience?.description_four}
-                        </p>
-                      </div>
-                    </div>
-                  )}
+                    ) : null;
+                  })}
                 </li>
               ),
             )}
           </ul>
+
+          {/* Custom organizations section */}
           {props?.show_custom_section_one === "true" ||
           props?.resume?.show_custom_section_one === "true" ? (
             <>
@@ -599,13 +602,7 @@ export default async function Elegant(props: Props) {
                   {props.resume.custom_section_one_name}
                 </h2>
               </div>
-              {/* <div
-                className={clsx(
-                  props?.color || props?.resume?.color,
-                  " w-full h-[2px]"
-                )}
-              /> */}
-              <div className=""></div>{" "}
+
               {props?.organizationResumeLines?.map(
                 (userOrganization: UserOrganization) => (
                   <div
@@ -616,9 +613,13 @@ export default async function Elegant(props: Props) {
                       <div
                         className={clsx(
                           "h-[7px] w-[7px] rounded-full",
-
-                          props?.color || props?.resume?.color,
+                          colorClass,
                         )}
+                        style={
+                          colorIsCss
+                            ? { backgroundColor: colorValue }
+                            : undefined
+                        }
                       />
                     </div>
 
@@ -644,9 +645,7 @@ export default async function Elegant(props: Props) {
                 ),
               )}
             </>
-          ) : (
-            ""
-          )}
+          ) : null}
         </div>
       </div>
     </Page>

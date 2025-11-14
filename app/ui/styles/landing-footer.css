@@ -1,65 +1,138 @@
-/* app/ui/styles/components/footer.css */
 @layer components {
+  /* Footer wrapper, colors controlled via light/dark rules and CSS variables */
   .landing-footer {
     @apply w-full transition-colors duration-200;
-    background-color: #05264b;
-    color: #ffffff;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
+    background-color: var(--footer-bg, #ffffff);
+    color: var(--footer-text, #0f172a);
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
   }
 
+  /* Default light mode: subtle neutral look */
+  html:not(.dark) .landing-footer {
+    background-color: var(--footer-bg, #ffffff);
+    color: var(--footer-text, #0f172a);
+    border-top: 1px solid rgba(15, 23, 42, 0.04);
+  }
+
+  /* Dark mode: stronger contrast background */
   html.dark .landing-footer {
-    background-color: #071427;
-    color: #ffffff;
+    background-color: var(--footer-bg-dark, #071427);
+    color: var(--footer-text-dark, #e6eef8);
+    border-top: 1px solid rgba(255, 255, 255, 0.04);
   }
 
+  /* Inner container */
   .landing-footer-inner {
-    @apply max-w-7xl mx-auto px-4 py-4 flex flex-col md:flex-row md:items-center md:justify-between gap-4;
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row md:items-center md:justify-between gap-6;
   }
 
+  /* Brand area */
   .footer-brand {
-    @apply flex items-center gap-3;
+    @apply flex items-center gap-4;
   }
   .footer-logo {
     @apply shrink-0;
   }
-  .footer-logo .logo-svg {
+  .footer-logo .logo-svg,
+  .footer-logo svg {
     display: block;
-    width: 72px;
-    height: 72px;
+    width: 56px;
+    height: 56px;
     object-fit: contain;
   }
 
   .footer-title {
-    @apply text-white;
+    @apply font-semibold;
+    color: inherit;
+  }
+  .footer-tagline {
+    @apply text-sm;
+    color: rgba(15, 23, 42, 0.6);
+  }
+  html.dark .footer-tagline {
+    color: rgba(230, 238, 248, 0.7);
   }
 
+  /* Link list */
   .footer-links {
     @apply flex flex-wrap items-center gap-4 text-sm font-medium;
     list-style: none;
     margin: 0;
     padding: 0;
   }
+
   .footer-link {
-    color: #ffffff;
-    text-decoration: none;
-    transition: color 0.15s ease;
+    @apply inline-block text-sm transition-colors duration-150;
+    color: var(--footer-link, #0f172a);
   }
+  html:not(.dark) .footer-link {
+    color: #0f172a;
+  }
+  html.dark .footer-link {
+    color: #cfe8ff;
+  }
+
   .footer-link:hover,
   .footer-link:focus {
-    color: #ffd7b5;
+    color: var(--footer-link-hover, #4f46e5);
     text-decoration: underline;
   }
 
+  /* Divider */
   .footer-divider {
-    @apply my-4 border-white/20;
-    border-top-width: 1px;
-    opacity: 0.2;
+    @apply my-4 border-t;
+    border-color: rgba(15, 23, 42, 0.06);
+    opacity: 0.6;
+  }
+  html.dark .footer-divider {
+    border-color: rgba(255, 255, 255, 0.06);
   }
 
+  /* Copy row */
   .landing-footer-copy {
-    @apply max-w-7xl mx-auto px-4 pb-4 text-center md:text-left;
-    color: rgba(255, 255, 255, 0.9);
-    font-size: 0.9rem;
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center md:text-left text-sm pb-4;
+    color: rgba(15, 23, 42, 0.7);
+  }
+  html.dark .landing-footer-copy {
+    color: rgba(230, 238, 248, 0.8);
+  }
+
+  /* Social icons */
+  .footer-social a {
+    @apply inline-flex items-center justify-center p-2 rounded hover:bg-slate-100 dark:hover:bg-slate-800 transition;
+    color: inherit;
+  }
+
+  /* Focus / accessibility helpers */
+  .footer-link:focus,
+  .footer-social a:focus {
+    outline: 2px solid transparent;
+    box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.12);
+    border-radius: 8px;
+  }
+
+  /* Small screens: stack & slightly reduce padding */
+  @media (max-width: 640px) {
+    .landing-footer {
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+    }
+    .footer-logo .logo-svg {
+      width: 48px;
+      height: 48px;
+    }
+    .landing-footer-inner {
+      gap: 4;
+    }
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .landing-footer,
+    .footer-link,
+    .footer-social a {
+      transition: none !important;
+    }
   }
 }

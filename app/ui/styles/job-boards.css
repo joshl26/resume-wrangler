@@ -1,79 +1,299 @@
-@layer components {
-  .job-boards-section {
-    @apply py-10 w-full;
-    background-color: var(--job-boards-bg, #fef7ed); /* fallback */
-  }
+/* app/ui/styles/job-boards.css
+   Theme-aware, accessible, responsive styles for JobBoards.
+   The bottom section uses scoped !important overrides so Tailwind utilities
+   can't accidentally lock color values.
+*/
 
+/* --------- Variables (light mode defaults) --------- */
+:root {
+  --jb-max-width: 600px;
+  --jb-gap: 1rem;
+  --jb-radius: 0.75rem;
+  --jb-padding: 2rem;
+
+  /* Colors (light mode) */
+  --jb-text: #0f172a; /* primary text in light mode */
+  --jb-muted: #6b7280; /* muted text in light mode */
+  --jb-card-bg: #ffffff; /* card background in light mode */
+  --jb-card-border: rgba(2, 6, 23, 0.06);
+  --jb-input-bg: #ffffff;
+  --jb-input-border: #cbd5e1;
+  --jb-placeholder: #94a3b8;
+  --jb-accent: #f59e0b; /* amber accent */
+  --jb-focus-ring: rgba(245, 158, 11, 0.15);
+  --jb-shadow: 0 6px 18px rgba(2, 6, 23, 0.04);
+  --jb-shadow-hover: 0 10px 30px rgba(2, 6, 23, 0.06);
+}
+
+/* --------- Dark mode variables (support both class and media) --------- */
+/* Class-based dark mode (if you toggle dark mode by adding 'dark' to html) */
+html.dark {
+  --jb-text: #e6eef8; /* light text for dark mode */
+  --jb-muted: #94a3b8;
+  --jb-card-bg: #0b1220;
+  --jb-card-border: rgba(255, 255, 255, 0.06);
+  --jb-input-bg: rgba(255, 255, 255, 0.02);
+  --jb-input-border: rgba(148, 163, 184, 0.12);
+  --jb-placeholder: rgba(230, 238, 248, 0.6);
+  --jb-focus-ring: rgba(245, 158, 11, 0.18);
+  --jb-shadow: 0 6px 18px rgba(2, 6, 23, 0.18);
+  --jb-shadow-hover: 0 10px 30px rgba(2, 6, 23, 0.22);
+}
+
+/* System preference dark mode fallback */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --jb-text: #e6eef8;
+    --jb-muted: #94a3b8;
+    --jb-card-bg: #0b1220;
+    --jb-card-border: rgba(255, 255, 255, 0.06);
+    --jb-input-bg: rgba(255, 255, 255, 0.02);
+    --jb-input-border: rgba(148, 163, 184, 0.12);
+    --jb-placeholder: rgba(230, 238, 248, 0.6);
+    --jb-focus-ring: rgba(245, 158, 11, 0.18);
+    --jb-shadow: 0 6px 18px rgba(2, 6, 23, 0.18);
+    --jb-shadow-hover: 0 10px 30px rgba(2, 6, 23, 0.22);
+  }
+}
+
+/* --------- Layout & component styles (use variables) --------- */
+.job-boards-section {
+  display: flex;
+  justify-content: center;
+  padding: 2.25rem 1rem;
+  color: var(--jb-text);
+  min-height: 60vh;
+}
+
+.job-boards-card {
+  width: 100%;
+  max-width: var(--jb-max-width);
+  background: var(--jb-card-bg);
+  border: 1px solid var(--jb-card-border);
+  border-radius: var(--jb-radius);
+  padding: var(--jb-padding);
+  box-shadow: var(--jb-shadow);
+  transition:
+    box-shadow 180ms ease,
+    transform 180ms ease,
+    border-color 180ms ease;
+  color: var(--jb-text);
+}
+
+.job-boards-card:hover {
+  box-shadow: var(--jb-shadow-hover);
+}
+
+/* header */
+.job-boards-header {
+  text-align: center;
+  margin-bottom: 1.25rem;
+}
+.job-boards-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+  line-height: 1.15;
+}
+.job-boards-subtitle {
+  font-size: 0.95rem;
+  color: var(--jb-muted);
+  margin-bottom: 0.75rem;
+}
+
+/* form */
+.job-boards-form {
+  margin-bottom: 1rem;
+}
+.job-boards-input-wrapper {
+  display: flex;
+  align-items: center;
+  position: relative;
+  border-radius: 0.5rem;
+  border: 1px solid var(--jb-input-border);
+  background: var(--jb-input-bg);
+  padding: 0.125rem;
+  transition:
+    box-shadow 0.18s,
+    border-color 0.18s,
+    transform 0.18s;
+}
+.job-boards-input-wrapper.focused,
+.job-boards-input-wrapper:focus-within {
+  border-color: var(--jb-accent);
+  box-shadow: 0 0 0 6px var(--jb-focus-ring);
+  transform: translateY(-1px);
+}
+.job-boards-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  background: transparent;
+  border: none;
+  color: var(--jb-text);
+  border-radius: 0.5rem;
+  caret-color: var(--jb-text);
+}
+.job-boards-input::placeholder {
+  color: var(--jb-placeholder);
+  opacity: 1;
+}
+.job-boards-input:focus {
+  outline: none;
+}
+
+/* divider, list, items, links */
+.job-boards-divider {
+  height: 1px;
+  background-color: var(--jb-card-border);
+  margin: 1rem 0;
+}
+.job-boards-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: var(--jb-gap);
+}
+.job-board-item {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  padding: 0.625rem;
+  border: 1px solid var(--jb-card-border);
+  border-radius: 0.5rem;
+  background: var(--jb-card-bg);
+  transition:
+    transform 0.16s,
+    border-color 0.16s,
+    box-shadow 0.16s;
+  color: var(--jb-text);
+}
+.job-board-item:hover,
+.job-board-item:focus-within {
+  border-color: var(--jb-accent);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(2, 6, 23, 0.06);
+}
+
+.job-board-link {
+  font-size: 0.95rem;
+  color: var(--jb-text);
+  text-decoration: none;
+  flex-grow: 1;
+  transition: color 0.15s;
+}
+.job-board-link:hover,
+.job-board-link:focus {
+  color: var(--jb-accent);
+  text-decoration: underline;
+  outline: none;
+}
+.job-board-logo {
+  flex-shrink: 0;
+  width: 84px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.job-board-logo-img {
+  display: block;
+  max-height: 40px;
+  width: auto;
+  object-fit: contain;
+}
+.job-board-link strong {
+  font-weight: 600;
+  color: var(--jb-text);
+}
+.job-board-link em {
+  font-style: italic;
+  color: var(--jb-muted);
+}
+.job-board-link:focus-visible {
+  box-shadow: 0 0 0 4px var(--jb-focus-ring);
+  border-radius: 0.375rem;
+}
+
+/* responsive */
+@media (max-width: 640px) {
   .job-boards-card {
-    @apply w-11/12 md:w-9/12 bg-white shadow-md rounded-lg p-6 mx-auto my-10;
-    border: 1px solid rgba(0, 0, 0, 0.08);
+    padding: 1.25rem;
   }
-
-  html.dark .job-boards-card {
-    background-color: var(--site-bg);
-    border-color: rgba(255, 255, 255, 0.1);
-  }
-
   .job-boards-title {
-    @apply text-2xl font-semibold mb-2;
-    color: var(--site-text);
+    font-size: 1.25rem;
   }
-
-  .job-boards-subtitle {
-    @apply text-base mb-4;
-    color: var(--site-muted);
-  }
-
-  .job-boards-input {
-    @apply w-full p-3 mb-4 rounded border border-gray-300 shadow-sm;
-    background-color: var(--site-bg);
-    color: var(--site-text);
-  }
-
-  .job-boards-divider {
-    @apply border-b-2 border-gray-300 my-4;
-  }
-
   .job-boards-list {
-    @apply flex flex-col gap-4;
+    grid-template-columns: 1fr;
   }
-
   .job-board-item {
-    @apply flex items-center justify-between py-3 border-b border-gray-200;
+    flex-direction: column;
+    text-align: center;
+    gap: 0.5rem;
   }
-
   .job-board-logo {
-    @apply w-[100px] shrink-0;
+    width: 100%;
+    margin-bottom: 0.25rem;
   }
+}
 
-  .job-board-logo-img {
-    @apply h-auto max-w-full;
-  }
-
+/* reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .job-board-item,
+  .job-boards-card,
+  .job-boards-input-wrapper,
   .job-board-link {
-    @apply text-blue-600 hover:underline transition-colors;
-    font-size: 1rem;
-    text-align: right;
+    transition: none !important;
   }
+}
 
-  html.dark .job-board-link {
-    color: #60a5fa; /* blue-400 */
-  }
+/* sr-only */
+.sr-only {
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
 
-  /* Responsive tweaks */
-  @media (max-width: 640px) {
-    .job-boards-card {
-      padding: 1rem;
-    }
+/* --------- Page-scoped overrides (force override Tailwind color utilities) ---------
+   These are intentionally scoped to .job-boards-page and limited to a few properties.
+   They use !important to ensure they win over Tailwind's utility classes when necessary.
+*/
+.job-boards-page .job-boards-card {
+  background: var(--jb-card-bg) !important;
+  border-color: var(--jb-card-border) !important;
+  color: var(--jb-text) !important;
+}
 
-    .job-board-item {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0.5rem;
-    }
+.job-boards-page .job-boards-subtitle {
+  color: var(--jb-muted) !important;
+}
 
-    .job-board-link {
-      text-align: left;
-    }
-  }
+.job-boards-page .job-board-link,
+.job-boards-page .job-board-item,
+.job-boards-page .job-board-link strong {
+  color: var(--jb-text) !important;
+}
+
+.job-boards-page .job-boards-input {
+  color: var(--jb-text) !important;
+  caret-color: var(--jb-text) !important;
+  background: var(--jb-input-bg) !important;
+  border-color: var(--jb-input-border) !important;
+}
+
+.job-boards-page .job-boards-input::placeholder {
+  color: var(--jb-placeholder) !important;
+  opacity: 1 !important;
+}
+
+/* ensure dark-mode explicit overrides still hold if html.dark exists */
+html.dark .job-boards-page .job-boards-card,
+html.dark .job-boards-page .job-board-item,
+html.dark .job-boards-page .job-board-link,
+html.dark .job-boards-page .job-boards-subtitle,
+html.dark .job-boards-page .job-boards-input {
+  background: var(--jb-card-bg) !important;
+  color: var(--jb-text) !important;
+  border-color: var(--jb-card-border) !important;
 }

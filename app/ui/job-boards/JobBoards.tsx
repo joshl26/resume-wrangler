@@ -1,7 +1,8 @@
+// app/ui/job-boards/JobBoards.tsx
 "use client";
 
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 
 interface SearchProvider {
@@ -92,46 +93,86 @@ const searchProviders: SearchProvider[] = [
   },
 ];
 
-const JobBoards: React.FC = () => {
-  const [jobTitle, setJobTitle] = useState<string>("Software Engineer");
+interface JobBoardsProps {
+  initialQuery?: string;
+}
+
+const JobBoards: React.FC<JobBoardsProps> = ({ initialQuery = "" }) => {
+  const [jobTitle, setJobTitle] = useState<string>(initialQuery);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [isFocused, setIsFocused] = useState(false);
+
+  useEffect(() => {
+    // Focus input on mount
+    inputRef.current?.focus();
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setJobTitle(e.target.value);
   };
 
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+  };
+
   return (
-    <section className="job-boards-section">
+    <section
+      className="job-boards-section"
+      aria-labelledby="job-boards-heading"
+    >
       <div className="job-boards-card">
-        <h1 className="job-boards-title">What is your job title?</h1>
-        <p className="job-boards-subtitle">
-          Type in the job position you are looking for.
-        </p>
+        <div className="job-boards-header">
+          {/* title and subtitle color now come from job-boards CSS via the classes */}
+          <h2 id="job-boards-heading" className="job-boards-title">
+            Find Your Next Job
+          </h2>
+          <p className="job-boards-subtitle">
+            Search across multiple job boards at once
+          </p>
+        </div>
 
-        <input
-          type="text"
-          value={jobTitle}
-          onChange={handleChange}
-          placeholder="e.g. Software Engineer"
-          className="job-boards-input"
-          aria-label="Enter job title"
-        />
+        <form onSubmit={handleSubmit} className="job-boards-form">
+          <div
+            className={`job-boards-input-wrapper ${isFocused ? "focused" : ""}`}
+          >
+            <input
+              ref={inputRef}
+              type="text"
+              value={jobTitle}
+              onChange={handleChange}
+              placeholder="Enter job title, keywords, or company"
+              className="job-boards-input"
+              aria-label="Enter job title, keywords, or company"
+              onFocus={() => setIsFocused(true)}
+              onBlur={() => setIsFocused(false)}
+            />
+            <button
+              type="submit"
+              className="sr-only"
+              aria-label="Submit search"
+            >
+              Search
+            </button>
+          </div>
+        </form>
 
-        <div className="job-boards-divider"></div>
+        <div className="job-boards-divider" aria-hidden="true" />
 
         <div
           className="job-boards-list"
           role="list"
-          aria-label="Job board links"
+          aria-label="Job board search links"
         >
           {searchProviders.map((provider) => (
             <div key={provider.id} className="job-board-item" role="listitem">
-              <div className="job-board-logo">
+              <div className="job-board-logo" aria-hidden="true">
                 <Image
                   src={provider.logoImage}
                   alt={`${provider.name} logo`}
                   width={100}
                   height={40}
                   className="job-board-logo-img"
+                  unoptimized
                 />
               </div>
 
@@ -156,7 +197,7 @@ const JobBoards: React.FC = () => {
                     <em>&quot;{jobTitle}&quot;</em>
                   </span>
                 ) : (
-                  <span>Search {provider.name}</span>
+                  <span>Visit {provider.name}</span>
                 )}
               </Link>
             </div>

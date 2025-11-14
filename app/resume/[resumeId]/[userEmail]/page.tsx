@@ -4,8 +4,8 @@ import ElectricalEngineer from "@/app/ui/resume/electrical-engineer/electrical-e
 // import Classic from "@/app/ui/resume/classic/classic-resume";
 import { getData } from "@/app/lib/data";
 import ThreeDAnimator from "@/app/ui/resume/3d-animator/3d-animator";
-import Elegant from "@/app/ui/resume/elegant/elegant";
-import Modern from "@/app/ui/resume/modern/modern";
+// import Elegant from "@/app/ui/resume/old/elegant/elegant";
+// import Modern from "@/app/ui/resume/modern/modern";
 import { notFound } from "next/navigation";
 
 type ResumeParams = {
@@ -33,8 +33,8 @@ export default async function Page({ params }: PageProps) {
     <div>
       {template === "electrical-engineer" && <ElectricalEngineer {...props} />}
       {template === "3d-animator" && <ThreeDAnimator {...props} />}
-      {template === "elegant" && <Elegant {...props} />}
-      {template === "modern" && <Modern {...props} />}
+      {/* {template === "elegant" && <Elegant {...props} />}
+      {template === "modern" && <Modern {...props} />} */}
       {/* {template === "classic" && <Classic {...props} />} */}
     </div>
   );

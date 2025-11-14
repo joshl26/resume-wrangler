@@ -1,93 +1,182 @@
-/* app/ui/styles/components/navbar.css */
 @layer components {
+  /*
+    Rewritten navbar styles to:
+    - Use a transparent navbar by default (light mode) with subtle bottom border
+    - Provide a translucent panel in dark mode for contrast
+    - Improve link contrast in light mode
+    - Provide accessible focus rings and keyboard-friendly hit targets
+    - Smooth mobile open/close via max-height + opacity
+    - Use Tailwind @apply utilities where appropriate
+  */
+
   .landing-nav {
-    @apply fixed top-0 w-screen z-40 transition-colors duration-200;
-    background-color: var(--site-bg);
-    color: var(--site-text);
+    /* transparent by default so the page background shows through */
+    background-color: transparent;
+    color: var(--site-text, #0f172a);
     -webkit-backdrop-filter: blur(6px);
     backdrop-filter: blur(6px);
+    @apply fixed inset-x-0 top-0 z-50 transition-colors duration-200 shadow-sm;
+    border-bottom: 1px solid rgba(15, 23, 42, 0.06); /* subtle separation on light backgrounds */
+  }
+
+  /* Dark-mode panel to keep nav readable over images/dark backgrounds */
+  html.dark .landing-nav {
+    background-color: rgba(2, 6, 23, 0.36); /* translucent dark panel */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
   }
 
   .landing-nav-inner {
-    @apply max-w-7xl w-full mx-auto flex items-center justify-between px-4;
+    @apply max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16;
   }
 
+  /* Logo / brand */
   .nav-logo {
-    @apply flex items-center shrink-0 mr-6;
+    @apply flex items-center gap-3 shrink-0;
   }
-  .nav-logo a {
-    @apply inline-flex items-center;
-  }
-  .nav-logo img {
+  .nav-logo img,
+  .nav-logo-svg,
+  .logo-svg {
     border-radius: 0.25rem;
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     object-fit: cover;
   }
+  .nav-brand {
+    @apply text-lg font-semibold whitespace-nowrap;
+    color: var(--site-text, #0f172a);
+  }
 
+  /* Ensure brand is high contrast in light mode */
+  html:not(.dark) .nav-brand {
+    @apply text-slate-900;
+  }
+  html.dark .nav-brand {
+    @apply text-white;
+  }
+
+  /* Center links (desktop) */
   .nav-links {
-    @apply hidden lg:flex items-center gap-4 text-sm;
+    @apply hidden lg:flex items-center gap-6 text-sm;
   }
+
+  /* Default link styling (keeps dark-mode rules) */
   .nav-link {
-    @apply block mt-4 lg:mt-0 hover:text-rose-400 transition-colors duration-200;
-    color: inherit;
+    @apply text-sm font-medium text-slate-700 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white;
+    transition: color 0.15s ease-in-out;
   }
 
+  /* Stronger contrast for links in light mode (addresses low contrast complaints) */
+  html:not(.dark) .nav-link {
+    @apply text-slate-800 font-medium;
+  }
+  html:not(.dark) .nav-link:hover,
+  html:not(.dark) .nav-link:focus {
+    @apply text-slate-900;
+  }
+
+  /* Actions (right side) */
   .nav-actions {
-    @apply flex items-center gap-2;
+    @apply flex items-center gap-3;
   }
 
+  /* Theme toggle */
   .theme-toggle {
-    @apply p-2 rounded transition-colors duration-200;
+    @apply p-2 rounded-md transition-colors duration-200 focus:outline-none;
     background-color: transparent;
     color: inherit;
   }
   .theme-toggle:hover {
-    @apply bg-gray-200;
-  }
-  html.dark .theme-toggle:hover {
-    @apply bg-gray-700;
+    @apply bg-slate-100 dark:bg-slate-800;
   }
 
+  /* Login / Signup */
   .login-btn {
-    @apply rounded-full px-6 py-3 transition-colors duration-200;
-    background-color: var(--site-bg);
-    color: var(--site-text);
-    border: none;
-  }
-  .signup-btn {
-    @apply rounded-full px-6 py-3 font-medium transition-colors duration-200;
-    background-color: var(--site-accent);
-    color: var(--site-text);
-  }
-
-  .menu-button {
-    @apply flex items-center px-3 py-2 border rounded transition-colors duration-200;
-    border-color: rgba(0, 0, 0, 0.85);
+    @apply text-sm font-medium px-3 py-2 rounded-md transition-colors duration-150;
+    background-color: transparent;
     color: inherit;
   }
-  html.dark .menu-button {
-    border-color: rgba(255, 255, 255, 0.85);
+  /* Ensure login text is legible in light mode */
+  html:not(.dark) .login-btn {
+    @apply text-slate-900;
   }
 
+  .signup-btn {
+    @apply inline-flex items-center px-3 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium rounded-md shadow-sm transition;
+    background-color: var(--site-accent, #4f46e5);
+  }
+
+  /* Mobile menu toggles */
+  .menu-toggle,
+  .menu-button {
+    @apply p-2 rounded-md flex items-center justify-center text-slate-700 dark:text-slate-200;
+    background: transparent;
+  }
+  .menu-toggle:hover,
+  .menu-button:hover {
+    @apply bg-slate-100 dark:bg-slate-800;
+  }
+
+  /* Mobile menu container */
   .mobile-menu {
-    @apply w-full block lg:hidden p-2 mb-2 transition-colors duration-200;
-    background-color: var(--site-bg);
-    color: var(--site-text);
+    @apply w-full block lg:hidden overflow-hidden bg-transparent transition-[max-height,opacity] duration-300 ease-in-out;
+    color: var(--site-text, #0f172a);
   }
 
+  /* Open / closed states (toggle .mobile-menu-open on show) */
+  .mobile-menu-open {
+    max-height: 480px;
+    opacity: 1;
+  }
+  .mobile-menu:not(.mobile-menu-open) {
+    max-height: 0;
+    opacity: 0;
+  }
+
+  .mobile-links {
+    @apply px-4 pt-4 pb-6 space-y-3 bg-[inherit];
+  }
+
+  .mobile-link {
+    @apply block text-base font-medium text-slate-700 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white;
+  }
+
+  /* Mobile links readable on page backgrounds */
+  html:not(.dark) .mobile-link {
+    @apply text-slate-800;
+  }
+  html.dark .mobile-link {
+    @apply text-slate-300;
+  }
+
+  .mobile-actions {
+    @apply pt-3 border-t border-slate-200 dark:border-slate-700;
+  }
+  .mobile-actions .login-btn {
+    @apply block w-full text-center mt-2;
+  }
+  .mobile-actions .signup-btn {
+    @apply block w-full text-center mt-2;
+  }
+
+  /* Focus & accessible outlines */
   .theme-toggle:focus,
   .menu-button:focus,
+  .menu-toggle:focus,
   .login-btn:focus,
-  .signup-btn:focus {
+  .signup-btn:focus,
+  .nav-link:focus,
+  .mobile-link:focus {
     outline: 2px solid transparent;
-    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.12);
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.12); /* indigo-ish focus ring */
+    border-radius: 8px;
   }
 
+  /* Spacer to prevent content jump when nav is fixed */
   .landing-nav-placeholder {
-    height: 64px;
+    height: 4rem; /* matches h-16 in Tailwind (64px) */
   }
 
+  /* Logo variant helpers */
   .logo-light {
     display: inline-block;
   }
@@ -99,5 +188,27 @@
   }
   html.dark .logo-dark {
     display: inline-block;
+  }
+
+  /* Small utility: icon buttons consistent size */
+  .icon-btn {
+    @apply inline-flex items-center justify-center w-9 h-9 rounded-md;
+  }
+
+  /* Prefer reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .landing-nav,
+    .mobile-menu,
+    .mobile-menu-open {
+      transition: none !important;
+    }
+  }
+
+  /* Reduce blur on very small screens for perf */
+  @media (max-width: 420px) {
+    .landing-nav {
+      -webkit-backdrop-filter: blur(4px);
+      backdrop-filter: blur(4px);
+    }
   }
 }

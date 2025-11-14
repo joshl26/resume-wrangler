@@ -1,3 +1,4 @@
+// app/auth/login/page.tsx
 import LoginForm from "@/app/ui/forms/login";
 import BackButton from "@/app/ui/back-button";
 import Link from "next/link";
@@ -11,32 +12,29 @@ export const metadata = {
 
 export default function LoginPage() {
   return (
-    <main>
-      {" "}
-      <div className="relative overflow-x-hidden h-screen">
-        <PurpleBlob className={"w-[750px] h-[750px] -left-[500px]"} />
-        <AzureBlob className={"w-[750px] h-[750px] -right-[450px]"} />
-        {/* <SigninNavBar /> */}
-        <section className="flex items-center justify-center h-screen ">
-          <div className="relative mx-auto flex w-full max-w-[500px] flex-col space-y-2.5 p-4 ">
+    <main className="login-page">
+      <div className="login-container">
+        <PurpleBlob className="blob-purple" />
+        <AzureBlob className="blob-azure" />
+        <section className="login-content">
+          <div className="login-form-wrapper">
             <LoginForm />
-            <div className="flex flex-row m-auto">
-              <p className="py-2 font-bold">
+            <div className="login-signup-link">
+              <p className="login-signup-text">
                 New user?{" "}
                 <Link
-                  className="font-medium text-rose-800 hover:text-azure-radiance-500"
+                  className="login-signup-anchor text-rose-800 hover:text-rose-600 dark:text-rose-400 dark:hover:text-rose-300"
                   href="/register"
                 >
                   Sign Up
-                </Link>{" "}
+                </Link>
               </p>
             </div>
-            <BackButton className="text-center" href={"/"}>
+            <BackButton className="login-back-button" href="/">
               Back
             </BackButton>
           </div>
         </section>
-        {/* <SigninFooter /> */}
       </div>
     </main>
   );

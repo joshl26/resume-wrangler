@@ -1,81 +1,132 @@
-@layer components {
+/* landing-two.css
+   Responsive, grid-based layout for partner logos.
+   Ensures no overlap and prevents SVG clipping.
+*/
+
+.landing-two {
+  padding: 2rem 1rem;
+  display: flex;
+  justify-content: center;
+  background: transparent;
+  color: var(--jb-text, #111);
+}
+
+.landing-two-inner {
+  max-width: 1100px;
+  width: 100%;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.landing-two-title {
+  margin: 0 0 0.25rem 0;
+  font-size: 1.375rem;
+  line-height: 1.2;
+  color: var(--jb-text, #111);
+}
+
+.landing-two-sub {
+  margin: 0 0 1.25rem 0;
+  color: var(--jb-muted, #6b7280);
+  font-size: 0.95rem;
+}
+
+/* Grid: auto-fit keeps items from overlapping and allows flexible widths */
+.landing-logos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 1rem;
+  align-items: center;
+  justify-items: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+/* Each logo item centers the logo */
+.landing-logo-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.35rem;
+  box-sizing: border-box;
+  min-width: 88px;
+}
+
+/* Link wrapper for focus and hover */
+.logo-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem;
+  border-radius: 8px;
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease;
+  outline: none;
+  background: transparent;
+  text-decoration: none;
+}
+
+/* focus-visible (keyboard) */
+.logo-link:focus-visible {
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.22);
+  transform: translateY(-2px);
+}
+
+/* hover */
+.logo-link:hover {
+  transform: translateY(-3px);
+}
+
+/* Default SVG sizing */
+.lt-logo-svg {
+  width: auto;
+  height: 36px;
+  max-height: 48px;
+  display: block;
+  overflow: visible; /* prevents clipping from complex paths */
+}
+
+/* Slightly larger on medium screens */
+@media (min-width: 640px) {
+  .lt-logo-svg {
+    height: 44px;
+    max-height: 64px;
+  }
+}
+
+/* Larger on large screens */
+@media (min-width: 1024px) {
+  .lt-logo-svg {
+    height: 56px;
+  }
+}
+
+/* Specific minor tweaks per logo if needed */
+.lt-linkedin {
+  height: 44px;
+}
+.lt-google {
+  height: 44px;
+}
+.lt-indeed {
+  height: 36px;
+}
+
+/* Make sure no global svg rules clip or shrink these logos */
+/* Use a specific selector to avoid getting overridden by global CSS or Tailwind */
+.landing-logos .landing-logo-item .logo-link svg {
+  display: block !important;
+  overflow: visible !important;
+  max-width: none !important;
+  max-height: 100% !important;
+}
+
+/* Dark mode color fallback (if you use CSS variables elsewhere) */
+@media (prefers-color-scheme: dark) {
   .landing-two {
-    @apply w-full transition-colors duration-200;
-    background-color: #05264b; /* fallback dark azure */
-    color: #ffffff;
-    padding-top: 5rem;
-    padding-bottom: 5rem;
-  }
-
-  /* allow override from :root variables if you prefer */
-  .landing-two {
-    background-color: var(--landing-two-bg, #05264b);
-    color: var(--landing-two-text, #ffffff);
-  }
-
-  /* inner max-width container */
-  .landing-two-inner {
-    @apply max-w-7xl mx-auto px-4 text-center;
-  }
-
-  .landing-two-pretitle {
-    @apply text-white font-medium text-lg;
-    margin-bottom: 0.5rem;
-  }
-
-  .landing-two-hero {
-    @apply font-bold text-white text-[1.75rem] md:text-[2.5rem] leading-tight max-w-4xl mx-auto px-4;
-    /* If you already have a gradient utility (bg-gradient-harvest) it can be applied instead.
-       Keep text transparent + bg-clip-text if you want gradient text instead of solid white. */
-  }
-
-  .landing-two-lead {
-    @apply text-white/90 text-base md:text-lg max-w-3xl mx-auto px-6 mt-4;
-  }
-
-  .landing-two-logos {
-    @apply flex flex-wrap items-center justify-center gap-8 mt-12 px-4 max-w-5xl mx-auto;
-  }
-
-  .logo-item {
-    @apply flex items-center justify-center h-[100px] w-40 p-2;
-    transition:
-      transform 0.18s ease,
-      filter 0.18s ease,
-      opacity 0.18s ease;
-  }
-
-  .logo-item:hover {
-    transform: translateY(-4px);
-    opacity: 0.95;
-  }
-
-  /* Ensure SVG logos scale to fill the container */
-  .logo-svg {
-    display: block;
-    max-width: 100%;
-    max-height: 100%;
-    width: auto;
-    height: 100%;
-    object-fit: contain;
-    /* If SVGs inherit fill from currentColor, you can adjust color here:
-       color: var(--landing-two-logo, #ffffff); */
-  }
-
-  /* Slightly different tint in dark mode (if you have a different html.dark theme) */
-  html.dark .landing-two {
-    background-color: var(--landing-two-bg-dark, #041127);
-    color: var(--landing-two-text-dark, #ffffff);
-  }
-
-  /* Small screens: stack and reduce spacing */
-  @media (max-width: 640px) {
-    .landing-two-hero {
-      font-size: 1.5rem;
-    }
-    .logo-item {
-      width: 120px;
-      height: 72px;
-    }
+    color: var(--jb-text-dark, #e6eef8);
   }
 }
