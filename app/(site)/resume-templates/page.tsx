@@ -1,6 +1,6 @@
 import React from "react";
-import ResumeTemplates from "../ui/resume-templates/resume-templates";
-import { fetchResumeTemplates } from "../lib/data";
+import ResumeTemplates from "@/app/ui/resume-templates/resume-templates";
+import { fetchResumeTemplates } from "@/app/lib/data";
 
 export const metadata = {
   title: "Resume Templates",

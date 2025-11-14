@@ -67,15 +67,8 @@ export default async function RootLayout({
         ></script>
       </head>
       <body className={`${inter.className} antialiased`}>
-        <header>
-          <LandingNavBar />
-        </header>
-
         <div className="sr-only">Skip to main content</div>
         <Suspense>{children}</Suspense>
-        <footer>
-          <LandingFooter />
-        </footer>
       </body>
     </html>
   );

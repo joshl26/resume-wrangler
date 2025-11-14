@@ -1,4 +1,4 @@
-import JobBoards from "../ui/job-boards/JobBoards";
+import JobBoards from "@/app/ui/job-boards/JobBoards";
 
 export const metadata = {
   title: "Job Boards",

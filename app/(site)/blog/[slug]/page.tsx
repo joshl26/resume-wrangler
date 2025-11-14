@@ -94,54 +94,54 @@ export default function Blog({ params }: { params: any }) {
   }
 
   return (
-      <main className=" flex flex-col w-full min-h-[97vh] bg-purple-heart-200 px-3">
-        <section className="max-w-(--breakpoint-md) tight-shadow w-full mx-auto text-azure-radiance-400 min-h-[97vh] pt-[10vh] bg-purple-heart-300 px-4">
-          <BackButton
-            className="text-azure-radiance-900 hover:text-rose-500"
-            href="/blog"
-          >
-            Back
-          </BackButton>
-          <script
-            type="application/ld+json"
-            suppressHydrationWarning
-            dangerouslySetInnerHTML={{
-              __html: JSON.stringify({
-                "@context": "https://schema.org",
-                "@type": "BlogPosting",
-                headline: post.metadata.title,
-                datePublished: post.metadata.publishedAt,
-                dateModified: post.metadata.publishedAt,
-                description: post.metadata.summary,
-                image: post.metadata.image
-                  ? `${process.env.APP_DEPLOYMENT_URL}${post.metadata.image}`
-                  : `${process.env.APP_DEPLOYMENT_URL}/og?title=${post.metadata.title}`,
-                url: `${process.env.APP_DEPLOYMENT_URL}/blog/${post.slug}`,
-                author: {
-                  "@type": "Person",
-                  name: "Joshua Lehman",
-                },
-              }),
-            }}
-          />
-          <h1 className="title font-medium text-2xl tracking-tighter text-white mt-6">
-            {post.metadata.title}
-          </h1>
-          <div className="flex justify-between items-center mt-2 mb-8 text-sm ">
-            <Suspense fallback={<p className="h-5" />}>
-              <p className="text-sm text-azure-radiance-900">
-                {formatDate(post.metadata.publishedAt)}
-              </p>
-            </Suspense>
-            <Suspense fallback={<p className="h-5" />}>
-              <Views className={"text-azure-radiance-900"} slug={post.slug} />
-            </Suspense>
-          </div>
-          <article className="prose prose-quoteless prose-neutral dark:prose-invert ">
-            <CustomMDX source={post.content} />
-          </article>
-        </section>
-      </main>
+    <main className=" flex flex-col w-full min-h-[97vh] bg-purple-heart-200 px-3">
+      <section className="max-w-(--breakpoint-md) tight-shadow w-full mx-auto text-azure-radiance-400 min-h-[97vh] pt-[10vh] bg-purple-heart-300 px-4">
+        <BackButton
+          className="text-azure-radiance-900 hover:text-rose-500"
+          href="/blog"
+        >
+          Back
+        </BackButton>
+        <script
+          type="application/ld+json"
+          suppressHydrationWarning
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "BlogPosting",
+              headline: post.metadata.title,
+              datePublished: post.metadata.publishedAt,
+              dateModified: post.metadata.publishedAt,
+              description: post.metadata.summary,
+              image: post.metadata.image
+                ? `${process.env.APP_DEPLOYMENT_URL}${post.metadata.image}`
+                : `${process.env.APP_DEPLOYMENT_URL}/og?title=${post.metadata.title}`,
+              url: `${process.env.APP_DEPLOYMENT_URL}/blog/${post.slug}`,
+              author: {
+                "@type": "Person",
+                name: "Joshua Lehman",
+              },
+            }),
+          }}
+        />
+        <h1 className="title font-medium text-2xl tracking-tighter text-white mt-6">
+          {post.metadata.title}
+        </h1>
+        <div className="flex justify-between items-center mt-2 mb-8 text-sm ">
+          <Suspense fallback={<p className="h-5" />}>
+            <p className="text-sm text-azure-radiance-900">
+              {formatDate(post.metadata.publishedAt)}
+            </p>
+          </Suspense>
+          <Suspense fallback={<p className="h-5" />}>
+            <Views className={"text-azure-radiance-900"} slug={post.slug} />
+          </Suspense>
+        </div>
+        <article className="prose prose-quoteless prose-neutral dark:prose-invert ">
+          <CustomMDX source={post.content} />
+        </article>
+      </section>
+    </main>
   );
 }
 

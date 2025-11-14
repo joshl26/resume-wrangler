@@ -1,4 +1,4 @@
-import RegisterUser from "../ui/forms/register-user";
+import RegisterUser from "@/app/ui/forms/register-user";
 import { redirect } from "next/navigation";
 import { auth } from "@/auth";
 

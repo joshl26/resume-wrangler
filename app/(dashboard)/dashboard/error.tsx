@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect } from "react";
-import ErrorFallback from "../ui/ErrorFallback";
+import ErrorFallback from "../../ui/ErrorFallback";
 
 export default function DashboardError({
   error,

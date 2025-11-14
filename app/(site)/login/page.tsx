@@ -1,10 +1,8 @@
 import LoginForm from "@/app/ui/forms/login";
-import BackButton from "../ui/back-button";
+import BackButton from "@/app/ui/back-button";
 import Link from "next/link";
-import SigninNavBar from "../ui/signin/signin-navbar";
-import SigninFooter from "../ui/signin/signin-footer";
-import PurpleBlob from "../ui/landing/purple-blob";
-import AzureBlob from "../ui/landing/azure-blob";
+import PurpleBlob from "@/app/ui/landing/purple-blob";
+import AzureBlob from "@/app/ui/landing/azure-blob";
 
 export const metadata = {
   title: "Login",

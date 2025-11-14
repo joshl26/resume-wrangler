@@ -1,8 +1,8 @@
 import { Metadata } from "next";
-import LandingOne from "./ui/landing/landing-section-one";
-import LandingTwo from "./ui/landing/landing-section-two";
-import LandingThree from "./ui/landing/landing-section-three";
-import LandingFour from "./ui/landing/landing-section-four";
+import LandingOne from "../ui/landing/landing-section-one";
+import LandingTwo from "../ui/landing/landing-section-two";
+import LandingThree from "../ui/landing/landing-section-three";
+import LandingFour from "../ui/landing/landing-section-four";
 
 export const metadata: Metadata = {
   title: "Résumé Wrangler",

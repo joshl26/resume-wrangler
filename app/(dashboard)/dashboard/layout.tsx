@@ -1,7 +1,7 @@
 // app/layout.tsx
 import SideNav from "@/app/ui/dashboard/sidenav";
 import { auth } from "@/auth"; // server-side helper that calls getServerSession
-import Providers from "@/app/dashboard/providers"; // client wrapper
+import Providers from "@/app/(dashboard)/dashboard/providers"; // client wrapper
 
 export default async function Layout({
   children,
