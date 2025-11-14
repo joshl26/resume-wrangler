@@ -1,45 +1,67 @@
+/* app/ui/global.css */
 @import "tailwindcss";
+@import "./styles/fonts.css";
 
-input[type="number"] {
-  -moz-appearance: textfield;
-  appearance: textfield;
+/* ---------------------------
+   Base layer (global resets + theme variables)
+   --------------------------- */
+@layer base {
+  html {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Theme variables (light defaults) */
+  :root {
+    --site-bg: #fffbe6; /* rgb(255,251,230) */
+    --site-text: #000000;
+    --site-muted: #4b5563; /* gray-600 */
+    --site-accent: #f59e0b; /* amber-ish */
+    --btn-amber-bg: #f59e0b;
+    --btn-amber-text: #000000;
+  }
+
+  /* Dark theme variables (when html has class "dark") */
+  html.dark {
+    --site-bg: #0f172a; /* gray-900 */
+    --site-text: #ffffff;
+    --site-muted: #9ca3af; /* gray-400 */
+    --site-accent: #fb7185; /* rose-ish */
+    --btn-amber-bg: #fb7185;
+    --btn-amber-text: #ffffff;
+  }
+
+  /* Apply variables to root elements */
+  html,
+  body {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    font-family:
+      -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
+      Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    background-color: var(--site-bg);
+    color: var(--site-text);
+    transition:
+      background-color 0.2s ease,
+      color 0.2s ease;
+  }
 }
 
-input[type="number"]::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
+/* Import separated component partials (files contain @layer components {}) */
+@import "./styles/landing-navbar.css";
+@import "./styles/landing-footer.css";
+@import "./styles/landing-one.css";
+@import "./styles/landing-two.css";
+@import "./styles/landing-three.css";
+@import "./styles/landing-four.css";
+@import "./styles/resume-templates.css";
+@import "./styles/job-boards.css";
 
-input[type="number"]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-html {
-  -webkit-print-color-adjust: exact;
-  print-color-adjust: exact;
-}
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    Segoe UI,
-    Roboto,
-    Oxygen,
-    Ubuntu,
-    Cantarell,
-    Fira Sans,
-    Droid Sans,
-    Helvetica Neue,
-    sans-serif;
-  background: rgb(255, 251, 230);
-  width: 100%;
-  height: 100%;
-}
-
+/* ---------------------------
+   Keep layout / utility globals
+   --------------------------- */
 #__next {
   height: 100vh;
   display: grid;
@@ -50,12 +72,24 @@ body {
   /* border: red 1px solid; */
 }
 
+/* Number input tweaks */
+input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Buttons, links, headings, fonts, etc. (unchanged content below) */
+
 .downloadBtn {
   color: blue;
   font-size: 1.25rem;
   text-align: center;
   font-weight: bold;
-  text-align: center;
 }
 
 .downloadBtn:hover {
@@ -66,217 +100,7 @@ h1 {
   margin: 0;
 }
 
-@font-face {
-  font-family: breeSerif;
-  src: url(../fonts/BreeSerif-Regular.ttf);
-}
-
-.font-bree {
-  font-family: breeSerif;
-}
-
-@font-face {
-  font-family: crimsonPro;
-  src: url(../fonts/CrimsonPro-Regular.ttf);
-}
-
-.font-crimson {
-  font-family: crimsonPro;
-}
-
-@font-face {
-  font-family: dancingScript;
-  src: url(../fonts/DancingScript-Regular.ttf);
-}
-
-.font-dancing {
-  font-family: dancingScript;
-}
-
-@font-face {
-  font-family: ledger;
-  src: url(../fonts/Ledger-Regular.ttf);
-}
-
-.font-ledger {
-  font-family: ledger;
-}
-
-@font-face {
-  font-family: lora;
-  src: url(../fonts/Lora-Regular.ttf);
-}
-
-.font-lora {
-  font-family: lora;
-}
-
-@font-face {
-  font-family: lusitana;
-  src: url(../fonts/Lusitana-Regular.ttf);
-}
-
-.font-lusitana {
-  font-family: lusitana;
-}
-
-@font-face {
-  font-family: mallanna;
-  src: url(../fonts/Mallanna-Regular.ttf);
-}
-
-.font-dancing {
-  font-family: mallanna;
-}
-
-@font-face {
-  font-family: montserrat;
-  src: url(../fonts/Montserrat-Regular.ttf);
-}
-
-.font-dancing {
-  font-family: montserrat;
-}
-
-@font-face {
-  font-family: openSans;
-  src: url(../fonts/OpenSans-Regular.ttf);
-}
-
-.font-dancing {
-  font-family: openSans;
-}
-
-@font-face {
-  font-family: oswald;
-  src: url(../fonts/Oswald-Regular.ttf);
-}
-
-.font-oswald {
-  font-family: oswald;
-}
-
-@font-face {
-  font-family: pacifico;
-  src: url(../fonts/Pacifico-Regular.ttf);
-}
-
-.font-pacifico {
-  font-family: pacifico;
-}
-
-@font-face {
-  font-family: playfairDisplay;
-  src: url(../fonts/PlayfairDisplay-Regular.ttf);
-}
-
-.font-dancing {
-  font-family: dancingScript;
-}
-
-@font-face {
-  font-family: poppins;
-  src: url(../fonts/Poppins-Regular.ttf);
-}
-
-.font-poppins {
-  font-family: poppins;
-}
-
-@font-face {
-  font-family: quicksand;
-  src: url(../fonts/Quicksand-Regular.ttf);
-}
-
-.font-quicksand {
-  font-family: quicksand;
-}
-
-@font-face {
-  font-family: raleway;
-  src: url(../fonts/Raleway-Regular.ttf);
-}
-
-.font-raleway {
-  font-family: raleway;
-}
-
-@font-face {
-  font-family: ralewayBold;
-  src: url(../fonts/Raleway-Bold.ttf);
-}
-
-.font-raleway-bold {
-  font-family: ralewayBold;
-}
-
-@font-face {
-  font-family: roboto;
-  src: url(../fonts/Roboto-Regular.ttf);
-}
-
-.font-roboto {
-  font-family: roboto;
-}
-
-@font-face {
-  font-family: robotoMono;
-  src: url(../fonts/RobotoMono-Regular.ttf);
-}
-
-.font-robotomono {
-  font-family: robotoMono;
-}
-
-@font-face {
-  font-family: rokkitt;
-  src: url(../fonts/Rokkitt-Regular.ttf);
-}
-
-.font-rokkitt {
-  font-family: rokkitt;
-}
-
-@font-face {
-  font-family: rubik;
-  src: url(../fonts/Rubik-Regular.ttf);
-}
-
-.font-rubik {
-  font-family: rubik;
-}
-
-@font-face {
-  font-family: sacramento;
-  src: url(../fonts/Sacramento-Regular.ttf);
-}
-
-.font-sacramento {
-  font-family: sacramento;
-}
-
-@font-face {
-  font-family: sourceCode;
-  src: url(../fonts/SourceCodePro-Regular.ttf);
-}
-
-.font-source {
-  font-family: sourceCode;
-}
-
-@font-face {
-  font-family: yellowtail;
-  src: url(../fonts/Yellowtail-Regular.ttf);
-}
-
-.font-dancing {
-  font-family: yellowTail;
-}
-
-.border-red {
-  border: 1px red solid;
-}
-
+/* Animations */
 @keyframes pulse {
   0% {
     transform: scale(0.95);
@@ -294,20 +118,17 @@ h1 {
   }
 }
 
+/* Tables / forms */
 thead {
   background-color: lightgrey;
-  /* border: #000000 2px solid; */
   color: black;
 }
-
 tbody {
   background-color: #eeeeee;
 }
-
 tr {
   color: black;
 }
-
 tr:hover {
   background-color: white;
 }
@@ -315,7 +136,6 @@ tr:hover {
 a#edit {
   color: #3a86ff;
 }
-
 button#remove {
   color: #ff006e;
 }
@@ -342,4 +162,52 @@ select {
   width: 1px;
   height: 1px;
   overflow: hidden;
+}
+
+/* ---------------------------
+   Component layer (use @apply here)
+   --------------------------- */
+@layer components {
+  .btn {
+    @apply px-4 py-2 rounded font-semibold transition-colors;
+  }
+
+  .btn-amber {
+    @apply px-4 py-2 rounded font-semibold transition-colors;
+    background-color: var(--btn-amber-bg);
+    color: var(--btn-amber-text);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+  }
+  .dark .btn-amber {
+    /* if you need a different hover/bg in dark, either change variables above
+       or add explicit @apply rules here */
+  }
+
+  .btn-blue {
+    @apply bg-blue-500 text-white;
+  }
+  .dark .btn-blue {
+    @apply bg-blue-600;
+  }
+
+  .form-amber {
+    @apply bg-amber-200/85 shadow-md;
+  }
+  .dark .form-amber {
+    @apply bg-gray-800;
+  }
+
+  .form-orange {
+    @apply bg-orange-100 shadow-md;
+  }
+  .dark .form-orange {
+    @apply bg-gray-700;
+  }
+
+  .tight-shadow {
+    @apply shadow-md;
+  }
+  .dark .tight-shadow {
+    @apply shadow-lg;
+  }
 }

@@ -1,5 +1,4 @@
 import React from "react";
-import Landing from "../landing/page";
 import ResumeTemplates from "../ui/resume-templates/resume-templates";
 import { fetchResumeTemplates } from "../lib/data";
 
@@ -12,11 +11,11 @@ async function Page() {
   const resumeTemplates = await fetchResumeTemplates();
 
   return (
-    <Landing>
+    <main>
       <div className=" bg-rose-100 min-h-[97vh]">
         <ResumeTemplates resumeTemplates={resumeTemplates} />
       </div>
-    </Landing>
+    </main>
   );
 }
 

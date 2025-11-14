@@ -1,49 +1,70 @@
 import type { ResumeTemplate, ResumeTemplates } from "@/app/lib/definitions";
 import Image from "next/image";
 import React from "react";
+import Link from "next/link";
 
-const ResumeTemplates = ({
-  resumeTemplates,
-}: {
+interface ResumeTemplatesProps {
   resumeTemplates: ResumeTemplates;
+}
+
+const ResumeTemplates: React.FC<ResumeTemplatesProps> = ({
+  resumeTemplates,
 }) => {
+  if (!resumeTemplates || resumeTemplates.length === 0) {
+    return (
+      <div className="resume-templates-empty">
+        <p>No resume templates available at this time.</p>
+      </div>
+    );
+  }
+
   return (
-    <div className="h-full overflow-y-auto w-full ">
-      <div className="flex flex-row max-w-(--breakpoint-lg) m-auto   pt-[15vh]">
-        <h1 className="text-3xl font-bold text-center w-full pb-16">
+    <section className="resume-templates">
+      <div className="resume-templates-header">
+        <h1 className="resume-templates-title">
           Start off with one of our curated resume templates
         </h1>
       </div>
-      <div className="flex flex-row flex-wrap gap-10 px-14 pb-20 max-w-(--breakpoint-lg) m-auto  w-full justify-around">
-        {resumeTemplates?.map(
-          (template: ResumeTemplate) =>
-            template?.thumbnail_url !== null && (
-              <div className="w-[350px]" key={template?.id}>
-                <a
-                  className="w-full"
-                  href={`/dashboard/resume/${template?.id}`}
-                >
+
+      <div
+        className="resume-templates-grid"
+        role="list"
+        aria-label="Resume templates"
+      >
+        {resumeTemplates.map((template) => {
+          if (!template.thumbnail_url) return null;
+
+          return (
+            <div
+              className="resume-template-card"
+              key={template.id}
+              role="listitem"
+            >
+              <Link
+                href={`/dashboard/resume/${template.id}`}
+                className="resume-template-link"
+                aria-label={`Preview ${template.name}`}
+              >
+                <div className="resume-template-thumb">
                   <Image
-                    className=""
+                    src={template.thumbnail_url}
+                    alt={template.name}
                     width={350}
-                    height={0}
-                    alt={template?.name}
-                    src={
-                      template?.thumbnail_url == null
-                        ? ""
-                        : template?.thumbnail_url
-                    }
+                    height={450}
+                    className="resume-template-img"
                   />
-                  <div className="flex flex-row justify-between">
-                    <h1 className="font-bold">{template?.name}</h1>
-                    <h1 className="hover:text-rose-500">Preview</h1>
-                  </div>
-                </a>
-              </div>
-            ),
-        )}
+                </div>
+
+                <div className="resume-template-info">
+                  <h3 className="resume-template-name">{template.name}</h3>
+                  <span className="resume-template-preview">Preview</span>
+                </div>
+              </Link>
+            </div>
+          );
+        })}
       </div>
-    </div>
+    </section>
   );
 };
 

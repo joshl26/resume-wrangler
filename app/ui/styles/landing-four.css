@@ -1,0 +1,97 @@
+@layer components {
+  .landing-four {
+    @apply w-full transition-colors duration-200 py-24 relative;
+    /* Variable-driven background so you can control via :root or html.dark */
+    background: var(
+      --landing-four-bg,
+      linear-gradient(90deg, #fb7185 0%, #f59e0b 100%)
+    );
+    color: var(--landing-four-text, #ffffff);
+  }
+
+  .landing-four-inner {
+    @apply max-w-7xl mx-auto px-4;
+  }
+
+  .landing-four-header {
+    @apply text-center mb-12;
+  }
+
+  .landing-four-pretitle {
+    @apply text-white/90 font-medium text-lg;
+  }
+
+  .landing-four-heading {
+    @apply text-white font-medium text-3xl md:text-4xl mt-2;
+  }
+
+  .landing-four-cards {
+    @apply flex flex-wrap items-stretch justify-center gap-8 mt-12;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .landing-four-card {
+    @apply flex flex-col items-center justify-start text-center bg-white/5 rounded-lg p-6 shadow-md w-[280px] md:w-[300px] h-[300px];
+    transition:
+      transform 0.18s ease,
+      box-shadow 0.18s ease;
+  }
+
+  .landing-four-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+  }
+
+  .landing-four-card-icon {
+    @apply mb-4 w-full flex items-center justify-center;
+  }
+
+  .logo-item {
+    @apply flex items-center justify-center;
+    width: 175px;
+    height: auto;
+  }
+
+  .logo-svg {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+
+  .landing-four-card-title {
+    @apply text-white font-semibold text-[1.25rem] mt-2;
+  }
+
+  /* Dark mode tweaks (if html.dark is used to switch theme) */
+  html.dark .landing-four {
+    background: var(
+      --landing-four-bg-dark,
+      linear-gradient(90deg, #0f172a 0%, #04203a 100%)
+    );
+    color: var(--landing-four-text-dark, #fff);
+  }
+
+  html.dark .landing-four-card {
+    @apply bg-white/6;
+  }
+
+  /* Small screen adjustments */
+  @media (max-width: 640px) {
+    .landing-four {
+      padding-top: 4rem;
+      padding-bottom: 4rem;
+    }
+    .landing-four-card {
+      @apply w-11/12 h-auto p-4;
+    }
+    .logo-item {
+      width: 140px;
+    }
+    .landing-four-heading {
+      font-size: 1.5rem;
+    }
+  }
+}

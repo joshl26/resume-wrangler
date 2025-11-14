@@ -3,26 +3,32 @@ import Lasso from "@/public/LassoBlack.svg";
 import RoseBlob from "./rose-blob";
 import AzureBlob from "./azure-blob";
 
-const LandingOne = () => {
+const LandingOne: React.FC = () => {
   return (
-    <div className="relative max-w-(--breakpoint-xl) m-auto min-h-[95vh]">
-      <RoseBlob
-        className={"h-[750px] w-[750px] -bottom-[300px] -left-[400px] "}
-      />
-      <AzureBlob
-        className={"h-[750px] w-[750px] -top-[300px] -right-[400px] "}
-      />
-      <div className="relative flex flex-row items-center pt-[5vh] z-10 max-w-(--breakpoint-xl) min-h-[95vh]">
-        <div className="flex flex-col w-1/2 ">
-          <Lasso className="mx-auto" alt="" />
-        </div>
-        <div className="flex flex-col w-1/2">
-          <h1 className="text-[3rem]  sm:text-[4rem] md:text-[6rem] pl-2  font-bold leading-tight ">
-            Tame your Job Search.
-          </h1>
+    <section className="landing-one">
+      {/* Decorative blobs — pass both the shared utilities and the positional class */}
+      {/* If RoseBlob/AzureBlob forward className to their root element, this will work. */}
+      <RoseBlob className="hero-blob hero-blob-rose" />
+      <AzureBlob className="hero-blob hero-blob-azure" />
+
+      {/* If the blob components don't forward className, use the wrapper approach:
+          <div className="hero-blob hero-blob-rose"><RoseBlob /></div>
+          <div className="hero-blob hero-blob-azure"><AzureBlob /></div>
+      */}
+
+      <div className="landing-one-wrapper">
+        <div className="landing-one-inner">
+          <div className="landing-one-col landing-one-graphic">
+            {/* Lasso is an inline SVG React component (SVGR). If it's a URL for next/image, swap to <Image /> */}
+            <Lasso className="logo-svg" aria-hidden />
+          </div>
+
+          <div className="landing-one-col landing-one-copy">
+            <h1 className="landing-one-heading">Tame your Job Search.</h1>
+          </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

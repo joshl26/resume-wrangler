@@ -1,0 +1,79 @@
+@layer components {
+  .job-boards-section {
+    @apply py-10 w-full;
+    background-color: var(--job-boards-bg, #fef7ed); /* fallback */
+  }
+
+  .job-boards-card {
+    @apply w-11/12 md:w-9/12 bg-white shadow-md rounded-lg p-6 mx-auto my-10;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+  }
+
+  html.dark .job-boards-card {
+    background-color: var(--site-bg);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .job-boards-title {
+    @apply text-2xl font-semibold mb-2;
+    color: var(--site-text);
+  }
+
+  .job-boards-subtitle {
+    @apply text-base mb-4;
+    color: var(--site-muted);
+  }
+
+  .job-boards-input {
+    @apply w-full p-3 mb-4 rounded border border-gray-300 shadow-sm;
+    background-color: var(--site-bg);
+    color: var(--site-text);
+  }
+
+  .job-boards-divider {
+    @apply border-b-2 border-gray-300 my-4;
+  }
+
+  .job-boards-list {
+    @apply flex flex-col gap-4;
+  }
+
+  .job-board-item {
+    @apply flex items-center justify-between py-3 border-b border-gray-200;
+  }
+
+  .job-board-logo {
+    @apply w-[100px] shrink-0;
+  }
+
+  .job-board-logo-img {
+    @apply h-auto max-w-full;
+  }
+
+  .job-board-link {
+    @apply text-blue-600 hover:underline transition-colors;
+    font-size: 1rem;
+    text-align: right;
+  }
+
+  html.dark .job-board-link {
+    color: #60a5fa; /* blue-400 */
+  }
+
+  /* Responsive tweaks */
+  @media (max-width: 640px) {
+    .job-boards-card {
+      padding: 1rem;
+    }
+
+    .job-board-item {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+
+    .job-board-link {
+      text-align: left;
+    }
+  }
+}

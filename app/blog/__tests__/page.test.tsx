@@ -31,7 +31,7 @@ jest.mock("next/link", () => {
 });
 
 // Mock Landing to render a wrapper with a test id so we can assert it's used
-jest.mock("@/app/landing/page", () => {
+jest.mock("@/app/page", () => {
   return {
     __esModule: true,
     default: ({ children }: { children: React.ReactNode }) =>

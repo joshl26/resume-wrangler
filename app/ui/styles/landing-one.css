@@ -1,0 +1,100 @@
+@layer components {
+  .landing-one {
+    @apply relative w-full transition-colors duration-200;
+    min-height: 95vh;
+  }
+
+  .landing-one-inner {
+    @apply relative mx-auto max-w-7xl flex items-center z-10 px-4;
+    min-height: 95vh;
+    padding-top: 5vh;
+  }
+
+  .landing-one-col {
+    @apply flex flex-col;
+  }
+
+  .landing-one-graphic {
+    @apply w-1/2 flex items-center justify-center;
+  }
+  .landing-one-graphic .logo-svg {
+    @apply mx-auto;
+    display: block;
+    width: auto;
+    max-width: 320px;
+    height: auto;
+  }
+
+  .landing-one-copy {
+    @apply w-1/2;
+  }
+  .landing-one-heading {
+    font-weight: 800;
+    line-height: 0.95;
+    color: var(--site-text);
+    transition: color 0.2s ease;
+    font-size: 3rem;
+  }
+  @media (min-width: 640px) {
+    .landing-one-heading {
+      font-size: 4rem;
+    }
+  }
+  @media (min-width: 768px) {
+    .landing-one-heading {
+      font-size: 6rem;
+    }
+  }
+
+  /* Instead of `@apply hero-blob`, include the actual utilities here */
+  .hero-blob {
+    @apply pointer-events-none absolute opacity-90 transform-gpu;
+    will-change: transform, opacity;
+    filter: blur(0.5px);
+  }
+
+  .hero-blob-rose {
+    /* include the same utility baseline directly OR rely on .hero-blob in JSX */
+    @apply pointer-events-none absolute opacity-90 transform-gpu;
+    will-change: transform, opacity;
+    filter: blur(0.5px);
+
+    bottom: -300px;
+    left: -400px;
+    width: 750px;
+    height: 750px;
+    z-index: 0;
+  }
+
+  .hero-blob-azure {
+    @apply pointer-events-none absolute opacity-90 transform-gpu;
+    will-change: transform, opacity;
+    filter: blur(0.5px);
+
+    top: -300px;
+    right: -400px;
+    width: 750px;
+    height: 750px;
+    z-index: 0;
+  }
+
+  .landing-one-wrapper {
+    @apply relative mx-auto max-w-7xl;
+  }
+
+  html.dark .hero-blob-rose {
+    opacity: 0.7;
+    filter: brightness(0.95) saturate(0.9);
+  }
+  html.dark .hero-blob-azure {
+    opacity: 0.7;
+    filter: brightness(0.95) saturate(0.9);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-blob {
+      transition: none !important;
+      transform: none !important;
+    }
+  }
+}

@@ -4,7 +4,6 @@ import { Suspense } from "react";
 import ViewCounter from "./view-counter"; // keep as client component
 import { getBlogPosts } from "@/app/lib/blog/blog";
 import BackButton from "@/app/ui/back-button";
-import Landing from "@/app/landing/page";
 import { ViewsSkeleton } from "@/app/ui/skeletons";
 
 export const metadata = {
@@ -23,7 +22,7 @@ export default async function BlogPage() {
   );
 
   return (
-    <Landing>
+    <main>
       <section className="h-full min-h-[97vh] bg-amber-200">
         <section className="flex flex-col max-w-(--breakpoint-md) min-h-[97vh] mx-auto bg-amber-300 pt-[10vh] px-4 tight-shadow">
           <div className="flex flex-row w-full justify-start pb-8">
@@ -65,7 +64,7 @@ export default async function BlogPage() {
           ))}
         </section>
       </section>
-    </Landing>
+    </main>
   );
 }
 

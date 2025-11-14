@@ -2,25 +2,34 @@
 
 import Image from "next/image";
 import React, { useState } from "react";
+import Link from "next/link";
 
-const searchProviders = [
+interface SearchProvider {
+  id: number;
+  name: string;
+  url: string;
+  searchUrl: string;
+  logoImage: string;
+}
+
+const searchProviders: SearchProvider[] = [
   {
     id: 1,
-    name: "indeed",
+    name: "Indeed",
     url: "https://ca.indeed.com/",
     searchUrl: "https://ca.indeed.com/jobs?q=",
     logoImage: "/logo-indeed.svg",
   },
   {
     id: 2,
-    name: "MONSTER",
+    name: "Monster",
     url: "https://www.monster.ca/",
     searchUrl: "https://www.monster.ca/jobs/search?q=",
     logoImage: "/logo-monster.png",
   },
   {
     id: 3,
-    name: "glassdoor",
+    name: "Glassdoor",
     url: "https://www.glassdoor.ca/",
     searchUrl: "https://www.glassdoor.ca/Job/jobs.htm?sc.keyword=",
     logoImage: "/logo-glassdoor.png",
@@ -41,7 +50,7 @@ const searchProviders = [
   },
   {
     id: 6,
-    name: "jooble",
+    name: "Jooble",
     url: "https://jooble.org/",
     searchUrl: "https://jooble.org/SearchResult?ukw=",
     logoImage: "/logo-jooble.svg",
@@ -62,98 +71,97 @@ const searchProviders = [
   },
   {
     id: 9,
-    name: "snagajob",
+    name: "Snagajob",
     url: "https://www.snagajob.com/",
     searchUrl: "https://www.snagajob.com/search?q=",
     logoImage: "/logo-snagajob.jpg",
   },
   {
     id: 10,
-    name: "CAREERBUILDER",
+    name: "CareerBuilder",
     url: "https://www.careerbuilder.com/",
     searchUrl: "https://www.careerbuilder.com/jobs?emp=&keywords=",
     logoImage: "/logo-career-builder.png",
   },
   {
     id: 11,
-    name: "idealist",
+    name: "Idealist",
     url: "https://www.idealist.org/",
     searchUrl: "https://www.idealist.org/en/jobs?q=",
     logoImage: "/logo-idealist.png",
   },
 ];
 
-const JobBoards = () => {
-  const [jobTitle, setJobTitle] = useState("Software Engineer");
+const JobBoards: React.FC = () => {
+  const [jobTitle, setJobTitle] = useState<string>("Software Engineer");
 
-  function OnChangeHandler(e: React.ChangeEvent<HTMLInputElement>) {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setJobTitle(e.target.value);
-  }
+  };
 
   return (
-    <section className="py-10 flex flex-row bg-orange-100 w-full">
-      <div className="flex flex-col w-9/12 bg-orange-200 tight-shadow py-4 px-4 mt-20 mb-6 mx-auto">
-        <h1 className="text-2xl font-semibold">What is your job title?</h1>
-        <p className="py-2">Type in the job position you are looking for.</p>
+    <section className="job-boards-section">
+      <div className="job-boards-card">
+        <h1 className="job-boards-title">What is your job title?</h1>
+        <p className="job-boards-subtitle">
+          Type in the job position you are looking for.
+        </p>
+
         <input
           type="text"
-          onChange={OnChangeHandler}
           value={jobTitle}
+          onChange={handleChange}
           placeholder="e.g. Software Engineer"
-          className="mb-4 p-2 rounded border border-gray-300"
+          className="job-boards-input"
+          aria-label="Enter job title"
         />
-        <div className="border-b-2 border-black h-4 w-full"></div>
-        {searchProviders?.map((provider) =>
-          jobTitle ? (
-            <div
-              key={provider.id}
-              className="border-b-2 border-black w-full flex flex-row justify-between items-center py-2"
-            >
-              <div className="w-auto">
+
+        <div className="job-boards-divider"></div>
+
+        <div
+          className="job-boards-list"
+          role="list"
+          aria-label="Job board links"
+        >
+          {searchProviders.map((provider) => (
+            <div key={provider.id} className="job-board-item" role="listitem">
+              <div className="job-board-logo">
                 <Image
-                  className="h-auto"
+                  src={provider.logoImage}
+                  alt={`${provider.name} logo`}
                   width={100}
                   height={40}
-                  alt={`${provider.name} logo`}
-                  src={provider.logoImage}
+                  className="job-board-logo-img"
                 />
               </div>
-              <a
+
+              <Link
+                href={
+                  jobTitle
+                    ? `${provider.searchUrl}${encodeURIComponent(jobTitle)}`
+                    : provider.url
+                }
                 target="_blank"
                 rel="noopener noreferrer"
-                href={`${provider.searchUrl}${encodeURIComponent(jobTitle)}`}
-                className="text-blue-600 hover:underline"
+                className="job-board-link"
+                aria-label={
+                  jobTitle
+                    ? `Search ${provider.name} for ${jobTitle}`
+                    : `Visit ${provider.name}`
+                }
               >
-                <h2 className="text-lg">
-                  Search {provider.name} for {jobTitle} positions
-                </h2>
-              </a>
+                {jobTitle ? (
+                  <span>
+                    Search <strong>{provider.name}</strong> for{" "}
+                    <em>&quot;{jobTitle}&quot;</em>
+                  </span>
+                ) : (
+                  <span>Search {provider.name}</span>
+                )}
+              </Link>
             </div>
-          ) : (
-            <div
-              key={provider.id}
-              className="border-b-2 border-black w-full flex flex-row justify-between items-center py-2"
-            >
-              <div>
-                <Image
-                  className="h-auto"
-                  width={100}
-                  height={40}
-                  alt={`${provider.name} logo`}
-                  src={provider.logoImage}
-                />
-              </div>
-              <a
-                target="_blank"
-                rel="noopener noreferrer"
-                href={provider.url}
-                className="text-blue-600 hover:underline"
-              >
-                <h2 className="text-lg">Search {provider.name}</h2>
-              </a>
-            </div>
-          ),
-        )}
+          ))}
+        </div>
       </div>
     </section>
   );

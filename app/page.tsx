@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import Landing from "./landing/page";
 import LandingOne from "./ui/landing/landing-section-one";
 import LandingTwo from "./ui/landing/landing-section-two";
 import LandingThree from "./ui/landing/landing-section-three";
@@ -14,11 +13,15 @@ export const metadata: Metadata = {
 
 export default async function Page() {
   return (
-    <Landing>
+    <main
+      className="overflow-x-hidden min-h-screen flex flex-col"
+      aria-live="polite"
+      role="main"
+    >
       <LandingOne />
       <LandingTwo />
       <LandingThree />
       <LandingFour />
-    </Landing>
+    </main>
   );
 }

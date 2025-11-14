@@ -9,73 +9,78 @@ import SubmissionAnimation from "@/public/lottie/submission.json";
 import OrangeBlob from "./orange-blob";
 import PurpleBlob from "./purple-blob";
 
-const LandingThree = () => {
+const Step: React.FC<{
+  index: number;
+  animation: any;
+  title?: string;
+  desc: string;
+}> = ({ index, animation, title, desc }) => {
   return (
-    <div className="w-full pb-24 relative">
-      <PurpleBlob
-        className={"h-[1000px] w-[1000px] absolute -left-[750px] -top-[500px] "}
-      />
-      <OrangeBlob
-        className={
-          "h-[1000px] w-[1000px] absolute -right-[750px] -bottom-[500px] "
-        }
-      />
+    <div className="landing-three-step">
+      <div className="landing-three-step-index" aria-hidden>
+        {index}
+      </div>
 
-      <div className="flex flex-row justify-center pt-20 relative">
-        <h2 className="font-bold text-center text-[1.25rem]">How it works</h2>
+      <div className="landing-three-lottie" aria-hidden>
+        <Lottie animationData={animation} loop={true} />
       </div>
-      <div className="flex flex-row justify-center pt-8 relative">
-        <h2 className="font-medium text-center p-2 text-[3rem]">
-          Our software is extremely easy to use.
-        </h2>
-      </div>
-      <div className="flex flex-row gap-6 flex-wrap max-w-(--breakpoint-xl) m-auto justify-between pt-8 relative">
-        <div className="flex flex-col m-auto max-w-[300px]">
-          <h2 className="font-medium text-center text-[3rem]">1</h2>
-          <Lottie
-            animationData={FormAnimation}
-            className="flex justify-center items-center"
-            loop={true}
-          />
-          <p className="text-center font-medium text-xl">
-            Register your account on our website, all you need is a valid email
-            address.
-          </p>
-        </div>
-        <div className="flex flex-col m-auto max-w-[300px] justify-start relative">
-          <h2 className="font-medium text-center text-[3rem]">2</h2>
-          <Lottie
-            animationData={SkillsAnimation}
-            className="flex justify-center items-center pt-14"
-            loop={true}
-          />
-          <p className="text-center font-medium text-xl">
-            Add previous work experiences, skills, education and much more. All
-            your details are saved for future visits!
-          </p>
-        </div>
-        <div className="flex flex-col m-auto max-w-[300px] relative">
-          <h2 className="font-medium text-center text-[3rem]">3</h2>
-          <Lottie
-            animationData={SubmissionAnimation}
-            className="flex justify-center items-center "
-            loop={true}
-          />
-          <p className="text-center font-medium text-xl">
-            Build and submit your perfect resume from our list of curated
-            templates!
-          </p>
-        </div>
-      </div>
-      <div className="flex flex-row gap-6 flex-wrap max-w-(--breakpoint-xl) m-auto justify-center pt-32 relative">
-        <Link
-          href="/register"
-          className="rounded-full btn btn-amber bg-amber-500 border-none px-6 py-3 font-medium "
-        >
-          Create Account
-        </Link>
+
+      <div className="landing-three-step-body">
+        {title && <h3 className="landing-three-step-title">{title}</h3>}
+        <p className="landing-three-step-desc">{desc}</p>
       </div>
     </div>
+  );
+};
+
+const LandingThree: React.FC = () => {
+  return (
+    <section className="landing-three relative w-full pb-24">
+      {/* Decorative blobs: pass both shared and positional classes */}
+      <PurpleBlob className="hero-blob hero-blob-purple" />
+      <OrangeBlob className="hero-blob hero-blob-orange" />
+
+      <div className="landing-three-inner">
+        <div className="text-center">
+          <h2 className="landing-three-pretitle">How it works</h2>
+          <h3 className="landing-three-heading">
+            Our software is extremely easy to use.
+          </h3>
+        </div>
+
+        <div
+          className="landing-three-steps"
+          role="list"
+          aria-label="How it works steps"
+        >
+          <Step
+            index={1}
+            animation={FormAnimation}
+            desc="Register your account on our website — all you need is a valid email address."
+          />
+          <Step
+            index={2}
+            animation={SkillsAnimation}
+            desc="Add previous work experiences, skills, education and more. Your details are saved for future visits."
+          />
+          <Step
+            index={3}
+            animation={SubmissionAnimation}
+            desc="Build and submit your perfect resume from our curated templates!"
+          />
+        </div>
+
+        <div className="landing-three-cta">
+          <Link
+            href="/register"
+            className="btn btn-amber landing-three-cta-btn"
+            aria-label="Create an account"
+          >
+            Create Account
+          </Link>
+        </div>
+      </div>
+    </section>
   );
 };
 

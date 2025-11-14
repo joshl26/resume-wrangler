@@ -7,7 +7,6 @@ import { getBlogPosts } from "@/app/lib/blog/blog";
 import ViewCounter from "../view-counter";
 import { increment } from "@/app/lib/blog/actions";
 import { unstable_noStore as noStore } from "next/cache";
-import Landing from "@/app/landing/page";
 import BackButton from "@/app/ui/back-button";
 
 export async function generateMetadata({
@@ -95,7 +94,6 @@ export default function Blog({ params }: { params: any }) {
   }
 
   return (
-    <Landing>
       <main className=" flex flex-col w-full min-h-[97vh] bg-purple-heart-200 px-3">
         <section className="max-w-(--breakpoint-md) tight-shadow w-full mx-auto text-azure-radiance-400 min-h-[97vh] pt-[10vh] bg-purple-heart-300 px-4">
           <BackButton
@@ -144,7 +142,6 @@ export default function Blog({ params }: { params: any }) {
           </article>
         </section>
       </main>
-    </Landing>
   );
 }
 

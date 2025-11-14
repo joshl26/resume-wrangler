@@ -1,4 +1,3 @@
-import Landing from "../landing/page";
 import JobBoards from "../ui/job-boards/JobBoards";
 
 export const metadata = {
@@ -8,8 +7,8 @@ export const metadata = {
 
 export default function Page() {
   return (
-    <Landing>
+    <main>
       <JobBoards />
-    </Landing>
+    </main>
   );
 }

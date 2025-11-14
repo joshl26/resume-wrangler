@@ -1,0 +1,103 @@
+/* app/ui/styles/components/navbar.css */
+@layer components {
+  .landing-nav {
+    @apply fixed top-0 w-screen z-40 transition-colors duration-200;
+    background-color: var(--site-bg);
+    color: var(--site-text);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+  }
+
+  .landing-nav-inner {
+    @apply max-w-7xl w-full mx-auto flex items-center justify-between px-4;
+  }
+
+  .nav-logo {
+    @apply flex items-center shrink-0 mr-6;
+  }
+  .nav-logo a {
+    @apply inline-flex items-center;
+  }
+  .nav-logo img {
+    border-radius: 0.25rem;
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+  }
+
+  .nav-links {
+    @apply hidden lg:flex items-center gap-4 text-sm;
+  }
+  .nav-link {
+    @apply block mt-4 lg:mt-0 hover:text-rose-400 transition-colors duration-200;
+    color: inherit;
+  }
+
+  .nav-actions {
+    @apply flex items-center gap-2;
+  }
+
+  .theme-toggle {
+    @apply p-2 rounded transition-colors duration-200;
+    background-color: transparent;
+    color: inherit;
+  }
+  .theme-toggle:hover {
+    @apply bg-gray-200;
+  }
+  html.dark .theme-toggle:hover {
+    @apply bg-gray-700;
+  }
+
+  .login-btn {
+    @apply rounded-full px-6 py-3 transition-colors duration-200;
+    background-color: var(--site-bg);
+    color: var(--site-text);
+    border: none;
+  }
+  .signup-btn {
+    @apply rounded-full px-6 py-3 font-medium transition-colors duration-200;
+    background-color: var(--site-accent);
+    color: var(--site-text);
+  }
+
+  .menu-button {
+    @apply flex items-center px-3 py-2 border rounded transition-colors duration-200;
+    border-color: rgba(0, 0, 0, 0.85);
+    color: inherit;
+  }
+  html.dark .menu-button {
+    border-color: rgba(255, 255, 255, 0.85);
+  }
+
+  .mobile-menu {
+    @apply w-full block lg:hidden p-2 mb-2 transition-colors duration-200;
+    background-color: var(--site-bg);
+    color: var(--site-text);
+  }
+
+  .theme-toggle:focus,
+  .menu-button:focus,
+  .login-btn:focus,
+  .signup-btn:focus {
+    outline: 2px solid transparent;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.12);
+  }
+
+  .landing-nav-placeholder {
+    height: 64px;
+  }
+
+  .logo-light {
+    display: inline-block;
+  }
+  .logo-dark {
+    display: none;
+  }
+  html.dark .logo-light {
+    display: none;
+  }
+  html.dark .logo-dark {
+    display: inline-block;
+  }
+}

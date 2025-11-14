@@ -1,7 +1,11 @@
+// app/layout.tsx
 import "@/app/ui/global.css";
 import { inter } from "@/app/ui/fonts";
 import { Suspense } from "react";
 import { Metadata } from "next";
+import { cookies } from "next/headers";
+import LandingNavBar from "./ui/landing/landing-navbar";
+import LandingFooter from "./ui/landing/landing-footer";
 
 export const metadata: Metadata = {
   metadataBase: new URL(`${process.env.DEPLOYMENT_URL}`),
@@ -39,13 +43,18 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  // Read theme cookie on the server
+  const cookieStore = await cookies();
+  const themeCookie = cookieStore.get("theme")?.value;
+  const htmlClass = themeCookie === "dark" ? "dark" : "";
+
   return (
-    <html lang="en">
+    <html lang="en" className={htmlClass}>
       <head>
         <meta
           name="google-adsense-account"
@@ -58,8 +67,15 @@ export default function RootLayout({
         ></script>
       </head>
       <body className={`${inter.className} antialiased`}>
-        {/* <div className="sr-only">Skip to main content</div> */}
+        <header>
+          <LandingNavBar />
+        </header>
+
+        <div className="sr-only">Skip to main content</div>
         <Suspense>{children}</Suspense>
+        <footer>
+          <LandingFooter />
+        </footer>
       </body>
     </html>
   );

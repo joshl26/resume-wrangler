@@ -6,61 +6,55 @@ import Monster from "@/public/monster.svg";
 import Google from "@/public/logo-google.svg";
 import Jooble from "@/public/logo-jooble.svg";
 
-const LandingTwo = () => {
+const logos = [
+  { Component: Indeed, alt: "Indeed" },
+  { Component: LinkedIn, alt: "LinkedIn" },
+  { Component: ZipRecruiter, alt: "ZipRecruiter" },
+  { Component: Jooble, alt: "Jooble" },
+  { Component: Google, alt: "Google" },
+  { Component: Monster, alt: "Monster" },
+];
+
+const LandingTwo: React.FC = () => {
   return (
-    <div className="relative h-auto w-full left-0 bg-azure-radiance-900 pb-20 z-10">
-      <div className="flex flex-row justify-center pt-20">
-        <h2 className="font-medium text-center text-white text-[1.25rem]">
-          What we do
-        </h2>
-      </div>
-      <div className="flex flex-row justify-center pt-2">
-        <span className="text-white font-bold text-[2.5rem] max-w-(--breakpoint-xl) text-center bg-gradient-harvest text-transparent bg-clip-text px-4">
-          Most people spend a large chunk of their life at work… <br></br>
+    <section className="landing-two">
+      <div className="landing-two-inner">
+        <h3 className="landing-two-pretitle">What we do</h3>
+
+        <p className="landing-two-hero">
+          Most people spend a large chunk of their life at work… <br />
           Choose a company AND a career you’ll love!
-        </span>
-      </div>
-      <div className="flex flex-row justify-center pt-16">
-        <h2 className="font-medium text-center text-white max-w-(--breakpoint-lg) text-[1.25rem] px-6">
+        </p>
+
+        <p className="landing-two-lead">
           Setting us apart from other custom resume generators is our
           understanding that applicants deserve to find their dream company, not
           just their dream role.
-        </h2>
-      </div>
-      <div className="flex flex-row justify-center pt-16">
-        <h2 className="font-medium text-center text-white max-w-(--breakpoint-lg) text-[1.25rem] px-6">
-          We used cutting edge technology and artifical intelligence to design
-          this app. All the while keeping in mind that simplicity is best. With
-          this in mind I think you will apppreciate the application we have
-          developed.
-        </h2>
-      </div>
-      <div className="flex flex-row flex-wrap max-w-(--breakpoint-xl) items-center m-auto justify-center  gap-10 pt-32">
-        <div className="flex flex-col h-[100px] p-3 md:mb-12">
-          <Indeed className="w-full h-full" width={100} height={100} alt="" />
-        </div>
-        <div className="flex flex-col h-[100px] p-3 md:mb-12">
-          <LinkedIn className="w-full h-full" width={100} height={100} alt="" />
-        </div>
-        <div className="flex flex-col h-[100px]  p-3 md:mb-12">
-          <ZipRecruiter
-            className="w-full h-full"
-            width={100}
-            height={100}
-            alt=""
-          />
-        </div>
-        <div className="flex flex-col h-[100px] p-3">
-          <Jooble className="w-full h-full" width={100} height={100} alt="" />
-        </div>
-        <div className="flex flex-col h-[100px] p-3">
-          <Google className="w-full h-full" width={100} height={100} alt="" />
-        </div>
-        <div className="flex flex-col h-[100px]  p-3">
-          <Monster className="w-full h-full" width={100} height={100} alt="" />
+        </p>
+
+        <p className="landing-two-lead mt-6">
+          We used cutting edge technology and artificial intelligence to design
+          this app — all while keeping simplicity in mind.
+        </p>
+
+        <div
+          className="landing-two-logos"
+          role="list"
+          aria-label="partner logos"
+        >
+          {logos.map((l, i) => {
+            const LogoComp = l.Component;
+            // If the SVG component forwards className the next line will work.
+            // If not, the wrapper <div className="logo-item"> ensures styling still applies.
+            return (
+              <div key={i} className="logo-item" role="listitem" title={l.alt}>
+                <LogoComp className="logo-svg" aria-hidden alt={l.alt} />
+              </div>
+            );
+          })}
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

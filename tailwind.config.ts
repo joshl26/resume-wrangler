@@ -1,4 +1,3 @@
-// tailwind.config.ts
 import type { Config } from "tailwindcss";
 const plugin = require("tailwindcss/plugin");
 
@@ -13,8 +12,17 @@ const config: Config & { safelist?: TailwindSafelistEntry[] } = {
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./app/ui/styles/**/*.css",
   ],
+  darkMode: "class", // Enable dark mode with class strategy
   safelist: [
+    // Add common dark mode classes
+    "dark:bg-gray-900",
+    "dark:bg-gray-800",
+    "dark:text-white",
+    "dark:text-gray-200",
+    "dark:border-gray-200",
+    { pattern: /dark:(bg|text|border)-./ },
     {
       pattern: /(bg|text|border)-./, // Keeps all color variations for bg, text, border
     },
@@ -196,6 +204,11 @@ const config: Config & { safelist?: TailwindSafelistEntry[] } = {
             backgroundColor: "#FF006E",
             color: "white",
           },
+        },
+        ".dark .btn-amber": {
+          // <- add this
+          backgroundColor: "#FF006E",
+          color: "white",
         },
         ".form-amber": {
           backgroundColor: "rgba(255, 220, 75, 0.85)",

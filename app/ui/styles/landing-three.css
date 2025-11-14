@@ -1,0 +1,124 @@
+@layer components {
+  /* Container */
+  .landing-three {
+    @apply w-full transition-colors duration-200;
+    background-color: var(--site-bg);
+    color: var(--site-text);
+    position: relative;
+    overflow: visible;
+  }
+
+  .landing-three-inner {
+    @apply max-w-7xl mx-auto px-4 pt-12;
+  }
+
+  .landing-three-pretitle {
+    @apply text-center font-bold text-lg;
+    color: var(--site-muted);
+  }
+
+  .landing-three-heading {
+    @apply text-center font-medium text-3xl md:text-4xl mt-2;
+    color: var(--site-text);
+  }
+
+  /* Steps grid */
+  .landing-three-steps {
+    @apply grid grid-cols-1 md:grid-cols-3 gap-8 mt-8 items-start;
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .landing-three-step {
+    @apply flex flex-col items-center text-center gap-4 p-4;
+    max-width: 320px;
+    margin: 0 auto;
+  }
+
+  .landing-three-step-index {
+    @apply text-3xl font-bold text-indigo-600;
+    color: var(--site-accent);
+  }
+
+  .landing-three-lottie {
+    @apply w-[200px] h-[200px] flex items-center justify-center;
+  }
+
+  /* Lottie container: ensure it scales properly */
+  .landing-three-lottie > * {
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  .landing-three-step-title {
+    @apply font-semibold text-lg;
+    color: var(--site-text);
+  }
+
+  .landing-three-step-desc {
+    @apply text-base text-center text-gray-600;
+    color: var(--site-muted);
+  }
+
+  /* CTA */
+  .landing-three-cta {
+    @apply flex justify-center mt-12;
+  }
+
+  .landing-three-cta-btn {
+    @apply rounded-full px-6 py-3 font-medium;
+    /* Prefer using your variable-driven btn styles; btn btn-amber already does much of it */
+  }
+
+  /* Decorative blob utilities (shared) */
+  .hero-blob {
+    @apply pointer-events-none absolute opacity-90 transform-gpu;
+    will-change: transform, opacity;
+    filter: blur(0.5px);
+    z-index: 0;
+  }
+
+  .hero-blob-purple {
+    left: -750px;
+    top: -500px;
+    width: 1000px;
+    height: 1000px;
+  }
+
+  .hero-blob-orange {
+    right: -750px;
+    bottom: -500px;
+    width: 1000px;
+    height: 1000px;
+  }
+
+  /* Dark-mode tweaks */
+  html.dark .landing-three-step-desc {
+    color: var(--site-muted);
+  }
+
+  /* Reduced motion: stop heavy motion for users that prefer reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .hero-blob {
+      transition: none !important;
+      transform: none !important;
+    }
+    .landing-three-lottie {
+      will-change: auto;
+    }
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .landing-three-steps {
+      grid-template-columns: 1fr;
+      gap: 12px;
+      padding: 0 8px;
+    }
+    .landing-three-lottie {
+      width: 160px;
+      height: 160px;
+    }
+  }
+}

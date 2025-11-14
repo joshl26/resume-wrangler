@@ -1,0 +1,86 @@
+@layer components {
+  .resume-templates {
+    @apply w-full h-full overflow-y-auto py-12;
+  }
+
+  .resume-templates-header {
+    @apply max-w-5xl mx-auto px-4 text-center mb-12;
+  }
+
+  .resume-templates-title {
+    @apply text-2xl md:text-3xl font-bold;
+    color: var(--site-text);
+  }
+
+  .resume-templates-grid {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto px-4 pb-16;
+  }
+
+  .resume-template-card {
+    @apply rounded-lg overflow-hidden shadow-md transition-all duration-200;
+    background-color: var(--site-bg);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+  }
+
+  html.dark .resume-template-card {
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .resume-template-link {
+    @apply block h-full;
+    text-decoration: none;
+  }
+
+  .resume-template-thumb {
+    @apply w-full overflow-hidden;
+  }
+
+  .resume-template-img {
+    @apply w-full h-auto object-cover transition-transform duration-300;
+  }
+
+  .resume-template-link:hover .resume-template-img {
+    transform: scale(1.03);
+  }
+
+  .resume-template-info {
+    @apply flex justify-between items-center p-4;
+    background-color: var(--site-bg);
+    color: var(--site-text);
+  }
+
+  .resume-template-name {
+    @apply font-bold text-lg;
+  }
+
+  .resume-template-preview {
+    @apply text-sm font-medium transition-colors;
+    color: var(--site-muted);
+  }
+
+  .resume-template-link:hover .resume-template-preview {
+    color: var(--site-accent);
+  }
+
+  /* Empty state */
+  .resume-templates-empty {
+    @apply text-center py-20 text-lg;
+    color: var(--site-muted);
+  }
+
+  /* Responsive tweaks */
+  @media (max-width: 640px) {
+    .resume-templates-grid {
+      grid-template-columns: 1fr;
+      padding: 0 1rem 2rem;
+    }
+
+    .resume-template-info {
+      padding: 0.75rem;
+    }
+
+    .resume-template-name {
+      font-size: 1rem;
+    }
+  }
+}

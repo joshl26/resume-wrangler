@@ -5,7 +5,6 @@ import SigninNavBar from "../ui/signin/signin-navbar";
 import SigninFooter from "../ui/signin/signin-footer";
 import PurpleBlob from "../ui/landing/purple-blob";
 import AzureBlob from "../ui/landing/azure-blob";
-import Landing from "../landing/page";
 
 export const metadata = {
   title: "Login",
@@ -14,7 +13,7 @@ export const metadata = {
 
 export default function LoginPage() {
   return (
-    <Landing>
+    <main>
       {" "}
       <div className="relative overflow-x-hidden h-screen">
         <PurpleBlob className={"w-[750px] h-[750px] -left-[500px]"} />
@@ -41,6 +40,6 @@ export default function LoginPage() {
         </section>
         {/* <SigninFooter /> */}
       </div>
-    </Landing>
+    </main>
   );
 }

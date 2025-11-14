@@ -6,74 +6,45 @@ import Handshake from "@/public/images/handshake.svg";
 import Rocket from "@/public/images/rocket.svg";
 import Ai from "@/public/images/ai.svg";
 
-const LandingFour = () => {
+const FEATURES = [
+  { Icon: Graph, title: "Achieve results." },
+  { Icon: Finance, title: "Increase your net value." },
+  { Icon: Megaphone, title: "Market your skills." },
+  { Icon: Handshake, title: "Connect with the right people." },
+  { Icon: Rocket, title: "Launch your career with us." },
+  { Icon: Ai, title: "Harness the power of our AI." },
+];
+
+const LandingFour: React.FC = () => {
   return (
-    <div className="w-full left-0 bg-gradient-harvest pb-24 relative">
-      <div className="flex flex-row justify-center m-auto w-full pt-20">
-        <div className="flex flex-col">
-          <h2 className="text-white font-medium text-[1.25rem] text-center p-2">
-            Wrangle your dream career!
-          </h2>
-        </div>
-      </div>
-      <div className="flex flex-row justify-center max-w-(--breakpoint-xl) text-center m-auto w-full pt-20">
-        <div className="flex flex-col">
-          <h2 className="text-white font-medium text-[3rem] p-2">
+    <section className="landing-four">
+      <div className="landing-four-inner">
+        <div className="landing-four-header">
+          <h3 className="landing-four-pretitle">Wrangle your dream career!</h3>
+          <h2 className="landing-four-heading">
             We have all the tools you need to make it happen!
           </h2>
         </div>
-      </div>
-      <div className="flex flex-row flex-wrap max-w-(--breakpoint-xl) items-center m-auto justify-center  gap-10 pt-32">
-        <div className="flex flex-col">
-          <div className="h-[300px] w-[300px]  p-6">
-            <Graph className="w-[200px] h-auto m-auto" alt="" />
-            <p className="text-center text-[2rem] text-white">
-              Achieve results.
-            </p>
-          </div>
-        </div>
-        <div className="flex flex-col">
-          <div className="h-[300px] w-[300px]  p-6">
-            <Finance className="w-[175px] h-auto m-auto" alt="" />
-            <p className="text-center text-[2rem] text-white">
-              Increase your net value.
-            </p>
-          </div>
-        </div>
-        <div className="flex flex-col">
-          <div className="h-[300px] w-[300px]  p-6">
-            <Megaphone className="w-[175px] h-auto m-auto" alt="" />
-            <p className="text-center text-[2rem] text-white">
-              Market your skills.
-            </p>
-          </div>
-        </div>
-        <div className="flex flex-col">
-          <div className="h-[300px] w-[300px]  p-6">
-            <Handshake className="w-[175px] h-auto m-auto" alt="" />
-            <p className="text-center text-[2rem] text-white">
-              Connect with the right people.
-            </p>
-          </div>
-        </div>
-        <div className="flex flex-col">
-          <div className="h-[300px] w-[300px]  p-6">
-            <Rocket className="w-[175px] h-auto m-auto" alt="" />
-            <p className="text-center text-[2rem] text-white">
-              Launch your career with us.
-            </p>
-          </div>
-        </div>
-        <div className="flex flex-col">
-          <div className="h-[300px] w-[300px]  p-6">
-            <Ai className="w-[175px] h-auto m-auto" alt="" />
-            <p className="text-center text-[2rem] text-white">
-              Harness the power of our Ai
-            </p>
-          </div>
+
+        <div className="landing-four-cards" role="list" aria-label="Features">
+          {FEATURES.map((f, i) => {
+            const Icon = f.Icon;
+            return (
+              <div key={i} className="landing-four-card" role="listitem">
+                <div className="landing-four-card-icon" aria-hidden>
+                  {/* wrapper ensures sizing even if SVG component doesn't forward className */}
+                  <div className="logo-item">
+                    <Icon className="logo-svg" aria-hidden alt={f.title} />
+                  </div>
+                </div>
+
+                <p className="landing-four-card-title">{f.title}</p>
+              </div>
+            );
+          })}
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

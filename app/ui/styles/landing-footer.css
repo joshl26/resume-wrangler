@@ -1,0 +1,65 @@
+/* app/ui/styles/components/footer.css */
+@layer components {
+  .landing-footer {
+    @apply w-full transition-colors duration-200;
+    background-color: #05264b;
+    color: #ffffff;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+
+  html.dark .landing-footer {
+    background-color: #071427;
+    color: #ffffff;
+  }
+
+  .landing-footer-inner {
+    @apply max-w-7xl mx-auto px-4 py-4 flex flex-col md:flex-row md:items-center md:justify-between gap-4;
+  }
+
+  .footer-brand {
+    @apply flex items-center gap-3;
+  }
+  .footer-logo {
+    @apply shrink-0;
+  }
+  .footer-logo .logo-svg {
+    display: block;
+    width: 72px;
+    height: 72px;
+    object-fit: contain;
+  }
+
+  .footer-title {
+    @apply text-white;
+  }
+
+  .footer-links {
+    @apply flex flex-wrap items-center gap-4 text-sm font-medium;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .footer-link {
+    color: #ffffff;
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+  .footer-link:hover,
+  .footer-link:focus {
+    color: #ffd7b5;
+    text-decoration: underline;
+  }
+
+  .footer-divider {
+    @apply my-4 border-white/20;
+    border-top-width: 1px;
+    opacity: 0.2;
+  }
+
+  .landing-footer-copy {
+    @apply max-w-7xl mx-auto px-4 pb-4 text-center md:text-left;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.9rem;
+  }
+}

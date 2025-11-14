@@ -1,0 +1,211 @@
+/* app/ui/styles/fonts.css
+   Moved @font-face declarations from global.css.
+   Using font-display: swap for better perceived performance.
+*/
+
+@font-face {
+  font-family: breeSerif;
+  src: url(../../fonts/BreeSerif-Regular.ttf);
+  font-display: swap;
+}
+.font-bree {
+  font-family: breeSerif;
+}
+
+@font-face {
+  font-family: crimsonPro;
+  src: url(../../fonts/CrimsonPro-Regular.ttf);
+  font-display: swap;
+}
+.font-crimson {
+  font-family: crimsonPro;
+}
+
+@font-face {
+  font-family: dancingScript;
+  src: url(../../fonts/DancingScript-Regular.ttf);
+  font-display: swap;
+}
+.font-dancing {
+  font-family: dancingScript;
+}
+
+@font-face {
+  font-family: ledger;
+  src: url(../../fonts/Ledger-Regular.ttf);
+  font-display: swap;
+}
+.font-ledger {
+  font-family: ledger;
+}
+
+@font-face {
+  font-family: lora;
+  src: url(../../fonts/Lora-Regular.ttf);
+  font-display: swap;
+}
+.font-lora {
+  font-family: lora;
+}
+
+@font-face {
+  font-family: lusitana;
+  src: url(../../fonts/Lusitana-Regular.ttf);
+  font-display: swap;
+}
+.font-lusitana {
+  font-family: lusitana;
+}
+
+@font-face {
+  font-family: mallanna;
+  src: url(../../fonts/Mallanna-Regular.ttf);
+  font-display: swap;
+}
+.font-mallanna {
+  font-family: mallanna;
+}
+
+@font-face {
+  font-family: montserrat;
+  src: url(../../fonts/Montserrat-Regular.ttf);
+  font-display: swap;
+}
+.font-montserrat {
+  font-family: montserrat;
+}
+
+@font-face {
+  font-family: openSans;
+  src: url(../../fonts/OpenSans-Regular.ttf);
+  font-display: swap;
+}
+.font-opensans {
+  font-family: openSans;
+}
+
+@font-face {
+  font-family: oswald;
+  src: url(../../fonts/Oswald-Regular.ttf);
+  font-display: swap;
+}
+.font-oswald {
+  font-family: oswald;
+}
+
+@font-face {
+  font-family: pacifico;
+  src: url(../../fonts/Pacifico-Regular.ttf);
+  font-display: swap;
+}
+.font-pacifico {
+  font-family: pacifico;
+}
+
+@font-face {
+  font-family: playfairDisplay;
+  src: url(../../fonts/PlayfairDisplay-Regular.ttf);
+  font-display: swap;
+}
+.font-playfair {
+  font-family: playfairDisplay;
+}
+
+@font-face {
+  font-family: poppins;
+  src: url(../../fonts/Poppins-Regular.ttf);
+  font-display: swap;
+}
+.font-poppins {
+  font-family: poppins;
+}
+
+@font-face {
+  font-family: quicksand;
+  src: url(../../fonts/Quicksand-Regular.ttf);
+  font-display: swap;
+}
+.font-quicksand {
+  font-family: quicksand;
+}
+
+@font-face {
+  font-family: raleway;
+  src: url(../../fonts/Raleway-Regular.ttf);
+  font-display: swap;
+}
+.font-raleway {
+  font-family: raleway;
+}
+
+@font-face {
+  font-family: ralewayBold;
+  src: url(../../fonts/Raleway-Bold.ttf);
+  font-display: swap;
+}
+.font-raleway-bold {
+  font-family: ralewayBold;
+}
+
+@font-face {
+  font-family: roboto;
+  src: url(../../fonts/Roboto-Regular.ttf);
+  font-display: swap;
+}
+.font-roboto {
+  font-family: roboto;
+}
+
+@font-face {
+  font-family: robotoMono;
+  src: url(../../fonts/RobotoMono-Regular.ttf);
+  font-display: swap;
+}
+.font-robotomono {
+  font-family: robotoMono;
+}
+
+@font-face {
+  font-family: rokkitt;
+  src: url(../../fonts/Rokkitt-Regular.ttf);
+  font-display: swap;
+}
+.font-rokkitt {
+  font-family: rokkitt;
+}
+
+@font-face {
+  font-family: rubik;
+  src: url(../../fonts/Rubik-Regular.ttf);
+  font-display: swap;
+}
+.font-rubik {
+  font-family: rubik;
+}
+
+@font-face {
+  font-family: sacramento;
+  src: url(../../fonts/Sacramento-Regular.ttf);
+  font-display: swap;
+}
+.font-sacramento {
+  font-family: sacramento;
+}
+
+@font-face {
+  font-family: sourceCode;
+  src: url(../../fonts/SourceCodePro-Regular.ttf);
+  font-display: swap;
+}
+.font-source {
+  font-family: sourceCode;
+}
+
+@font-face {
+  font-family: yellowtail;
+  src: url(../../fonts/Yellowtail-Regular.ttf);
+  font-display: swap;
+}
+.font-yellowtail {
+  font-family: yellowtail;
+}
