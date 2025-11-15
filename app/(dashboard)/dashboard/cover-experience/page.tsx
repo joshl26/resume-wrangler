@@ -17,15 +17,15 @@ export default async function Page() {
 
   // Require authenticated user with email
   const email = session?.user?.email;
-  if (!email) {
-    return notFound();
-  }
+  // if (!email) {
+  //   return notFound();
+  // }
 
   // Safe to call getUser with a string
-  const user = await getUser(email);
-  if (!user || !user.id) {
-    return notFound();
-  }
+  const user = await getUser(email!);
+  // if (!user || !user.id) {
+  //   return notFound();
+  // }
 
   // Fetch cover experiences and filter out nulls
   const coverExperiencesRaw = await fetchCoverExperiencesByUserId(user.id);

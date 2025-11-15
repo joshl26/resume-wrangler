@@ -1,55 +1,140 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useRef, useState, useTransition } from "react";
+import { useRouter } from "next/navigation";
 import { SubmitButton } from "../submit-button";
 import { createUserEducation } from "@/app/lib/actions";
 import { User } from "@/app/lib/definitions";
 import BackButton from "../back-button";
 
-export default function NewEducation({ user }: { user: User }) {
+type Props = { user: User };
+
+export default function NewEducation({ user }: Props) {
+  const router = useRouter();
+  const formRef = useRef<HTMLFormElement | null>(null);
   const [edited, setEdited] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isPending, startTransition] = useTransition();
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [statusMessage, setStatusMessage] = useState<string | null>(null);
 
   const onChangeHandler = () => {
-    if (edited === false) {
-      setEdited(true);
-    }
+    if (!edited) setEdited(true);
   };
 
-  // Wrapper so form.action gets (formData: FormData) => void | Promise<void>
-  const handleCreate = async (formData: FormData): Promise<void> => {
-    try {
-      const result = await createUserEducation(formData);
-      if (result?.errors) {
-        // handle validation errors (show toast/inline UI, etc.)
-        console.error("Create education failed:", result);
-      } else {
-        // success handling: reset edited and optionally redirect or show a toast
-        setEdited(false);
-        // e.g. window.location.href = "/dashboard/education/";
+  const isValidUrl = (v: string) => /^https?:\/\/\S+$/.test(v);
+
+  const validate = (data: FormData) => {
+    const out: Record<string, string> = {};
+
+    const institution = (data.get("institution_name") as string | null) ?? "";
+    const location = (data.get("location") as string | null) ?? "";
+    const startDate = (data.get("start_date") as string | null) ?? "";
+    const endDate = (data.get("end_date") as string | null) ?? "";
+    const grade = (data.get("grade") as string | null) ?? "";
+    const program = (data.get("program") as string | null) ?? "";
+    const url = (data.get("url") as string | null) ?? "";
+    const userId = (data.get("user_id") as string | null) ?? "";
+
+    // Required checks (make essential fields required)
+    if (!institution.trim())
+      out.institution_name = "Institution name is required.";
+    if (!startDate.trim()) out.start_date = "Program start date is required.";
+    if (!endDate.trim()) out.end_date = "Program end date is required.";
+    if (!program.trim()) out.program = "Program name is required.";
+    if (!userId.trim()) out.user_id = "User id is missing.";
+
+    // Date sanity check (if both parseable)
+    if (startDate && endDate) {
+      const s = Date.parse(startDate);
+      const e = Date.parse(endDate);
+      if (Number.isFinite(s) && Number.isFinite(e) && s > e) {
+        out.end_date = "End date must be the same or after the start date.";
       }
+    }
+
+    // URL validation if provided
+    if (url && !isValidUrl(url)) {
+      out.url = "Please provide a valid URL (include http/https).";
+    }
+
+    // Optional: add more validations (grade format, etc.)
+    return out;
+  };
+
+  const handleCreate = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (isSubmitting) return;
+
+    setErrors({});
+    setStatusMessage(null);
+
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
+    const validation = validate(formData);
+    if (Object.keys(validation).length > 0) {
+      setErrors(validation);
+      const firstKey = Object.keys(validation)[0];
+      const el = form.querySelector(
+        `[name="${firstKey}"]`,
+      ) as HTMLElement | null;
+      el?.focus();
+      return;
+    }
+
+    setIsSubmitting(true);
+    try {
+      // NOTE: If createUserEducation is a Next server action ("use server"),
+      // calling it from a client component will fail. Use an API route or move
+      // the form to a server component and use `action={createUserEducation}`.
+      const result = (await createUserEducation(formData)) as any;
+
+      if (result?.errors) {
+        if (result.errors && typeof result.errors === "object") {
+          setErrors(result.errors);
+          setStatusMessage("Please fix the highlighted fields.");
+        } else {
+          setStatusMessage(
+            "Failed to create education entry. Please try again.",
+          );
+          console.error("createUserEducation failed:", result);
+        }
+        return;
+      }
+
+      // Success: redirect to education list or show success
+      startTransition(() => {
+        router.push("/dashboard/education");
+      });
     } catch (err) {
       console.error("Unexpected error creating education:", err);
+      setStatusMessage("An unexpected error occurred. Please try again later.");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
   return (
-    <div className="overflow-y-auto w-[500px] h-full px-3 pb-3">
+    <div className="overflow-y-auto w-full max-w-xl px-3 pb-6">
       <BackButton className="" href={"/dashboard/education/"}>
         Back
       </BackButton>
+
       <h2 className="font-medium text-[2rem] py-1">Education Experience</h2>
 
-      {/* use wrapper as action */}
       <form
-        action={handleCreate}
-        className="flex flex-col w-full px-3 pb-3 border form-amber rounded"
+        ref={formRef}
+        onSubmit={handleCreate}
+        className="flex flex-col w-full px-3 pb-3 border form-amber rounded bg-white p-4 space-y-3"
+        noValidate
       >
         <input
           readOnly
           hidden
           name="user_id"
           id="user_id"
-          defaultValue={user?.id}
+          defaultValue={user?.id ?? ""}
         />
         <input
           readOnly
@@ -59,19 +144,31 @@ export default function NewEducation({ user }: { user: User }) {
           defaultValue="blank"
           type="text"
         />
+
         <div className="flex flex-col py-2">
           <label className="font-bold" htmlFor="institution_name">
             Institution Name
           </label>
           <input
-            className="border border-gray-400"
+            className="border border-gray-300 mt-1 p-2 rounded"
             required
             name="institution_name"
             id="institution_name"
             onChange={onChangeHandler}
-            defaultValue={""}
+            defaultValue=""
+            aria-invalid={!!errors.institution_name}
+            aria-describedby={
+              errors.institution_name ? "err-institution_name" : undefined
+            }
+            autoFocus
           />
+          {errors.institution_name && (
+            <p id="err-institution_name" className="text-sm text-red-600 mt-1">
+              {errors.institution_name}
+            </p>
+          )}
         </div>
+
         <div className="flex flex-col py-2">
           <label className="font-bold" htmlFor="location">
             Institution Location
@@ -80,31 +177,66 @@ export default function NewEducation({ user }: { user: User }) {
             name="location"
             id="location"
             onChange={onChangeHandler}
-            defaultValue={""}
+            defaultValue=""
+            className="mt-1 p-2 border rounded"
+            aria-invalid={!!errors.location}
+            aria-describedby={errors.location ? "err-location" : undefined}
           />
+          {errors.location && (
+            <p id="err-location" className="text-sm text-red-600 mt-1">
+              {errors.location}
+            </p>
+          )}
         </div>
-        <div className="flex flex-col py-2">
-          <label className="font-bold" htmlFor="start_date">
-            Program Start Date
-          </label>
-          <input
-            name="start_date"
-            id="start_date"
-            onChange={onChangeHandler}
-            defaultValue={""}
-          />
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div className="flex flex-col py-2">
+            <label className="font-bold" htmlFor="start_date">
+              Program Start Date
+            </label>
+            <input
+              name="start_date"
+              id="start_date"
+              onChange={onChangeHandler}
+              defaultValue=""
+              className="mt-1 p-2 border rounded"
+              placeholder="YYYY-MM-DD"
+              required
+              aria-invalid={!!errors.start_date}
+              aria-describedby={
+                errors.start_date ? "err-start_date" : undefined
+              }
+            />
+            {errors.start_date && (
+              <p id="err-start_date" className="text-sm text-red-600 mt-1">
+                {errors.start_date}
+              </p>
+            )}
+          </div>
+
+          <div className="flex flex-col py-2">
+            <label className="font-bold" htmlFor="end_date">
+              Program End Date
+            </label>
+            <input
+              name="end_date"
+              id="end_date"
+              onChange={onChangeHandler}
+              defaultValue=""
+              className="mt-1 p-2 border rounded"
+              placeholder="YYYY-MM-DD"
+              required
+              aria-invalid={!!errors.end_date}
+              aria-describedby={errors.end_date ? "err-end_date" : undefined}
+            />
+            {errors.end_date && (
+              <p id="err-end_date" className="text-sm text-red-600 mt-1">
+                {errors.end_date}
+              </p>
+            )}
+          </div>
         </div>
-        <div className="flex flex-col py-2">
-          <label className="font-bold" htmlFor="end_date">
-            Program End Date
-          </label>
-          <input
-            name="end_date"
-            id="end_date"
-            onChange={onChangeHandler}
-            defaultValue={""}
-          />
-        </div>
+
         <div className="flex flex-col py-2">
           <label className="font-bold" htmlFor="grade">
             Program Grade
@@ -113,9 +245,18 @@ export default function NewEducation({ user }: { user: User }) {
             name="grade"
             id="grade"
             onChange={onChangeHandler}
-            defaultValue={""}
+            defaultValue=""
+            className="mt-1 p-2 border rounded"
+            aria-invalid={!!errors.grade}
+            aria-describedby={errors.grade ? "err-grade" : undefined}
           />
+          {errors.grade && (
+            <p id="err-grade" className="text-sm text-red-600 mt-1">
+              {errors.grade}
+            </p>
+          )}
         </div>
+
         <div className="flex flex-col py-2">
           <label className="font-bold" htmlFor="program">
             Program Name
@@ -124,9 +265,19 @@ export default function NewEducation({ user }: { user: User }) {
             name="program"
             id="program"
             onChange={onChangeHandler}
-            defaultValue={""}
+            defaultValue=""
+            className="mt-1 p-2 border rounded"
+            required
+            aria-invalid={!!errors.program}
+            aria-describedby={errors.program ? "err-program" : undefined}
           />
+          {errors.program && (
+            <p id="err-program" className="text-sm text-red-600 mt-1">
+              {errors.program}
+            </p>
+          )}
         </div>
+
         <div className="flex flex-col py-2">
           <label className="font-bold" htmlFor="url">
             Link (Web URL)
@@ -135,14 +286,36 @@ export default function NewEducation({ user }: { user: User }) {
             name="url"
             id="url"
             onChange={onChangeHandler}
-            defaultValue={""}
+            defaultValue=""
+            className="mt-1 p-2 border rounded"
+            placeholder="https://example.com"
+            aria-invalid={!!errors.url}
+            aria-describedby={errors.url ? "err-url" : undefined}
           />
+          {errors.url && (
+            <p id="err-url" className="text-sm text-red-600 mt-1">
+              {errors.url}
+            </p>
+          )}
         </div>
+
+        <div aria-live="polite" aria-atomic="true" className="min-h-5">
+          {statusMessage && (
+            <p className="text-sm text-red-600">{statusMessage}</p>
+          )}
+        </div>
+
         {edited && (
           <>
             <div style={{ height: "0.5rem" }} />
-            <SubmitButton className="btn btn-amber my-4 p-2 text-center w-auto animate-pulse">
-              Create New Education Experience
+            <SubmitButton
+              type="submit"
+              className="btn btn-amber my-4 p-2 text-center w-auto"
+              disabled={isSubmitting || isPending}
+            >
+              {isSubmitting || isPending
+                ? "Creating..."
+                : "Create New Education Experience"}
             </SubmitButton>
           </>
         )}

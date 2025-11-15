@@ -3,7 +3,6 @@ import React, { Suspense } from "react";
 import { CardsSkeleton } from "@/app/ui/skeletons";
 import Dashboard from "@/app/ui/dashboard/dashboard";
 import { auth } from "@/auth";
-import BackButton from "@/ui/back-button";
 import {
   CardCountsSkeleton,
   ApplicationsTableSkeleton,
@@ -14,6 +13,18 @@ import {
   CoverLetters,
   Resumes,
 } from "@/app/lib/definitions";
+import {
+  fetchOpenApplicationsCountByUserId,
+  fetchClosedApplicationsCountByUserId,
+  fetchPendingApplicationsCountByUserId,
+  fetchApplicationsByUserId,
+  fetchResumesByUserIDJoinApplications,
+  fetchCoverLettersByUserIDJoinApplications,
+  fetchLatestCompaniesByUserId,
+  fetchApplicationsPages,
+  fetchApplicationsCount,
+  getUser,
+} from "@/app/lib/data";
 
 export default async function Page() {
   const session = await auth();
@@ -28,7 +39,7 @@ export default async function Page() {
   }
 
   return (
-    <main className="w-full">
+    <main className="w-full max-h-screen ">
       {/* Cards stream independently */}
       <Suspense fallback={<CardCountsSkeleton />}>
         <CardCounts userEmail={email} />
@@ -44,109 +55,145 @@ export default async function Page() {
 
 // CardCounts — async server component that fetches counts in parallel
 async function CardCounts({ userEmail }: { userEmail: string }) {
-  const { getUser } = await import("@/app/lib/data");
   const user = await getUser(userEmail);
   if (!user) return null;
 
-  const [
-    openApplicationsCount,
-    closedApplicationsCount,
-    pendingApplicationsCount,
-  ] = await Promise.all([
-    (await import("@/app/lib/data")).fetchOpenApplicationsCountByUserId(
-      user.id,
-    ),
-    (await import("@/app/lib/data")).fetchClosedApplicationsCountByUserId(
-      user.id,
-    ),
-    (await import("@/app/lib/data")).fetchPendingApplicationsCountByUserId(
-      user.id,
-    ),
-  ]);
+  try {
+    const [
+      openApplicationsCount,
+      closedApplicationsCount,
+      pendingApplicationsCount,
+    ] = await Promise.allSettled([
+      fetchOpenApplicationsCountByUserId(user.id),
+      fetchClosedApplicationsCountByUserId(user.id),
+      fetchPendingApplicationsCountByUserId(user.id),
+    ]);
 
-  return (
-    <Dashboard
-      user={user}
-      applications={[]} // streamed separately below
-      openApplicationsCount={openApplicationsCount}
-      closedApplicationsCount={closedApplicationsCount}
-      pendingApplicationsCount={pendingApplicationsCount}
-    />
-  );
+    // Extract values or use 0 as fallback
+    const openCount =
+      openApplicationsCount.status === "fulfilled"
+        ? openApplicationsCount.value
+        : 0;
+    const closedCount =
+      closedApplicationsCount.status === "fulfilled"
+        ? closedApplicationsCount.value
+        : 0;
+    const pendingCount =
+      pendingApplicationsCount.status === "fulfilled"
+        ? pendingApplicationsCount.value
+        : 0;
+
+    return (
+      <Dashboard
+        user={user}
+        applications={[]} // streamed separately below
+        openApplicationsCount={openCount}
+        closedApplicationsCount={closedCount}
+        pendingApplicationsCount={pendingCount}
+      />
+    );
+  } catch (error) {
+    console.error("Failed to fetch card counts:", error);
+    return (
+      <Dashboard
+        user={user}
+        applications={[]}
+        openApplicationsCount={0}
+        closedApplicationsCount={0}
+        pendingApplicationsCount={0}
+      />
+    );
+  }
 }
 
 // server-side ApplicationsList (replace existing implementation)
 async function ApplicationsList({ userEmail }: { userEmail: string }) {
-  const {
-    getUser,
-    fetchApplicationsByUserId,
-    fetchResumesByUserIDJoinApplications,
-    fetchCoverLettersByUserIDJoinApplications,
-    fetchLatestCompaniesByUserId,
-    fetchApplicationsPages,
-    fetchApplicationsCount,
-  } = await import("@/app/lib/data");
-
   const user = await getUser(userEmail);
   if (!user) return null;
 
-  const [
-    applicationsRaw,
-    resumesRaw,
-    coverLettersRaw,
-    companiesRaw,
-    totalPagesRaw,
-    totalCountRaw,
-  ] = await Promise.all([
-    fetchApplicationsByUserId(user.id),
-    fetchResumesByUserIDJoinApplications(user.id),
-    fetchCoverLettersByUserIDJoinApplications(user.id),
-    fetchLatestCompaniesByUserId(user.id),
-    fetchApplicationsPages("", user.id, ""),
-    fetchApplicationsCount("", user.id, ""),
-  ]);
+  try {
+    const [
+      applicationsRaw,
+      resumesRaw,
+      coverLettersRaw,
+      companiesRaw,
+      totalPagesRaw,
+      totalCountRaw,
+    ] = await Promise.allSettled([
+      fetchApplicationsByUserId(user.id),
+      fetchResumesByUserIDJoinApplications(user.id),
+      fetchCoverLettersByUserIDJoinApplications(user.id),
+      fetchLatestCompaniesByUserId(user.id),
+      fetchApplicationsPages("", user.id, ""),
+      fetchApplicationsCount("", user.id, ""),
+    ]);
 
-  // Generic type guard to remove null/undefined and let TS narrow types correctly
-  const isNotNull = <T,>(v: T | null | undefined): v is T => v != null;
+    // Extract values with proper fallbacks
+    const applications: Applications =
+      applicationsRaw.status === "fulfilled" &&
+      Array.isArray(applicationsRaw.value)
+        ? applicationsRaw.value.filter(
+            (v): v is NonNullable<typeof v> => v != null,
+          )
+        : [];
 
-  const applications: Applications = Array.isArray(applicationsRaw)
-    ? (applicationsRaw.filter(isNotNull) as Applications)
-    : ([] as Applications);
+    const resumes: Resumes =
+      resumesRaw.status === "fulfilled" && Array.isArray(resumesRaw.value)
+        ? resumesRaw.value.filter((v): v is NonNullable<typeof v> => v != null)
+        : [];
 
-  const resumes: Resumes = Array.isArray(resumesRaw)
-    ? (resumesRaw.filter(isNotNull) as Resumes)
-    : ([] as Resumes);
+    const coverLetters: CoverLetters =
+      coverLettersRaw.status === "fulfilled" &&
+      Array.isArray(coverLettersRaw.value)
+        ? coverLettersRaw.value.filter(
+            (v): v is NonNullable<typeof v> => v != null,
+          )
+        : [];
 
-  const coverLetters: CoverLetters = Array.isArray(coverLettersRaw)
-    ? (coverLettersRaw.filter(isNotNull) as CoverLetters)
-    : ([] as CoverLetters);
+    const companies: Companies =
+      companiesRaw.status === "fulfilled" && Array.isArray(companiesRaw.value)
+        ? companiesRaw.value.filter(
+            (v): v is NonNullable<typeof v> => v != null,
+          )
+        : [];
 
-  const companies: Companies = Array.isArray(companiesRaw)
-    ? (companiesRaw.filter(isNotNull) as Companies)
-    : ([] as Companies);
+    const totalPages =
+      totalPagesRaw.status === "fulfilled"
+        ? Number(totalPagesRaw.value) || 1
+        : 1;
+    const totalCount =
+      totalCountRaw.status === "fulfilled"
+        ? Number(totalCountRaw.value) || applications.length
+        : applications.length;
 
-  const totalPages = Number(totalPagesRaw) || 1;
-  const totalCount = Number(totalCountRaw) || applications.length;
-  const currentPage = 1;
-  const query = "";
-  const sort = "";
+    const currentPage = 1;
+    const query = "";
+    const sort = "";
 
-  const { default: ApplicationsTable } = await import(
-    "@/app/ui/tables/applications/applications-table"
-  );
+    const ApplicationsTable = (
+      await import("@/app/ui/tables/applications/applications-table")
+    ).default;
 
-  return (
-    <ApplicationsTable
-      user={user}
-      resumes={resumes}
-      coverLetters={coverLetters}
-      companies={companies}
-      totalPages={totalPages}
-      query={query}
-      currentPage={currentPage}
-      totalCount={totalCount}
-      sort={sort}
-      serverApplications={applications}
-    />
-  );
+    return (
+      <ApplicationsTable
+        user={user}
+        resumes={resumes}
+        coverLetters={coverLetters}
+        companies={companies}
+        totalPages={totalPages}
+        query={query}
+        currentPage={currentPage}
+        totalCount={totalCount}
+        sort={sort}
+        serverApplications={applications}
+      />
+    );
+  } catch (error) {
+    console.error("Failed to fetch applications data:", error);
+    return (
+      <div className="p-6 text-center">
+        <p>Failed to load applications. Please try again later.</p>
+      </div>
+    );
+  }
 }

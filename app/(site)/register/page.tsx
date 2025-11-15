@@ -18,32 +18,32 @@ export default async function RegisterPage() {
   }
 
   return (
-    <main className="login-page">
-      <div className="login-container">
+    <main className="register-page pt-40">
+      <div className="register-container">
         <PurpleBlob className="blob-purple" />
         <AzureBlob className="blob-azure" />
 
-        <section className="login-content">
-          <div className="login-form-wrapper">
+        <section className="register-content">
+          <div className="register-form-wrapper">
             <h1 className="text-[2rem] font-bold text-center">
               New User Sign Up
             </h1>
 
             <RegisterUser />
 
-            <div className="login-signup-link mt-4">
-              <p className="login-signup-text">
+            <div className="register-signup-link mt-4">
+              <p className="register-signup-text">
                 Returning user?{" "}
                 <Link
-                  className="login-signup-anchor text-rose-800 hover:text-rose-600 dark:text-rose-400 dark:hover:text-rose-300"
-                  href="/login"
+                  className="register-signup-anchor text-rose-800 hover:text-rose-600 dark:text-rose-400 dark:hover:text-rose-300"
+                  href="/register"
                 >
                   Sign In
                 </Link>
               </p>
             </div>
 
-            <BackButton className="login-back-button" href="/">
+            <BackButton className="register-back-button" href="/">
               Back
             </BackButton>
           </div>

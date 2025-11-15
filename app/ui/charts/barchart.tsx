@@ -1,68 +1,99 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import Chart from "chart.js/auto";
 
 function BarChart() {
+  const chartRef = useRef<HTMLCanvasElement>(null);
+  const chartInstanceRef = useRef<Chart | null>(null);
+
   useEffect(() => {
-    // 1. Declare chart var in scope accessible to cleanup
-    let myChart: Chart | undefined;
+    if (!chartRef.current) return;
 
-    const canvas2 = document?.getElementById("myChart3");
-    const ctx = (canvas2 as HTMLCanvasElement)?.getContext("2d");
+    const ctx = chartRef.current.getContext("2d");
+    if (!ctx) return;
 
-    if (ctx) {
-      // 2. Assign to the outer var
-      myChart = new Chart(ctx, {
-        type: "bar",
-        data: {
-          labels: [
-            "Sunday",
-            "Monday",
-            "Tuesday",
-            "Wednesday",
-            "Thursday",
-            "Friday",
-            "Saturday",
-          ],
-          datasets: [
-            {
-              data: [4, 10, 4, 7, 6, 3, 1],
-              label: "Open",
-              borderColor: "rgb(75, 192, 192)",
-              backgroundColor: "rgba(75, 192, 192, 0.5)",
-              borderWidth: 2,
-            },
-            {
-              data: [2, 2, 5, 3, 3, 2, 1],
-              label: "Pending",
-              borderColor: "rgb(255, 205, 86)",
-              backgroundColor: "rgba(255, 205, 86, 0.5)",
-              borderWidth: 2,
-            },
-            {
-              data: [0, 2, 5, 1, 1, 7, 0],
-              label: "Closed",
-              borderColor: "rgb(255, 99, 132)",
-              backgroundColor: "rgba(255, 99, 132, 0.5)",
-              borderWidth: 2,
-            },
-          ],
-        },
-      });
+    // Destroy existing chart instance if it exists
+    if (chartInstanceRef.current) {
+      chartInstanceRef.current.destroy();
     }
 
-    // 3. Cleanup references the outer var
+    // Create new chart instance
+    chartInstanceRef.current = new Chart(ctx, {
+      type: "bar",
+      data: {
+        labels: [
+          "Sunday",
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+        ],
+        datasets: [
+          {
+            label: "Open",
+            data: [4, 10, 4, 7, 6, 3, 1],
+            borderColor: "rgb(75, 192, 192)",
+            backgroundColor: "rgba(75, 192, 192, 0.5)",
+            borderWidth: 2,
+          },
+          {
+            label: "Pending",
+            data: [2, 2, 5, 3, 3, 2, 1],
+            borderColor: "rgb(255, 205, 86)",
+            backgroundColor: "rgba(255, 205, 86, 0.5)",
+            borderWidth: 2,
+          },
+          {
+            label: "Closed",
+            data: [0, 2, 5, 1, 1, 7, 0],
+            borderColor: "rgb(255, 99, 132)",
+            backgroundColor: "rgba(255, 99, 132, 0.5)",
+            borderWidth: 2,
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: "top",
+          },
+          title: {
+            display: true,
+            text: "Weekly Application Trends",
+          },
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              precision: 0,
+            },
+          },
+        },
+      },
+    });
+
+    // Cleanup function
     return () => {
-      if (myChart) {
-        myChart.destroy();
+      if (chartInstanceRef.current) {
+        chartInstanceRef.current.destroy();
+        chartInstanceRef.current = null;
       }
     };
   }, []);
 
   return (
-    <div className="w-[500px] h-[200px] flex flex-row ml-20">
-      <canvas id="myChart3"></canvas>
+    <div className="w-full h-[200px] p-4">
+      <canvas
+        ref={chartRef}
+        aria-label="Weekly application trends chart"
+        role="img"
+      />
     </div>
   );
 }

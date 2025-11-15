@@ -38,18 +38,15 @@ export default async function Page({ searchParams }: PageProps) {
   // Auth
   const session = await auth();
   const email = session?.user?.email;
-  if (!email) return notFound();
+  // if (!email) return notFound();
 
   // Fetch the full user record using email (do not mutate session.user)
-  const user = await getUser(email);
+  const user = await getUser(email!);
   if (!user) return notFound();
 
   // Fetch skills and ensure non-null entries
   const skillsRaw = await fetchSkillsByUserId(user.id);
   const skills = (skillsRaw ?? []).filter(notNull);
-
-  // Treat empty lists as not found (adjust if you want empty arrays to be valid)
-  if (!skills || skills.length === 0) return notFound();
 
   const totalPages = await fetchSkillsPages(query, user.id);
   const totalCount = await fetchSkillsCount(query, user.id);

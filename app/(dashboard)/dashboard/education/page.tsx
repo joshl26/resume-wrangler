@@ -47,10 +47,6 @@ export default async function Page({ searchParams }: PageProps) {
   const educationRaw = await fetchEducationByUserId(user.id);
   const education = (educationRaw ?? []).filter(notNull);
 
-  if (!education || education.length === 0) {
-    return notFound();
-  }
-
   const totalPages = await fetchEducationPages(query, user.id);
   const totalCount = await fetchEducationCount(query, user.id);
 

@@ -37,11 +37,11 @@ export default async function Page({ searchParams }: PageProps) {
   const currentPage = Number(resolvedSearchParams?.page) || 1;
 
   const session = await auth();
-  if (!session?.user) return notFound();
+  // if (!session?.user) return notFound();
 
-  const userEmail = session.user.email!;
+  const userEmail = session?.user.email!;
   const user = await getUser(userEmail);
-  if (!user) return notFound();
+  // if (!user) return notFound();
 
   // Fetch all page data in parallel for better performance
   const [workExperiencesRaw, totalPages, totalCount, filteredRaw] =

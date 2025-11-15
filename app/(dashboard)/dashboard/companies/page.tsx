@@ -59,10 +59,6 @@ export default async function Page({ searchParams }: PageProps) {
     notNull,
   ) as Companies;
 
-  if (!companies || companies.length === 0) {
-    return notFound();
-  }
-
   const totalPages = await fetchCompaniesPages(query, user.id);
   const totalCount = await fetchCompaniesCount(query, user.id);
 
@@ -75,6 +71,8 @@ export default async function Page({ searchParams }: PageProps) {
   const filteredCompanies: Companies = (filteredCompaniesRaw ?? []).filter(
     notNull,
   ) as Companies;
+
+  console.log(filteredCompaniesRaw);
 
   return (
     <div className="h-full w-full px-2">

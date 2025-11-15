@@ -17,8 +17,6 @@ const DemographicsCard = () => {
           />
         </div>
       </div>
-
-      {/* <WorldMap /> */}
     </div>
   );
 };

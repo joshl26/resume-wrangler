@@ -40,19 +40,13 @@ export default async function Page({ searchParams }: PageProps) {
   // Auth
   const session = await auth();
   const email = session?.user?.email;
-  if (!email) return notFound();
 
   // Use plain email string to fetch user (do not mutate session.user)
-  const user = await getUser(email);
-  if (!user) return notFound();
+  const user = await getUser(email!);
 
   // Fetch organizations and ensure non-null entries
   const organizationsRaw = await fetchOrganizationsByUserId(user.id);
   const organizations = (organizationsRaw ?? []).filter(notNull);
-
-  if (!organizations || organizations.length === 0) {
-    return notFound();
-  }
 
   const totalPages = await fetchUserCustomSectionOnePages(query, user.id);
   const totalCount = await fetchUserCustomSectionOneCount(query, user.id);

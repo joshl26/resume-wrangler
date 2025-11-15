@@ -22,17 +22,17 @@ const LandingFooter: React.FC = () => {
         </div>
 
         <nav aria-label="Footer" className="footer-links">
-          <a href="mailto:joshlehman.dev@gmail.com" className="footer-link">
+          <a href="/contact" className="footer-link">
             Contact
           </a>
 
-          {/* <Link href="/privacy" className="footer-link">
+          <Link href="/privacy-policy" className="footer-link">
             Privacy
           </Link>
 
-          <Link href="/terms" className="footer-link">
+          <Link href="/terms-of-service" className="footer-link">
             Terms
-          </Link> */}
+          </Link>
         </nav>
       </div>
 

@@ -41,17 +41,10 @@ export default async function Page({ searchParams }: PageProps) {
   const currentPage = Number(resolvedSearchParams?.page) || 1;
 
   const session = await auth();
-  if (!session?.user) {
-    return notFound();
-  }
 
   // Safely extract email (don't mutate session.user which has a required `id`)
-  const email = session.user.email;
-  if (!email) {
-    return notFound();
-  }
-
-  const user = await getUser(email);
+  const email = session?.user.email;
+  const user = await getUser(email!);
   if (!user) return notFound();
 
   // fetch raw data
@@ -63,10 +56,6 @@ export default async function Page({ searchParams }: PageProps) {
         .filter(notNull)
         .filter(isUserCertification) as UserCertifications)
     : ([] as UserCertifications);
-
-  if (!certifications || certifications.length === 0) {
-    return notFound();
-  }
 
   const totalPages = await fetchUserCustomSectionTwoPages(query, user.id);
   const totalCount = await fetchUserCustomSectionTwoCount(query, user.id);

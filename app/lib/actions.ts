@@ -280,10 +280,10 @@ const CreateOrganizationSchema = z.object({
 
 const CreateCertificationSchema = z.object({
   user_id: z.string().min(1, "Please enter a string."),
-  section_title: z.string().min(1, "Please enter a string."),
+  // section_title: z.string().min(1, "Please enter a string."),
   certification_name: z.string().min(1, "Please enter a string."),
   certification_location: z.string().min(1, "Please enter a string."),
-  resume_id: z.string().min(1, "Please enter a string."),
+  // resume_id: z.string().min(1, "Please enter a string."),
 });
 
 const UpdateCertificationsSectionSchema = z.object({
@@ -1322,12 +1322,14 @@ export async function deleteCertification(formData: FormData) {
 }
 
 export async function createCertification(formData: FormData) {
+  console.log(formData);
+
   const validatedFields = CreateCertificationSchema.safeParse({
     user_id: formData.get("user_id"),
-    section_title: formData.get("section_title"),
+    // section_title: formData.get("section_title"),
     certification_name: formData.get("certification_name"),
     certification_location: formData.get("certification_location"),
-    resume_id: formData.get("resume_id"),
+    // resume_id: formData.get("resume_id"),
   });
   if (validatedFields.success === false) {
     return {
@@ -1337,30 +1339,35 @@ export async function createCertification(formData: FormData) {
   }
   const {
     user_id,
-    section_title,
+    // section_title,
     certification_name,
     certification_location,
-    resume_id,
+    // resume_id,
   } = validatedFields.data;
   try {
     const query = `INSERT INTO user_custom_section_two (user_id, name, location) VALUES ('${user_id}', $$${certification_name}$$, $$${certification_location}$$ )`;
+    console.log(query);
+
     const data = await conn.query(query);
 
-    if (section_title !== "blank") {
-      const query2 = `UPDATE resumes SET custom_section_two_name = $$${section_title}$$ WHERE id = '${resume_id}'`;
-      const data2 = await conn.query(query2);
-    }
+    // if (section_title !== "blank") {
+    //   const query2 = `UPDATE resumes SET custom_section_two_name = $$${section_title}$$ WHERE id = '${resume_id}'`;
+    //   const data2 = await conn.query(query2);
+    // }
   } catch (error) {
     return { message: `Database Error: Failed to Delete user skill. ${error}` };
   }
 
-  if (resume_id !== "blank") {
-    revalidatePath(`/dashboard/resume/edit/${resume_id}`);
-    redirect(`/dashboard/resume/edit/${resume_id}`);
-  } else {
-    revalidatePath(`/dashboard/certifications/`);
-    redirect(`/dashboard/certifications/`);
-  }
+  // if (resume_id !== "blank") {
+  //   revalidatePath(`/dashboard/resume/edit/${resume_id}`);
+  //   redirect(`/dashboard/resume/edit/${resume_id}`);
+  // } else {
+  //   revalidatePath(`/dashboard/certifications/`);
+  //   redirect(`/dashboard/certifications/`);
+  // }
+
+  revalidatePath(`/dashboard/certifications/`);
+  redirect(`/dashboard/certifications/`);
 }
 
 export async function deleteWorkExperience(formData: FormData) {

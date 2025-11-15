@@ -57,11 +57,15 @@ const LandingNavBar: React.FC = () => {
           {/* Center: desktop links */}
           <div className="nav-center hidden lg:flex">
             <div className="nav-links" role="menubar" aria-label="Primary">
+              <Link href="/about" className="nav-link">
+                About
+              </Link>
+
               <Link href="/resume-templates" className="nav-link">
                 Resume Templates
               </Link>
               <Link href="/job-boards" className="nav-link">
-                Job Boards
+                Search Jobs
               </Link>
             </div>
           </div>
@@ -153,18 +157,18 @@ const LandingNavBar: React.FC = () => {
         >
           <div className="mobile-links">
             <Link
-              href="/resume-templates"
-              className="mobile-link"
-              onClick={() => setShowMenu(false)}
-            >
-              Resume Templates
-            </Link>
-            <Link
               href="/job-boards"
               className="mobile-link"
               onClick={() => setShowMenu(false)}
             >
               Job Boards
+            </Link>
+            <Link
+              href="/resume-templates"
+              className="mobile-link"
+              onClick={() => setShowMenu(false)}
+            >
+              Resume Templates
             </Link>
 
             <div className="mobile-actions">
