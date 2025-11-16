@@ -65,6 +65,7 @@ export default async function RootLayout({
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2880932731702994"
           crossOrigin="anonymous"
         ></script>
+        <meta name="google-site-verification" content="rGWZTpkLfxRsz52svO1g0SqgULKbLNTrq7_5cGryCW0" />
       </head>
       <body className={`${inter.className} antialiased`}>
         <div className="sr-only">Skip to main content</div>
