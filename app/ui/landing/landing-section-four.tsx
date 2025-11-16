@@ -34,7 +34,11 @@ const LandingFour: React.FC = () => {
                 <div className="landing-four-card-icon" aria-hidden>
                   {/* wrapper ensures sizing even if SVG component doesn't forward className */}
                   <div className="logo-item">
-                    <Icon className="logo-svg" aria-hidden alt={f.title} />
+                    <Icon
+                      className="section-two-logo-svg"
+                      aria-hidden
+                      alt={f.title}
+                    />
                   </div>
                 </div>
 

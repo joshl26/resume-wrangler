@@ -10,16 +10,26 @@ import {
   Gavel,
   Mail,
 } from "lucide-react";
+import Breadcrumb from "@/app/ui/Breadcrumb";
 
 export const metadata = {
   title: "Terms of Service",
   description: "Terms and conditions for using our service",
 };
 
+const breadcrumbItems = [
+  { name: "Home", url: "/" },
+  { name: "Terms of Service", url: "/terms-of-service/" },
+];
+
 export default function TermsPage() {
   return (
     <main className="min-h-screen bg-linear-to-br from-slate-50 via-purple-50 to-pink-50 dark:from-slate-900 dark:via-purple-950 dark:to-pink-950">
       <div className="max-w-4xl mx-auto px-4 py-12">
+        <nav aria-label="Breadcrumb">
+          <Breadcrumb items={breadcrumbItems} />
+        </nav>
+
         {/* Header */}
         <div className="text-center mb-12">
           <div className="flex justify-center mb-4">

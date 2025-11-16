@@ -42,21 +42,6 @@ const Breadcrumbs = () => {
       <div className="flex flex-col m-auto px-1"> | </div>
       <div className="flex flex-col m-auto text-[.9rem] hover:underline">
         <Link
-          href={"/dashboard/certifications"}
-          className={
-            clsx(
-              pathname == "/dashboard/certifications"
-                ? "text-[2rem] font-bold"
-                : "text-[0.9rem]",
-            ) + " py-1 pb-2 hover:underline"
-          }
-        >
-          Certifications
-        </Link>
-      </div>
-      <div className="flex flex-col m-auto px-1"> | </div>
-      <div className="flex flex-col m-auto text-[.9rem] hover:underline">
-        <Link
           href={"/dashboard/education"}
           className={
             clsx(
@@ -67,21 +52,6 @@ const Breadcrumbs = () => {
           }
         >
           Education
-        </Link>
-      </div>
-      <div className="flex flex-col m-auto px-1"> | </div>
-      <div className="flex flex-col m-auto text-[.9rem] hover:underline">
-        <Link
-          href={"/dashboard/organizations"}
-          className={
-            clsx(
-              pathname == "/dashboard/organizations"
-                ? "text-[2rem] font-bold"
-                : "text-[0.9rem]",
-            ) + " py-1 pb-2 hover:underline"
-          }
-        >
-          Organizations
         </Link>
       </div>
       <div className="flex flex-col m-auto px-1"> | </div>
@@ -99,10 +69,70 @@ const Breadcrumbs = () => {
           Skills
         </Link>
       </div>
-      {/* <div className="flex flex-col m-auto px-1"> | </div>
-            <div className="flex flex-col m-auto text-[.9rem] hover:underline">
-              <Link href={"/dashboard/work-experience"}>Resume Experience</Link>
-            </div> */}
+      <div className="flex flex-col m-auto px-1"> | </div>
+
+      <div className="flex flex-col m-auto text-[.9rem] hover:underline">
+        <Link
+          href={"/dashboard/cover-experience"}
+          className={
+            clsx(
+              pathname == "/dashboard/cover-experience"
+                ? "text-[2rem] font-bold"
+                : "text-[0.9rem]",
+            ) + " py-1 pb-2 hover:underline"
+          }
+        >
+          Cover Experience
+        </Link>
+      </div>
+
+      <div className="flex flex-col m-auto px-1"> | </div>
+      <div className="flex flex-col m-auto text-[.9rem] hover:underline">
+        <Link
+          href={"/dashboard/work-experience"}
+          className={
+            clsx(
+              pathname == "/dashboard/work-experience"
+                ? "text-[2rem] font-bold"
+                : "text-[0.9rem]",
+            ) + " py-1 pb-2 hover:underline"
+          }
+        >
+          Resume Experience
+        </Link>
+      </div>
+      <div className="flex flex-col m-auto px-1"> | </div>
+
+      <div className="flex flex-col m-auto text-[.9rem] hover:underline">
+        <Link
+          href={"/dashboard/certifications"}
+          className={
+            clsx(
+              pathname == "/dashboard/certifications"
+                ? "text-[2rem] font-bold"
+                : "text-[0.9rem]",
+            ) + " py-1 pb-2 hover:underline"
+          }
+        >
+          Certifications
+        </Link>
+      </div>
+      <div className="flex flex-col m-auto px-1"> | </div>
+
+      <div className="flex flex-col m-auto text-[.9rem] hover:underline">
+        <Link
+          href={"/dashboard/organizations"}
+          className={
+            clsx(
+              pathname == "/dashboard/organizations"
+                ? "text-[2rem] font-bold"
+                : "text-[0.9rem]",
+            ) + " py-1 pb-2 hover:underline"
+          }
+        >
+          Organizations
+        </Link>
+      </div>
     </nav>
   );
 };

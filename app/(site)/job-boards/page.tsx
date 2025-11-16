@@ -1,4 +1,5 @@
 // app/(your-route)/job-boards/page.tsx
+import Breadcrumb from "@/app/ui/Breadcrumb";
 import JobBoards from "@/app/ui/job-boards/JobBoards";
 import Link from "next/link";
 
@@ -13,6 +14,11 @@ interface PageProps {
   };
 }
 
+const breadcrumbItems = [
+  { name: "Home", url: "/" },
+  { name: "Search Jobs", url: "/job-boards/" },
+];
+
 export default function Page({ searchParams }: PageProps) {
   const initialQuery = searchParams?.q || "";
 
@@ -20,11 +26,14 @@ export default function Page({ searchParams }: PageProps) {
     // added job-boards-page class so page-scoped CSS targets only this page
     <main className="min-h-screen job-boards-page ">
       <div className="mx-auto max-w-5xl px-4 py-10">
+        <nav aria-label="Breadcrumb">
+          <Breadcrumb items={breadcrumbItems} />
+        </nav>
         {/* Page header / hero */}
         <header className="mb-8">
           {/* keep Tailwind sizing/spacing, but let color come from job-boards CSS */}
           <h1 className="text-3xl font-extrabold leading-tight job-boards-title">
-            Job Boards — Search multiple job sites at once
+            Search multiple job sites at once
           </h1>
           <p className="mt-2 text-sm max-w-2xl job-boards-subtitle">
             Enter a job title or keywords and open tailored searches on several

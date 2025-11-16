@@ -157,6 +157,14 @@ const LandingNavBar: React.FC = () => {
         >
           <div className="mobile-links">
             <Link
+              href="/about"
+              className="mobile-link"
+              onClick={() => setShowMenu(false)}
+            >
+              About Resume Wrangler
+            </Link>
+
+            <Link
               href="/job-boards"
               className="mobile-link"
               onClick={() => setShowMenu(false)}
@@ -169,6 +177,27 @@ const LandingNavBar: React.FC = () => {
               onClick={() => setShowMenu(false)}
             >
               Resume Templates
+            </Link>
+            <Link
+              href="/privacy-policy"
+              className="mobile-link"
+              onClick={() => setShowMenu(false)}
+            >
+              Privacy Policy
+            </Link>
+            <Link
+              href="/terms-of-service"
+              className="mobile-link"
+              onClick={() => setShowMenu(false)}
+            >
+              Terms of Service
+            </Link>
+            <Link
+              href="/contact"
+              className="mobile-link"
+              onClick={() => setShowMenu(false)}
+            >
+              Contact
             </Link>
 
             <div className="mobile-actions">

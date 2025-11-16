@@ -1,5 +1,6 @@
 // app/contact/page.tsx
 import BackButton from "@/app/ui/back-button";
+import Breadcrumb from "@/app/ui/Breadcrumb";
 import {
   Mail,
   MessageSquare,
@@ -14,10 +15,19 @@ export const metadata = {
   description: "Get in touch with the Resume Wrangler team",
 };
 
+const breadcrumbItems = [
+  { name: "Home", url: "/" },
+  { name: "Contact", url: "/contact/" },
+];
+
 export default function ContactPage() {
   return (
     <main className="min-h-screen bg-linear-to-br from-slate-50 via-blue-50 to-cyan-50 dark:from-slate-900 dark:via-blue-950 dark:to-cyan-950">
       <div className="max-w-6xl mx-auto px-4 py-12">
+        <nav aria-label="Breadcrumb">
+          <Breadcrumb items={breadcrumbItems} />
+        </nav>
+
         {/* Header */}
         <div className="text-center mb-12">
           <div className="flex justify-center mb-4">

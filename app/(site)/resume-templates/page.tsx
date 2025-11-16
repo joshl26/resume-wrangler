@@ -6,6 +6,7 @@ import PurpleBlob from "@/app/ui/landing/purple-blob";
 import AzureBlob from "@/app/ui/landing/azure-blob";
 import Link from "next/link";
 import { CheckIcon } from "@heroicons/react/24/outline";
+import Breadcrumb from "@/app/ui/Breadcrumb";
 
 export const metadata = {
   title: "Resume Templates",
@@ -42,20 +43,28 @@ async function Page() {
     },
   ];
 
+  const breadcrumbItems = [
+    { name: "Home", url: "/" },
+    { name: "Resume Templates", url: "/resume-templates/" },
+  ];
+
   return (
     <main className="login-page">
       <div className="login-container">
         <PurpleBlob className="blob-purple" />
         <AzureBlob className="blob-azure" />
-
         <section className="login-content">
           <div className="login-form-wrapper w-full max-w-6xl p-6 space-y-8">
+            <nav aria-label="Breadcrumb">
+              <Breadcrumb items={breadcrumbItems} />
+            </nav>
+
             {/* HERO */}
             <header className="mx-auto w-full max-w-4xl text-center">
               <h1 className="text-3xl md:text-4xl font-bold">
                 Professional resume templates, ready to customize
               </h1>
-              <p className="mt-3 text-sm text-gray-600 dark:text-gray-300">
+              <p className="mt-3 text-sm ">
                 Browse, preview, and pick a template to jump-start your resume.
                 All templates are fully editable in the editor.
               </p>
@@ -93,7 +102,7 @@ async function Page() {
                   <li key={c.id}>
                     <Link
                       href={`#${c.id}`}
-                      className="inline-block rounded-full border border-gray-200 px-3 py-1 text-sm text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-200"
+                      className="inline-block rounded-full border border-gray-200 px-3 py-1 text-sm  hover:bg-gray-50 dark:border-gray-700 "
                     >
                       {c.label}
                     </Link>
@@ -121,7 +130,9 @@ async function Page() {
                       <CheckIcon className="h-5 w-5" />
                     </span>
                     <div>
-                      <h3 className="font-medium">Pick a template</h3>
+                      <h3 className="font-medium text-gray-600 dark:text-gray-300">
+                        Pick a template
+                      </h3>
                       <p className="text-sm text-gray-600 dark:text-gray-300">
                         Choose a layout that fits your industry and experience
                         level.
@@ -136,7 +147,9 @@ async function Page() {
                       <CheckIcon className="h-5 w-5" />
                     </span>
                     <div>
-                      <h3 className="font-medium">Customize</h3>
+                      <h3 className="font-medium text-gray-600 dark:text-gray-300">
+                        Customize
+                      </h3>
                       <p className="text-sm text-gray-600 dark:text-gray-300">
                         Edit headings, reorder sections, and tailor content for
                         each job.
@@ -151,7 +164,9 @@ async function Page() {
                       <CheckIcon className="h-5 w-5" />
                     </span>
                     <div>
-                      <h3 className="font-medium">Export & apply</h3>
+                      <h3 className="font-medium text-gray-600 dark:text-gray-300">
+                        Export & apply
+                      </h3>
                       <p className="text-sm text-gray-600 dark:text-gray-300">
                         Download a PDF or keep the resume in your dashboard for
                         future edits.
@@ -185,7 +200,7 @@ async function Page() {
                         href={`/dashboard/resume/${t.id}`}
                         className="block h-full"
                       >
-                        <div className="aspect-[7/9] relative">
+                        <div className="aspect-7/9 relative">
                           <img
                             src={t.thumbnail_url}
                             alt={t.name}
@@ -219,7 +234,7 @@ async function Page() {
 
             {/* CTA */}
             <section className="max-w-3xl mx-auto text-center mt-8">
-              <div className="p-6 rounded-lg border border-gray-200 bg-white dark:bg-gray-800 dark:border-gray-700">
+              <div className="p-6 rounded-lg border text-gray-600 dark:text-gray-300 border-gray-200 bg-white dark:bg-gray-800 dark:border-gray-700">
                 <h3 className="text-lg font-semibold">
                   Found a template you like?
                 </h3>
@@ -236,7 +251,7 @@ async function Page() {
                   </Link>
                   <Link
                     href="/login"
-                    className="rounded-md border border-gray-300 px-4 py-2 text-sm text-gray-700"
+                    className="rounded-md border text-gray-600 dark:text-gray-300 border-gray-300 px-4 py-2 text-sm"
                   >
                     Sign in
                   </Link>

@@ -20,7 +20,7 @@ const LandingOne: React.FC = () => {
         <div className="landing-one-inner">
           <div className="landing-one-col landing-one-graphic">
             {/* Lasso is an inline SVG React component (SVGR). If it's a URL for next/image, swap to <Image /> */}
-            <Lasso className="logo-svg" aria-hidden />
+            <Lasso className="section-one-logo-svg" aria-hidden />
           </div>
 
           <div className="landing-one-col landing-one-copy">

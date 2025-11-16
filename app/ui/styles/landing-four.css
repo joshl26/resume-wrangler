@@ -1,28 +1,73 @@
 @layer components {
   .landing-four {
-    @apply w-full transition-colors duration-200 py-24 relative;
-    /* Variable-driven background so you can control via :root or html.dark */
+    @apply w-full py-24 relative overflow-hidden;
     background: var(
       --landing-four-bg,
-      linear-gradient(90deg, #fb7185 0%, #f59e0b 100%)
+      linear-gradient(135deg, #fb7185 0%, #f97316 50%, #f59e0b 100%)
     );
     color: var(--landing-four-text, #ffffff);
+    transition:
+      background 0.4s ease,
+      color 0.3s ease;
+  }
+
+  /* Animated gradient background */
+  .landing-four::before {
+    content: "";
+    @apply absolute inset-0 opacity-30;
+    background: radial-gradient(
+      circle at 20% 50%,
+      rgba(255, 255, 255, 0.15) 0%,
+      transparent 50%
+    );
+    animation: pulse 8s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%,
+    100% {
+      opacity: 0.3;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.5;
+      transform: scale(1.05);
+    }
   }
 
   .landing-four-inner {
-    @apply max-w-7xl mx-auto px-4;
+    @apply max-w-7xl mx-auto px-4 relative z-10;
   }
 
   .landing-four-header {
-    @apply text-center mb-12;
+    @apply text-center mb-16;
+    animation: fadeInUp 0.6s ease-out;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   .landing-four-pretitle {
-    @apply text-white/90 font-medium text-lg;
+    @apply font-semibold text-lg tracking-wide;
+    color: rgba(255, 255, 255, 0.95);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
   }
 
   .landing-four-heading {
-    @apply text-white font-medium text-3xl md:text-4xl mt-2;
+    @apply font-bold text-4xl md:text-5xl mt-3;
+    color: #ffffff;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    line-height: 1.2;
   }
 
   .landing-four-cards {
@@ -33,65 +78,173 @@
   }
 
   .landing-four-card {
-    @apply flex flex-col items-center justify-start text-center bg-white/5 rounded-lg p-6 shadow-md w-[280px] md:w-[300px] h-[300px];
+    @apply flex flex-col items-center justify-start text-center rounded-2xl p-8 w-[280px] md:w-[320px] min-h-80;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow:
+      0 4px 16px rgba(0, 0, 0, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
     transition:
-      transform 0.18s ease,
-      box-shadow 0.18s ease;
+      transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+      box-shadow 0.3s ease,
+      background 0.3s ease,
+      border-color 0.3s ease;
+    animation: fadeInScale 0.5s ease-out backwards;
+  }
+
+  .landing-four-card:nth-child(1) {
+    animation-delay: 0.1s;
+  }
+  .landing-four-card:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+  .landing-four-card:nth-child(3) {
+    animation-delay: 0.3s;
+  }
+  .landing-four-card:nth-child(4) {
+    animation-delay: 0.4s;
+  }
+
+  @keyframes fadeInScale {
+    from {
+      opacity: 0;
+      transform: scale(0.9) translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
   }
 
   .landing-four-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+    transform: translateY(-8px) scale(1.02);
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.25);
+    box-shadow:
+      0 12px 40px rgba(0, 0, 0, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
   }
 
   .landing-four-card-icon {
-    @apply mb-4 w-full flex items-center justify-center;
+    @apply mb-5 w-full flex items-center justify-center;
+    transition: transform 0.3s ease;
+  }
+
+  .landing-four-card:hover .landing-four-card-icon {
+    transform: scale(1.08);
   }
 
   .logo-item {
     @apply flex items-center justify-center;
-    width: 175px;
+    width: 220px;
     height: auto;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
+    transition: filter 0.3s ease;
   }
 
-  .logo-svg {
+  .landing-four-card:hover .logo-item {
+    filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.25));
+  }
+
+  .section-two-logo-svg {
     display: block;
+    width: 100% !important;
+    height: auto !important;
     max-width: 100%;
-    height: auto;
     object-fit: contain;
   }
 
   .landing-four-card-title {
-    @apply text-white font-semibold text-[1.25rem] mt-2;
+    @apply font-bold text-xl mt-3;
+    color: #ffffff;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    line-height: 1.4;
   }
 
-  /* Dark mode tweaks (if html.dark is used to switch theme) */
+  /* Dark mode */
   html.dark .landing-four {
     background: var(
       --landing-four-bg-dark,
-      linear-gradient(90deg, #0f172a 0%, #04203a 100%)
+      linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0c1929 100%)
     );
     color: var(--landing-four-text-dark, #fff);
   }
 
-  html.dark .landing-four-card {
-    @apply bg-white/6;
+  html.dark .landing-four::before {
+    background: radial-gradient(
+      circle at 80% 30%,
+      rgba(59, 130, 246, 0.15) 0%,
+      transparent 50%
+    );
   }
 
-  /* Small screen adjustments */
+  html.dark .landing-four-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+
+  html.dark .landing-four-card:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.15);
+  }
+
+  /* Tablet adjustments */
+  @media (max-width: 768px) {
+    .landing-four {
+      padding-top: 5rem;
+      padding-bottom: 5rem;
+    }
+
+    .landing-four-heading {
+      font-size: 2rem;
+    }
+
+    .landing-four-header {
+      @apply mb-12;
+    }
+  }
+
+  /* Mobile adjustments */
   @media (max-width: 640px) {
     .landing-four {
       padding-top: 4rem;
       padding-bottom: 4rem;
     }
+
     .landing-four-card {
-      @apply w-11/12 h-auto p-4;
+      @apply w-11/12 min-h-[280px] p-6;
     }
+
     .logo-item {
-      width: 140px;
+      width: 180px;
     }
+
     .landing-four-heading {
-      font-size: 1.5rem;
+      font-size: 1.75rem;
+    }
+
+    .landing-four-pretitle {
+      font-size: 0.95rem;
+    }
+
+    .landing-four-card-title {
+      font-size: 1.1rem;
+    }
+  }
+
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    .landing-four,
+    .landing-four-card,
+    .landing-four-card-icon,
+    .logo-item {
+      transition: none;
+      animation: none;
+    }
+
+    .landing-four::before {
+      animation: none;
     }
   }
 }

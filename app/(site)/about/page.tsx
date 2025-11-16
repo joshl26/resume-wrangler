@@ -14,6 +14,7 @@ import {
   FileText,
   Sparkles,
 } from "lucide-react";
+import Breadcrumb from "@/app/ui/Breadcrumb";
 
 export const metadata = {
   title: "About Us",
@@ -21,10 +22,20 @@ export const metadata = {
     "Learn more about Resume Wrangler and our mission to revolutionize job applications",
 };
 
+const breadcrumbItems = [
+  { name: "Home", url: "/" },
+  { name: "About", url: "/about/" },
+];
+
 export default function AboutPage() {
   return (
     <main className="min-h-screen bg-linear-to-br from-slate-50 via-violet-50 to-fuchsia-50 dark:from-slate-900 dark:via-violet-950 dark:to-fuchsia-950">
+      {/* Breadcrumb navigation */}
+
       <div className="max-w-6xl mx-auto px-4 py-12">
+        <nav aria-label="Breadcrumb">
+          <Breadcrumb items={breadcrumbItems} />
+        </nav>
         {/* Header */}
         <div className="text-center mb-16">
           <div className="flex justify-center mb-4">

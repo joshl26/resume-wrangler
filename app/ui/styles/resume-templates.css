@@ -44,7 +44,7 @@
   }
 
   .resume-template-thumb {
-    @apply w-full overflow-hidden aspect-[350/450];
+    @apply w-full overflow-hidden aspect-350/450;
     background-color: rgba(0, 0, 0, 0.02);
   }
 

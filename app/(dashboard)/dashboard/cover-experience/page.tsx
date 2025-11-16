@@ -1,6 +1,7 @@
 // app/dashboard/cover-experience/page.tsx
 import { fetchCoverExperiencesByUserId, getUser } from "@/app/lib/data";
 import BackButton from "@/app/ui/back-button";
+import Breadcrumbs from "@/app/ui/Breadcrumbs";
 import { Button } from "@/app/ui/button";
 import CoverExperience from "@/app/ui/cover-experience/cover-experience-table";
 import { auth } from "@/auth";
@@ -38,7 +39,7 @@ export default async function Page() {
       </BackButton>
       <div className="flex flex-row justify-between">
         <div className="flex flex-col ">
-          <h1 className="text-[2rem] font-bold py-1">Cover Experience</h1>
+          <Breadcrumbs />
         </div>
         <div className="flex flex-col px-2">
           <Button className="btn btn-amber tight-shadow hover:animate-pulse">

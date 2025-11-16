@@ -11,6 +11,7 @@ import {
   Mail,
   FileText,
 } from "lucide-react";
+import Breadcrumb from "@/app/ui/Breadcrumb";
 
 export const metadata = {
   title: "Privacy Policy",
@@ -18,10 +19,19 @@ export const metadata = {
     "Resume Wrangler's commitment to protecting your privacy and data",
 };
 
+const breadcrumbItems = [
+  { name: "Home", url: "/" },
+  { name: "Privacy Policy", url: "/privacy-policy/" },
+];
+
 export default function PrivacyPage() {
   return (
     <main className="min-h-screen bg-linear-to-br from-slate-50 via-blue-50 to-purple-50 dark:from-slate-900 dark:via-blue-950 dark:to-purple-950">
       <div className="max-w-4xl mx-auto px-4 py-12">
+        <nav aria-label="Breadcrumb">
+          <Breadcrumb items={breadcrumbItems} />
+        </nav>
+
         {/* Header */}
         <div className="text-center mb-12">
           <div className="flex justify-center mb-4">

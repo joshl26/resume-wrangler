@@ -13,9 +13,7 @@ export default function SiteLayout({
       <header>
         <LandingNavBar />
       </header>
-
       {children}
-
       <footer>
         <LandingFooter />
       </footer>

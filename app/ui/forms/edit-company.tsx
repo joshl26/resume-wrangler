@@ -112,19 +112,17 @@ export default function EditCompany({ company }: { company: Company }) {
     }
   };
 
-  const createdAt =
-    company?.created_at 
-      ? company.created_at.toLocaleString()
-      : company?.created_at
-        ? String(company.created_at)
-        : "N/A";
+  const createdAt = company?.created_at
+    ? company.created_at.toLocaleString()
+    : company?.created_at
+      ? String(company.created_at)
+      : "N/A";
 
-  const updatedAt =
-    company?.updated_at 
-      ? company.updated_at.toLocaleString()
-      : company?.updated_at
-        ? String(company.updated_at)
-        : "N/A";
+  const updatedAt = company?.updated_at
+    ? company.updated_at.toLocaleString()
+    : company?.updated_at
+      ? String(company.updated_at)
+      : "N/A";
 
   return (
     <div>
