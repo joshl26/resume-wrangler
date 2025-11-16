@@ -7,7 +7,8 @@ import {
   UserCoverExperiences,
 } from "@/app/lib/definitions";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const CoverExperience = ({
   coverExperiences,
@@ -16,19 +17,29 @@ const CoverExperience = ({
   coverExperiences: UserCoverExperiences;
   user: User;
 }) => {
-  // Wrapper function that handles the result of the action
-  const handleDelete = async (formData: FormData) => {
-    const result = await deleteCoverExperience(formData);
-    if (result?.errors) {
-      // Handle errors - you could show a toast or alert here
-      console.error("Delete failed:", result.message);
+  const router = useRouter();
+  const [isSubmitting, setIsSubmitting] = useState<Record<string, boolean>>({});
+
+  const handleSubmit = async (formData: FormData, id: string) => {
+    setIsSubmitting((prev) => ({ ...prev, [id]: true }));
+    try {
+      const result = await deleteCoverExperience(formData);
+      if (result?.errors) {
+        console.error("Delete failed:", result.message);
+      } else {
+        router.refresh();
+      }
+    } catch (error) {
+      console.error("Delete action failed:", error);
+    } finally {
+      setIsSubmitting((prev) => ({ ...prev, [id]: false }));
     }
   };
 
   return (
-    <div className="relative overflow-y-auto tight-shadow rounded-lg bg-white px-4 mr-2 py-4">
+    <div className="relative tight-shadow rounded px-4 py-4 mr-3 overflow-x-auto">
       <table className="w-full text-sm text-left rtl:text-right tight-shadow">
-        <thead className="text-xs uppercase ">
+        <thead className="text-xs uppercase">
           <tr>
             <th scope="col" className="px-6 py-3">
               Experience Name
@@ -42,74 +53,81 @@ const CoverExperience = ({
           </tr>
         </thead>
         <tbody>
-          {coverExperiences?.length > 0 ? (
-            coverExperiences?.map((coverExperience: UserCoverExperience) => (
-              <tr
-                key={coverExperience?.id}
-                className="border-b  hover:bg-gray-50 "
-              >
-                <td className="px-6 py-4">
-                  <a
-                    id="edit"
-                    href={`/dashboard/cover-experience/edit/${coverExperience?.id}/${user?.id}`}
-                    className="font-medium  hover:underline"
-                  >
-                    {coverExperience?.title ? coverExperience?.title : "N/A"}
-                  </a>
-                </td>
-                <td className="px-6 py-4">
-                  {coverExperience?.description
-                    ? coverExperience?.description
-                    : "N/A"}
-                </td>
-                <td className="text-left py-4">
-                  <div className="flex flex-row justify-around">
-                    <a
-                      id="edit"
-                      href={`/dashboard/cover-experience/edit/${coverExperience?.id}/${user?.id}`}
-                      className="font-medium  hover:underline"
+          {coverExperiences && coverExperiences.length > 0 ? (
+            coverExperiences.map((coverExperience) => {
+              const key = `delete-cover-experience-${coverExperience.id}`;
+              return (
+                <tr
+                  key={coverExperience.id}
+                  className="border-b hover:bg-gray-50"
+                >
+                  <td className="px-6 py-4 font-medium whitespace-nowrap">
+                    <Link
+                      href={`/dashboard/cover-experience/edit/${coverExperience.id}/${user.id}`}
+                      className="hover:underline"
                     >
-                      Edit
-                    </a>
-                    <form action={handleDelete}>
-                      <input
-                        required
-                        hidden
-                        readOnly
-                        value={coverExperience.id}
-                        name="cover_experience_id"
-                      />
-                      <input
-                        required
-                        hidden
-                        readOnly
-                        value={user?.id}
-                        id="user_id"
-                        name="user_id"
-                      />
-                      <button
-                        id="remove"
-                        type="submit"
-                        className="font-medium hover:underline "
+                      {coverExperience.title ?? "N/A"}
+                    </Link>
+                  </td>
+                  <td className="px-6 py-4">
+                    {coverExperience.description ?? "N/A"}
+                  </td>
+                  <td className="px-6 py-4">
+                    <div className="flex flex-row items-center gap-3">
+                      <Link
+                        href={`/dashboard/cover-experience/edit/${coverExperience.id}/${user.id}`}
+                        className="font-medium hover:underline"
                       >
-                        Remove
-                      </button>
-                    </form>
-                  </div>
-                </td>
-              </tr>
-            ))
+                        Edit
+                      </Link>
+                      <form
+                        onSubmit={async (e) => {
+                          e.preventDefault();
+                          const formData = new FormData(e.currentTarget);
+                          await handleSubmit(formData, key);
+                        }}
+                      >
+                        <input
+                          type="hidden"
+                          name="cover_experience_id"
+                          value={String(coverExperience.id)}
+                          readOnly
+                        />
+                        <input
+                          type="hidden"
+                          name="user_id"
+                          value={String(user.id)}
+                          readOnly
+                        />
+                        <button
+                          type="submit"
+                          disabled={!!isSubmitting[key]}
+                          className="font-medium hover:underline"
+                        >
+                          {isSubmitting[key] ? "Removing..." : "Remove"}
+                        </button>
+                      </form>
+                    </div>
+                  </td>
+                </tr>
+              );
+            })
           ) : (
             <tr>
-              <td className="flex items-center px-6 py-4">
-                <Link href="/dashboard/work-experience/new">
-                  Start by creating your first work experience, click here
+              <td colSpan={3} className="px-6 py-6 text-center">
+                <Link
+                  href="/dashboard/cover-experience/new"
+                  className="font-medium text-azure-radiance-600 hover:underline"
+                >
+                  Start by creating your first cover experience here
                 </Link>
               </td>
             </tr>
           )}
         </tbody>
       </table>
+
+      {/* Old pagination markup */}
       <nav
         className="flex items-center flex-column flex-wrap md:flex-row justify-between pt-4"
         aria-label="Table navigation"

@@ -1,4 +1,6 @@
+// This is the main page for displaying job applications in the dashboard.
 // app/dashboard/applications/page.tsx
+
 import {
   fetchApplicationsByUserId,
   fetchApplicationsCount,
@@ -17,6 +19,7 @@ import BackButton from "@/app/ui/back-button";
 import Search from "@/app/ui/search";
 import Dropdown from "@/app/ui/DropdownButton";
 import Breadcrumbs from "@/app/ui/Breadcrumbs";
+import Breadcrumb from "@/app/ui/Breadcrumb";
 
 type SearchParams = {
   query?: string;
@@ -77,28 +80,21 @@ export default async function Page({ searchParams }: PageProps) {
   const totalPages = await fetchApplicationsPages(query, user.id, sort);
   const totalCount = await fetchApplicationsCount(query, user.id, sort);
 
+  const breadcrumbItems = [
+    { name: "Dashboard", url: "/dashboard" },
+    { name: "Job Applications", url: "/dashboard/applications/" },
+  ];
+
   return (
     <div className="w-full px-2 ">
-      <div className="flex flex-row justify-between ">
-        <div className="flex flex-col">
-          <BackButton className={""} href={"/dashboard/"}>
-            Back
-          </BackButton>
-        </div>
-        <div className="flex flex-col pr-3">
-          <Button className="btn btn-amber tight-shadow hover:animate-pulse">
-            <a href="/dashboard/applications/new" className="m-auto">
-              Add New Application
-            </a>
-          </Button>
-        </div>
+      <div className="flex flex-col">
+        {/* Breadcrumb navigation */}
+        <nav aria-label="Breadcrumb" className="mb-8">
+          <Breadcrumb items={breadcrumbItems} />
+        </nav>
       </div>
-
       <div className="flex flex-row justify-between ">
-        <div className="flex flex-col">
-          <Breadcrumbs />
-        </div>
-        <div className="flex flex-col pr-3">
+        <div className="flex flex-col pr-3 pb-5">
           <div className="flex flex-row gap-x-3 m-auto ">
             <div className="flex flex-col ">
               <Search placeholder="Search applications..." />
@@ -106,10 +102,16 @@ export default async function Page({ searchParams }: PageProps) {
             <div className="flex flex-col">
               <Dropdown />
             </div>
+            <div className="flex flex-col">
+              <Button className="btn btn-amber tight-shadow hover:animate-pulse">
+                <a href="/dashboard/applications/new" className="m-auto">
+                  Add New Application
+                </a>
+              </Button>
+            </div>
           </div>
         </div>
       </div>
-
       <Suspense key={query + currentPage}>
         <ApplicationsTable
           user={user}
@@ -123,6 +125,9 @@ export default async function Page({ searchParams }: PageProps) {
           sort={sort}
         />
       </Suspense>
+      <div className="pt-10">
+        <BackButton href={"/dashboard/"}>Back</BackButton>
+      </div>
     </div>
   );
 }

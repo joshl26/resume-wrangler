@@ -24,11 +24,12 @@ export const metadata: Metadata = {
     "feature request",
     "partnership opportunities",
     "bug report",
-    "help center"
+    "help center",
   ],
   openGraph: {
     title: "Contact Resume Wrangler - Get Support & Send Feedback",
-    description: "Get in touch with Resume Wrangler. We're here to help with support, feature requests, and partnership opportunities.",
+    description:
+      "Get in touch with Resume Wrangler. We're here to help with support, feature requests, and partnership opportunities.",
     url: `${process.env.DEPLOYMENT_URL}/contact/`,
     type: "website",
     images: [
@@ -65,76 +66,77 @@ function ContactStructuredData() {
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
-    "itemListElement": [
+    itemListElement: [
       {
         "@type": "ListItem",
-        "position": 1,
-        "name": "Home",
-        "item": `${process.env.DEPLOYMENT_URL}/`
+        position: 1,
+        name: "Home",
+        item: `${process.env.DEPLOYMENT_URL}/`,
       },
       {
         "@type": "ListItem",
-        "position": 2,
-        "name": "Contact",
-        "item": `${process.env.DEPLOYMENT_URL}/contact/`
-      }
-    ]
+        position: 2,
+        name: "Contact",
+        item: `${process.env.DEPLOYMENT_URL}/contact/`,
+      },
+    ],
   };
 
   const contactPageSchema = {
     "@context": "https://schema.org",
     "@type": "ContactPage",
-    "name": "Contact Resume Wrangler",
-    "description": "Contact page for Resume Wrangler support and inquiries",
-    "url": `${process.env.DEPLOYMENT_URL}/contact/`,
-    "mainEntity": {
+    name: "Contact Resume Wrangler",
+    description: "Contact page for Resume Wrangler support and inquiries",
+    url: `${process.env.DEPLOYMENT_URL}/contact/`,
+    mainEntity: {
       "@type": "Organization",
-      "name": "Resume Wrangler",
-      "contactPoint": [
+      name: "Resume Wrangler",
+      contactPoint: [
         {
           "@type": "ContactPoint",
-          "contactType": "Customer Support",
-          "email": "support@resumewrangler.com",
-          "availableLanguage": "English",
-          "areaServed": "Worldwide"
+          contactType: "Customer Support",
+          email: "support@resumewrangler.com",
+          availableLanguage: "English",
+          areaServed: "Worldwide",
         },
         {
           "@type": "ContactPoint",
-          "contactType": "Technical Support",
-          "email": "support@resumewrangler.com",
-          "availableLanguage": "English"
-        }
+          contactType: "Technical Support",
+          email: "support@resumewrangler.com",
+          availableLanguage: "English",
+        },
       ],
-      "url": `${process.env.DEPLOYMENT_URL}/`,
-      "sameAs": [
+      url: `${process.env.DEPLOYMENT_URL}/`,
+      sameAs: [
         "https://github.com/joshl26/resume-wrangler/",
-        "https://www.linkedin.com/in/joshrlehman/"
-      ]
-    }
+        "https://www.linkedin.com/in/joshrlehman/",
+      ],
+    },
   };
 
   const webPageSchema = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "name": "Contact Resume Wrangler",
-    "description": "Get in touch with Resume Wrangler for support, feedback, and partnership opportunities",
-    "url": `${process.env.DEPLOYMENT_URL}/contact/`,
-    "breadcrumb": {
+    name: "Contact Resume Wrangler",
+    description:
+      "Get in touch with Resume Wrangler for support, feedback, and partnership opportunities",
+    url: `${process.env.DEPLOYMENT_URL}/contact/`,
+    breadcrumb: {
       "@type": "BreadcrumbList",
-      "itemListElement": [
+      itemListElement: [
         {
           "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": `${process.env.DEPLOYMENT_URL}/`
+          position: 1,
+          name: "Home",
+          item: `${process.env.DEPLOYMENT_URL}/`,
         },
         {
           "@type": "ListItem",
-          "position": 2,
-          "name": "Contact"
-        }
-      ]
-    }
+          position: 2,
+          name: "Contact",
+        },
+      ],
+    },
   };
 
   return (
@@ -180,9 +182,15 @@ export default function ContactPage() {
 
           <div className="grid md:grid-cols-3 gap-8">
             {/* Contact Form */}
-            <section aria-labelledby="contact-form-heading" className="md:col-span-2">
+            <section
+              aria-labelledby="contact-form-heading"
+              className="md:col-span-2"
+            >
               <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-8">
-                <h2 id="contact-form-heading" className="text-2xl font-bold text-slate-900 dark:text-white mb-6">
+                <h2
+                  id="contact-form-heading"
+                  className="text-2xl font-bold text-slate-900 dark:text-white mb-6"
+                >
                   Send us a Message
                 </h2>
                 <form className="space-y-6" action="/api/contact" method="POST">
@@ -192,7 +200,10 @@ export default function ContactPage() {
                         htmlFor="firstName"
                         className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2"
                       >
-                        First Name <span className="text-red-500" aria-label="required">*</span>
+                        First Name{" "}
+                        <span className="text-red-500" aria-label="required">
+                          *
+                        </span>
                       </label>
                       <input
                         type="text"
@@ -209,7 +220,10 @@ export default function ContactPage() {
                         htmlFor="lastName"
                         className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2"
                       >
-                        Last Name <span className="text-red-500" aria-label="required">*</span>
+                        Last Name{" "}
+                        <span className="text-red-500" aria-label="required">
+                          *
+                        </span>
                       </label>
                       <input
                         type="text"
@@ -228,7 +242,10 @@ export default function ContactPage() {
                       htmlFor="email"
                       className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2"
                     >
-                      Email Address <span className="text-red-500" aria-label="required">*</span>
+                      Email Address{" "}
+                      <span className="text-red-500" aria-label="required">
+                        *
+                      </span>
                     </label>
                     <input
                       type="email"
@@ -247,7 +264,10 @@ export default function ContactPage() {
                       htmlFor="subject"
                       className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2"
                     >
-                      Subject <span className="text-red-500" aria-label="required">*</span>
+                      Subject{" "}
+                      <span className="text-red-500" aria-label="required">
+                        *
+                      </span>
                     </label>
                     <select
                       id="subject"
@@ -273,7 +293,10 @@ export default function ContactPage() {
                       htmlFor="message"
                       className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2"
                     >
-                      Message <span className="text-red-500" aria-label="required">*</span>
+                      Message{" "}
+                      <span className="text-red-500" aria-label="required">
+                        *
+                      </span>
                     </label>
                     <textarea
                       id="message"
@@ -295,7 +318,8 @@ export default function ContactPage() {
                   </button>
 
                   <p className="text-sm text-slate-600 dark:text-slate-400 text-center">
-                    We typically respond within 24-48 hours during business days.
+                    We typically respond within 24-48 hours during business
+                    days.
                   </p>
                 </form>
               </div>
@@ -310,7 +334,10 @@ export default function ContactPage() {
               {/* Email */}
               <article className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-6">
                 <div className="flex items-center gap-3 mb-3">
-                  <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center" aria-hidden="true">
+                  <div
+                    className="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center"
+                    aria-hidden="true"
+                  >
                     <Mail className="w-6 h-6 text-blue-600 dark:text-blue-400" />
                   </div>
                   <h3 className="text-lg font-bold text-slate-900 dark:text-white">
@@ -331,7 +358,10 @@ export default function ContactPage() {
               {/* GitHub */}
               <article className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-6">
                 <div className="flex items-center gap-3 mb-3">
-                  <div className="w-12 h-12 bg-slate-100 dark:bg-slate-700 rounded-full flex items-center justify-center" aria-hidden="true">
+                  <div
+                    className="w-12 h-12 bg-slate-100 dark:bg-slate-700 rounded-full flex items-center justify-center"
+                    aria-hidden="true"
+                  >
                     <Github className="w-6 h-6 text-slate-900 dark:text-white" />
                   </div>
                   <h3 className="text-lg font-bold text-slate-900 dark:text-white">
@@ -354,7 +384,10 @@ export default function ContactPage() {
               {/* LinkedIn */}
               <article className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-6">
                 <div className="flex items-center gap-3 mb-3">
-                  <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center" aria-hidden="true">
+                  <div
+                    className="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center"
+                    aria-hidden="true"
+                  >
                     <Linkedin className="w-6 h-6 text-blue-700 dark:text-blue-400" />
                   </div>
                   <h3 className="text-lg font-bold text-slate-900 dark:text-white">
@@ -377,7 +410,10 @@ export default function ContactPage() {
               {/* FAQ */}
               <article className="bg-linear-to-br from-blue-50 to-cyan-50 dark:from-blue-950 dark:to-cyan-950 rounded-2xl shadow-xl p-6 border-2 border-blue-200 dark:border-blue-800">
                 <div className="flex items-center gap-3 mb-3">
-                  <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center" aria-hidden="true">
+                  <div
+                    className="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center"
+                    aria-hidden="true"
+                  >
                     <HelpCircle className="w-6 h-6 text-blue-600 dark:text-blue-400" />
                   </div>
                   <h3 className="text-lg font-bold text-slate-900 dark:text-white">
@@ -399,13 +435,22 @@ export default function ContactPage() {
           </div>
 
           {/* Additional Info */}
-          <section aria-labelledby="additional-contact-heading" className="mt-12 bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-8">
-            <h2 id="additional-contact-heading" className="text-2xl font-bold text-slate-900 dark:text-white mb-4 text-center">
+          <section
+            aria-labelledby="additional-contact-heading"
+            className="mt-12 bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-8"
+          >
+            <h2
+              id="additional-contact-heading"
+              className="text-2xl font-bold text-slate-900 dark:text-white mb-4 text-center"
+            >
               Other Ways to Connect
             </h2>
             <div className="grid md:grid-cols-3 gap-6 text-center">
               <article>
-                <div className="w-16 h-16 bg-linear-to-br from-blue-500 to-cyan-500 rounded-full mx-auto mb-3 flex items-center justify-center" aria-hidden="true">
+                <div
+                  className="w-16 h-16 bg-linear-to-br from-blue-500 to-cyan-500 rounded-full mx-auto mb-3 flex items-center justify-center"
+                  aria-hidden="true"
+                >
                   <Globe className="w-8 h-8 text-white" />
                 </div>
                 <h3 className="font-bold text-slate-900 dark:text-white mb-2">
@@ -424,7 +469,10 @@ export default function ContactPage() {
                 </a>
               </article>
               <article>
-                <div className="w-16 h-16 bg-linear-to-br from-purple-500 to-pink-500 rounded-full mx-auto mb-3 flex items-center justify-center" aria-hidden="true">
+                <div
+                  className="w-16 h-16 bg-linear-to-br from-purple-500 to-pink-500 rounded-full mx-auto mb-3 flex items-center justify-center"
+                  aria-hidden="true"
+                >
                   <MessageSquare className="w-8 h-8 text-white" />
                 </div>
                 <h3 className="font-bold text-slate-900 dark:text-white mb-2">
@@ -443,7 +491,10 @@ export default function ContactPage() {
                 </a>
               </article>
               <article>
-                <div className="w-16 h-16 bg-linear-to-br from-green-500 to-emerald-500 rounded-full mx-auto mb-3 flex items-center justify-center" aria-hidden="true">
+                <div
+                  className="w-16 h-16 bg-linear-to-br from-green-500 to-emerald-500 rounded-full mx-auto mb-3 flex items-center justify-center"
+                  aria-hidden="true"
+                >
                   <HelpCircle className="w-8 h-8 text-white" />
                 </div>
                 <h3 className="font-bold text-slate-900 dark:text-white mb-2">

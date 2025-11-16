@@ -8,6 +8,7 @@ import {
 } from "@/app/lib/data";
 import { UserWorkExperiences } from "@/app/lib/definitions";
 import BackButton from "@/app/ui/back-button";
+import Breadcrumb from "@/app/ui/Breadcrumb";
 import { Button } from "@/app/ui/button";
 import Search from "@/app/ui/search";
 import WorkExperience from "@/app/ui/tables/work-experience/work-experience-table";
@@ -21,7 +22,6 @@ type SearchParams = {
 };
 
 interface PageProps {
-  // Next may pass searchParams as a Promise or a plain object
   searchParams?: Promise<SearchParams>;
 }
 
@@ -31,51 +31,55 @@ function notNull<T>(v: T | null | undefined): v is T {
 }
 
 export default async function Page({ searchParams }: PageProps) {
-  // unwrap searchParams whether Promise or object
   const resolvedSearchParams = await searchParams;
   const query = resolvedSearchParams?.query || "";
   const currentPage = Number(resolvedSearchParams?.page) || 1;
 
   const session = await auth();
-  // if (!session?.user) return notFound();
+  const email = session?.user?.email;
+  if (!email) {
+    return notFound();
+  }
 
-  const userEmail = session?.user.email!;
-  const user = await getUser(userEmail);
-  // if (!user) return notFound();
+  const user = await getUser(email);
+  if (!user || !user.id) {
+    return notFound();
+  }
 
-  // Fetch all page data in parallel for better performance
-  const [workExperiencesRaw, totalPages, totalCount, filteredRaw] =
-    await Promise.all([
-      fetchWorkExperiencesByUserId(user.id),
-      fetchWorkExperiencePages(query, user.id),
-      fetchWorkExperiencesCount(query, user.id),
-      fetchFilteredWorkExperiences(query, currentPage, user.id),
-    ]);
+  // Fetch data in parallel
+  const [workExperiencesRaw, filteredWorkExperiencesRaw] = await Promise.all([
+    fetchWorkExperiencesByUserId(user.id),
+    fetchFilteredWorkExperiences(query, currentPage, user.id),
+  ]);
 
-  // normalize and filter nulls
-  const workExperiences: UserWorkExperiences = (
-    (workExperiencesRaw ?? []) as any[]
-  ).filter(notNull) as unknown as UserWorkExperiences;
+  const workExperiences = (workExperiencesRaw ?? []).filter(notNull);
+  const filteredWorkExperiences = (filteredWorkExperiencesRaw ?? []).filter(
+    notNull,
+  );
 
-  const filteredWorkExperiences: UserWorkExperiences = (
-    (filteredRaw ?? []) as any[]
-  ).filter(notNull) as unknown as UserWorkExperiences;
+  const totalPages = await fetchWorkExperiencePages(query, user.id);
+  const totalCount = await fetchWorkExperiencesCount(query, user.id);
+
+  const breadcrumbItems = [
+    { name: "Dashboard", url: "/dashboard" },
+    { name: "Work Experience", url: "/dashboard/work-experience/" },
+  ];
 
   return (
-    <div className="h-full w-full px-2">
-      <BackButton className="" href={"/dashboard/"}>
-        Back
-      </BackButton>
-      <div className="flex flex-row justify-between">
-        <div className="flex flex-col ">
-          <h1 className="text-[2rem] font-bold py-1">Work Experience</h1>
-        </div>
-        <div className="flex flex-col px-4">
-          <div className="flex flex-row gap-x-3 h-auto ">
-            <div className="flex flex-col w-1/2 m-auto  ">
+    <div className="w-full px-2">
+      <div className="flex flex-col">
+        <nav aria-label="Breadcrumb" className="mb-8">
+          <Breadcrumb items={breadcrumbItems} />
+        </nav>
+      </div>
+
+      <div className="flex flex-row justify-between mb-5">
+        <div className="flex flex-col pr-3 pb-5">
+          <div className="flex flex-row gap-x-3 m-auto">
+            <div className="flex flex-col">
               <Search placeholder="Search work experience..." />
             </div>
-            <div className="flex flex-col w-1/2 m-auto">
+            <div className="flex flex-col">
               <Button className="btn btn-amber tight-shadow hover:animate-pulse">
                 <a href="/dashboard/work-experience/new" className="m-auto">
                   Add New Work Experience
@@ -86,12 +90,7 @@ export default async function Page({ searchParams }: PageProps) {
         </div>
       </div>
 
-      <Suspense
-        fallback={
-          <div className="py-8 text-center">Loading work experiences…</div>
-        }
-        key={query + currentPage}
-      >
+      <Suspense key={query + currentPage}>
         <WorkExperience
           workExperiences={workExperiences}
           user={user}
@@ -102,6 +101,10 @@ export default async function Page({ searchParams }: PageProps) {
           filteredWorkExperiences={filteredWorkExperiences}
         />
       </Suspense>
+
+      <div className="pt-10">
+        <BackButton href={"/dashboard/"}>Back</BackButton>
+      </div>
     </div>
   );
 }

@@ -14,7 +14,7 @@ import { notFound } from "next/navigation";
 import BackButton from "@/app/ui/back-button";
 import { UserCertifications, UserCertification } from "@/app/lib/definitions";
 import Search from "@/app/ui/search";
-import Breadcrumbs from "@/app/ui/Breadcrumbs";
+import Breadcrumb from "@/app/ui/Breadcrumb";
 
 type SearchParams = {
   query?: string;
@@ -42,15 +42,18 @@ export default async function Page({ searchParams }: PageProps) {
 
   const session = await auth();
 
-  // Safely extract email (don't mutate session.user which has a required `id`)
   const email = session?.user.email;
-  const user = await getUser(email!);
-  if (!user) return notFound();
+  if (!email) {
+    return notFound();
+  }
 
-  // fetch raw data
+  const user = await getUser(email);
+  if (!user || !user.id) {
+    return notFound();
+  }
+
   const certificationsRaw = await fetchCertificationsByUserId(user.id);
 
-  // assert/normalize certifications into the correct type
   const certifications: UserCertifications = Array.isArray(certificationsRaw)
     ? (certificationsRaw
         .filter(notNull)
@@ -60,7 +63,6 @@ export default async function Page({ searchParams }: PageProps) {
   const totalPages = await fetchUserCustomSectionTwoPages(query, user.id);
   const totalCount = await fetchUserCustomSectionTwoCount(query, user.id);
 
-  // normalized fetch + explicit cast + runtime sanity check
   const filteredRaw = await fetchFilteredUserCustomSectionTwo(
     query,
     currentPage,
@@ -73,21 +75,26 @@ export default async function Page({ searchParams }: PageProps) {
         .filter(isUserCertification) as UserCertifications)
     : ([] as UserCertifications);
 
+  const breadcrumbItems = [
+    { name: "Dashboard", url: "/dashboard" },
+    { name: "Certifications", url: "/dashboard/certifications/" },
+  ];
+
   return (
-    <div className="h-full w-full px-2">
-      <BackButton className="" href={"/dashboard/"}>
-        Back
-      </BackButton>
-      <div className="flex flex-row justify-between">
-        <div className="flex flex-col ">
-          <Breadcrumbs />
-        </div>
-        <div className="flex flex-col px-4">
-          <div className="flex flex-row gap-x-3 h-auto ">
-            <div className="flex flex-col w-1/2 m-auto  ">
+    <div className="w-full px-2">
+      <div className="flex flex-col">
+        <nav aria-label="Breadcrumb" className="mb-8">
+          <Breadcrumb items={breadcrumbItems} />
+        </nav>
+      </div>
+
+      <div className="flex flex-row justify-between mb-5">
+        <div className="flex flex-col pr-3 pb-5">
+          <div className="flex flex-row gap-x-3 m-auto">
+            <div className="flex flex-col">
               <Search placeholder="Search certifications..." />
             </div>
-            <div className="flex flex-col w-1/2 m-auto">
+            <div className="flex flex-col">
               <Button className="btn btn-amber tight-shadow hover:animate-pulse">
                 <a href="/dashboard/certifications/new" className="m-auto">
                   Add New Certification
@@ -97,6 +104,7 @@ export default async function Page({ searchParams }: PageProps) {
           </div>
         </div>
       </div>
+
       <Suspense key={query + currentPage}>
         <Certifications
           certifications={certifications}

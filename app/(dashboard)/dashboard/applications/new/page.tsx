@@ -1,36 +1,48 @@
+// Description: Page component for creating a new job application in the dashboard.
 // app/dashboard/applications/new/page.tsx
+
 import React, { JSX } from "react";
 import { fetchLatestCompaniesByUserId, getUser } from "@/app/lib/data";
+import { User, Company } from "@/app/lib/definitions";
 import NewApplication from "@/app/ui/forms/new-application";
 import { auth } from "@/auth";
 import { notFound } from "next/navigation";
+import BackButton from "@/app/ui/back-button";
+import Breadcrumb from "@/app/ui/Breadcrumb";
 
 export default async function Page(): Promise<JSX.Element> {
   const session = await auth();
 
-  // Safely extract email into a local variable and guard it.
-  // This ensures the value passed to getUser is a plain `string`.
   const email = session?.user?.email;
   if (!email) {
     return notFound();
   }
 
-  // Remove the problematic session.user reassignment
-  // session.user = { name: session.user?.name, email }; // <- This line caused the error
-
-  // Now it's safe to call getUser with a `string`
-  const user = await getUser(email);
+  const user: User | null = await getUser(email);
   if (!user || !user.id) {
     return notFound();
   }
 
-  // Fetch companies for that user id
-  const companiesRaw = await fetchLatestCompaniesByUserId(user.id);
-  const companies = companiesRaw ?? [];
+  const companiesRaw: Company[] | null = await fetchLatestCompaniesByUserId(
+    user.id,
+  );
+  const companies: Company[] = companiesRaw ?? [];
+
+  const breadcrumbItems = [
+    { name: "Dashboard", url: "/dashboard/" },
+    { name: "Job Applications", url: "/dashboard/applications/" },
+    { name: "Creat New Job Application", url: "/dashboard/applications/new/" },
+  ];
 
   return (
     <div>
+      <nav aria-label="Breadcrumb" className="mb-8">
+        <Breadcrumb items={breadcrumbItems} />
+      </nav>
       <NewApplication user={user} companies={companies} />
+      <BackButton href="/dashboard/applications/" className="mb-4">
+        Back
+      </BackButton>
     </div>
   );
 }

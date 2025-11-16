@@ -6,7 +6,8 @@ import Link from "next/link";
 
 // Enhanced metadata
 export const metadata: Metadata = {
-  title: "Job Board Search Tool - Search Multiple Sites at Once | Resume Wrangler",
+  title:
+    "Job Board Search Tool - Search Multiple Sites at Once | Resume Wrangler",
   description:
     "Search multiple job boards simultaneously with Resume Wrangler's job search tool. Find opportunities on LinkedIn, Indeed, Glassdoor, and more from one place. Save time in your job hunt.",
   keywords: [
@@ -19,11 +20,12 @@ export const metadata: Metadata = {
     "job aggregator",
     "job hunt tools",
     "employment search",
-    "career opportunities"
+    "career opportunities",
   ],
   openGraph: {
     title: "Job Board Search - Search Multiple Sites at Once",
-    description: "Search multiple job boards simultaneously. Find opportunities on LinkedIn, Indeed, Glassdoor, and more from one place.",
+    description:
+      "Search multiple job boards simultaneously. Find opportunities on LinkedIn, Indeed, Glassdoor, and more from one place.",
     url: `${process.env.DEPLOYMENT_URL}/job-boards/`,
     type: "website",
     images: [
@@ -38,7 +40,8 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Job Board Search - Find Jobs Faster",
-    description: "Search multiple job boards at once. LinkedIn, Indeed, Glassdoor, and more.",
+    description:
+      "Search multiple job boards at once. LinkedIn, Indeed, Glassdoor, and more.",
     images: ["/twitter-jobboards.png"],
   },
   alternates: {
@@ -66,94 +69,97 @@ function JobBoardsStructuredData() {
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
-    "itemListElement": [
+    itemListElement: [
       {
         "@type": "ListItem",
-        "position": 1,
-        "name": "Home",
-        "item": `${process.env.DEPLOYMENT_URL}/`
+        position: 1,
+        name: "Home",
+        item: `${process.env.DEPLOYMENT_URL}/`,
       },
       {
         "@type": "ListItem",
-        "position": 2,
-        "name": "Search Jobs",
-        "item": `${process.env.DEPLOYMENT_URL}/job-boards/`
-      }
-    ]
+        position: 2,
+        name: "Search Jobs",
+        item: `${process.env.DEPLOYMENT_URL}/job-boards/`,
+      },
+    ],
   };
 
   const webPageSchema = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "name": "Job Board Search Tool",
-    "description": "Search multiple job boards simultaneously to find employment opportunities",
-    "url": `${process.env.DEPLOYMENT_URL}/job-boards/`,
-    "breadcrumb": {
+    name: "Job Board Search Tool",
+    description:
+      "Search multiple job boards simultaneously to find employment opportunities",
+    url: `${process.env.DEPLOYMENT_URL}/job-boards/`,
+    breadcrumb: {
       "@type": "BreadcrumbList",
-      "itemListElement": [
+      itemListElement: [
         {
           "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": `${process.env.DEPLOYMENT_URL}`
+          position: 1,
+          name: "Home",
+          item: `${process.env.DEPLOYMENT_URL}`,
         },
         {
           "@type": "ListItem",
-          "position": 2,
-          "name": "Search Jobs"
-        }
-      ]
-    }
+          position: 2,
+          name: "Search Jobs",
+        },
+      ],
+    },
   };
 
   const toolSchema = {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    "name": "Job Board Multi-Search Tool",
-    "description": "Search multiple job boards at once including LinkedIn, Indeed, Glassdoor, and more",
-    "applicationCategory": "BusinessApplication",
-    "operatingSystem": "Web Browser",
-    "url": `${process.env.DEPLOYMENT_URL}/job-boards/`,
-    "offers": {
+    name: "Job Board Multi-Search Tool",
+    description:
+      "Search multiple job boards at once including LinkedIn, Indeed, Glassdoor, and more",
+    applicationCategory: "BusinessApplication",
+    operatingSystem: "Web Browser",
+    url: `${process.env.DEPLOYMENT_URL}/job-boards/`,
+    offers: {
       "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
+      price: "0",
+      priceCurrency: "USD",
     },
-    "featureList": [
+    featureList: [
       "Multi-site job search",
       "LinkedIn integration",
       "Indeed search",
       "Glassdoor search",
       "Quick search links",
-      "Location-based filtering"
-    ]
+      "Location-based filtering",
+    ],
   };
 
   const howToSchema = {
     "@context": "https://schema.org",
     "@type": "HowTo",
-    "name": "How to Search Multiple Job Boards at Once",
-    "description": "Use Resume Wrangler's tool to search multiple job sites simultaneously",
-    "step": [
+    name: "How to Search Multiple Job Boards at Once",
+    description:
+      "Use Resume Wrangler's tool to search multiple job sites simultaneously",
+    step: [
       {
         "@type": "HowToStep",
-        "position": 1,
-        "name": "Enter Keywords",
-        "text": "Type in your job title or keywords (e.g., 'Frontend Engineer', 'Marketing Manager')"
+        position: 1,
+        name: "Enter Keywords",
+        text: "Type in your job title or keywords (e.g., 'Frontend Engineer', 'Marketing Manager')",
       },
       {
         "@type": "HowToStep",
-        "position": 2,
-        "name": "Select Job Boards",
-        "text": "Choose which job boards you want to search (LinkedIn, Indeed, Glassdoor, etc.)"
+        position: 2,
+        name: "Select Job Boards",
+        text: "Choose which job boards you want to search (LinkedIn, Indeed, Glassdoor, etc.)",
       },
       {
         "@type": "HowToStep",
-        "position": 3,
-        "name": "Search All Sites",
-        "text": "Click to open searches on all selected job boards in new tabs"
-      }
-    ]
+        position: 3,
+        name: "Search All Sites",
+        text: "Click to open searches on all selected job boards in new tabs",
+      },
+    ],
   };
 
   return (
@@ -197,12 +203,15 @@ export default function Page({ searchParams }: PageProps) {
               Search Multiple Job Sites at Once
             </h1>
             <p className="mt-2 text-sm max-w-2xl job-boards-subtitle">
-              Enter a job title or keywords and open tailored searches on several
-              popular job boards. Great for quick market research and application
-              discovery.
+              Enter a job title or keywords and open tailored searches on
+              several popular job boards. Great for quick market research and
+              application discovery.
             </p>
 
-            <nav aria-label="Quick actions" className="mt-4 flex flex-wrap items-center gap-3">
+            <nav
+              aria-label="Quick actions"
+              className="mt-4 flex flex-wrap items-center gap-3"
+            >
               <Link
                 href="/dashboard/resume"
                 className="inline-flex items-center gap-2 rounded-md bg-amber-500 px-3 py-1.5 text-sm font-medium text-white hover:bg-amber-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2"
@@ -259,34 +268,43 @@ export default function Page({ searchParams }: PageProps) {
               </ul>
 
               <p className="mt-3 text-xs text-gray-500 dark:text-gray-400">
-                <strong>Note:</strong> Links open in a new tab and are constructed using each
-                job board's search URL. This tool helps you search faster by opening
-                multiple sites at once.
+                <strong>Note:</strong> Links open in a new tab and are
+                constructed using each job board's search URL. This tool helps
+                you search faster by opening multiple sites at once.
               </p>
             </aside>
           </section>
 
           {/* Additional SEO content */}
-          <section aria-labelledby="about-tool-heading" className="mt-12 rounded-md border border-gray-200 bg-gray-50 p-6 dark:border-gray-700 dark:bg-gray-800/50">
-            <h2 id="about-tool-heading" className="mb-3 text-lg font-semibold text-gray-900 dark:text-white">
+          <section
+            aria-labelledby="about-tool-heading"
+            className="mt-12 rounded-md border border-gray-200 bg-gray-50 p-6 dark:border-gray-700 dark:bg-gray-800/50"
+          >
+            <h2
+              id="about-tool-heading"
+              className="mb-3 text-lg font-semibold text-gray-900 dark:text-white"
+            >
               Why Use Our Multi-Search Tool?
             </h2>
             <div className="space-y-2 text-sm text-gray-700 dark:text-gray-300">
               <p>
-                <strong>Save Time:</strong> Instead of visiting multiple job sites separately,
-                search them all at once with a single query.
+                <strong>Save Time:</strong> Instead of visiting multiple job
+                sites separately, search them all at once with a single query.
               </p>
               <p>
-                <strong>Comprehensive Results:</strong> Access opportunities from LinkedIn,
-                Indeed, Glassdoor, Monster, and other major job boards simultaneously.
+                <strong>Comprehensive Results:</strong> Access opportunities
+                from LinkedIn, Indeed, Glassdoor, Monster, and other major job
+                boards simultaneously.
               </p>
               <p>
-                <strong>Better Coverage:</strong> Different sites list different jobs. Searching
-                multiple platforms ensures you don't miss opportunities.
+                <strong>Better Coverage:</strong> Different sites list different
+                jobs. Searching multiple platforms ensures you don't miss
+                opportunities.
               </p>
               <p>
-                <strong>Market Research:</strong> Compare listings across platforms to understand
-                salary ranges, requirements, and market demand for your skills.
+                <strong>Market Research:</strong> Compare listings across
+                platforms to understand salary ranges, requirements, and market
+                demand for your skills.
               </p>
             </div>
           </section>

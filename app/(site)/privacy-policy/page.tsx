@@ -27,11 +27,12 @@ export const metadata: Metadata = {
     "personal information",
     "privacy rights",
     "data encryption",
-    "information security"
+    "information security",
   ],
   openGraph: {
     title: "Privacy Policy - Resume Wrangler",
-    description: "Learn how Resume Wrangler protects your personal and professional information with industry-leading security measures.",
+    description:
+      "Learn how Resume Wrangler protects your personal and professional information with industry-leading security measures.",
     url: `${process.env.DEPLOYMENT_URL}/privacy-policy/`,
     type: "website",
     images: [
@@ -67,50 +68,51 @@ function PrivacyStructuredData() {
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
-    "itemListElement": [
+    itemListElement: [
       {
         "@type": "ListItem",
-        "position": 1,
-        "name": "Home",
-        "item": `${process.env.DEPLOYMENT_URL}/`
+        position: 1,
+        name: "Home",
+        item: `${process.env.DEPLOYMENT_URL}/`,
       },
       {
         "@type": "ListItem",
-        "position": 2,
-        "name": "Privacy Policy",
-        "item": `${process.env.DEPLOYMENT_URL}/privacy-policy/`
-      }
-    ]
+        position: 2,
+        name: "Privacy Policy",
+        item: `${process.env.DEPLOYMENT_URL}/privacy-policy/`,
+      },
+    ],
   };
 
   const webPageSchema = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "name": "Privacy Policy",
-    "description": "Resume Wrangler's privacy policy and data protection practices",
-    "url": `${process.env.DEPLOYMENT_URL}/privacy-policy/`,
-    "datePublished": "2025-11-14",
-    "dateModified": "2025-11-14",
-    "inLanguage": "en-US",
-    "isPartOf": {
+    name: "Privacy Policy",
+    description:
+      "Resume Wrangler's privacy policy and data protection practices",
+    url: `${process.env.DEPLOYMENT_URL}/privacy-policy/`,
+    datePublished: "2025-11-14",
+    dateModified: "2025-11-14",
+    inLanguage: "en-US",
+    isPartOf: {
       "@type": "WebSite",
-      "name": "Resume Wrangler",
-      "url": `${process.env.DEPLOYMENT_URL}/`
-    }
+      name: "Resume Wrangler",
+      url: `${process.env.DEPLOYMENT_URL}/`,
+    },
   };
 
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "name": "Resume Wrangler",
-    "url": `${process.env.DEPLOYMENT_URL}/`,
-    "contactPoint": {
+    name: "Resume Wrangler",
+    url: `${process.env.DEPLOYMENT_URL}/`,
+    contactPoint: {
       "@type": "ContactPoint",
-      "email": "support@resumewrangler.com",
-      "contactType": "Privacy Inquiries",
-      "availableLanguage": "English"
+      email: "support@resumewrangler.com",
+      contactType: "Privacy Inquiries",
+      availableLanguage: "English",
     },
-    "privacyPolicy": `${process.env.DEPLOYMENT_URL}/privacy-policy/`
+    privacyPolicy: `${process.env.DEPLOYMENT_URL}/privacy-policy/`,
   };
 
   return (
@@ -158,22 +160,30 @@ export default function PrivacyPage() {
           <article className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-8 space-y-8">
             {/* Introduction */}
             <section aria-labelledby="intro-heading">
-              <h2 id="intro-heading" className="sr-only">Introduction</h2>
+              <h2 id="intro-heading" className="sr-only">
+                Introduction
+              </h2>
               <p className="text-slate-700 dark:text-slate-300 leading-relaxed">
-                At Resume Wrangler, your privacy is paramount. This Privacy Policy
-                explains how we collect, use, disclose, and safeguard your
-                information when you use our resume and cover letter customization
-                service. We are committed to protecting your personal and
-                professional information with the highest standards of data
-                security.
+                At Resume Wrangler, your privacy is paramount. This Privacy
+                Policy explains how we collect, use, disclose, and safeguard
+                your information when you use our resume and cover letter
+                customization service. We are committed to protecting your
+                personal and professional information with the highest standards
+                of data security.
               </p>
             </section>
 
             {/* Information We Collect */}
             <section aria-labelledby="collect-heading">
               <div className="flex items-center gap-3 mb-4">
-                <Eye className="w-6 h-6 text-blue-600 dark:text-blue-400" aria-hidden="true" />
-                <h2 id="collect-heading" className="text-2xl font-bold text-slate-900 dark:text-white">
+                <Eye
+                  className="w-6 h-6 text-blue-600 dark:text-blue-400"
+                  aria-hidden="true"
+                />
+                <h2
+                  id="collect-heading"
+                  className="text-2xl font-bold text-slate-900 dark:text-white"
+                >
                   Information We Collect
                 </h2>
               </div>
@@ -197,8 +207,8 @@ export default function PrivacyPage() {
                     To generate customized resumes and cover letters, we collect
                     professional information you provide, including work
                     experience, education, skills, achievements, and other
-                    career-related details. This information is stored securely in
-                    our PostgreSQL database with encryption.
+                    career-related details. This information is stored securely
+                    in our PostgreSQL database with encryption.
                   </p>
                 </div>
                 <div>
@@ -208,8 +218,8 @@ export default function PrivacyPage() {
                   <p className="leading-relaxed">
                     When you use our AI-powered customization features, we may
                     process job descriptions and posting information you provide
-                    to tailor your application materials. This data is used solely
-                    for generating your personalized documents.
+                    to tailor your application materials. This data is used
+                    solely for generating your personalized documents.
                   </p>
                 </div>
                 <div>
@@ -217,10 +227,10 @@ export default function PrivacyPage() {
                     Automatically Collected Information
                   </h3>
                   <p className="leading-relaxed">
-                    We automatically collect certain information about your device
-                    and usage, including IP address, browser type, operating
-                    system, access times, pages viewed, and usage patterns to
-                    improve our service and ensure security.
+                    We automatically collect certain information about your
+                    device and usage, including IP address, browser type,
+                    operating system, access times, pages viewed, and usage
+                    patterns to improve our service and ensure security.
                   </p>
                 </div>
               </div>
@@ -229,55 +239,99 @@ export default function PrivacyPage() {
             {/* How We Use Your Information */}
             <section aria-labelledby="use-heading">
               <div className="flex items-center gap-3 mb-4">
-                <Database className="w-6 h-6 text-blue-600 dark:text-blue-400" aria-hidden="true" />
-                <h2 id="use-heading" className="text-2xl font-bold text-slate-900 dark:text-white">
+                <Database
+                  className="w-6 h-6 text-blue-600 dark:text-blue-400"
+                  aria-hidden="true"
+                />
+                <h2
+                  id="use-heading"
+                  className="text-2xl font-bold text-slate-900 dark:text-white"
+                >
                   How We Use Your Information
                 </h2>
               </div>
-              <ul className="space-y-2 text-slate-700 dark:text-slate-300" role="list">
+              <ul
+                className="space-y-2 text-slate-700 dark:text-slate-300"
+                role="list"
+              >
                 <li className="flex items-start gap-2">
-                  <span className="text-blue-600 dark:text-blue-400 mt-1" aria-hidden="true">•</span>
+                  <span
+                    className="text-blue-600 dark:text-blue-400 mt-1"
+                    aria-hidden="true"
+                  >
+                    •
+                  </span>
                   <span>
                     Generate AI-powered, customized resumes and cover letters
                     tailored to job descriptions
                   </span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-blue-600 dark:text-blue-400 mt-1" aria-hidden="true">•</span>
+                  <span
+                    className="text-blue-600 dark:text-blue-400 mt-1"
+                    aria-hidden="true"
+                  >
+                    •
+                  </span>
                   <span>
                     Process your documents through our in-house ATS scanner and
                     grammar checking tools
                   </span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-blue-600 dark:text-blue-400 mt-1" aria-hidden="true">•</span>
+                  <span
+                    className="text-blue-600 dark:text-blue-400 mt-1"
+                    aria-hidden="true"
+                  >
+                    •
+                  </span>
                   <span>
                     Provide, maintain, and improve our resume customization
                     algorithms
                   </span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-blue-600 dark:text-blue-400 mt-1" aria-hidden="true">•</span>
+                  <span
+                    className="text-blue-600 dark:text-blue-400 mt-1"
+                    aria-hidden="true"
+                  >
+                    •
+                  </span>
                   <span>
                     Process subscription payments for Pro membership features
                   </span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-blue-600 dark:text-blue-400 mt-1" aria-hidden="true">•</span>
+                  <span
+                    className="text-blue-600 dark:text-blue-400 mt-1"
+                    aria-hidden="true"
+                  >
+                    •
+                  </span>
                   <span>
                     Send you service updates, technical notices, and support
                     messages
                   </span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-blue-600 dark:text-blue-400 mt-1" aria-hidden="true">•</span>
+                  <span
+                    className="text-blue-600 dark:text-blue-400 mt-1"
+                    aria-hidden="true"
+                  >
+                    •
+                  </span>
                   <span>
                     Monitor and analyze usage patterns to improve our matching
                     algorithms
                   </span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-blue-600 dark:text-blue-400 mt-1" aria-hidden="true">•</span>
+                  <span
+                    className="text-blue-600 dark:text-blue-400 mt-1"
+                    aria-hidden="true"
+                  >
+                    •
+                  </span>
                   <span>
                     Detect, prevent, and address security threats and technical
                     issues
@@ -289,8 +343,14 @@ export default function PrivacyPage() {
             {/* Information Sharing */}
             <section aria-labelledby="sharing-heading">
               <div className="flex items-center gap-3 mb-4">
-                <Users className="w-6 h-6 text-blue-600 dark:text-blue-400" aria-hidden="true" />
-                <h2 id="sharing-heading" className="text-2xl font-bold text-slate-900 dark:text-white">
+                <Users
+                  className="w-6 h-6 text-blue-600 dark:text-blue-400"
+                  aria-hidden="true"
+                />
+                <h2
+                  id="sharing-heading"
+                  className="text-2xl font-bold text-slate-900 dark:text-white"
+                >
                   Information Sharing and Disclosure
                 </h2>
               </div>
@@ -306,16 +366,22 @@ export default function PrivacyPage() {
                 </p>
                 <ul className="space-y-2" role="list">
                   <li className="flex items-start gap-2">
-                    <span className="text-blue-600 dark:text-blue-400 mt-1" aria-hidden="true">
+                    <span
+                      className="text-blue-600 dark:text-blue-400 mt-1"
+                      aria-hidden="true"
+                    >
                       •
                     </span>
                     <span>
-                      With secure hosting providers (Vercel) and database services
-                      (PostgreSQL) that help us operate our platform
+                      With secure hosting providers (Vercel) and database
+                      services (PostgreSQL) that help us operate our platform
                     </span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-blue-600 dark:text-blue-400 mt-1" aria-hidden="true">
+                    <span
+                      className="text-blue-600 dark:text-blue-400 mt-1"
+                      aria-hidden="true"
+                    >
                       •
                     </span>
                     <span>
@@ -324,7 +390,10 @@ export default function PrivacyPage() {
                     </span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-blue-600 dark:text-blue-400 mt-1" aria-hidden="true">
+                    <span
+                      className="text-blue-600 dark:text-blue-400 mt-1"
+                      aria-hidden="true"
+                    >
                       •
                     </span>
                     <span>
@@ -333,10 +402,15 @@ export default function PrivacyPage() {
                     </span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-blue-600 dark:text-blue-400 mt-1" aria-hidden="true">
+                    <span
+                      className="text-blue-600 dark:text-blue-400 mt-1"
+                      aria-hidden="true"
+                    >
                       •
                     </span>
-                    <span>With your explicit consent for specific purposes</span>
+                    <span>
+                      With your explicit consent for specific purposes
+                    </span>
                   </li>
                 </ul>
               </div>
@@ -345,8 +419,14 @@ export default function PrivacyPage() {
             {/* Data Security */}
             <section aria-labelledby="security-heading">
               <div className="flex items-center gap-3 mb-4">
-                <Lock className="w-6 h-6 text-blue-600 dark:text-blue-400" aria-hidden="true" />
-                <h2 id="security-heading" className="text-2xl font-bold text-slate-900 dark:text-white">
+                <Lock
+                  className="w-6 h-6 text-blue-600 dark:text-blue-400"
+                  aria-hidden="true"
+                />
+                <h2
+                  id="security-heading"
+                  className="text-2xl font-bold text-slate-900 dark:text-white"
+                >
                   Data Security
                 </h2>
               </div>
@@ -357,31 +437,48 @@ export default function PrivacyPage() {
                 </p>
                 <ul className="space-y-2" role="list">
                   <li className="flex items-start gap-2">
-                    <span className="text-blue-600 dark:text-blue-400 mt-1" aria-hidden="true">
+                    <span
+                      className="text-blue-600 dark:text-blue-400 mt-1"
+                      aria-hidden="true"
+                    >
                       •
                     </span>
-                    <span>Encrypted data storage in our PostgreSQL database</span>
+                    <span>
+                      Encrypted data storage in our PostgreSQL database
+                    </span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-blue-600 dark:text-blue-400 mt-1" aria-hidden="true">
+                    <span
+                      className="text-blue-600 dark:text-blue-400 mt-1"
+                      aria-hidden="true"
+                    >
                       •
                     </span>
                     <span>Secure login mechanisms with password hashing</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-blue-600 dark:text-blue-400 mt-1" aria-hidden="true">
+                    <span
+                      className="text-blue-600 dark:text-blue-400 mt-1"
+                      aria-hidden="true"
+                    >
                       •
                     </span>
                     <span>HTTPS encryption for all data transmission</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-blue-600 dark:text-blue-400 mt-1" aria-hidden="true">
+                    <span
+                      className="text-blue-600 dark:text-blue-400 mt-1"
+                      aria-hidden="true"
+                    >
                       •
                     </span>
                     <span>Regular security audits and updates</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-blue-600 dark:text-blue-400 mt-1" aria-hidden="true">
+                    <span
+                      className="text-blue-600 dark:text-blue-400 mt-1"
+                      aria-hidden="true"
+                    >
                       •
                     </span>
                     <span>Access controls and authentication measures</span>
@@ -399,25 +496,38 @@ export default function PrivacyPage() {
             {/* Cookies */}
             <section aria-labelledby="cookies-heading">
               <div className="flex items-center gap-3 mb-4">
-                <Cookie className="w-6 h-6 text-blue-600 dark:text-blue-400" aria-hidden="true" />
-                <h2 id="cookies-heading" className="text-2xl font-bold text-slate-900 dark:text-white">
+                <Cookie
+                  className="w-6 h-6 text-blue-600 dark:text-blue-400"
+                  aria-hidden="true"
+                />
+                <h2
+                  id="cookies-heading"
+                  className="text-2xl font-bold text-slate-900 dark:text-white"
+                >
                   Cookies and Tracking Technologies
                 </h2>
               </div>
               <p className="text-slate-700 dark:text-slate-300 leading-relaxed">
-                We use cookies and similar tracking technologies to maintain your
-                session, remember your preferences, and analyze usage patterns.
-                These help us improve our service and provide you with a better
-                experience. You can control cookie settings through your browser,
-                though some features may require cookies to function properly.
+                We use cookies and similar tracking technologies to maintain
+                your session, remember your preferences, and analyze usage
+                patterns. These help us improve our service and provide you with
+                a better experience. You can control cookie settings through
+                your browser, though some features may require cookies to
+                function properly.
               </p>
             </section>
 
             {/* Data Retention */}
             <section aria-labelledby="retention-heading">
               <div className="flex items-center gap-3 mb-4">
-                <FileText className="w-6 h-6 text-blue-600 dark:text-blue-400" aria-hidden="true" />
-                <h2 id="retention-heading" className="text-2xl font-bold text-slate-900 dark:text-white">
+                <FileText
+                  className="w-6 h-6 text-blue-600 dark:text-blue-400"
+                  aria-hidden="true"
+                />
+                <h2
+                  id="retention-heading"
+                  className="text-2xl font-bold text-slate-900 dark:text-white"
+                >
                   Data Retention
                 </h2>
               </div>
@@ -427,51 +537,82 @@ export default function PrivacyPage() {
                 services. You can request deletion of your account and all
                 associated data at any time through your account settings or by
                 contacting us. Upon deletion, your data will be permanently
-                removed from our systems within 30 days, except where retention is
-                required by law.
+                removed from our systems within 30 days, except where retention
+                is required by law.
               </p>
             </section>
 
             {/* Your Rights */}
             <section aria-labelledby="rights-heading">
-              <h2 id="rights-heading" className="text-2xl font-bold text-slate-900 dark:text-white mb-4">
+              <h2
+                id="rights-heading"
+                className="text-2xl font-bold text-slate-900 dark:text-white mb-4"
+              >
                 Your Privacy Rights
               </h2>
               <p className="text-slate-700 dark:text-slate-300 leading-relaxed mb-3">
                 You have full control over your personal and professional
                 information:
               </p>
-              <ul className="space-y-2 text-slate-700 dark:text-slate-300" role="list">
+              <ul
+                className="space-y-2 text-slate-700 dark:text-slate-300"
+                role="list"
+              >
                 <li className="flex items-start gap-2">
-                  <span className="text-blue-600 dark:text-blue-400 mt-1" aria-hidden="true">•</span>
+                  <span
+                    className="text-blue-600 dark:text-blue-400 mt-1"
+                    aria-hidden="true"
+                  >
+                    •
+                  </span>
                   <span>
                     <strong>Access:</strong> View and download all your stored
                     information at any time
                   </span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-blue-600 dark:text-blue-400 mt-1" aria-hidden="true">•</span>
+                  <span
+                    className="text-blue-600 dark:text-blue-400 mt-1"
+                    aria-hidden="true"
+                  >
+                    •
+                  </span>
                   <span>
                     <strong>Update:</strong> Correct or modify your personal and
                     professional information
                   </span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-blue-600 dark:text-blue-400 mt-1" aria-hidden="true">•</span>
+                  <span
+                    className="text-blue-600 dark:text-blue-400 mt-1"
+                    aria-hidden="true"
+                  >
+                    •
+                  </span>
                   <span>
                     <strong>Delete:</strong> Request complete deletion of your
                     account and all associated data
                   </span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-blue-600 dark:text-blue-400 mt-1" aria-hidden="true">•</span>
+                  <span
+                    className="text-blue-600 dark:text-blue-400 mt-1"
+                    aria-hidden="true"
+                  >
+                    •
+                  </span>
                   <span>
                     <strong>Export:</strong> Download your resumes and data in
                     portable formats
                   </span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-blue-600 dark:text-blue-400 mt-1" aria-hidden="true">•</span>
+                  <span
+                    className="text-blue-600 dark:text-blue-400 mt-1"
+                    aria-hidden="true"
+                  >
+                    •
+                  </span>
                   <span>
                     <strong>Opt-out:</strong> Unsubscribe from promotional
                     communications at any time
@@ -481,8 +622,14 @@ export default function PrivacyPage() {
             </section>
 
             {/* Open Source */}
-            <section aria-labelledby="opensource-heading" className="bg-linear-to-r from-blue-50 to-purple-50 dark:from-blue-950 dark:to-purple-950 p-6 rounded-xl">
-              <h2 id="opensource-heading" className="text-2xl font-bold text-slate-900 dark:text-white mb-3">
+            <section
+              aria-labelledby="opensource-heading"
+              className="bg-linear-to-r from-blue-50 to-purple-50 dark:from-blue-950 dark:to-purple-950 p-6 rounded-xl"
+            >
+              <h2
+                id="opensource-heading"
+                className="text-2xl font-bold text-slate-900 dark:text-white mb-3"
+              >
                 Open Source Commitment
               </h2>
               <p className="text-slate-700 dark:text-slate-300 leading-relaxed">
@@ -502,10 +649,19 @@ export default function PrivacyPage() {
             </section>
 
             {/* Contact */}
-            <section aria-labelledby="contact-heading" className="bg-linear-to-r from-blue-50 to-purple-50 dark:from-blue-950 dark:to-purple-950 p-6 rounded-xl">
+            <section
+              aria-labelledby="contact-heading"
+              className="bg-linear-to-r from-blue-50 to-purple-50 dark:from-blue-950 dark:to-purple-950 p-6 rounded-xl"
+            >
               <div className="flex items-center gap-3 mb-3">
-                <Mail className="w-6 h-6 text-blue-600 dark:text-blue-400" aria-hidden="true" />
-                <h2 id="contact-heading" className="text-2xl font-bold text-slate-900 dark:text-white">
+                <Mail
+                  className="w-6 h-6 text-blue-600 dark:text-blue-400"
+                  aria-hidden="true"
+                />
+                <h2
+                  id="contact-heading"
+                  className="text-2xl font-bold text-slate-900 dark:text-white"
+                >
                   Contact Us
                 </h2>
               </div>
@@ -523,7 +679,10 @@ export default function PrivacyPage() {
           </article>
 
           {/* Footer Navigation */}
-          <nav aria-label="Related pages" className="mt-8 flex items-center justify-between">
+          <nav
+            aria-label="Related pages"
+            className="mt-8 flex items-center justify-between"
+          >
             <BackButton className="text-slate-600 dark:text-slate-300" href="/">
               Back to Home
             </BackButton>

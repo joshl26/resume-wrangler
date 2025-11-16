@@ -7,25 +7,24 @@ import ThemeToggle from "@/app/ui/dashboard/ThemeToggle";
 
 export default function SideNav({ session }: { session: any }) {
   return (
-    <div className="relative tour_nav h-full flex flex-col py-4 pl-2 ">
-      {/* Logo */}
+    <aside className="sidenav" aria-label="Primary navigation">
       <Link
-        className="flex flex-row ml-2 mr-2 m-auto justify-start rounded-lg h-[125px] bg-gradient-amber tight-shadow p-4"
         href="/dashboard"
+        className="sidenav-logo"
+        aria-label="Dashboard home"
       >
         <AcmeLogo />
+        {/* Optionally ensure AcmeLogo includes an element with className="logo-img" and a text with className="logo-text" */}
       </Link>
 
-      {/* Navigation Links */}
-      <div className="flex-1 mt-2 pt-2 pl-2 pb-2 pr-2 gap-1 space-y-1 flex-col overflow-y-auto w-full">
+      <nav className="sidenav-links" aria-label="Main">
         <NavLinks />
-      </div>
+      </nav>
 
-      {/* Bottom Actions */}
-      <div className="mt-auto pt-2 pl-2 pr-2 space-y-2">
+      <div className="sidenav-actions">
         <ThemeToggle />
         <SignOutButton />
       </div>
-    </div>
+    </aside>
   );
 }

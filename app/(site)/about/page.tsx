@@ -19,7 +19,8 @@ import Breadcrumb from "@/app/ui/Breadcrumb";
 
 // Enhanced metadata
 export const metadata: Metadata = {
-  title: "About Resume Wrangler - Our Mission to Revolutionize Job Applications",
+  title:
+    "About Resume Wrangler - Our Mission to Revolutionize Job Applications",
   description:
     "Learn about Resume Wrangler's AI-powered resume and cover letter builder. Discover our mission, vision, technology stack, and how we help job seekers land their dream jobs with ATS-optimized applications.",
   keywords: [
@@ -30,11 +31,12 @@ export const metadata: Metadata = {
     "career tools mission",
     "resume builder story",
     "AI-powered job search",
-    "professional resume service"
+    "professional resume service",
   ],
   openGraph: {
     title: "About Resume Wrangler - Revolutionizing Job Applications with AI",
-    description: "Discover how Resume Wrangler uses AI to help job seekers create ATS-optimized resumes and cover letters. Learn about our mission, technology, and impact.",
+    description:
+      "Discover how Resume Wrangler uses AI to help job seekers create ATS-optimized resumes and cover letters. Learn about our mission, technology, and impact.",
     url: `${process.env.DEPLOYMENT_URL}/about/`,
     type: "website",
     images: [
@@ -49,7 +51,8 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "About Resume Wrangler - AI-Powered Career Tools",
-    description: "Learn about our mission to revolutionize job applications with AI technology.",
+    description:
+      "Learn about our mission to revolutionize job applications with AI technology.",
     images: ["/twitter-about.png"],
   },
   alternates: {
@@ -71,92 +74,95 @@ function AboutStructuredData() {
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
-    "itemListElement": [
+    itemListElement: [
       {
         "@type": "ListItem",
-        "position": 1,
-        "name": "Home",
-        "item": `${process.env.DEPLOYMENT_URL}/`
+        position: 1,
+        name: "Home",
+        item: `${process.env.DEPLOYMENT_URL}/`,
       },
       {
         "@type": "ListItem",
-        "position": 2,
-        "name": "About",
-        "item": `${process.env.DEPLOYMENT_URL}/about/`
-      }
-    ]
+        position: 2,
+        name: "About",
+        item: `${process.env.DEPLOYMENT_URL}/about/`,
+      },
+    ],
   };
 
   const aboutPageSchema = {
     "@context": "https://schema.org",
     "@type": "AboutPage",
-    "name": "About Resume Wrangler",
-    "description": "Learn about Resume Wrangler's mission to revolutionize job applications with AI-powered tools",
-    "url": `${process.env.DEPLOYMENT_URL}/about/`,
-    "mainEntity": {
+    name: "About Resume Wrangler",
+    description:
+      "Learn about Resume Wrangler's mission to revolutionize job applications with AI-powered tools",
+    url: `${process.env.DEPLOYMENT_URL}/about/`,
+    mainEntity: {
       "@type": "Organization",
-      "name": "Resume Wrangler",
-      "description": "AI-powered resume and cover letter customization tool",
-      "foundingDate": "2024", // Update with actual date
-      "numberOfEmployees": {
+      name: "Resume Wrangler",
+      description: "AI-powered resume and cover letter customization tool",
+      foundingDate: "2024", // Update with actual date
+      numberOfEmployees: {
         "@type": "QuantitativeValue",
-        "value": "1-10"
-      }
-    }
+        value: "1-10",
+      },
+    },
   };
 
   const serviceSchema = {
     "@context": "https://schema.org",
     "@type": "Service",
-    "name": "Resume Wrangler AI Resume Builder",
-    "description": "AI-powered resume and cover letter customization service with ATS optimization",
-    "provider": {
+    name: "Resume Wrangler AI Resume Builder",
+    description:
+      "AI-powered resume and cover letter customization service with ATS optimization",
+    provider: {
       "@type": "Organization",
-      "name": "Resume Wrangler"
+      name: "Resume Wrangler",
     },
-    "serviceType": "Career Services",
-    "areaServed": "Worldwide",
-    "hasOfferCatalog": {
+    serviceType: "Career Services",
+    areaServed: "Worldwide",
+    hasOfferCatalog: {
       "@type": "OfferCatalog",
-      "name": "Resume Wrangler Services",
-      "itemListElement": [
+      name: "Resume Wrangler Services",
+      itemListElement: [
         {
           "@type": "Offer",
-          "itemOffered": {
+          itemOffered: {
             "@type": "Service",
-            "name": "Basic Plan",
-            "description": "Free resume and cover letter customization"
+            name: "Basic Plan",
+            description: "Free resume and cover letter customization",
           },
-          "price": "0",
-          "priceCurrency": "USD"
+          price: "0",
+          priceCurrency: "USD",
         },
         {
           "@type": "Offer",
-          "itemOffered": {
+          itemOffered: {
             "@type": "Service",
-            "name": "Pro Plan",
-            "description": "Premium features with enhanced templates and unlimited downloads"
+            name: "Pro Plan",
+            description:
+              "Premium features with enhanced templates and unlimited downloads",
           },
-          "price": "TBD",
-          "priceCurrency": "USD"
-        }
-      ]
+          price: "TBD",
+          priceCurrency: "USD",
+        },
+      ],
     },
-    "aggregateRating": {
+    aggregateRating: {
       "@type": "AggregateRating",
-      "ratingValue": "4.8",
-      "reviewCount": "1250",
-      "bestRating": "5"
-    }
+      ratingValue: "4.8",
+      reviewCount: "1250",
+      bestRating: "5",
+    },
   };
 
   const techStackSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareSourceCode",
-    "name": "Resume Wrangler",
-    "programmingLanguage": ["TypeScript", "JavaScript", "React"],
-    "runtimePlatform": "Next.js",
-    "codeRepository": "https://github.com/joshl26/resume-wrangler/"
+    name: "Resume Wrangler",
+    programmingLanguage: ["TypeScript", "JavaScript", "React"],
+    runtimePlatform: "Next.js",
+    codeRepository: "https://github.com/joshl26/resume-wrangler/",
   };
 
   return (
@@ -201,8 +207,8 @@ export default function AboutPage() {
               About Resume Wrangler
             </h1>
             <p className="text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto">
-              Revolutionizing how job seekers prepare their application materials
-              with AI-powered customization.
+              Revolutionizing how job seekers prepare their application
+              materials with AI-powered customization.
             </p>
           </header>
 
@@ -214,25 +220,26 @@ export default function AboutPage() {
             <div className="space-y-4 text-slate-700 dark:text-slate-300 leading-relaxed text-lg">
               <p>
                 Resume Wrangler is a dynamic and innovative resume and cover
-                letter customization tool aimed at revolutionizing how job seekers
-                prepare their application materials. This web application provides
-                an intuitive platform where users can input their professional
-                information and automatically generate tailored resumes and cover
-                letters based on specific job descriptions.
+                letter customization tool aimed at revolutionizing how job
+                seekers prepare their application materials. This web
+                application provides an intuitive platform where users can input
+                their professional information and automatically generate
+                tailored resumes and cover letters based on specific job
+                descriptions.
               </p>
               <p>
-                We take pride in our Artificial Intelligence (AI)-powered software
-                that scans resumes using an in-house ATS scanner. Additionally, we
-                leverage open-source language grammar and spell checking to
-                further enhance our software's accuracy.
+                We take pride in our Artificial Intelligence (AI)-powered
+                software that scans resumes using an in-house ATS scanner.
+                Additionally, we leverage open-source language grammar and spell
+                checking to further enhance our software's accuracy.
               </p>
               <p>
-                Our platform simplifies the application process and significantly
-                enhances the relevance and appeal of application documents to
-                prospective employers. We parse user data and align it seamlessly
-                with the qualifications sought by employers, incorporating smart
-                algorithms that highlight the most relevant experiences, skills,
-                and achievements.
+                Our platform simplifies the application process and
+                significantly enhances the relevance and appeal of application
+                documents to prospective employers. We parse user data and align
+                it seamlessly with the qualifications sought by employers,
+                incorporating smart algorithms that highlight the most relevant
+                experiences, skills, and achievements.
               </p>
             </div>
           </article>
@@ -250,8 +257,8 @@ export default function AboutPage() {
                 </div>
                 <p className="text-lg leading-relaxed text-violet-50">
                   To empower job seekers with innovative AI-powered tools that
-                  create tailored, professional application materials, helping them
-                  stand out in competitive job markets and land their dream
+                  create tailored, professional application materials, helping
+                  them stand out in competitive job markets and land their dream
                   positions.
                 </p>
               </article>
@@ -272,25 +279,34 @@ export default function AboutPage() {
 
           {/* Key Features */}
           <section aria-labelledby="features-heading" className="mb-12">
-            <h2 id="features-heading" className="text-3xl font-bold text-slate-900 dark:text-white text-center mb-8">
+            <h2
+              id="features-heading"
+              className="text-3xl font-bold text-slate-900 dark:text-white text-center mb-8"
+            >
               What Makes Us Different
             </h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               <article className="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow">
-                <div className="w-14 h-14 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mb-4" aria-hidden="true">
+                <div
+                  className="w-14 h-14 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mb-4"
+                  aria-hidden="true"
+                >
                   <Zap className="w-7 h-7 text-blue-600 dark:text-blue-400" />
                 </div>
                 <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">
                   AI-Powered Customization
                 </h3>
                 <p className="text-slate-600 dark:text-slate-400">
-                  Complex matching algorithms that emphasize relevant details for
-                  each job posting.
+                  Complex matching algorithms that emphasize relevant details
+                  for each job posting.
                 </p>
               </article>
 
               <article className="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow">
-                <div className="w-14 h-14 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center mb-4" aria-hidden="true">
+                <div
+                  className="w-14 h-14 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center mb-4"
+                  aria-hidden="true"
+                >
                   <FileText className="w-7 h-7 text-green-600 dark:text-green-400" />
                 </div>
                 <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">
@@ -303,7 +319,10 @@ export default function AboutPage() {
               </article>
 
               <article className="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow">
-                <div className="w-14 h-14 bg-purple-100 dark:bg-purple-900 rounded-full flex items-center justify-center mb-4" aria-hidden="true">
+                <div
+                  className="w-14 h-14 bg-purple-100 dark:bg-purple-900 rounded-full flex items-center justify-center mb-4"
+                  aria-hidden="true"
+                >
                   <Globe className="w-7 h-7 text-purple-600 dark:text-purple-400" />
                 </div>
                 <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">
@@ -316,7 +335,10 @@ export default function AboutPage() {
               </article>
 
               <article className="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow">
-                <div className="w-14 h-14 bg-amber-100 dark:bg-amber-900 rounded-full flex items-center justify-center mb-4" aria-hidden="true">
+                <div
+                  className="w-14 h-14 bg-amber-100 dark:bg-amber-900 rounded-full flex items-center justify-center mb-4"
+                  aria-hidden="true"
+                >
                   <Users className="w-7 h-7 text-amber-600 dark:text-amber-400" />
                 </div>
                 <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">
@@ -329,7 +351,10 @@ export default function AboutPage() {
               </article>
 
               <article className="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow">
-                <div className="w-14 h-14 bg-red-100 dark:bg-red-900 rounded-full flex items-center justify-center mb-4" aria-hidden="true">
+                <div
+                  className="w-14 h-14 bg-red-100 dark:bg-red-900 rounded-full flex items-center justify-center mb-4"
+                  aria-hidden="true"
+                >
                   <Shield className="w-7 h-7 text-red-600 dark:text-red-400" />
                 </div>
                 <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">
@@ -342,7 +367,10 @@ export default function AboutPage() {
               </article>
 
               <article className="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow">
-                <div className="w-14 h-14 bg-cyan-100 dark:bg-cyan-900 rounded-full flex items-center justify-center mb-4" aria-hidden="true">
+                <div
+                  className="w-14 h-14 bg-cyan-100 dark:bg-cyan-900 rounded-full flex items-center justify-center mb-4"
+                  aria-hidden="true"
+                >
                   <Award className="w-7 h-7 text-cyan-600 dark:text-cyan-400" />
                 </div>
                 <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">
@@ -357,14 +385,23 @@ export default function AboutPage() {
           </section>
 
           {/* Membership Tiers */}
-          <section aria-labelledby="pricing-heading" className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-8 md:p-12 mb-12">
-            <h2 id="pricing-heading" className="text-3xl font-bold text-slate-900 dark:text-white text-center mb-8">
+          <section
+            aria-labelledby="pricing-heading"
+            className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-8 md:p-12 mb-12"
+          >
+            <h2
+              id="pricing-heading"
+              className="text-3xl font-bold text-slate-900 dark:text-white text-center mb-8"
+            >
               Membership Options
             </h2>
             <div className="grid md:grid-cols-2 gap-8">
               <article className="border-2 border-slate-200 dark:border-slate-700 rounded-xl p-6">
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center" aria-hidden="true">
+                  <div
+                    className="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center"
+                    aria-hidden="true"
+                  >
                     <Users className="w-6 h-6 text-blue-600 dark:text-blue-400" />
                   </div>
                   <h3 className="text-2xl font-bold text-slate-900 dark:text-white">
@@ -373,7 +410,10 @@ export default function AboutPage() {
                 </div>
                 <ul className="space-y-3 text-slate-700 dark:text-slate-300">
                   <li className="flex items-start gap-2">
-                    <span className="text-blue-600 dark:text-blue-400 mt-1" aria-hidden="true">
+                    <span
+                      className="text-blue-600 dark:text-blue-400 mt-1"
+                      aria-hidden="true"
+                    >
                       ✓
                     </span>
                     <span>
@@ -381,13 +421,21 @@ export default function AboutPage() {
                     </span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-blue-600 dark:text-blue-400 mt-1" aria-hidden="true">
+                    <span
+                      className="text-blue-600 dark:text-blue-400 mt-1"
+                      aria-hidden="true"
+                    >
                       ✓
                     </span>
-                    <span>Access to basic resume and cover letter templates</span>
+                    <span>
+                      Access to basic resume and cover letter templates
+                    </span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-blue-600 dark:text-blue-400 mt-1" aria-hidden="true">
+                    <span
+                      className="text-blue-600 dark:text-blue-400 mt-1"
+                      aria-hidden="true"
+                    >
                       ✓
                     </span>
                     <span>
@@ -399,7 +447,10 @@ export default function AboutPage() {
 
               <article className="border-2 border-violet-500 dark:border-violet-400 rounded-xl p-6 bg-linear-to-br from-violet-50 to-fuchsia-50 dark:from-violet-950 dark:to-fuchsia-950">
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-12 h-12 bg-violet-100 dark:bg-violet-900 rounded-full flex items-center justify-center" aria-hidden="true">
+                  <div
+                    className="w-12 h-12 bg-violet-100 dark:bg-violet-900 rounded-full flex items-center justify-center"
+                    aria-hidden="true"
+                  >
                     <Award className="w-6 h-6 text-violet-600 dark:text-violet-400" />
                   </div>
                   <h3 className="text-2xl font-bold text-slate-900 dark:text-white">
@@ -408,13 +459,19 @@ export default function AboutPage() {
                 </div>
                 <ul className="space-y-3 text-slate-700 dark:text-slate-300">
                   <li className="flex items-start gap-2">
-                    <span className="text-violet-600 dark:text-violet-400 mt-1" aria-hidden="true">
+                    <span
+                      className="text-violet-600 dark:text-violet-400 mt-1"
+                      aria-hidden="true"
+                    >
                       ✓
                     </span>
                     <span>Up to 100 full-color PDF downloads per day</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-violet-600 dark:text-violet-400 mt-1" aria-hidden="true">
+                    <span
+                      className="text-violet-600 dark:text-violet-400 mt-1"
+                      aria-hidden="true"
+                    >
                       ✓
                     </span>
                     <span>
@@ -422,7 +479,10 @@ export default function AboutPage() {
                     </span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-violet-600 dark:text-violet-400 mt-1" aria-hidden="true">
+                    <span
+                      className="text-violet-600 dark:text-violet-400 mt-1"
+                      aria-hidden="true"
+                    >
                       ✓
                     </span>
                     <span>
@@ -430,7 +490,10 @@ export default function AboutPage() {
                     </span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-violet-600 dark:text-violet-400 mt-1" aria-hidden="true">
+                    <span
+                      className="text-violet-600 dark:text-violet-400 mt-1"
+                      aria-hidden="true"
+                    >
                       ✓
                     </span>
                     <span>
@@ -443,8 +506,14 @@ export default function AboutPage() {
           </section>
 
           {/* Tech Stack */}
-          <section aria-labelledby="tech-heading" className="bg-linear-to-r from-slate-800 to-slate-900 rounded-2xl shadow-xl p-8 md:p-12 mb-12">
-            <h2 id="tech-heading" className="text-3xl font-bold text-white text-center mb-8">
+          <section
+            aria-labelledby="tech-heading"
+            className="bg-linear-to-r from-slate-800 to-slate-900 rounded-2xl shadow-xl p-8 md:p-12 mb-12"
+          >
+            <h2
+              id="tech-heading"
+              className="text-3xl font-bold text-white text-center mb-8"
+            >
               Built With Modern Technology
             </h2>
             <div className="grid md:grid-cols-3 gap-6 text-white">
@@ -470,34 +539,52 @@ export default function AboutPage() {
           </section>
 
           {/* Stats */}
-          <section aria-labelledby="stats-heading" className="bg-linear-to-r from-violet-600 via-purple-600 to-fuchsia-600 rounded-2xl shadow-xl p-8 md:p-12 mb-12">
-            <h2 id="stats-heading" className="text-3xl font-bold text-white text-center mb-8">
+          <section
+            aria-labelledby="stats-heading"
+            className="bg-linear-to-r from-violet-600 via-purple-600 to-fuchsia-600 rounded-2xl shadow-xl p-8 md:p-12 mb-12"
+          >
+            <h2
+              id="stats-heading"
+              className="text-3xl font-bold text-white text-center mb-8"
+            >
               Our Impact
             </h2>
             <div className="grid md:grid-cols-4 gap-8">
               <div className="text-center">
-                <div className="flex items-center justify-center mb-2" aria-hidden="true">
+                <div
+                  className="flex items-center justify-center mb-2"
+                  aria-hidden="true"
+                >
                   <TrendingUp className="w-8 h-8 text-violet-200" />
                 </div>
                 <div className="text-4xl font-bold text-white mb-1">10K+</div>
                 <div className="text-violet-200">Resumes Generated</div>
               </div>
               <div className="text-center">
-                <div className="flex items-center justify-center mb-2" aria-hidden="true">
+                <div
+                  className="flex items-center justify-center mb-2"
+                  aria-hidden="true"
+                >
                   <Users className="w-8 h-8 text-violet-200" />
                 </div>
                 <div className="text-4xl font-bold text-white mb-1">5K+</div>
                 <div className="text-violet-200">Active Users</div>
               </div>
               <div className="text-center">
-                <div className="flex items-center justify-center mb-2" aria-hidden="true">
+                <div
+                  className="flex items-center justify-center mb-2"
+                  aria-hidden="true"
+                >
                   <Award className="w-8 h-8 text-violet-200" />
                 </div>
                 <div className="text-4xl font-bold text-white mb-1">98%</div>
                 <div className="text-violet-200">ATS Pass Rate</div>
               </div>
               <div className="text-center">
-                <div className="flex items-center justify-center mb-2" aria-hidden="true">
+                <div
+                  className="flex items-center justify-center mb-2"
+                  aria-hidden="true"
+                >
                   <Globe className="w-8 h-8 text-violet-200" />
                 </div>
                 <div className="text-4xl font-bold text-white mb-1">24/7</div>
@@ -507,7 +594,10 @@ export default function AboutPage() {
           </section>
 
           {/* CTA Section */}
-          <section aria-labelledby="cta-heading" className="bg-linear-to-r from-violet-500 to-fuchsia-500 rounded-2xl shadow-xl p-8 md:p-12 text-center text-white">
+          <section
+            aria-labelledby="cta-heading"
+            className="bg-linear-to-r from-violet-500 to-fuchsia-500 rounded-2xl shadow-xl p-8 md:p-12 text-center text-white"
+          >
             <h2 id="cta-heading" className="text-3xl font-bold mb-4">
               Ready to Transform Your Job Search?
             </h2>

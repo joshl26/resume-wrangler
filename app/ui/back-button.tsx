@@ -9,7 +9,7 @@ const BackButton = ({
 }: {
   href: string;
   children: string;
-  className: string;
+  className?: string;
 }) => {
   return (
     <Link className={clsx("hover:underline", className)} href={href}>

@@ -28,29 +28,28 @@ export default function Pagination({
 
   const allPages = generatePagination(currentPage, totalPages);
 
+  // Calculate showing range
+  const startItem = currentPage === 1 ? 1 : offset + 1;
+  const endItem = Math.min(currentPage * ITEMS_PER_PAGE, totalCount);
+
   return (
-    <nav
-      className="flex items-center flex-column flex-wrap md:flex-row justify-between "
-      aria-label="Table navigation"
-    >
-      <span className="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">
-        {/* Showing{" "}
-        <span className="font-semibold text-gray-900 dark:text-black">
-          {currentPage === 1 ? 1 : offset + 1}-
-          {currentPage === 1 ? ITEMS_PER_PAGE : totalCount}
+    <nav className="pagination-container" aria-label="Table navigation">
+      <div className="pagination-info">
+        Showing{" "}
+        <span className="pagination-info-highlight">
+          {startItem}-{endItem}
         </span>{" "}
-        of{" "}
-        <span className="font-semibold text-gray-900 dark:text-black">
-          {totalCount}
-        </span> */}
-      </span>
-      <div className="inline-flex">
+        of <span className="pagination-info-highlight">{totalCount}</span>
+      </div>
+
+      <div className="pagination-controls">
         <PaginationArrow
           direction="left"
           href={createPageURL(currentPage - 1)}
           isDisabled={currentPage <= 1}
         />
-        <div className="flex -space-x-px">
+
+        <div className="pagination-numbers">
           {allPages.map((page, index) => {
             let position: "first" | "last" | "single" | "middle" | undefined;
 
@@ -70,6 +69,7 @@ export default function Pagination({
             );
           })}
         </div>
+
         <PaginationArrow
           direction="right"
           href={createPageURL(currentPage + 1)}
@@ -91,17 +91,12 @@ function PaginationNumber({
   position?: "first" | "last" | "middle" | "single";
   isActive: boolean;
 }) {
-  const className = clsx(
-    "flex h-10 w-10 items-center justify-center text-sm border ",
-    {
-      "rounded-l-md": position === "first" || position === "single",
-      "rounded-r-md": position === "last" || position === "single",
-      "z-10 bg-azure-radiance-600 border-azure-radiance-600 text-white":
-        isActive,
-      "hover:bg-gray-100 bg-white": !isActive && position !== "middle",
-      "text-gray-300 bg-white": position === "middle",
-    },
-  );
+  const className = clsx("pagination-number", {
+    "pagination-number-first": position === "first" || position === "single",
+    "pagination-number-last": position === "last" || position === "single",
+    "pagination-number-active": isActive,
+    "pagination-number-ellipsis": position === "middle",
+  });
 
   return isActive || position === "middle" ? (
     <div className={className}>{page}</div>
@@ -121,21 +116,17 @@ function PaginationArrow({
   direction: "left" | "right";
   isDisabled?: boolean;
 }) {
-  const className = clsx(
-    "flex h-10 w-10 items-center justify-center rounded-md border bg-white",
-    {
-      "pointer-events-none text-gray-300": isDisabled,
-      "hover:bg-gray-100": !isDisabled,
-      "mr-2 md:mr-4": direction === "left",
-      "ml-2 md:ml-4": direction === "right",
-    },
-  );
+  const className = clsx("pagination-arrow", {
+    "pagination-arrow-disabled": isDisabled,
+    "pagination-arrow-left": direction === "left",
+    "pagination-arrow-right": direction === "right",
+  });
 
   const icon =
     direction === "left" ? (
-      <ArrowLeftIcon className="w-4" />
+      <ArrowLeftIcon className="pagination-arrow-icon" />
     ) : (
-      <ArrowRightIcon className="w-4" />
+      <ArrowRightIcon className="pagination-arrow-icon" />
     );
 
   return isDisabled ? (
@@ -145,81 +136,4 @@ function PaginationArrow({
       {icon}
     </Link>
   );
-}
-
-{
-  /* <nav
-        className="flex items-center flex-column flex-wrap md:flex-row justify-between pt-4"
-        aria-label="Table navigation"
-      >
-        <span className="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">
-          Showing{" "}
-          <span className="font-semibold text-gray-900 dark:text-black">
-            1-10
-          </span>{" "}
-          of{" "}
-          <span className="font-semibold text-gray-900 dark:text-black">
-            1000
-          </span>
-        </span>
-        <ul className="inline-flex tight-shadow rounded-lg -space-x-px rtl:space-x-reverse text-sm h-8">
-          <li>
-            <a
-              href="#"
-              className="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 "
-            >
-              Previous
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700  "
-            >
-              1
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700  "
-            >
-              2
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700  "
-            >
-              3
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700  "
-            >
-              4
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700  "
-            >
-              5
-            </a>
-          </li>
-
-          <li>
-            <a
-              href="#"
-              className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 "
-            >
-              Next
-            </a>
-          </li>
-        </ul>
-      </nav> */
 }

@@ -16,121 +16,112 @@ export default function NewApplication({
   const [edited, setEdited] = useState(false);
 
   const onChangeHandler = () => {
-    if (edited === false) {
+    if (!edited) {
       setEdited(true);
     }
   };
 
-  // Wrapper function that handles the result of the action
   const handleCreate = async (formData: FormData) => {
     const result = await createApplication(formData);
     if (result?.errors) {
-      // Handle errors - you could show a toast or alert here
       console.error("Create failed:", result.message);
+      // Optionally, add user feedback here (toast, alert, etc.)
     }
   };
 
   return (
-    <div className="px-2">
-      <BackButton className="" href={"/dashboard/applications/"}>
-        Back
-      </BackButton>
-      <h2 className="font-medium text-[2rem] pt-2">Create New Application</h2>
+    <div className="new-application-container px-4 py-6 max-w-3xl mx-auto my-15">
+      <h2 className="text-3xl font-semibold mb-6">Create New Application</h2>
+
       <form
         action={handleCreate}
-        className="flex flex-col form-amber w-[500px] p-3"
+        className="new-application-form flex flex-col gap-6"
       >
-        <input
-          hidden
-          readOnly
-          name="user_id"
-          id="user_id"
-          defaultValue={user.id}
-        />
-        <div className="flex flex-row pb-2">
-          <div className="flex flex-col w-full">
-            <label htmlFor="company_id" className="block font-bold">
-              Select a Company
-            </label>{" "}
-            <select
-              title="company_id"
-              defaultValue={""}
-              onChange={onChangeHandler}
-              required
-              id="company_id"
-              name="company_id"
-              className="rounded "
-            >
-              <option selected></option>
-              {companies
-                ? companies?.map((company: Company) => (
-                    <option key={company.id} value={company.id}>
-                      {company.name}
-                    </option>
-                  ))
-                : ""}
-            </select>
-          </div>
-          {/* <div className="flex flex-col align-middle h-auto w-1/4 p-2 ">
-            <a
-              className="m-auto text-center p-2 bg-blue-600 hover:bg-blue-400 text-white rounded"
-              href="/dashboard/companies/new"
-            >
-              Add New Company
-            </a>
-          </div> */}
+        <input type="hidden" name="user_id" id="user_id" value={user.id} />
+
+        <div className="form-group">
+          <label htmlFor="company_id" className="form-label">
+            Select a Company
+          </label>
+          <select
+            id="company_id"
+            name="company_id"
+            defaultValue=""
+            onChange={onChangeHandler}
+            required
+            className="form-select"
+          >
+            <option value="" disabled>
+              -- Select a company --
+            </option>
+            {companies?.map((company: Company) => (
+              <option key={company.id} value={company.id}>
+                {company.name}
+              </option>
+            ))}
+          </select>
         </div>
-        <div className="flex flex-col py-2">
-          <label className="font-bold" htmlFor="job_position">
+
+        <div className="form-group">
+          <label htmlFor="job_position" className="form-label">
             Job Position
           </label>
           <input
-            name="job_position"
+            type="text"
             id="job_position"
-            defaultValue={""}
+            name="job_position"
+            defaultValue=""
             onChange={onChangeHandler}
-          ></input>
+            className="form-input"
+          />
         </div>
-        <div className="flex flex-col py-2">
-          <label className="font-bold" htmlFor="posting_url">
-            Posting Url
+
+        <div className="form-group">
+          <label htmlFor="posting_url" className="form-label">
+            Posting URL
           </label>
           <input
-            name="posting_url"
+            type="url"
             id="posting_url"
-            defaultValue={""}
+            name="posting_url"
+            defaultValue=""
             onChange={onChangeHandler}
-          ></input>
+            className="form-input"
+          />
         </div>
-        <div className="flex flex-col py-2">
-          <label className="font-bold" htmlFor="posting_text">
+
+        <div className="form-group">
+          <label htmlFor="posting_text" className="form-label">
             Posting Text
           </label>
           <textarea
-            name="posting_text"
             id="posting_text"
-            defaultValue={""}
+            name="posting_text"
+            defaultValue=""
             onChange={onChangeHandler}
-          ></textarea>
+            className="form-textarea"
+            rows={4}
+          />
         </div>
-        <div className="flex flex-col py-2">
-          <label className="font-bold" htmlFor="analyzed_posting_text">
+
+        <div className="form-group">
+          <label htmlFor="analyzed_posting_text" className="form-label">
             Analyzed Posting Text
           </label>
           <textarea
-            name="analyzed_posting_text"
             id="analyzed_posting_text"
-            defaultValue={""}
+            name="analyzed_posting_text"
+            defaultValue=""
             onChange={onChangeHandler}
-          ></textarea>
+            className="form-textarea"
+            rows={4}
+          />
         </div>
+
         {edited && (
-          <>
-            <div style={{ height: "0.5rem" }} />
-            <SubmitButton className="btn btn-amber w-auto my-1 rounded animate-pulse">
-              Create New Application
-            </SubmitButton>
-          </>
+          <SubmitButton className="btn btn-amber w-auto rounded animate-pulse self-start">
+            Create New Application
+          </SubmitButton>
         )}
       </form>
     </div>

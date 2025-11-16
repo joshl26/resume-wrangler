@@ -17,11 +17,12 @@ export const metadata: Metadata = {
     "account access",
     "user login",
     "resume builder login",
-    "member access"
+    "member access",
   ],
   openGraph: {
     title: "Login to Resume Wrangler",
-    description: "Access your Resume Wrangler account to create and manage your professional resumes and cover letters.",
+    description:
+      "Access your Resume Wrangler account to create and manage your professional resumes and cover letters.",
     url: `${process.env.DEPLOYMENT_URL}/auth/login`,
     type: "website",
     images: [
@@ -36,7 +37,8 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary",
     title: "Login to Resume Wrangler",
-    description: "Access your account to create tailored resumes and cover letters.",
+    description:
+      "Access your account to create tailored resumes and cover letters.",
   },
   robots: {
     index: false, // Don't index login pages
@@ -52,14 +54,14 @@ function LoginStructuredData() {
   const webPageSchema = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "name": "Login to Resume Wrangler",
-    "description": "User login page for Resume Wrangler",
-    "url": `${process.env.DEPLOYMENT_URL}/auth/login/`,
-    "isPartOf": {
+    name: "Login to Resume Wrangler",
+    description: "User login page for Resume Wrangler",
+    url: `${process.env.DEPLOYMENT_URL}/auth/login/`,
+    isPartOf: {
       "@type": "WebSite",
-      "name": "Resume Wrangler",
-      "url": `${process.env.DEPLOYMENT_URL}/`
-    }
+      name: "Resume Wrangler",
+      url: `${process.env.DEPLOYMENT_URL}/`,
+    },
   };
 
   return (
@@ -79,16 +81,19 @@ export default function LoginPage() {
           {/* Decorative elements */}
           <PurpleBlob className="blob-purple" aria-hidden="true" />
           <AzureBlob className="blob-azure" aria-hidden="true" />
-          
+
           <section aria-labelledby="login-heading" className="login-content">
             <h1 id="login-heading" className="sr-only">
               Login to Resume Wrangler
             </h1>
-            
+
             <div className="login-form-wrapper">
               <LoginForm />
-              
-              <nav aria-label="Account navigation" className="login-signup-link">
+
+              <nav
+                aria-label="Account navigation"
+                className="login-signup-link"
+              >
                 <p className="login-signup-text">
                   New user?{" "}
                   <Link
@@ -99,7 +104,7 @@ export default function LoginPage() {
                   </Link>
                 </p>
               </nav>
-              
+
               <nav aria-label="Page navigation" className="mt-4">
                 <BackButton className="login-back-button" href="/">
                   Back to Home

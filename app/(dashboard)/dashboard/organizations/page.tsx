@@ -7,7 +7,7 @@ import {
   getUser,
 } from "@/app/lib/data";
 import { userOrganizations } from "@/app/lib/definitions";
-import Breadcrumbs from "@/app/ui/Breadcrumbs";
+import Breadcrumb from "@/app/ui/Breadcrumb";
 import BackButton from "@/app/ui/back-button";
 import { Button } from "@/app/ui/button";
 import Search from "@/app/ui/search";
@@ -22,7 +22,6 @@ type SearchParams = {
 };
 
 interface PageProps {
-  // Match Next's generated signature: searchParams may be a Promise or undefined
   searchParams?: Promise<SearchParams>;
 }
 
@@ -32,26 +31,27 @@ function notNull<T>(v: T | null | undefined): v is T {
 }
 
 export default async function Page({ searchParams }: PageProps) {
-  // Unwrap searchParams whether it's a Promise or a plain object
   const resolvedSearchParams = await searchParams;
   const query = resolvedSearchParams?.query || "";
   const currentPage = Number(resolvedSearchParams?.page) || 1;
 
-  // Auth
   const session = await auth();
   const email = session?.user?.email;
+  if (!email) {
+    return notFound();
+  }
 
-  // Use plain email string to fetch user (do not mutate session.user)
-  const user = await getUser(email!);
+  const user = await getUser(email);
+  if (!user || !user.id) {
+    return notFound();
+  }
 
-  // Fetch organizations and ensure non-null entries
   const organizationsRaw = await fetchOrganizationsByUserId(user.id);
   const organizations = (organizationsRaw ?? []).filter(notNull);
 
   const totalPages = await fetchUserCustomSectionOnePages(query, user.id);
   const totalCount = await fetchUserCustomSectionOneCount(query, user.id);
 
-  // Fetch filtered organizations and ensure non-null entries
   const filteredOrgsRaw = await fetchFilteredUserCustomSectionOne(
     query,
     currentPage,
@@ -61,22 +61,26 @@ export default async function Page({ searchParams }: PageProps) {
     filteredOrgsRaw ?? []
   ).filter(notNull) as userOrganizations;
 
-  return (
-    <div className="h-full w-full px-2">
-      <BackButton className="" href={"/dashboard/"}>
-        Back
-      </BackButton>
+  const breadcrumbItems = [
+    { name: "Dashboard", url: "/dashboard" },
+    { name: "Organizations", url: "/dashboard/organizations/" },
+  ];
 
-      <div className="flex flex-row justify-between">
-        <div className="flex flex-col ">
-          <Breadcrumbs />
-        </div>
-        <div className="flex flex-col px-4">
-          <div className="flex flex-row gap-x-3 h-auto ">
-            <div className="flex flex-col w-1/2 m-auto  ">
+  return (
+    <div className="w-full px-2">
+      <div className="flex flex-col">
+        <nav aria-label="Breadcrumb" className="mb-8">
+          <Breadcrumb items={breadcrumbItems} />
+        </nav>
+      </div>
+
+      <div className="flex flex-row justify-between mb-5">
+        <div className="flex flex-col pr-3 pb-5">
+          <div className="flex flex-row gap-x-3 m-auto">
+            <div className="flex flex-col">
               <Search placeholder="Search organizations..." />
             </div>
-            <div className="flex flex-col w-1/2 m-auto">
+            <div className="flex flex-col">
               <Button className="btn btn-amber tight-shadow hover:animate-pulse">
                 <a href="/dashboard/organizations/new" className="m-auto">
                   Add New Organization

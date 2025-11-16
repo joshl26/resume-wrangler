@@ -36,7 +36,6 @@ export default function NewEducation({ user }: Props) {
     const url = (data.get("url") as string | null) ?? "";
     const userId = (data.get("user_id") as string | null) ?? "";
 
-    // Required checks (make essential fields required)
     if (!institution.trim())
       out.institution_name = "Institution name is required.";
     if (!startDate.trim()) out.start_date = "Program start date is required.";
@@ -44,7 +43,6 @@ export default function NewEducation({ user }: Props) {
     if (!program.trim()) out.program = "Program name is required.";
     if (!userId.trim()) out.user_id = "User id is missing.";
 
-    // Date sanity check (if both parseable)
     if (startDate && endDate) {
       const s = Date.parse(startDate);
       const e = Date.parse(endDate);
@@ -53,12 +51,10 @@ export default function NewEducation({ user }: Props) {
       }
     }
 
-    // URL validation if provided
     if (url && !isValidUrl(url)) {
       out.url = "Please provide a valid URL (include http/https).";
     }
 
-    // Optional: add more validations (grade format, etc.)
     return out;
   };
 
@@ -85,13 +81,10 @@ export default function NewEducation({ user }: Props) {
 
     setIsSubmitting(true);
     try {
-      // NOTE: If createUserEducation is a Next server action ("use server"),
-      // calling it from a client component will fail. Use an API route or move
-      // the form to a server component and use `action={createUserEducation}`.
       const result = (await createUserEducation(formData)) as any;
 
       if (result?.errors) {
-        if (result.errors && typeof result.errors === "object") {
+        if (typeof result.errors === "object") {
           setErrors(result.errors);
           setStatusMessage("Please fix the highlighted fields.");
         } else {
@@ -103,7 +96,6 @@ export default function NewEducation({ user }: Props) {
         return;
       }
 
-      // Success: redirect to education list or show success
       startTransition(() => {
         router.push("/dashboard/education");
       });
@@ -117,16 +109,12 @@ export default function NewEducation({ user }: Props) {
 
   return (
     <div className="overflow-y-auto w-full max-w-xl px-3 pb-6">
-      <BackButton className="" href={"/dashboard/education/"}>
-        Back
-      </BackButton>
-
       <h2 className="font-medium text-[2rem] py-1">Education Experience</h2>
 
       <form
         ref={formRef}
         onSubmit={handleCreate}
-        className="flex flex-col w-full px-3 pb-3 border form-amber rounded bg-white p-4 space-y-3"
+        className="new-education-container new-education-form p-3"
         noValidate
       >
         <input
@@ -145,12 +133,12 @@ export default function NewEducation({ user }: Props) {
           type="text"
         />
 
-        <div className="flex flex-col py-2">
-          <label className="font-bold" htmlFor="institution_name">
+        <div className="form-group">
+          <label className="form-label" htmlFor="institution_name">
             Institution Name
           </label>
           <input
-            className="border border-gray-300 mt-1 p-2 rounded"
+            className={`form-input ${errors.institution_name ? "error" : ""}`}
             required
             name="institution_name"
             id="institution_name"
@@ -169,8 +157,8 @@ export default function NewEducation({ user }: Props) {
           )}
         </div>
 
-        <div className="flex flex-col py-2">
-          <label className="font-bold" htmlFor="location">
+        <div className="form-group">
+          <label className="form-label pt-2" htmlFor="location">
             Institution Location
           </label>
           <input
@@ -178,7 +166,7 @@ export default function NewEducation({ user }: Props) {
             id="location"
             onChange={onChangeHandler}
             defaultValue=""
-            className="mt-1 p-2 border rounded"
+            className={`form-input ${errors.location ? "error" : ""}`}
             aria-invalid={!!errors.location}
             aria-describedby={errors.location ? "err-location" : undefined}
           />
@@ -190,8 +178,8 @@ export default function NewEducation({ user }: Props) {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <div className="flex flex-col py-2">
-            <label className="font-bold" htmlFor="start_date">
+          <div className="form-group">
+            <label className="form-label pt-2" htmlFor="start_date">
               Program Start Date
             </label>
             <input
@@ -199,7 +187,7 @@ export default function NewEducation({ user }: Props) {
               id="start_date"
               onChange={onChangeHandler}
               defaultValue=""
-              className="mt-1 p-2 border rounded"
+              className={`form-input ${errors.start_date ? "error" : ""}`}
               placeholder="YYYY-MM-DD"
               required
               aria-invalid={!!errors.start_date}
@@ -214,8 +202,8 @@ export default function NewEducation({ user }: Props) {
             )}
           </div>
 
-          <div className="flex flex-col py-2">
-            <label className="font-bold" htmlFor="end_date">
+          <div className="form-group">
+            <label className="form-label pt-2" htmlFor="end_date">
               Program End Date
             </label>
             <input
@@ -223,7 +211,7 @@ export default function NewEducation({ user }: Props) {
               id="end_date"
               onChange={onChangeHandler}
               defaultValue=""
-              className="mt-1 p-2 border rounded"
+              className={`form-input ${errors.end_date ? "error" : ""}`}
               placeholder="YYYY-MM-DD"
               required
               aria-invalid={!!errors.end_date}
@@ -237,8 +225,8 @@ export default function NewEducation({ user }: Props) {
           </div>
         </div>
 
-        <div className="flex flex-col py-2">
-          <label className="font-bold" htmlFor="grade">
+        <div className="form-group">
+          <label className="form-label pt-2" htmlFor="grade">
             Program Grade
           </label>
           <input
@@ -246,7 +234,7 @@ export default function NewEducation({ user }: Props) {
             id="grade"
             onChange={onChangeHandler}
             defaultValue=""
-            className="mt-1 p-2 border rounded"
+            className={`form-input ${errors.grade ? "error" : ""}`}
             aria-invalid={!!errors.grade}
             aria-describedby={errors.grade ? "err-grade" : undefined}
           />
@@ -257,8 +245,8 @@ export default function NewEducation({ user }: Props) {
           )}
         </div>
 
-        <div className="flex flex-col py-2">
-          <label className="font-bold" htmlFor="program">
+        <div className="form-group">
+          <label className="form-label pt-2" htmlFor="program">
             Program Name
           </label>
           <input
@@ -266,7 +254,7 @@ export default function NewEducation({ user }: Props) {
             id="program"
             onChange={onChangeHandler}
             defaultValue=""
-            className="mt-1 p-2 border rounded"
+            className={`form-input ${errors.program ? "error" : ""}`}
             required
             aria-invalid={!!errors.program}
             aria-describedby={errors.program ? "err-program" : undefined}
@@ -278,8 +266,8 @@ export default function NewEducation({ user }: Props) {
           )}
         </div>
 
-        <div className="flex flex-col py-2">
-          <label className="font-bold" htmlFor="url">
+        <div className="form-group">
+          <label className="form-label pt-2" htmlFor="url">
             Link (Web URL)
           </label>
           <input
@@ -287,7 +275,7 @@ export default function NewEducation({ user }: Props) {
             id="url"
             onChange={onChangeHandler}
             defaultValue=""
-            className="mt-1 p-2 border rounded"
+            className={`form-input ${errors.url ? "error" : ""}`}
             placeholder="https://example.com"
             aria-invalid={!!errors.url}
             aria-describedby={errors.url ? "err-url" : undefined}

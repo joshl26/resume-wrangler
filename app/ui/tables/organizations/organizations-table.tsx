@@ -73,7 +73,7 @@ const Organizations = ({
   };
 
   return (
-    <div className="relative overflow-x-auto overflow-y-auto tight-shadow rounded px-4 py-4 mr-3 bg-white">
+    <div className="relative overflow-x-auto overflow-y-auto tight-shadow rounded px-4 py-4 mr-3 ">
       <table className="w-full text-sm text-left rtl:text-right tight-shadow">
         <thead className="text-xs uppercase ">
           <tr>

@@ -11,7 +11,8 @@ import Breadcrumb from "@/app/ui/Breadcrumb";
 
 // Enhanced metadata
 export const metadata: Metadata = {
-  title: "Professional Resume Templates - ATS-Friendly & Customizable | Resume Wrangler",
+  title:
+    "Professional Resume Templates - ATS-Friendly & Customizable | Resume Wrangler",
   description:
     "Browse 50+ professional, ATS-friendly resume templates. Modern, creative, and minimal designs ready to customize. Free and premium templates for all industries and experience levels.",
   keywords: [
@@ -23,11 +24,12 @@ export const metadata: Metadata = {
     "free resume templates",
     "customizable resume templates",
     "resume design",
-    "CV templates"
+    "CV templates",
   ],
   openGraph: {
     title: "Professional Resume Templates - ATS-Friendly & Customizable",
-    description: "Browse 50+ professional resume templates. Modern, creative, and minimal designs ready to customize for any industry.",
+    description:
+      "Browse 50+ professional resume templates. Modern, creative, and minimal designs ready to customize for any industry.",
     url: `${process.env.DEPLOYMENT_URL}/resume-templates/`,
     type: "website",
     images: [
@@ -42,7 +44,8 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Professional Resume Templates - Resume Wrangler",
-    description: "Browse 50+ ATS-friendly resume templates. Free and customizable.",
+    description:
+      "Browse 50+ ATS-friendly resume templates. Free and customizable.",
     images: ["/twitter-templates.png"],
   },
   alternates: {
@@ -64,89 +67,90 @@ function TemplatesStructuredData() {
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
-    "itemListElement": [
+    itemListElement: [
       {
         "@type": "ListItem",
-        "position": 1,
-        "name": "Home",
-        "item": `${process.env.DEPLOYMENT_URL}/`
+        position: 1,
+        name: "Home",
+        item: `${process.env.DEPLOYMENT_URL}/`,
       },
       {
         "@type": "ListItem",
-        "position": 2,
-        "name": "Resume Templates",
-        "item": `${process.env.DEPLOYMENT_URL}/resume-templates/`
-      }
-    ]
+        position: 2,
+        name: "Resume Templates",
+        item: `${process.env.DEPLOYMENT_URL}/resume-templates/`,
+      },
+    ],
   };
 
   const webPageSchema = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    "name": "Professional Resume Templates",
-    "description": "Browse professional, ATS-friendly resume templates for all industries",
-    "url": `${process.env.DEPLOYMENT_URL}/resume-templates/`,
-    "isPartOf": {
+    name: "Professional Resume Templates",
+    description:
+      "Browse professional, ATS-friendly resume templates for all industries",
+    url: `${process.env.DEPLOYMENT_URL}/resume-templates/`,
+    isPartOf: {
       "@type": "WebSite",
-      "name": "Resume Wrangler",
-      "url": `${process.env.DEPLOYMENT_URL}/`
-    }
+      name: "Resume Wrangler",
+      url: `${process.env.DEPLOYMENT_URL}/`,
+    },
   };
 
   const productSchema = {
     "@context": "https://schema.org",
     "@type": "Product",
-    "name": "Resume Wrangler Templates",
-    "description": "Professional resume templates with ATS optimization",
-    "brand": {
+    name: "Resume Wrangler Templates",
+    description: "Professional resume templates with ATS optimization",
+    brand: {
       "@type": "Brand",
-      "name": "Resume Wrangler"
+      name: "Resume Wrangler",
     },
-    "offers": {
+    offers: {
       "@type": "AggregateOffer",
-      "lowPrice": "0",
-      "priceCurrency": "USD",
-      "availability": "https://schema.org/InStock"
-    }
+      lowPrice: "0",
+      priceCurrency: "USD",
+      availability: "https://schema.org/InStock",
+    },
   };
 
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    "mainEntity": [
+    mainEntity: [
       {
         "@type": "Question",
-        "name": "How do I pick the right resume template?",
-        "acceptedAnswer": {
+        name: "How do I pick the right resume template?",
+        acceptedAnswer: {
           "@type": "Answer",
-          "text": "Pick a template that matches the role and industry you're applying for. Use a clean, readable layout for corporate jobs and a creative layout for design roles."
-        }
+          text: "Pick a template that matches the role and industry you're applying for. Use a clean, readable layout for corporate jobs and a creative layout for design roles.",
+        },
       },
       {
         "@type": "Question",
-        "name": "Can I edit a template after selecting it?",
-        "acceptedAnswer": {
+        name: "Can I edit a template after selecting it?",
+        acceptedAnswer: {
           "@type": "Answer",
-          "text": "Yes — after you select a template you can edit all content: text, sections, and formatting. We save your progress automatically in your dashboard."
-        }
+          text: "Yes — after you select a template you can edit all content: text, sections, and formatting. We save your progress automatically in your dashboard.",
+        },
       },
       {
         "@type": "Question",
-        "name": "Are templates optimized for ATS?",
-        "acceptedAnswer": {
+        name: "Are templates optimized for ATS?",
+        acceptedAnswer: {
           "@type": "Answer",
-          "text": "Many of our templates are ATS-friendly. Look for templates labeled 'ATS-friendly' in the template details. Avoid excessive graphics and rely on clear headings and simple formatting for best results."
-        }
+          text: "Many of our templates are ATS-friendly. Look for templates labeled 'ATS-friendly' in the template details. Avoid excessive graphics and rely on clear headings and simple formatting for best results.",
+        },
       },
       {
         "@type": "Question",
-        "name": "What file formats can I export?",
-        "acceptedAnswer": {
+        name: "What file formats can I export?",
+        acceptedAnswer: {
           "@type": "Answer",
-          "text": "You can export your resume as PDF. In future releases we will add DOCX and plain text export options."
-        }
-      }
-    ]
+          text: "You can export your resume as PDF. In future releases we will add DOCX and plain text export options.",
+        },
+      },
+    ],
   };
 
   return (
@@ -220,8 +224,8 @@ async function Page() {
                   Professional Resume Templates, Ready to Customize
                 </h1>
                 <p className="mt-3 text-sm">
-                  Browse, preview, and pick a template to jump-start your resume.
-                  All templates are fully editable in the editor.
+                  Browse, preview, and pick a template to jump-start your
+                  resume. All templates are fully editable in the editor.
                 </p>
 
                 {/* Search (server-safe GET form — no client JS required) */}
@@ -243,7 +247,8 @@ async function Page() {
                     aria-describedby="search-description"
                   />
                   <span id="search-description" className="sr-only">
-                    Search through our collection of professional resume templates
+                    Search through our collection of professional resume
+                    templates
                   </span>
                   <button
                     type="submit"
@@ -255,7 +260,10 @@ async function Page() {
               </header>
 
               {/* Categories */}
-              <nav aria-label="Template categories" className="max-w-4xl mx-auto">
+              <nav
+                aria-label="Template categories"
+                className="max-w-4xl mx-auto"
+              >
                 <h2 className="sr-only">Browse by Category</h2>
                 <ul className="flex flex-wrap justify-center gap-3" role="list">
                   {categories.map((c) => (
@@ -286,7 +294,10 @@ async function Page() {
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   <article className="p-4 rounded-lg border border-gray-200 bg-white dark:bg-gray-800 dark:border-gray-700">
                     <div className="flex items-start gap-3">
-                      <span className="inline-flex items-center justify-center h-8 w-8 rounded-md bg-amber-100 text-amber-800" aria-hidden="true">
+                      <span
+                        className="inline-flex items-center justify-center h-8 w-8 rounded-md bg-amber-100 text-amber-800"
+                        aria-hidden="true"
+                      >
                         <CheckIcon className="h-5 w-5" />
                       </span>
                       <div>
@@ -303,7 +314,10 @@ async function Page() {
 
                   <article className="p-4 rounded-lg border border-gray-200 bg-white dark:bg-gray-800 dark:border-gray-700">
                     <div className="flex items-start gap-3">
-                      <span className="inline-flex items-center justify-center h-8 w-8 rounded-md bg-amber-100 text-amber-800" aria-hidden="true">
+                      <span
+                        className="inline-flex items-center justify-center h-8 w-8 rounded-md bg-amber-100 text-amber-800"
+                        aria-hidden="true"
+                      >
                         <CheckIcon className="h-5 w-5" />
                       </span>
                       <div>
@@ -311,8 +325,8 @@ async function Page() {
                           Customize
                         </h3>
                         <p className="text-sm text-gray-600 dark:text-gray-300">
-                          Edit headings, reorder sections, and tailor content for
-                          each job.
+                          Edit headings, reorder sections, and tailor content
+                          for each job.
                         </p>
                       </div>
                     </div>
@@ -320,7 +334,10 @@ async function Page() {
 
                   <article className="p-4 rounded-lg border border-gray-200 bg-white dark:bg-gray-800 dark:border-gray-700">
                     <div className="flex items-start gap-3">
-                      <span className="inline-flex items-center justify-center h-8 w-8 rounded-md bg-amber-100 text-amber-800" aria-hidden="true">
+                      <span
+                        className="inline-flex items-center justify-center h-8 w-8 rounded-md bg-amber-100 text-amber-800"
+                        aria-hidden="true"
+                      >
                         <CheckIcon className="h-5 w-5" />
                       </span>
                       <div>
@@ -328,8 +345,8 @@ async function Page() {
                           Export & Apply
                         </h3>
                         <p className="text-sm text-gray-600 dark:text-gray-300">
-                          Download a PDF or keep the resume in your dashboard for
-                          future edits.
+                          Download a PDF or keep the resume in your dashboard
+                          for future edits.
                         </p>
                       </div>
                     </div>
@@ -350,7 +367,10 @@ async function Page() {
                     Featured Templates
                   </h2>
 
-                  <div className="flex gap-4 overflow-x-auto pb-3 -mx-4 px-4" role="list">
+                  <div
+                    className="flex gap-4 overflow-x-auto pb-3 -mx-4 px-4"
+                    role="list"
+                  >
                     {featured.map((t) => (
                       <article
                         key={t.id}
@@ -394,16 +414,25 @@ async function Page() {
               </section>
 
               {/* CTA */}
-              <section aria-labelledby="cta-heading" className="max-w-3xl mx-auto text-center mt-8">
+              <section
+                aria-labelledby="cta-heading"
+                className="max-w-3xl mx-auto text-center mt-8"
+              >
                 <div className="p-6 rounded-lg border text-gray-600 dark:text-gray-300 border-gray-200 bg-white dark:bg-gray-800 dark:border-gray-700">
-                  <h2 id="cta-heading" className="text-lg font-semibold text-gray-900 dark:text-white">
+                  <h2
+                    id="cta-heading"
+                    className="text-lg font-semibold text-gray-900 dark:text-white"
+                  >
                     Found a Template You Like?
                   </h2>
                   <p className="text-sm text-gray-600 dark:text-gray-300 mt-2">
                     Create an account to save templates, edit them online, and
                     export polished PDFs.
                   </p>
-                  <nav aria-label="Account actions" className="mt-4 flex justify-center gap-3">
+                  <nav
+                    aria-label="Account actions"
+                    className="mt-4 flex justify-center gap-3"
+                  >
                     <Link
                       href="/register"
                       className="rounded-md bg-amber-500 px-4 py-2 font-semibold text-black hover:bg-amber-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2"
@@ -440,7 +469,10 @@ async function Page() {
                     >
                       <summary className="cursor-pointer list-none text-sm font-medium text-gray-900 dark:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 rounded">
                         {f.q}
-                        <span className="ml-2 text-gray-500 group-open:rotate-180 transition-transform inline-block" aria-hidden="true">
+                        <span
+                          className="ml-2 text-gray-500 group-open:rotate-180 transition-transform inline-block"
+                          aria-hidden="true"
+                        >
                           ▼
                         </span>
                       </summary>
@@ -456,8 +488,8 @@ async function Page() {
               {/* Small footer note */}
               <footer className="text-center text-xs text-gray-500 dark:text-gray-400 mt-6">
                 <p>
-                  Templates are provided as a starting point. Customize content to
-                  fit your experience and the role you're applying for.
+                  Templates are provided as a starting point. Customize content
+                  to fit your experience and the role you're applying for.
                 </p>
               </footer>
             </div>

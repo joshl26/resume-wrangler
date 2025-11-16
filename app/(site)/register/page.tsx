@@ -19,11 +19,12 @@ export const metadata: Metadata = {
     "free account",
     "resume builder signup",
     "new user registration",
-    "join resume wrangler"
+    "join resume wrangler",
   ],
   openGraph: {
     title: "Sign Up for Resume Wrangler - Start Building Better Resumes",
-    description: "Create your free account and start building AI-powered resumes and cover letters that get you hired.",
+    description:
+      "Create your free account and start building AI-powered resumes and cover letters that get you hired.",
     url: `${process.env.DEPLOYMENT_URL}/register/`,
     type: "website",
     images: [
@@ -41,7 +42,7 @@ export const metadata: Metadata = {
     description: "Create your free account and build better resumes with AI.",
   },
   robots: {
-    index: false, 
+    index: false,
     follow: true,
   },
   alternates: {
@@ -53,14 +54,14 @@ function RegisterStructuredData() {
   const webPageSchema = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "name": "Sign Up for Resume Wrangler",
-    "description": "User registration page for Resume Wrangler",
-    "url": `${process.env.DEPLOYMENT_URL}/register/`,
-    "isPartOf": {
+    name: "Sign Up for Resume Wrangler",
+    description: "User registration page for Resume Wrangler",
+    url: `${process.env.DEPLOYMENT_URL}/register/`,
+    isPartOf: {
       "@type": "WebSite",
-      "name": "Resume Wrangler",
-      "url": `${process.env.DEPLOYMENT_URL}/`
-    }
+      name: "Resume Wrangler",
+      url: `${process.env.DEPLOYMENT_URL}/`,
+    },
   };
 
   return (
@@ -81,7 +82,6 @@ export default async function RegisterPage() {
     { name: "Home", url: "/" },
     { name: "Create Free Account", url: "/register/" },
   ];
-  
 
   return (
     <>
@@ -95,10 +95,15 @@ export default async function RegisterPage() {
             <Breadcrumb items={breadcrumbItems} />
           </nav>
 
-
-          <section aria-labelledby="register-heading" className="register-content">
+          <section
+            aria-labelledby="register-heading"
+            className="register-content"
+          >
             <div className="register-form-wrapper">
-              <h1 id="register-heading" className="text-[2rem] font-bold text-center mb-6">
+              <h1
+                id="register-heading"
+                className="text-[2rem] font-bold text-center mb-6"
+              >
                 Create Your Free Account
               </h1>
 
@@ -108,7 +113,10 @@ export default async function RegisterPage() {
 
               <RegisterUser />
 
-              <nav aria-label="Account navigation" className="register-signup-link mt-4">
+              <nav
+                aria-label="Account navigation"
+                className="register-signup-link mt-4"
+              >
                 <p className="register-signup-text text-center">
                   Already have an account?{" "}
                   <Link
@@ -120,26 +128,54 @@ export default async function RegisterPage() {
                 </p>
               </nav>
 
-              
-
               {/* Trust indicators */}
               <div className="mt-8 pt-6 border-t border-slate-200 dark:border-slate-700">
-                <ul className="flex flex-wrap justify-center gap-6 text-sm text-slate-600 dark:text-slate-400" role="list">
+                <ul
+                  className="flex flex-wrap justify-center gap-6 text-sm text-slate-600 dark:text-slate-400"
+                  role="list"
+                >
                   <li className="flex items-center gap-2">
-                    <svg className="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                    <svg
+                      className="w-4 h-4 text-green-600"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                      aria-hidden="true"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                        clipRule="evenodd"
+                      />
                     </svg>
                     <span>Free forever plan</span>
                   </li>
                   <li className="flex items-center gap-2">
-                    <svg className="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                    <svg
+                      className="w-4 h-4 text-green-600"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                      aria-hidden="true"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                        clipRule="evenodd"
+                      />
                     </svg>
                     <span>No credit card required</span>
                   </li>
                   <li className="flex items-center gap-2">
-                    <svg className="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                    <svg
+                      className="w-4 h-4 text-green-600"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                      aria-hidden="true"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                        clipRule="evenodd"
+                      />
                     </svg>
                     <span>Data encrypted & secure</span>
                   </li>
@@ -149,19 +185,19 @@ export default async function RegisterPage() {
               {/* Privacy notice */}
               <p className="mt-6 text-xs text-center text-slate-500 dark:text-slate-500">
                 By signing up, you agree to our{" "}
-                 <Link
+                <Link
                   href="/privacy-policy"
                   className="text-rose-800 hover:text-rose-600 dark:text-rose-400 dark:hover:text-rose-300 underline focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500 focus-visible:ring-offset-2 rounded"
                 >
                   Privacy Policy
                 </Link>{" "}
-                and{" "}<Link
+                and{" "}
+                <Link
                   href="/terms-of-service"
                   className="text-rose-800 hover:text-rose-600 dark:text-rose-400 dark:hover:text-rose-300 underline focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500 focus-visible:ring-offset-2 rounded"
                 >
                   Terms of Service
                 </Link>{" "}
-               
               </p>
               <nav aria-label="Page navigation" className="mt-6">
                 <BackButton className="register-back-button" href="/">
@@ -169,9 +205,7 @@ export default async function RegisterPage() {
                 </BackButton>
               </nav>
             </div>
-            
           </section>
-          
         </div>
       </div>
     </>

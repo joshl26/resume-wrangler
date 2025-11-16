@@ -25,11 +25,12 @@ export const metadata: Metadata = {
     "service agreement",
     "legal terms",
     "user rights",
-    "service policies"
+    "service policies",
   ],
   openGraph: {
     title: "Terms of Service - Resume Wrangler",
-    description: "Read our terms of service and user agreement for using Resume Wrangler.",
+    description:
+      "Read our terms of service and user agreement for using Resume Wrangler.",
     url: `${process.env.DEPLOYMENT_URL}/terms-of-service/`,
     type: "website",
     images: [
@@ -65,50 +66,50 @@ function TermsStructuredData() {
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
-    "itemListElement": [
+    itemListElement: [
       {
         "@type": "ListItem",
-        "position": 1,
-        "name": "Home",
-        "item": `${process.env.DEPLOYMENT_URL}`
+        position: 1,
+        name: "Home",
+        item: `${process.env.DEPLOYMENT_URL}`,
       },
       {
         "@type": "ListItem",
-        "position": 2,
-        "name": "Terms of Service",
-        "item": `${process.env.DEPLOYMENT_URL}/terms-of-service/`
-      }
-    ]
+        position: 2,
+        name: "Terms of Service",
+        item: `${process.env.DEPLOYMENT_URL}/terms-of-service/`,
+      },
+    ],
   };
 
   const webPageSchema = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "name": "Terms of Service",
-    "description": "Resume Wrangler's terms of service and user agreement",
-    "url": `${process.env.DEPLOYMENT_URL}/terms-of-service/`,
-    "datePublished": "2025-11-14",
-    "dateModified": "2025-11-14",
-    "inLanguage": "en-US",
-    "isPartOf": {
+    name: "Terms of Service",
+    description: "Resume Wrangler's terms of service and user agreement",
+    url: `${process.env.DEPLOYMENT_URL}/terms-of-service/`,
+    datePublished: "2025-11-14",
+    dateModified: "2025-11-14",
+    inLanguage: "en-US",
+    isPartOf: {
       "@type": "WebSite",
-      "name": "Resume Wrangler",
-      "url": `${process.env.DEPLOYMENT_URL}/`
-    }
+      name: "Resume Wrangler",
+      url: `${process.env.DEPLOYMENT_URL}/`,
+    },
   };
 
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "name": "Resume Wrangler",
-    "url": `${process.env.DEPLOYMENT_URL}/`,
-    "contactPoint": {
+    name: "Resume Wrangler",
+    url: `${process.env.DEPLOYMENT_URL}/`,
+    contactPoint: {
       "@type": "ContactPoint",
-      "email": "legal@resumewrangler.com",
-      "contactType": "Legal Inquiries",
-      "availableLanguage": "English"
+      email: "legal@resumewrangler.com",
+      contactType: "Legal Inquiries",
+      availableLanguage: "English",
     },
-    "termsOfService": `${process.env.DEPLOYMENT_URL}/terms-of-service/`
+    termsOfService: `${process.env.DEPLOYMENT_URL}/terms-of-service/`,
   };
 
   return (
@@ -156,56 +157,76 @@ export default function TermsPage() {
           <article className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-8 space-y-8">
             {/* Introduction */}
             <section aria-labelledby="intro-heading">
-              <h2 id="intro-heading" className="sr-only">Introduction</h2>
+              <h2 id="intro-heading" className="sr-only">
+                Introduction
+              </h2>
               <p className="text-slate-700 dark:text-slate-300 leading-relaxed">
-                Welcome to Resume Wrangler. These Terms of Service govern your use of
-                our platform and services. By creating an account or accessing our
-                service, you agree to these terms in full. Please read them
-                carefully.
+                Welcome to Resume Wrangler. These Terms of Service govern your
+                use of our platform and services. By creating an account or
+                accessing our service, you agree to these terms in full. Please
+                read them carefully.
               </p>
             </section>
 
             {/* Agreement to Terms */}
             <section aria-labelledby="agreement-heading">
               <div className="flex items-center gap-3 mb-4">
-                <UserCheck className="w-6 h-6 text-purple-600 dark:text-purple-400" aria-hidden="true" />
-                <h2 id="agreement-heading" className="text-2xl font-bold text-slate-900 dark:text-white">
+                <UserCheck
+                  className="w-6 h-6 text-purple-600 dark:text-purple-400"
+                  aria-hidden="true"
+                />
+                <h2
+                  id="agreement-heading"
+                  className="text-2xl font-bold text-slate-900 dark:text-white"
+                >
                   Agreement to Terms
                 </h2>
               </div>
               <p className="text-slate-700 dark:text-slate-300 leading-relaxed">
                 By accessing and using this service, you accept and agree to be
-                bound by the terms and provision of this agreement. Additionally,
-                when using our services, you shall be subject to any posted
-                guidelines or rules applicable to such services. If you do not
-                agree to these terms, please do not use our service.
+                bound by the terms and provision of this agreement.
+                Additionally, when using our services, you shall be subject to
+                any posted guidelines or rules applicable to such services. If
+                you do not agree to these terms, please do not use our service.
               </p>
             </section>
 
             {/* Use License */}
             <section aria-labelledby="license-heading">
               <div className="flex items-center gap-3 mb-4">
-                <BookOpen className="w-6 h-6 text-purple-600 dark:text-purple-400" aria-hidden="true" />
-                <h2 id="license-heading" className="text-2xl font-bold text-slate-900 dark:text-white">
+                <BookOpen
+                  className="w-6 h-6 text-purple-600 dark:text-purple-400"
+                  aria-hidden="true"
+                />
+                <h2
+                  id="license-heading"
+                  className="text-2xl font-bold text-slate-900 dark:text-white"
+                >
                   Use License
                 </h2>
               </div>
               <div className="space-y-4 text-slate-700 dark:text-slate-300">
                 <p className="leading-relaxed">
-                  Permission is granted to temporarily access and use our service
-                  for personal, non-commercial purposes. This is the grant of a
-                  license, not a transfer of title, and under this license you may
-                  not:
+                  Permission is granted to temporarily access and use our
+                  service for personal, non-commercial purposes. This is the
+                  grant of a license, not a transfer of title, and under this
+                  license you may not:
                 </p>
                 <ul className="space-y-2 pl-4" role="list">
                   <li className="flex items-start gap-2">
-                    <span className="text-purple-600 dark:text-purple-400 mt-1" aria-hidden="true">
+                    <span
+                      className="text-purple-600 dark:text-purple-400 mt-1"
+                      aria-hidden="true"
+                    >
                       •
                     </span>
                     <span>Modify or copy the materials</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-purple-600 dark:text-purple-400 mt-1" aria-hidden="true">
+                    <span
+                      className="text-purple-600 dark:text-purple-400 mt-1"
+                      aria-hidden="true"
+                    >
                       •
                     </span>
                     <span>
@@ -214,7 +235,10 @@ export default function TermsPage() {
                     </span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-purple-600 dark:text-purple-400 mt-1" aria-hidden="true">
+                    <span
+                      className="text-purple-600 dark:text-purple-400 mt-1"
+                      aria-hidden="true"
+                    >
                       •
                     </span>
                     <span>
@@ -223,7 +247,10 @@ export default function TermsPage() {
                     </span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-purple-600 dark:text-purple-400 mt-1" aria-hidden="true">
+                    <span
+                      className="text-purple-600 dark:text-purple-400 mt-1"
+                      aria-hidden="true"
+                    >
                       •
                     </span>
                     <span>
@@ -231,7 +258,10 @@ export default function TermsPage() {
                     </span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-purple-600 dark:text-purple-400 mt-1" aria-hidden="true">
+                    <span
+                      className="text-purple-600 dark:text-purple-400 mt-1"
+                      aria-hidden="true"
+                    >
                       •
                     </span>
                     <span>
@@ -241,8 +271,8 @@ export default function TermsPage() {
                   </li>
                 </ul>
                 <p className="leading-relaxed">
-                  This license shall automatically terminate if you violate any of
-                  these restrictions and may be terminated by us at any time.
+                  This license shall automatically terminate if you violate any
+                  of these restrictions and may be terminated by us at any time.
                 </p>
               </div>
             </section>
@@ -250,8 +280,14 @@ export default function TermsPage() {
             {/* User Responsibilities */}
             <section aria-labelledby="responsibilities-heading">
               <div className="flex items-center gap-3 mb-4">
-                <Shield className="w-6 h-6 text-purple-600 dark:text-purple-400" aria-hidden="true" />
-                <h2 id="responsibilities-heading" className="text-2xl font-bold text-slate-900 dark:text-white">
+                <Shield
+                  className="w-6 h-6 text-purple-600 dark:text-purple-400"
+                  aria-hidden="true"
+                />
+                <h2
+                  id="responsibilities-heading"
+                  className="text-2xl font-bold text-slate-900 dark:text-white"
+                >
                   User Responsibilities
                 </h2>
               </div>
@@ -261,7 +297,10 @@ export default function TermsPage() {
                 </p>
                 <ul className="space-y-2 pl-4" role="list">
                   <li className="flex items-start gap-2">
-                    <span className="text-purple-600 dark:text-purple-400 mt-1" aria-hidden="true">
+                    <span
+                      className="text-purple-600 dark:text-purple-400 mt-1"
+                      aria-hidden="true"
+                    >
                       •
                     </span>
                     <span>
@@ -269,7 +308,10 @@ export default function TermsPage() {
                     </span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-purple-600 dark:text-purple-400 mt-1" aria-hidden="true">
+                    <span
+                      className="text-purple-600 dark:text-purple-400 mt-1"
+                      aria-hidden="true"
+                    >
                       •
                     </span>
                     <span>
@@ -278,7 +320,10 @@ export default function TermsPage() {
                     </span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-purple-600 dark:text-purple-400 mt-1" aria-hidden="true">
+                    <span
+                      className="text-purple-600 dark:text-purple-400 mt-1"
+                      aria-hidden="true"
+                    >
                       •
                     </span>
                     <span>
@@ -287,7 +332,10 @@ export default function TermsPage() {
                     </span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-purple-600 dark:text-purple-400 mt-1" aria-hidden="true">
+                    <span
+                      className="text-purple-600 dark:text-purple-400 mt-1"
+                      aria-hidden="true"
+                    >
                       •
                     </span>
                     <span>
@@ -296,16 +344,22 @@ export default function TermsPage() {
                     </span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-purple-600 dark:text-purple-400 mt-1" aria-hidden="true">
+                    <span
+                      className="text-purple-600 dark:text-purple-400 mt-1"
+                      aria-hidden="true"
+                    >
                       •
                     </span>
                     <span>
-                      Comply with all applicable laws and regulations while using
-                      our service
+                      Comply with all applicable laws and regulations while
+                      using our service
                     </span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-purple-600 dark:text-purple-400 mt-1" aria-hidden="true">
+                    <span
+                      className="text-purple-600 dark:text-purple-400 mt-1"
+                      aria-hidden="true"
+                    >
                       •
                     </span>
                     <span>Respect the rights and dignity of other users</span>
@@ -317,8 +371,14 @@ export default function TermsPage() {
             {/* Prohibited Activities */}
             <section aria-labelledby="prohibited-heading">
               <div className="flex items-center gap-3 mb-4">
-                <AlertCircle className="w-6 h-6 text-red-600 dark:text-red-400" aria-hidden="true" />
-                <h2 id="prohibited-heading" className="text-2xl font-bold text-slate-900 dark:text-white">
+                <AlertCircle
+                  className="w-6 h-6 text-red-600 dark:text-red-400"
+                  aria-hidden="true"
+                />
+                <h2
+                  id="prohibited-heading"
+                  className="text-2xl font-bold text-slate-900 dark:text-white"
+                >
                   Prohibited Activities
                 </h2>
               </div>
@@ -328,59 +388,79 @@ export default function TermsPage() {
                 </p>
                 <ul className="space-y-2 pl-4" role="list">
                   <li className="flex items-start gap-2">
-                    <span className="text-red-500 mt-1" aria-hidden="true">•</span>
+                    <span className="text-red-500 mt-1" aria-hidden="true">
+                      •
+                    </span>
                     <span>Using the service for any unlawful purpose</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-red-500 mt-1" aria-hidden="true">•</span>
+                    <span className="text-red-500 mt-1" aria-hidden="true">
+                      •
+                    </span>
                     <span>Soliciting others to perform illegal acts</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-red-500 mt-1" aria-hidden="true">•</span>
+                    <span className="text-red-500 mt-1" aria-hidden="true">
+                      •
+                    </span>
                     <span>
                       Violating any international, federal, provincial, or state
                       regulations
                     </span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-red-500 mt-1" aria-hidden="true">•</span>
+                    <span className="text-red-500 mt-1" aria-hidden="true">
+                      •
+                    </span>
                     <span>
                       Infringing upon or violating our intellectual property
                       rights
                     </span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-red-500 mt-1" aria-hidden="true">•</span>
+                    <span className="text-red-500 mt-1" aria-hidden="true">
+                      •
+                    </span>
                     <span>
                       Harassing, abusing, insulting, harming, defaming, or
                       discriminating
                     </span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-red-500 mt-1" aria-hidden="true">•</span>
+                    <span className="text-red-500 mt-1" aria-hidden="true">
+                      •
+                    </span>
                     <span>Submitting false or misleading information</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-red-500 mt-1" aria-hidden="true">•</span>
+                    <span className="text-red-500 mt-1" aria-hidden="true">
+                      •
+                    </span>
                     <span>Uploading viruses or malicious code</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-red-500 mt-1" aria-hidden="true">•</span>
+                    <span className="text-red-500 mt-1" aria-hidden="true">
+                      •
+                    </span>
                     <span>
                       Collecting or tracking personal information of others
                     </span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-red-500 mt-1" aria-hidden="true">•</span>
+                    <span className="text-red-500 mt-1" aria-hidden="true">
+                      •
+                    </span>
                     <span>
                       Spamming, phishing, or engaging in similar activities
                     </span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-red-500 mt-1" aria-hidden="true">•</span>
+                    <span className="text-red-500 mt-1" aria-hidden="true">
+                      •
+                    </span>
                     <span>
-                      Using the service for any automated purpose without express
-                      permission
+                      Using the service for any automated purpose without
+                      express permission
                     </span>
                   </li>
                 </ul>
@@ -389,36 +469,42 @@ export default function TermsPage() {
 
             {/* Service Availability */}
             <section aria-labelledby="availability-heading">
-              <h2 id="availability-heading" className="text-2xl font-bold text-slate-900 dark:text-white mb-4">
+              <h2
+                id="availability-heading"
+                className="text-2xl font-bold text-slate-900 dark:text-white mb-4"
+              >
                 Service Availability
               </h2>
               <p className="text-slate-700 dark:text-slate-300 leading-relaxed">
                 We reserve the right to withdraw or amend our service, and any
                 features or material we provide, at our sole discretion without
-                notice. We will not be liable if for any reason all or any part of
-                the service is unavailable at any time or for any period. From
-                time to time, we may restrict access to some parts of the service,
-                or the entire service, to users.
+                notice. We will not be liable if for any reason all or any part
+                of the service is unavailable at any time or for any period.
+                From time to time, we may restrict access to some parts of the
+                service, or the entire service, to users.
               </p>
             </section>
 
             {/* Intellectual Property Rights */}
             <section aria-labelledby="ip-heading">
-              <h2 id="ip-heading" className="text-2xl font-bold text-slate-900 dark:text-white mb-4">
+              <h2
+                id="ip-heading"
+                className="text-2xl font-bold text-slate-900 dark:text-white mb-4"
+              >
                 Intellectual Property Rights
               </h2>
               <div className="space-y-4 text-slate-700 dark:text-slate-300">
                 <p className="leading-relaxed">
-                  Unless otherwise stated, we own the intellectual property rights
-                  for all material on this service. All intellectual property
-                  rights are reserved. You may access content from our service for
-                  your own personal use, subject to restrictions set in these
-                  terms.
+                  Unless otherwise stated, we own the intellectual property
+                  rights for all material on this service. All intellectual
+                  property rights are reserved. You may access content from our
+                  service for your own personal use, subject to restrictions set
+                  in these terms.
                 </p>
                 <p className="leading-relaxed">
-                  You retain all rights to content you submit, post, or display on
-                  or through the service. By submitting content, you grant us a
-                  worldwide, non-exclusive, royalty-free license to use, copy,
+                  You retain all rights to content you submit, post, or display
+                  on or through the service. By submitting content, you grant us
+                  a worldwide, non-exclusive, royalty-free license to use, copy,
                   reproduce, process, adapt, modify, publish, transmit, display,
                   and distribute such content in any media.
                 </p>
@@ -428,37 +514,49 @@ export default function TermsPage() {
             {/* Limitation of Liability */}
             <section aria-labelledby="liability-heading">
               <div className="flex items-center gap-3 mb-4">
-                <Gavel className="w-6 h-6 text-purple-600 dark:text-purple-400" aria-hidden="true" />
-                <h2 id="liability-heading" className="text-2xl font-bold text-slate-900 dark:text-white">
+                <Gavel
+                  className="w-6 h-6 text-purple-600 dark:text-purple-400"
+                  aria-hidden="true"
+                />
+                <h2
+                  id="liability-heading"
+                  className="text-2xl font-bold text-slate-900 dark:text-white"
+                >
                   Limitation of Liability
                 </h2>
               </div>
               <p className="text-slate-700 dark:text-slate-300 leading-relaxed">
                 To the fullest extent permitted by applicable law, in no event
                 will we be liable for any indirect, consequential, exemplary,
-                incidental, special, or punitive damages, including lost profits,
-                lost data, personal injury, or property damage related to, in
-                connection with, or otherwise resulting from any use of the
-                service.
+                incidental, special, or punitive damages, including lost
+                profits, lost data, personal injury, or property damage related
+                to, in connection with, or otherwise resulting from any use of
+                the service.
               </p>
             </section>
 
             {/* Indemnification */}
             <section aria-labelledby="indemnification-heading">
-              <h2 id="indemnification-heading" className="text-2xl font-bold text-slate-900 dark:text-white mb-4">
+              <h2
+                id="indemnification-heading"
+                className="text-2xl font-bold text-slate-900 dark:text-white mb-4"
+              >
                 Indemnification
               </h2>
               <p className="text-slate-700 dark:text-slate-300 leading-relaxed">
                 You agree to defend, indemnify, and hold us harmless from and
                 against any claims, liabilities, damages, judgments, awards,
-                losses, costs, expenses, or fees arising out of your violation of
-                these Terms of Service or your use of the service.
+                losses, costs, expenses, or fees arising out of your violation
+                of these Terms of Service or your use of the service.
               </p>
             </section>
 
             {/* Severability */}
             <section aria-labelledby="severability-heading">
-              <h2 id="severability-heading" className="text-2xl font-bold text-slate-900 dark:text-white mb-4">
+              <h2
+                id="severability-heading"
+                className="text-2xl font-bold text-slate-900 dark:text-white mb-4"
+              >
                 Severability and Waiver
               </h2>
               <div className="space-y-4 text-slate-700 dark:text-slate-300">
@@ -478,37 +576,53 @@ export default function TermsPage() {
 
             {/* Modifications */}
             <section aria-labelledby="modifications-heading">
-              <h2 id="modifications-heading" className="text-2xl font-bold text-slate-900 dark:text-white mb-4">
+              <h2
+                id="modifications-heading"
+                className="text-2xl font-bold text-slate-900 dark:text-white mb-4"
+              >
                 Modifications to Terms
               </h2>
               <p className="text-slate-700 dark:text-slate-300 leading-relaxed">
-                We reserve the right, at our sole discretion, to modify or replace
-                these Terms at any time. We will provide notice of any material
-                changes by posting the new Terms on this page and updating the
-                "Last updated" date. Your continued use of the service after any
-                changes constitutes acceptance of those changes.
+                We reserve the right, at our sole discretion, to modify or
+                replace these Terms at any time. We will provide notice of any
+                material changes by posting the new Terms on this page and
+                updating the "Last updated" date. Your continued use of the
+                service after any changes constitutes acceptance of those
+                changes.
               </p>
             </section>
 
             {/* Governing Law */}
             <section aria-labelledby="law-heading">
-              <h2 id="law-heading" className="text-2xl font-bold text-slate-900 dark:text-white mb-4">
+              <h2
+                id="law-heading"
+                className="text-2xl font-bold text-slate-900 dark:text-white mb-4"
+              >
                 Governing Law and Jurisdiction
               </h2>
               <p className="text-slate-700 dark:text-slate-300 leading-relaxed">
-                These Terms shall be governed by and construed in accordance with
-                the laws of your jurisdiction, without regard to its conflict of
-                law provisions. You agree to submit to the personal and exclusive
-                jurisdiction of the courts located within your jurisdiction for
-                the resolution of any disputes.
+                These Terms shall be governed by and construed in accordance
+                with the laws of your jurisdiction, without regard to its
+                conflict of law provisions. You agree to submit to the personal
+                and exclusive jurisdiction of the courts located within your
+                jurisdiction for the resolution of any disputes.
               </p>
             </section>
 
             {/* Contact */}
-            <section aria-labelledby="contact-heading" className="bg-linear-to-r from-purple-50 to-pink-50 dark:from-purple-950 dark:to-pink-950 p-6 rounded-xl">
+            <section
+              aria-labelledby="contact-heading"
+              className="bg-linear-to-r from-purple-50 to-pink-50 dark:from-purple-950 dark:to-pink-950 p-6 rounded-xl"
+            >
               <div className="flex items-center gap-3 mb-3">
-                <Mail className="w-6 h-6 text-purple-600 dark:text-purple-400" aria-hidden="true" />
-                <h2 id="contact-heading" className="text-2xl font-bold text-slate-900 dark:text-white">
+                <Mail
+                  className="w-6 h-6 text-purple-600 dark:text-purple-400"
+                  aria-hidden="true"
+                />
+                <h2
+                  id="contact-heading"
+                  className="text-2xl font-bold text-slate-900 dark:text-white"
+                >
                   Contact Us
                 </h2>
               </div>
@@ -525,8 +639,13 @@ export default function TermsPage() {
             </section>
 
             {/* Acknowledgment */}
-            <section aria-labelledby="acknowledgment-heading" className="border-t border-slate-200 dark:border-slate-700 pt-6">
-              <h2 id="acknowledgment-heading" className="sr-only">Acknowledgment</h2>
+            <section
+              aria-labelledby="acknowledgment-heading"
+              className="border-t border-slate-200 dark:border-slate-700 pt-6"
+            >
+              <h2 id="acknowledgment-heading" className="sr-only">
+                Acknowledgment
+              </h2>
               <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
                 By using our service, you acknowledge that you have read these
                 Terms of Service and agree to be bound by them. These terms
@@ -537,7 +656,10 @@ export default function TermsPage() {
           </article>
 
           {/* Footer Navigation */}
-          <nav aria-label="Related pages" className="mt-8 flex items-center justify-between">
+          <nav
+            aria-label="Related pages"
+            className="mt-8 flex items-center justify-between"
+          >
             <BackButton className="text-slate-600 dark:text-slate-300" href="/">
               Back to Home
             </BackButton>

@@ -86,6 +86,11 @@
 @import "./styles/job-boards.css";
 @import "./styles/login.css";
 @import "./styles/register-user.css";
+@import "./styles/side-nav.css";
+@import "./styles/dropdown.css";
+@import "./styles/new-application.css";
+@import "./styles/pagination.css";
+@import "./styles/new-company.css";
 
 /* ---------------------------
    Shared Components Layer

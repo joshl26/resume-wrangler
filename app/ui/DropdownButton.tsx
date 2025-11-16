@@ -14,7 +14,6 @@ const Dropdown = () => {
   const closeDropdown = (e: any) => {
     setIsOpen(false);
     setStatus(e.target.name);
-    console.log(e.target.id);
     handleSearch(e.target.id);
   };
 
@@ -22,8 +21,6 @@ const Dropdown = () => {
   const pathname = usePathname();
   const { replace } = useRouter();
   const handleSearch = useDebouncedCallback((term) => {
-    // console.log(`Searching... ${term}`);
-
     const params = new URLSearchParams(searchParams);
     params.set("sort", "all");
     params.delete("page");
@@ -36,16 +33,20 @@ const Dropdown = () => {
   }, 500);
 
   return (
-    <div className="w-full">
-      <div className="relative inline-block">
+    <div className="dropdown-container">
+      <div className="dropdown">
         <button
           type="button"
-          className="px-4 py-[9px] w-[175px] tight-shadow rounded bg-white hover:bg-rose-600 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-light text-sm inline-flex items-center"
+          className="dropdown-button"
           onClick={toggleDropdown}
+          aria-haspopup="true"
+          aria-expanded={isOpen}
         >
-          {status === "" ? "Sort By" : status}
+          <span className="dropdown-button-text">
+            {status === "" ? "Sort By" : status}
+          </span>
           <svg
-            className="w-2.5 h-2.5 ml-2.5"
+            className={`dropdown-icon ${isOpen ? "rotated" : ""}`}
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -61,14 +62,14 @@ const Dropdown = () => {
           </svg>
         </button>
         {isOpen && (
-          <div className="origin-top-right z-30 absolute right-0 mt-2 w-44 rounded-lg tight-shadow bg-white ring-1 ring-black ring-opacity-5">
-            <ul role="list" aria-labelledby="options-menu">
+          <div className="dropdown-menu">
+            <ul role="list" className="dropdown-list">
               <li>
                 <button
                   type="button"
                   id="all"
                   name="All Applications"
-                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
+                  className="dropdown-item"
                   onClick={closeDropdown}
                 >
                   All Applications
@@ -78,7 +79,7 @@ const Dropdown = () => {
                 <button
                   id="not_submitted"
                   name="Not Submitted"
-                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
+                  className="dropdown-item"
                   onClick={closeDropdown}
                 >
                   Not Submitted
@@ -88,21 +89,12 @@ const Dropdown = () => {
                 <button
                   id="submitted"
                   name="Submitted"
-                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
+                  className="dropdown-item"
                   onClick={closeDropdown}
                 >
                   Submitted
                 </button>
               </li>
-              {/* <li>
-                <a
-                  href="#"
-                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                  onClick={closeDropdown}
-                >
-                  Rejected
-                </a>
-              </li> */}
             </ul>
           </div>
         )}

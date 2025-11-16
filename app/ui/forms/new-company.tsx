@@ -112,11 +112,7 @@ export default function NewCompany({ user }: Props) {
 
   return (
     <div className="px-2">
-      <BackButton className="" href={"/dashboard/companies"}>
-        Back
-      </BackButton>
-
-      <div className="flex flex-row justify-between items-center mt-4 mb-2">
+      <div className="flex flex-row justify-between items-center mb-2">
         <div className="flex flex-col">
           <h1 className="text-[2rem] font-bold">Add New Company</h1>
           <p className="text-sm text-muted-foreground">
@@ -315,7 +311,7 @@ export default function NewCompany({ user }: Props) {
           </div>
         </div>
 
-        <div aria-live="polite" aria-atomic="true" className="min-h-[1.25rem]">
+        <div aria-live="polite" aria-atomic="true" className="min-h-5">
           {statusMessage && (
             <p className="text-sm text-red-600">{statusMessage}</p>
           )}

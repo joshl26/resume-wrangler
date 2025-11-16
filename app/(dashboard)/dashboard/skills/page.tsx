@@ -1,11 +1,12 @@
 // app/dashboard/skills/page.tsx
+
 import {
   fetchSkillsByUserId,
   fetchSkillsCount,
   fetchSkillsPages,
   getUser,
 } from "@/app/lib/data";
-import Breadcrumbs from "@/app/ui/Breadcrumbs";
+import Breadcrumb from "@/app/ui/Breadcrumb";
 import BackButton from "@/app/ui/back-button";
 import { Button } from "@/app/ui/button";
 import Search from "@/app/ui/search";
@@ -20,52 +21,55 @@ type SearchParams = {
 };
 
 interface PageProps {
-  // Match Next's generated signature: searchParams may be a Promise or undefined
   searchParams?: Promise<SearchParams>;
 }
 
-// Type guard to filter out null/undefined from arrays
 function notNull<T>(v: T | null | undefined): v is T {
   return v != null;
 }
 
 export default async function Page({ searchParams }: PageProps) {
-  // Unwrap searchParams whether it's a Promise or a plain object
   const resolvedSearchParams = await searchParams;
   const query = resolvedSearchParams?.query || "";
   const currentPage = Number(resolvedSearchParams?.page) || 1;
 
-  // Auth
   const session = await auth();
   const email = session?.user?.email;
-  // if (!email) return notFound();
+  if (!email) {
+    return notFound();
+  }
 
-  // Fetch the full user record using email (do not mutate session.user)
-  const user = await getUser(email!);
-  if (!user) return notFound();
+  const user = await getUser(email);
+  if (!user || !user.id) {
+    return notFound();
+  }
 
-  // Fetch skills and ensure non-null entries
   const skillsRaw = await fetchSkillsByUserId(user.id);
   const skills = (skillsRaw ?? []).filter(notNull);
 
   const totalPages = await fetchSkillsPages(query, user.id);
   const totalCount = await fetchSkillsCount(query, user.id);
 
+  const breadcrumbItems = [
+    { name: "Dashboard", url: "/dashboard" },
+    { name: "Skills", url: "/dashboard/skills/" },
+  ];
+
   return (
-    <div className="h-full w-full px-2 overflow-y-auto ">
-      <BackButton className="" href={"/dashboard/"}>
-        Back
-      </BackButton>
+    <div className="w-full px-2">
+      <div className="flex flex-col">
+        <nav aria-label="Breadcrumb" className="mb-8">
+          <Breadcrumb items={breadcrumbItems} />
+        </nav>
+      </div>
+
       <div className="flex flex-row justify-between">
-        <div className="flex flex-col ">
-          <Breadcrumbs />
-        </div>
-        <div className="flex flex-col px-4">
-          <div className="flex flex-row gap-x-3 h-auto ">
-            <div className="flex flex-col w-1/2 m-auto  ">
+        <div className="flex flex-col pr-3 pb-5">
+          <div className="flex flex-row gap-x-3 m-auto">
+            <div className="flex flex-col">
               <Search placeholder="Search skills..." />
             </div>
-            <div className="flex flex-col w-1/2 m-auto">
+            <div className="flex flex-col">
               <Button className="btn btn-amber tight-shadow hover:animate-pulse">
                 <a href="/dashboard/skills/new" className="m-auto">
                   Add New Skill
@@ -75,6 +79,7 @@ export default async function Page({ searchParams }: PageProps) {
           </div>
         </div>
       </div>
+
       <Suspense key={query + currentPage}>
         <Skills
           user={user}
@@ -85,6 +90,10 @@ export default async function Page({ searchParams }: PageProps) {
           totalCount={totalCount}
         />
       </Suspense>
+
+      <div className="pt-10">
+        <BackButton href="/dashboard/">Back</BackButton>
+      </div>
     </div>
   );
 }

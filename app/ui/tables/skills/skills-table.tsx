@@ -15,6 +15,7 @@ export default function Skills({
   query,
   currentPage,
   totalCount,
+  serverSkills,
 }: {
   user: User;
   skills: UserSkills;
@@ -22,22 +23,27 @@ export default function Skills({
   query: string;
   currentPage: number;
   totalCount: number;
+  serverSkills?: UserSkills;
 }) {
   const router = useRouter();
   const [filteredSkills, setFilteredSkills] = useState<UserSkills>(
-    skills ?? [],
+    serverSkills ?? [],
   );
   const [isSubmitting, setIsSubmitting] = useState<Record<string, boolean>>({});
 
   useEffect(() => {
     let mounted = true;
+
+    if (serverSkills !== undefined) {
+      if (mounted) setFilteredSkills(serverSkills ?? []);
+      return () => {
+        mounted = false;
+      };
+    }
+
     (async () => {
       try {
-        const data: UserSkills = await fetchFilteredSkills(
-          query,
-          currentPage,
-          user?.id,
-        );
+        const data = await fetchFilteredSkills(query, currentPage, user?.id);
         if (mounted) setFilteredSkills(data ?? []);
       } catch (err) {
         console.error("Failed to fetch filtered skills:", err);
@@ -48,54 +54,28 @@ export default function Skills({
     return () => {
       mounted = false;
     };
-  }, [query, currentPage, user?.id]);
+  }, [query, currentPage, user?.id, serverSkills]);
 
-  // Wrapper so form.action receives (formData: FormData) => void | Promise<void>
-  const handleDeleteSkill = async (
+  const handleSubmit = async (
+    actionFn: (formData: FormData) => Promise<unknown>,
     formData: FormData,
-    key: string,
-  ): Promise<void> => {
-    setIsSubmitting((prev) => ({ ...prev, [key]: true }));
+    id: string,
+  ) => {
+    setIsSubmitting((prev) => ({ ...prev, [id]: true }));
     try {
-      const skillId = formData.get("id")?.toString() ?? null;
-
-      let result: any;
-      // Try calling deleteUserSkill with id first (common pattern). If it expects FormData, fallback.
-      try {
-        result = await (
-          deleteUserSkill as unknown as (arg: any) => Promise<any>
-        )(skillId ?? formData);
-      } catch (err) {
-        try {
-          result = await (
-            deleteUserSkill as unknown as (arg: any) => Promise<any>
-          )(formData);
-        } catch (err2) {
-          console.error(
-            "deleteUserSkill failed with both id and FormData:",
-            err2,
-          );
-          throw err2;
-        }
-      }
-
-      if (result?.errors) {
-        console.error("Delete skill failed:", result);
-      } else {
-        // refresh to reflect deletion
-        router.refresh();
-      }
-    } catch (err) {
-      console.error("Unexpected error deleting skill:", err);
+      await actionFn(formData);
+      router.refresh();
+    } catch (error) {
+      console.error("Action failed:", error);
     } finally {
-      setIsSubmitting((prev) => ({ ...prev, [key]: false }));
+      setIsSubmitting((prev) => ({ ...prev, [id]: false }));
     }
   };
 
   return (
-    <div className="relative overflow-x-auto tight-shadow rounded px-4 pt-4 pb-4 mb-10 mr-3 bg-white">
-      <table className="w-full text-sm text-left rtl:text-right tight-shadow">
-        <thead className="text-xs uppercase">
+    <div className="relative overflow-x-auto overflow-y-auto tight-shadow rounded px-4 py-4 mr-4">
+      <table className="w-full text-sm text-left rtl:text-right rounded tight-shadow">
+        <thead className="text-xs text-black uppercase border-spacing-2">
           <tr>
             <th scope="col" className="px-6 py-3">
               Skill Name
@@ -109,67 +89,60 @@ export default function Skills({
           </tr>
         </thead>
         <tbody>
-          {filteredSkills?.length > 0 ? (
-            filteredSkills.map((skill: any) => {
-              const key = `delete-skill-${String(skill?.id)}`;
+          {filteredSkills && filteredSkills.length > 0 ? (
+            filteredSkills.map((skill) => {
+              const key = `delete-skill-${skill.id}`;
               return (
-                <tr key={skill?.id} className="border-b">
-                  <td className="px-6 h-[45px] font-medium text-gray-900 whitespace-nowrap ">
-                    <Link href={`/dashboard/skills/edit/${skill?.id}`}>
-                      {skill?.skill ?? "N/A"}
+                <tr key={skill.id} className="border-b hover:bg-gray-50">
+                  <td className="px-6 h-[55px] font-medium whitespace-nowrap">
+                    <Link href={`/dashboard/skills/edit/${skill.id}`}>
+                      {skill.skill ?? "N/A"}
                     </Link>
                   </td>
                   <td className="px-6">
-                    <div className="flex flex-row gap-2 justify-start items-center">
+                    <div className="flex flex-row gap-2 items-center">
                       <input
                         title={
-                          skill?.skill_level ? `${skill?.skill_level}%` : "N/A"
+                          skill.skill_level ? `${skill.skill_level}%` : "N/A"
                         }
                         className="shadow-none"
                         readOnly
                         type="range"
-                        value={skill?.skill_level ?? 0}
+                        value={skill.skill_level ?? 0}
                       />
-                      {skill?.skill_level !== undefined &&
-                      skill?.skill_level !== null ? (
-                        <p>{skill?.skill_level}%</p>
+                      {skill.skill_level !== undefined &&
+                      skill.skill_level !== null ? (
+                        <span>{skill.skill_level}%</span>
                       ) : (
                         "N/A"
                       )}
                     </div>
                   </td>
-                  <td className="text-left px-6">
-                    <div className="flex flex-row items-center">
+                  <td className="px-6">
+                    <div className="flex flex-row items-center gap-3">
                       <Link
-                        id={`edit-skill-${skill?.id}`}
-                        href={`/dashboard/skills/edit/${skill?.id}`}
+                        id={`edit-skill-${skill.id}`}
+                        href={`/dashboard/skills/edit/${skill.id}`}
                         className="font-medium hover:underline"
                       >
                         Edit
                       </Link>
 
                       <form
-                        action={(formData: FormData) =>
-                          handleDeleteSkill(formData, key)
+                        action={(formData) =>
+                          handleSubmit(deleteUserSkill, formData, key)
                         }
                         className="ms-3"
                       >
                         <input
-                          hidden
-                          id="resume_id"
-                          name="resume_id"
-                          readOnly
-                          value="blank"
-                        />
-                        <input
-                          hidden
+                          type="hidden"
                           id="id"
                           name="id"
+                          value={String(skill.id)}
                           readOnly
-                          value={String(skill?.id)}
                         />
                         <button
-                          id={`remove-skill-${skill?.id}`}
+                          id={`remove-skill-${skill.id}`}
                           type="submit"
                           className="font-medium hover:underline ms-3"
                           disabled={!!isSubmitting[key]}
@@ -184,13 +157,16 @@ export default function Skills({
             })
           ) : (
             <tr>
-              <td colSpan={3} className="flex items-center px-6 py-4">
-                <Link
-                  href="/dashboard/skills/new"
-                  className="font-medium text-azure-radiance-600 hover:underline"
-                >
-                  Start by creating your first skill here
-                </Link>
+              <td colSpan={3} className="px-6 py-6">
+                <div className="flex items-center gap-2">
+                  <span>Start by creating your first skill</span>
+                  <Link
+                    href="/dashboard/skills/new"
+                    className="font-medium text-azure-radiance-600 hover:underline"
+                  >
+                    here
+                  </Link>
+                </div>
               </td>
             </tr>
           )}
