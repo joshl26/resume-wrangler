@@ -27,11 +27,6 @@ jest.mock("../job-type-card", () => ({
   ),
 }));
 
-jest.mock("../responses-card", () => ({
-  __esModule: true,
-  default: () => <div data-testid="responses-card" />,
-}));
-
 jest.mock("../applications-card", () => ({
   __esModule: true,
   default: ({ applications }: any) => (

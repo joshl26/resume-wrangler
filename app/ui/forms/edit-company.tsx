@@ -1,13 +1,17 @@
+// description: Form to edit an existing company entry
+// file: app/ui/forms/edit-company.tsx
+
 "use client";
 
 import React, { useRef, useState, useTransition } from "react";
 import { SubmitButton } from "../submit-button";
 import { updateCompany } from "@/app/lib/actions";
 import { Company } from "@/app/lib/definitions";
-import BackButton from "../back-button";
 import { useRouter } from "next/navigation";
 
-export default function EditCompany({ company }: { company: Company }) {
+type Props = { company: Company };
+
+export default function EditCompany({ company }: Props) {
   const router = useRouter();
   const formRef = useRef<HTMLFormElement | null>(null);
   const [edited, setEdited] = useState(false);
@@ -57,7 +61,6 @@ export default function EditCompany({ company }: { company: Company }) {
     return out;
   };
 
-  // handle form submit in client and call updateCompany
   const handleUpdate = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (isSubmitting) return;
@@ -81,28 +84,24 @@ export default function EditCompany({ company }: { company: Company }) {
 
     setIsSubmitting(true);
     try {
-      // NOTE: If updateCompany is a Next.js server action ("use server"),
-      // you cannot import & call it from a client component. In that case:
-      //  - move this form to a server component and set `action={updateCompany}`
-      //  - or call an API route here that invokes the server action.
       const result = (await updateCompany(formData)) as any;
 
       if (result?.errors) {
-        // adapt to your server error shape
-        if (result.errors && typeof result.errors === "object") {
+        if (typeof result.errors === "object") {
           setErrors(result.errors);
           setStatusMessage("Please fix the highlighted fields.");
         } else {
-          setStatusMessage("Failed to save updates. Please try again.");
-          console.error("Update company failed:", result);
+          setStatusMessage("Failed to update company. Please try again.");
+          console.error("updateCompany failed:", result);
         }
         return;
       }
 
-      // Success — refresh or redirect
+      setEdited(false);
+      setStatusMessage("Company updated successfully!");
+
       startTransition(() => {
-        // you can also show a toast instead of redirect
-        router.push("/dashboard/companies");
+        router.refresh();
       });
     } catch (err) {
       console.error("Unexpected error updating company:", err);
@@ -125,17 +124,15 @@ export default function EditCompany({ company }: { company: Company }) {
       : "N/A";
 
   return (
-    <div>
-      <BackButton className="" href={"/dashboard/companies/"}>
-        Back
-      </BackButton>
-
-      <h2 className="font-medium text-[2rem] py-1">Edit Company</h2>
+    <div className="overflow-y-auto w-full max-w-3xl px-4 sm:px-6 pb-8">
+      <h2 className="font-medium text-3xl sm:text-4xl py-4 text-gray-900 dark:text-gray-100">
+        Edit Company
+      </h2>
 
       <form
         ref={formRef}
         onSubmit={handleUpdate}
-        className="flex flex-col form-amber px-3 pt-3 pb-1 space-y-4"
+        className="edit-company-container edit-company-form space-y-6 p-6 bg-white dark:bg-gray-800 rounded-lg shadow-sm"
         noValidate
       >
         <input
@@ -146,54 +143,79 @@ export default function EditCompany({ company }: { company: Company }) {
           defaultValue={company?.id ?? ""}
         />
 
-        <div className="flex flex-row justify-between gap-4">
-          <div className="flex flex-col">
-            <h3 className="font-bold text-sm">Date Created</h3>
-            <div className="bg-white tight-shadow rounded p-2">
-              <p>{createdAt.slice(0, 24)}</p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="flex flex-col space-y-2">
+            <h3 className="font-semibold text-sm text-gray-700 dark:text-gray-200">
+              Date Created
+            </h3>
+            <div className="bg-gray-50 dark:bg-gray-700 rounded-md p-3 border border-gray-200 dark:border-gray-600">
+              <p className="text-sm text-gray-800 dark:text-gray-200">
+                {createdAt.slice(0, 24)}
+              </p>
             </div>
           </div>
 
-          <div className="flex flex-col">
-            <h3 className="font-bold text-sm">Date Updated</h3>
-            <div className="bg-white tight-shadow rounded p-2">
-              <p>{updatedAt.slice(0, 24)}</p>
+          <div className="flex flex-col space-y-2">
+            <h3 className="font-semibold text-sm text-gray-700 dark:text-gray-200">
+              Date Updated
+            </h3>
+            <div className="bg-gray-50 dark:bg-gray-700 rounded-md p-3 border border-gray-200 dark:border-gray-600">
+              <p className="text-sm text-gray-800 dark:text-gray-200">
+                {updatedAt.slice(0, 24)}
+              </p>
             </div>
           </div>
         </div>
 
-        <div className="flex flex-col py-2">
-          <label className="font-bold" htmlFor="company_name">
+        <div className="form-group space-y-2">
+          <label
+            className="form-label block text-sm font-semibold text-gray-700 dark:text-gray-200"
+            htmlFor="company_name"
+          >
             Company Name
           </label>
           <input
+            className={`form-input w-full px-4 py-3 rounded-md border ${
+              errors.company_name
+                ? "border-red-500 dark:border-red-400"
+                : "border-gray-300 dark:border-gray-600"
+            } bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent transition-colors`}
             required
             name="company_name"
             id="company_name"
-            className="tight-shadow mt-1 p-2 border rounded"
             defaultValue={company?.name ?? ""}
             onChange={onChangeHandler}
             aria-invalid={!!errors.company_name}
             aria-describedby={
               errors.company_name ? "err-company_name" : undefined
             }
+            autoFocus
           />
           {errors.company_name && (
-            <p id="err-company_name" className="text-sm text-red-600 mt-1">
+            <p
+              id="err-company_name"
+              className="text-sm text-red-600 dark:text-red-400 mt-2"
+            >
               {errors.company_name}
             </p>
           )}
         </div>
 
-        <div className="flex flex-col py-2">
-          <label className="font-bold" htmlFor="address_one">
-            Address One
+        <div className="form-group space-y-2">
+          <label
+            className="form-label block text-sm font-semibold text-gray-700 dark:text-gray-200"
+            htmlFor="address_one"
+          >
+            Address Line 1
           </label>
           <input
-            required
+            className={`form-input w-full px-4 py-3 rounded-md border ${
+              errors.address_one
+                ? "border-red-500 dark:border-red-400"
+                : "border-gray-300 dark:border-gray-600"
+            } bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent transition-colors`}
             name="address_one"
             id="address_one"
-            className="mt-1 p-2 border rounded"
             defaultValue={company?.address_one ?? ""}
             onChange={onChangeHandler}
             aria-invalid={!!errors.address_one}
@@ -202,21 +224,30 @@ export default function EditCompany({ company }: { company: Company }) {
             }
           />
           {errors.address_one && (
-            <p id="err-address_one" className="text-sm text-red-600 mt-1">
+            <p
+              id="err-address_one"
+              className="text-sm text-red-600 dark:text-red-400 mt-2"
+            >
               {errors.address_one}
             </p>
           )}
         </div>
 
-        <div className="flex flex-col py-2">
-          <label className="font-bold" htmlFor="address_two">
-            Address Two
+        <div className="form-group space-y-2">
+          <label
+            className="form-label block text-sm font-semibold text-gray-700 dark:text-gray-200"
+            htmlFor="address_two"
+          >
+            Address Line 2
           </label>
           <input
-            required
+            className={`form-input w-full px-4 py-3 rounded-md border ${
+              errors.address_two
+                ? "border-red-500 dark:border-red-400"
+                : "border-gray-300 dark:border-gray-600"
+            } bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent transition-colors`}
             name="address_two"
             id="address_two"
-            className="mt-1 p-2 border rounded"
             defaultValue={company?.address_two ?? ""}
             onChange={onChangeHandler}
             aria-invalid={!!errors.address_two}
@@ -225,21 +256,30 @@ export default function EditCompany({ company }: { company: Company }) {
             }
           />
           {errors.address_two && (
-            <p id="err-address_two" className="text-sm text-red-600 mt-1">
+            <p
+              id="err-address_two"
+              className="text-sm text-red-600 dark:text-red-400 mt-2"
+            >
               {errors.address_two}
             </p>
           )}
         </div>
 
-        <div className="flex flex-col py-2">
-          <label className="font-bold" htmlFor="recipient_title">
+        <div className="form-group space-y-2">
+          <label
+            className="form-label block text-sm font-semibold text-gray-700 dark:text-gray-200"
+            htmlFor="recipient_title"
+          >
             Recipient Title
           </label>
           <input
-            required
+            className={`form-input w-full px-4 py-3 rounded-md border ${
+              errors.recipient_title
+                ? "border-red-500 dark:border-red-400"
+                : "border-gray-300 dark:border-gray-600"
+            } bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent transition-colors`}
             name="recipient_title"
             id="recipient_title"
-            className="mt-1 p-2 border rounded"
             defaultValue={company?.recipient_title ?? ""}
             onChange={onChangeHandler}
             aria-invalid={!!errors.recipient_title}
@@ -248,68 +288,98 @@ export default function EditCompany({ company }: { company: Company }) {
             }
           />
           {errors.recipient_title && (
-            <p id="err-recipient_title" className="text-sm text-red-600 mt-1">
+            <p
+              id="err-recipient_title"
+              className="text-sm text-red-600 dark:text-red-400 mt-2"
+            >
               {errors.recipient_title}
             </p>
           )}
         </div>
 
-        <div className="flex gap-4">
-          <div className="flex-1 flex flex-col py-2">
-            <label className="font-bold" htmlFor="email">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="form-group space-y-2">
+            <label
+              className="form-label block text-sm font-semibold text-gray-700 dark:text-gray-200"
+              htmlFor="email"
+            >
               Email
             </label>
             <input
+              className={`form-input w-full px-4 py-3 rounded-md border ${
+                errors.email
+                  ? "border-red-500 dark:border-red-400"
+                  : "border-gray-300 dark:border-gray-600"
+              } bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent transition-colors`}
               required
               name="email"
               id="email"
               type="email"
-              className="mt-1 p-2 border rounded"
               defaultValue={company?.email ?? ""}
               onChange={onChangeHandler}
               aria-invalid={!!errors.email}
               aria-describedby={errors.email ? "err-email" : undefined}
             />
             {errors.email && (
-              <p id="err-email" className="text-sm text-red-600 mt-1">
+              <p
+                id="err-email"
+                className="text-sm text-red-600 dark:text-red-400 mt-2"
+              >
                 {errors.email}
               </p>
             )}
           </div>
 
-          <div className="flex-1 flex flex-col py-2">
-            <label className="font-bold" htmlFor="phone">
+          <div className="form-group space-y-2">
+            <label
+              className="form-label block text-sm font-semibold text-gray-700 dark:text-gray-200"
+              htmlFor="phone"
+            >
               Phone
             </label>
             <input
+              className={`form-input w-full px-4 py-3 rounded-md border ${
+                errors.phone
+                  ? "border-red-500 dark:border-red-400"
+                  : "border-gray-300 dark:border-gray-600"
+              } bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent transition-colors`}
               required
               name="phone"
               id="phone"
               type="tel"
-              className="mt-1 p-2 border rounded"
               defaultValue={company?.phone ?? ""}
               onChange={onChangeHandler}
               aria-invalid={!!errors.phone}
               aria-describedby={errors.phone ? "err-phone" : undefined}
             />
             {errors.phone && (
-              <p id="err-phone" className="text-sm text-red-600 mt-1">
+              <p
+                id="err-phone"
+                className="text-sm text-red-600 dark:text-red-400 mt-2"
+              >
                 {errors.phone}
               </p>
             )}
           </div>
         </div>
 
-        <div className="flex flex-col py-2">
-          <label className="font-bold" htmlFor="website_url">
-            Website Url
+        <div className="form-group space-y-2">
+          <label
+            className="form-label block text-sm font-semibold text-gray-700 dark:text-gray-200"
+            htmlFor="website_url"
+          >
+            Website URL
           </label>
           <input
+            className={`form-input w-full px-4 py-3 rounded-md border ${
+              errors.website_url
+                ? "border-red-500 dark:border-red-400"
+                : "border-gray-300 dark:border-gray-600"
+            } bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent transition-colors`}
             required
             name="website_url"
             id="website_url"
             type="url"
-            className="mt-1 p-2 border rounded"
             defaultValue={company?.website_url ?? ""}
             onChange={onChangeHandler}
             aria-invalid={!!errors.website_url}
@@ -319,23 +389,34 @@ export default function EditCompany({ company }: { company: Company }) {
             placeholder="https://example.com"
           />
           {errors.website_url && (
-            <p id="err-website_url" className="text-sm text-red-600 mt-1">
+            <p
+              id="err-website_url"
+              className="text-sm text-red-600 dark:text-red-400 mt-2"
+            >
               {errors.website_url}
             </p>
           )}
         </div>
 
-        <div aria-live="polite" aria-atomic="true" className="min-h-[1.25rem]">
+        <div aria-live="polite" aria-atomic="true" className="min-h-6 pt-2">
           {statusMessage && (
-            <p className="text-sm text-red-600">{statusMessage}</p>
+            <p
+              className={`text-sm font-medium ${
+                statusMessage.includes("success")
+                  ? "text-green-600 dark:text-green-400"
+                  : "text-red-600 dark:text-red-400"
+              }`}
+            >
+              {statusMessage}
+            </p>
           )}
         </div>
 
         {edited && (
-          <div>
+          <div className="pt-4">
             <SubmitButton
               type="submit"
-              className="btn btn-amber my-2 rounded"
+              className="btn btn-amber w-full sm:w-auto px-8 py-3 text-base font-semibold bg-amber-500 hover:bg-amber-600 dark:bg-amber-600 dark:hover:bg-amber-500 text-white rounded-md transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               disabled={isSubmitting || isPending}
             >
               {isSubmitting || isPending ? "Saving..." : "Save Updates"}

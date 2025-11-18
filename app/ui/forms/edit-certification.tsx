@@ -1,17 +1,17 @@
+// description: Form to edit an existing certification entry
+// file: app/ui/forms/edit-certification.tsx
+
 "use client";
 
 import React, { useRef, useState, useTransition } from "react";
 import { SubmitButton } from "../submit-button";
 import { updateUserCertfication } from "@/app/lib/actions";
 import { UserCertification } from "@/app/lib/definitions";
-import BackButton from "../back-button";
 import { useRouter } from "next/navigation";
 
-export default function EditCertification({
-  certification,
-}: {
-  certification: UserCertification;
-}) {
+type Props = { certification: UserCertification };
+
+export default function EditCertification({ certification }: Props) {
   const router = useRouter();
   const formRef = useRef<HTMLFormElement | null>(null);
   const [edited, setEdited] = useState(false);
@@ -38,9 +38,7 @@ export default function EditCertification({
     return out;
   };
 
-  const handleUpdateUserCertification = async (
-    e: React.FormEvent<HTMLFormElement>,
-  ): Promise<void> => {
+  const handleUpdate = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (isSubmitting) return;
 
@@ -63,29 +61,24 @@ export default function EditCertification({
 
     setIsSubmitting(true);
     try {
-      // NOTE: If updateUserCertfication is a Next.js server action (uses "use server"),
-      // you cannot call it directly from a client component. In that case either:
-      //  - move this form to a server component and set `action={updateUserCertfication}`, or
-      //  - call an API route here that invokes the server action.
       const result = (await updateUserCertfication(formData)) as any;
 
       if (result?.errors) {
-        // Adapt mapping depending on your server error shape
-        if (result.errors && typeof result.errors === "object") {
+        if (typeof result.errors === "object") {
           setErrors(result.errors);
           setStatusMessage("Please fix the highlighted fields.");
         } else {
-          setStatusMessage("Failed to save changes. Please try again.");
+          setStatusMessage("Failed to update certification. Please try again.");
           console.error("updateUserCertfication failed:", result);
         }
         return;
       }
 
-      // Success: reset edited and optionally redirect to list
       setEdited(false);
+      setStatusMessage("Certification updated successfully!");
+
       startTransition(() => {
-        // change destination as needed
-        router.push("/dashboard/certifications");
+        router.refresh();
       });
     } catch (err) {
       console.error("Unexpected error updating certification:", err);
@@ -95,60 +88,87 @@ export default function EditCertification({
     }
   };
 
-  return (
-    <div className="px-3">
-      <BackButton className="" href={"/dashboard/certifications/"}>
-        Back
-      </BackButton>
+  const createdAt = certification?.created_at
+    ? certification.created_at.toLocaleString()
+    : certification?.created_at
+      ? String(certification.created_at)
+      : "N/A";
 
-      <h2 className="font-medium text-[2rem] py-1">Edit Certification</h2>
+  const updatedAt = certification?.updated_at
+    ? certification.updated_at.toLocaleString()
+    : certification?.updated_at
+      ? String(certification.updated_at)
+      : "N/A";
+
+  return (
+    <div className="overflow-y-auto w-full max-w-3xl px-4 sm:px-6 pb-8">
+      <h2 className="font-medium text-3xl sm:text-4xl py-4 text-gray-900 dark:text-gray-100">
+        Edit Certification
+      </h2>
 
       <form
         ref={formRef}
-        onSubmit={handleUpdateUserCertification}
-        className="flex flex-col w-full max-w-lg p-4 form-amber tight-shadow rounded bg-white"
+        onSubmit={handleUpdate}
+        className="edit-certification-container edit-certification-form space-y-6 p-6 bg-white dark:bg-gray-800 rounded-lg shadow-sm"
         noValidate
       >
-        {/* Hidden fields */}
         <input
-          required
           hidden
           readOnly
           name="certification_id"
           id="certification_id"
           defaultValue={certification?.id ?? ""}
         />
-        {/* <input
-          required
-          hidden
-          readOnly
-          name="resume_id"
-          id="resume_id"
-          defaultValue={certification?.resume_id ?? "blank"}
-          type="text"
-        /> */}
         <input
-          required
           hidden
           readOnly
           name="user_id"
           id="user_id"
-          defaultValue={certification?.user_id ?? "blank"}
-          type="text"
+          defaultValue={certification?.user_id ?? ""}
         />
 
-        <div className="flex flex-col py-2">
-          <label className="font-bold" htmlFor="certification_name">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="flex flex-col space-y-2">
+            <h3 className="font-semibold text-sm text-gray-700 dark:text-gray-200">
+              Date Created
+            </h3>
+            <div className="bg-gray-50 dark:bg-gray-700 rounded-md p-3 border border-gray-200 dark:border-gray-600">
+              <p className="text-sm text-gray-800 dark:text-gray-200">
+                {createdAt.slice(0, 24)}
+              </p>
+            </div>
+          </div>
+
+          <div className="flex flex-col space-y-2">
+            <h3 className="font-semibold text-sm text-gray-700 dark:text-gray-200">
+              Date Updated
+            </h3>
+            <div className="bg-gray-50 dark:bg-gray-700 rounded-md p-3 border border-gray-200 dark:border-gray-600">
+              <p className="text-sm text-gray-800 dark:text-gray-200">
+                {updatedAt.slice(0, 24)}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="form-group space-y-2">
+          <label
+            className="form-label block text-sm font-semibold text-gray-700 dark:text-gray-200"
+            htmlFor="certification_name"
+          >
             Certification Name
           </label>
           <input
+            className={`form-input w-full px-4 py-3 rounded-md border ${
+              errors.certification_name
+                ? "border-red-500 dark:border-red-400"
+                : "border-gray-300 dark:border-gray-600"
+            } bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent transition-colors`}
             required
             name="certification_name"
             id="certification_name"
             onChange={onChangeHandler}
             defaultValue={certification?.name ?? ""}
-            type="text"
-            className="mt-2 p-2 border rounded"
             aria-invalid={!!errors.certification_name}
             aria-describedby={
               errors.certification_name ? "err-certification_name" : undefined
@@ -158,54 +178,70 @@ export default function EditCertification({
           {errors.certification_name && (
             <p
               id="err-certification_name"
-              className="text-sm text-red-600 mt-1"
+              className="text-sm text-red-600 dark:text-red-400 mt-2"
             >
               {errors.certification_name}
             </p>
           )}
         </div>
 
-        <div className="flex flex-col py-2">
-          <label className="font-bold" htmlFor="location_name">
+        <div className="form-group space-y-2">
+          <label
+            className="form-label block text-sm font-semibold text-gray-700 dark:text-gray-200"
+            htmlFor="location_name"
+          >
             Location
           </label>
           <input
+            className={`form-input w-full px-4 py-3 rounded-md border ${
+              errors.location_name
+                ? "border-red-500 dark:border-red-400"
+                : "border-gray-300 dark:border-gray-600"
+            } bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent transition-colors`}
             required
             name="location_name"
             id="location_name"
             onChange={onChangeHandler}
             defaultValue={certification?.location ?? ""}
-            type="text"
-            className="mt-2 p-2 border rounded"
             aria-invalid={!!errors.location_name}
             aria-describedby={
               errors.location_name ? "err-location_name" : undefined
             }
           />
           {errors.location_name && (
-            <p id="err-location_name" className="text-sm text-red-600 mt-1">
+            <p
+              id="err-location_name"
+              className="text-sm text-red-600 dark:text-red-400 mt-2"
+            >
               {errors.location_name}
             </p>
           )}
         </div>
 
-        <div aria-live="polite" aria-atomic="true" className="min-h-5 mt-2">
+        <div aria-live="polite" aria-atomic="true" className="min-h-6 pt-2">
           {statusMessage && (
-            <p className="text-sm text-red-600">{statusMessage}</p>
+            <p
+              className={`text-sm font-medium ${
+                statusMessage.includes("success")
+                  ? "text-green-600 dark:text-green-400"
+                  : "text-red-600 dark:text-red-400"
+              }`}
+            >
+              {statusMessage}
+            </p>
           )}
         </div>
 
         {edited && (
-          <>
-            <div style={{ height: "0.5rem" }} />
+          <div className="pt-4">
             <SubmitButton
               type="submit"
-              className="bg-yellow-400 my-4 p-2 text-center w-auto"
+              className="btn btn-amber w-full sm:w-auto px-8 py-3 text-base font-semibold bg-amber-500 hover:bg-amber-600 dark:bg-amber-600 dark:hover:bg-amber-500 text-white rounded-md transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               disabled={isSubmitting || isPending}
             >
-              {isSubmitting || isPending ? "Saving…" : "Save Updates"}
+              {isSubmitting || isPending ? "Saving..." : "Save Updates"}
             </SubmitButton>
-          </>
+          </div>
         )}
       </form>
     </div>

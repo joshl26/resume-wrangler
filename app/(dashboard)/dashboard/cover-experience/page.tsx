@@ -61,7 +61,7 @@ export default async function Page() {
       </div>
 
       <div className="pt-10">
-        <BackButton href={"/dashboard/"}>Back</BackButton>
+        <BackButton href={"/dashboard/"}>Back to Dashboard</BackButton>
       </div>
     </div>
   );

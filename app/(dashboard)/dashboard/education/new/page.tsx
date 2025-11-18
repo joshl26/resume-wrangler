@@ -1,3 +1,6 @@
+// definition: Add a new education entry for the authenticated user.
+// file: app/(dashboard)/dashboard/education/new/page.tsx
+
 import { getUser } from "@/app/lib/data";
 import NewEducation from "@/app/ui/forms/new-education";
 import { auth } from "@/auth";

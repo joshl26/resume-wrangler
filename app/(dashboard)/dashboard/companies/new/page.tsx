@@ -35,7 +35,7 @@ export default async function Page(): Promise<JSX.Element> {
         <NewCompany user={user} />
       </div>
       <BackButton href="/dashboard/companies/" className="mt-4">
-        Back
+        Back to Companies
       </BackButton>
     </div>
   );

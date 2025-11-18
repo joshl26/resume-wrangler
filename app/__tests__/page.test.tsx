@@ -9,7 +9,7 @@
  */
 
 // Mock the landing components (must be done before requiring the module under test)
-jest.mock("../landing/page", () => {
+jest.mock("../(site)/page", () => {
   return {
     __esModule: true,
     default: ({ children }: { children: React.ReactNode }) => (
@@ -55,7 +55,7 @@ function loadPageModule() {
   process.env.DEPLOYMENT_URL = "https://example.com";
 
   // require instead of import so we control when the module is evaluated
-  const mod = require("../page");
+  const mod = require("../(site)/page");
   return mod;
 }
 

@@ -34,9 +34,6 @@ export default function NewCoverExperience({ user }: { user: User }) {
 
   return (
     <div className="pb-3">
-      <BackButton className="" href={"/dashboard/cover-experience"}>
-        Back
-      </BackButton>
       <div className="flex flex-row justify-between">
         <div className="flex flex-col ">
           <h1 className="text-[2rem] font-bold">Add New Cover Experience</h1>

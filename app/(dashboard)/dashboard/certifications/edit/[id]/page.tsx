@@ -1,68 +1,96 @@
-// app/.../page.tsx
-import { fetchCertificationById } from "@/app/lib/data";
+// Description: Page component for editing a certification entry in the dashboard.
+// file: app/(dashboard)/dashboard/certifications/[id]/edit/page.tsx
+
+import { getUser, fetchCertificationById } from "@/app/lib/data";
 import EditCertification from "@/app/ui/forms/edit-certification";
+import { auth } from "@/auth";
 import { notFound } from "next/navigation";
-import React from "react";
+import React, { JSX } from "react";
+import BackButton from "@/app/ui/back-button";
+import Breadcrumb from "@/app/ui/Breadcrumb";
 
 type Params = { id: string };
 
 interface PageProps {
-  // Keep the signature flexible in case Next provides a Promise
-  params?: Params | Promise<Params> | undefined;
+  params?: Promise<Params>;
 }
 
-export default async function Page({ params }: PageProps) {
-  try {
-    // Support both promise and plain object for params
-    const resolvedParams = params instanceof Promise ? await params : params;
+export default async function Page({
+  params,
+}: PageProps): Promise<JSX.Element> {
+  const session = await auth();
+  const email = session?.user?.email;
 
-    // If params are missing or id is invalid, show 404
-    if (
-      !resolvedParams ||
-      !resolvedParams.id ||
-      typeof resolvedParams.id !== "string"
-    ) {
-      return notFound();
-    }
-
-    const id = resolvedParams.id.trim();
-    if (!id) return notFound();
-
-    // Fetch the certification
-    const certification = await fetchCertificationById(id);
-
-    // If not found, show 404
-    if (!certification) {
-      return notFound();
-    }
-
+  if (!email) {
     return (
       <main className="w-full max-w-3xl mx-auto p-6">
-        <h1 className="text-2xl font-semibold mb-4">Edit Certification</h1>
-        <div className="rounded-lg bg-white p-6 tight-shadow">
-          <EditCertification certification={certification} />
-        </div>
-      </main>
-    );
-  } catch (error) {
-    // Log for server diagnostics and show a user-friendly fallback
-    console.error("Error rendering Edit Certification page:", error);
-    return (
-      <main className="w-full max-w-3xl mx-auto p-6">
-        <h1 className="text-2xl font-semibold mb-4">Edit Certification</h1>
-        <div className="rounded-lg bg-white p-6 tight-shadow text-center">
-          <p className="mb-4">
-            Sorry — something went wrong while loading the certification. Please
-            try again later.
+        <h1 className="text-2xl font-semibold mb-4 text-gray-900 dark:text-gray-100">
+          Edit Certification
+        </h1>
+        <div className="rounded-lg bg-white dark:bg-gray-800 p-6 shadow-md text-center">
+          <p className="mb-4 text-gray-700 dark:text-gray-300">
+            You must be signed in to edit certification details.
           </p>
           <a
-            href="/dashboard/certifications"
-            className="inline-block text-azure-radiance-600 hover:underline"
+            href="/signin"
+            className="inline-block rounded bg-azure-radiance-600 px-4 py-2 text-white hover:bg-azure-radiance-700 dark:bg-azure-radiance-500 dark:hover:bg-azure-radiance-600 transition-colors"
           >
-            Back to certifications
+            Sign in
           </a>
         </div>
       </main>
     );
   }
+
+  const user = await getUser(email);
+  if (!user) {
+    return notFound();
+  }
+
+  const resolvedParams = await params;
+  if (!resolvedParams) {
+    return notFound();
+  }
+
+  const { id } = resolvedParams;
+
+  if (!id || typeof id !== "string" || !id.trim()) {
+    return notFound();
+  }
+
+  const certification = await fetchCertificationById(id);
+
+  if (!certification) {
+    return notFound();
+  }
+
+  // Verify the certification entry belongs to the authenticated user
+  if (certification.user_id !== user.id) {
+    return notFound();
+  }
+
+  const breadcrumbItems = [
+    { name: "Dashboard", url: "/dashboard/" },
+    { name: "Certifications", url: "/dashboard/certifications/" },
+    {
+      name: "Edit Certification",
+      url: `/dashboard/certifications/${id}/edit/`,
+    },
+  ];
+
+  return (
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors">
+      <nav aria-label="Breadcrumb" className="px-4 sm:px-6 py-4">
+        <Breadcrumb items={breadcrumbItems} />
+      </nav>
+      <div className="rounded-lg my-8 mx-4 sm:mx-6 p-6 shadow-lg bg-white dark:bg-gray-800 transition-colors">
+        <EditCertification certification={certification} />
+      </div>
+      <div className="px-4 sm:px-6">
+        <BackButton href="/dashboard/certifications/" className="mt-4">
+          Back to Certifications
+        </BackButton>
+      </div>
+    </div>
+  );
 }

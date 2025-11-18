@@ -1,3 +1,6 @@
+// description: Form to create a new certification entry
+// file: app/ui/forms/new-certification.tsx
+
 "use client";
 
 import React, { useRef, useState, useTransition } from "react";
@@ -5,24 +8,9 @@ import { useRouter } from "next/navigation";
 import { SubmitButton } from "../submit-button";
 import { createCertification } from "@/app/lib/actions";
 import { User } from "@/app/lib/definitions";
-import BackButton from "../back-button";
 
 type Props = { user: User };
 
-/**
- * NewCertification (client)
- *
- * Improvements:
- * - Uses a client-side onSubmit handler with robust validation
- * - Prevents double submits and shows loading state
- * - Shows inline validation errors and a polite aria-live status region
- * - Keeps original UX of showing the submit button only after edits
- *
- * Note: If `createCertification` is a Next.js server action (uses "use server"),
- * you cannot call it directly from a client component. In that case either:
- *  - move this form into a server component and use `action={createCertification}`, or
- *  - call an API route here that invokes the server action.
- */
 export default function NewCertification({ user }: Props) {
   const router = useRouter();
   const formRef = useRef<HTMLFormElement | null>(null);
@@ -75,13 +63,10 @@ export default function NewCertification({ user }: Props) {
 
     setIsSubmitting(true);
     try {
-      // NOTE: If createCertification is a server action ("use server"), calling it
-      // from a client component will fail. Use an API route or move form to server component.
       const result = (await createCertification(formData)) as any;
 
       if (result?.errors) {
-        // Map server-side validation errors if in a known shape
-        if (result.errors && typeof result.errors === "object") {
+        if (typeof result.errors === "object") {
           setErrors(result.errors);
           setStatusMessage("Please fix the highlighted fields.");
         } else {
@@ -91,10 +76,19 @@ export default function NewCertification({ user }: Props) {
         return;
       }
 
-      // Success: reset edited state and redirect to list (or show success message)
-      startTransition(() => {
-        router.push("/dashboard/certifications");
-      });
+      setEdited(false);
+      setStatusMessage("Certification created successfully!");
+
+      // Reset form
+      formRef.current?.reset();
+
+      // Redirect to certifications list after short delay
+      setTimeout(() => {
+        startTransition(() => {
+          router.push("/dashboard/certifications");
+          router.refresh();
+        });
+      }, 1500);
     } catch (err) {
       console.error("Unexpected error creating certification:", err);
       setStatusMessage("An unexpected error occurred. Please try again later.");
@@ -104,24 +98,15 @@ export default function NewCertification({ user }: Props) {
   };
 
   return (
-    <div className="px-2">
-      <BackButton className="" href={"/dashboard/certifications"}>
-        Back
-      </BackButton>
-
-      <div className="flex flex-row justify-between items-center mt-4 mb-2">
-        <div className="flex flex-col">
-          <h1 className="text-[2rem] font-bold">Add New Certification</h1>
-          <p className="text-sm text-muted-foreground">
-            All fields are required.
-          </p>
-        </div>
-      </div>
+    <div className="overflow-y-auto w-full max-w-3xl px-4 sm:px-6 pb-8">
+      <h2 className="font-medium text-3xl sm:text-4xl py-4 text-gray-900 dark:text-gray-100">
+        Add New Certification
+      </h2>
 
       <form
         ref={formRef}
         onSubmit={handleCreate}
-        className="flex flex-col w-full max-w-xl p-3 form-amber space-y-3"
+        className="new-certification-container new-certification-form space-y-6 p-6 bg-white dark:bg-gray-800 rounded-lg shadow-sm"
         noValidate
       >
         <input
@@ -132,78 +117,94 @@ export default function NewCertification({ user }: Props) {
           defaultValue={user?.id ?? ""}
         />
 
-        <div className="flex flex-col py-2">
-          <label className="font-bold" htmlFor="certification_name">
+        <div className="form-group space-y-2">
+          <label
+            className="form-label block text-sm font-semibold text-gray-700 dark:text-gray-200"
+            htmlFor="certification_name"
+          >
             Certification Name
           </label>
           <input
+            className={`form-input w-full px-4 py-3 rounded-md border ${
+              errors.certification_name
+                ? "border-red-500 dark:border-red-400"
+                : "border-gray-300 dark:border-gray-600"
+            } bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent transition-colors`}
             required
             name="certification_name"
             id="certification_name"
             onChange={onChangeHandler}
             defaultValue=""
-            type="text"
-            className="mt-1 p-2 border rounded"
             aria-invalid={!!errors.certification_name}
             aria-describedby={
               errors.certification_name ? "err-certification_name" : undefined
             }
-            autoComplete="off"
             autoFocus
           />
           {errors.certification_name && (
             <p
               id="err-certification_name"
-              className="text-sm text-red-600 mt-1"
+              className="text-sm text-red-600 dark:text-red-400 mt-2"
             >
               {errors.certification_name}
             </p>
           )}
         </div>
 
-        <div className="flex flex-col py-2">
-          <label className="font-bold" htmlFor="certification_location">
+        <div className="form-group space-y-2">
+          <label
+            className="form-label block text-sm font-semibold text-gray-700 dark:text-gray-200"
+            htmlFor="certification_location"
+          >
             Certification Location
           </label>
           <input
+            className={`form-input w-full px-4 py-3 rounded-md border ${
+              errors.certification_location
+                ? "border-red-500 dark:border-red-400"
+                : "border-gray-300 dark:border-gray-600"
+            } bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent transition-colors`}
             required
             name="certification_location"
             id="certification_location"
             onChange={onChangeHandler}
             defaultValue=""
-            type="text"
-            className="mt-1 p-2 border rounded"
             aria-invalid={!!errors.certification_location}
             aria-describedby={
               errors.certification_location
                 ? "err-certification_location"
                 : undefined
             }
-            autoComplete="off"
           />
           {errors.certification_location && (
             <p
               id="err-certification_location"
-              className="text-sm text-red-600 mt-1"
+              className="text-sm text-red-600 dark:text-red-400 mt-2"
             >
               {errors.certification_location}
             </p>
           )}
         </div>
 
-        {/* Optional: additional fields (date, credential id) can be added here */}
-
-        <div aria-live="polite" aria-atomic="true" className="min-h-5">
+        <div aria-live="polite" aria-atomic="true" className="min-h-6 pt-2">
           {statusMessage && (
-            <p className="text-sm text-red-600">{statusMessage}</p>
+            <p
+              className={`text-sm font-medium ${
+                statusMessage.includes("success")
+                  ? "text-green-600 dark:text-green-400"
+                  : "text-red-600 dark:text-red-400"
+              }`}
+            >
+              {statusMessage}
+            </p>
           )}
         </div>
 
         {edited && (
-          <div>
+          <div className="pt-4">
             <SubmitButton
               type="submit"
-              className="bg-yellow-400 my-4 p-2 text-center w-auto"
+              className="btn btn-amber w-full sm:w-auto px-8 py-3 text-base font-semibold bg-amber-500 hover:bg-amber-600 dark:bg-amber-600 dark:hover:bg-amber-500 text-white rounded-md transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               disabled={isSubmitting || isPending}
             >
               {isSubmitting || isPending

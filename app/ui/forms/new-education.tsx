@@ -1,3 +1,6 @@
+// description: Form to create a new education entry for the user
+// file: app/ui/forms/new-education.tsx
+
 "use client";
 
 import React, { useRef, useState, useTransition } from "react";
@@ -5,7 +8,6 @@ import { useRouter } from "next/navigation";
 import { SubmitButton } from "../submit-button";
 import { createUserEducation } from "@/app/lib/actions";
 import { User } from "@/app/lib/definitions";
-import BackButton from "../back-button";
 
 type Props = { user: User };
 
