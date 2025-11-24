@@ -1,0 +1,161 @@
+@import "tailwindcss";
+
+@layer components {
+  .your-profile-container {
+    @apply overflow-y-auto w-full max-w-4xl mx-auto px-4 sm:px-6 pb-8;
+  }
+
+  .your-profile-header {
+    @apply py-6 border-b border-gray-300;
+  }
+
+  html.dark .your-profile-header {
+    border-color: #4b5563; /* dark:border-gray-600 */
+  }
+
+  .your-profile-title {
+    @apply font-bold text-3xl sm:text-4xl text-gray-900;
+  }
+
+  html.dark .your-profile-title {
+    color: #f1f5f9; /* light text for dark mode */
+  }
+
+  .your-profile-subtitle {
+    @apply text-gray-700 mt-2;
+  }
+
+  html.dark .your-profile-subtitle {
+    color: #d1d5db; /* lighter gray for dark mode */
+  }
+
+  .status-message {
+    @apply mt-6 p-4 rounded-lg border-l-4;
+    transition: all 0.3s ease;
+  }
+
+  .status-success {
+    @apply bg-green-50 border-green-600 text-green-800;
+  }
+
+  html.dark .status-success {
+    @apply bg-green-900/30 text-green-200;
+  }
+
+  .status-error {
+    @apply bg-red-50 border-red-600 text-red-800;
+  }
+
+  html.dark .status-error {
+    @apply bg-red-900/30 text-red-200;
+  }
+
+  .status-icon-success {
+    @apply h-5 w-5 text-green-700;
+  }
+
+  html.dark .status-icon-success {
+    @apply text-green-400;
+  }
+
+  .status-icon-error {
+    @apply h-5 w-5 text-red-700;
+  }
+
+  html.dark .status-icon-error {
+    @apply text-red-400;
+  }
+
+  .profile-image-section {
+    @apply p-6 mt-6 bg-white rounded-xl shadow-sm border border-gray-300;
+  }
+
+  html.dark .profile-image-section {
+    @apply bg-gray-900 border-gray-700;
+  }
+
+  .profile-image-title {
+    @apply font-semibold text-lg mb-4 text-gray-900;
+  }
+
+  html.dark .profile-image-title {
+    color: #f1f5f9;
+  }
+
+  .profile-image-wrapper {
+    @apply flex flex-col items-center gap-4;
+  }
+
+  .profile-image {
+    @apply rounded-full ring-4 ring-gray-100;
+  }
+
+  html.dark .profile-image {
+    @apply ring-gray-700;
+  }
+
+  .update-image-button {
+    @apply inline-flex items-center gap-2 rounded-lg px-6 py-2.5 font-medium shadow-md text-white bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 transition-all duration-200 hover:-translate-y-0.5;
+  }
+
+  html.dark .update-image-button {
+    @apply from-amber-600 to-orange-600 hover:from-amber-500 hover:to-orange-500;
+  }
+
+  .profile-form {
+    @apply space-y-6 p-6 mt-6 bg-white rounded-xl shadow-sm border border-gray-300;
+  }
+
+  html.dark .profile-form {
+    @apply bg-gray-900 border-gray-700;
+  }
+
+  .form-group {
+    @apply block;
+  }
+
+  label {
+    @apply block text-sm font-semibold text-gray-800 mb-2;
+  }
+
+  html.dark label {
+    color: #e5e7eb; /* text-gray-200 */
+  }
+
+  input.form-input {
+    @apply w-full px-4 py-3 rounded-lg border-2 border-gray-300 bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-amber-300 transition-all duration-200;
+  }
+
+  html.dark input.form-input {
+    @apply border-gray-500 bg-gray-800 text-gray-100 placeholder-gray-400 focus:ring-amber-900/40;
+  }
+
+  input.form-input.error {
+    @apply border-red-600 focus:border-red-600 focus:ring-red-300;
+  }
+
+  html.dark input.form-input.error {
+    @apply border-red-500 focus:border-red-500 focus:ring-red-900/40;
+  }
+
+  .error-message {
+    @apply text-sm text-red-600 mt-2 flex items-center gap-1;
+  }
+
+  html.dark .error-message {
+    @apply text-red-400;
+  }
+
+  .submit-button-wrapper {
+    @apply pt-6 border-t border-gray-300;
+  }
+
+  html.dark .submit-button-wrapper {
+    border-color: #4b5563; /* dark:border-gray-700 */
+  }
+
+  /* Responsive grid for name fields */
+  .name-fields {
+    @apply grid grid-cols-1 sm:grid-cols-2 gap-6;
+  }
+}

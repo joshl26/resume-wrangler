@@ -51,7 +51,7 @@ const ResumeTemplates: React.FC<ResumeTemplatesProps> = ({
                 className="block h-full"
                 aria-label={`Preview ${template.name}`}
               >
-                <div className="relative aspect-[350/450] w-full overflow-hidden">
+                <div className="relative aspect-350/450 w-full overflow-hidden">
                   <Image
                     src={template.thumbnail_url}
                     alt={template.name}

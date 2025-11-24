@@ -1,0 +1,156 @@
+@import "tailwindcss";
+
+@layer components {
+  .your-education {
+    @apply max-w-4xl mx-auto px-4 sm:px-6 pb-8;
+  }
+
+  .your-education-header {
+    @apply py-2 font-bold text-xl border-b border-gray-300 mb-4;
+  }
+
+  html.dark .your-education-header {
+    @apply border-gray-600;
+  }
+
+  .your-education-header h2 {
+    @apply text-gray-900;
+  }
+
+  html.dark .your-education-header h2 {
+    @apply text-gray-100;
+  }
+
+  .your-education-form {
+    @apply rounded p-6 bg-white shadow-sm;
+  }
+
+  html.dark .your-education-form {
+    @apply bg-gray-900;
+  }
+
+  .your-education-subheader {
+    @apply font-semibold mb-3 text-gray-800;
+  }
+
+  html.dark .your-education-subheader {
+    @apply text-gray-200;
+  }
+
+  .education-list {
+    @apply h-[150px] overflow-y-auto rounded mb-6 border border-gray-200 bg-white;
+  }
+
+  html.dark .education-list {
+    @apply border-gray-600 bg-gray-800;
+  }
+
+  ul {
+    @apply w-full;
+  }
+
+  .education-item {
+    @apply border-b border-gray-200 p-3 flex justify-between items-center;
+  }
+
+  html.dark .education-item {
+    @apply border-gray-600;
+  }
+
+  .education-institution {
+    @apply font-bold;
+  }
+
+  .education-program {
+    @apply text-gray-600;
+  }
+
+  html.dark .education-program {
+    @apply text-gray-300;
+  }
+
+  .chosen-education-section {
+    @apply flex flex-col w-full;
+  }
+
+  .chosen-education-item {
+    @apply mt-3 py-3 border-b border-gray-200;
+  }
+
+  html.dark .chosen-education-item {
+    @apply border-gray-600;
+  }
+
+  .chosen-education-header {
+    @apply flex justify-between items-center mb-3;
+  }
+
+  .education-edit-form {
+    @apply bg-slate-50 rounded w-full pb-4 px-4;
+  }
+
+  html.dark .education-edit-form {
+    @apply bg-gray-800;
+  }
+
+  .education-fields > div {
+    @apply mb-4;
+  }
+
+  label {
+    @apply block mb-1 font-medium text-gray-800;
+  }
+
+  html.dark label {
+    @apply text-gray-200;
+  }
+
+  .input-field {
+    @apply w-full rounded border border-gray-300 p-2 focus:outline-none focus:ring-2 focus:ring-amber-400 transition-colors duration-200 bg-white text-gray-900;
+  }
+
+  html.dark .input-field {
+    @apply border-gray-600 bg-gray-700 text-gray-100;
+  }
+
+  .education-section-toggle-form {
+    @apply mt-6 flex flex-col;
+  }
+
+  .toggle-row {
+    @apply flex items-center space-x-4 py-2;
+  }
+
+  .toggle-checkbox {
+    @apply rounded cursor-pointer;
+  }
+
+  .toggle-label {
+    @apply font-medium select-none cursor-pointer text-gray-900;
+  }
+
+  html.dark .toggle-label {
+    @apply text-gray-100;
+  }
+
+  .submit-button-wrapper {
+    @apply mt-4;
+  }
+
+  /* Button styles reused from your existing btn-amber and btn-rose */
+  .btn-amber {
+    @apply bg-amber-300 border border-black text-black transition-colors duration-300 hover:bg-rose-600 hover:text-white rounded-lg px-6 py-2.5 font-medium shadow-md;
+  }
+
+  html.dark .btn-amber {
+    @apply bg-rose-600 text-white hover:bg-amber-300 hover:text-black;
+  }
+
+  .btn-rose {
+    @apply bg-rose-500 text-white rounded-lg px-6 py-2.5 font-medium shadow-md transition-colors duration-300 hover:bg-rose-600;
+  }
+
+  html.dark .btn-rose {
+    @apply bg-rose-600 hover:bg-rose-500;
+  }
+}

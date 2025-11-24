@@ -3,6 +3,7 @@
 import clsx from "clsx";
 import { useFormStatus } from "react-dom";
 import { StringOrUndefined } from "../lib/definitions";
+import { ReactNode } from "react";
 
 export function SubmitButton({
   children,
@@ -10,7 +11,7 @@ export function SubmitButton({
   disabled,
   ...rest
 }: {
-  children: string;
+  children: ReactNode;
   className: StringOrUndefined;
   disabled?: boolean;
 } & React.ButtonHTMLAttributes<HTMLButtonElement>) {

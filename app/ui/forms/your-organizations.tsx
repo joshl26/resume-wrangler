@@ -16,6 +16,7 @@ import {
   UserOrganization,
   userOrganizations,
 } from "@/app/lib/definitions";
+import "./your-organizations.css";
 
 export default function YourOrganizations({
   userOrganizations,
@@ -28,8 +29,8 @@ export default function YourOrganizations({
   userOrganizations: userOrganizations;
   resume: Resume;
   user: User;
-  showCustomSectionOne: string;
-  setShowCustomSectionOne: (e: any) => void;
+  showCustomSectionOne: boolean;
+  setShowCustomSectionOne: (value: boolean) => void;
   organizationResumeLines: any;
 }) {
   const [sectionTitle, setSectionTitle] = useState(
@@ -41,7 +42,7 @@ export default function YourOrganizations({
   const [editSectionTitle, setEditSectionTitle] = useState(false);
 
   const onChangeHandler = () => {
-    if (edited === false) {
+    if (!edited) {
       setEdited(true);
     }
   };
@@ -51,7 +52,7 @@ export default function YourOrganizations({
   ) => {
     setSectionTitle(e.target.value);
 
-    if (edited === false) {
+    if (!edited) {
       setEditSectionTitle(true);
     }
   };
@@ -59,13 +60,9 @@ export default function YourOrganizations({
   const showOrganizationsOnChangeHandler = (
     e: React.ChangeEvent<HTMLInputElement>,
   ) => {
-    if (e.target.checked === true) {
-      setShowCustomSectionOne("true");
-    } else {
-      setShowCustomSectionOne("false");
-    }
+    setShowCustomSectionOne(e.target.checked);
 
-    if (edited === false) {
+    if (!editSection) {
       setEditSection(true);
     }
   };
@@ -106,8 +103,6 @@ export default function YourOrganizations({
       const result = await createResumeLine(formData);
       if (result?.errors) {
         console.error("Create resume line failed:", result);
-      } else {
-        // success — optionally revalidate or update local UI
       }
     } catch (err) {
       console.error("Unexpected error creating resume line:", err);
@@ -119,8 +114,6 @@ export default function YourOrganizations({
       const result = await deleteResumeLine(formData);
       if (result?.errors) {
         console.error("Delete resume line failed:", result);
-      } else {
-        // success — optionally revalidate or update local UI
       }
     } catch (err) {
       console.error("Unexpected error deleting resume line:", err);
@@ -159,179 +152,184 @@ export default function YourOrganizations({
 
   return (
     <div className="w-full">
-      <div className="py-2 font-bold text-xl">
+      <div className="py-2 font-bold text-xl border-b border-gray-300">
         <h2>Your {sectionTitle}</h2>
       </div>
-      <div className="your-organizations rounded form-amber px-4 py-2">
-        <div className="flex flex-row justify-between">
-          <div className="flex flex-col"></div>
-          <div className="flex flex-col "></div>
+      <div className="your-organizations rounded form-amber px-6 py-4 mt-4">
+        <div className="flex justify-between mb-4">
+          <div />
+          <div />
         </div>
-        {showCustomSectionOne === "true" ? (
+        {showCustomSectionOne && (
           <>
-            <form action={handleUpdateSectionTitle} className="pb-2">
-              <div className="flex flex-col">
-                <input
-                  readOnly
-                  hidden
-                  name="resume_id"
-                  id="resume_id"
-                  defaultValue={resume?.id}
-                />
-                <label hidden htmlFor="user_id" />
-                <input
-                  readOnly
-                  hidden
-                  name="user_id"
-                  id="user_id"
-                  defaultValue={user?.id}
-                />
-                <label className="py-1 font-medium" htmlFor="section_title">
-                  Section Title
-                </label>
-                <input
-                  required
-                  maxLength={14}
-                  id="section_title"
-                  name="section_title"
-                  className="rounded"
-                  defaultValue={sectionTitle}
-                  onChange={setSectionTitleOnChangeHandler}
-                  placeholder="Section Title"
-                />
-              </div>
+            <form action={handleUpdateSectionTitle} className="pb-4 max-w-md">
+              <input
+                readOnly
+                hidden
+                name="resume_id"
+                id="resume_id"
+                defaultValue={resume?.id}
+              />
+              <input
+                readOnly
+                hidden
+                name="user_id"
+                id="user_id"
+                defaultValue={user?.id}
+              />
+              <label
+                className="py-2 font-semibold text-gray-700"
+                htmlFor="section_title"
+              >
+                Section Title
+              </label>
+              <input
+                required
+                maxLength={14}
+                id="section_title"
+                name="section_title"
+                className="rounded border border-gray-300 p-2 focus:outline-none focus:ring-2 focus:ring-amber-400"
+                defaultValue={sectionTitle}
+                onChange={setSectionTitleOnChangeHandler}
+                placeholder="Section Title"
+              />
               {editSectionTitle && (
-                <>
-                  <div style={{ height: "0.5rem" }} />
-                  <SubmitButton className="btn btn-amber my-4 animate-pulse">
+                <div className="mt-4">
+                  <SubmitButton className="btn btn-amber animate-pulse">
                     Save Change
                   </SubmitButton>
-                </>
+                </div>
               )}
             </form>
-            <h2 className="py-1 font-medium">Add New {sectionTitle}</h2>
+
+            <h2 className="py-2 font-semibold text-lg max-w-md">
+              Add New {sectionTitle}
+            </h2>
             <form
               action={handleCreateOrganization}
-              className="flex flex-row w-auto"
+              className="flex flex-col max-w-md space-y-4 mb-6"
             >
-              <div className="flex flex-col w-full py-1 px-1">
-                <input
-                  readOnly
-                  hidden
-                  name="resume_id"
-                  id="resume_id"
-                  defaultValue={resume?.id}
-                />
-                <input
-                  readOnly
-                  hidden
-                  name="section_title"
-                  id="section_title"
-                  defaultValue={sectionTitle}
-                />
-
-                <input
-                  readOnly
-                  hidden
-                  name="user_id"
-                  id="user_id"
-                  defaultValue={user?.id}
-                />
-                <div className="rounded tight-shadow bg-gray-50 w-full px-2">
-                  <div className="flex flex-row w-auto">
-                    <div className="flex flex-col w-full py-1 px-1">
-                      <label className="py-1" htmlFor="organization_name">
-                        Name
-                      </label>
-                      <input
-                        required
-                        id="organization_name"
-                        name="organization_name"
-                        className="rounded "
-                        defaultValue={""}
-                        onChange={onChangeHandler}
-                        placeholder="Title, Activity, name, etc.."
-                      />
-                    </div>
-                  </div>
-                  <div className="flex flex-row w-auto">
-                    <div className="flex flex-col w-full py-1 px-1">
-                      <label className="py-1" htmlFor="organization_location">
-                        Location
-                      </label>
-                      <input
-                        id="organization_location"
-                        name="organization_location"
-                        className="rounded "
-                        defaultValue={""}
-                        onChange={onChangeHandler}
-                        placeholder="Location"
-                      />
-                    </div>
-                  </div>
-                  <div className="flex flex-row w-auto">
-                    <div className="flex flex-col w-full py-1 px-1">
-                      <label className="py-1" htmlFor="organization_start">
-                        Start Date
-                      </label>
-                      <input
-                        id="organization_start"
-                        name="organization_start"
-                        defaultValue={""}
-                        onChange={onChangeHandler}
-                        className="rounded "
-                        placeholder="Start Date"
-                      />
-                    </div>
-                  </div>
-                  <div className="flex flex-row w-auto">
-                    <div className="flex flex-col w-full py-1 px-1">
-                      <label className="py-1" htmlFor="organization_end">
-                        End Date
-                      </label>
-                      <input
-                        id="organization_end"
-                        name="organization_end"
-                        defaultValue={""}
-                        onChange={onChangeHandler}
-                        className="rounded"
-                        placeholder="End Date"
-                      />
-                    </div>
-                  </div>
-                  <div className="flex flex-row w-auto pb-3">
-                    <div className="flex flex-col w-full pt-1  px-1">
-                      <label
-                        className="py-1"
-                        htmlFor="organization_description"
-                      >
-                        Description
-                      </label>
-                      <textarea
-                        id="organization_description"
-                        name="organization_description"
-                        defaultValue={""}
-                        onChange={onChangeHandler}
-                        className="rounded"
-                        placeholder="Description"
-                      />
-                    </div>
-                  </div>
+              <input
+                readOnly
+                hidden
+                name="resume_id"
+                id="resume_id"
+                defaultValue={resume?.id}
+              />
+              <input
+                readOnly
+                hidden
+                name="section_title"
+                id="section_title"
+                defaultValue={sectionTitle}
+              />
+              <input
+                readOnly
+                hidden
+                name="user_id"
+                id="user_id"
+                defaultValue={user?.id}
+              />
+              <div className="rounded tight-shadow bg-gray-50 p-4">
+                <div className="mb-4">
+                  <label
+                    className="block mb-1 font-medium text-gray-700"
+                    htmlFor="organization_name"
+                  >
+                    Name
+                  </label>
+                  <input
+                    required
+                    id="organization_name"
+                    name="organization_name"
+                    className="w-full rounded border border-gray-300 p-2 focus:outline-none focus:ring-2 focus:ring-amber-400"
+                    defaultValue={""}
+                    onChange={onChangeHandler}
+                    placeholder="Title, Activity, name, etc.."
+                  />
                 </div>
-                <div className="flex flex-col w-full pt-4 pb-2 px-1">
-                  {edited && (
-                    <>
-                      <SubmitButton className="btn btn-amber animate-pulse">
-                        Add New Entry
-                      </SubmitButton>
-                    </>
-                  )}
+                <div className="mb-4">
+                  <label
+                    className="block mb-1 font-medium text-gray-700"
+                    htmlFor="organization_location"
+                  >
+                    Location
+                  </label>
+                  <input
+                    id="organization_location"
+                    name="organization_location"
+                    className="w-full rounded border border-gray-300 p-2 focus:outline-none focus:ring-2 focus:ring-amber-400"
+                    defaultValue={""}
+                    onChange={onChangeHandler}
+                    placeholder="Location"
+                  />
+                </div>
+                <div className="mb-4">
+                  <label
+                    className="block mb-1 font-medium text-gray-700"
+                    htmlFor="organization_start"
+                  >
+                    Start Date
+                  </label>
+                  <input
+                    id="organization_start"
+                    name="organization_start"
+                    defaultValue={""}
+                    onChange={onChangeHandler}
+                    className="w-full rounded border border-gray-300 p-2 focus:outline-none focus:ring-2 focus:ring-amber-400"
+                    placeholder="Start Date"
+                  />
+                </div>
+                <div className="mb-4">
+                  <label
+                    className="block mb-1 font-medium text-gray-700"
+                    htmlFor="organization_end"
+                  >
+                    End Date
+                  </label>
+                  <input
+                    id="organization_end"
+                    name="organization_end"
+                    defaultValue={""}
+                    onChange={onChangeHandler}
+                    className="w-full rounded border border-gray-300 p-2 focus:outline-none focus:ring-2 focus:ring-amber-400"
+                    placeholder="End Date"
+                  />
+                </div>
+                <div>
+                  <label
+                    className="block mb-1 font-medium text-gray-700"
+                    htmlFor="organization_description"
+                  >
+                    Description
+                  </label>
+                  <textarea
+                    id="organization_description"
+                    name="organization_description"
+                    defaultValue={""}
+                    onChange={onChangeHandler}
+                    className="w-full rounded border border-gray-300 p-2 focus:outline-none focus:ring-2 focus:ring-amber-400"
+                    placeholder="Description"
+                  />
                 </div>
               </div>
+              {edited && (
+                <SubmitButton className="btn btn-amber animate-pulse mt-4">
+                  Add New Entry
+                </SubmitButton>
+              )}
             </form>
-            <ul className="bg-white overflow-y-auto tight-shadow rounded h-[100px]">
+
+            <ul className="bg-white overflow-y-auto tight-shadow rounded max-h-[100px] mb-6">
               {userOrganizations?.map((organization: UserOrganization) => (
-                <li className="border p-2" key={organization?.id}>
+                <li
+                  className="border-b border-gray-200 p-3 flex justify-between items-center"
+                  key={organization?.id}
+                >
+                  <div>
+                    <h3 className="font-bold">{organization?.name}</h3>
+                    <p className="text-gray-600">{organization?.location}</p>
+                  </div>
                   <form action={handleCreateResumeLine}>
                     <input
                       hidden
@@ -357,29 +355,22 @@ export default function YourOrganizations({
                       name="id"
                       defaultValue={organization?.id}
                     />
-                    <div className="flex flex-row justify-between ">
-                      <div className="flex flex-col w-3/4">
-                        <h2 className="font-bold">{organization?.name}</h2>
-                        <h2>{organization?.location}</h2>
-                      </div>
-                      <div className="flex flex-col w-1/4 m-auto">
-                        <SubmitButton
-                          className={"hover:text-azure-radiance-500"}
-                        >
-                          Add
-                        </SubmitButton>
-                      </div>
-                    </div>
+                    <SubmitButton className="hover:text-amber-600">
+                      Add
+                    </SubmitButton>
                   </form>
                 </li>
               ))}
             </ul>
-            <h2>Selected Organizations</h2>
-            <ul className="overflow-y-auto h-[300px] my-2 tight-shadow rounded bg-white px-3">
+
+            <h2 className="font-semibold text-lg mb-3">
+              Selected Organizations
+            </h2>
+            <ul className="overflow-y-auto max-h-[300px] tight-shadow rounded bg-white px-4 py-3 space-y-6">
               {organizationResumeLines[0] &&
-                organizationResumeLines?.map(
+                organizationResumeLines.map(
                   (organization: UserOrganization) => (
-                    <li className="mt-2 mb-4" key={organization?.id}>
+                    <li key={organization?.id}>
                       <form action={handleDeleteResumeLine}>
                         <input
                           hidden
@@ -405,19 +396,17 @@ export default function YourOrganizations({
                           name="id"
                           defaultValue={organization?.id}
                         />
-                        <div className="flex flex-row justify-between ">
-                          <div className="flex flex-col w-3/4">
-                            {/* <h2 className="font-bold">{organization?.name}</h2>
-                            <h2>{organization?.location}</h2> */}
-                          </div>
-                          <div className="flex flex-col w-1/4 m-auto">
-                            <SubmitButton className={"hover:text-rose-500"}>
-                              Remove
-                            </SubmitButton>
-                          </div>
+                        <div className="flex justify-end">
+                          <SubmitButton className="hover:text-red-600">
+                            Remove
+                          </SubmitButton>
                         </div>
                       </form>
-                      <form action={handleUpdateUserOrganization}>
+
+                      <form
+                        action={handleUpdateUserOrganization}
+                        className="rounded tight-shadow bg-gray-50 p-4 mt-2"
+                      >
                         <input
                           readOnly
                           hidden
@@ -439,105 +428,95 @@ export default function YourOrganizations({
                           id="resume_id"
                           defaultValue={resume?.id}
                         />
-                        <div className="rounded tight-shadow bg-gray-50 w-full px-2 ">
-                          <div className="flex flex-row w-auto">
-                            <div className="flex flex-col w-full py-1 px-1">
-                              <label
-                                className="py-1 font-medium"
-                                htmlFor="organization_name"
-                              >
-                                Name
-                              </label>
-                              <input
-                                required
-                                id="organization_name"
-                                name="organization_name"
-                                className="rounded"
-                                defaultValue={organization?.name}
-                                onChange={onChangeHandler}
-                                placeholder={"Title, Activity, name, etc.."}
-                              />
-                            </div>
+                        <div className="space-y-4">
+                          <div>
+                            <label
+                              className="block mb-1 font-medium"
+                              htmlFor="organization_name"
+                            >
+                              Name
+                            </label>
+                            <input
+                              required
+                              id="organization_name"
+                              name="organization_name"
+                              className="w-full rounded border border-gray-300 p-2 focus:outline-none focus:ring-2 focus:ring-amber-400"
+                              defaultValue={organization?.name}
+                              onChange={onChangeHandler}
+                              placeholder="Title, Activity, name, etc.."
+                            />
                           </div>
-                          <div className="flex flex-row w-auto">
-                            <div className="flex flex-col w-full py-1 px-1">
-                              <label
-                                className="py-1"
-                                htmlFor="organization_location"
-                              >
-                                Location
-                              </label>
-                              <input
-                                id="organization_location"
-                                name="organization_location"
-                                className="rounded"
-                                defaultValue={organization?.location}
-                                onChange={onChangeHandler}
-                                placeholder="Location"
-                              />
-                            </div>
+                          <div>
+                            <label
+                              className="block mb-1 font-medium"
+                              htmlFor="organization_location"
+                            >
+                              Location
+                            </label>
+                            <input
+                              id="organization_location"
+                              name="organization_location"
+                              className="w-full rounded border border-gray-300 p-2 focus:outline-none focus:ring-2 focus:ring-amber-400"
+                              defaultValue={organization?.location}
+                              onChange={onChangeHandler}
+                              placeholder="Location"
+                            />
                           </div>
-                          <div className="flex flex-row w-auto">
-                            <div className="flex flex-col w-full py-1 px-1">
-                              <label
-                                className="py-1"
-                                htmlFor="organization_start"
-                              >
-                                Start Date
-                              </label>
-                              <input
-                                id="organization_start"
-                                name="organization_start"
-                                defaultValue={organization?.start_date}
-                                onChange={onChangeHandler}
-                                className="rounded"
-                                placeholder="Start Date"
-                              />
-                            </div>
+                          <div>
+                            <label
+                              className="block mb-1 font-medium"
+                              htmlFor="organization_start"
+                            >
+                              Start Date
+                            </label>
+                            <input
+                              id="organization_start"
+                              name="organization_start"
+                              defaultValue={organization?.start_date}
+                              onChange={onChangeHandler}
+                              className="w-full rounded border border-gray-300 p-2 focus:outline-none focus:ring-2 focus:ring-amber-400"
+                              placeholder="Start Date"
+                            />
                           </div>
-                          <div className="flex flex-row w-auto">
-                            <div className="flex flex-col w-full py-1 px-1">
-                              <label
-                                className="py-1"
-                                htmlFor="organization_end"
-                              >
-                                End Date
-                              </label>
-                              <input
-                                id="organization_end"
-                                name="organization_end"
-                                defaultValue={organization?.end_date}
-                                onChange={onChangeHandler}
-                                className="rounded"
-                                placeholder="End Date"
-                              />
-                            </div>
+                          <div>
+                            <label
+                              className="block mb-1 font-medium"
+                              htmlFor="organization_end"
+                            >
+                              End Date
+                            </label>
+                            <input
+                              id="organization_end"
+                              name="organization_end"
+                              defaultValue={organization?.end_date}
+                              onChange={onChangeHandler}
+                              className="w-full rounded border border-gray-300 p-2 focus:outline-none focus:ring-2 focus:ring-amber-400"
+                              placeholder="End Date"
+                            />
                           </div>
-                          <div className="flex flex-row w-auto pb-3">
-                            <div className="flex flex-col w-full pt-1  px-1">
-                              <label
-                                className="py-1"
-                                htmlFor="organization_description"
-                              >
-                                Description
-                              </label>
-                              <textarea
-                                id="organization_description"
-                                name="organization_description"
-                                defaultValue={organization?.description}
-                                onChange={onChangeHandler}
-                                className="rounded"
-                                placeholder="Description"
-                              />
-                            </div>
+                          <div>
+                            <label
+                              className="block mb-1 font-medium"
+                              htmlFor="organization_description"
+                            >
+                              Description
+                            </label>
+                            <textarea
+                              id="organization_description"
+                              name="organization_description"
+                              defaultValue={organization?.description}
+                              onChange={onChangeHandler}
+                              className="w-full rounded border border-gray-300 p-2 focus:outline-none focus:ring-2 focus:ring-amber-400"
+                              placeholder="Description"
+                            />
                           </div>
                         </div>
                         {edited && (
-                          <>
-                            <SubmitButton className="btn btn-amber my-4 animate-pulse">
+                          <div className="mt-4">
+                            <SubmitButton className="btn btn-amber animate-pulse">
                               Save Change
                             </SubmitButton>
-                          </>
+                          </div>
                         )}
                       </form>
                     </li>
@@ -545,61 +524,57 @@ export default function YourOrganizations({
                 )}
             </ul>
           </>
-        ) : (
-          ""
         )}
+
         <form action={handleUpdateOrganizationSection}>
-          <div className="flex flex-row py-2">
-            <div className="px-1 flex align-middle">
-              <input
-                hidden
-                readOnly
-                id="user_id"
-                name="user_id"
-                defaultValue={user?.id}
-              />
-              <input
-                hidden
-                readOnly
-                id="resume_id"
-                name="resume_id"
-                defaultValue={resume?.id}
-              />
-              <label htmlFor="show_custom_section_one" hidden />
-              <input
-                hidden
-                readOnly
-                name="show_custom_section_one"
-                id="show_custom_section_one"
-                type="text"
-                defaultValue={showCustomSectionOne}
-              />
-              <label htmlFor="show_organizations_section_input" hidden />
-              <input
-                title="Show Organizations Section"
-                className="m-auto rounded"
-                type="checkbox"
-                checked={showCustomSectionOne === "true" ? true : false}
-                value={showCustomSectionOne}
-                onChange={showOrganizationsOnChangeHandler}
-                name="show_organizations_section_input"
-              />
-            </div>
-            <div className="flex flex-col">
-              <p className="pl-1 font-medium">Show {sectionTitle} section?</p>
-            </div>
+          <div className="flex items-center space-x-4 mt-6">
+            <input
+              hidden
+              readOnly
+              id="user_id"
+              name="user_id"
+              defaultValue={user?.id}
+            />
+            <input
+              hidden
+              readOnly
+              id="resume_id"
+              name="resume_id"
+              defaultValue={resume?.id}
+            />
+            <input
+              hidden
+              readOnly
+              name="show_custom_section_one"
+              id="show_custom_section_one"
+              type="text"
+              value={showCustomSectionOne ? "true" : "false"}
+            />
+            <input
+              title="Show Organizations Section"
+              className="rounded cursor-pointer"
+              type="checkbox"
+              checked={showCustomSectionOne}
+              onChange={showOrganizationsOnChangeHandler}
+              name="show_organizations_section_input"
+              id="show_organizations_section_input"
+            />
+            <label
+              htmlFor="show_organizations_section_input"
+              className="font-medium select-none cursor-pointer"
+            >
+              Show {sectionTitle} section?
+            </label>
           </div>
           {editSection && (
-            <>
-              <div style={{ height: "0.5rem" }} />
-              <SubmitButton className="my-4 btn btn-amber animate-pulse">
+            <div className="mt-4">
+              <SubmitButton className="btn btn-amber animate-pulse">
                 Save Change
               </SubmitButton>
-            </>
+            </div>
           )}
         </form>
       </div>
-      <div className="py-2" />
     </div>
   );
 }

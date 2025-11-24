@@ -1,11 +1,18 @@
+// Definition of the Page component for the resume section
+// app/ui/resume/page.tsx
+
+import { ReactNode } from "react";
 import styles from "./Page.module.css";
 
-type Props = {
-  children: any | never;
-};
+interface PageProps {
+  children: ReactNode;
+  className?: string;
+}
 
-const Page = ({ children }: any) => (
-  <div className={styles.page}>{children}</div>
-);
-
-export default Page;
+/**
+ * Page component wrapper for resume templates
+ * Provides consistent page structure and styling for all resume layouts
+ */
+export default function Page({ children, className }: PageProps) {
+  return <div className={`${styles.page} ${className || ""}`}>{children}</div>;
+}

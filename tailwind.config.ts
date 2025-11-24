@@ -13,6 +13,7 @@ const config: Config & { safelist?: TailwindSafelistEntry[] } = {
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/ui/styles/**/*.css",
+    "./app/ui/global.*css",
   ],
   darkMode: "class", // Enable dark mode with class strategy
   safelist: [
@@ -31,13 +32,41 @@ const config: Config & { safelist?: TailwindSafelistEntry[] } = {
     extend: {
       boxShadow: {
         ragnarok:
-          "0_2.8px_2.2px_rgba(0,_0,_0,_0.034),_0_6.7px_5.3px_rgba(0,_0,_0,_0.048),_0_12.5px_10px_rgba(0,_0,_0,_0.06),_0_22.3px_17.9px_rgba(0,_0,_0,_0.072),_0_41.8px_33.4px_rgba(0,_0,_0,_0.086),_0_100px_80px_rgba(0,_0,_0,_0.12)",
-        aesthetic: "0_3px_10px_rgb(0,0,0,0.2)",
+          "0 2.8px 2.2px rgba(0, 0, 0, 0.034), 0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06), 0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086), 0 100px 80px rgba(0, 0, 0, 0.12)",
+        aesthetic: "0 3px 10px rgb(0 0 0 / 0.2)",
       },
       animation: {
         wiggle: "wiggle 1s ease-in-out infinite",
         pulse: "pulse 2s infinite",
         shine: "shine 1s",
+        "slide-in-from-top-2": "slide-in-from-top-2 0.3s ease forwards",
+      },
+      keyframes: {
+        shine: {
+          "100%": { left: "125%" },
+        },
+        wiggle: {
+          "0%, 100%": { transform: "rotate(-3deg)" },
+          "50%": { transform: "rotate(3deg)" },
+        },
+        pulse: {
+          "0%": {
+            transform: "scale(0.95)",
+            boxShadow: "0 0 0 0 rgba(0, 0, 0, 0.7)",
+          },
+          "70%": {
+            transform: "scale(1)",
+            boxShadow: "0 0 0 10px rgba(0, 0, 0, 0)",
+          },
+          "100%": {
+            transform: "scale(0.95)",
+            boxShadow: "0 0 0 0 rgba(0, 0, 0, 0)",
+          },
+        },
+        "slide-in-from-top-2": {
+          "0%": { transform: "translateY(-20px)", opacity: "0" },
+          "100%": { transform: "translateY(0)", opacity: "1" },
+        },
       },
       gridTemplateColumns: {
         "13": "repeat(13, minmax(0, 1fr))",
@@ -136,31 +165,6 @@ const config: Config & { safelist?: TailwindSafelistEntry[] } = {
         },
       },
     },
-    keyframes: {
-      shine: {
-        "100%": { left: "125%" },
-      },
-      wiggle: {
-        "0%, 100%": { transform: "rotate(-3deg)" },
-        "50%": { transform: "rotate(3deg)" },
-      },
-      pulse: {
-        "0%": {
-          transform: "scale(0.95)",
-          boxShadow: "0 0 0 0 rgba(0, 0, 0, 0.7)",
-        },
-
-        "70%": {
-          transform: "scale(1)",
-          boxShadow: "0 0 0 10px rgba(0, 0, 0, 0)",
-        },
-
-        "100%": {
-          transform: "scale(0.95)",
-          boxShadow: "0 0 0 0 rgba(0, 0, 0, 0)",
-        },
-      },
-    },
   },
 
   plugins: [
@@ -205,8 +209,7 @@ const config: Config & { safelist?: TailwindSafelistEntry[] } = {
             color: "white",
           },
         },
-        ".dark .btn-amber": {
-          // <- add this
+        "html.dark .btn-amber": {
           backgroundColor: "#FF006E",
           color: "white",
         },
@@ -215,10 +218,18 @@ const config: Config & { safelist?: TailwindSafelistEntry[] } = {
           boxShadow:
             "rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px",
         },
+        "html.dark .form-amber": {
+          backgroundColor: "rgba(255, 0, 110, 0.85)", // example dark mode amber
+          color: "white",
+        },
         ".form-orange": {
           backgroundColor: "#FFE4C2",
           boxShadow:
             "rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px",
+        },
+        "html.dark .form-orange": {
+          backgroundColor: "#E48B07",
+          color: "white",
         },
         ".tight-shadow": {
           boxShadow:

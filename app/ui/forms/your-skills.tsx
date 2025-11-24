@@ -8,6 +8,7 @@ import {
 import React, { useState } from "react";
 import { SubmitButton } from "../submit-button";
 import { Resume, User, UserSkill, UserSkills } from "@/app/lib/definitions";
+import "./your-skills.css";
 
 export default function YourSkills({
   userSkills,
@@ -15,17 +16,17 @@ export default function YourSkills({
   resume,
   setShowSkills,
   showSkills,
-  showSkillProgress,
   setShowSkillProgress,
+  showSkillProgress,
   skillResumeLines,
 }: {
   userSkills: UserSkills;
   user: User;
   resume: Resume;
-  setShowSkills: (e: string) => void;
-  showSkills: string;
-  setShowSkillProgress: (e: string) => void;
-  showSkillProgress: string;
+  setShowSkills: (value: boolean) => void;
+  showSkills: boolean;
+  setShowSkillProgress: (value: boolean) => void;
+  showSkillProgress: boolean;
   skillResumeLines: any;
 }) {
   const [edited, setEdited] = useState(false);
@@ -34,32 +35,17 @@ export default function YourSkills({
   const showSkillsOnChangeHandler = (
     e: React.ChangeEvent<HTMLInputElement>,
   ) => {
-    if (e.target.checked === true) {
-      setShowSkills("true");
-    } else {
-      setShowSkills("false");
-    }
-
-    if (edited === false) {
-      setEdited(true);
-    }
+    setShowSkills(e.target.checked);
+    if (!edited) setEdited(true);
   };
 
   const showSkillProgressBarsOnChangeHandler = (
     e: React.ChangeEvent<HTMLInputElement>,
   ) => {
-    if (e.target.checked === true) {
-      setShowSkillProgress("true");
-    } else {
-      setShowSkillProgress("false");
-    }
-
-    if (edited === false) {
-      setEdited(true);
-    }
+    setShowSkillProgress(e.target.checked);
+    if (!edited) setEdited(true);
   };
 
-  // Wrapper so form.action gets (formData: FormData) => void | Promise<void>
   const handleCreateResumeLine = async (formData: FormData): Promise<void> => {
     try {
       setIsSubmitting(true);
@@ -112,142 +98,97 @@ export default function YourSkills({
 
   return (
     <div className="your-skills">
-      <div className="flex flex-row justify-between">
-        <div className="flex flex-col">
-          <div className="py-2 font-bold text-xl">
-            <h2>Your Skills</h2>
-          </div>
-        </div>
-        <div className="flex flex-col " />
+      <div className="your-skills-header">
+        <h2>Your Skills</h2>
       </div>
-      <div className="form-amber rounded px-5 py-2 ">
-        {showSkills === "true" ? (
+      <div className="your-skills-form">
+        {showSkills && (
           <>
-            <h2 className="font-medium py-1">Choose Skills</h2>
+            <h3 className="your-skills-subheader">Choose Skills</h3>
 
-            <div className="flex flex-row h-[300px] w-full overflow-y-auto tight-shadow bg-white">
-              <ul className="w-full">
+            <div className="skills-list">
+              <ul>
                 {userSkills.map((skill: UserSkill) => (
-                  <li className="border  p-2" key={skill?.id}>
-                    <div className="flex flex-row  justify-between">
-                      <div className="flex flex-col w-1/3 mr-8">
-                        <h2 className="font-bold">{skill?.skill}</h2>
-                      </div>
-                      <div className="flex flex-col w-1/3 m-auto">
+                  <li key={skill?.id} className="skill-item">
+                    <div className="skill-name">{skill?.skill}</div>
+                    <div className="skill-level">
+                      <input
+                        readOnly
+                        type="range"
+                        value={skill?.skill_level}
+                        className="skill-range"
+                      />
+                    </div>
+                    <div className="skill-action">
+                      <form action={handleCreateResumeLine}>
                         <input
-                          readOnly
-                          type="range"
-                          value={skill?.skill_level}
+                          type="hidden"
+                          name="resume_id"
+                          value={resume?.id}
                         />
-                      </div>
-                      <div className="flex flex-col w-1/3 m-auto">
-                        <div className="flex flex-row justify-end">
-                          <form action={handleCreateResumeLine}>
-                            <input
-                              hidden
-                              readOnly
-                              name="resume_id"
-                              defaultValue={resume?.id}
-                            />
-                            <input
-                              hidden
-                              readOnly
-                              name="user_id"
-                              defaultValue={user?.id}
-                            />
-                            <input
-                              hidden
-                              readOnly
-                              name="line_type"
-                              defaultValue={"skill"}
-                            />
-                            <input
-                              hidden
-                              readOnly
-                              name="id"
-                              defaultValue={skill?.id}
-                            />
-                            <SubmitButton
-                              className={"hover:text-azure-radiance-500"}
-                              disabled={isSubmitting}
-                            >
-                              Add
-                            </SubmitButton>
-                          </form>
-                        </div>
-                      </div>
+                        <input type="hidden" name="user_id" value={user?.id} />
+                        <input type="hidden" name="line_type" value="skill" />
+                        <input type="hidden" name="id" value={skill?.id} />
+                        <SubmitButton
+                          disabled={isSubmitting}
+                          className="btn btn-amber"
+                        >
+                          Add
+                        </SubmitButton>
+                      </form>
                     </div>
                   </li>
                 ))}
               </ul>
             </div>
-            <div className="flex flex-col py-2">
-              <p className="py-1 font-medium">Chosen Resume Skills</p>
-              <div className="flex flex-col h-[100px] tight-shadow overflow-y-auto bg-white">
+
+            <div className="chosen-skills-section">
+              <p className="chosen-skills-title">Chosen Resume Skills</p>
+              <div className="chosen-skills-list">
                 {skillResumeLines[0] ? (
-                  skillResumeLines?.map((userSkill: UserSkill) => (
-                    <div
-                      key={userSkill?.id}
-                      className="flex flex-row justify-between border p-2 "
-                    >
-                      <div className="flex flex-col w-3/4">
-                        <div className="text-center w-full h-full">
-                          <h2 className="font-bold">{userSkill?.skill}</h2>
-                        </div>
-                        {showSkillProgress === "true" ? (
-                          <div className="flex flex-row p-2">
-                            <input
-                              title="skill_level"
-                              readOnly
-                              className="w-full"
-                              value={userSkill?.skill_level}
-                              type="range"
-                            />
-                          </div>
+                  skillResumeLines.map((userSkill: UserSkill) => (
+                    <div key={userSkill?.id} className="chosen-skill-item">
+                      <div className="chosen-skill-info">
+                        <h4 className="chosen-skill-name">
+                          {userSkill?.skill}
+                        </h4>
+                        {showSkillProgress ? (
+                          <input
+                            title="skill_level"
+                            readOnly
+                            className="skill-range"
+                            value={userSkill?.skill_level}
+                            type="range"
+                          />
                         ) : (
-                          <div className="flex flex-row py-3">
-                            <input
-                              hidden
-                              className="w-full"
-                              defaultValue={userSkill?.skill_level}
-                              type="range"
-                            />
-                          </div>
+                          <input
+                            hidden
+                            defaultValue={userSkill?.skill_level}
+                            type="range"
+                          />
                         )}
                       </div>
-                      <div className="flex flex-col w-1/4 m-auto">
-                        <form className="p-1" action={handleDeleteResumeLine}>
+                      <div className="chosen-skill-action">
+                        <form action={handleDeleteResumeLine}>
                           <input
-                            hidden
-                            readOnly
+                            type="hidden"
                             name="user_id"
-                            defaultValue={user?.id}
+                            value={user?.id}
                           />
+                          <input type="hidden" name="line_type" value="skill" />
                           <input
-                            hidden
-                            readOnly
-                            name="line_type"
-                            defaultValue={"skill"}
-                          />
-                          <input
-                            hidden
-                            readOnly
-                            id="resume_id"
+                            type="hidden"
                             name="resume_id"
-                            defaultValue={resume?.id}
-                            type="text"
+                            value={resume?.id}
                           />
                           <input
-                            readOnly
-                            type="text"
+                            type="hidden"
                             name="id"
-                            id="id"
-                            defaultValue={userSkill?.id}
-                            hidden
+                            value={userSkill?.id}
                           />
                           <SubmitButton
-                            className={"hover:text-rose-500"}
                             disabled={isSubmitting}
+                            className="btn btn-rose"
                           >
                             Remove
                           </SubmitButton>
@@ -256,104 +197,78 @@ export default function YourSkills({
                     </div>
                   ))
                 ) : (
-                  <h2 className="text-center animate-pulse py-2">
+                  <p className="no-skills-message">
                     Please add a skill from the list above
-                  </h2>
+                  </p>
                 )}
               </div>
             </div>
           </>
-        ) : (
-          ""
         )}
-        <form action={handleUpdateSkillsSection} className="flex flex-col">
-          {showSkills === "true" ? (
-            <div className="flex flex-row py-2">
-              <div className="px-1 flex align-middle">
-                <input
-                  hidden
-                  readOnly
-                  id="show_skill_progress"
-                  name="show_skill_progress"
-                  defaultValue={showSkillProgress}
-                />
-                <input
-                  title="show_skill_progress_input"
-                  checked={showSkillProgress === "true" ? true : false}
-                  value={showSkillProgress}
-                  onChange={showSkillProgressBarsOnChangeHandler}
-                  className="m-auto rounded"
-                  type="checkbox"
-                  name="show_skill_progress_input"
-                />
-              </div>
-              <div className="flex flex-col">
-                <p className="py-1 px-1 font-medium">
-                  Show skills progress bars?
-                </p>
-              </div>
-            </div>
-          ) : (
-            <div className="px-1 flex align-middle">
+
+        <form
+          action={handleUpdateSkillsSection}
+          className="skills-section-toggle-form"
+        >
+          {showSkills && (
+            <div className="toggle-row">
               <input
-                hidden
-                readOnly
+                type="hidden"
                 id="show_skill_progress"
                 name="show_skill_progress"
-                defaultValue={showSkillProgress}
+                value={showSkillProgress ? "true" : "false"}
               />
+              <input
+                type="checkbox"
+                id="show_skill_progress_input"
+                name="show_skill_progress_input"
+                checked={showSkillProgress}
+                onChange={showSkillProgressBarsOnChangeHandler}
+                className="toggle-checkbox"
+              />
+              <label
+                htmlFor="show_skill_progress_input"
+                className="toggle-label"
+              >
+                Show skills progress bars?
+              </label>
             </div>
           )}
-          <div className="flex flex-row py-1">
-            <div className="flex flex-col px-1 py-2">
-              <label hidden htmlFor="user_id" />
-              <input
-                hidden
-                readOnly
-                id="user_id"
-                name="user_id"
-                defaultValue={user?.id}
-              />
-              <label hidden htmlFor="resume_id" />
-              <input
-                hidden
-                readOnly
-                id="resume_id"
-                name="resume_id"
-                defaultValue={resume?.id}
-              />
-              <label hidden htmlFor="show_skills_section" />
-              <input
-                hidden
-                readOnly
-                id="show_skills_section"
-                name="show_skills_section"
-                defaultValue={showSkills}
-              />
-              <input
-                title="show_skills_section_input"
-                type="checkbox"
-                className="rounded"
-                checked={showSkills === "true" ? true : false}
-                value={showSkills}
-                onChange={showSkillsOnChangeHandler}
-                name="show_skills_section_input"
-              />
-            </div>
-            <div className="flex flex-col">
-              <h2 className="py-1 px-1 font-medium">Show skills section?</h2>
-            </div>
+          <div className="toggle-row">
+            <input type="hidden" id="user_id" name="user_id" value={user?.id} />
+            <input
+              type="hidden"
+              id="resume_id"
+              name="resume_id"
+              value={resume?.id}
+            />
+            <input
+              type="hidden"
+              id="show_skills_section"
+              name="show_skills_section"
+              value={showSkills ? "true" : "false"}
+            />
+            <input
+              type="checkbox"
+              id="show_skills_section_input"
+              name="show_skills_section_input"
+              checked={showSkills}
+              onChange={showSkillsOnChangeHandler}
+              className="toggle-checkbox"
+            />
+            <label htmlFor="show_skills_section_input" className="toggle-label">
+              Show skills section?
+            </label>
           </div>
           {edited && (
-            <>
-              <div style={{ height: "0.5rem" }} />
+            <div className="submit-button-wrapper">
               <SubmitButton
-                className="btn btn-amber my-4 animate-pulse"
                 disabled={isSubmitting}
+                className="btn btn-amber animate-pulse"
               >
                 {isSubmitting ? "Saving…" : "Save Change"}
               </SubmitButton>
-            </>
+            </div>
           )}
         </form>
       </div>

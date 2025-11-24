@@ -1,36 +1,109 @@
-.page {
-  margin: auto;
-  background: white;
-  position: relative;
+/* Page component styles for resume templates */
 
-  /* border: 1px solid red; */
+:root {
+  /* Page size variables - easy to switch between formats */
+  --page-width-letter: 8.5in;
+  --page-height-letter: 11in;
+  --page-width-a4: 210mm;
+  --page-height-a4: 297mm;
 
-  /* A4 page size */
-  /* max-width: 210mm;
-  max-height: 297mm;
+  /* Active page size */
+  --page-width: var(--page-width-letter);
+  --page-height: var(--page-height-letter);
 
-  min-width: 210mm;
-  min-height: 297mm; */
+  /* Spacing */
+  --page-padding: 32px;
 
-  /* letter page size */
-  min-width: 216mm;
-  min-height: 279mm;
-
-  max-width: 216mm;
-  max-height: 279mm;
-
-  padding: 32px;
-  color: black;
-  /* filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04))
-    drop-shadow(0 4px 3px rgb(0 0 0 / 0.1)); */
+  /* Colors */
+  --page-bg: white;
+  --page-text: black;
 }
 
+.page {
+  /* Layout */
+  margin: auto;
+  position: relative;
+
+  /* Page dimensions - Letter size (US standard) */
+  width: var(--page-width);
+  height: var(--page-height);
+  min-width: var(--page-width);
+  min-height: var(--page-height);
+  max-width: var(--page-width);
+  max-height: var(--page-height);
+
+  /* Styling */
+  background: var(--page-bg);
+  color: var(--page-text);
+  padding: var(--page-padding);
+
+  /* Shadow for screen viewing */
+  box-shadow:
+    0 1px 3px 0 rgb(0 0 0 / 0.1),
+    0 1px 2px -1px rgb(0 0 0 / 0.1);
+}
+
+/* A4 size variant (uncomment to use A4 instead of Letter) */
+/* .page {
+  --page-width: var(--page-width-a4);
+  --page-height: var(--page-height-a4);
+} */
+
+/* Print styles */
+@media print {
+  .page {
+    /* Remove margin and shadow for printing */
+    margin: 0;
+    box-shadow: none;
+
+    /* Ensure exact page size */
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+
+    /* Prevent page breaks inside the resume */
+    page-break-inside: avoid;
+
+    /* Ensure content fits on page */
+    overflow: hidden;
+  }
+}
+
+/* Print page setup */
+@page {
+  size: letter;
+  margin: 0;
+}
+
+/* A4 print setup (uncomment if using A4) */
 /* @page {
   size: A4;
   margin: 0;
 } */
 
-@page {
-  size: letter;
-  margin: 0;
+/* Responsive adjustments for smaller screens */
+@media screen and (max-width: 900px) {
+  .page {
+    /* Scale down on mobile while maintaining aspect ratio */
+    width: 100%;
+    min-width: auto;
+    max-width: 100%;
+
+    /* Maintain aspect ratio */
+    aspect-ratio: 8.5 / 11;
+    height: auto;
+    min-height: auto;
+    max-height: none;
+
+    /* Adjust padding for smaller screens */
+    padding: 24px;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .page {
+    padding: 16px;
+    box-shadow: none;
+  }
 }

@@ -15,61 +15,230 @@ import {
   faSquareGithub,
 } from "@fortawesome/free-brands-svg-icons";
 import {
-  BodyFont,
-  HeaderFont,
-  Resume,
   User,
-  UserCertification,
-  UserCertifications,
-  UserEducationExperience,
-  UserEducationExperiences,
-  UserOrganization,
-  UserSkill,
-  UserSkills,
+  Resume,
   UserWorkExperience,
-  UserWorkExperiences,
-  userOrganizations,
+  UserSkill,
+  UserEducationExperience,
+  UserCertification,
+  UserOrganization,
 } from "@/app/lib/definitions";
 
 interface Props {
   user: User;
-  body_font: any;
-  heading_font: any;
-  color: string;
+  body_font?: string;
+  heading_font?: string;
+  color?: string;
   resume: Resume;
-  userWorkExperiences: UserWorkExperiences;
-  userSkills: UserSkills;
-  userEducation: UserEducationExperiences;
-  userCertifications: UserCertifications;
-  userOrganizations: userOrganizations;
-  highlightColor: any;
-  show_social_icons: string;
-  show_skills_section: string;
-  show_skill_progress: string;
-  show_education_section: string;
-  show_custom_section_one: string;
-  show_custom_section_two: string;
-  educationResumeLines: any;
-  workResumeLines: any;
-  skillResumeLines: any;
-  organizationResumeLines: any;
-  certificationResumeLines: any;
+  userWorkExperiences: UserWorkExperience[];
+  userSkills: UserSkill[];
+  userEducation: UserEducationExperience[];
+  userCertifications: UserCertification[];
+  userOrganizations: UserOrganization[];
+  highlightColor?: string;
+  show_social_icons?: boolean;
+  show_skills_section?: boolean;
+  show_skill_progress?: boolean;
+  show_education_section?: boolean;
+  show_custom_section_one?: boolean;
+  show_custom_section_two?: boolean;
+  educationResumeLines: UserEducationExperience[];
+  workResumeLines: UserWorkExperience[];
+  skillResumeLines: UserSkill[];
+  organizationResumeLines: UserOrganization[];
+  certificationResumeLines: UserCertification[];
 }
+// Helper to convert string "true" to boolean true
+const isEnabled = (value?: string): boolean => value === "true";
 
-export default async function ThreeDAnimator(props: Props) {
+const SOCIAL_MEDIA = [
+  {
+    key: "linked_in",
+    icon: faLinkedin,
+    label: "LinkedIn",
+    url: (handle: string) => `https://linkedin.com/in/${handle}`,
+  },
+  {
+    key: "facebook",
+    icon: faSquareFacebook,
+    label: "Facebook",
+    url: (handle: string) => `https://facebook.com/${handle}`,
+  },
+  {
+    key: "instagram",
+    icon: faSquareInstagram,
+    label: "Instagram",
+    url: (handle: string) => `https://instagram.com/${handle}`,
+  },
+  {
+    key: "twitter",
+    icon: faSquareTwitter,
+    label: "Twitter",
+    url: (handle: string) => `https://twitter.com/${handle}`,
+  },
+  {
+    key: "github",
+    icon: faSquareGithub,
+    label: "Github",
+    url: (handle: string) => `https://github.com/${handle}`,
+  },
+] as const;
+
+export default function ThreeDAnimator(props: Props) {
+  const {
+    user,
+    resume,
+    body_font,
+    heading_font,
+    color,
+    highlightColor,
+    show_social_icons,
+    show_skills_section,
+    show_skill_progress,
+    show_education_section,
+    show_custom_section_one,
+    show_custom_section_two,
+    educationResumeLines = [],
+    workResumeLines = [],
+    skillResumeLines = [],
+    organizationResumeLines = [],
+    certificationResumeLines = [],
+  } = props;
+
+  const effectiveBodyFont = body_font || resume?.body_font;
+  const effectiveHeadingFont = heading_font || resume?.heading_font;
+  const effectiveColor = color || resume?.color;
+  const effectiveHighlightColor = highlightColor || resume?.highlight_color;
+
+  const showSocialIcons =
+    show_social_icons ?? resume?.show_social_icons ?? false;
+  const showSkillsSection =
+    show_skills_section ?? resume?.show_skills_section ?? false;
+  const showSkillProgress =
+    show_skill_progress ?? resume?.show_skill_progress ?? false;
+  const showEducationSection =
+    show_education_section ?? resume?.show_education_section ?? false;
+  const showCustomSectionOne =
+    show_custom_section_one ?? resume?.show_custom_section_one ?? false;
+  const showCustomSectionTwo =
+    show_custom_section_two ?? resume?.show_custom_section_two ?? false;
+
+  const hasWorkExperience = workResumeLines.length > 0;
+  const hasSkills = skillResumeLines.length > 0;
+  const hasEducation = educationResumeLines.length > 0;
+  const hasCertifications = certificationResumeLines.length > 0;
+  const hasOrganizations = organizationResumeLines.length > 0;
+
+  const PlaceholderText = ({ section }: { section: string }) => (
+    <div className="py-4 px-4 bg-gray-50 border border-dashed border-gray-300 rounded-lg">
+      <p className={clsx("text-sm text-gray-500 italic", effectiveBodyFont)}>
+        No {section} added yet. Add your {section.toLowerCase()} to complete
+        your resume.
+      </p>
+    </div>
+  );
+
+  const SectionDivider = () => (
+    <div className={clsx(effectiveColor, "w-full h-0.5")} />
+  );
+
+  const ContactItem = ({
+    icon: Icon,
+    href,
+    children,
+  }: {
+    icon: any;
+    href: string;
+    children: React.ReactNode;
+  }) => (
+    <div className="flex flex-row">
+      <div className="flex flex-col w-[30px]">
+        <Icon className="w-[18px] m-auto" />
+      </div>
+      <div className="flex flex-col w-auto flex-1">
+        <a
+          href={href}
+          className={clsx(effectiveBodyFont, "text-sm py-1 pl-1 truncate")}
+        >
+          {children}
+        </a>
+      </div>
+    </div>
+  );
+
+  const SocialMediaLink = ({
+    iconComponent,
+    label,
+    url,
+  }: {
+    iconComponent: any;
+    label: string;
+    url: string;
+  }) => (
+    <div className="flex flex-row">
+      <div className="flex flex-col w-[30px]">
+        <FontAwesomeIcon icon={iconComponent} className="w-[18px] m-auto" />
+      </div>
+      <div className="flex flex-col flex-1">
+        <a href={url} className={clsx(effectiveBodyFont, "text-sm py-1")}>
+          {label}
+        </a>
+      </div>
+    </div>
+  );
+
+  const WorkExperienceItem = ({
+    experience,
+  }: {
+    experience: UserWorkExperience;
+  }) => (
+    <li className="py-2">
+      <h2 className={clsx("font-bold", effectiveHeadingFont)}>
+        {experience.job_title}
+      </h2>
+      <p className={clsx("text-[0.85rem] font-light", effectiveHeadingFont)}>
+        {experience.company_name} - {experience.location} (
+        {experience.start_date} - {experience.end_date})
+      </p>
+      {[
+        experience.description_one,
+        experience.description_two,
+        experience.description_three,
+        experience.description_four,
+      ].map((description, index) =>
+        description ? (
+          <div key={index} className="flex flex-row justify-start">
+            <div className="flex flex-col pr-3 pt-2.5">
+              <div
+                className={clsx("h-[5px] w-[5px] rounded-full", effectiveColor)}
+              />
+            </div>
+            <div className="flex flex-col flex-1">
+              <p className={clsx("text-sm", effectiveBodyFont)}>
+                {description}
+              </p>
+            </div>
+          </div>
+        ) : null,
+      )}
+    </li>
+  );
+
   return (
     <Page>
-      <div className="flex flex-row m-auto">
-        <div className="flex flex-col w-1/4 rounded ">
+      {/* Header Section */}
+      <div className="flex flex-row m-auto gap-6">
+        <div className="flex flex-col w-1/4">
           <Image
             className="rounded-full"
-            alt={props?.user?.thumbnail}
+            alt={`${user.first_name} ${user.last_name}`}
             width={350}
             height={350}
-            src={props?.user?.thumbnail}
+            src={user.thumbnail}
+            priority
           />
         </div>
-        <div className="flex flex-col w-3/4 px-6">
+        <div className="flex flex-col w-3/4">
           <h1
             style={{
               textAlign: "left",
@@ -78,612 +247,271 @@ export default async function ThreeDAnimator(props: Props) {
               lineHeight: "1",
               fontWeight: "bold",
             }}
-            className={clsx(
-              "pb-3 pl-2",
-              props?.heading_font || props?.resume?.heading_font,
-            )}
+            className={clsx("pb-3", effectiveHeadingFont)}
           >
-            {props?.user?.first_name} {props?.user?.last_name}
+            {user.first_name} {user.last_name}
           </h1>
-          <p
-            className={clsx(
-              "text-[1rem] pl-2",
-              props?.body_font || props?.resume?.body_font,
+          <p className={clsx("text-[1rem]", effectiveBodyFont)}>
+            {resume?.description || (
+              <span className="text-gray-400 italic">
+                Add a professional summary to introduce yourself to potential
+                employers...
+              </span>
             )}
-          >
-            {props?.resume?.description}
           </p>
         </div>
       </div>
-      <div className="flex flex-row pt-3">
-        <div className="flex flex-col w-1/4 mr-8">
-          <div className="flex flex-col pb-1">
-            <h2
-              className={clsx(
-                "font-bold",
-                props?.heading_font || props?.resume?.heading_font,
+
+      {/* Main Content */}
+      <div className="flex flex-row pt-3 gap-8">
+        {/* Left Sidebar */}
+        <div className="flex flex-col w-1/4">
+          {/* Profile Section */}
+          <div className="flex flex-col pb-4">
+            <h2 className={clsx("font-bold", effectiveHeadingFont)}>PROFILE</h2>
+            <SectionDivider />
+
+            <div className="pt-2 space-y-1">
+              {user?.address_one ? (
+                <ContactItem
+                  icon={MapPinIcon}
+                  href={`https://www.google.com/search?q=${user.address_one}`}
+                >
+                  {user.address_one}
+                </ContactItem>
+              ) : (
+                <div className="text-sm text-gray-400 italic py-1">
+                  Add your address
+                </div>
               )}
-            >
-              PROFILE
-            </h2>
-            <div
-              className={clsx(
-                props?.color || props?.resume?.color,
-                " w-full h-0.5",
+
+              {user?.phone ? (
+                <ContactItem icon={PhoneIcon} href={`tel:${user.phone}`}>
+                  {user.phone}
+                </ContactItem>
+              ) : (
+                <div className="text-sm text-gray-400 italic py-1">
+                  Add your phone number
+                </div>
               )}
-            />
-            <div className="flex flex-row pt-2">
-              <div className="flex flex-col w-[30px]">
-                <MapPinIcon className="w-[25px] m-auto" />
-              </div>
-              <div className="flex flex-col w-auto">
-                <a
-                  href={`https://www.google.com/search?q=${props?.user?.address_one}`}
-                  className={clsx(
-                    props?.body_font || props?.resume?.body_font,
-                    "text-sm py-1",
-                  )}
-                >
-                  {props?.user?.address_one}
-                </a>
-              </div>
+
+              {user?.email ? (
+                <ContactItem icon={EnvelopeIcon} href={`mailto:${user.email}`}>
+                  {user.email}
+                </ContactItem>
+              ) : (
+                <div className="text-sm text-gray-400 italic py-1">
+                  Add your email address
+                </div>
+              )}
             </div>
-            <div className="flex flex-row">
-              <div className="flex flex-col w-[30px] ">
-                <PhoneIcon className="w-[18px] m-auto" />
+
+            {/* Social Media Links */}
+            {showSocialIcons && (
+              <div className="mt-2 space-y-1">
+                {SOCIAL_MEDIA.map(({ key, icon, label, url }) => {
+                  const handle = user[key as keyof User] as string;
+                  return handle ? (
+                    <SocialMediaLink
+                      key={key}
+                      iconComponent={icon}
+                      label={label}
+                      url={url(handle)}
+                    />
+                  ) : null;
+                })}
               </div>
-              <div className="flex flex-col w-full">
-                <a
-                  href={`tel:${props?.user?.phone}`}
-                  className={clsx(
-                    props?.body_font || props?.resume?.body_font,
-                    "text-sm py-1 pl-1",
-                  )}
-                >
-                  {props?.user?.phone}
-                </a>
-              </div>
-            </div>
-            <div className="flex flex-row justify-start">
-              <div className="flex flex-col w-[30px] ">
-                <EnvelopeIcon className="w-[18px] m-auto" />
-              </div>
-              <div className="flex flex-col w-[85%]">
-                <a
-                  href={`mailto:${props?.user?.email}`}
-                  className={clsx(
-                    props?.body_font || props?.resume?.body_font,
-                    "text-sm truncate py-1 pl-1",
-                  )}
-                >
-                  {props?.user?.email}
-                </a>
-              </div>
-            </div>
-            {props?.show_social_icons === "true" ||
-            props?.resume?.show_social_icons === "true" ? (
-              <>
-                {props?.user?.linked_in === "" ? (
-                  ""
-                ) : (
-                  <div className="flex flex-row">
-                    <div className="flex flex-col w-[30px] ">
-                      <FontAwesomeIcon
-                        icon={faLinkedin}
-                        className="w-[18px] m-auto"
-                      />
-                    </div>
-                    <div className="flex flex-col w-3/4">
-                      <a
-                        href={`https://linkedin.com/in/${props?.user?.linked_in}`}
-                        className={clsx(
-                          props?.body_font || props?.resume?.body_font,
-                          "text-sm py-1",
-                        )}
-                      >
-                        LinkedIn
-                      </a>
-                    </div>
-                  </div>
-                )}
-                {props?.user?.facebook === "" ? (
-                  ""
-                ) : (
-                  <div className="flex flex-row">
-                    <div className="flex flex-col w-[30px] ">
-                      <FontAwesomeIcon
-                        icon={faSquareFacebook}
-                        className="w-[18px] m-auto"
-                      />
-                    </div>
-                    <div className="flex flex-col w-3/4">
-                      <a
-                        href={`https://facebook.com/${props?.user?.facebook}`}
-                        className={clsx(
-                          props?.body_font || props?.resume?.body_font,
-                          "text-sm py-1",
-                        )}
-                      >
-                        Facebook
-                      </a>
-                    </div>
-                  </div>
-                )}
-                {props?.user?.instagram === "" ? (
-                  ""
-                ) : (
-                  <div className="flex flex-row">
-                    <div className="flex flex-col w-[30px] ">
-                      <FontAwesomeIcon
-                        icon={faSquareInstagram}
-                        className="w-[18px] m-auto"
-                      />
-                    </div>
-                    <div className="flex flex-col w-3/4">
-                      <a
-                        href={`https://instagram.com/${props?.user?.instagram}`}
-                        className={clsx(
-                          props?.body_font || props?.resume?.body_font,
-                          "text-sm py-1",
-                        )}
-                      >
-                        Instagram
-                      </a>
-                    </div>
-                  </div>
-                )}
-                {props?.user?.twitter === "" ? (
-                  ""
-                ) : (
-                  <div className="flex flex-row">
-                    <div className="flex flex-col w-[30px] ">
-                      <FontAwesomeIcon
-                        icon={faSquareTwitter}
-                        className="w-[18px] m-auto"
-                      />
-                    </div>
-                    <div className="flex flex-col w-3/4">
-                      <a
-                        href={`https://twitter.com/${props?.user?.twitter}`}
-                        className={clsx(
-                          props?.body_font || props?.resume?.body_font,
-                          "text-sm py-1",
-                        )}
-                      >
-                        Twitter
-                      </a>
-                    </div>
-                  </div>
-                )}
-                {props?.user?.github === "" ? (
-                  ""
-                ) : (
-                  <div className="flex flex-row">
-                    <div className="flex flex-col w-[30px] ">
-                      <FontAwesomeIcon
-                        icon={faSquareGithub}
-                        className="w-[18px] m-auto"
-                      />
-                    </div>
-                    <div className="flex flex-col w-3/4">
-                      <a
-                        href={`https://github.com/${props?.user?.github}`}
-                        className={clsx(
-                          props?.body_font || props?.resume?.body_font,
-                          "text-sm py-1",
-                        )}
-                      >
-                        Github
-                      </a>
-                    </div>
-                  </div>
-                )}
-              </>
-            ) : (
-              ""
             )}
           </div>
 
-          {props?.show_skill_progress === "true" ||
-          props?.resume?.show_skill_progress === "true" ? (
-            props.show_skills_section === "true" ||
-            props?.resume?.show_skills_section === "true" ? (
-              <div className="flex flex-col pb-3 pt-4">
-                <h2
-                  className={clsx(
-                    "font-bold",
-                    props?.heading_font || props?.resume?.heading_font,
-                  )}
-                >
-                  SKILLS
-                </h2>
-                <div
-                  className={clsx(
-                    props?.color || props?.resume?.color,
-                    "w-full h-[3px]",
-                  )}
-                />
-                <div className="pt-2">
-                  {props?.skillResumeLines[0] &&
-                    props?.skillResumeLines?.map((userSkill: UserSkill) => (
-                      <div className="flex flex-col py-0.5" key={userSkill?.id}>
+          {/* Skills Section */}
+          {showSkillsSection && (
+            <div className="flex flex-col pb-4">
+              <h2 className={clsx("font-bold", effectiveHeadingFont)}>
+                SKILLS
+              </h2>
+              <SectionDivider />
+
+              {hasSkills ? (
+                showSkillProgress ? (
+                  <div className="pt-3 space-y-2">
+                    {skillResumeLines.map((skill) => (
+                      <div key={skill.id}>
                         <p
                           className={clsx(
-                            "text-[0.75rem] font-bold",
-                            props?.body_font || props?.resume?.body_font,
+                            "text-[0.75rem] font-bold mb-1",
+                            effectiveBodyFont,
                           )}
                         >
-                          {userSkill?.skill}
+                          {skill.skill}
                         </p>
-
-                        <div className="progress-container">
+                        <div className="rounded-full h-2.5 border border-black overflow-hidden">
                           <div
                             className={clsx(
-                              props?.resume?.highlight_color ||
-                                props?.resume?.highlight_color,
-                              "rounded-full h-2.5 border border-black",
+                              "h-full rounded-2xl transition-all",
+                              effectiveColor,
                             )}
-                          >
-                            <div
-                              className={clsx(
-                                "progress-bar rounded-2xl",
-                                props?.color || props?.resume?.color,
-                              )}
-                              style={{
-                                width: `${userSkill?.skill_level}%`,
-                                height: "100%",
-                              }}
-                            ></div>
-                          </div>
+                            style={{ width: `${skill.skill_level}%` }}
+                          />
                         </div>
                       </div>
                     ))}
-                </div>
-              </div>
-            ) : (
-              ""
-            )
-          ) : (
-            ""
-          )}
-          {props?.show_skill_progress === "false" ||
-          props?.resume?.show_skill_progress === "false" ? (
-            props.show_skills_section === "true" ||
-            props?.resume?.show_skills_section === "true" ? (
-              <div className="flex flex-col pb-3 pt-2 w-full">
-                <h2
-                  className={clsx(
-                    "font-bold",
-                    props?.heading_font || props?.resume?.heading_font,
-                  )}
-                >
-                  SKILLS
-                </h2>
-                <div
-                  className={clsx(
-                    props?.color || props?.resume?.color,
-                    " w-full h-[3px]",
-                  )}
-                />
-                <ul className="pt-3 flex flex-row flex-wrap gap-1">
-                  {props?.skillResumeLines[0] &&
-                    props?.skillResumeLines?.map((userSkill: UserSkill) => (
+                  </div>
+                ) : (
+                  <ul className="pt-3 flex flex-row flex-wrap gap-2">
+                    {skillResumeLines.map((skill) => (
                       <li
-                        className={clsx(
-                          "flex flex-col px-2 rounded py-0.5 border text-[black]",
-                          `border-${props?.highlightColor || props?.resume?.highlight_color}`,
-                        )}
-                        key={userSkill?.id}
+                        key={skill.id}
+                        className="px-2 py-1 rounded border border-gray-300 bg-gray-50"
                       >
                         <p
                           className={clsx(
                             "text-[0.75rem] font-bold",
-                            props?.body_font || props?.resume?.body_font,
+                            effectiveBodyFont,
                           )}
                         >
-                          {userSkill?.skill}
+                          {skill.skill}
                         </p>
                       </li>
                     ))}
-                </ul>
-              </div>
-            ) : (
-              ""
-            )
-          ) : (
-            ""
+                  </ul>
+                )
+              ) : (
+                <div className="pt-3">
+                  <PlaceholderText section="Skills" />
+                </div>
+              )}
+            </div>
           )}
-          {props?.show_education_section === "true" ||
-          props?.resume?.show_education_section === "true" ? (
-            <div className="flex flex-row pb-3 pt-2">
-              <h1
-                className={clsx(
-                  "font-bold",
-                  props?.heading_font || props?.resume?.heading_font,
-                )}
-              >
+
+          {/* Education Section */}
+          {showEducationSection && (
+            <div className="flex flex-col pb-4">
+              <h2 className={clsx("font-bold", effectiveHeadingFont)}>
                 EDUCATION
-              </h1>
-              <div
-                className={clsx(
-                  props?.color || props?.resume?.color,
-                  "w-full h-0.5",
-                )}
-              />
-              <ul className="w-full">
-                {props?.educationResumeLines?.map(
-                  (userEducation: UserEducationExperience) => (
-                    <li className="flex flex-col pt-2" key={userEducation?.id}>
-                      <h2
+              </h2>
+              <SectionDivider />
+              {hasEducation ? (
+                <ul className="pt-3 space-y-3">
+                  {educationResumeLines.map((education) => (
+                    <li key={education.id}>
+                      <h3
                         className={clsx(
                           "font-bold text-sm",
-                          props?.heading_font || props?.resume?.heading_font,
+                          effectiveHeadingFont,
                         )}
                       >
-                        {userEducation?.institution_name}
-                      </h2>
-                      <p
-                        className={clsx(
-                          "text-sm",
-                          props?.body_font || props?.resume?.body_font,
-                        )}
-                      >
-                        {userEducation?.location}
+                        {education.institution_name}
+                      </h3>
+                      <p className={clsx("text-sm", effectiveBodyFont)}>
+                        {education.location}
+                      </p>
+                      <p className={clsx("text-sm", effectiveBodyFont)}>
+                        {education.start_date} - {education.end_date}
                       </p>
                       <p
                         className={clsx(
-                          "text-sm",
-                          props?.body_font || props?.resume?.body_font,
+                          "text-sm italic font-bold",
+                          effectiveBodyFont,
                         )}
                       >
-                        {userEducation?.start_date} - {userEducation?.end_date}
-                      </p>
-                      <p
-                        className={clsx(
-                          "text-sm italic font-black",
-                          props?.body_font || props?.resume?.body_font,
-                        )}
-                      >
-                        {userEducation?.program}
+                        {education.program}
                       </p>
                     </li>
-                  ),
-                )}
-              </ul>
+                  ))}
+                </ul>
+              ) : (
+                <div className="pt-3">
+                  <PlaceholderText section="Education" />
+                </div>
+              )}
             </div>
-          ) : (
-            ""
           )}
 
-          {props?.show_custom_section_two === "true" ||
-          props?.resume?.show_custom_section_two === "true" ? (
-            <div className="flex flex-row pb-3">
-              <div className="flex flex-col">
-                <h2
-                  className={clsx(
-                    "font-bold",
-                    props?.heading_font || props?.resume?.heading_font,
-                  )}
-                >
-                  {props?.resume?.custom_section_two_name}
-                </h2>
-                <div
-                  className={clsx(
-                    props?.color || props?.resume?.color,
-                    "w-full h-[2.5px]",
-                  )}
-                />
-                <ul>
-                  {props?.certificationResumeLines?.map(
-                    (userCertification: UserCertification) => (
-                      <li className="flex flex-col" key={userCertification?.id}>
-                        <p
-                          className={clsx(
-                            "text-sm font-medium pt-2",
-                            props?.heading_font || props?.resume?.heading_font,
-                          )}
-                        >
-                          {userCertification?.name}
-                        </p>
-                        <p
-                          className={clsx(
-                            "text-sm",
-                            props?.body_font || props?.resume?.body_font,
-                          )}
-                        >
-                          {userCertification?.location}
-                        </p>
-                      </li>
-                    ),
-                  )}
+          {/* Custom Section Two (Certifications) */}
+          {showCustomSectionTwo && (
+            <div className="flex flex-col pb-4">
+              <h2 className={clsx("font-bold", effectiveHeadingFont)}>
+                {resume?.custom_section_two_name || "Certifications"}
+              </h2>
+              <SectionDivider />
+              {hasCertifications ? (
+                <ul className="pt-3 space-y-2">
+                  {certificationResumeLines.map((cert) => (
+                    <li key={cert.id}>
+                      <p
+                        className={clsx(
+                          "text-sm font-medium",
+                          effectiveHeadingFont,
+                        )}
+                      >
+                        {cert.name}
+                      </p>
+                      <p className={clsx("text-sm", effectiveBodyFont)}>
+                        {cert.location}
+                      </p>
+                    </li>
+                  ))}
                 </ul>
-              </div>
+              ) : (
+                <div className="pt-3">
+                  <PlaceholderText section="Certifications" />
+                </div>
+              )}
             </div>
-          ) : (
-            ""
           )}
         </div>
+
+        {/* Right Main Content */}
         <div className="flex flex-col w-3/4">
-          <div className="flex flex-row">
-            <h2
-              className={clsx(
-                "font-bold",
-                props?.heading_font || props?.resume?.heading_font,
-              )}
-            >
+          {/* Work Experience Section */}
+          <div className="flex flex-col pb-4">
+            <h2 className={clsx("font-bold", effectiveHeadingFont)}>
               WORK EXPERIENCE
             </h2>
-          </div>
-          <div
-            className={clsx(
-              props?.color || props?.resume?.color,
-              " w-full h-0.5",
-            )}
-          />
-          <div className="flex flex-row"></div>{" "}
-          <ul className="pb-2">
-            {props?.workResumeLines?.map(
-              (userWorkExperience: UserWorkExperience) => (
-                <li className="py-2" key={userWorkExperience?.id}>
-                  <h2
-                    className={clsx(
-                      "font-bold",
-                      props?.heading_font || props?.resume?.heading_font,
-                    )}
-                  >
-                    {userWorkExperience?.job_title}
-                  </h2>
-                  <p
-                    className={clsx(
-                      "text-[0.85rem] font-lite",
-                      props?.heading_font || props?.resume?.heading_font,
-                    )}
-                  >
-                    {userWorkExperience?.company_name} -{" "}
-                    {userWorkExperience?.location} (
-                    {userWorkExperience?.start_date} -{" "}
-                    {userWorkExperience?.end_date})
-                  </p>
-                  {userWorkExperience?.description_one && (
-                    <div className="flex flex-row justify-start">
-                      <div className="flex flex-col pr-3 pt-2">
-                        <div
-                          className={clsx(
-                            "h-[5px] w-[5px] rounded-full ",
-                            props?.color || props?.resume?.color,
-                          )}
-                        />
-                      </div>
-                      <div className="flex flex-col w-auto text-left">
-                        <p
-                          className={clsx(
-                            "text-sm",
-                            props?.body_font || props?.resume?.body_font,
-                          )}
-                        >
-                          {userWorkExperience?.description_one}
-                        </p>
-                      </div>
-                    </div>
-                  )}
-                  {userWorkExperience?.description_two && (
-                    <div className="flex flex-row justify-start">
-                      <div className="flex flex-col pr-3 pt-2.5">
-                        <div
-                          className={clsx(
-                            "h-[5px] w-[5px] rounded-full",
-                            props?.color || props?.resume?.color,
-                          )}
-                        />
-                      </div>
-                      <div className="flex flex-col">
-                        <p
-                          className={clsx(
-                            "text-sm ",
-                            props?.body_font || props?.resume?.body_font,
-                          )}
-                        >
-                          {userWorkExperience?.description_two}
-                        </p>
-                      </div>
-                    </div>
-                  )}
-                  {userWorkExperience?.description_three && (
-                    <div className="flex flex-row justify-start">
-                      <div className="flex flex-col pr-3 pt-2.5">
-                        <div
-                          className={clsx(
-                            "h-[5px] w-[5px] rounded-full",
-                            props?.color || props?.resume?.color,
-                          )}
-                        />
-                      </div>
-                      <div className="flex flex-col">
-                        <p
-                          className={clsx(
-                            "text-sm",
-                            props?.body_font || props?.resume?.body_font,
-                          )}
-                        >
-                          {userWorkExperience?.description_three}
-                        </p>
-                      </div>
-                    </div>
-                  )}
-                  {userWorkExperience?.description_four && (
-                    <div className="flex flex-row justify-start">
-                      <div className="flex flex-col pr-3 pt-2.5">
-                        <div
-                          className={clsx(
-                            "h-[5px] w-[5px] rounded-full",
-
-                            props?.color || props?.resume?.color,
-                          )}
-                        />
-                      </div>
-                      <div className="flex flex-col">
-                        <p
-                          className={clsx(
-                            "text-sm",
-                            props?.body_font || props?.resume?.body_font,
-                          )}
-                        >
-                          {userWorkExperience?.description_four}
-                        </p>
-                      </div>
-                    </div>
-                  )}
-                </li>
-              ),
-            )}
-          </ul>
-          {props?.show_custom_section_one === "true" ||
-          props?.resume?.show_custom_section_one === "true" ? (
-            <>
-              <div className="flex flex-row">
-                <h2
-                  className={clsx(
-                    "font-bold",
-                    props?.heading_font || props?.resume?.heading_font,
-                  )}
-                >
-                  {props.resume.custom_section_one_name}
-                </h2>
+            <SectionDivider />
+            {hasWorkExperience ? (
+              <ul className="pt-2">
+                {workResumeLines.map((experience) => (
+                  <WorkExperienceItem
+                    key={experience.id}
+                    experience={experience}
+                  />
+                ))}
+              </ul>
+            ) : (
+              <div className="pt-3">
+                <PlaceholderText section="Work Experience" />
               </div>
-              <div
-                className={clsx(
-                  props?.color || props?.resume?.color,
-                  " w-full h-0.5",
-                )}
-              />
-              <div className="flex flex-row"></div>{" "}
-              <ul className="px-3 py-2">
-                {props?.organizationResumeLines?.map(
-                  (userOrganization: UserOrganization) => (
-                    <li className="list-disc py-2" key={userOrganization?.id}>
-                      <p
-                        className={clsx(
-                          "font-bold",
-                          props?.heading_font || props?.resume?.heading_font,
-                        )}
-                      >
-                        {userOrganization?.name}
+            )}
+          </div>
+
+          {/* Custom Section One (Organizations) */}
+          {showCustomSectionOne && (
+            <div className="flex flex-col">
+              <h2 className={clsx("font-bold", effectiveHeadingFont)}>
+                {resume?.custom_section_one_name || "Organizations"}
+              </h2>
+              <SectionDivider />
+              {hasOrganizations ? (
+                <ul className="px-3 py-2 space-y-2">
+                  {organizationResumeLines.map((org) => (
+                    <li key={org.id} className="list-disc">
+                      <p className={clsx("font-bold", effectiveHeadingFont)}>
+                        {org.name}
                       </p>
-                      <p
-                        className={clsx(
-                          "text-sm",
-                          props?.body_font || props?.resume?.body_font,
-                        )}
-                      >
-                        {userOrganization?.location}
+                      <p className={clsx("text-sm", effectiveBodyFont)}>
+                        {org.location}
                       </p>
                     </li>
-                  ),
-                )}
-              </ul>
-            </>
-          ) : (
-            ""
+                  ))}
+                </ul>
+              ) : (
+                <div className="pt-3">
+                  <PlaceholderText section="Organizations" />
+                </div>
+              )}
+            </div>
           )}
         </div>
       </div>

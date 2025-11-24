@@ -1,3 +1,5 @@
+"use client";
+
 import {
   createCertification,
   createResumeLine,
@@ -14,6 +16,7 @@ import {
   UserCertification,
   UserCertifications,
 } from "@/app/lib/definitions";
+import "./your-certifications.css";
 
 export default function YourCertifications({
   userCertifications,
@@ -26,8 +29,8 @@ export default function YourCertifications({
   userCertifications: UserCertifications;
   resume: Resume;
   user: User;
-  showCustomSectionTwo: string;
-  setShowCustomSectionTwo: (e: string) => void;
+  showCustomSectionTwo: boolean;
+  setShowCustomSectionTwo: (value: boolean) => void;
   certificationResumeLines: any;
 }) {
   const [sectionTitle, setSectionTitle] = useState(
@@ -40,13 +43,13 @@ export default function YourCertifications({
   const [addCertification, setAddCertification] = useState(false);
 
   const onChangeHandler = () => {
-    if (edited === false) {
+    if (!edited) {
       setEdited(true);
     }
   };
 
   const newCertificationOnChangeHandler = () => {
-    if (addCertification === false) {
+    if (!addCertification) {
       setAddCertification(true);
     }
   };
@@ -56,7 +59,7 @@ export default function YourCertifications({
   ) => {
     setSectionTitle(e.target.value);
 
-    if (edited === false) {
+    if (!edited) {
       setEditSectionTitle(true);
     }
   };
@@ -64,13 +67,9 @@ export default function YourCertifications({
   const showCertificationsOnChangeHandler = (
     e: React.ChangeEvent<HTMLInputElement>,
   ) => {
-    if (e.target.checked === true) {
-      setShowCustomSectionTwo("true");
-    } else {
-      setShowCustomSectionTwo("false");
-    }
+    setShowCustomSectionTwo(e.target.checked);
 
-    if (edited === false) {
+    if (!editSection) {
       setEditSection(true);
     }
   };
@@ -111,8 +110,6 @@ export default function YourCertifications({
       const result = await createResumeLine(formData);
       if (result?.errors) {
         console.error("Create resume line failed:", result);
-      } else {
-        // success — you may want to revalidate or update UI
       }
     } catch (err) {
       console.error("Unexpected error creating resume line:", err);
@@ -124,8 +121,6 @@ export default function YourCertifications({
       const result = await deleteResumeLine(formData);
       if (result?.errors) {
         console.error("Delete resume line failed:", result);
-      } else {
-        // success — you may want to revalidate or update UI
       }
     } catch (err) {
       console.error("Unexpected error deleting resume line:", err);
@@ -164,18 +159,18 @@ export default function YourCertifications({
 
   return (
     <div className="w-full">
-      <div className=" font-bold text-xl py-1">
-        <h2 className="">Your {sectionTitle}</h2>
+      <div className="font-bold text-xl py-2 border-b border-gray-300">
+        <h2>Your {sectionTitle}</h2>
       </div>
-      <div className="your-certifications rounded tight-shadow form-amber px-4 py-2">
-        <div className="flex flex-row justify-between">
-          <div className="flex flex-col"></div>
-          <div className="flex flex-col "></div>
+      <div className="your-certifications rounded tight-shadow form-amber px-6 py-4 mt-4">
+        <div className="flex flex-row justify-between mb-4">
+          <div />
+          <div />
         </div>
-        {showCustomSectionTwo === "true" ? (
+        {showCustomSectionTwo && (
           <>
-            <form action={handleUpdateSectionTitle} className="pb-2">
-              <div className="flex flex-col">
+            <form action={handleUpdateSectionTitle} className="pb-4">
+              <div className="flex flex-col max-w-md">
                 <input
                   readOnly
                   hidden
@@ -190,7 +185,10 @@ export default function YourCertifications({
                   id="user_id"
                   defaultValue={user?.id}
                 />
-                <label className="py-1 font-medium" htmlFor="section_title">
+                <label
+                  className="py-2 font-semibold text-gray-700"
+                  htmlFor="section_title"
+                >
                   Section Title
                 </label>
                 <input
@@ -199,112 +197,105 @@ export default function YourCertifications({
                   maxLength={14}
                   id="section_title"
                   name="section_title"
-                  className="rounded"
+                  className="rounded border border-gray-300 p-2 focus:outline-none focus:ring-2 focus:ring-amber-400"
                   defaultValue={sectionTitle}
                   onChange={setSectionTitleOnChangeHandler}
                   placeholder="Section Title"
                 />
               </div>
               {editSectionTitle && (
-                <>
-                  <div style={{ height: "0.5rem" }} />
-                  <SubmitButton className="btn btn-amber my-4 animate-pulse">
+                <div className="mt-4">
+                  <SubmitButton className="btn btn-amber animate-pulse">
                     Save Change
                   </SubmitButton>
-                </>
+                </div>
               )}
             </form>
 
             <form
               action={handleCreateCertification}
-              className="flex flex-row w-auto"
+              className="flex flex-col max-w-md space-y-4 mb-6"
             >
-              <div className="flex flex-col w-full py-1 px-1">
-                <input
-                  readOnly
-                  hidden
-                  name="resume_id"
-                  id="resume_id"
-                  defaultValue={resume?.id}
-                />
-                <input
-                  hidden
-                  name="user_id"
-                  id="user_id"
-                  defaultValue={user.id}
-                />
-                <label hidden className="py-1" htmlFor="section_title">
-                  Section Title
-                </label>
-                <input
-                  hidden
-                  required
-                  type="text"
-                  maxLength={14}
-                  id="section_title"
-                  name="section_title"
-                  className="rounded"
-                  defaultValue={sectionTitle}
-                  onChange={(e) => setSectionTitle(e.target.value)}
-                  placeholder="Section Title"
-                ></input>
-                <h2 className="py-1 font-medium">Add New {sectionTitle}</h2>
-                <div className="rounded tight-shadow bg-gray-50 w-full px-2">
-                  <div className="flex flex-row w-auto">
-                    <div className="flex flex-col w-full py-1 px-1">
-                      <label
-                        className="py-1 font-medium"
-                        htmlFor="certification_name"
-                      >
-                        Name
-                      </label>
-                      <input
-                        required
-                        id="certification_name"
-                        name="certification_name"
-                        className="rounded"
-                        defaultValue={""}
-                        onChange={() => {}}
-                        placeholder="Title, Activity, name, etc.."
-                      />
-                    </div>
-                  </div>
-                  <div className="flex flex-row w-auto">
-                    <div className="flex flex-col w-full py-1 pb-3 px-1">
-                      <label
-                        className="py-1 font-medium"
-                        htmlFor="certification_location"
-                      >
-                        Location
-                      </label>
-                      <input
-                        id="certification_location"
-                        name="certification_location"
-                        className="rounded"
-                        defaultValue={""}
-                        onChange={newCertificationOnChangeHandler}
-                        placeholder="Location"
-                      ></input>
-                    </div>
-                  </div>
+              <input
+                readOnly
+                hidden
+                name="resume_id"
+                id="resume_id"
+                defaultValue={resume?.id}
+              />
+              <input
+                hidden
+                name="user_id"
+                id="user_id"
+                defaultValue={user.id}
+              />
+              <input
+                hidden
+                required
+                type="text"
+                maxLength={14}
+                id="section_title"
+                name="section_title"
+                className="rounded"
+                defaultValue={sectionTitle}
+                onChange={(e) => setSectionTitle(e.target.value)}
+                placeholder="Section Title"
+              />
+              <h2 className="text-lg font-semibold">Add New {sectionTitle}</h2>
+              <div className="rounded tight-shadow bg-gray-50 p-4">
+                <div className="mb-4">
+                  <label
+                    className="block mb-1 font-medium text-gray-700"
+                    htmlFor="certification_name"
+                  >
+                    Name
+                  </label>
+                  <input
+                    required
+                    id="certification_name"
+                    name="certification_name"
+                    className="w-full rounded border border-gray-300 p-2 focus:outline-none focus:ring-2 focus:ring-amber-400"
+                    defaultValue={""}
+                    onChange={() => {}}
+                    placeholder="Title, Activity, name, etc.."
+                  />
                 </div>
-                <div className="flex flex-col w-full pt-4 pb-2 px-1">
-                  {addCertification && (
-                    <>
-                      <SubmitButton className="btn btn-amber animate-pulse">
-                        Add New Entry
-                      </SubmitButton>
-                    </>
-                  )}
+                <div>
+                  <label
+                    className="block mb-1 font-medium text-gray-700"
+                    htmlFor="certification_location"
+                  >
+                    Location
+                  </label>
+                  <input
+                    id="certification_location"
+                    name="certification_location"
+                    className="w-full rounded border border-gray-300 p-2 focus:outline-none focus:ring-2 focus:ring-amber-400"
+                    defaultValue={""}
+                    onChange={newCertificationOnChangeHandler}
+                    placeholder="Location"
+                  />
                 </div>
               </div>
+              {addCertification && (
+                <SubmitButton className="btn btn-amber animate-pulse mt-4">
+                  Add New Entry
+                </SubmitButton>
+              )}
             </form>
 
-            <h2 className="font-medium py-1">Your Certifications</h2>
-            <ul className="overflow-y-auto h-[150px] tight-shadow rounded bg-white">
+            <h2 className="font-semibold text-lg mb-3">Your Certifications</h2>
+            <ul className="overflow-y-auto max-h-[150px] tight-shadow rounded bg-white mb-6">
               {userCertifications[0] &&
-                userCertifications?.map((certification: UserCertification) => (
-                  <li className="p-2 border" key={certification?.id}>
+                userCertifications.map((certification: UserCertification) => (
+                  <li
+                    className="p-3 border-b border-gray-200 flex justify-between items-center"
+                    key={certification.id}
+                  >
+                    <div>
+                      <h3 className="font-bold">{certification.name}</h3>
+                      <p className="text-gray-600">{certification.location}</p>
+                    </div>
                     <form action={handleCreateResumeLine}>
                       <input
                         hidden
@@ -328,33 +319,28 @@ export default function YourCertifications({
                         hidden
                         readOnly
                         name="id"
-                        defaultValue={certification?.id}
+                        defaultValue={certification.id}
                       />
-                      <div className="flex flex-row justify-between">
-                        <div className="flex flex-col w-3/4">
-                          <h2 className="font-bold">{certification?.name}</h2>
-                          <h2>{certification?.location}</h2>
-                        </div>
-                        <div className="flex flex-col m-auto">
-                          <SubmitButton
-                            className={"hover:text-azure-radiance-500"}
-                          >
-                            Add
-                          </SubmitButton>
-                        </div>
-                      </div>
+                      <SubmitButton className="hover:text-amber-600">
+                        Add
+                      </SubmitButton>
                     </form>
                   </li>
                 ))}
             </ul>
 
-            <h2 className="font-medium pt-4">Selected Certifications</h2>
-            <ul className="overflow-y-auto h-[200px] tight-shadow bg-white">
+            <h2 className="font-semibold text-lg mb-3">
+              Selected Certifications
+            </h2>
+            <ul className="overflow-y-auto max-h-[200px] tight-shadow rounded bg-white">
               {certificationResumeLines[0] &&
-                certificationResumeLines?.map((certification: any) => (
-                  <li className="border bg-white p-2" key={certification?.id}>
-                    <div className="flex flex-row justify-between">
-                      <h2 className="font-bold">{certification?.name}</h2>
+                certificationResumeLines.map((certification: any) => (
+                  <li
+                    className="border-b border-gray-200 bg-white p-3 flex flex-col space-y-3"
+                    key={certification.id}
+                  >
+                    <div className="flex justify-between items-center">
+                      <h3 className="font-bold">{certification.name}</h3>
                       <form action={handleDeleteResumeLine}>
                         <input
                           hidden
@@ -373,7 +359,7 @@ export default function YourCertifications({
                           hidden
                           name="id"
                           id="id"
-                          defaultValue={certification?.id}
+                          defaultValue={certification.id}
                         />
                         <input
                           readOnly
@@ -382,11 +368,9 @@ export default function YourCertifications({
                           id="resume_id"
                           defaultValue={resume?.id}
                         />
-                        <div className="flex flex-col">
-                          <SubmitButton className="hover:text-rose-500">
-                            Remove
-                          </SubmitButton>
-                        </div>
+                        <SubmitButton className="hover:text-red-600">
+                          Remove
+                        </SubmitButton>
                       </form>
                     </div>
 
@@ -394,7 +378,7 @@ export default function YourCertifications({
                       className="pb-4"
                       action={handleUpdateUserCertification}
                     >
-                      <div className="flex flex-col">
+                      <div className="flex flex-col space-y-4">
                         <input
                           readOnly
                           hidden
@@ -407,7 +391,7 @@ export default function YourCertifications({
                           hidden
                           name="certification_id"
                           id="certification_id"
-                          defaultValue={certification?.id}
+                          defaultValue={certification.id}
                         />
                         <input
                           readOnly
@@ -416,35 +400,44 @@ export default function YourCertifications({
                           id="resume_id"
                           defaultValue={resume?.id}
                         />
-                        <label className="py-1" htmlFor="certification_name">
-                          Name
-                        </label>
-                        <input
-                          required
-                          id="certification_name"
-                          name="certification_name"
-                          className="rounded"
-                          defaultValue={certification?.name}
-                          onChange={onChangeHandler}
-                          placeholder="Title, Activity, name, etc.."
-                        />
-                        <label className="py-1" htmlFor="location_name">
-                          Location
-                        </label>
-                        <input
-                          required
-                          id="location_name"
-                          name="location_name"
-                          className="rounded"
-                          defaultValue={certification?.location}
-                          onChange={onChangeHandler}
-                          placeholder="Title, Activity, name, etc.."
-                        />
+                        <div>
+                          <label
+                            className="block mb-1 font-medium"
+                            htmlFor="certification_name"
+                          >
+                            Name
+                          </label>
+                          <input
+                            required
+                            id="certification_name"
+                            name="certification_name"
+                            className="w-full rounded border border-gray-300 p-2 focus:outline-none focus:ring-2 focus:ring-amber-400"
+                            defaultValue={certification.name}
+                            onChange={onChangeHandler}
+                            placeholder="Title, Activity, name, etc.."
+                          />
+                        </div>
+                        <div>
+                          <label
+                            className="block mb-1 font-medium"
+                            htmlFor="location_name"
+                          >
+                            Location
+                          </label>
+                          <input
+                            required
+                            id="location_name"
+                            name="location_name"
+                            className="w-full rounded border border-gray-300 p-2 focus:outline-none focus:ring-2 focus:ring-amber-400"
+                            defaultValue={certification.location}
+                            onChange={onChangeHandler}
+                            placeholder="Title, Activity, name, etc.."
+                          />
+                        </div>
                       </div>
                       {edited && (
-                        <div>
-                          <div style={{ height: "0.5rem" }} />
-                          <SubmitButton className="btn btn-amber my-4 animate-pulse">
+                        <div className="mt-4">
+                          <SubmitButton className="btn btn-amber animate-pulse">
                             Save Change
                           </SubmitButton>
                         </div>
@@ -454,8 +447,6 @@ export default function YourCertifications({
                 ))}
             </ul>
           </>
-        ) : (
-          ""
         )}
 
         <form action={handleUpdateCertificationsSection}>
@@ -479,39 +470,34 @@ export default function YourCertifications({
             name="show_custom_section_two"
             id="show_custom_section_two"
             type="text"
-            defaultValue={showCustomSectionTwo}
+            value={showCustomSectionTwo ? "true" : "false"}
           />
-          <div className="flex flex-row ">
-            <div className="px-2 flex align-middle">
-              <label
-                htmlFor="show_custom_section_two_input"
-                className="m-auto"
-              />
-              <input
-                title="Show Certifications Section"
-                className="m-auto rounded"
-                type="checkbox"
-                checked={showCustomSectionTwo === "true" ? true : false}
-                value={showCustomSectionTwo}
-                onChange={showCertificationsOnChangeHandler}
-                name="show_custom_section_two_input"
-              />
-            </div>
-            <div className="flex flex-col py-2">
-              <p className="font-medium">Show {sectionTitle} section?</p>
-            </div>
+          <div className="flex flex-row items-center space-x-4 mt-4">
+            <input
+              title="Show Certifications Section"
+              className="rounded cursor-pointer"
+              type="checkbox"
+              checked={showCustomSectionTwo}
+              onChange={showCertificationsOnChangeHandler}
+              name="show_custom_section_two_input"
+              id="show_custom_section_two_input"
+            />
+            <label
+              htmlFor="show_custom_section_two_input"
+              className="font-medium select-none cursor-pointer"
+            >
+              Show {sectionTitle} section?
+            </label>
           </div>
           {editSection && (
-            <>
-              <div style={{ height: "0.5rem" }} />
-              <SubmitButton className="btn btn-amber my-4 animate-pulse">
+            <div className="mt-4">
+              <SubmitButton className="btn btn-amber animate-pulse">
                 Save Change
               </SubmitButton>
-            </>
+            </div>
           )}
         </form>
       </div>
-      <div className="py-2" />
     </div>
   );
 }

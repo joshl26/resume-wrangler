@@ -1,0 +1,164 @@
+@import "tailwindcss";
+
+@layer components {
+  .your-skills {
+    @apply max-w-4xl mx-auto px-4 sm:px-6 pb-8;
+  }
+
+  .your-skills-header {
+    @apply py-2 font-bold text-xl border-b border-gray-300 mb-4;
+  }
+
+  html.dark .your-skills-header {
+    @apply border-gray-600;
+  }
+
+  .your-skills-header h2 {
+    @apply text-gray-900;
+  }
+
+  html.dark .your-skills-header h2 {
+    @apply text-gray-100;
+  }
+
+  .your-skills-form {
+    @apply rounded px-6 py-4 mt-4 bg-white shadow-sm;
+  }
+
+  html.dark .your-skills-form {
+    @apply bg-gray-900;
+  }
+
+  .your-skills-subheader {
+    @apply font-semibold mb-3 text-gray-800;
+  }
+
+  html.dark .your-skills-subheader {
+    @apply text-gray-200;
+  }
+
+  .skills-list {
+    @apply flex flex-col h-[300px] w-full overflow-y-auto rounded border border-gray-200 bg-white mb-6;
+  }
+
+  html.dark .skills-list {
+    @apply border-gray-600 bg-gray-800;
+  }
+
+  ul {
+    @apply w-full;
+  }
+
+  .skill-item {
+    @apply border-b border-gray-200 p-3 flex justify-between items-center;
+  }
+
+  html.dark .skill-item {
+    @apply border-gray-600;
+  }
+
+  .skill-name {
+    @apply flex flex-col w-1/3 mr-8 font-bold;
+  }
+
+  .skill-level {
+    @apply flex flex-col w-1/3 m-auto;
+  }
+
+  .skill-range {
+    @apply w-full;
+  }
+
+  .skill-action {
+    @apply flex flex-col w-1/3 m-auto;
+  }
+
+  .chosen-skills-section {
+    @apply flex flex-col py-2;
+  }
+
+  .chosen-skills-title {
+    @apply py-1 font-medium text-gray-800;
+  }
+
+  html.dark .chosen-skills-title {
+    @apply text-gray-200;
+  }
+
+  .chosen-skills-list {
+    @apply flex flex-col h-[100px] overflow-y-auto bg-white rounded border border-gray-200;
+  }
+
+  html.dark .chosen-skills-list {
+    @apply border-gray-600 bg-gray-800;
+  }
+
+  .chosen-skill-item {
+    @apply flex flex-row justify-between border-b border-gray-200 p-3;
+  }
+
+  html.dark .chosen-skill-item {
+    @apply border-gray-600;
+  }
+
+  .chosen-skill-info {
+    @apply flex flex-col w-3/4;
+  }
+
+  .chosen-skill-name {
+    @apply text-center w-full h-full font-bold;
+  }
+
+  .chosen-skill-action {
+    @apply flex flex-col w-1/4 m-auto;
+  }
+
+  .no-skills-message {
+    @apply text-center animate-pulse py-2 text-gray-600;
+  }
+
+  html.dark .no-skills-message {
+    @apply text-gray-300;
+  }
+
+  .skills-section-toggle-form {
+    @apply flex flex-col;
+  }
+
+  .toggle-row {
+    @apply flex items-center space-x-4 py-2;
+  }
+
+  .toggle-checkbox {
+    @apply rounded cursor-pointer;
+  }
+
+  .toggle-label {
+    @apply font-medium select-none cursor-pointer text-gray-900;
+  }
+
+  html.dark .toggle-label {
+    @apply text-gray-100;
+  }
+
+  .submit-button-wrapper {
+    @apply mt-4;
+  }
+
+  /* Button styles reused from your existing btn-amber and btn-rose */
+  .btn-amber {
+    @apply bg-amber-300 border border-black text-black transition-colors duration-300 hover:bg-rose-600 hover:text-white rounded-lg px-6 py-2.5 font-medium shadow-md;
+  }
+
+  html.dark .btn-amber {
+    @apply bg-rose-600 text-white hover:bg-amber-300 hover:text-black;
+  }
+
+  .btn-rose {
+    @apply bg-rose-500 text-white rounded-lg px-6 py-2.5 font-medium shadow-md transition-colors duration-300 hover:bg-rose-600;
+  }
+
+  html.dark .btn-rose {
+    @apply bg-rose-600 hover:bg-rose-500;
+  }
+}

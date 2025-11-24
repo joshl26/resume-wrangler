@@ -1,212 +1,146 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { SubmitButton } from "../submit-button";
 import { updateSocials } from "@/app/lib/actions";
-import { useFormState } from "react-dom";
-import { Resume, User } from "@/app/lib/definitions";
+import type { Resume, User } from "@/app/lib/definitions";
+import "./your-social-links.css";
 
-const YourSocialLinks = ({
+interface YourSocialLinksProps {
+  user: User;
+  resume: Resume;
+  showSocials: boolean;
+  setShowSocials: (value: boolean) => void;
+}
+
+const YourSocialLinks: React.FC<YourSocialLinksProps> = ({
   user,
   resume,
   showSocials,
   setShowSocials,
-}: {
-  user: User;
-  resume: Resume;
-  showSocials: string;
-  setShowSocials: (e: string) => void;
 }) => {
   const [edited, setEdited] = useState(false);
 
-  const initialState = { message: "inital state", formData: null, errors: {} };
-  const updateSocialsWithId = updateSocials.bind(null, user?.id!);
-  const [state, dispatch] = useFormState(updateSocialsWithId, initialState);
+  const initialState = { message: "initial state", formData: null, errors: {} };
+  const updateSocialsWithId = updateSocials.bind(null, user.id);
+  const [state, dispatch] = React.useActionState(
+    updateSocialsWithId,
+    initialState,
+  );
 
-  const onChangeHandler = () => {
-    if (edited === false) {
-      setEdited(true);
-    }
-  };
+  const onChangeHandler = useCallback(() => {
+    if (!edited) setEdited(true);
+  }, [edited]);
 
-  const showSocialsOnChangeHandler = (e: any) => {
-    console.log(e.target.checked);
-    if (e.target.checked === true) {
-      setShowSocials("true");
-    } else {
-      setShowSocials("false");
-    }
-
-    if (edited === false) {
-      setEdited(true);
-    }
-  };
+  const showSocialsOnChangeHandler = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setShowSocials(e.target.checked);
+      if (!edited) setEdited(true);
+    },
+    [edited, setShowSocials],
+  );
 
   return (
-    <div className="your-profile">
-      <div className="py-2 font-bold text-xl">
+    <div className="your-social-links">
+      <div className="your-social-links-header">
         <h2>Your Social Links</h2>
       </div>
       <form
         onSubmit={() => setEdited(false)}
         action={dispatch}
-        className="form-amber rounded px-5 py-2 "
+        className="your-social-links-form"
       >
-        {showSocials === "true" ? (
-          <>
-            <div className="flex flex-row justify-between w-auto">
-              <div className="flex flex-col w-1/2 py-1 px-1">
+        <input type="hidden" name="resume_id" value={resume.id} />
+
+        {showSocials ? (
+          <div className="social-inputs-grid">
+            {[
+              {
+                id: "linked_in",
+                label: "LinkedIn",
+                placeholder: "LinkedIn Username",
+                value: user.linked_in,
+              },
+              {
+                id: "facebook",
+                label: "Facebook",
+                placeholder: "Facebook Username",
+                value: user.facebook,
+              },
+              {
+                id: "instagram",
+                label: "Instagram",
+                placeholder: "Instagram Username",
+                value: user.instagram,
+              },
+              {
+                id: "twitter",
+                label: "Twitter",
+                placeholder: "Twitter Username",
+                value: user.twitter,
+              },
+              {
+                id: "github",
+                label: "Github",
+                placeholder: "Github Username",
+                value: user.github,
+              },
+            ].map(({ id, label, placeholder, value }) => (
+              <div key={id} className="social-input-group">
+                <label htmlFor={id}>{label}</label>
                 <input
-                  hidden
-                  readOnly
-                  value={resume?.id}
-                  id="resume_id"
-                  name="resume_id"
-                />
-                <label className="py-1 font-medium" htmlFor="linked_in">
-                  LinkedIn
-                </label>
-                <input
-                  id="linked_in"
-                  name="linked_in"
-                  className="rounded"
-                  defaultValue={user?.linked_in}
+                  id={id}
+                  name={id}
+                  className="social-input"
+                  value={value ?? ""}
                   onChange={onChangeHandler}
-                  placeholder="LinkedIn Username"
+                  placeholder={placeholder}
                 />
               </div>
-              <div className="flex flex-col w-1/2 py-1">
-                <label className="py-1 font-medium" htmlFor="facebook">
-                  Facebook
-                </label>
-                <input
-                  id="facebook"
-                  name="facebook"
-                  className="rounded"
-                  defaultValue={user?.facebook}
-                  onChange={onChangeHandler}
-                  placeholder="Facebook username"
-                />
-              </div>
-            </div>
-            <div className="flex flex-row justify-between w-auto">
-              <div className="flex flex-col w-1/2 py-1 px-1">
-                <label className="py-1 font-medium" htmlFor="instagram">
-                  Instagram
-                </label>
-                <input
-                  id="instagram"
-                  name="instagram"
-                  className="rounded"
-                  defaultValue={user?.instagram}
-                  onChange={onChangeHandler}
-                  placeholder="Instagram Username"
-                />
-              </div>
-              <div className="flex flex-col w-1/2 py-1">
-                <label className="py-1 font-medium" htmlFor="twitter">
-                  Twitter
-                </label>
-                <input
-                  id="twitter"
-                  name="twitter"
-                  className="rounded"
-                  defaultValue={user?.twitter}
-                  onChange={onChangeHandler}
-                  placeholder="Twitter Username"
-                />
-              </div>
-            </div>
-            <div className="flex flex-row justify-between w-auto">
-              <div className="flex flex-col w-full py-1 px-1">
-                <label className="py-1 font-medium" htmlFor="github">
-                  Github
-                </label>
-                <input
-                  id="github"
-                  name="github"
-                  className="rounded"
-                  defaultValue={user?.github}
-                  onChange={onChangeHandler}
-                  placeholder="Github Username"
-                />
-              </div>
-            </div>
-          </>
+            ))}
+          </div>
         ) : (
           <>
             <input
-              hidden
-              readOnly
-              value={resume?.id}
-              id="resume_id"
-              name="resume_id"
-            />
-            <input
-              id="linked_in"
+              type="hidden"
               name="linked_in"
-              hidden
-              readOnly
-              value={user?.linked_in}
+              value={user.linked_in ?? ""}
             />
+            <input type="hidden" name="facebook" value={user.facebook ?? ""} />
             <input
-              id="facebook"
-              name="facebook"
-              hidden
-              readOnly
-              value={user?.facebook}
-            />
-            <input
-              id="instagram"
+              type="hidden"
               name="instagram"
-              hidden
-              readOnly
-              value={user?.instagram}
+              value={user.instagram ?? ""}
             />
-            <input
-              id="twitter"
-              name="twitter"
-              hidden
-              readOnly
-              defaultValue={user?.twitter}
-            />
-            <input
-              id="github"
-              name="github"
-              hidden
-              readOnly
-              value={user?.github}
-            />
+            <input type="hidden" name="twitter" value={user.twitter ?? ""} />
+            <input type="hidden" name="github" value={user.github ?? ""} />
           </>
         )}
-        <div className="flex flex-row py-1">
-          <div className="flex flex-col px-1 py-2">
-            <label hidden htmlFor="show_socials" />
-            <input
-              hidden
-              readOnly
-              id="show_socials"
-              name="show_socials"
-              value={showSocials}
-            />
-            <input
-              title="show_socials_input"
-              type="checkbox"
-              id="show_socials_input"
-              className="rounded"
-              checked={showSocials === "true" ? true : false}
-              value={showSocials}
-              onChange={showSocialsOnChangeHandler}
-            />
-          </div>
-          <div className="flex flex-col">
-            <h2 className="py-1 px-1 font-medium">Show Social Icons?</h2>
-          </div>
+
+        <div className="show-socials-toggle">
+          <input
+            type="checkbox"
+            id="show_socials_input"
+            className="show-socials-checkbox"
+            checked={showSocials}
+            onChange={showSocialsOnChangeHandler}
+          />
+          <label htmlFor="show_socials_input" className="show-socials-label">
+            Show Social Icons?
+          </label>
+          <input
+            type="hidden"
+            name="show_socials"
+            value={showSocials ? "true" : "false"}
+          />
         </div>
+
         {edited && (
-          <SubmitButton className="btn btn-amber my-4 animate-pulse">
-            Save Change
-          </SubmitButton>
+          <div className="submit-button-wrapper">
+            <SubmitButton className="btn btn-amber animate-pulse">
+              Save Change
+            </SubmitButton>
+          </div>
         )}
       </form>
     </div>

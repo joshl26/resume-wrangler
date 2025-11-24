@@ -1,3 +1,6 @@
+/// Description: This file contains server-side actions for user authentication, profile updates, application management, and company management using Next.js, Zod for validation, and a PostgreSQL database connection.
+//
+
 "use server";
 
 import { extractPublicId } from "cloudinary-build-url";

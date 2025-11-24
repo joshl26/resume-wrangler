@@ -1,4 +1,4 @@
-import Page from "../page";
+import Page from "../../page";
 
 // import { resumeExperiences } from "@/app/data/resume-experiences";
 import { User } from "@/app/lib/definitions";

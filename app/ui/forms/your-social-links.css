@@ -1,0 +1,88 @@
+@import "tailwindcss";
+
+@layer components {
+  .your-social-links {
+    @apply max-w-4xl mx-auto px-4 sm:px-6 pb-8;
+  }
+
+  .your-social-links-header {
+    @apply py-2 font-bold text-xl border-b border-gray-300 mb-4;
+  }
+
+  html.dark .your-social-links-header {
+    border-color: #4b5563; /* dark:border-gray-600 */
+  }
+
+  .your-social-links-header h2 {
+    @apply text-gray-900;
+  }
+
+  html.dark .your-social-links-header h2 {
+    @apply text-gray-100;
+  }
+
+  .your-social-links-form {
+    @apply rounded px-6 py-4 bg-white shadow-sm;
+  }
+
+  html.dark .your-social-links-form {
+    @apply bg-gray-900;
+  }
+
+  .social-inputs-grid {
+    @apply flex flex-wrap gap-4 mb-4;
+  }
+
+  .social-input-group {
+    @apply flex flex-col w-full sm:w-1/2;
+  }
+
+  .social-input-group:last-child {
+    @apply w-full;
+  }
+
+  .social-input-group label {
+    @apply py-1 font-medium text-gray-800;
+  }
+
+  html.dark .social-input-group label {
+    @apply text-gray-200;
+  }
+
+  .social-input {
+    @apply rounded border border-gray-300 p-2 focus:outline-none focus:ring-2 focus:ring-amber-400 transition-colors duration-200 bg-white text-gray-900;
+  }
+
+  html.dark .social-input {
+    @apply border-gray-600 bg-gray-800 text-gray-100;
+  }
+
+  .show-socials-toggle {
+    @apply flex items-center space-x-3 py-2;
+  }
+
+  .show-socials-checkbox {
+    @apply rounded cursor-pointer;
+  }
+
+  .show-socials-label {
+    @apply font-medium select-none cursor-pointer text-gray-900;
+  }
+
+  html.dark .show-socials-label {
+    @apply text-gray-100;
+  }
+
+  .submit-button-wrapper {
+    @apply mt-4;
+  }
+
+  /* Button styles reused from your existing btn-amber */
+  .btn-amber {
+    @apply bg-amber-300 border border-black text-black transition-colors duration-300 hover:bg-rose-600 hover:text-white rounded-lg px-6 py-2.5 font-medium shadow-md;
+  }
+
+  html.dark .btn-amber {
+    @apply bg-rose-600 text-white hover:bg-amber-300 hover:text-black;
+  }
+}

@@ -37,8 +37,6 @@ export default async function Page({ params }: PageProps) {
       <EditButton resumeId={resumeId} />
       {template === "electrical-engineer" && <ElectricalEngineer {...props} />}
       {template === "3d-animator" && <ThreeDAnimator {...props} />}
-      {/* {template === "modern" && <Modern {...props} />} */}
-      {/* {template === "classic" && <Classic {...props} />} */}
     </div>
   );
 }

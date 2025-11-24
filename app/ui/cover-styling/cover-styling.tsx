@@ -47,23 +47,23 @@ export default function CoverStyling({
   headerFonts: HeaderFonts;
 }) {
   const [selectedCoverTemplate, setSelectedCoverTemplate] = useState(
-    coverLetter?.template,
+    coverLetter?.template ?? "",
   );
 
   const [selectedCoverBodyFont, setSelectedCoverBodyFont] = useState(
-    coverLetter?.body_font,
+    coverLetter?.body_font ?? "",
   );
 
   const [selectedCoverHeadingFont, setSelectedCoverHeadingFont] = useState(
-    coverLetter?.heading_font,
+    coverLetter?.heading_font ?? "",
   );
 
   const [selectedCoverColor, setSelectedCoverColor] = useState(
-    coverLetter?.color,
+    coverLetter?.color ?? "",
   );
 
   const [selectedCoverHighlightColor, setSelectedCoverHighlightColor] =
-    useState(coverLetter?.highlight_color);
+    useState(coverLetter?.highlight_color ?? "");
 
   return (
     <main className="flex w-full">

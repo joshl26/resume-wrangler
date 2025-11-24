@@ -1,4 +1,4 @@
-import Page from "../page";
+import Page from "../../page";
 import clsx from "clsx";
 import {
   MapPinIcon,
