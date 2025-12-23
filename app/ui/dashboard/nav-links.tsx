@@ -23,18 +23,29 @@ const links = [
     href: "/dashboard/applications",
     icon: NewspaperIcon,
   },
+        {name: "My Cover Letters",
+    href: "/dashboard/cover",
+    icon: BriefcaseIcon,
+  },
+
+
+      {name: "My Resumes",
+    href: "/dashboard/resume",
+    icon: BriefcaseIcon,
+  },
+
   {
-    name: "Companies",
+    name: "Potential Companies",
     href: "/dashboard/companies",
     icon: BuildingOffice2Icon,
   },
   {
-    name: "Education",
+    name: "Your Education",
     href: "/dashboard/education",
     icon: AcademicCapIcon,
   },
   {
-    name: "Skills",
+    name: "Your Skills",
     href: "/dashboard/skills",
     icon: AdjustmentsHorizontalIcon,
   },
@@ -49,12 +60,12 @@ const links = [
     icon: BriefcaseIcon,
   },
   {
-    name: "Certifications",
+    name: "Your Certifications",
     href: "/dashboard/certifications",
     icon: CheckIcon,
   },
   {
-    name: "Organizations",
+    name: "Your Organizations",
     href: "/dashboard/organizations",
     icon: ListBulletIcon,
   },

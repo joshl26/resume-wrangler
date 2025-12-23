@@ -1,6 +1,8 @@
 /* app/ui/global.css */
+
 @import "tailwindcss";
-@import "./styles/fonts.css";
+
+@import "./ui/styles/fonts.css";
 
 /* ---------------------------
    Base layer (global resets + theme variables)
@@ -76,21 +78,21 @@
 }
 
 /* Component imports */
-@import "./styles/landing-navbar.css";
-@import "./styles/landing-footer.css";
-@import "./styles/landing-one.css";
-@import "./styles/landing-two.css";
-@import "./styles/landing-three.css";
-@import "./styles/landing-four.css";
-@import "./styles/resume-templates.css";
-@import "./styles/job-boards.css";
-@import "./styles/login.css";
-@import "./styles/register-user.css";
-@import "./styles/side-nav.css";
-@import "./styles/dropdown.css";
-@import "./styles/new-application.css";
-@import "./styles/pagination.css";
-@import "./styles/new-company.css";
+@import "./ui/styles/landing-navbar.css";
+@import "./ui/styles/landing-footer.css";
+@import "./ui/styles/landing-one.css";
+@import "./ui/styles/landing-two.css";
+@import "./ui/styles/landing-three.css";
+@import "./ui/styles/landing-four.css";
+@import "./ui/styles/resume-templates.css";
+@import "./ui/styles/job-boards.css";
+@import "./ui/styles/login.css";
+@import "./ui/styles/register-user.css";
+@import "./ui/styles/side-nav.css";
+@import "./ui/styles/dropdown.css";
+@import "./ui/styles/new-application.css";
+@import "./ui/styles/pagination.css";
+@import "./ui/styles/new-company.css";
 
 /* ---------------------------
    Shared Components Layer

@@ -1,13 +1,7 @@
-import type { Config } from "tailwindcss";
+/** @type {import('tailwindcss').Config} */
 const plugin = require("tailwindcss/plugin");
 
-// Extend Tailwind config type to include safelist
-type TailwindSafelistEntry =
-  | string
-  | RegExp
-  | { pattern: RegExp; variants?: string[] };
-
-const config: Config & { safelist?: TailwindSafelistEntry[] } = {
+module.exports = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -15,19 +9,7 @@ const config: Config & { safelist?: TailwindSafelistEntry[] } = {
     "./app/ui/styles/**/*.css",
     "./app/ui/global.*css",
   ],
-  darkMode: "class", // Enable dark mode with class strategy
-  safelist: [
-    // Add common dark mode classes
-    "dark:bg-gray-900",
-    "dark:bg-gray-800",
-    "dark:text-white",
-    "dark:text-gray-200",
-    "dark:border-gray-200",
-    { pattern: /dark:(bg|text|border)-./ },
-    {
-      pattern: /(bg|text|border)-./, // Keeps all color variations for bg, text, border
-    },
-  ],
+  darkMode: "class",
   theme: {
     extend: {
       boxShadow: {
@@ -166,17 +148,12 @@ const config: Config & { safelist?: TailwindSafelistEntry[] } = {
       },
     },
   },
-
   plugins: [
     require("@tailwindcss/typography"),
     require("@tailwindcss/forms"),
     require("@tailwindcss/aspect-ratio"),
     require("@tailwindcss/container-queries"),
-    plugin(function ({
-      addComponents,
-    }: {
-      addComponents: (components: Record<string, any>) => void;
-    }) {
+    plugin(function ({ addComponents } : { addComponents: any }) {
       addComponents({
         ".btn": {
           padding: ".5rem 1rem",
@@ -219,7 +196,7 @@ const config: Config & { safelist?: TailwindSafelistEntry[] } = {
             "rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px",
         },
         "html.dark .form-amber": {
-          backgroundColor: "rgba(255, 0, 110, 0.85)", // example dark mode amber
+          backgroundColor: "rgba(255, 0, 110, 0.85)",
           color: "white",
         },
         ".form-orange": {
@@ -239,5 +216,3 @@ const config: Config & { safelist?: TailwindSafelistEntry[] } = {
     }),
   ],
 };
-
-export default config;

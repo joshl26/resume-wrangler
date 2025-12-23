@@ -46,7 +46,7 @@ const Resumes = ({
         </thead>
         <tbody>
           {resumes?.length > 0 ? (
-            resumes.map((resume) => {
+            resumes.map((resume, idx) => {
               const companyName = resume?.company_id
                 ? (companies?.find(
                     (company) => company?.id === resume.company_id,
@@ -59,7 +59,7 @@ const Resumes = ({
                 : "N/A";
 
               return (
-                <tr key={resume?.id} className="border-b hover:bg-gray-50">
+                <tr key={resume?.id + idx} className="border-b hover:bg-gray-50">
                   <th
                     scope="row"
                     className="px-6 py-4 font-medium whitespace-nowrap "

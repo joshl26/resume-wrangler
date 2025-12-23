@@ -1,11 +1,11 @@
 // app/layout.tsx
-import "@/app/ui/global.css";
+import "./globals.css";
 import { inter } from "@/app/ui/fonts";
 import { Suspense } from "react";
 import { Metadata } from "next";
 import { cookies } from "next/headers";
-import LandingNavBar from "./ui/landing/landing-navbar";
-import LandingFooter from "./ui/landing/landing-footer";
+import { ThemeProvider } from 'next-themes';
+
 
 export const metadata: Metadata = {
   metadataBase: new URL(`${process.env.DEPLOYMENT_URL}`),
@@ -54,7 +54,7 @@ export default async function RootLayout({
   const htmlClass = themeCookie === "dark" ? "dark" : "";
 
   return (
-    <html lang="en" className={htmlClass}>
+    <html lang="en" className={htmlClass} suppressHydrationWarning>
       <head>
         <meta
           name="google-adsense-account"
@@ -71,8 +71,9 @@ export default async function RootLayout({
         />
       </head>
       <body className={`${inter.className} antialiased`}>
-        <div className="sr-only">Skip to main content</div>
-        <Suspense>{children}</Suspense>
+      <ThemeProvider attribute="class" defaultTheme="system" enableSystem><div className="sr-only">Skip to main content</div>
+        <Suspense>{children}</Suspense></ThemeProvider>
+        
       </body>
     </html>
   );

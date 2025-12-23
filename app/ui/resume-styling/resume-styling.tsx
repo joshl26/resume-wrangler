@@ -97,6 +97,8 @@ export default function ResumeStyling(props: Props) {
     organizationResumeLines,
   } = props;
 
+console.log(resume)
+
   // Section selection state
   const [selectedSection, setSelectedSection] = useState<Section>("styling");
 

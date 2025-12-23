@@ -1,0 +1,131 @@
+/* file: app/ui/sections/PrivacySection.css */
+@import "tailwindcss";
+
+@layer components {
+  /* Container and layout */
+  .privacy-container {
+    background: linear-gradient(135deg, #f0f4f8 0%, #dbeafe 50%, #e0f2fe 100%);
+  }
+  html.dark .privacy-container {
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #4338ca 100%);
+  }
+
+  .privacy-content {
+    @apply max-w-4xl mx-auto px-4 py-12;
+  }
+
+  .privacy-breadcrumb {
+    @apply mb-8;
+  }
+
+  /* Header */
+  .privacy-header {
+    @apply text-center mb-12;
+  }
+  .privacy-header-icon {
+    @apply flex justify-center mb-4;
+  }
+  .privacy-shield-icon {
+    @apply w-16 h-16 text-blue-600 dark:text-blue-400;
+  }
+  .privacy-title {
+    @apply text-4xl font-bold text-slate-900 dark:text-white mb-3;
+  }
+  .privacy-date {
+    @apply text-lg text-slate-600 dark:text-slate-300;
+  }
+
+  /* Article and sections */
+  .privacy-article {
+    @apply bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-8 space-y-8;
+  }
+  html.dark .privacy-article {
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.5);
+  }
+
+  .privacy-section-header {
+    @apply flex items-center gap-3 mb-4;
+  }
+  .privacy-section-icon {
+    @apply w-6 h-6 text-blue-600 dark:text-blue-400;
+  }
+  .privacy-section-title {
+    @apply text-2xl font-bold text-slate-900 dark:text-white;
+  }
+  .privacy-section-title-no-icon {
+    @apply text-2xl font-bold text-slate-900 dark:text-white mb-4;
+  }
+
+  .privacy-section-content {
+    @apply space-y-4;
+  }
+
+  /* Text styles */
+  .privacy-intro-text,
+  .privacy-description {
+    @apply text-slate-700 dark:text-slate-300 leading-relaxed;
+  }
+
+  .privacy-important-text {
+    @apply leading-relaxed font-semibold text-slate-900 dark:text-white;
+  }
+
+  .privacy-info-item {
+    /* no utility needed here — keep semantic wrapper */
+  }
+  .privacy-info-title {
+    @apply font-semibold text-slate-900 dark:text-white mb-2;
+  }
+  .privacy-info-description {
+    @apply text-slate-700 dark:text-slate-300 leading-relaxed;
+  }
+
+  /* Lists */
+  .privacy-list {
+    @apply space-y-2 text-slate-700 dark:text-slate-300;
+  }
+  .privacy-list-item {
+    @apply flex items-start gap-2;
+  }
+  .privacy-list-bullet {
+    @apply text-blue-600 dark:text-blue-400 mt-1;
+  }
+
+  /* Special sections */
+  .privacy-open-source,
+  .privacy-contact {
+    background: linear-gradient(90deg, #e0f2fe 0%, #bae6fd 100%);
+    @apply p-6 rounded-xl border border-blue-200;
+  }
+  html.dark .privacy-open-source,
+  html.dark .privacy-contact {
+    background: linear-gradient(90deg, #1e3a8a 0%, #3730a3 100%);
+    @apply border-blue-800;
+  }
+
+  /* Links */
+  .privacy-link {
+    @apply text-blue-600 dark:text-blue-400 hover:underline font-semibold focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 rounded;
+  }
+
+  /* Footer navigation */
+  .privacy-footer-nav {
+    @apply mt-8 flex items-center justify-between flex-wrap gap-4;
+  }
+  .privacy-back-button {
+    @apply text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400;
+  }
+  .privacy-terms-link {
+    @apply text-blue-600 dark:text-blue-400 hover:underline font-semibold focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 rounded;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .privacy-footer-nav {
+      @apply flex-col items-start;
+    }
+    .privacy-terms-link {
+      @apply mt-2;
+    }
+  }
+}

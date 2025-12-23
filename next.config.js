@@ -5,7 +5,7 @@ const nextConfig = {
   // Enable Turbopack (faster alternative to Webpack)
   // Remove this if you want to stick with Webpack
   experimental: {
-    externalResolver: true,
+    // externalResolver: true,
   },
 
   // Turbopack-specific settings
