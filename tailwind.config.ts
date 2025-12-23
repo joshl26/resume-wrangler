@@ -153,7 +153,7 @@ module.exports = {
     require("@tailwindcss/forms"),
     require("@tailwindcss/aspect-ratio"),
     require("@tailwindcss/container-queries"),
-    plugin(function ({ addComponents } : { addComponents: any }) {
+    plugin(function ({ addComponents }: { addComponents: any }) {
       addComponents({
         ".btn": {
           padding: ".5rem 1rem",

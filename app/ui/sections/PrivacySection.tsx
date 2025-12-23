@@ -1,5 +1,5 @@
 // file: app/ui/sections/PrivacySection.tsx
-import React from 'react'
+import React from "react";
 import BackButton from "@/app/ui/back-button";
 import Link from "next/link";
 import {
@@ -13,7 +13,7 @@ import {
   FileText,
 } from "lucide-react";
 import Breadcrumb from "@/app/ui/Breadcrumb";
-import "./PrivacySection.css"
+import "./PrivacySection.css";
 
 const breadcrumbItems = [
   { name: "Home", url: "/" },
@@ -47,34 +47,26 @@ const PrivacySection = () => {
               Introduction
             </h2>
             <p className="privacy-intro-text">
-              At Resume Wrangler, your privacy is paramount. This Privacy
-              Policy explains how we collect, use, disclose, and safeguard
-              your information when you use our resume and cover letter
-              customization service. We are committed to protecting your
-              personal and professional information with the highest standards
-              of data security.
+              At Resume Wrangler, your privacy is paramount. This Privacy Policy
+              explains how we collect, use, disclose, and safeguard your
+              information when you use our resume and cover letter customization
+              service. We are committed to protecting your personal and
+              professional information with the highest standards of data
+              security.
             </p>
           </section>
 
           {/* Information We Collect */}
           <section aria-labelledby="collect-heading">
             <div className="privacy-section-header">
-              <Eye
-                className="privacy-section-icon"
-                aria-hidden="true"
-              />
-              <h2
-                id="collect-heading"
-                className="privacy-section-title"
-              >
+              <Eye className="privacy-section-icon" aria-hidden="true" />
+              <h2 id="collect-heading" className="privacy-section-title">
                 Information We Collect
               </h2>
             </div>
             <div className="privacy-section-content">
               <div className="privacy-info-item">
-                <h3 className="privacy-info-title">
-                  Account Information
-                </h3>
+                <h3 className="privacy-info-title">Account Information</h3>
                 <p className="privacy-info-description">
                   When you create an account, we collect your name, email
                   address, and password. This information is necessary to
@@ -83,26 +75,22 @@ const PrivacySection = () => {
                 </p>
               </div>
               <div className="privacy-info-item">
-                <h3 className="privacy-info-title">
-                  Professional Information
-                </h3>
+                <h3 className="privacy-info-title">Professional Information</h3>
                 <p className="privacy-info-description">
                   To generate customized resumes and cover letters, we collect
                   professional information you provide, including work
                   experience, education, skills, achievements, and other
-                  career-related details. This information is stored securely
-                  in our PostgreSQL database with encryption.
+                  career-related details. This information is stored securely in
+                  our PostgreSQL database with encryption.
                 </p>
               </div>
               <div className="privacy-info-item">
-                <h3 className="privacy-info-title">
-                  Job Posting Data
-                </h3>
+                <h3 className="privacy-info-title">Job Posting Data</h3>
                 <p className="privacy-info-description">
                   When you use our AI-powered customization features, we may
                   process job descriptions and posting information you provide
-                  to tailor your application materials. This data is used
-                  solely for generating your personalized documents.
+                  to tailor your application materials. This data is used solely
+                  for generating your personalized documents.
                 </p>
               </div>
               <div className="privacy-info-item">
@@ -110,10 +98,10 @@ const PrivacySection = () => {
                   Automatically Collected Information
                 </h3>
                 <p className="privacy-info-description">
-                  We automatically collect certain information about your
-                  device and usage, including IP address, browser type,
-                  operating system, access times, pages viewed, and usage
-                  patterns to improve our service and ensure security.
+                  We automatically collect certain information about your device
+                  and usage, including IP address, browser type, operating
+                  system, access times, pages viewed, and usage patterns to
+                  improve our service and ensure security.
                 </p>
               </div>
             </div>
@@ -122,26 +110,14 @@ const PrivacySection = () => {
           {/* How We Use Your Information */}
           <section aria-labelledby="use-heading">
             <div className="privacy-section-header">
-              <Database
-                className="privacy-section-icon"
-                aria-hidden="true"
-              />
-              <h2
-                id="use-heading"
-                className="privacy-section-title"
-              >
+              <Database className="privacy-section-icon" aria-hidden="true" />
+              <h2 id="use-heading" className="privacy-section-title">
                 How We Use Your Information
               </h2>
             </div>
-            <ul
-              className="privacy-list"
-              role="list"
-            >
+            <ul className="privacy-list" role="list">
               <li className="privacy-list-item">
-                <span
-                  className="privacy-list-bullet"
-                  aria-hidden="true"
-                >
+                <span className="privacy-list-bullet" aria-hidden="true">
                   •
                 </span>
                 <span>
@@ -150,10 +126,7 @@ const PrivacySection = () => {
                 </span>
               </li>
               <li className="privacy-list-item">
-                <span
-                  className="privacy-list-bullet"
-                  aria-hidden="true"
-                >
+                <span className="privacy-list-bullet" aria-hidden="true">
                   •
                 </span>
                 <span>
@@ -162,10 +135,7 @@ const PrivacySection = () => {
                 </span>
               </li>
               <li className="privacy-list-item">
-                <span
-                  className="privacy-list-bullet"
-                  aria-hidden="true"
-                >
+                <span className="privacy-list-bullet" aria-hidden="true">
                   •
                 </span>
                 <span>
@@ -174,10 +144,7 @@ const PrivacySection = () => {
                 </span>
               </li>
               <li className="privacy-list-item">
-                <span
-                  className="privacy-list-bullet"
-                  aria-hidden="true"
-                >
+                <span className="privacy-list-bullet" aria-hidden="true">
                   •
                 </span>
                 <span>
@@ -185,10 +152,7 @@ const PrivacySection = () => {
                 </span>
               </li>
               <li className="privacy-list-item">
-                <span
-                  className="privacy-list-bullet"
-                  aria-hidden="true"
-                >
+                <span className="privacy-list-bullet" aria-hidden="true">
                   •
                 </span>
                 <span>
@@ -197,10 +161,7 @@ const PrivacySection = () => {
                 </span>
               </li>
               <li className="privacy-list-item">
-                <span
-                  className="privacy-list-bullet"
-                  aria-hidden="true"
-                >
+                <span className="privacy-list-bullet" aria-hidden="true">
                   •
                 </span>
                 <span>
@@ -209,10 +170,7 @@ const PrivacySection = () => {
                 </span>
               </li>
               <li className="privacy-list-item">
-                <span
-                  className="privacy-list-bullet"
-                  aria-hidden="true"
-                >
+                <span className="privacy-list-bullet" aria-hidden="true">
                   •
                 </span>
                 <span>
@@ -226,14 +184,8 @@ const PrivacySection = () => {
           {/* Information Sharing */}
           <section aria-labelledby="sharing-heading">
             <div className="privacy-section-header">
-              <Users
-                className="privacy-section-icon"
-                aria-hidden="true"
-              />
-              <h2
-                id="sharing-heading"
-                className="privacy-section-title"
-              >
+              <Users className="privacy-section-icon" aria-hidden="true" />
+              <h2 id="sharing-heading" className="privacy-section-title">
                 Information Sharing and Disclosure
               </h2>
             </div>
@@ -249,22 +201,16 @@ const PrivacySection = () => {
               </p>
               <ul className="privacy-list" role="list">
                 <li className="privacy-list-item">
-                  <span
-                    className="privacy-list-bullet"
-                    aria-hidden="true"
-                  >
+                  <span className="privacy-list-bullet" aria-hidden="true">
                     •
                   </span>
                   <span>
-                    With secure hosting providers (Vercel) and database
-                    services (PostgreSQL) that help us operate our platform
+                    With secure hosting providers (Vercel) and database services
+                    (PostgreSQL) that help us operate our platform
                   </span>
                 </li>
                 <li className="privacy-list-item">
-                  <span
-                    className="privacy-list-bullet"
-                    aria-hidden="true"
-                  >
+                  <span className="privacy-list-bullet" aria-hidden="true">
                     •
                   </span>
                   <span>
@@ -273,10 +219,7 @@ const PrivacySection = () => {
                   </span>
                 </li>
                 <li className="privacy-list-item">
-                  <span
-                    className="privacy-list-bullet"
-                    aria-hidden="true"
-                  >
+                  <span className="privacy-list-bullet" aria-hidden="true">
                     •
                   </span>
                   <span>
@@ -285,15 +228,10 @@ const PrivacySection = () => {
                   </span>
                 </li>
                 <li className="privacy-list-item">
-                  <span
-                    className="privacy-list-bullet"
-                    aria-hidden="true"
-                  >
+                  <span className="privacy-list-bullet" aria-hidden="true">
                     •
                   </span>
-                  <span>
-                    With your explicit consent for specific purposes
-                  </span>
+                  <span>With your explicit consent for specific purposes</span>
                 </li>
               </ul>
             </div>
@@ -302,14 +240,8 @@ const PrivacySection = () => {
           {/* Data Security */}
           <section aria-labelledby="security-heading">
             <div className="privacy-section-header">
-              <Lock
-                className="privacy-section-icon"
-                aria-hidden="true"
-              />
-              <h2
-                id="security-heading"
-                className="privacy-section-title"
-              >
+              <Lock className="privacy-section-icon" aria-hidden="true" />
+              <h2 id="security-heading" className="privacy-section-title">
                 Data Security
               </h2>
             </div>
@@ -320,48 +252,31 @@ const PrivacySection = () => {
               </p>
               <ul className="privacy-list" role="list">
                 <li className="privacy-list-item">
-                  <span
-                    className="privacy-list-bullet"
-                    aria-hidden="true"
-                  >
+                  <span className="privacy-list-bullet" aria-hidden="true">
                     •
                   </span>
-                  <span>
-                    Encrypted data storage in our PostgreSQL database
-                  </span>
+                  <span>Encrypted data storage in our PostgreSQL database</span>
                 </li>
                 <li className="privacy-list-item">
-                  <span
-                    className="privacy-list-bullet"
-                    aria-hidden="true"
-                  >
+                  <span className="privacy-list-bullet" aria-hidden="true">
                     •
                   </span>
                   <span>Secure login mechanisms with password hashing</span>
                 </li>
                 <li className="privacy-list-item">
-                  <span
-                    className="privacy-list-bullet"
-                    aria-hidden="true"
-                  >
+                  <span className="privacy-list-bullet" aria-hidden="true">
                     •
                   </span>
                   <span>HTTPS encryption for all data transmission</span>
                 </li>
                 <li className="privacy-list-item">
-                  <span
-                    className="privacy-list-bullet"
-                    aria-hidden="true"
-                  >
+                  <span className="privacy-list-bullet" aria-hidden="true">
                     •
                   </span>
                   <span>Regular security audits and updates</span>
                 </li>
                 <li className="privacy-list-item">
-                  <span
-                    className="privacy-list-bullet"
-                    aria-hidden="true"
-                  >
+                  <span className="privacy-list-bullet" aria-hidden="true">
                     •
                   </span>
                   <span>Access controls and authentication measures</span>
@@ -379,38 +294,25 @@ const PrivacySection = () => {
           {/* Cookies */}
           <section aria-labelledby="cookies-heading">
             <div className="privacy-section-header">
-              <Cookie
-                className="privacy-section-icon"
-                aria-hidden="true"
-              />
-              <h2
-                id="cookies-heading"
-                className="privacy-section-title"
-              >
+              <Cookie className="privacy-section-icon" aria-hidden="true" />
+              <h2 id="cookies-heading" className="privacy-section-title">
                 Cookies and Tracking Technologies
               </h2>
             </div>
             <p className="privacy-description">
-              We use cookies and similar tracking technologies to maintain
-              your session, remember your preferences, and analyze usage
-              patterns. These help us improve our service and provide you with
-              a better experience. You can control cookie settings through
-              your browser, though some features may require cookies to
-              function properly.
+              We use cookies and similar tracking technologies to maintain your
+              session, remember your preferences, and analyze usage patterns.
+              These help us improve our service and provide you with a better
+              experience. You can control cookie settings through your browser,
+              though some features may require cookies to function properly.
             </p>
           </section>
 
           {/* Data Retention */}
           <section aria-labelledby="retention-heading">
             <div className="privacy-section-header">
-              <FileText
-                className="privacy-section-icon"
-                aria-hidden="true"
-              />
-              <h2
-                id="retention-heading"
-                className="privacy-section-title"
-              >
+              <FileText className="privacy-section-icon" aria-hidden="true" />
+              <h2 id="retention-heading" className="privacy-section-title">
                 Data Retention
               </h2>
             </div>
@@ -420,32 +322,23 @@ const PrivacySection = () => {
               services. You can request deletion of your account and all
               associated data at any time through your account settings or by
               contacting us. Upon deletion, your data will be permanently
-              removed from our systems within 30 days, except where retention
-              is required by law.
+              removed from our systems within 30 days, except where retention is
+              required by law.
             </p>
           </section>
 
           {/* Your Rights */}
           <section aria-labelledby="rights-heading">
-            <h2
-              id="rights-heading"
-              className="privacy-section-title-no-icon"
-            >
+            <h2 id="rights-heading" className="privacy-section-title-no-icon">
               Your Privacy Rights
             </h2>
             <p className="privacy-description mb-3">
               You have full control over your personal and professional
               information:
             </p>
-            <ul
-              className="privacy-list"
-              role="list"
-            >
+            <ul className="privacy-list" role="list">
               <li className="privacy-list-item">
-                <span
-                  className="privacy-list-bullet"
-                  aria-hidden="true"
-                >
+                <span className="privacy-list-bullet" aria-hidden="true">
                   •
                 </span>
                 <span>
@@ -454,10 +347,7 @@ const PrivacySection = () => {
                 </span>
               </li>
               <li className="privacy-list-item">
-                <span
-                  className="privacy-list-bullet"
-                  aria-hidden="true"
-                >
+                <span className="privacy-list-bullet" aria-hidden="true">
                   •
                 </span>
                 <span>
@@ -466,10 +356,7 @@ const PrivacySection = () => {
                 </span>
               </li>
               <li className="privacy-list-item">
-                <span
-                  className="privacy-list-bullet"
-                  aria-hidden="true"
-                >
+                <span className="privacy-list-bullet" aria-hidden="true">
                   •
                 </span>
                 <span>
@@ -478,10 +365,7 @@ const PrivacySection = () => {
                 </span>
               </li>
               <li className="privacy-list-item">
-                <span
-                  className="privacy-list-bullet"
-                  aria-hidden="true"
-                >
+                <span className="privacy-list-bullet" aria-hidden="true">
                   •
                 </span>
                 <span>
@@ -490,10 +374,7 @@ const PrivacySection = () => {
                 </span>
               </li>
               <li className="privacy-list-item">
-                <span
-                  className="privacy-list-bullet"
-                  aria-hidden="true"
-                >
+                <span className="privacy-list-bullet" aria-hidden="true">
                   •
                 </span>
                 <span>
@@ -537,14 +418,8 @@ const PrivacySection = () => {
             className="privacy-contact"
           >
             <div className="privacy-section-header">
-              <Mail
-                className="privacy-section-icon"
-                aria-hidden="true"
-              />
-              <h2
-                id="contact-heading"
-                className="privacy-section-title"
-              >
+              <Mail className="privacy-section-icon" aria-hidden="true" />
+              <h2 id="contact-heading" className="privacy-section-title">
                 Contact Us
               </h2>
             </div>
@@ -562,23 +437,17 @@ const PrivacySection = () => {
         </article>
 
         {/* Footer Navigation */}
-        <nav
-          aria-label="Related pages"
-          className="privacy-footer-nav"
-        >
+        <nav aria-label="Related pages" className="privacy-footer-nav">
           <BackButton className="privacy-back-button" href="/">
             Back to Home
           </BackButton>
-          <Link
-            href="/terms-of-service"
-            className="privacy-terms-link"
-          >
+          <Link href="/terms-of-service" className="privacy-terms-link">
             View Terms of Service →
           </Link>
         </nav>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default PrivacySection
+export default PrivacySection;

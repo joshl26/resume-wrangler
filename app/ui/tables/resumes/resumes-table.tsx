@@ -59,7 +59,10 @@ const Resumes = ({
                 : "N/A";
 
               return (
-                <tr key={resume?.id + idx} className="border-b hover:bg-gray-50">
+                <tr
+                  key={resume?.id + idx}
+                  className="border-b hover:bg-gray-50"
+                >
                   <th
                     scope="row"
                     className="px-6 py-4 font-medium whitespace-nowrap "

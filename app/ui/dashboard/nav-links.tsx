@@ -23,16 +23,9 @@ const links = [
     href: "/dashboard/applications",
     icon: NewspaperIcon,
   },
-        {name: "My Cover Letters",
-    href: "/dashboard/cover",
-    icon: BriefcaseIcon,
-  },
+  { name: "My Cover Letters", href: "/dashboard/cover", icon: BriefcaseIcon },
 
-
-      {name: "My Resumes",
-    href: "/dashboard/resume",
-    icon: BriefcaseIcon,
-  },
+  { name: "My Resumes", href: "/dashboard/resume", icon: BriefcaseIcon },
 
   {
     name: "Potential Companies",

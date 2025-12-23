@@ -4,8 +4,7 @@ import { inter } from "@/app/ui/fonts";
 import { Suspense } from "react";
 import { Metadata } from "next";
 import { cookies } from "next/headers";
-import { ThemeProvider } from 'next-themes';
-
+import { ThemeProvider } from "next-themes";
 
 export const metadata: Metadata = {
   metadataBase: new URL(`${process.env.DEPLOYMENT_URL}`),
@@ -71,9 +70,10 @@ export default async function RootLayout({
         />
       </head>
       <body className={`${inter.className} antialiased`}>
-      <ThemeProvider attribute="class" defaultTheme="system" enableSystem><div className="sr-only">Skip to main content</div>
-        <Suspense>{children}</Suspense></ThemeProvider>
-        
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <div className="sr-only">Skip to main content</div>
+          <Suspense>{children}</Suspense>
+        </ThemeProvider>
       </body>
     </html>
   );
